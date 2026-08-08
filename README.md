@@ -1,0 +1,24 @@
+# Trazomo Synthetic Data
+
+The shared synthetic-data universe for [Trazomo](https://www.trazomo.com) exemplar repos, learning-path exercises, and learner builds. Point your coding agent at this repo; it can self-orient from `AGENTS.md` and `MANIFEST.json`.
+
+**Everything here is fictional.** Companies, people, transactions, and documents are synthetic. Any resemblance to real entities is coincidental. The anchor entities are **Atticus Dundee LLP** (a law firm) and **Atticus Dundee Inc.** (a corporate client).
+
+## What lives here
+
+- `canon/` — the universe bible: companies, people, and timeline that keep entity IDs consistent across every dataset
+- `datasets/` — per-track data (`legal`, `finance`, `hr`, `revenue`, `operations`, `smb`) sharing canon IDs so cross-track joins work
+- `datagen/` — seeded, deterministic generators; same seed, same output
+- `MANIFEST.json` — machine-readable index of every dataset
+
+## Status
+
+Skeleton (v0.1.0). The legal slice ships first with data-pack v1.0. Lessons and demo videos pin to tagged releases.
+
+## Using it
+
+Clone the repo or fetch raw files. Each Trazomo exemplar repo vendors a pinned slice under its own `/data` directory, so exemplars work standalone; this repo is the source of truth.
+
+## License
+
+Generator code: MIT (see `LICENSE`). Datasets and canon content: dedicated to the public domain under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
