@@ -102,11 +102,20 @@ Both build paths honor this convention.
   spec status is `PASS` only if every feature passed. `MISSING` if
   `artifacts/<ID>/` doesn't exist yet.
   Keywords a spec author wrote as a hyphenated compound (`consequential-damages`,
-  `governing-law`) are treated as phrases: they match the same words adjacent in
-  the source whatever punctuation separates them there, so drafted prose that
-  reads "Waiver of Consequential Damages" confirms the feature. The match stays
-  phrase-shaped -- the words have to be adjacent and start on a word boundary,
-  so it never degrades into a bag-of-words check.
+  `governing-law`) are treated as phrases: drafted prose reading "Waiver of
+  Consequential Damages" confirms the feature even though it carries no hyphen.
+  Only hyphens split a phrase. A possessive (`requester's`) and a number with a
+  comma or decimal point (`50,000`, `0.5`) are matched literally instead, so
+  they cannot degrade into "the word followed by any s-word" or be satisfied by
+  a table row `| 0 | 5 |`.
+  The phrase match is deliberately tight: the words must be adjacent, separated
+  by nothing more than spaces, tabs or hyphens, and both ends must land on a
+  word boundary. It therefore never becomes a bag-of-words check, never spans a
+  sentence end, line break, table cell or the file join between two `.md`
+  sources in the same artifact directory, and never matches a longer word's head
+  or tail. One consequence worth knowing when writing specs: an abbreviation no
+  longer matches the word it abbreviates -- write `confidential-information`
+  rather than `confidential-info`.
   A `WARN` means "could not confirm," not "absent." The common cause of a
   residual `WARN` is vocabulary drift between the spec's description and the
   document's own words -- an acronym the document spells out (`DTSA` vs "Defend

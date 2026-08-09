@@ -1,6 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { checkPlantedFeature, significantTokens } from "../../datagen/src/validate.js";
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { checkPlantedFeature, significantTokens, validateDrafted } from "../../datagen/src/validate.js";
 
 test("significantTokens pulls out meaningful words and numbers, drops stopwords", () => {
   const tokens = significantTokens("90-day auto-renewal notice in section 1 vs 30-day termination notice in section 7 (canon mismatch)");
@@ -62,7 +65,7 @@ test("checkPlantedFeature: compound matching is separator- and case-insensitive"
     "9.1 Data Processing Addendum. 19. Governing Law of this clause.",
     "9.1 data-processing addendum. 19. governing-law of this clause.",
     "9.1 DataProcessing addendum. 19. GoverningLaw of this clause.",
-    "9.1 Data\nProcessing addendum. 19. Governing  Law of this clause.",
+    "9.1 Data  Processing addendum. 19. Governing\tLaw of this clause.",
   ]) {
     const result = checkPlantedFeature(feature, variant);
     assert.equal(result.status, "PASS", `expected PASS for: ${variant}`);
@@ -108,11 +111,127 @@ test("checkPlantedFeature: a compound does not match when its words are merely b
   assert.ok(result.missing.map((t) => t.toLowerCase()).includes("consequential-damages"));
 });
 
-test("checkPlantedFeature: the separator wildcard does not bridge unrelated adjacent words", () => {
-  // "M-ARR" must not be satisfied by "...system arrangement..." -- the compound
-  // has to begin where a word begins.
-  const result = checkPlantedFeature("2M-ARR counterparty threshold", "The system arrangement is unchanged.");
-  assert.ok(result.missing.map((t) => t.toLowerCase()).includes("m-arr"));
+test("checkPlantedFeature: a compound must end on a word boundary, not a word's prefix", () => {
+  // Both ends are anchored. The left anchor alone was not enough: "M-ARR"
+  // against "system arrangement" passes for the wrong reason (the "m" of
+  // "system" is preceded by a letter), so these fixtures put the first part at
+  // a real word start and let only the RIGHT anchor do the work.
+  const mArr = checkPlantedFeature(
+    "2M-ARR counterparty threshold",
+    "The M arrangement with the counterparty crosses the threshold."
+  );
+  assert.ok(mArr.missing.map((t) => t.toLowerCase()).includes("m-arr"));
+
+  const optOut = checkPlantedFeature(
+    "auto-renewal opt-out window",
+    "Customer may opt outsourcing of support at renewal."
+  );
+  assert.ok(optOut.missing.map((t) => t.toLowerCase()).includes("opt-out"));
+});
+
+// --- the compound path's three input shapes --------------------------------
+// The tokenizer emits three kinds of token containing a separator: alpha
+// hyphen compounds (the intended case), possessives, and numbers with commas
+// or decimal points. Only the first is a phrase.
+
+test("checkPlantedFeature: a possessive is a suffix, not a phrase separator", () => {
+  // "requester's" must not degrade to "requester + any s-word". All three
+  // tokens below already sit in specs/artifact-specs.yaml awaiting their
+  // artifacts, so this is latent surface, not a hypothetical.
+  const cases = [
+    ["requester's approval record", "The requester shall submit the form.", "requester's"],
+    ["someone else's matter file", "Anyone else shall be excluded.", "else's"],
+    ["retro's action items", "The retro session covers this.", "retro's"],
+    ["counterparty's obligations survive", "The counterparty shall ensure its obligations survive.", "counterparty's"],
+  ];
+  for (const [feature, source, token] of cases) {
+    const result = checkPlantedFeature(feature, source);
+    assert.ok(
+      result.missing.map((t) => t.toLowerCase()).includes(token),
+      `expected "${token}" to stay missing against: ${source}`
+    );
+  }
+});
+
+test("checkPlantedFeature: a possessive still matches when the source really writes it", () => {
+  const result = checkPlantedFeature("requester's approval record", "The requester's approval record is retained.");
+  assert.ok(result.matched.map((t) => t.toLowerCase()).includes("requester's"));
+});
+
+test("checkPlantedFeature: numeric tokens never take the phrase path", () => {
+  // Commas and decimal points are not phrase separators. The pipe-table case is
+  // the one that matters as the FIN/OPS tracks land.
+  const cases = [
+    ["0.5 coverage ratio", "| 0 | 5 |", "0.5"],
+    ["50,000 per breach", "Section 50. 000 series exhibits list the schedule.", "50,000"],
+    ["4.60 patentability score", "Under Section 4. 60 days after filing, the score applies.", "4.60"],
+  ];
+  for (const [feature, source, token] of cases) {
+    const result = checkPlantedFeature(feature, source);
+    assert.ok(
+      result.missing.includes(token),
+      `expected "${token}" to stay missing against: ${source}`
+    );
+  }
+});
+
+test("checkPlantedFeature: numeric tokens still match when written literally", () => {
+  const result = checkPlantedFeature("50,000 per breach", "Liquidated damages of $50,000 per breach apply.");
+  assert.ok(result.matched.includes("50,000"));
+});
+
+// --- the separator run is bounded to intra-clause whitespace ---------------
+// It may span spaces, tabs and hyphens, never a sentence end, a line break, a
+// table cell wall or a list bullet -- structures that mean the two words are
+// not one phrase.
+
+test("checkPlantedFeature: a phrase cannot bridge a structural boundary", () => {
+  const cases = [
+    ["governing-law clause", "The procedure above is governing. Law of the State of Calloway is irrelevant.", "governing-law"],
+    ["consequential-damages waiver", "The loss is consequential.\n\nDamages of any kind are capped.", "consequential-damages"],
+    ["residual-knowledge clause", "| Residual | Knowledge |", "residual-knowledge"],
+    ["waiver-only clause", "- Waiver\n- Only in writing", "waiver-only"],
+    ["data-processing addendum", "The vendor handles data\nProcessing of the records.", "data-processing"],
+  ];
+  for (const [feature, source, token] of cases) {
+    const result = checkPlantedFeature(feature, source);
+    assert.ok(
+      result.missing.map((t) => t.toLowerCase()).includes(token),
+      `expected "${token}" to stay missing against: ${JSON.stringify(source)}`
+    );
+  }
+});
+
+test("validateDrafted: a phrase cannot bridge the seam between two source files", () => {
+  // validate.js concatenates every .md under artifacts/<ID>/ with "\n\n", so
+  // the text actually searched spans up to 10 separate documents. A token must
+  // never be confirmed by the last word of one file plus the first word of the
+  // next. 5 of the 11 drafted artifact sets are multi-file, so this is live
+  // surface rather than theory.
+  const root = mkdtempSync(join(tmpdir(), "datagen-seam-"));
+  try {
+    const dir = join(root, "artifacts", "SEAM-01");
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, "a-first.md"), "# Part One\n\nRelief may be equitable and consequential");
+    writeFileSync(join(dir, "b-second.md"), "Damages Schedule\n\nAmounts are listed below.");
+    const spec = { id: "SEAM-01", planted_features: ["consequential-damages waiver clause"] };
+    const result = validateDrafted({ root, spec });
+    assert.equal(result.sourceFiles.length, 2, "fixture must exercise the multi-file concatenation");
+    assert.ok(
+      result.results[0].missing.map((t) => t.toLowerCase()).includes("consequential-damages"),
+      "a phrase must not span the file join"
+    );
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("checkPlantedFeature: the zero-token result carries a reason and no missing tokens", () => {
+  // The CLI prints this case, so the shape is a contract, not an internal detail.
+  const result = checkPlantedFeature("deliberately, variant variants exercises", "Unrelated.");
+  assert.equal(result.status, "WARN");
+  assert.deepEqual(result.missing, []);
+  assert.match(result.reason, /no checkable keywords/);
 });
 
 // --- spec-narration stopwords ----------------------------------------------

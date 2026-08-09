@@ -56,33 +56,62 @@ export function significantTokens(feature) {
 }
 
 /**
+ * Separator a hyphenated phrase may span in the source: spaces, tabs and
+ * hyphens only, and at most a few of them. Deliberately excludes newlines and
+ * every other punctuation mark, because those are structure rather than
+ * spacing -- a sentence end, a paragraph break, a table cell wall, a list
+ * bullet, or the "\n\n" join validateDrafted uses to concatenate every .md in
+ * an artifact directory. Two words either side of one of those are not a
+ * phrase, and without this bound "consequential-damages" is satisfied by a
+ * document whose first file ends "...and consequential" while the next begins
+ * "Damages Schedule".
+ */
+const PHRASE_SEPARATOR = "[ \\t-]{0,3}";
+
+/**
  * Does one significant token appear in the (already lowercased) source text?
  *
- * Plain tokens are a straight substring test, unchanged. Compound tokens --
- * the ones a spec author wrote with an internal hyphen or apostrophe, e.g.
- * "consequential-damages", "governing-law", "residual-knowledge" -- are
- * phrases, and drafted prose almost never reproduces the spec's punctuation:
- * the document says "Waiver of Consequential Damages", not
- * "consequential-damages". Comparing those literally reports a feature as
- * unconfirmed purely because of a hyphen.
+ * Plain tokens are a straight substring test, unchanged. The tokenizer emits
+ * three shapes of token containing a separator, and only one of them is a
+ * phrase:
  *
- * So a compound token also matches when its parts appear *in order and
- * adjacent* in the source, separated by any run of non-alphanumerics or by
- * nothing at all -- "Consequential Damages", "consequential-damages",
- * "Consequential\nDamages" and "ConsequentialDamages" all match. This stays
- * phrase-shaped on purpose: it is not a bag-of-words check, so a document that
- * merely mentions "consequential" in one section and "damages" in another does
- * not satisfy the token. The match must also begin at a word boundary, so the
- * separator wildcard cannot bridge unrelated neighbours (a stray "M-ARR" is
- * not confirmed by "system arrangement").
+ *  1. Alpha hyphen compounds -- "consequential-damages", "governing-law",
+ *     "residual-knowledge". These ARE phrases, and drafted prose almost never
+ *     reproduces the spec's punctuation: the document says "Waiver of
+ *     Consequential Damages". Comparing literally reports the feature as
+ *     unconfirmed purely because of a hyphen, so these also match when their
+ *     parts appear in order and adjacent in the source.
+ *  2. Possessives -- "requester's", "else's". The "'s" is a suffix, not a
+ *     phrase part. Splitting on it would degrade the token to "requester
+ *     followed by any s-word" ("requester shall", "requester submits"), so
+ *     only hyphens split a token and possessives fall through to the literal
+ *     test.
+ *  3. Numbers carrying commas or decimal points -- "50,000", "0.5", "4.60".
+ *     Those marks are not separators either; treating them as such lets "0.5"
+ *     be confirmed by a pipe-table row "| 0 | 5 |". Guarded by requiring a
+ *     letter, which also keeps a future numeric-range token out of this path.
+ *
+ * Phrase matching stays phrase-shaped on purpose: it is not a bag-of-words
+ * check, so a document that merely mentions "consequential" in one section and
+ * "damages" in another does not satisfy the token. Both ends are anchored to a
+ * word boundary, so a compound matches neither a word's tail ("system
+ * arrangement" does not confirm "M-ARR") nor a word's head ("opt outsourcing"
+ * does not confirm "opt-out"). The cost of anchoring the right side is that a
+ * spec abbreviation no longer matches the word it abbreviates -- write
+ * "confidential-information", not "confidential-info".
  */
 function tokenAppearsIn(token, haystack) {
   const needle = token.toLowerCase();
   if (haystack.includes(needle)) return true;
-  // Parts are alphanumeric-only by construction, so they need no regex escaping.
-  const parts = needle.split(/[^a-z0-9]+/).filter(Boolean);
+  if (!/[a-z]/.test(needle)) return false;
+  // Only a hyphen separates phrase parts. Parts therefore hold letters, digits
+  // and apostrophes -- none of which are regex metacharacters, so the pattern
+  // below needs no escaping.
+  const parts = needle.split("-").filter(Boolean);
   if (parts.length < 2) return false;
-  return new RegExp(`(?:^|[^a-z0-9])${parts.join("[^a-z0-9]*")}`).test(haystack);
+  return new RegExp(
+    `(?:^|[^a-z0-9])${parts.join(PHRASE_SEPARATOR)}(?![a-z0-9])`
+  ).test(haystack);
 }
 
 /**
