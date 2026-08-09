@@ -1,0 +1,1736 @@
+# Trazomo unified artifact spec catalog
+# Version: 2026-08-08 consolidation (seeds datagen and the Trazomo-Synthetic-Data MANIFEST)
+#
+# Namespace: CORE- (cross-path, 2+ consuming paths), LGL-, FIN-, HR-, REV-, OPS-, SMB-.
+# Numbering traceability: LGL-NN = legal coverage matrix A-NN (gaps where promoted);
+# OPS-NN = operations plan A-NN; FIN/HR/REV/SMB follow each plan's consolidated list order.
+# Promotion aliases: LGL-01 -> CORE-01, LGL-06 -> CORE-02, LGL-19 -> CORE-03, LGL-15 -> CORE-05.
+#
+# generation: deterministic = seeded templating, planted features injected by the generator.
+#             drafted-frozen = LLM-drafted, human-reviewed, frozen; generator validates only.
+# canon_entities: co- ids per canon/companies.md (this consolidation's roster).
+#                 "co-140+" = the generator-produced CRM/account population range.
+# consuming_modules: resolved module slugs per program-consolidation.md Section 1.
+#                    Legal slugs are the shipped, grandfathered ones.
+
+artifacts:
+  # ----------------------------------------------------------------- CORE
+  - id: CORE-01
+    name: master-services-agreement
+    type: contract
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002, co-101]
+    planted_features:
+      - 8+ numbered sections
+      - section 6 liability cap variants at 1x, 2x, and 0.5x trailing-12-month fees
+      - 90-day auto-renewal notice in section 1 vs 30-day termination notice in section 7 (canon mismatch)
+      - section 7 termination for convenience
+      - section 8 indemnification (sole-expense and third-party clauses)
+      - consequential-damages waiver-only clause
+      - auto-renewal opt-out windows at 60-day (warning) and 30-day (block) thresholds
+      - 7 percent annual payment uplift clause
+      - 2,000,000 professional-indemnity insurance figure
+      - DPA / data-processing reference and governing-law clause
+      - dollar-value variants 450k / 80k / 40k / 20k for tiering exercises
+      - annual SaaS subscription schedule (finance amortization source)
+      - milestone-gating clause referenced by the operations project brief
+    consuming_modules:
+      - contract-operating-system
+      - contract-review
+      - commercial-contract-ops
+      - claude-platform
+      - codex-gpt-platform
+      - crm-integration
+      - microsoft-365
+      - self-service-portal
+      - ai-foundations
+      - finance-accruals-and-prepaids
+      - operations-brief-to-project-plan
+    source_plan: legal-coverage-matrix (A1) + finance-implementation-plan + operations-implementation-plan
+
+  - id: CORE-02
+    name: outside-counsel-invoice
+    type: invoice
+    format: ledes-csv + pdf
+    generation: deterministic
+    canon_entities: [co-001, co-002]
+    planted_features:
+      - UTBMS task/activity codes (L100-L600, E100-E900)
+      - model narrative line "JKS 03/12 2.4 hrs L510 ..."
+      - one block-billed entry alongside properly itemized entries
+      - 47k total, 38 pages
+      - appears in the finance inbound queue as an ambiguous legal-vendor request
+    consuming_modules:
+      - outside-counsel
+      - finance-intake-routing
+    source_plan: legal-coverage-matrix (A6) + finance-implementation-plan
+
+  - id: CORE-03
+    name: crm-seed-dataset
+    type: dataset
+    format: csv + json
+    generation: deterministic
+    canon_entities: [co-002, co-102, co-103, co-121, co-122, co-124, co-125, co-140+]
+    planted_features:
+      - accounts, contacts, opportunities, stage history, owner fields
+      - consent/suppression field on every contact record
+      - normalized deal view "Enterprise Renewal FY27" on co-102 (legal crm-integration view)
+      - three stale records (last activity >180 days, departed-rep owner)
+      - one conflicting-field record (two industry values from two integrations)
+      - one duplicate account pair (same company, two ids)
+      - several opportunities with a blank next-step field
+      - stage-history log for conversion-rate math
+      - lead batch with a rep at SLA-breach risk (queue-depth fixture)
+    consuming_modules:
+      - crm-integration
+      - revenue-inbound-context-router
+      - revenue-crm-hygiene-sentinel
+      - revenue-lead-scoring-and-routing
+      - revenue-champion-move-reconnect
+      - revenue-closed-lost-reactivator
+      - revenue-win-loss-pattern-analysis
+      - revenue-play-attribution-console
+      - revenue-pipeline-forecasting-reporting
+    source_plan: legal-coverage-matrix (A19) + revenue-implementation-plan (artifacts A, G)
+
+  - id: CORE-04
+    name: people-roster
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - employees, managers, departments, roles, start dates (backed by canon/people.md)
+      - obviously fictional names only, no realistic PII
+      - source roster for finance role-assignments (SoD surface)
+      - source of speaker names for operations transcripts
+    consuming_modules:
+      - hr-hris-ops
+      - hr-job-description-calibrator
+      - hr-interview-schedule-proposer
+      - hr-interview-notes-to-feedback
+      - hr-resume-screening-shortlist
+      - hr-candidate-debrief-packet
+      - hr-new-hire-launchpad
+      - hr-offboarding-access-deprovisioning
+      - hr-review-cycle-coordinator
+      - hr-review-writing-assistant
+      - hr-manager-conversation-rehearsal
+      - hr-learning-pathway-planner
+      - hr-pay-equity-band-report
+      - hr-people-analytics-attrition-signals
+      - finance-sox-controls-monitor
+      - operations-meeting-to-owned-work
+    source_plan: hr-people-implementation-plan + finance-implementation-plan + operations-implementation-plan
+
+  - id: CORE-05
+    name: internal-policy-library
+    type: corpus
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - six-document base library (data retention, remote work, acceptable use, social media, travel expense, BYOD) with mixed freshness states (current, review-due, overdue, stale, orphaned, superseded)
+      - single consistent doc_id scheme across all reuses
+      - data retention policy with section 3 retention periods (7yr/10yr employment, 7yr financial, 5yr/6yr client-contract)
+      - finance section: one accounting policy memo superseded by a later one (citation trap)
+      - HR section: handbook with one recently updated policy (versioning test) and one question whose answer spans two sections (citation-grounding test)
+    consuming_modules:
+      - legal-knowledge-base
+      - finance-knowledge-base
+      - finance-regulatory-change
+      - hr-policy-handbook-knowledge-base
+      - hr-helpdesk-intake-router
+    source_plan: legal-coverage-matrix (A15) + finance-implementation-plan + hr-people-implementation-plan
+
+  # ----------------------------------------------------------------- LGL (legal path; slugs grandfathered)
+  - id: LGL-02
+    name: mutual-nda
+    type: contract
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002, co-108]
+    planted_features:
+      - confidential-info definition, term 1-3yr, survival 2-5yr, 4 standard carve-outs, remedies clause
+      - residual-knowledge clause, DTSA whistleblower notice (18 USC 1833(b))
+      - 24-month non-solicitation option, unilateral vs mutual variants
+      - liquidated-damages red-flag variant (50,000 per breach)
+      - 2M-ARR counterparty negotiation variant (perpetual confidentiality, NY law, 10-day return)
+      - broken QA-fail twin (unresolved governing_law_state placeholder, section numbering jumps 3 to 5, inconsistent party terms, contradictory liability language, DRAFT DO NOT SIGN footer)
+    consuming_modules:
+      - claude-platform
+      - codex-gpt-platform
+      - document-automation
+      - ip-nda-vendor
+      - self-service-portal
+      - local-ai
+    source_plan: legal-coverage-matrix (A2)
+
+  - id: LGL-03
+    name: commercial-lease
+    type: contract
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002, co-109]
+    planted_features:
+      - extraction targets exactly 4 fields (commencement date, expiration date, renewal notice period, indemnification clause)
+    consuming_modules:
+      - ai-foundations
+    source_plan: legal-coverage-matrix (A3)
+
+  - id: LGL-04
+    name: settlement-agreement
+    type: contract
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002, co-110]
+    planted_features:
+      - 30-page, fully in-prompt readable
+      - third-party IP indemnification clause (present/absent toggle)
+      - breach / damages / limitation / remedies 4-issue structure (SLA-dispute pattern, joins the LGL-07 intake record thread)
+    consuming_modules:
+      - ai-foundations
+      - computational-thinking
+    source_plan: legal-coverage-matrix (A4)
+
+  - id: LGL-05
+    name: engagement-letter
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-001, co-002]
+    planted_features:
+      - scope, staffing (named core team, 14-day substitution notice), fees/billing, conflicts, confidentiality, termination, document-retention sections
+      - estimated budget 200k language, deliberately distinct from a cap
+      - scope clause naming a specific target acquisition
+    consuming_modules:
+      - capstone
+      - outside-counsel
+      - software-fundamentals
+    source_plan: legal-coverage-matrix (A5)
+
+  - id: LGL-07
+    name: client-matter-intake-form-set
+    type: form
+    format: json + markdown
+    generation: deterministic
+    canon_entities: [co-001, co-002, co-110]
+    planted_features:
+      - standard record (250,000 cloud-hosting SLA dispute, named requestor, counterparty co-110, deadline)
+      - high-value record (750,000 employment/trade-secret matter, 14-day response deadline, joins the LGL-12 thread)
+      - 500,000 hard-coded critical-risk auto-escalation threshold
+      - vendor-intake sub-paths (new vendor / renewal / compliance / dispute) with 25k/100k routing thresholds
+    consuming_modules:
+      - client-intake-conflicts
+      - intake-triage
+      - self-service-portal
+    source_plan: legal-coverage-matrix (A7)
+
+  - id: LGL-08
+    name: corporate-family-tree-conflicts-record
+    type: record
+    format: json + markdown
+    generation: drafted-frozen
+    canon_entities: [co-114, co-115, co-002]
+    planted_features:
+      - multi-tier ownership percentages (100/80/60/70/30) connecting the target to two existing firm clients
+      - chain runs through a shared PE-fund manager to existing client co-115 and a founder board seat at co-002
+      - fuzzy-name-match pair at ~87.5 percent similarity
+    consuming_modules:
+      - client-intake-conflicts
+    source_plan: legal-coverage-matrix (A8)
+
+  - id: LGL-09
+    name: high-risk-intake-record
+    type: record
+    format: json + markdown
+    generation: drafted-frozen
+    canon_entities: [co-116]
+    planted_features:
+      - foreign beneficial owner with former-PEP profile (person, canon/people.md)
+      - cross-border acquisition matter, flat fee wired from an offshore account
+      - fully worked 15/15 max risk score (OFAC / PEP / FCPA / source-of-funds triggers)
+    consuming_modules:
+      - client-intake-conflicts
+    source_plan: legal-coverage-matrix (A9)
+
+  - id: LGL-10
+    name: litigation-matter-personal-injury
+    type: record
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-001]
+    planted_features:
+      - NY personal-injury matter, injury date 2023-03-01
+      - SOL weekend/holiday rollover edge case under NY Gen. Constr. Law 25-a (naive 2026-03-01 vs correct 2026-03-02)
+    consuming_modules:
+      - ai-reliability
+    source_plan: legal-coverage-matrix (A10)
+
+  - id: LGL-11
+    name: litigation-matter-commercial-employment
+    type: record
+    format: markdown + json
+    generation: deterministic
+    canon_entities: [co-001, co-002, co-117]
+    planted_features:
+      - deadline chain (complaint served, FRCP 12(a)(1) 21-day response, 3-day mail extension, weekend rollover)
+      - trial-continuance cascade recalculating 7 dependent deadlines off one date change
+    consuming_modules:
+      - matter-tracking
+      - claude-platform
+    source_plan: legal-coverage-matrix (A11)
+
+  - id: LGL-12
+    name: litigation-matter-trade-secret-non-compete
+    type: record
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-001, co-002]
+    planted_features:
+      - departing 1099 contractor signed non-compete plus invention assignment, leaves for a competitor, possible code theft
+      - audit-trail metadata (researcher, date range)
+      - joins the HR offboarding thread at co-002 and the LGL-07 high-value intake record
+    consuming_modules:
+      - legal-research-drafting
+    source_plan: legal-coverage-matrix (A12)
+
+  - id: LGL-13
+    name: discovery-production-set
+    type: corpus
+    format: mixed (load files, folder tree, json)
+    generation: deterministic
+    canon_entities: [co-001, co-002, co-117]
+    planted_features:
+      - canon Bates prefix and production folder tree
+      - 13-field load-file schema
+      - defensible vs non-defensible privilege-log entry pair
+      - SHA-256 hash before/after a single-character edit
+      - collection-event.json chain-of-custody schema
+    consuming_modules:
+      - litigation-discovery
+    source_plan: legal-coverage-matrix (A13)
+
+  - id: LGL-14
+    name: compliance-program-bundle
+    type: corpus
+    format: markdown + csv
+    generation: deterministic
+    canon_entities: [co-115]
+    planted_features:
+      - AML policy v4.0 (9-field metadata, 3-tier training audience split)
+      - 6x6 topic-by-department training matrix
+      - certification tracker (8-field schema, 5-tier alert ladder, worked gaps)
+      - 5-incident severity-tiering log
+      - board dashboard (heat map, health score)
+    consuming_modules:
+      - compliance-automation
+    source_plan: legal-coverage-matrix (A14)
+
+  - id: LGL-16
+    name: ai-governance-acceptable-use-bundle
+    type: config
+    format: json + markdown
+    generation: deterministic
+    canon_entities: [co-001]
+    planted_features:
+      - policy_rules.json with 6 block/warn rules
+      - 4-tier data-classification map (restricted / confidential / internal / public)
+      - audit-record schema (input/output hashing, fields_sent, redacted)
+      - named matter id tied to an AI-processing client inquiry
+    consuming_modules:
+      - operational-controls
+      - notion-legal-ops
+    source_plan: legal-coverage-matrix (A16)
+
+  - id: LGL-17
+    name: ip-and-vendor-program-bundle
+    type: corpus
+    format: markdown + csv
+    generation: drafted-frozen
+    canon_entities: [co-002, co-119, co-106, co-120, co-102, co-118, co-123]
+    planted_features:
+      - patent/trademark/copyright renewal calendar (35 USC 41(b) maintenance windows)
+      - 3 invention-disclosure records at varying patentability strength
+      - 3 NDA negotiation scenarios (large counterparty co-102, mid-size co-118, small-startup deal-breaker co-123)
+      - NDA template plus signing-authority matrix
+      - 3 vendor risk assessments (co-119 low/approve, co-106 critical/conditional, co-120 critical/do-not-approve)
+      - quarterly IP + NDA + vendor board dashboard
+    consuming_modules:
+      - ip-nda-vendor
+    source_plan: legal-coverage-matrix (A17)
+
+  - id: LGL-18
+    name: outside-counsel-rfp-panel-benchmark
+    type: dataset
+    format: csv + markdown
+    generation: deterministic
+    canon_entities: [co-002, co-111, co-112, co-113]
+    planted_features:
+      - RFP rubric with weighted categories
+      - 3-firm comparison table (rate, cost per matter, duration, budget adherence)
+      - balanced scorecard framework (7 weighted dimensions)
+      - outcome-to-business-impact translation examples
+    consuming_modules:
+      - outside-counsel
+    source_plan: legal-coverage-matrix (A18)
+
+  - id: LGL-20
+    name: legal-ops-budget-roi-dataset
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 3-year spend-by-category table
+      - headcount and activity-based cost-allocation tables
+      - expected-loss / ROI worked examples
+      - board-level value-to-cost ratio dashboard
+    consuming_modules:
+      - legal-spend-impact
+    source_plan: legal-coverage-matrix (A20)
+
+  - id: LGL-21
+    name: self-service-portal-program-dataset
+    type: dataset
+    format: csv + json
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 30-day demand log (146 requests across 8 categories)
+      - 4-tier handler model, P1-P4 SLA matrix
+      - FAQ record set
+      - 6-month ROI dataset (57,000 cost, 104,738 value, 83.8 percent ROI)
+    consuming_modules:
+      - self-service-portal
+    source_plan: legal-coverage-matrix (A21)
+
+  - id: LGL-22
+    name: matter-portfolio-dashboard-dataset
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-001]
+    planted_features:
+      - matter state machine (intake, triage, assigned, in_progress, review, closed)
+      - portfolio capacity model (3 hrs/matter/week, 35-hour cap)
+      - aging and escalation signals
+    consuming_modules:
+      - matter-tracking
+    source_plan: legal-coverage-matrix (A22)
+
+  # ----------------------------------------------------------------- FIN (finance path)
+  - id: FIN-01
+    name: bank-transactions
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002, co-104]
+    planted_features:
+      - 1 duplicated deposit
+      - 2 unmatched payments
+      - 1 deposit-in-transit timing difference
+    consuming_modules: [finance-cash-bank-reconciliation, finance-local-ai]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-02
+    name: gl-cash-ledger
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-cash-bank-reconciliation]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-03
+    name: outstanding-checks
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-cash-bank-reconciliation]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-04
+    name: ar-aging-export
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002, co-102, co-103]
+    planted_features:
+      - 1 invoice in the AR subledger not reflected in GL
+      - 1 unapplied customer credit memo
+    consuming_modules: [finance-ar-aging-gl-tie-out, finance-collections-ar-follow-up]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-05
+    name: gl-trial-balance
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-ar-aging-gl-tie-out]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-06
+    name: purchase-orders
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-po-invoice-payment-match]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-07
+    name: vendor-invoices
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002, co-101, co-105, co-106, co-107]
+    planted_features:
+      - 1 price mismatch (invoice vs PO)
+      - 1 duplicate invoice
+      - 1 invoice with no matching PO
+      - 1 vendor bank-detail change on co-107 (fraud-pattern flag)
+    consuming_modules: [finance-po-invoice-payment-match]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-08
+    name: payment-run
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-po-invoice-payment-match]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-09
+    name: journal-entries-batch
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 2-3 JEs miscoded to the wrong GL account
+      - 1 duplicate JE
+      - 1 JE missing a supporting-document reference
+    consuming_modules: [finance-journal-entry-reclass]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-10
+    name: open-pos
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-accruals-and-prepaids]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-11
+    name: vendor-bills
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002, co-101, co-105]
+    planted_features:
+      - 1 missing accrual (goods/services received, not yet billed)
+      - 1 prepaid needing a fresh amortization schedule
+      - 1 already-correct schedule as a distractor
+    consuming_modules: [finance-accruals-and-prepaids]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-12
+    name: vendor-contract-insurance
+    type: contract
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002, co-105]
+    planted_features:
+      - annual insurance/facilities contract, second prepaid schedule source (distractor from the CORE-01 SaaS pattern)
+    consuming_modules: [finance-accruals-and-prepaids]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-13
+    name: expense-reports
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 1 over-limit meal expense
+      - 1 missing receipt
+      - 1 personal-looking expense
+      - 1 split transaction just under the approval threshold (structuring pattern)
+    consuming_modules: [finance-spend-policy-guardrails]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-14
+    name: spend-policy
+    type: config
+    format: yaml
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-spend-policy-guardrails]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-15
+    name: customer-credit-notes
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002, co-103]
+    planted_features: []
+    consuming_modules: [finance-collections-ar-follow-up]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-16
+    name: collections-contact-log
+    type: log
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002, co-103]
+    planted_features:
+      - co-103 past its credit-hold threshold
+      - 1 broken promise-to-pay
+      - 1 dispute flag that must escalate to a human, not auto-dun
+    consuming_modules: [finance-collections-ar-follow-up]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-17
+    name: close-checklist
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 1 overdue task
+      - 1 unreconciled account past the close deadline
+      - 1 owner double-booked across two SoD-sensitive tasks
+    consuming_modules: [finance-close-checklist-risk-radar, finance-close-memo-disclosures]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-18
+    name: control-matrix
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 1 control past its testing due date
+      - 1 control missing evidence attachment
+    consuming_modules: [finance-sox-controls-monitor]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-19
+    name: user-access-role-assignments
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 1 segregation-of-duties conflict (same user can create and approve a vendor or JE)
+      - derives from CORE-04 people roster
+    consuming_modules: [finance-sox-controls-monitor]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-20
+    name: regulatory-updates-feed
+    type: dataset
+    format: jsonl
+    generation: deterministic
+    canon_entities: []
+    planted_features:
+      - 1 update materially relevant to co-002 revenue recognition
+      - 1 irrelevant distractor
+      - 1 update requiring a policy-doc revision that has not happened yet (checks against CORE-05)
+    consuming_modules: [finance-regulatory-change]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-21
+    name: close-runbook
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-knowledge-base]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-22
+    name: chart-of-accounts
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 1 renamed/merged account (stale-reference trap)
+    consuming_modules: [finance-spreadsheet-ops, finance-knowledge-base]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-23
+    name: audit-evidence-index
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-knowledge-base]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-24
+    name: actuals-vs-budget
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 2-3 material variances with distinct traceable root causes (one timing, one true overspend, one reclass)
+    consuming_modules: [finance-flux-variance-investigation]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-25
+    name: supporting-je-detail
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-flux-variance-investigation]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-26
+    name: materiality-thresholds
+    type: config
+    format: yaml
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-flux-variance-investigation]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-27
+    name: approved-je-summary
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-close-memo-disclosures]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-28
+    name: prior-period-footnotes
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - paired with FIN-17's open checklist item (drafting-over-unclosed-item guardrail)
+    consuming_modules: [finance-close-memo-disclosures]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-29
+    name: approved-metrics-pack
+    type: dataset
+    format: json
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 1 metric that looks concerning but has a documented benign explanation (narrative-honesty test)
+    consuming_modules: [finance-board-narratives]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-30
+    name: prior-board-deck-outline
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-board-narratives]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-31
+    name: kpi-source-data
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 1 KPI with two plausible computation methods (runway; assumption must be shown)
+    consuming_modules: [finance-fpa-kpi-dashboards]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-32
+    name: bank-balances
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002, co-104]
+    planted_features: []
+    consuming_modules: [finance-fpa-kpi-dashboards]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-33
+    name: actuals-24mo
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [finance-driver-scenario-planning]
+    source_plan: finance-implementation-plan + exemplar-repo-selection (driver-scenario-planner)
+
+  - id: FIN-34
+    name: drivers
+    type: config
+    format: yaml
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - hiring, price change, churn, collection delay, contract win/loss drivers
+      - deterministic engine computes base/upside/downside cash, margin, runway; math never done by the model
+    consuming_modules: [finance-driver-scenario-planning]
+    source_plan: finance-implementation-plan + exemplar-repo-selection (driver-scenario-planner)
+
+  - id: FIN-35
+    name: inbound-requests-queue
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002, co-001]
+    planted_features:
+      - 1 record missing a required field
+      - 1 duplicate submission
+      - 1 ambiguous vendor request routable to legal or finance (the CORE-02 invoice, cross-track routing-boundary case)
+    consuming_modules: [finance-intake-routing]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-36
+    name: close-checklist-template
+    type: template
+    format: csv
+    generation: deterministic
+    canon_entities: []
+    planted_features: []
+    consuming_modules: [finance-spreadsheet-ops]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-37
+    name: budget-vs-actual-template
+    type: template
+    format: csv
+    generation: deterministic
+    canon_entities: []
+    planted_features: []
+    consuming_modules: [finance-spreadsheet-ops]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-38
+    name: reliability-drill-transactions
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 1 AI-proposed answer confidently wrong (transposed balance)
+      - 1 fabricated GL code
+      - 1 correct answer as a control
+    consuming_modules: [finance-ai-reliability]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-39
+    name: decision-authority-matrix-template
+    type: template
+    format: csv
+    generation: deterministic
+    canon_entities: []
+    planted_features: []
+    consuming_modules: [finance-operational-controls]
+    source_plan: finance-implementation-plan
+
+  - id: FIN-40
+    name: mnpi-flagged-draft
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - visible classification header the learner must recognize and refuse to paste into a consumer AI tool
+    consuming_modules: [finance-operational-controls]
+    source_plan: finance-implementation-plan
+
+  # ----------------------------------------------------------------- HR (people-hr path)
+  - id: HR-01
+    name: role-requisition-library
+    type: dataset
+    format: json + markdown
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - structured intake briefs per open role
+      - one brief whose draft output yields two biased/exclusionary phrases ("recent graduate", "native English speaker") to be flagged before posting
+      - one requisition with an inconsistent status/owner pairing (hris-ops validation exercise)
+    consuming_modules: [hr-job-description-calibrator, hr-structured-interview-kit, hr-hris-ops]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-02
+    name: resume-corpus
+    type: corpus
+    format: markdown + pdf
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - one resume with a proxy-for-protected-class signal (graduation year implying age)
+      - one resume missing a required rubric field (incomplete, not skippable)
+    consuming_modules: [hr-resume-screening-shortlist, hr-candidate-debrief-packet]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-03
+    name: interview-transcript-corpus
+    type: corpus
+    format: text
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - one unsupported claim in summarized feedback ("10 years of Python experience") tracing to nothing in the transcript
+    consuming_modules: [hr-interview-notes-to-feedback, hr-candidate-debrief-packet, hr-ai-reliability]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-04
+    name: interview-scorecards-question-banks
+    type: dataset
+    format: json + markdown
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - one legally risky generated question (implicitly probes age or family status) to catch and remove
+    consuming_modules: [hr-structured-interview-kit, hr-candidate-debrief-packet]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-05
+    name: interviewer-calendars
+    type: dataset
+    format: ics + csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - one double-booked slot requiring recruiter confirmation before invites go out
+    consuming_modules: [hr-interview-schedule-proposer]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-06
+    name: onboarding-checklist-templates
+    type: template
+    format: csv + markdown
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - one checklist task planted overdue/blocked (access request pending)
+    consuming_modules: [hr-new-hire-launchpad]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-07
+    name: offboarding-checklist-access-inventory
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - one easy-to-miss access grant (shared drive, vendor SSO seat) omitted from the obvious checklist
+      - exit joins the LGL-12 departing-contractor thread
+    consuming_modules: [hr-offboarding-access-deprovisioning]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-08
+    name: review-cycle-roster
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - one manager missing feedback past deadline (chase/escalation exercise)
+    consuming_modules: [hr-review-cycle-coordinator]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-09
+    name: manager-notes-and-review-draft-pair
+    type: corpus
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - performance-review draft with one claim ("consistently missed deadlines") having no corresponding 1:1 log entry
+      - one vague/unsupported claim ("not a team player") flagged for revision
+    consuming_modules: [hr-review-writing-assistant, hr-ai-reliability]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-10
+    name: rehearsal-scenario-briefs
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - simulated employee personas for difficult conversations
+      - prep-notes output checked against the hard rule (never a promote/no-promote recommendation)
+    consuming_modules: [hr-manager-conversation-rehearsal]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-11
+    name: goals-self-assessment-records
+    type: dataset
+    format: json
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - one goal conflicting with the self-assessment (surface, do not silently resolve)
+    consuming_modules: [hr-learning-pathway-planner]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-12
+    name: compensation-band-dataset
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - one deliberate pay-band outlier
+      - one gender/role pay-gap pattern (surface both, never generate an automated pay recommendation)
+    consuming_modules: [hr-pay-equity-band-report]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-13
+    name: engagement-attrition-dataset
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - a planted attrition-risk trend in one department (aggregate only, never an individual prediction)
+    consuming_modules: [hr-people-analytics-attrition-signals]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-14
+    name: helpdesk-request-queue
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - one misrouted policy question
+      - one request touching special-category data (medical accommodation) that must route to a human-only queue
+    consuming_modules: [hr-helpdesk-intake-router]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-15
+    name: multistate-leave-compliance-roster
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - one leave-law / I-9 reverification deadline about to lapse
+      - one health-related reason field that must never appear in alert text
+    consuming_modules: [hr-employment-law-leave-compliance-monitor]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-16
+    name: aedt-inventory-audit-log
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - one tool overdue for its annual bias audit
+      - one tool missing its public-disclosure posting
+    consuming_modules: [hr-aedt-bias-audit-disclosure-tracker]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-17
+    name: mixed-sensitivity-employee-dataset
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - records deliberately mixing ordinary PII and GDPR special-category fields (health note, visa status)
+      - companion draft "AI in employment decisions" disclosure clause
+    consuming_modules: [hr-operational-controls, hr-helpdesk-intake-router]
+    source_plan: hr-people-implementation-plan
+
+  - id: HR-18
+    name: hris-export
+    type: dataset
+    format: csv + json
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - unified roster + requisitions + case queue + permission tiers view (derives from CORE-04 and HR-01)
+    consuming_modules: [hr-hris-ops]
+    source_plan: hr-people-implementation-plan
+
+  # ----------------------------------------------------------------- REV (revenue path)
+  - id: REV-01
+    name: consent-suppression-master
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002, co-140+]
+    planted_features:
+      - every legal-basis state (GDPR opt-in pending, PECR corporate-subscriber, CAN-SPAM opt-out honored vs one overdue past the compliance window)
+      - one contact in two downstream tool exports with conflicting suppression flags (single-source-of-truth propagation test)
+    consuming_modules:
+      - revenue-personalized-outbound-drafter
+      - revenue-consent-suppression-systems
+      - revenue-website-intent-play
+      - revenue-closed-lost-reactivator
+      - revenue-operational-controls
+    source_plan: revenue-implementation-plan (artifact B)
+
+  - id: REV-02
+    name: account-fact-packets
+    type: corpus
+    format: json + markdown
+    generation: drafted-frozen
+    canon_entities: [co-121, co-122, co-124, co-125, co-140+]
+    planted_features:
+      - every fact stamped with collection date and source
+      - at least one fact deliberately stale (collected >90 days ago)
+    consuming_modules:
+      - revenue-account-research-brief
+      - revenue-competitive-intelligence-hub
+      - revenue-win-loss-pattern-analysis
+      - revenue-campaign-briefing-system
+    source_plan: revenue-implementation-plan (artifact C)
+
+  - id: REV-03
+    name: signal-event-logs
+    type: log
+    format: jsonl
+    generation: deterministic
+    canon_entities: [co-102, co-122, co-124, co-125, co-140+]
+    planted_features:
+      - qualifying new-hire signal at co-122 inside the trigger window
+      - noise hire (wrong seniority/function) at co-124
+      - champion employer-change event (old deal at co-102, new employer co-125)
+      - re-engagement event after closed-lost at co-124
+      - anonymous visitor that only fuzzy-matches a CRM record
+      - competitor-mention and hiring-velocity feeds with explicit weights
+    consuming_modules:
+      - revenue-website-intent-play
+      - revenue-new-hire-signal-play
+      - revenue-champion-move-reconnect
+      - revenue-closed-lost-reactivator
+      - revenue-competitive-account-prioritizer
+    source_plan: revenue-implementation-plan (artifact D)
+
+  - id: REV-04
+    name: message-template-library
+    type: template
+    format: markdown + yaml
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - approved subject/body templates with variable slots
+      - one contact with an incomplete/inferred email (draft must abstain)
+      - drafts stay drafts, never sends
+    consuming_modules: [revenue-personalized-outbound-drafter, revenue-play-attribution-console]
+    source_plan: revenue-implementation-plan (artifact E)
+
+  - id: REV-05
+    name: win-loss-call-note-corpus
+    type: corpus
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002, co-102, co-103, co-140+]
+    planted_features:
+      - contradictory customer-language framing across two records (forces synthesis, not copy-paste)
+      - one pair of similar deals with opposite outcomes
+    consuming_modules:
+      - revenue-positioning-messaging-systems
+      - revenue-competitive-intelligence-hub
+      - revenue-win-loss-pattern-analysis
+    source_plan: revenue-implementation-plan (artifact F)
+
+  - id: REV-06
+    name: product-security-fact-sheet
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - maintained product/security claims baseline
+      - 3-5 AI-drafted claim snippets, at least one containing a fabricated certification not in the fact sheet
+    consuming_modules: [revenue-ai-reliability, revenue-personalized-outbound-drafter, revenue-operational-controls]
+    source_plan: revenue-implementation-plan (artifact H)
+
+  - id: REV-07
+    name: crm-object-model-seed
+    type: dataset
+    format: json
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - Salesforce-shaped and HubSpot-shaped object samples, teaching scale, not eval-critical
+    consuming_modules: [revenue-crm-ops]
+    source_plan: revenue-implementation-plan (artifact I)
+
+  # ----------------------------------------------------------------- OPS (operations path)
+  - id: OPS-01
+    name: meeting-transcript-with-commitments
+    type: transcript
+    format: text (VTT-style, consent banner header)
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - 4 commitments, 1 with no stated owner
+      - 1 attribution trap (speaker describing someone else's commitment)
+      - 1 implied follow-up never captured as a task
+    consuming_modules:
+      - operations-meeting-to-owned-work
+      - operations-open-loops-and-commitment-tracking
+      - operations-decision-log-and-rationale
+      - operations-program-knowledge-base
+    source_plan: operations-implementation-plan (A1)
+
+  - id: OPS-02
+    name: retro-transcript-with-recurring-finding
+    type: transcript
+    format: text
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - findings with no owner
+      - one finding repeats a prior retro's unresolved item (recurrence signal)
+    consuming_modules: [operations-retro-to-action-plan, operations-program-knowledge-base]
+    source_plan: operations-implementation-plan (A2)
+
+  - id: OPS-03
+    name: project-brief-with-missing-dependency
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002, co-101]
+    planted_features:
+      - omits a dependency resolvable only via CORE-01 (the co-101 vendor contract gating a milestone)
+    consuming_modules: [operations-brief-to-project-plan]
+    source_plan: operations-implementation-plan (A3)
+
+  - id: OPS-03B
+    name: follow-up-email-thread
+    type: document
+    format: eml/markdown
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - disagrees with OPS-01 on who made a decision
+    consuming_modules: [operations-decision-log-and-rationale]
+    source_plan: operations-implementation-plan (A3b)
+
+  - id: OPS-04
+    name: intake-request-batch
+    type: dataset
+    format: csv + eml
+    generation: deterministic
+    canon_entities: [co-002, co-101, co-140+]
+    planted_features:
+      - 15-20 requests, 1 duplicate
+      - 2 missing required fields (no requester, no priority)
+      - 1 mis-classified by the requester's own stated urgency
+    consuming_modules: [operations-project-intake-router]
+    source_plan: operations-implementation-plan (A4)
+
+  - id: OPS-05
+    name: backlog-export-with-quality-gaps
+    type: dataset
+    format: csv/json
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 25-30 tasks, several missing owner, definition of done, due date, or dependency
+    consuming_modules: [operations-task-quality-and-definition-of-done]
+    source_plan: operations-implementation-plan (A5)
+
+  - id: OPS-06
+    name: raid-log-seed
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 1 risk entry with no review cadence
+      - 1 stale/overdue item never revisited
+    consuming_modules: [operations-raid-log-and-risk-register]
+    source_plan: operations-implementation-plan (A6)
+
+  - id: OPS-07
+    name: work-item-graph-with-hidden-link
+    type: corpus
+    format: json + text
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - a real dependency exists only in prose (chat-style message), never in the tracked graph
+    consuming_modules: [operations-dependency-and-blocker-mapping]
+    source_plan: operations-implementation-plan (A7)
+
+  - id: OPS-08
+    name: weekly-status-inputs-with-conflicting-claim
+    type: dataset
+    format: csv + markdown
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - upstream task marked done while a downstream artifact shows it blocked (hallucinated-status trap)
+    consuming_modules: [operations-status-to-exec-briefing, operations-ai-reliability]
+    source_plan: operations-implementation-plan (A8)
+
+  - id: OPS-09
+    name: portfolio-status-rollup
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - 4-5 projects' status plus RAID bundled
+      - two projects silently share one over-allocated person, unflagged in either
+    consuming_modules: [operations-portfolio-risk-radar, operations-qbr-and-okr-reporting]
+    source_plan: operations-implementation-plan (A9)
+
+  - id: OPS-10
+    name: sop-with-unnamed-approver
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - an approval step ("requires manager sign-off") with no named approver
+    consuming_modules: [operations-sop-to-execution-checklist, operations-program-knowledge-base]
+    source_plan: operations-implementation-plan (A10)
+
+  - id: OPS-11
+    name: stakeholder-register-seed
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002, co-102, co-140+]
+    planted_features:
+      - one high-influence stakeholder with no assigned comms cadence
+    consuming_modules: [operations-stakeholder-map-and-comms-plan]
+    source_plan: operations-implementation-plan (A11)
+
+  - id: OPS-12
+    name: okr-metrics-rollup-with-contradiction
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - a reported OKR percentage contradicting its own underlying raw metric
+    consuming_modules: [operations-qbr-and-okr-reporting]
+    source_plan: operations-implementation-plan (A12)
+
+  - id: OPS-13
+    name: cross-functional-handoff-log
+    type: log
+    format: csv
+    generation: deterministic
+    canon_entities: [co-002, co-101]
+    planted_features:
+      - a handoff marked complete by the sending team, never acknowledged by the receiving team
+    consuming_modules: [operations-cross-functional-dependency-tracker]
+    source_plan: operations-implementation-plan (A13)
+
+  - id: OPS-14
+    name: program-knowledge-corpus
+    type: corpus
+    format: mixed bundle (OPS-01 + OPS-02 + OPS-10 + narrative history docs)
+    generation: drafted-frozen
+    canon_entities: [co-002]
+    planted_features:
+      - citation metadata required on every source so answers trace to a specific meeting, retro, or SOP
+    consuming_modules: [operations-program-knowledge-base]
+    source_plan: operations-implementation-plan (A14)
+
+  - id: OPS-15
+    name: work-management-platform-export
+    type: dataset
+    format: json (Notion/Asana-style dump)
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - tasks table with owner/state/source/definition-of-done fields, some incomplete
+    consuming_modules: [operations-work-management-platform]
+    source_plan: operations-implementation-plan (A15)
+
+  - id: OPS-16
+    name: meeting-consent-notice-and-invite-templates
+    type: template
+    format: ics + markdown
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features: []
+    consuming_modules: [operations-operational-controls]
+    source_plan: operations-implementation-plan (A16)
+
+  # ----------------------------------------------------------------- SMB (small-business path)
+  - id: SMB-01
+    name: reliability-drill-client-updates
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100]
+    planted_features:
+      - 1 fabricated milestone date
+      - 1 fabricated dollar figure
+      - 1 correct claim as a control
+    consuming_modules: [smb-ai-reliability]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-02
+    name: client-record-template
+    type: template
+    format: csv
+    generation: deterministic
+    canon_entities: []
+    planted_features: []
+    consuming_modules: [smb-client-workspace-setup]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-03
+    name: inbound-inquiry-queue
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100, co-131]
+    planted_features:
+      - 1 inquiry missing budget and timeline (clarify, do not guess)
+      - 1 duplicate inquiry via two channels
+      - 1 out-of-scope commercial inquiry to decline and redirect
+    consuming_modules: [smb-lead-response-and-qualification]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-04
+    name: client-record-okafor
+    type: record
+    format: json
+    generation: deterministic
+    canon_entities: [co-100, co-131]
+    planted_features:
+      - full inquiry-to-payment history
+      - 1 stage where systems disagree (invoice paid in payment log, proposal stage still pending in client record)
+    consuming_modules: [smb-client-lead-to-cash-blueprint]
+    source_plan: smb-implementation-plan (was client-record-co101; entity renumbered to co-131)
+
+  - id: SMB-05
+    name: client-record-co002-office-refresh
+    type: record
+    format: json
+    generation: deterministic
+    canon_entities: [co-100, co-002]
+    planted_features:
+      - contrasting commercial worked example (cross-track join with the Atticus Dundee ecosystem)
+    consuming_modules: [smb-client-lead-to-cash-blueprint]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-06
+    name: approved-proposal-larkspur
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-100]
+    planted_features:
+      - 1 line item priced at a since-expired materials rate
+    consuming_modules: [smb-proposal-to-contract-workflow]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-07
+    name: contract-template
+    type: template
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: []
+    planted_features:
+      - 1 required field (scope-change clause) left blank; must block, never silently default
+    consuming_modules: [smb-proposal-to-contract-workflow]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-08
+    name: client-next-steps-checklist
+    type: template
+    format: csv
+    generation: deterministic
+    canon_entities: []
+    planted_features: []
+    consuming_modules: [smb-proposal-to-contract-workflow]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-09
+    name: welcome-pack-template
+    type: template
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: []
+    planted_features: []
+    consuming_modules: [smb-client-onboarding-concierge]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-10
+    name: intake-questionnaire
+    type: form
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100, co-131]
+    planted_features:
+      - one answer volunteering sensitive information unprompted (mobility need affecting site access); minimal careful handling, never copied into general notes
+    consuming_modules: [smb-client-onboarding-concierge]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-11
+    name: kickoff-checklist
+    type: template
+    format: csv
+    generation: deterministic
+    canon_entities: []
+    planted_features: []
+    consuming_modules: [smb-client-onboarding-concierge]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-12
+    name: project-tasks-and-dates
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100, co-131]
+    planted_features:
+      - 1 task complete internally but stale in the client-facing view
+    consuming_modules: [smb-client-project-hub]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-13
+    name: project-documents-index
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100, co-131]
+    planted_features:
+      - 1 internal-only cost document mixed into the index (access-boundary trap)
+    consuming_modules: [smb-client-project-hub]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-14
+    name: latest-status-update
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-100, co-131]
+    planted_features: []
+    consuming_modules: [smb-client-project-hub]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-15
+    name: internal-status-notes
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-100]
+    planted_features:
+      - blunt language and an internal cost figure that must never leak into the client-facing draft
+      - one genuinely late milestone that must be disclosed honestly
+    consuming_modules: [smb-milestone-update-drafter]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-16
+    name: milestone-schedule
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100, co-131]
+    planted_features: []
+    consuming_modules: [smb-milestone-update-drafter]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-17
+    name: invoices-issued
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100]
+    planted_features:
+      - 1 invoice mistakenly marked paid that the mock payment log shows outstanding
+    consuming_modules: [smb-invoice-and-collections-assistant, smb-cash-flow-and-aging-report]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-18
+    name: payment-status-mock
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100]
+    planted_features:
+      - clearly labeled mock/sandbox data; no live processor, no real funds, ever
+    consuming_modules: [smb-invoice-and-collections-assistant, smb-cash-flow-and-aging-report]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-19
+    name: aging-summary
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100, co-132]
+    planted_features:
+      - 1 client genuinely past due (reminder due)
+      - 1 client on a payment plan within terms (no premature reminder)
+    consuming_modules: [smb-invoice-and-collections-assistant]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-20
+    name: time-entries-mock
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100]
+    planted_features: []
+    consuming_modules: [smb-job-margin-snapshot]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-21
+    name: job-expenses-mock
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100, co-133, co-134]
+    planted_features:
+      - 1 personal/unrelated expense miscoded to a job
+    consuming_modules: [smb-job-margin-snapshot]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-22
+    name: job-progress
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100]
+    planted_features:
+      - 1 healthy-looking job with a large unbilled change order dragging true margin down
+      - 1 correctly tracked job as a control
+    consuming_modules: [smb-job-margin-snapshot]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-23
+    name: completed-projects-log
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100, co-131]
+    planted_features:
+      - 1 completed project with an unresolved support issue (blocks automated glowing feedback request, routes to human)
+    consuming_modules: [smb-post-project-referral-loop]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-24
+    name: feedback-request-template
+    type: template
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: []
+    planted_features: []
+    consuming_modules: [smb-post-project-referral-loop]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-25
+    name: referral-nurture-sequence
+    type: template
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-135]
+    planted_features: []
+    consuming_modules: [smb-post-project-referral-loop]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-26
+    name: crew-roster-mock
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100]
+    planted_features:
+      - fully synthetic crew (canon/people.md), no real names, SSNs, or wage data
+    consuming_modules: [smb-shift-to-payroll-readiness]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-27
+    name: shift-schedule-mock
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100]
+    planted_features:
+      - 1 double-booked shift
+    consuming_modules: [smb-shift-to-payroll-readiness]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-28
+    name: timecards-mock
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100]
+    planted_features:
+      - 1 missing timecard entry blocking payroll readiness
+      - 1 pay-rate mismatch vs the roster (escalate, never auto-correct)
+    consuming_modules: [smb-shift-to-payroll-readiness]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-29
+    name: payroll-readiness-checklist
+    type: template
+    format: csv
+    generation: deterministic
+    canon_entities: []
+    planted_features: []
+    consuming_modules: [smb-shift-to-payroll-readiness]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-30
+    name: weekly-owner-report-template
+    type: template
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: []
+    planted_features:
+      - one metric with two plausible readings (cash on hand vs cash after committed payables); stated assumption required
+    consuming_modules: [smb-cash-flow-and-aging-report]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-31
+    name: outgoing-comms-sample
+    type: dataset
+    format: csv
+    generation: drafted-frozen
+    canon_entities: [co-100, co-131, co-132]
+    planted_features:
+      - 1 communication failing to disclose AI assistance
+      - 1 communication over-sharing client data (data-minimization trap)
+      - 1 clean compliant example as a control
+    consuming_modules: [smb-client-trust-and-data-guardrails]
+    source_plan: smb-implementation-plan
+
+  - id: SMB-32
+    name: data-handling-checklist
+    type: config
+    format: yaml
+    generation: deterministic
+    canon_entities: []
+    planted_features: []
+    consuming_modules: [smb-client-trust-and-data-guardrails]
+    source_plan: smb-implementation-plan
