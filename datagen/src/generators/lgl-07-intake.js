@@ -30,6 +30,7 @@ export function generate({ rng }) {
   const standardRequestor = r.pick(requestorPool);
   const standardRecord = {
     record_id: "LGL-07-STD-001",
+    intake_reference: "INT-2026-0410",
     record_type: "matter_intake",
     intake_date: intakeDate,
     requestor_employee_id: standardRequestor.employee_id,
@@ -47,6 +48,9 @@ export function generate({ rng }) {
   const highValueIntakeDate = addDays(ANCHOR_DATE, -r.int(0, 7));
   const highValueRecord = {
     record_id: "LGL-07-HV-001",
+    // Pinned: LGL-12 (trade-secret litigation matter) cites this intake by
+    // reference number; the drafted document and this record must agree.
+    intake_reference: "INT-2026-0433",
     record_type: "matter_intake",
     intake_date: highValueIntakeDate,
     requestor_employee_id: highValueRequestor.employee_id,
@@ -76,6 +80,7 @@ export function generate({ rng }) {
       vendorSeq += 1;
       vendorRecords.push({
         record_id: `LGL-07-VEND-${String(vendorSeq).padStart(3, "0")}`,
+        intake_reference: `INT-2026-0${440 + vendorSeq}`,
         record_type: "vendor_intake",
         subpath,
         intake_date: addDays(ANCHOR_DATE, -r.int(0, 30)),

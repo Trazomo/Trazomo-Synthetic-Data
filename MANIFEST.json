@@ -1,6 +1,6 @@
 {
     "manifest_version": 1,
-    "universe_version": "0.2.0",
+    "universe_version": "1.0.0",
     "canon": {
         "companies": "canon/companies.md"
     },
@@ -166,5 +166,220 @@
         }
     ],
     "specs": "specs/artifact-specs.yaml",
-    "artifacts": []
+    "artifacts": [
+        {
+            "id": "CORE-01",
+            "name": "master-services-agreement",
+            "type": "contract",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/CORE-01",
+            "source_files": [
+                "master-services-agreement-20k.md",
+                "master-services-agreement-40k.md",
+                "master-services-agreement-80k.md",
+                "master-services-agreement-cap-0-5x.md",
+                "master-services-agreement-cap-2x.md",
+                "master-services-agreement.md"
+            ],
+            "build_files": [
+                "master-services-agreement-20k.docx",
+                "master-services-agreement-40k.docx",
+                "master-services-agreement-80k.docx",
+                "master-services-agreement-cap-0-5x.docx",
+                "master-services-agreement-cap-2x.docx",
+                "master-services-agreement.docx"
+            ]
+        },
+        {
+            "id": "CORE-05",
+            "name": "internal-policy-library",
+            "type": "corpus",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/CORE-05",
+            "source_files": [
+                "internal-policy-library-acceptable-use-policy.md",
+                "internal-policy-library-byod-policy.md",
+                "internal-policy-library-data-retention-policy.md",
+                "internal-policy-library-employee-handbook.md",
+                "internal-policy-library-finance-memo-software-capitalization-2024.md",
+                "internal-policy-library-finance-memo-software-capitalization-2026.md",
+                "internal-policy-library-remote-work-policy.md",
+                "internal-policy-library-social-media-policy.md",
+                "internal-policy-library-travel-and-expense-policy.md",
+                "internal-policy-library.md"
+            ],
+            "build_files": [
+                "internal-policy-library-acceptable-use-policy.docx",
+                "internal-policy-library-byod-policy.docx",
+                "internal-policy-library-data-retention-policy.docx",
+                "internal-policy-library-employee-handbook.docx",
+                "internal-policy-library-finance-memo-software-capitalization-2024.docx",
+                "internal-policy-library-finance-memo-software-capitalization-2026.docx",
+                "internal-policy-library-remote-work-policy.docx",
+                "internal-policy-library-social-media-policy.docx",
+                "internal-policy-library-travel-and-expense-policy.docx",
+                "internal-policy-library.docx"
+            ]
+        },
+        {
+            "id": "LGL-02",
+            "name": "mutual-nda",
+            "type": "contract",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/LGL-02",
+            "source_files": [
+                "mutual-nda-liquidated-damages.md",
+                "mutual-nda-negotiated-enterprise.md",
+                "mutual-nda-qa-broken.md",
+                "mutual-nda-unilateral.md",
+                "mutual-nda.md"
+            ],
+            "build_files": [
+                "mutual-nda-liquidated-damages.docx",
+                "mutual-nda-negotiated-enterprise.docx",
+                "mutual-nda-qa-broken.docx",
+                "mutual-nda-unilateral.docx",
+                "mutual-nda.docx"
+            ]
+        },
+        {
+            "id": "LGL-03",
+            "name": "commercial-lease",
+            "type": "contract",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/LGL-03",
+            "source_files": [
+                "commercial-lease.md"
+            ],
+            "build_files": [
+                "commercial-lease.docx"
+            ]
+        },
+        {
+            "id": "LGL-04",
+            "name": "settlement-agreement",
+            "type": "contract",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/LGL-04",
+            "source_files": [
+                "settlement-agreement-no-ip-indemnity.md",
+                "settlement-agreement.md"
+            ],
+            "build_files": [
+                "settlement-agreement-no-ip-indemnity.docx",
+                "settlement-agreement.docx"
+            ]
+        },
+        {
+            "id": "LGL-05",
+            "name": "engagement-letter",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/LGL-05",
+            "source_files": [
+                "engagement-letter.md"
+            ],
+            "build_files": [
+                "engagement-letter.docx"
+            ]
+        },
+        {
+            "id": "LGL-08",
+            "name": "corporate-family-tree-conflicts-record",
+            "type": "record",
+            "format": "json + markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/LGL-08",
+            "source_files": [
+                "corporate-family-tree-conflicts-record.json",
+                "corporate-family-tree-conflicts-record.md"
+            ],
+            "build_files": [
+                "corporate-family-tree-conflicts-record.docx"
+            ]
+        },
+        {
+            "id": "LGL-09",
+            "name": "high-risk-intake-record",
+            "type": "record",
+            "format": "json + markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/LGL-09",
+            "source_files": [
+                "high-risk-intake-record.json",
+                "high-risk-intake-record.md"
+            ],
+            "build_files": [
+                "high-risk-intake-record.docx"
+            ]
+        },
+        {
+            "id": "LGL-10",
+            "name": "litigation-matter-personal-injury",
+            "type": "record",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/LGL-10",
+            "source_files": [
+                "litigation-matter-personal-injury.md"
+            ],
+            "build_files": [
+                "litigation-matter-personal-injury.docx"
+            ]
+        },
+        {
+            "id": "LGL-12",
+            "name": "litigation-matter-trade-secret-non-compete",
+            "type": "record",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/LGL-12",
+            "source_files": [
+                "litigation-matter-trade-secret-non-compete.md"
+            ],
+            "build_files": [
+                "litigation-matter-trade-secret-non-compete.docx"
+            ]
+        },
+        {
+            "id": "LGL-17",
+            "name": "ip-and-vendor-program-bundle",
+            "type": "corpus",
+            "format": "markdown + csv",
+            "generation": "drafted-frozen",
+            "path": "artifacts/LGL-17",
+            "source_files": [
+                "invention-disclosure-records.md",
+                "ip-and-vendor-program-bundle.md",
+                "ip-renewal-calendar.csv",
+                "ip-renewal-calendar.md",
+                "nda-negotiation-scenarios.md",
+                "nda-template.md",
+                "quarterly-board-dashboard.md",
+                "signing-authority-matrix.md",
+                "vendor-risk-assessment-datapulse-analytics.md",
+                "vendor-risk-assessment-globalcomms.md",
+                "vendor-risk-assessment-talentforce.md",
+                "vendor-risk-register.csv"
+            ],
+            "build_files": [
+                "invention-disclosure-records.docx",
+                "ip-and-vendor-program-bundle.docx",
+                "ip-renewal-calendar.docx",
+                "nda-negotiation-scenarios.docx",
+                "nda-template.docx",
+                "quarterly-board-dashboard.docx",
+                "signing-authority-matrix.docx",
+                "vendor-risk-assessment-datapulse-analytics.docx",
+                "vendor-risk-assessment-globalcomms.docx",
+                "vendor-risk-assessment-talentforce.docx"
+            ]
+        }
+    ]
 }
