@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.2 - unreleased
+## 1.0.2 - 2026-08-09
 
 **Tags at merge of PR #4.** The tag is cut by the release controller after
 merge, not on the branch. Consumers pinned to `v1.0.1` are unaffected until
