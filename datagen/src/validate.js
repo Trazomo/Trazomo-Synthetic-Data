@@ -37,6 +37,36 @@ export function significantTokens(feature) {
 }
 
 /**
+ * Does one significant token appear in the (already lowercased) source text?
+ *
+ * Plain tokens are a straight substring test, unchanged. Compound tokens --
+ * the ones a spec author wrote with an internal hyphen or apostrophe, e.g.
+ * "consequential-damages", "governing-law", "residual-knowledge" -- are
+ * phrases, and drafted prose almost never reproduces the spec's punctuation:
+ * the document says "Waiver of Consequential Damages", not
+ * "consequential-damages". Comparing those literally reports a feature as
+ * unconfirmed purely because of a hyphen.
+ *
+ * So a compound token also matches when its parts appear *in order and
+ * adjacent* in the source, separated by any run of non-alphanumerics or by
+ * nothing at all -- "Consequential Damages", "consequential-damages",
+ * "Consequential\nDamages" and "ConsequentialDamages" all match. This stays
+ * phrase-shaped on purpose: it is not a bag-of-words check, so a document that
+ * merely mentions "consequential" in one section and "damages" in another does
+ * not satisfy the token. The match must also begin at a word boundary, so the
+ * separator wildcard cannot bridge unrelated neighbours (a stray "M-ARR" is
+ * not confirmed by "system arrangement").
+ */
+function tokenAppearsIn(token, haystack) {
+  const needle = token.toLowerCase();
+  if (haystack.includes(needle)) return true;
+  // Parts are alphanumeric-only by construction, so they need no regex escaping.
+  const parts = needle.split(/[^a-z0-9]+/).filter(Boolean);
+  if (parts.length < 2) return false;
+  return new RegExp(`(?:^|[^a-z0-9])${parts.join("[^a-z0-9]*")}`).test(haystack);
+}
+
+/**
  * Heuristic keyword check for one drafted-frozen planted_feature against a
  * markdown source's text. PASS if most significant tokens are present
  * (case-insensitive), WARN otherwise -- this can never definitively say a
@@ -52,7 +82,7 @@ export function checkPlantedFeature(feature, sourceText) {
   const matched = [];
   const missing = [];
   for (const token of tokens) {
-    if (haystack.includes(token.toLowerCase())) matched.push(token);
+    if (tokenAppearsIn(token, haystack)) matched.push(token);
     else missing.push(token);
   }
   const ratio = matched.length / tokens.length;

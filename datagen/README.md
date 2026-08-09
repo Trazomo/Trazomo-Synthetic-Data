@@ -101,6 +101,18 @@ Both build paths honor this convention.
   `PASS` or `WARN` per feature, never a hard failure, and the overall
   spec status is `PASS` only if every feature passed. `MISSING` if
   `artifacts/<ID>/` doesn't exist yet.
+  Keywords a spec author wrote as a hyphenated compound (`consequential-damages`,
+  `governing-law`) are treated as phrases: they match the same words adjacent in
+  the source whatever punctuation separates them there, so drafted prose that
+  reads "Waiver of Consequential Damages" confirms the feature. The match stays
+  phrase-shaped -- the words have to be adjacent and start on a word boundary,
+  so it never degrades into a bag-of-words check.
+  A `WARN` means "could not confirm," not "absent." The common cause of a
+  residual `WARN` is vocabulary drift between the spec's description and the
+  document's own words -- an acronym the document spells out (`DTSA` vs "Defend
+  Trade Secrets Act"), or spec narration that no drafted document would ever
+  contain ("tiering exercises," "broken QA-fail twin"). Read the cited feature
+  against the source before treating a `WARN` as a content gap.
 - **`generation: deterministic`** specs: regenerates the spec and diffs
   every output file byte-for-byte against what's committed under
   `datasets/<track>/<artifact-name>/`. `PASS`/`FAIL`, or `MISSING` if
