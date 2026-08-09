@@ -179,6 +179,15 @@ that did not land.
 | pe-264 | Vivian Sørensen, EnCE | Forensic examiner retained by counsel | LGL-12 | CANONICAL |
 | pe-265 | Ingrid Halvorsen | Independent contractor; unassigned joint contributor on IDF-2026-016 | LGL-17 | CANONICAL |
 
+This table carries no affiliation column because most non-parties are institutionally
+placed in the Role cell already (pe-260 Sheffield Falls Police Department, pe-261 Cross
+County Casualty, pe-262 Kettle Ridge Mutual). The two physicians, **pe-258 Ahmad N.
+Sethi, M.D. and pe-259 Priyanka Raval, M.D., are unattributed in LGL-10 by design.** The
+treatment chronology lists them as treating and evaluating clinicians on their own rows
+and lists Marbury Regional Medical Center and Sheffield Falls Physical Therapy as
+separate facility rows, without tying either physician to either facility. Canon follows
+the artifact and does not invent an employer for them.
+
 ## Errata: names in frozen text that canon does not seat
 
 Each row below is a real name in a real shipped document. The document is not being
@@ -375,7 +384,12 @@ this file for the leadership rows and regenerate. This intentionally breaks
 byte-for-byte determinism against the committed CSV and cascades into
 `datasets/legal/matter-portfolio-dashboard-dataset/*` (which carries `EMP-05NN` foreign
 keys), so it must ship as one coordinated dataset bump with `datagen validate --all`
-re-run.
+re-run. Note that the cascade is not merely mechanical: `capacity-model.csv` names an
+entire generated in-house legal team (EMP-0528 Lyric Everhart, EMP-0529 Kestrel Quennell,
+EMP-0530 Rhoswen Blackwood, and so on) that is disjoint from the curated in-house counsel
+seats pe-111 Alcaraz, pe-112 Iyer, and pe-113 Ferrante. The legal track therefore ships
+two different sets of co-002 lawyers today, which is what makes F-1 necessary rather than
+merely tidy.
 
 **F-2: Decide the CEO seat on purpose.** Tonight's precedence seats Kestrel Ashgrove,
 a generic-pool draw, because tier a wins and EMP-0001 anchors the org tree. That is the
