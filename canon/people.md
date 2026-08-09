@@ -29,7 +29,7 @@ Applied in order. Every entry below was verified by grep against the tracked tre
 | c | PR-body prose | Descriptive only. A name that never landed in the tree is not canon. |
 
 Within tier b, ties break on: (1) number of distinct artifact sets the name appears in;
-then (2) total occurrences; then (3) role weight — an executing signatory on a binding
+then (2) total occurrences; then (3) role weight: an executing signatory on a binding
 instrument outranks a contact line in a summary record; then (4) coherence of the
 leadership block, preferring the option that keeps one consistent officer team rather
 than splitting it across two documents that already disagree.
@@ -75,14 +75,14 @@ a future artifact must not accidentally reuse the name.
 | pe-017 | Simone A. Ratliffe | Associate; handling attorney and named researcher on the LGL-12 audit trail | LGL-12 | CANONICAL |
 | pe-018 | Nadia S. Feldkamp | Partner, Intellectual Property; outside IP counsel to co-002 | LGL-17 | CANONICAL |
 | pe-019 | Renata Villalobos | Docketing Specialist | LGL-10 | CANONICAL, HOMONYM of pe-202 |
-| pe-020 | Priya Raghunathan | Senior Conflicts Analyst, New Business Intake | LGL-08 | HOMONYM of pe-103 — ERRATUM-IN LGL-08 |
+| pe-020 | Priya Raghunathan | Senior Conflicts Analyst, New Business Intake | LGL-08 | HOMONYM of pe-103, ERRATUM-IN LGL-08 |
 | pe-021 | Jordan K. Sable | Partner (billed at $725 on matter MAT-OC-0142) | CORE-02 (`invoice.ledes.csv`, `invoice.json`, TK-001) | CANONICAL (tier a) |
 | pe-022 | Marlowe O. Duskwood | Associate (billed at $465 on matter MAT-OC-0142) | CORE-02 (`invoice.ledes.csv`, TK-002) | CANONICAL (tier a) |
 | pe-023 | Reyna T. Pemberton | Paralegal (billed at $220 on matter MAT-OC-0142) | CORE-02 (`invoice.ledes.csv`, TK-003) | CANONICAL (tier a) |
 
 **pe-020 is not a second canonical Priya Raghunathan.** `canon/people.md` seats
 Priya Raghunathan as General Counsel of co-002 (pe-103). The LGL-08 conflicts record
-independently assigned the same full name to a co-001 conflicts analyst — a law firm
+independently assigned the same full name to a co-001 conflicts analyst. A law firm
 analyst and her own flagship client's general counsel sharing an unusual full name is
 an accident of parallel drafting, not a plot point. The frozen text stands; the
 rename is queued as F-4.
@@ -127,7 +127,7 @@ unrelated matters.
 | pe-119 | Wei-Lin Tsao | Staff Engineer; named inventor, gave the barring conference talk | LGL-17 | CANONICAL |
 | pe-120 | Bartholomew Reiss | Senior Engineer; named inventor | LGL-17 | CANONICAL |
 
-Note the shape of this roster: the committed 601-row employee dataset models co-002 as
+Note the shape of this roster: the committed employee dataset (600 rows plus a header) models co-002 as
 one CEO over ten functional VPs and carries **no** CFO, General Counsel, CISO, or Chief
 People Officer row at all. That gap is why two sets of drafting agents each invented a
 C-suite. Not one of the twenty names above appears in `people-roster.csv`, so the
@@ -187,12 +187,12 @@ across the corpus knows the two refer to one seat.
 
 | Frozen name | Alias of | Seat | Erratum in (exact frozen location) | Why it lost |
 |---|---|---|---|---|
-| Julian A. Prewitt | pe-101 Kestrel Ashgrove | co-002 CEO | `artifacts/LGL-17/signing-authority-matrix.md:44` (D4 row) | 1 occurrence in 1 file. Tier a beats tier b: EMP-0001 is the manager-of-record for all ten co-002 VPs and the root of the 601-row org tree. |
-| Rosalind Achterberg | pe-101 Kestrel Ashgrove | co-002 CEO | *nowhere* — PR #2 body only | 0 occurrences repo-wide. Tier c. Never landed; not canon, not reserved. |
+| Julian A. Prewitt | pe-101 Kestrel Ashgrove | co-002 CEO | `artifacts/LGL-17/signing-authority-matrix.md:44` (D4 row) | 1 occurrence in 1 file. Tier a beats tier b: EMP-0001 is the manager-of-record for all ten co-002 VPs and the root of the 600-employee org tree. |
+| Rosalind Achterberg | pe-101 Kestrel Ashgrove | co-002 CEO | *nowhere*, PR #2 body only | 0 occurrences repo-wide. Tier c. Never landed; not canon, not reserved. |
 | Ophelia R. Sandoval | pe-102 Daniel Osei-Bonsu | co-002 CFO | `artifacts/LGL-17/signing-authority-matrix.md:44`; `nda-negotiation-scenarios.md:125`; `vendor-risk-register.csv:6,8` | 4 occurrences, 3 files, 1 artifact set. Osei-Bonsu: 11 occurrences, 9 files, 3 sets, and he is the executing signatory on the CORE-01 MSA and the LGL-03 lease. |
 | Naomi F. Aitken | pe-103 Priya Raghunathan | co-002 General Counsel | `artifacts/LGL-17/signing-authority-matrix.md:9` (Owner) and 6 further LGL-17 files | 17 occurrences, 7 files, 1 artifact set. Raghunathan: 28 co-002 occurrences across 5 sets, signs all five LGL-02 NDA variants and all six CORE-01 MSA variants, is the LGL-05 engagement-letter addressee, and owns the CORE-05 policy library. |
-| Hannah T. Ostrowski | pe-104 Tobias Lindqvist | co-002 CISO | `artifacts/LGL-17/ip-and-vendor-program-bundle.md:101` and 4 further LGL-17 files | Closest call in the set: 12 occurrences across 5 files versus Lindqvist's 17 across 3, both confined to one artifact set. Broken on tiebreak 4 — seating Ostrowski would split the co-002 officer team across two documents that already disagree, whereas Lindqvist keeps CORE-05's officer block internally consistent. |
-| Theresa J. Muldoon | pe-106 Marlowe Bellcrest | co-002 VP Engineering | `artifacts/LGL-17/ip-and-vendor-program-bundle.md:104`; `vendor-risk-assessment-datapulse-analytics.md:11,109`; `vendor-risk-register.csv:2,5,9`; `invention-disclosure-records.md:228` | 7 occurrences, 4 files, 1 set. Tier a beats tier b: EMP-0002 is manager-of-record for eleven Engineering directors over a 190-person organisation. |
+| Hannah T. Ostrowski | pe-104 Tobias Lindqvist | co-002 CISO | `artifacts/LGL-17/ip-and-vendor-program-bundle.md:101` and 4 further LGL-17 files | Closest call in the set: 12 occurrences across 5 files versus Lindqvist's 17 across 3, both confined to one artifact set. Broken on tiebreak 4: seating Ostrowski would split the co-002 officer team across two documents that already disagree, whereas Lindqvist keeps CORE-05's officer block internally consistent. **Tiebreak 3 leans the other way and this call rests entirely on tiebreak 4.** Ostrowski renders dated binding decisions (`vendor-risk-assessment-talentforce.md:133` "Conditionally approved"; `vendor-risk-assessment-globalcomms.md:123` "Do not approve"), which is closer to executing authority than policy ownership, while 11 of Lindqvist's 17 occurrences are policy revision-history rows, so his count lead is softer than it looks. This is the seat most worth a human overrule. |
+| Theresa J. Muldoon | pe-106 Marlowe Bellcrest | co-002 VP Engineering | `artifacts/LGL-17/ip-and-vendor-program-bundle.md:104`; `vendor-risk-assessment-datapulse-analytics.md:11,109`; `vendor-risk-register.csv:2,5,9`; `invention-disclosure-records.md:228` | 6 full-name occurrences plus 1 initialled "T. J. Muldoon", 7 in all, across 4 files in 1 set. Tier a beats tier b: EMP-0002 is manager-of-record for eleven Engineering directors over a 190-person organisation. |
 | Trevor Nakagawa | pe-207 Yolanda Pritchard-Naidoo | co-118 legal chief | `artifacts/LGL-17/nda-negotiation-scenarios.md:73` | LGL-17 Scenario B (co-118, residual-knowledge clause, NEG-2026-0139) summarises the same deal that LGL-02 `mutual-nda-negotiated-enterprise.md` executes. Tiebreak 3: Pritchard-Naidoo is the executing signatory at line 163; Nakagawa is a contact line. |
 | Sasha Vukovic | pe-208 Nikhil Ravensworth | co-123 CEO / co-founder | `artifacts/LGL-17/nda-negotiation-scenarios.md:118` | LGL-17 Scenario C (co-123, $50,000 liquidated damages per breach, NEG-2026-0154) summarises the same deal that LGL-02 `mutual-nda-liquidated-damages.md` records. Tiebreak 3: Ravensworth is the executing signatory at line 165. |
 
@@ -202,6 +202,29 @@ across the corpus knows the two refer to one seat.
 |---|---|---|---|
 | pe-202 Renata Villalobos | SVP, Professional Services | Engagement Director (`CORE-01/master-services-agreement.md:423`) | Engagement Director |
 | pe-109 Ines Kowalczyk | VP, Brand and Communications | Vice President, Brand and Communications | the artifact's long form |
+
+### Surname repeats across entities are coincidental
+
+Five surnames are each carried by two different curated people at two different
+entities. **All five are parallel-drafting noise, not relationships, not family, and not
+plot points.** They are declared coincidental here for the same reason F-7 declares the
+name-pool overlap: a learner joining records on surname must not be misled into reading
+a connection that the universe does not intend.
+
+| Surname | The two people | Why it could be misread |
+|---|---|---|
+| Lindqvist | pe-012 Beatrice A. Lindqvist (co-001, Director of Client Risk) / pe-104 Tobias Lindqvist (co-002 CISO) | co-001 is co-002's outside firm, so this reads as a relationship or a conflicts problem |
+| Nakashima | pe-201 Everett Nakashima (co-101 CEO, a co-002 vendor) / pe-256 Curtis A. Nakashima (adverse party in LGL-10) | reads as a link between two unrelated matters |
+| Ferrante | pe-113 Lucia M. Ferrante (co-002 Senior Counsel) / pe-251 Hon. Delia M. Ferrante (Ret.) (mediator in LGL-04) | in-house counsel sharing a surname with the mediator on her own employer's settlement |
+| Kowalczyk | pe-109 Ines Kowalczyk (co-002 VP Brand) / pe-261 Denise Kowalczyk (opposing carrier's claims rep, LGL-10) | same shape as Ferrante |
+| Oyelaran | pe-006 Bernadette Oyelaran / pe-009 Marguerite Oyelaran (both co-001) | two people at one firm, which reads as family |
+
+The Kavaris repeats (pe-210, pe-211, pe-253) are the one deliberate exception: LGL-09
+establishes them as a family and the beneficial-ownership analysis depends on it.
+
+All five could be de-collided cheaply in v1.1 by changing one side of each pair, since
+every one of the ten people appears in exactly one artifact set. That is a cosmetic
+improvement, not a correctness fix, so it is not proposed as a follow-up.
 
 ## Reserved: names proposed but never used
 
@@ -254,7 +277,7 @@ The 82 figure is the verbatim enumeration of both PR bodies. An earlier task bri
 carried **87**; that number could not be reproduced from any source in this repo or
 either PR body, across two independent recounts. Treat 82 as ground truth and 87 as an
 estimate. If five further names exist somewhere outside these two PRs they have not
-been located, and none of them appears in the tracked tree — every person string in
+been located, and none of them appears in the tracked tree. Every person string in
 `artifacts/` and `datasets/` is accounted for above or belongs to the generator
 populations.
 
@@ -280,7 +303,7 @@ Contested seats were then counted with `grep -roh ... | wc -l` for occurrences a
 `grep -rl ... | wc -l` for files, and the surrounding line was read in each artifact to
 confirm the role the document actually gives the person. Generator populations were
 checked separately: `people-roster.csv` and `contacts.csv` were parsed as CSV (naive
-comma splitting is wrong there — `"VP, Engineering"` is one quoted field) and every one
+comma splitting is wrong there, since `"VP, Engineering"` is one quoted field) and every one
 of the 80 distinct names was tested against both. **No exact full-name collision exists
 between the curated names and either generated population.**
 
@@ -343,7 +366,7 @@ what actually de-collides, which is why the only rename proposed below is a surn
 Nothing in this section was done tonight. Each item is a change to frozen content or to
 a deterministic generator, and both need a deliberate version bump.
 
-**F-1 — Seat the canonical officers in `people-roster.csv`.** CORE-04's spec says its
+**F-1: Seat the canonical officers in `people-roster.csv`.** CORE-04's spec says its
 planted features are "backed by `canon/people.md`", but the generator free-invents from
 `namePool.js` because this file did not exist. The committed roster has no CFO, General
 Counsel, CISO, or Chief People Officer row, and none of the twenty co-002 named
@@ -354,28 +377,28 @@ byte-for-byte determinism against the committed CSV and cascades into
 keys), so it must ship as one coordinated dataset bump with `datagen validate --all`
 re-run.
 
-**F-2 — Decide the CEO seat on purpose.** Tonight's precedence seats Kestrel Ashgrove,
+**F-2: Decide the CEO seat on purpose.** Tonight's precedence seats Kestrel Ashgrove,
 a generic-pool draw, because tier a wins and EMP-0001 anchors the org tree. That is the
 correct mechanical answer and may not be the intended creative one. If the universe
 wants a curated CEO, v1.1 must rename EMP-0001 *and* correct
 `artifacts/LGL-17/signing-authority-matrix.md:44` in the same change, or the conflict
 simply moves.
 
-**F-3 — Redraft LGL-17 to the canonical roster.** Seven substitutions across roughly a
+**F-3: Redraft LGL-17 to the canonical roster.** Seven substitutions across roughly a
 dozen files, then rebuild the DOCX: Prewitt→Ashgrove, Sandoval→Osei-Bonsu,
 Aitken→Raghunathan, Ostrowski→Lindqvist, Muldoon→Bellcrest,
 Nakagawa→Pritchard-Naidoo, Vukovic→Ravensworth. LGL-17 is the single artifact set that
 carries every losing variant, so this is one focused edit, not a corpus sweep.
 
-**F-4 — Resolve the two homonyms.** Rename the co-001 Senior Conflicts Analyst
-(pe-020) off "Priya Raghunathan" in LGL-08 — 7 full-name occurrences plus 8 initialled
+**F-4: Resolve the two homonyms.** Rename the co-001 Senior Conflicts Analyst
+(pe-020) off "Priya Raghunathan" in LGL-08: 7 full-name occurrences plus 8 initialled
 "P. Raghunathan" audit-trail entries, 15 in all, across the markdown and the JSON.
 Then rename one side of "Renata Villalobos": either the co-101 Engagement
 Director in CORE-01's six MSA variants (pe-202) or the co-001 Docketing Specialist in
 LGL-10 (pe-019). LGL-10 is the cheaper edit and the docketing note initialled
 "R. Villalobos" is load-bearing narrative, so prefer renaming pe-202.
 
-**F-5 — Clear the two HIGH real-person collisions.** The screen has now run (see the
+**F-5: Clear the two HIGH real-person collisions.** The screen has now run (see the
 Real-person collision screen section); what remains is acting on it. Both HIGH flags sit
 in frozen text, so both are v1.1 edits, and this is a publishing gate rather than a
 nicety because the repo is public.
@@ -388,11 +411,11 @@ identifiable but non-notable people, the kind of match that is arguably unavoida
 inventing 85 names, and renaming them costs edits to frozen text across CORE-05 and
 LGL-17. Recommend deciding them as a set rather than one at a time.
 
-**F-6 — Finish the v1.0.1 renames (adjacent, but it bears on person canon).** The
+**F-6: Finish the v1.0.1 renames (adjacent, but it bears on person canon).** The
 collision-check renames were phrase- and case-scoped and missed the uppercase forms and
 the email domains, leaving two documents that contradict themselves:
 
-- `artifacts/LGL-03/commercial-lease.md` names the landlord "Birchcroft Properties LLC" four times (lines 11, 258, 353, 364) and "ASHGROVE PROPERTIES LLC" twice (lines 5 and 300 — the preamble and the signature block), and keeps "c/o Ashgrove Asset Management" at lines 11 and 259.
+- `artifacts/LGL-03/commercial-lease.md` names the landlord "Birchcroft Properties LLC" four times (lines 11, 258, 353, 364) and "ASHGROVE PROPERTIES LLC" twice (lines 5 and 300, the preamble and the signature block), and keeps "c/o Ashgrove Asset Management" at lines 11 and 259.
 - `artifacts/LGL-02/mutual-nda.md`, `mutual-nda-qa-broken.md`, and `mutual-nda-unilateral.md` name the counterparty "Palisade Labs, Inc." in the preamble and notice block but sign it as "**VERANDA LABS, INC.**" (lines 159/159/161) with `corpdev@verandalabs.example` (lines 119/119/121).
 
 This matters to people canon because "Ashgrove" is now a canonical **person** surname
@@ -400,16 +423,24 @@ This matters to people canon because "Ashgrove" is now a canonical **person** su
 Note that `mutual-nda-qa-broken.md` is the deliberately-broken QA twin, so its
 inconsistency is arguably in character; the other three are not.
 
-**F-7 — Decide the name-pool / company-name overlap.** `datagen/src/namePool.js`
+**F-7: Decide the name-pool / company-name overlap.** `datagen/src/namePool.js`
 `LAST_NAMES` contains `Ashgrove`, `Larkspur`, `Millgate`, and `Whitlock`, each of which
 is or was a canon company name (ex-co-109, co-100 Larkspur Design & Build, co-105
 Millgate Insurance Services, co-112 Whitlock Brennan LLP). The committed roster
 therefore carries 16 Ashgroves, 16 Larkspurs, 15 Millgates, and 12 Whitlocks as
 co-002 employees. `Ravenscroft` is likewise both a pool surname (10 roster rows) and
-pe-014's surname. Either purge the four from `LAST_NAMES` — which regenerates the whole
-population and every downstream dataset — or accept the overlap and say so explicitly
+pe-014's surname. Either purge the four from `LAST_NAMES`, which regenerates the whole
+population and every downstream dataset, or accept the overlap and say so explicitly
 here, so that a learner joining on surname is not misled.
 
-**F-8 — co-002's jurisdiction is still undecided.** LGL-08 and LGL-12 place co-002 in
+The scope is wider than surnames. `FIRST_NAMES` carries `Kestrel`, which appears as the
+given name on 12 roster rows (`Kestrel Quennell`, `Kestrel Osgood`, `Kestrel Ravenscroft`
+and others), and `Ashgrove` appears on 16. So pe-101's full name is unique, but neither
+half of it is distinctive inside the very dataset that makes him canon: the CEO shares a
+first name with 11 other employees and a surname with 15. That is worth weighing
+alongside F-2, because "is Kestrel Ashgrove the CEO we want" is partly a question about
+whether the name reads as a person at all or as two common pool tokens.
+
+**F-8: co-002's jurisdiction is still undecided.** LGL-08 and LGL-12 place co-002 in
 a fictional "State of Calloway"; CORE-01 and LGL-03 use Delaware. Person addresses and
 signature blocks inherit whichever answer wins, which is why it is noted here.
