@@ -9,6 +9,25 @@ const STOPWORDS = new Set([
   "per", "for", "a", "an", "of", "to", "in", "on", "at", "as", "is",
   "are", "one", "two", "three", "four", "five", "six", "seven", "eight",
   "vs", "or", "plus", "than", "then", "off", "not", "each",
+
+  // Spec narration. These describe the artifact *to the spec's reader* -- how
+  // many files it ships as, what the author was aiming at -- rather than naming
+  // anything a drafted document could contain. Counting them as evidence only
+  // manufactures WARNs. Two tiers, by strength of evidence:
+  //
+  // (a) Never appear in the drafted corpus at all (0 occurrences across all 11
+  //     artifact sets). A document does not call itself a "variant"; that word
+  //     describes the sibling files a spec ships (mutual-nda-unilateral.md etc).
+  "variant", "variants",
+  // (b) Do occur in drafted prose as ordinary legal vocabulary -- "Tenant
+  //     properly exercises a Renewal Option" (LGL-03), "deliberately
+  //     non-specific" (LGL-09) -- but only ever coincidentally. When a *spec*
+  //     writes them it is narrating intent ("deliberately distinct from a cap")
+  //     or lesson design ("for tiering exercises"), so a match on them is never
+  //     evidence that the planted feature was drafted. This tier is the
+  //     judgment call; drop it if you want only tier (a). Note the singular
+  //     "exercise" is deliberately NOT here -- the legal verb is real content.
+  "deliberately", "exercises",
 ]);
 
 /**

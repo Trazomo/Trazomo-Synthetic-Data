@@ -114,3 +114,53 @@ test("checkPlantedFeature: the separator wildcard does not bridge unrelated adja
   const result = checkPlantedFeature("2M-ARR counterparty threshold", "The system arrangement is unchanged.");
   assert.ok(result.missing.map((t) => t.toLowerCase()).includes("m-arr"));
 });
+
+// --- spec-narration stopwords ----------------------------------------------
+// Some planted_feature words describe the artifact for the spec reader rather
+// than naming anything a drafted document could contain. They are unfindable by
+// construction, so counting them as evidence only manufactures WARNs.
+
+test("significantTokens drops spec-narration words that name the artifact, not its content", () => {
+  const tokens = significantTokens(
+    "liquidated-damages red-flag variant, unilateral vs mutual variants, deliberately distinct, for tiering exercises"
+  ).map((t) => t.toLowerCase());
+  for (const w of ["variant", "variants", "deliberately", "exercises"]) {
+    assert.ok(!tokens.includes(w), `expected "${w}" to be dropped as spec narration`);
+  }
+  // the substantive vocabulary in the same string must survive
+  assert.ok(tokens.includes("liquidated-damages"));
+  assert.ok(tokens.includes("mutual"));
+  assert.ok(tokens.includes("tiering"));
+});
+
+test("checkPlantedFeature: a feature whose only misses are narration words now PASSes", () => {
+  const feature = "24-month non-solicitation option, unilateral vs mutual variants";
+  const source = "## 7. Non-Solicitation\n\nFor twenty-four (24) months after the Effective Date, "
+    + "neither Party will solicit the other's employees. The obligations in this Section are mutual.";
+  assert.equal(checkPlantedFeature(feature, source).status, "PASS");
+});
+
+test("significantTokens keeps 'exercise' -- the legal verb is real document vocabulary", () => {
+  // artifacts/LGL-03/commercial-lease.md:43 "for which Tenant properly exercises
+  // a Renewal Option". Only the lesson-design plural is narration; the singular
+  // verb stays significant so this scope stays deliberately narrow.
+  const tokens = significantTokens("tenant exercise of the renewal option").map((t) => t.toLowerCase());
+  assert.ok(tokens.includes("exercise"));
+});
+
+test("checkPlantedFeature: an all-narration feature WARNs rather than passing vacuously", () => {
+  // Every token stopworded must leave nothing to check -- it must never become
+  // a free PASS just because the denominator emptied out.
+  const result = checkPlantedFeature("deliberately, variant variants exercises", "Utterly unrelated text.");
+  assert.equal(result.status, "WARN");
+  assert.equal(result.matched.length, 0);
+});
+
+test("checkPlantedFeature: dropping narration words does not rescue a genuinely absent feature", () => {
+  const feature = "deliberately staged three-tier arbitration escalation ladder variant";
+  const source = "**19. Governing Law.** This Agreement is governed by the laws of the State of "
+    + "Calloway. **20. Notices.** All notices must be delivered in writing.";
+  const result = checkPlantedFeature(feature, source);
+  assert.equal(result.status, "WARN");
+  assert.ok(result.missing.length > 0);
+});
