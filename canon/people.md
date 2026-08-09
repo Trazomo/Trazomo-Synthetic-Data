@@ -76,6 +76,9 @@ a future artifact must not accidentally reuse the name.
 | pe-018 | Nadia S. Feldkamp | Partner, Intellectual Property; outside IP counsel to co-002 | LGL-17 | CANONICAL |
 | pe-019 | Renata Villalobos | Docketing Specialist | LGL-10 | CANONICAL, HOMONYM of pe-202 |
 | pe-020 | Priya Raghunathan | Senior Conflicts Analyst, New Business Intake | LGL-08 | HOMONYM of pe-103 — ERRATUM-IN LGL-08 |
+| pe-021 | Jordan K. Sable | Partner (billed at $725 on matter MAT-OC-0142) | CORE-02 (`invoice.ledes.csv`, `invoice.json`, TK-001) | CANONICAL (tier a) |
+| pe-022 | Marlowe O. Duskwood | Associate (billed at $465 on matter MAT-OC-0142) | CORE-02 (`invoice.ledes.csv`, TK-002) | CANONICAL (tier a) |
+| pe-023 | Reyna T. Pemberton | Paralegal (billed at $220 on matter MAT-OC-0142) | CORE-02 (`invoice.ledes.csv`, TK-003) | CANONICAL (tier a) |
 
 **pe-020 is not a second canonical Priya Raghunathan.** `canon/people.md` seats
 Priya Raghunathan as General Counsel of co-002 (pe-103). The LGL-08 conflicts record
@@ -83,6 +86,21 @@ independently assigned the same full name to a co-001 conflicts analyst — a la
 analyst and her own flagship client's general counsel sharing an unusual full name is
 an accident of parallel drafting, not a plot point. The frozen text stands; the
 rename is queued as F-4.
+
+**pe-021 to pe-023 come from committed data, not from either PR.** The CORE-02 outside
+counsel invoice carries three named co-001 timekeepers in its LEDES `TIMEKEEPER_NAME`
+field. They are tier (a) sources and belong in canon, but they were absent from the
+first draft of this file because the reconciliation started from the PR name lists and
+those three names appear in neither PR.
+
+They are **not** the LGL-05 Core Team under different names. CORE-02 bills matter
+`MAT-OC-0142` at $725 / $465 / $220; LGL-05 staffs matter `2026-0417` (Project Beacon)
+at $985 through $265. Different matter, different rate card, no contested seat. Note
+that pe-021 Jordan K. Sable initials to **JKS**, the same initials as pe-001 Jonathan K.
+Sterling, and that CORE-02's planted block-billed narrative line begins "JKS 03/12 2.4
+hrs L510". That line refers to pe-021, who is the only JKS on that invoice. Do not
+"reconcile" pe-001 and pe-021 into one person: they are two co-001 partners on two
+unrelated matters.
 
 ## co-002 Atticus Dundee Inc. (pe-101 to pe-199)
 
@@ -214,17 +232,20 @@ Grady L. Thomsen, and the co-002 CEO seat by pe-101 Kestrel Ashgrove.
 | Distinct names among them | 80 (Priya Raghunathan and Renata Villalobos each appear twice, in two different roles) |
 | Rows grep-verified present in the tree | 75 |
 | Rows present in PR prose only | 7 |
-| Canon entries in this file (`pe-` IDs) | 70 |
-| — canonical | 69, of which 2 carry a HOMONYM flag (pe-019, pe-202) |
-| — carries an ID but is an erratum, not canon | 1 (pe-020) |
-| Rows in the errata table | 8 — 7 named in frozen text, 1 (Achterberg) in PR prose only |
+| Canon entries in this file (`pe-` IDs) | 73 |
+| of those, canonical | 72, of which 2 carry a HOMONYM flag (pe-019, pe-202) |
+| of those, carries an ID but is an erratum, not canon | 1 (pe-020) |
+| Rows in the errata table | 8: 7 named in frozen text, 1 (Achterberg) in PR prose only |
 | Reserved-unused | 7 |
 | Promoted from the generator population | 2 (pe-101 EMP-0001, pe-106 EMP-0002) |
+| Sourced from committed data, in neither PR | 3 (pe-021 to pe-023, CORE-02 timekeepers) |
 | Contested seats resolved | 7 |
+| Distinct names screened for real-person collision | 85: 78 clear, 2 HIGH, 5 MEDIUM |
 
 Reconciling to 82: 7 rows never landed (reserved-unused), 7 rows lost a contested seat
 to a name that did land (the errata table's frozen-text rows), and the remaining 68 rows
-carry into this file with IDs. Adding the two promoted roster names gives 70 entries.
+carry into this file with IDs. Adding the two promoted roster names and the three CORE-02
+timekeepers gives 73 entries.
 Rosalind Achterberg is counted once, under reserved-unused; she appears again in the
 errata table only because she is the third claimant to the co-002 CEO seat and the
 comparison is worth seeing in one place.
@@ -263,11 +284,56 @@ comma splitting is wrong there — `"VP, Engineering"` is one quoted field) and 
 of the 80 distinct names was tested against both. **No exact full-name collision exists
 between the curated names and either generated population.**
 
+## Real-person collision screen
+
+Run 2026-08-08 (overnight; results landed 2026-08-09). This closes the gate that this
+file originally declared open, and matches the record kept for companies on the same
+date. Method: exact-quoted-name web search per name, given plus surname, with a role
+qualifier added where the bare name returned too much noise. Scale: **CLEAR** (no
+notable or identifiable match), **MEDIUM** (identifiable but non-notable professional in
+law, tech, or finance with a public profile), **HIGH** (notable, verifiable real person,
+especially in law, tech, or finance).
+
+Scope: every name this file seats or records. That is 73 `pe-` entries, the 8 errata
+aliases, and the 7 reserved-unused names, which is 85 distinct names once the four
+duplicated names are counted once each. **78 came back CLEAR or LOW with no notable
+match.** The 7 below are flagged.
+
+**No name was renamed.** The governing rule was to rename immediately if a flagged name
+had zero occurrences in frozen artifacts or datasets, since canon is unmerged and free
+to move. All 7 flagged names were grep-verified as already baked into frozen v1.0.1
+text, so each keeps the entry that matches the shipped document and carries a flag plus
+a v1.1 proposal instead. The occurrence counts below are that verification.
+
+| Name | Canon position | Flag | Frozen occurrences (grep-verified) | Real-person evidence | Disposition |
+|---|---|---|---|---|---|
+| Jonathan K. Sterling | pe-001, co-001 engagement partner | **HIGH** | 3, all in `artifacts/LGL-05/engagement-letter.md` (:56, :63, :173) | "Jonathan Sterling", Shareholder at Carlton Fields (AmLaw 200, Hartford); 2026 Best Lawyers "Lawyer of the Year", Super Lawyers listed. Exact given plus surname, same profession as the canon role. | **COLLISION-FLAGGED.** v1.1 rename proposed: **Jonathan K. Sedgemoor** (see F-5). |
+| Sasha Vukovic | errata alias of pe-208, co-123 CEO | **HIGH** | 1, `artifacts/LGL-17/nda-negotiation-scenarios.md:118` | "Sasha Vukovic", Senior Associate, Real Estate, Dentons (Vancouver); official firm bio. Exact match, notable-tier global firm. | **COLLISION-FLAGGED.** No replacement name needed: F-3 already deletes this string, substituting pe-208 Nikhil Ravensworth (CLEAR). |
+| Tobias Lindqvist | pe-104, co-002 CISO | MEDIUM | 17 across 3 CORE-05 files | "Tobias Lindqvist", Investment Strategist, LaSalle Investment Management (London); verified staff bio. Finance sector, publicly identifiable, not notable. | COLLISION-NOTE. No rename. |
+| Hannah T. Ostrowski | errata alias of pe-104, co-002 CISO | MEDIUM | 12 across 5 LGL-17 files | "Hannah Ostrowski", Client Service Associate, Morgan Stanley Wealth Management; verified LinkedIn. Finance sector, publicly identifiable, not notable. | COLLISION-NOTE. No rename. |
+| Roland Pham | pe-212, VP Security and Trust, co-119 | MEDIUM | 1, `artifacts/LGL-17/vendor-risk-assessment-datapulse-analytics.md` | "Roland A.H. Pham", Boston bankruptcy and immigration attorney, principal of Pham Law PC; Avvo and LinkedIn profiles. Legal field, publicly identifiable, not notable. | COLLISION-NOTE. No rename. |
+| Curtis A. Nakashima | pe-256, adverse party, LGL-10 | MEDIUM | 2, `artifacts/LGL-10/litigation-matter-personal-injury.md` | "Curtis Nakashima, CPA", active accounting practices in Honolulu and Kailua. Licensed finance-adjacent professional, publicly identifiable, not notable. | COLLISION-NOTE. No rename. |
+| Priyanka Raval, M.D. | pe-259, physiatrist, LGL-10 | MEDIUM | 1, `artifacts/LGL-10/litigation-matter-personal-injury.md` | "Priyanka Raval, MD", Wellstar Health System, Augusta GA. Different specialty, but an exact full-name match to a licensed physician with a public provider profile, and canon also uses the M.D. suffix. | COLLISION-NOTE. No rename. |
+
+Three names added to this file from committed CORE-02 data (pe-021 Jordan K. Sable,
+pe-022 Marlowe O. Duskwood, pe-023 Reyna T. Pemberton) were screened on the same pass
+and returned no real-person match. Note only that "Sable" appears in the names of
+several real US law firms (Sable and Sable LLC; Sable Law Group). That is a firm-name
+adjacency, not a person collision, and pe-021 practises at a fictional firm.
+
+**Middle initials are a cheap de-collision lever for v1.1, but a weak one here.** Adding
+or changing a middle initial costs one search-and-replace and no structural change, so
+it is the first thing to reach for. It does not help much in this particular set: the
+real-world matches for Sterling, Lindqvist, Pham, Nakashima and Raval are all on the
+given-plus-surname pair, which a middle initial does not break, and in three of those
+cases canon already carries an initial the real person does not. A surname change is
+what actually de-collides, which is why the only rename proposed below is a surname.
+
 ## Ground rules
 
 - One universe, shared canon IDs. A person named here is the same person wherever they appear: the general counsel who signs the NDA is the general counsel who owns the policy library.
 - Fully synthetic. No real people, no real PII, obviously fictional names. Email domains use the IANA-reserved `.example` TLD; telephone numbers use the 555 exchange.
-- **The standing real-person collision check has not been run on any name in this file.** Companies passed that gate on 2026-08-08 with the record in the Trazomo repo at `docs/plans/2026-08-08-verification-canon-pm-tools.md`. No equivalent people record exists. Until one does, treat every name here as pending that gate. This is F-5.
+- **The standing real-person collision screen has been run**, on 2026-08-08, the same date companies passed that gate (record in the Trazomo repo at `docs/plans/2026-08-08-verification-canon-pm-tools.md`). Results are in the Real-person collision screen section above: 85 names screened, 78 clear, 2 HIGH and 5 MEDIUM flagged, 0 renamed because every flagged name is already baked into frozen text. The 2 HIGH flags are live publishing risk until F-5 lands. Any name added to this file after that date has not been screened and must be before it ships.
 - Curated named people live here. The generator-produced population (`EMP-NNNN`, `ct-co-NNN-NN`) is drawn from `datagen/src/namePool.js` and is deliberately not curated; do not promote a generated name into this file without a reason, and record the reason when you do (pe-101 and pe-106 are the only two so far).
 - Canon declares; it does not retro-edit frozen artifacts. A divergence becomes an erratum row with an exact location, and a follow-up.
 - Planted findings ship in the data; answer keys live only in private training content keyed to the data-pack version. Nothing in this file is an answer key.
@@ -309,9 +375,18 @@ Director in CORE-01's six MSA variants (pe-202) or the co-001 Docketing Speciali
 LGL-10 (pe-019). LGL-10 is the cheaper edit and the docketing note initialled
 "R. Villalobos" is load-bearing narrative, so prefer renaming pe-202.
 
-**F-5 — Run the real-person collision check on all 80 names** and record it where the
-companies check was recorded. This is a publishing gate, not a nicety: the repo is
-public and `canon/companies.md` states the standing rule.
+**F-5 — Clear the two HIGH real-person collisions.** The screen has now run (see the
+Real-person collision screen section); what remains is acting on it. Both HIGH flags sit
+in frozen text, so both are v1.1 edits, and this is a publishing gate rather than a
+nicety because the repo is public.
+
+- **pe-001 Jonathan K. Sterling to Jonathan K. Sedgemoor.** Three occurrences in one file, `artifacts/LGL-05/engagement-letter.md` (:56, :63, :173), plus that file's DOCX rebuild. Nothing else moves: the initials JKS are load-bearing only in CORE-02, and CORE-02's JKS is pe-021 Jordan K. Sable on a different matter, so no committed dataset is touched and determinism holds. "Sedgemoor" was screened and returns no real-person match; it keeps the JKS monogram and the place-derived register the surname pool already uses (Ashgrove, Larkspur, Ravenscroft).
+- **Sasha Vukovic needs no new name.** F-3 already replaces that string with pe-208 Nikhil Ravensworth, who screened CLEAR. Doing F-3 clears this HIGH flag as a side effect. If F-3 is deferred, this one line still needs changing on its own, because a verified Dentons attorney's exact name currently sits in a shipped document.
+
+The 5 MEDIUM flags are recorded as COLLISION-NOTE and left for a human call. They are
+identifiable but non-notable people, the kind of match that is arguably unavoidable when
+inventing 85 names, and renaming them costs edits to frozen text across CORE-05 and
+LGL-17. Recommend deciding them as a set rather than one at a time.
 
 **F-6 — Finish the v1.0.1 renames (adjacent, but it bears on person canon).** The
 collision-check renames were phrase- and case-scoped and missed the uppercase forms and
