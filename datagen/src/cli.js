@@ -217,7 +217,11 @@ function runValidate({ root, positional, options }) {
       if (result.status !== "PASS" && result.reason) console.log(`      ${result.reason}`);
       for (const r of result.results ?? []) {
         if (r.status !== "PASS") {
-          console.log(`      WARN  "${r.feature}" -- missing: ${r.missing.join(", ") || "(none, but ratio below threshold)"}`);
+          // A feature with nothing left to check carries a reason and an empty
+          // `missing` list; every other WARN names the tokens it could not find.
+          // Printing "missing: (none)" for the former described a ratio that
+          // was never computed.
+          console.log(`      WARN  "${r.feature}" -- ${r.reason ?? `missing: ${r.missing.join(", ")}`}`);
         }
       }
       if (result.status === "FAIL" || result.status === "MISSING") failCount += 1;
