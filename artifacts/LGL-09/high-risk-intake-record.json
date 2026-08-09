@@ -1,0 +1,194 @@
+{
+  "record_id": "INT-2026-1147",
+  "assessment_id": "CDD-2026-1147-EDD",
+  "record_type": "high_risk_client_intake_and_financial_crime_assessment",
+  "schema_version": "1.0",
+  "firm": {
+    "canon_id": "co-001",
+    "name": "Atticus Dundee LLP",
+    "unit": "Client Risk and Financial Crime"
+  },
+  "prospective_client": {
+    "canon_id": "co-116",
+    "name": "Horizon Energy Holdings Ltd.",
+    "entity_type": "BVI Business Company",
+    "jurisdiction": "British Virgin Islands",
+    "registered_number": "2019-114882",
+    "incorporated": "2019-11-08",
+    "employees": 0,
+    "audited_financials": false,
+    "shell_indicators": ["no_employees", "no_operating_premises", "no_audited_financials", "nominee_registered_holder"]
+  },
+  "matter": {
+    "type": "cross_border_acquisition",
+    "sector": "energy",
+    "description": "Acquisition of a 55 percent interest in midstream assets from a state-owned enterprise",
+    "counterparty": {
+      "name": "Verkhal National Energy Company",
+      "canon_id": null,
+      "state_owned": true,
+      "note": "Artifact-local entity."
+    },
+    "requesting_attorney": "Gerald P. Ravenscroft",
+    "introducer": {
+      "name": "Sébastien Marchal",
+      "is_lawyer": false,
+      "requested_fee": "4 percent of billed fees",
+      "outcome": "refused under Model Rule 5.4(a); rebate proposal also refused"
+    }
+  },
+  "dates": {
+    "introduced": "2026-06-26",
+    "request_received": "2026-07-15",
+    "screening_run": ["2026-07-10", "2026-07-24"],
+    "funds_received": "2026-07-24",
+    "assessment_completed": "2026-07-30",
+    "committee_decision": "2026-07-31",
+    "funds_returned": "2026-08-11"
+  },
+  "ownership_chain": [
+    {"tier": 1, "holder": "Castleroy Nominees (BVI) Ltd.", "held": "Horizon Energy Holdings Ltd.", "percent": 100, "capacity": "registered_nominee", "verification": "BVI register extract 2026-07-09"},
+    {"tier": 2, "holder": "Anseline Holdings Ltd. (Seychelles)", "held": "Castleroy Nominees (BVI) Ltd. as nominee", "percent": 100, "capacity": "beneficial", "verification": "declaration of trust produced by client 2026-07-13; not independently verifiable"},
+    {"tier": 3, "holder": "The Kavaris Family Settlement (Cayman Islands discretionary trust)", "held": "Anseline Holdings Ltd.", "percent": 100, "capacity": "beneficial", "verification": "redacted trust deed extract 2026-07-16; beneficiary class redacted"},
+    {"tier": 4, "holder": "Teodor S. Kavaris", "held": "The Kavaris Family Settlement", "percent": null, "capacity": "settlor_and_protector", "verification": "confirmation by client's BVI counsel 2026-07-17"}
+  ],
+  "ultimate_beneficial_owner": {
+    "name": "Teodor S. Kavaris",
+    "year_of_birth": 1961,
+    "nationality": "Republic of Verkhal",
+    "residence": "Dubai, United Arab Emirates (since 2022)",
+    "pep_status": "former",
+    "pep_positions": [
+      {"role": "Deputy Minister of Energy and Natural Resources, Republic of Verkhal", "from": "2015", "to": "2021"},
+      {"role": "Chairman of the supervisory board, Verkhal National Energy Company (state-owned)", "from": "2018", "to": "2021"}
+    ],
+    "identity_documents": {
+      "passport": "uncertified photocopy produced 2026-07-16",
+      "proof_of_address": "not produced",
+      "certified_copy_requested": "2026-07-16",
+      "certified_copy_received": null
+    },
+    "associated_persons": [
+      {"name": "Marisol Kavaris-Elenko", "relationship": "spouse"},
+      {"name": "Andrei Kavaris", "relationship": "son", "role": "director of the prospective client"}
+    ]
+  },
+  "screening": {
+    "lists": ["OFAC SDN", "OFAC SSI", "OFAC NS-MBS", "UK consolidated", "EU consolidated", "adverse media provider"],
+    "results": [
+      {"subject": "Horizon Energy Holdings Ltd.", "outcome": "no_match", "status": "cleared"},
+      {"subject": "Castleroy Nominees (BVI) Ltd.", "outcome": "no_match", "status": "cleared"},
+      {"subject": "Anseline Holdings Ltd.", "outcome": "no_match", "status": "cleared_with_reservation", "note": "provider coverage of Seychelles entities incomplete"},
+      {"subject": "Teodor S. Kavaris", "outcome": "potential_match", "list": "OFAC SDN", "similarity": 94.1, "status": "UNRESOLVED"},
+      {"subject": "Andrei Kavaris", "outcome": "no_match", "status": "cleared"},
+      {"subject": "Verkhal National Energy Company", "outcome": "indirect_exposure", "status": "UNRESOLVED", "note": "61 percent held by an entity under designation research; OFAC 50 percent rule exposure"},
+      {"subject": "Teodor S. Kavaris (adverse media)", "outcome": "adverse_unadjudicated", "articles": 14, "outlets": 6, "period": "2019-2024"}
+    ]
+  },
+  "risk_model": {
+    "factors": 5,
+    "scale_per_factor": [0, 3],
+    "max_composite": 15,
+    "edd_threshold_per_factor": 3,
+    "committee_threshold_composite": 12
+  },
+  "risk_score": {
+    "composite": 15,
+    "max": 15,
+    "tier": "CRITICAL",
+    "factors": [
+      {
+        "id": "F1",
+        "name": "Client type and ownership transparency",
+        "score": 3,
+        "max": 3,
+        "triggers": ["OWN-NOMINEE-REGISTERED-HOLDER", "OWN-LAYERED-MULTI-JURISDICTION", "OWN-TRUST-BENEFICIARY-REDACTED"]
+      },
+      {
+        "id": "F2",
+        "name": "Jurisdiction, matter type, and corruption exposure",
+        "score": 3,
+        "max": 3,
+        "triggers": ["GEO-SECRECY-CHAIN-BVI-SEY-CAY", "FCPA-STATE-OWNED-COUNTERPARTY", "FCPA-LOCAL-INTERMEDIARY-SUCCESS-FEE"]
+      },
+      {
+        "id": "F3",
+        "name": "Politically exposed person exposure",
+        "score": 3,
+        "max": 3,
+        "triggers": ["PEP-FORMER-SENIOR-FOREIGN", "PEP-SECTOR-ADJACENT-MATTER", "PEP-FAMILY-MEMBER-DIRECTOR"]
+      },
+      {
+        "id": "F4",
+        "name": "Sanctions screening outcome",
+        "score": 3,
+        "max": 3,
+        "triggers": ["OFAC-SDN-POTENTIAL-MATCH-UNRESOLVED", "OFAC-50-PERCENT-RULE-EXPOSURE"]
+      },
+      {
+        "id": "F5",
+        "name": "Source of funds and payment channel",
+        "score": 3,
+        "max": 3,
+        "triggers": ["SOF-THIRD-PARTY-PAYOR", "SOF-OFFSHORE-WIRE-UNVERIFIED", "SOF-ADVANCE-FLAT-FEE-DISPROPORTIONATE"]
+      }
+    ]
+  },
+  "payment": {
+    "amount_usd": 850000,
+    "structure": "advance flat fee",
+    "received": "2026-07-24",
+    "originator": "Larkfield Nominees (Mauritius) Ltd.",
+    "originator_is_client": false,
+    "originator_in_disclosed_chain": false,
+    "originating_institution": "private bank, Mauritius",
+    "reference": "PROJECT MERIDIAN ADVISORY",
+    "refund_instruction_from_client": "to an account to be nominated",
+    "handling": "placed on hold in client trust account 2026-07-24; not applied to any fee",
+    "disposition": "returned 2026-08-11 to the originating account at the originating institution only"
+  },
+  "duty_to_inquire": {
+    "authority": "ABA Formal Opinion 491; Model Rules 1.2(d) and 1.16(a)",
+    "questions_put": 6,
+    "answered_satisfactorily": 0,
+    "answered_partially": 1,
+    "refused_or_unanswered": 5
+  },
+  "recommendation": {
+    "decision": "DECLINE",
+    "independent_grounds": [
+      "unresolved OFAC SDN potential match on the ultimate beneficial owner",
+      "state-owned counterparty with an undisclosed success-fee intermediary handling approvals",
+      "third-party offshore advance payment with a requested refund to a different account"
+    ],
+    "conditional_acceptance_considered": true,
+    "conditional_acceptance_rejected_because": "conditions cure information gaps, not a client's refusal to close them"
+  },
+  "committee": {
+    "name": "Financial Crime and Client Acceptance Committee",
+    "date": "2026-07-31",
+    "decision": "DECLINED",
+    "vote": "unanimous",
+    "members": [
+      {"name": "Rosalind M. Achebe", "role": "Chair, General Counsel", "voted": true},
+      {"name": "Beatrice A. Lindqvist", "role": "Director of Client Risk and Financial Crime", "voted": true},
+      {"name": "Gerald P. Ravenscroft", "role": "requesting partner", "voted": false, "note": "recused; present for questions only"}
+    ]
+  },
+  "post_decision_actions": [
+    {"id": 1, "action": "Non-specific decline notice to the prospective client (no reasons stated, tipping-off control)", "owner": "B. A. Lindqvist", "date": "2026-07-31", "status": "complete"},
+    {"id": 2, "action": "Return funds to the originating account only", "owner": "Firm Finance", "date": "2026-08-11", "status": "complete"},
+    {"id": 3, "action": "DO-NOT-ONBOARD flag in the declined-matter register, 3-year review", "owner": "T. E. Delgadillo", "date": "2026-07-31", "status": "complete"},
+    {"id": 4, "action": "10-year retention and legal hold on all intake and screening material", "owner": "T. E. Delgadillo", "date": "2026-07-31", "status": "complete"},
+    {"id": 5, "action": "Refer voluntary-reporting question to outside sanctions counsel", "owner": "R. M. Achebe", "due": "2026-09-30", "status": "open"},
+    {"id": 6, "action": "Remove introducer from the approved introducer list", "owner": "R. M. Achebe", "date": "2026-07-31", "status": "complete"}
+  ],
+  "artifact_local_entities": [
+    "Castleroy Nominees (BVI) Ltd.",
+    "Anseline Holdings Ltd. (Seychelles)",
+    "The Kavaris Family Settlement (Cayman Islands)",
+    "Larkfield Nominees (Mauritius) Ltd.",
+    "Verkhal National Energy Company",
+    "Republic of Verkhal (fictional sovereign)"
+  ]
+}

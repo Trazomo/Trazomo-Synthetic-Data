@@ -1,0 +1,324 @@
+{
+  "record_id": "CR-2026-0912-01",
+  "record_type": "conflicts_search_and_corporate_family_tree",
+  "schema_version": "1.0",
+  "firm": {
+    "canon_id": "co-001",
+    "name": "Atticus Dundee LLP",
+    "unit": "Office of the General Counsel / New Business Intake"
+  },
+  "matter": {
+    "provisional_matter_number": "26-0912",
+    "description": "Sell-side representation in a controlled auction process",
+    "practice_group": "Corporate and Transactions",
+    "requesting_attorney": "Douglas H. Wentz",
+    "estimated_fees_usd": 1400000,
+    "anticipated_signing": "2027-Q1",
+    "intake_track": "enhanced_review",
+    "status": "cleared_subject_to_conditions"
+  },
+  "dates": {
+    "request_received": "2026-07-20",
+    "search_completed": "2026-07-23",
+    "committee_approved": "2026-07-29",
+    "record_closed": "2026-07-30"
+  },
+  "personnel": {
+    "prepared_by": "Priya Raghunathan, Senior Conflicts Analyst",
+    "reviewed_by": "Rosalind M. Achebe, General Counsel and Loss Prevention Partner",
+    "committee_chair": "Hollis Nakamura-Reed"
+  },
+  "prospective_client": {
+    "canon_id": "co-114",
+    "name": "TechBridge Solutions, Inc.",
+    "jurisdiction_of_organization": "Delaware",
+    "prior_name": "TechBridge Solutions LLC",
+    "conversion_date": "2021-08-12",
+    "employees": 340
+  },
+  "entities": [
+    {
+      "entity_key": "co-114",
+      "canon_id": "co-114",
+      "name": "TechBridge Solutions, Inc.",
+      "type": "corporation",
+      "jurisdiction": "Delaware",
+      "role": "prospective_client"
+    },
+    {
+      "entity_key": "techbridge-ie",
+      "canon_id": null,
+      "name": "TechBridge Solutions Ltd.",
+      "type": "private_limited_company",
+      "jurisdiction": "Ireland",
+      "role": "client_affiliate",
+      "note": "Artifact-local entity. Dormant EMEA sales subsidiary. Former client of the firm in closed matter 23-0774."
+    },
+    {
+      "entity_key": "mc-fund-iii",
+      "canon_id": null,
+      "name": "Meridian Crest Partners Fund III, L.P.",
+      "type": "limited_partnership",
+      "jurisdiction": "Delaware",
+      "role": "sponsor_fund",
+      "note": "Artifact-local entity."
+    },
+    {
+      "entity_key": "mc-fund-ii",
+      "canon_id": null,
+      "name": "Meridian Crest Partners Fund II, L.P.",
+      "type": "limited_partnership",
+      "jurisdiction": "Delaware",
+      "role": "sponsor_fund",
+      "note": "Artifact-local entity. Appears as a signatory party of record in firm matter 22-0418."
+    },
+    {
+      "entity_key": "mc-gp-iii",
+      "canon_id": null,
+      "name": "Meridian Crest GP III, LLC",
+      "type": "limited_liability_company",
+      "jurisdiction": "Delaware",
+      "role": "general_partner",
+      "note": "Artifact-local entity. General partner of Meridian Crest Partners Fund III, L.P."
+    },
+    {
+      "entity_key": "mc-capital-mgmt",
+      "canon_id": null,
+      "name": "Meridian Crest Capital Management, LLC",
+      "type": "limited_liability_company",
+      "jurisdiction": "Delaware",
+      "role": "shared_fund_manager",
+      "note": "Artifact-local entity. Investment manager of Fund II and Fund III. This is the shared link between the target and existing client co-115."
+    },
+    {
+      "entity_key": "ferreira-holdings",
+      "canon_id": null,
+      "name": "Ferreira Family Holdings, LLC",
+      "type": "limited_liability_company",
+      "jurisdiction": "Calloway",
+      "role": "founder_vehicle",
+      "note": "Artifact-local entity. Sole managing member is Marcus D. Ferreira."
+    },
+    {
+      "entity_key": "co-115",
+      "canon_id": "co-115",
+      "name": "HealthFirst Technologies, Inc.",
+      "type": "corporation",
+      "jurisdiction": "Delaware",
+      "role": "existing_firm_client"
+    },
+    {
+      "entity_key": "co-002",
+      "canon_id": "co-002",
+      "name": "Atticus Dundee Inc.",
+      "type": "corporation",
+      "jurisdiction": "Calloway",
+      "role": "existing_firm_client"
+    }
+  ],
+  "ownership_edges": [
+    {
+      "tier": 1,
+      "holder": "co-114",
+      "held": "techbridge-ie",
+      "percent": 100,
+      "verified_source": "Irish CRO extract 2026-07-21; officer's certificate 2026-07-22"
+    },
+    {
+      "tier": 2,
+      "holder": "mc-fund-iii",
+      "held": "co-114",
+      "percent": 80,
+      "verified_source": "Capitalization table certified by TechBridge CFO 2026-07-22"
+    },
+    {
+      "tier": 2,
+      "holder": "ferreira-holdings",
+      "held": "co-114",
+      "percent": 20,
+      "verified_source": "Capitalization table certified by TechBridge CFO 2026-07-22"
+    },
+    {
+      "tier": 3,
+      "holder": "mc-capital-mgmt",
+      "held": "mc-gp-iii",
+      "percent": 70,
+      "verified_source": "First Amended and Restated LLC Agreement dated 2023-01-31"
+    },
+    {
+      "tier": 4,
+      "holder": "mc-fund-ii",
+      "held": "co-115",
+      "percent": 60,
+      "verified_source": "Firm client file 22-0418; stockholders agreement 2022-06-14"
+    },
+    {
+      "tier": 4,
+      "holder": "mc-fund-iii",
+      "held": "co-115",
+      "percent": 30,
+      "verified_source": "Firm client file 22-0418; 2024 recapitalization co-investment"
+    },
+    {
+      "tier": 4,
+      "holder": "healthfirst-management",
+      "held": "co-115",
+      "percent": 10,
+      "verified_source": "Firm client file 22-0418"
+    }
+  ],
+  "control_edges": [
+    {
+      "holder": "mc-gp-iii",
+      "controlled": "mc-fund-iii",
+      "relationship": "general_partner"
+    },
+    {
+      "holder": "mc-capital-mgmt",
+      "controlled": "mc-fund-iii",
+      "relationship": "investment_manager"
+    },
+    {
+      "holder": "mc-capital-mgmt",
+      "controlled": "mc-fund-ii",
+      "relationship": "investment_manager"
+    }
+  ],
+  "individual_relationships": [
+    {
+      "person": "Marcus D. Ferreira",
+      "roles": [
+        {"entity": "co-114", "role": "founder_and_chief_executive_officer"},
+        {"entity": "ferreira-holdings", "role": "sole_managing_member"},
+        {"entity": "co-002", "role": "non_employee_director", "committee": "audit", "since": "2026-02-13"}
+      ]
+    },
+    {
+      "person": "Evelyn K. Brandt",
+      "roles": [
+        {"entity": "mc-capital-mgmt", "role": "managing_partner"},
+        {"entity": "co-114", "role": "director"},
+        {"entity": "co-115", "role": "director"}
+      ]
+    },
+    {
+      "person": "Marguerite Oyelaran",
+      "roles": [
+        {"entity": "co-115", "role": "firm_relationship_partner"},
+        {"entity": "mc-fund-ii", "role": "passive_limited_partner", "percent": "<0.1"}
+      ]
+    }
+  ],
+  "search": {
+    "databases": [
+      "firm_client_matter_index",
+      "firm_adverse_party_index",
+      "prospective_and_declined_log",
+      "lateral_hire_disclosure_register",
+      "personal_interest_register",
+      "public_corporate_registries"
+    ],
+    "names_screened": 14,
+    "matching_method": {
+      "pass_one": "exact match on normalized name (uppercase, punctuation and diacritics stripped, entity suffix retained)",
+      "pass_two": "normalized similarity = (1 - edit_distance / length_of_longer_normalized_name) * 100",
+      "human_review_threshold": 85.0,
+      "policy_reference": "New Business Intake Policy s. 6.3"
+    }
+  },
+  "exact_matches": [
+    {"id": "E-1", "name": "HealthFirst Technologies, Inc.", "canon_id": "co-115", "relationship": "current_client", "matters": ["22-0418", "24-1187", "26-0331"]},
+    {"id": "E-2", "name": "Atticus Dundee Inc.", "canon_id": "co-002", "relationship": "current_client", "open_matters": 47},
+    {"id": "E-3", "name": "Meridian Crest Partners Fund II, L.P.", "canon_id": null, "relationship": "non_client_party_of_record", "matters": ["22-0418"]}
+  ],
+  "fuzzy_matches": [
+    {
+      "id": "F-1",
+      "screened_name_normalized": "TECHBRIDGE SOLUTIONS INC",
+      "index_name_normalized": "TECHBRIDGE SOLUTIONS LTD",
+      "similarity": 87.5,
+      "edit_distance": 3,
+      "length_of_longer": 24,
+      "disposition": "match_related_entity",
+      "escalated": true,
+      "basis": "Index entry is the prospective client's wholly owned Irish subsidiary; firm represented it in closed matter 23-0774. Not surfaced by the exact-match pass."
+    },
+    {
+      "id": "F-2",
+      "screened_name_normalized": "TECHBRIDGE SOLUTIONS INC",
+      "index_name_normalized": "TECHBRIDGE SOLUTIONS LLC",
+      "similarity": 91.7,
+      "edit_distance": 2,
+      "length_of_longer": 24,
+      "disposition": "match_same_entity_prior_name",
+      "escalated": false,
+      "basis": "Predecessor name before the 2021 Delaware conversion. No matters under the predecessor name."
+    },
+    {
+      "id": "F-3",
+      "screened_name_normalized": "MERIDIAN CREST CAPITAL MANAGEMENT LLC",
+      "index_name_normalized": "MERIDIAN CREST CAPITAL MANAGEMENT GROUP",
+      "similarity": 87.2,
+      "disposition": "no_match",
+      "escalated": false,
+      "basis": "Nevada entity, different registered agent and principals, no common ownership. Cleared by analyst; auto-clear not permitted above threshold."
+    },
+    {
+      "id": "F-4",
+      "screened_name_normalized": "MERIDIAN CREST GP III LLC",
+      "index_name_normalized": "MERIDIAN CREST GP II LLC",
+      "similarity": 92.0,
+      "disposition": "match_affiliate",
+      "escalated": false,
+      "basis": "General partner of Fund II. No firm matters."
+    }
+  ],
+  "below_threshold": {
+    "count": 11,
+    "highest": {"index_name_normalized": "MERIDIAN CREST REALTY LLC", "similarity": 76.9}
+  },
+  "issues": [
+    {
+      "id": "ISS-1",
+      "rule": "Model Rule 1.7(a)(2)",
+      "subject": "co-115",
+      "summary": "Common sponsor control between the prospective client and current client HealthFirst through Meridian Crest Capital Management, LLC; shared director; information-flow risk.",
+      "conclusion": "consentable_material_limitation_risk"
+    },
+    {
+      "id": "ISS-2",
+      "rule": "Model Rule 1.9(c)",
+      "subject": "techbridge-ie",
+      "summary": "Firm holds former-client confidential information from matter 23-0774 concerning an entity the buyer will diligence.",
+      "conclusion": "no_disqualification; use_and_disclosure_restriction"
+    },
+    {
+      "id": "ISS-3",
+      "rule": "Model Rule 1.7(a)(2) / 1.10(a)",
+      "subject": "Marguerite Oyelaran",
+      "summary": "Passive sub-0.1% limited partner interest in Fund II.",
+      "conclusion": "no_conflict; prophylactic_screen_applied"
+    },
+    {
+      "id": "ISS-4",
+      "rule": "Model Rule 1.13(f) / 1.7(a)(1)",
+      "subject": "co-002",
+      "summary": "Prospective client's founder is a director of current client Atticus Dundee Inc.; risk of client-identity confusion, information flow, and direct adversity if co-002 bids.",
+      "conclusion": "conditional_clearance; withdrawal_consequence_stated_in_advance"
+    }
+  ],
+  "conditions": [
+    {"id": "C-1", "owner": "Marguerite Oyelaran", "due": "2026-08-14", "status": "open", "summary": "Written informed waiver from co-115 under Rule 1.7(b), signed by its general counsel."},
+    {"id": "C-2", "owner": "Rosalind M. Achebe", "due": "2026-08-07", "status": "implemented", "completed": "2026-08-05", "summary": "Information screen isolating the 26-0912 team from the co-115 team and from M. Oyelaran."},
+    {"id": "C-3", "owner": "Douglas H. Wentz", "due": "2026-08-14", "status": "open", "summary": "Non-representation acknowledgement to Marcus D. Ferreira individually."},
+    {"id": "C-4", "owner": "Priya Raghunathan", "due": "2026-08-14", "status": "open", "summary": "Segregate matter 23-0774 material; written authorization required before data-room use."},
+    {"id": "C-5", "owner": "Simon T. Delacroix", "due": "2026-09-04", "status": "open", "summary": "Written confirmation from co-002 general counsel that co-002 will not bid; withdrawal consequence stated in engagement letter."},
+    {"id": "C-6", "owner": "Priya Raghunathan", "due": "2026-09-25", "status": "not_yet_due", "summary": "Re-run screen against final bidder list, bidder parents and affiliates, and financing sources."},
+    {"id": "C-7", "owner": "Douglas H. Wentz", "due": "before_engagement_letter", "status": "open", "summary": "Engagement letter names co-114 as the sole client and excludes funds, GP, manager, founder vehicle, and individual equityholders."}
+  ],
+  "billing_hold": {
+    "active": true,
+    "released_when": ["C-1", "C-3", "C-7"],
+    "permitted_work_during_hold": ["conflicts", "engagement_letter_preparation"]
+  }
+}
