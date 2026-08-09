@@ -9,7 +9,7 @@ import { generateArtifact } from "./engine.js";
 import { hasGenerator, implementedIds } from "./generators/index.js";
 import { NotImplementedError } from "./errors.js";
 import { buildManifest } from "./manifest.js";
-import { validateOne } from "./validate.js";
+import { evaluateAllowlist, loadAllowlist, validateOne } from "./validate.js";
 import { pandocAvailable, buildWithPandoc, buildWithDocxFallback } from "./docx.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -62,6 +62,7 @@ Options:
   --root <path>    Repo root to operate under (default: this repo's root; tests point at tests/fixtures/TEST-01)
   --specs <path>   Override specs/artifact-specs.yaml path (default: <root>/specs/artifact-specs.yaml)
   --canon <path>   Override canon/companies.md path (default: <root>/canon/companies.md)
+  --allowlist <path>  Override the permanent-WARN allowlist (default: <root>/datagen/validate-allowlist.yaml)
 `);
 }
 
@@ -69,6 +70,9 @@ function paths(root, options) {
   return {
     specsPath: options.specs ? resolvePath(options.specs) : join(root, "specs", "artifact-specs.yaml"),
     canonPath: options.canon ? resolvePath(options.canon) : join(root, "canon", "companies.md"),
+    allowlistPath: options.allowlist
+      ? resolvePath(options.allowlist)
+      : join(root, "datagen", "validate-allowlist.yaml"),
   };
 }
 
@@ -195,12 +199,30 @@ function basename(p) {
   return p.split("/").pop();
 }
 
+// Allowlist reasons are paragraphs, and a 700-character terminal line is not
+// readable. Wrap on whitespace; never split a word.
+function wrap(text, width) {
+  const lines = [];
+  let line = "";
+  for (const word of text.split(/\s+/).filter(Boolean)) {
+    if (line && line.length + 1 + word.length > width) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = line ? `${line} ${word}` : word;
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
 // ---------------------------------------------------------------- validate
 
 function runValidate({ root, positional, options }) {
-  const { specsPath, canonPath } = paths(root, options);
+  const { specsPath, canonPath, allowlistPath } = paths(root, options);
   const specs = loadSpecs(specsPath);
   const canon = loadCanonCompanies(canonPath);
+  const allowlist = loadAllowlist(allowlistPath);
 
   const targets = options.all ? specs.artifacts : resolveIdArgs(positional, specs);
   if (targets.length === 0) {
@@ -210,19 +232,30 @@ function runValidate({ root, positional, options }) {
   }
 
   let failCount = 0;
+  let allowedCount = 0;
+  const resultsById = new Map();
   for (const spec of targets) {
-    const result = validateOne({ root, spec, canon });
+    const result = validateOne({ root, spec, canon, allowlist });
+    resultsById.set(spec.id, result);
     if (result.kind === "drafted") {
       console.log(`${result.status.padEnd(5)} ${spec.id}  (drafted, ${result.results?.length ?? 0} planted_features checked)`);
       if (result.status !== "PASS" && result.reason) console.log(`      ${result.reason}`);
       for (const r of result.results ?? []) {
-        if (r.status !== "PASS") {
-          // A feature with nothing left to check carries a reason and an empty
-          // `missing` list; every other WARN names the tokens it could not find.
-          // Printing "missing: (none)" for the former described a ratio that
-          // was never computed.
-          console.log(`      WARN  "${r.feature}" -- ${r.reason ?? `missing: ${r.missing.join(", ")}`}`);
+        if (r.status === "PASS") continue;
+        if (r.status === "ALLOWED") {
+          // Informational, not a warning: a known-unconfirmable feature with a
+          // recorded reason. Still printed, so it stays visible rather than
+          // disappearing into the allowlist file.
+          allowedCount += 1;
+          console.log(`      ALLOWED  "${r.feature}" -- missing: ${r.missing.join(", ")}`);
+          for (const line of wrap(`reason: ${r.allowReason}`, 88)) console.log(`               ${line}`);
+          continue;
         }
+        // A feature with nothing left to check carries a reason and an empty
+        // `missing` list; every other WARN names the tokens it could not find.
+        // Printing "missing: (none)" for the former described a ratio that
+        // was never computed.
+        console.log(`      WARN  "${r.feature}" -- ${r.reason ?? `missing: ${r.missing.join(", ")}`}`);
       }
       if (result.status === "FAIL" || result.status === "MISSING") failCount += 1;
     } else {
@@ -235,8 +268,19 @@ function runValidate({ root, positional, options }) {
     }
   }
 
-  console.log(`\nvalidate summary: ${targets.length} checked, ${failCount} failed.`);
-  if (failCount > 0) process.exitCode = 1;
+  const stale = evaluateAllowlist({ allowlist, specs: specs.artifacts, resultsById });
+  for (const { entry, problem } of stale) {
+    console.log(`FAIL  allowlist entry for ${entry.artifact}: ${problem}`);
+    console.log(`      "${entry.feature}"`);
+  }
+
+  const staleNote = stale.length > 0
+    ? `, ${stale.length} stale allowlist ${stale.length === 1 ? "entry" : "entries"}`
+    : "";
+  console.log(
+    `\nvalidate summary: ${targets.length} checked, ${failCount} failed, ${allowedCount} allowlisted${staleNote}.`
+  );
+  if (failCount > 0 || stale.length > 0) process.exitCode = 1;
 }
 
 // ---------------------------------------------------------------- manifest
