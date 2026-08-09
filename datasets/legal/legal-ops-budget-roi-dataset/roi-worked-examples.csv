@@ -1,0 +1,4 @@
+intervention,cost_usd,expected_loss_before_usd,expected_loss_after_usd,expected_loss_avoided_usd,roi_ratio
+AI-assisted contract review,42000,117000,39000,78000,1.86
+Vendor risk assessment program,28000,108000,24000,84000,3
+Self-service portal for routine requests,57000,15000,3000,12000,0.21

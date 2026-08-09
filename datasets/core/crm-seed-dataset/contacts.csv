@@ -1,0 +1,68 @@
+contact_id,account_id,first_name,last_name,title,email,consent_status,suppressed
+ct-co-102-01,co-102,Casey,Whitfield,Head of Finance,casey.whitfield@granitepeaklogistics.example,unknown,false
+ct-co-103-01,co-103,Morgan,Alvarez,Project Lead,morgan.alvarez@fernwellretailgroup.example,opted_in,false
+ct-co-103-02,co-103,Riley,Coburn,VP Operations,riley.coburn@fernwellretailgroup.example,opted_out,true
+ct-co-122-01,co-122,Emerson,Petrov,IT Manager,emerson.petrov@bellwetherlogistics.example,opted_in,false
+ct-co-122-02,co-122,Blair,Petrov,Head of Finance,blair.petrov@bellwetherlogistics.example,opted_out,true
+ct-co-124-01,co-124,Casey,Marsten,Director of Procurement,casey.marsten@ospreyinteractive.example,unknown,false
+ct-co-124-02,co-124,Morgan,Singh,Project Lead,morgan.singh@ospreyinteractive.example,opted_out,true
+ct-co-125-01,co-125,Casey,Delacroix,Head of Finance,casey.delacroix@kestrelhealth.example,unknown,false
+ct-co-125-02,co-125,Rowan,Nakamura,Project Lead,rowan.nakamura@kestrelhealth.example,opted_in,false
+ct-co-125-03,co-125,Skyler,Petrov,Head of Finance,skyler.petrov@kestrelhealth.example,opted_in,false
+ct-co-140-01,co-140,Skyler,Nakamura,VP Operations,skyler.nakamura@bramblecourtanalytics.example,unknown,false
+ct-co-140-02,co-140,Riley,Yun,Head of Finance,riley.yun@bramblecourtanalytics.example,unknown,false
+ct-co-140-03,co-140,Morgan,Alvarez,Director of Procurement,morgan.alvarez@bramblecourtanalytics.example,opted_out,true
+ct-co-141-01,co-141,Emerson,Singh,VP Operations,emerson.singh@northfieldholdings.example,opted_in,false
+ct-co-142-01,co-142,Sage,Petrov,Project Lead,sage.petrov@cinderbrookllc.example,opted_out,true
+ct-co-142-02,co-142,Emerson,Coburn,IT Manager,emerson.coburn@cinderbrookllc.example,opted_in,false
+ct-co-143-01,co-143,Riley,Okafor,IT Manager,riley.okafor@amberlineholdings.example,unknown,false
+ct-co-144-01,co-144,Morgan,Yun,Director of Procurement,morgan.yun@foxglovepartners.example,opted_out,true
+ct-co-144-02,co-144,Avery,Marsten,IT Manager,avery.marsten@foxglovepartners.example,unknown,false
+ct-co-145-01,co-145,Morgan,Alvarez,VP Operations,morgan.alvarez@thornwickpartners.example,unknown,false
+ct-co-145-02,co-145,Riley,Whitfield,VP Operations,riley.whitfield@thornwickpartners.example,opted_in,false
+ct-co-146-01,co-146,Blair,Whitfield,Project Lead,blair.whitfield@meridianvalegroup.example,opted_out,true
+ct-co-146-02,co-146,Sage,Marsten,Head of Finance,sage.marsten@meridianvalegroup.example,opted_out,true
+ct-co-146-03,co-146,Emerson,Alvarez,Head of Finance,emerson.alvarez@meridianvalegroup.example,unknown,false
+ct-co-147-01,co-147,Skyler,Nakamura,Project Lead,skyler.nakamura@sagebrookllc.example,unknown,false
+ct-co-147-02,co-147,Sage,Coburn,VP Operations,sage.coburn@sagebrookllc.example,unknown,false
+ct-co-148-01,co-148,Emerson,Marsten,Director of Procurement,emerson.marsten@cobblefieldpartners.example,opted_in,false
+ct-co-148-02,co-148,Morgan,Okafor,VP Operations,morgan.okafor@cobblefieldpartners.example,opted_in,false
+ct-co-149-01,co-149,Jordan,Alvarez,Project Lead,jordan.alvarez@wrenhavengroup.example,unknown,false
+ct-co-150-01,co-150,Blair,Singh,Project Lead,blair.singh@elmsteadholdings.example,opted_out,true
+ct-co-150-02,co-150,Riley,Marsten,VP Operations,riley.marsten@elmsteadholdings.example,opted_out,true
+ct-co-151-01,co-151,Avery,Coburn,Project Lead,avery.coburn@copperfenpartners.example,opted_in,false
+ct-co-152-01,co-152,Emerson,Yun,Head of Finance,emerson.yun@larchmontholdings.example,opted_out,true
+ct-co-152-02,co-152,Sage,Delacroix,VP Operations,sage.delacroix@larchmontholdings.example,opted_in,false
+ct-co-153-01,co-153,Rowan,Marsten,Project Lead,rowan.marsten@silverdaleanalytics.example,unknown,false
+ct-co-154-01,co-154,Emerson,Coburn,VP Operations,emerson.coburn@windrowholdings.example,opted_out,true
+ct-co-154-02,co-154,Rowan,Whitfield,Director of Procurement,rowan.whitfield@windrowholdings.example,unknown,false
+ct-co-154-03,co-154,Blair,Okafor,Project Lead,blair.okafor@windrowholdings.example,opted_out,true
+ct-co-155-01,co-155,Riley,Okafor,VP Operations,riley.okafor@hazelmereanalytics.example,unknown,false
+ct-co-155-02,co-155,Rowan,Marsten,IT Manager,rowan.marsten@hazelmereanalytics.example,opted_in,false
+ct-co-156-01,co-156,Blair,Petrov,VP Operations,blair.petrov@brightfengroup.example,unknown,false
+ct-co-157-01,co-157,Sage,Yun,IT Manager,sage.yun@cragmooranalytics.example,unknown,false
+ct-co-157-02,co-157,Casey,Yun,Director of Procurement,casey.yun@cragmooranalytics.example,unknown,false
+ct-co-158-01,co-158,Avery,Yun,Director of Procurement,avery.yun@duskfieldanalytics.example,opted_in,false
+ct-co-159-01,co-159,Sage,Nakamura,Head of Finance,sage.nakamura@ferngrovesystems.example,unknown,false
+ct-co-159-02,co-159,Rowan,Nakamura,IT Manager,rowan.nakamura@ferngrovesystems.example,unknown,false
+ct-co-160-01,co-160,Blair,Okafor,Project Lead,blair.okafor@gladewickllc.example,opted_out,true
+ct-co-161-01,co-161,Emerson,Whitfield,Head of Finance,emerson.whitfield@hollowayvalepartners.example,opted_out,true
+ct-co-161-02,co-161,Morgan,Delacroix,Project Lead,morgan.delacroix@hollowayvalepartners.example,unknown,false
+ct-co-162-01,co-162,Jordan,Coburn,Project Lead,jordan.coburn@ironbrookpartners.example,unknown,false
+ct-co-163-01,co-163,Jordan,Singh,IT Manager,jordan.singh@junewoodllc.example,opted_in,false
+ct-co-164-01,co-164,Casey,Marsten,IT Manager,casey.marsten@kettlebrookpartners.example,unknown,false
+ct-co-164-02,co-164,Sage,Coburn,Project Lead,sage.coburn@kettlebrookpartners.example,opted_out,true
+ct-co-164-03,co-164,Riley,Delacroix,VP Operations,riley.delacroix@kettlebrookpartners.example,unknown,false
+ct-co-165-01,co-165,Blair,Singh,Director of Procurement,blair.singh@bramblecourtllc.example,unknown,false
+ct-co-165-02,co-165,Blair,Alvarez,IT Manager,blair.alvarez@bramblecourtllc.example,opted_out,true
+ct-co-165-03,co-165,Skyler,Marsten,IT Manager,skyler.marsten@bramblecourtllc.example,opted_in,false
+ct-co-166-01,co-166,Casey,Delacroix,Project Lead,casey.delacroix@northfieldgroup.example,opted_in,false
+ct-co-166-02,co-166,Blair,Okafor,Head of Finance,blair.okafor@northfieldgroup.example,unknown,false
+ct-co-166-03,co-166,Riley,Coburn,IT Manager,riley.coburn@northfieldgroup.example,unknown,false
+ct-co-167-01,co-167,Casey,Alvarez,IT Manager,casey.alvarez@cinderbrookpartners.example,opted_in,false
+ct-co-168-01,co-168,Rowan,Delacroix,Head of Finance,rowan.delacroix@amberlinesystems.example,opted_out,true
+ct-co-168-02,co-168,Jordan,Coburn,Head of Finance,jordan.coburn@amberlinesystems.example,opted_out,true
+ct-co-169-01,co-169,Sage,Marsten,VP Operations,sage.marsten@foxgloveholdings.example,opted_in,false
+ct-co-170-01,co-170,Riley,Okafor,IT Manager,riley.okafor@amberlineholdings.example,opted_in,false
+ct-co-170-02,co-170,Blair,Coburn,Head of Finance,blair.coburn@amberlineholdings.example,unknown,false
+ct-co-170-03,co-170,Blair,Alvarez,IT Manager,blair.alvarez@amberlineholdings.example,opted_out,true

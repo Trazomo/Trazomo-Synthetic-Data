@@ -1,0 +1,31 @@
+# Self-test fixture spec catalog for the datagen CLI's own test suite.
+# Not part of the Trazomo-Synthetic-Data program catalog. "TEST-01" and
+# "TEST-01-DOC" never appear in the real specs/artifact-specs.yaml, and
+# tests only ever point --root at this directory, never at the real repo
+# root, so nothing here can collide with or leak into the real
+# artifacts/ or datasets/ trees.
+
+artifacts:
+  - id: TEST-01
+    name: fixture-structured-dataset
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-900]
+    planted_features:
+      - five deterministic fixture rows
+    consuming_modules: [datagen-self-test]
+    source_plan: datagen test fixture
+
+  - id: TEST-01-DOC
+    name: fixture-drafted-doc
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-900, co-901]
+    planted_features:
+      - numbered section hierarchy
+      - signature block for Fixture Test Co and Fixture Counterparty Inc
+      - 2026-01-01 fixture effective date
+    consuming_modules: [datagen-self-test]
+    source_plan: datagen test fixture

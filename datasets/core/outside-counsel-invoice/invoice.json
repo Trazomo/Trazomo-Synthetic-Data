@@ -1,0 +1,22 @@
+{
+  "universe_version": "0.2.0",
+  "generated_from_spec": "CORE-02",
+  "invoice_number": "INV-ADLLP-100142",
+  "client_id": "co-002",
+  "law_firm_id": "co-001",
+  "matter_id": "MAT-OC-0142",
+  "invoice_date": "2026-03-20",
+  "billing_period": {
+    "start": "2026-02-15",
+    "end": "2026-03-14"
+  },
+  "invoice_total": 47000,
+  "page_count": 38,
+  "line_item_count": 37,
+  "finance_queue_status": "pending_classification",
+  "finance_queue_note": "Ambiguous legal-vendor request: appears in the finance inbound queue for routing triage.",
+  "planted_features": {
+    "model_narrative_line": "JKS 03/12 2.4 hrs L510 Trial preparation and strategy session with client re: upcoming hearing",
+    "block_billed_line_number": 2
+  }
+}

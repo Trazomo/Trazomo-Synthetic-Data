@@ -1,0 +1,2602 @@
+{
+  "universe_version": "0.2.0",
+  "generated_from_spec": "CORE-03",
+  "counts": {
+    "accounts": 36,
+    "contacts": 67,
+    "opportunities": 36,
+    "stage_history": 86,
+    "leads": 47
+  },
+  "accounts": [
+    {
+      "account_id": "co-102",
+      "name": "Granite Peak Logistics",
+      "industry": "Logistics",
+      "segment": "Enterprise",
+      "status": "customer",
+      "owner_employee_id": "EMP-0266",
+      "owner_name": "Piran Larkspur",
+      "last_activity_date": "2025-12-23",
+      "industry_source_crm": "Logistics",
+      "industry_source_marketing": "Logistics",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-103",
+      "name": "Fernwell Retail Group",
+      "industry": "Retail",
+      "segment": "Mid-Market",
+      "status": "customer",
+      "owner_employee_id": "EMP-0304",
+      "owner_name": "Merritt Moorfield",
+      "last_activity_date": "2026-01-30",
+      "industry_source_crm": "Retail",
+      "industry_source_marketing": "Retail",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-122",
+      "name": "Bellwether Logistics",
+      "industry": "Logistics",
+      "segment": "Enterprise",
+      "status": "target",
+      "owner_employee_id": "EMP-0334",
+      "owner_name": "Oleander Duskwood",
+      "last_activity_date": "2026-03-16",
+      "industry_source_crm": "Logistics",
+      "industry_source_marketing": "Logistics",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-124",
+      "name": "Osprey Interactive",
+      "industry": "Media",
+      "segment": "Mid-Market",
+      "status": "closed_lost",
+      "owner_employee_id": "EMP-0311",
+      "owner_name": "Kestrel Ashby",
+      "last_activity_date": "2025-11-25",
+      "industry_source_crm": "Media",
+      "industry_source_marketing": "Media",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-125",
+      "name": "Kestrel Health",
+      "industry": "Healthcare",
+      "segment": "Enterprise",
+      "status": "target",
+      "owner_employee_id": "EMP-0320",
+      "owner_name": "Rhoswen Quennell",
+      "last_activity_date": "2026-01-29",
+      "industry_source_crm": "Healthcare",
+      "industry_source_marketing": "Healthcare",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-140",
+      "name": "Bramblecourt Analytics",
+      "industry": "",
+      "segment": "Enterprise",
+      "status": "customer",
+      "owner_employee_id": "EMP-0321",
+      "owner_name": "Isolde Marchbanks",
+      "last_activity_date": "2026-02-15",
+      "industry_source_crm": "Financial Services",
+      "industry_source_marketing": "Retail",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-141",
+      "name": "Northfield Holdings",
+      "industry": "Education",
+      "segment": "Enterprise",
+      "status": "target",
+      "owner_employee_id": "EMP-0321",
+      "owner_name": "Isolde Marchbanks",
+      "last_activity_date": "2025-12-07",
+      "industry_source_crm": "Education",
+      "industry_source_marketing": "Education",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-142",
+      "name": "Cinderbrook LLC",
+      "industry": "Financial Services",
+      "segment": "Mid-Market",
+      "status": "customer",
+      "owner_employee_id": "EMP-0301",
+      "owner_name": "Piran Underhill",
+      "last_activity_date": "2026-01-21",
+      "industry_source_crm": "Financial Services",
+      "industry_source_marketing": "Financial Services",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-143",
+      "name": "Amberline Holdings",
+      "industry": "Financial Services",
+      "segment": "SMB",
+      "status": "customer",
+      "owner_employee_id": "EMP-0269",
+      "owner_name": "Fenwick Ivorwood",
+      "last_activity_date": "2026-01-07",
+      "duplicate_of_account_id": "",
+      "industry_source_crm": "Financial Services",
+      "industry_source_marketing": "Financial Services",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-144",
+      "name": "Foxglove Partners",
+      "industry": "Software",
+      "segment": "SMB",
+      "status": "customer",
+      "owner_employee_id": "EMP-0341",
+      "owner_name": "Cassian Duskwood",
+      "last_activity_date": "2025-11-26",
+      "industry_source_crm": "Software",
+      "industry_source_marketing": "Software",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-145",
+      "name": "Thornwick Partners",
+      "industry": "Software",
+      "segment": "Mid-Market",
+      "status": "customer",
+      "owner_employee_id": "EMP-0311",
+      "owner_name": "Kestrel Ashby",
+      "last_activity_date": "2026-03-14",
+      "industry_source_crm": "Software",
+      "industry_source_marketing": "Software",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-146",
+      "name": "Meridian Vale Group",
+      "industry": "Healthcare",
+      "segment": "Enterprise",
+      "status": "target",
+      "owner_employee_id": "EMP-0308",
+      "owner_name": "Wystan Fairweather",
+      "last_activity_date": "2026-02-20",
+      "industry_source_crm": "Healthcare",
+      "industry_source_marketing": "Healthcare",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-147",
+      "name": "Sagebrook LLC",
+      "industry": "Retail",
+      "segment": "SMB",
+      "status": "customer",
+      "owner_employee_id": "EMP-0267",
+      "owner_name": "Marlowe Yarrow",
+      "last_activity_date": "2025-11-18",
+      "industry_source_crm": "Retail",
+      "industry_source_marketing": "Retail",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-148",
+      "name": "Cobblefield Partners",
+      "industry": "Software",
+      "segment": "Mid-Market",
+      "status": "target",
+      "owner_employee_id": "EMP-0336",
+      "owner_name": "Rhoswen Juniper",
+      "last_activity_date": "2025-12-23",
+      "industry_source_crm": "Software",
+      "industry_source_marketing": "Software",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-149",
+      "name": "Wrenhaven Group",
+      "industry": "Media",
+      "segment": "SMB",
+      "status": "customer",
+      "owner_employee_id": "EMP-0300",
+      "owner_name": "Tobin Thistlewood",
+      "last_activity_date": "2025-12-02",
+      "industry_source_crm": "Media",
+      "industry_source_marketing": "Media",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-150",
+      "name": "Elmstead Holdings",
+      "industry": "Manufacturing",
+      "segment": "Mid-Market",
+      "status": "customer",
+      "owner_employee_id": "EMP-0343",
+      "owner_name": "Emlyn Fairweather",
+      "last_activity_date": "2025-12-10",
+      "industry_source_crm": "Manufacturing",
+      "industry_source_marketing": "Manufacturing",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-151",
+      "name": "Copperfen Partners",
+      "industry": "Software",
+      "segment": "Mid-Market",
+      "status": "customer",
+      "owner_employee_id": "EMP-0319",
+      "owner_name": "Ulric Ivorwood",
+      "last_activity_date": "2026-03-16",
+      "industry_source_crm": "Software",
+      "industry_source_marketing": "Software",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-152",
+      "name": "Larchmont Holdings",
+      "industry": "Media",
+      "segment": "Mid-Market",
+      "status": "target",
+      "owner_employee_id": "EMP-0280",
+      "owner_name": "Verity Hallowell",
+      "last_activity_date": "2026-02-25",
+      "industry_source_crm": "Media",
+      "industry_source_marketing": "Media",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-153",
+      "name": "Silverdale Analytics",
+      "industry": "Software",
+      "segment": "Enterprise",
+      "status": "customer",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "last_activity_date": "2026-01-02",
+      "industry_source_crm": "Software",
+      "industry_source_marketing": "Software",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-154",
+      "name": "Windrow Holdings",
+      "industry": "Logistics",
+      "segment": "SMB",
+      "status": "customer",
+      "owner_employee_id": "EMP-0269",
+      "owner_name": "Fenwick Ivorwood",
+      "last_activity_date": "2026-03-16",
+      "industry_source_crm": "Logistics",
+      "industry_source_marketing": "Logistics",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-155",
+      "name": "Hazelmere Analytics",
+      "industry": "Media",
+      "segment": "SMB",
+      "status": "customer",
+      "owner_employee_id": "EMP-0314",
+      "owner_name": "Rhoswen Ashgrove",
+      "last_activity_date": "2026-02-14",
+      "industry_source_crm": "Media",
+      "industry_source_marketing": "Media",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-156",
+      "name": "Brightfen Group",
+      "industry": "Media",
+      "segment": "Mid-Market",
+      "status": "target",
+      "owner_employee_id": "EMP-0323",
+      "owner_name": "Saskia Nightshade",
+      "last_activity_date": "2026-01-14",
+      "industry_source_crm": "Media",
+      "industry_source_marketing": "Media",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-157",
+      "name": "Cragmoor Analytics",
+      "industry": "Retail",
+      "segment": "Mid-Market",
+      "status": "target",
+      "owner_employee_id": "EMP-0282",
+      "owner_name": "Emlyn Marchbanks",
+      "last_activity_date": "2026-01-30",
+      "industry_source_crm": "Retail",
+      "industry_source_marketing": "Retail",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-158",
+      "name": "Duskfield Analytics",
+      "industry": "Retail",
+      "segment": "Enterprise",
+      "status": "target",
+      "owner_employee_id": "EMP-0318",
+      "owner_name": "Halcyon Marchbanks",
+      "last_activity_date": "2025-12-12",
+      "industry_source_crm": "Retail",
+      "industry_source_marketing": "Retail",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-159",
+      "name": "Ferngrove Systems",
+      "industry": "Manufacturing",
+      "segment": "Mid-Market",
+      "status": "target",
+      "owner_employee_id": "EMP-0281",
+      "owner_name": "Rhoswen Underhill",
+      "last_activity_date": "2025-12-10",
+      "industry_source_crm": "Manufacturing",
+      "industry_source_marketing": "Manufacturing",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-160",
+      "name": "Gladewick LLC",
+      "industry": "Manufacturing",
+      "segment": "Mid-Market",
+      "status": "customer",
+      "owner_employee_id": "EMP-0267",
+      "owner_name": "Marlowe Yarrow",
+      "last_activity_date": "2026-02-15",
+      "industry_source_crm": "Manufacturing",
+      "industry_source_marketing": "Manufacturing",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-161",
+      "name": "Holloway Vale Partners",
+      "industry": "Logistics",
+      "segment": "Mid-Market",
+      "status": "customer",
+      "owner_employee_id": "EMP-0311",
+      "owner_name": "Kestrel Ashby",
+      "last_activity_date": "2025-12-15",
+      "industry_source_crm": "Logistics",
+      "industry_source_marketing": "Logistics",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-162",
+      "name": "Ironbrook Partners",
+      "industry": "Manufacturing",
+      "segment": "Enterprise",
+      "status": "target",
+      "owner_employee_id": "EMP-0314",
+      "owner_name": "Rhoswen Ashgrove",
+      "last_activity_date": "2026-02-27",
+      "industry_source_crm": "Manufacturing",
+      "industry_source_marketing": "Manufacturing",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-163",
+      "name": "Junewood LLC",
+      "industry": "Retail",
+      "segment": "Mid-Market",
+      "status": "target",
+      "owner_employee_id": "EMP-0346",
+      "owner_name": "Halcyon Elderkin",
+      "last_activity_date": "2025-12-09",
+      "industry_source_crm": "Retail",
+      "industry_source_marketing": "Retail",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-164",
+      "name": "Kettlebrook Partners",
+      "industry": "Healthcare",
+      "segment": "Enterprise",
+      "status": "customer",
+      "owner_employee_id": "EMP-0297",
+      "owner_name": "Cassian Whitlock",
+      "last_activity_date": "2026-02-25",
+      "industry_source_crm": "Healthcare",
+      "industry_source_marketing": "Healthcare",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-165",
+      "name": "Bramblecourt LLC",
+      "industry": "Financial Services",
+      "segment": "SMB",
+      "status": "customer",
+      "owner_employee_id": "EMP-0269",
+      "owner_name": "Fenwick Ivorwood",
+      "last_activity_date": "2026-02-19",
+      "industry_source_crm": "Financial Services",
+      "industry_source_marketing": "Financial Services",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-166",
+      "name": "Northfield Group",
+      "industry": "Retail",
+      "segment": "SMB",
+      "status": "customer",
+      "owner_employee_id": "EMP-0307",
+      "owner_name": "Verity Bellcrest",
+      "last_activity_date": "2025-12-29",
+      "industry_source_crm": "Retail",
+      "industry_source_marketing": "Retail",
+      "duplicate_of_account_id": "",
+      "stale_flag": "false"
+    },
+    {
+      "account_id": "co-167",
+      "name": "Cinderbrook Partners",
+      "industry": "Financial Services",
+      "segment": "SMB",
+      "status": "customer",
+      "owner_employee_id": "EMP-0279",
+      "owner_name": "Hollis Stonebridge",
+      "last_activity_date": "2025-08-19",
+      "stale_flag": "true",
+      "industry_source_crm": "Financial Services",
+      "industry_source_marketing": "Financial Services",
+      "duplicate_of_account_id": ""
+    },
+    {
+      "account_id": "co-168",
+      "name": "Amberline Systems",
+      "industry": "Logistics",
+      "segment": "Mid-Market",
+      "status": "target",
+      "owner_employee_id": "EMP-0302",
+      "owner_name": "Verity Ashby",
+      "last_activity_date": "2025-08-12",
+      "stale_flag": "true",
+      "industry_source_crm": "Logistics",
+      "industry_source_marketing": "Logistics",
+      "duplicate_of_account_id": ""
+    },
+    {
+      "account_id": "co-169",
+      "name": "Foxglove Holdings",
+      "industry": "Logistics",
+      "segment": "SMB",
+      "status": "target",
+      "owner_employee_id": "EMP-0302",
+      "owner_name": "Verity Ashby",
+      "last_activity_date": "2025-09-03",
+      "stale_flag": "true",
+      "industry_source_crm": "Logistics",
+      "industry_source_marketing": "Logistics",
+      "duplicate_of_account_id": ""
+    },
+    {
+      "account_id": "co-170",
+      "name": "Amberline Holdings",
+      "industry": "Financial Services",
+      "segment": "SMB",
+      "status": "customer",
+      "owner_employee_id": "EMP-0301",
+      "owner_name": "Piran Underhill",
+      "last_activity_date": "2025-11-16",
+      "duplicate_of_account_id": "co-143",
+      "industry_source_crm": "Financial Services",
+      "industry_source_marketing": "Financial Services",
+      "stale_flag": "false"
+    }
+  ],
+  "contacts": [
+    {
+      "contact_id": "ct-co-102-01",
+      "account_id": "co-102",
+      "first_name": "Casey",
+      "last_name": "Whitfield",
+      "title": "Head of Finance",
+      "email": "casey.whitfield@granitepeaklogistics.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-103-01",
+      "account_id": "co-103",
+      "first_name": "Morgan",
+      "last_name": "Alvarez",
+      "title": "Project Lead",
+      "email": "morgan.alvarez@fernwellretailgroup.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-103-02",
+      "account_id": "co-103",
+      "first_name": "Riley",
+      "last_name": "Coburn",
+      "title": "VP Operations",
+      "email": "riley.coburn@fernwellretailgroup.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-122-01",
+      "account_id": "co-122",
+      "first_name": "Emerson",
+      "last_name": "Petrov",
+      "title": "IT Manager",
+      "email": "emerson.petrov@bellwetherlogistics.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-122-02",
+      "account_id": "co-122",
+      "first_name": "Blair",
+      "last_name": "Petrov",
+      "title": "Head of Finance",
+      "email": "blair.petrov@bellwetherlogistics.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-124-01",
+      "account_id": "co-124",
+      "first_name": "Casey",
+      "last_name": "Marsten",
+      "title": "Director of Procurement",
+      "email": "casey.marsten@ospreyinteractive.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-124-02",
+      "account_id": "co-124",
+      "first_name": "Morgan",
+      "last_name": "Singh",
+      "title": "Project Lead",
+      "email": "morgan.singh@ospreyinteractive.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-125-01",
+      "account_id": "co-125",
+      "first_name": "Casey",
+      "last_name": "Delacroix",
+      "title": "Head of Finance",
+      "email": "casey.delacroix@kestrelhealth.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-125-02",
+      "account_id": "co-125",
+      "first_name": "Rowan",
+      "last_name": "Nakamura",
+      "title": "Project Lead",
+      "email": "rowan.nakamura@kestrelhealth.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-125-03",
+      "account_id": "co-125",
+      "first_name": "Skyler",
+      "last_name": "Petrov",
+      "title": "Head of Finance",
+      "email": "skyler.petrov@kestrelhealth.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-140-01",
+      "account_id": "co-140",
+      "first_name": "Skyler",
+      "last_name": "Nakamura",
+      "title": "VP Operations",
+      "email": "skyler.nakamura@bramblecourtanalytics.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-140-02",
+      "account_id": "co-140",
+      "first_name": "Riley",
+      "last_name": "Yun",
+      "title": "Head of Finance",
+      "email": "riley.yun@bramblecourtanalytics.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-140-03",
+      "account_id": "co-140",
+      "first_name": "Morgan",
+      "last_name": "Alvarez",
+      "title": "Director of Procurement",
+      "email": "morgan.alvarez@bramblecourtanalytics.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-141-01",
+      "account_id": "co-141",
+      "first_name": "Emerson",
+      "last_name": "Singh",
+      "title": "VP Operations",
+      "email": "emerson.singh@northfieldholdings.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-142-01",
+      "account_id": "co-142",
+      "first_name": "Sage",
+      "last_name": "Petrov",
+      "title": "Project Lead",
+      "email": "sage.petrov@cinderbrookllc.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-142-02",
+      "account_id": "co-142",
+      "first_name": "Emerson",
+      "last_name": "Coburn",
+      "title": "IT Manager",
+      "email": "emerson.coburn@cinderbrookllc.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-143-01",
+      "account_id": "co-143",
+      "first_name": "Riley",
+      "last_name": "Okafor",
+      "title": "IT Manager",
+      "email": "riley.okafor@amberlineholdings.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-144-01",
+      "account_id": "co-144",
+      "first_name": "Morgan",
+      "last_name": "Yun",
+      "title": "Director of Procurement",
+      "email": "morgan.yun@foxglovepartners.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-144-02",
+      "account_id": "co-144",
+      "first_name": "Avery",
+      "last_name": "Marsten",
+      "title": "IT Manager",
+      "email": "avery.marsten@foxglovepartners.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-145-01",
+      "account_id": "co-145",
+      "first_name": "Morgan",
+      "last_name": "Alvarez",
+      "title": "VP Operations",
+      "email": "morgan.alvarez@thornwickpartners.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-145-02",
+      "account_id": "co-145",
+      "first_name": "Riley",
+      "last_name": "Whitfield",
+      "title": "VP Operations",
+      "email": "riley.whitfield@thornwickpartners.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-146-01",
+      "account_id": "co-146",
+      "first_name": "Blair",
+      "last_name": "Whitfield",
+      "title": "Project Lead",
+      "email": "blair.whitfield@meridianvalegroup.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-146-02",
+      "account_id": "co-146",
+      "first_name": "Sage",
+      "last_name": "Marsten",
+      "title": "Head of Finance",
+      "email": "sage.marsten@meridianvalegroup.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-146-03",
+      "account_id": "co-146",
+      "first_name": "Emerson",
+      "last_name": "Alvarez",
+      "title": "Head of Finance",
+      "email": "emerson.alvarez@meridianvalegroup.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-147-01",
+      "account_id": "co-147",
+      "first_name": "Skyler",
+      "last_name": "Nakamura",
+      "title": "Project Lead",
+      "email": "skyler.nakamura@sagebrookllc.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-147-02",
+      "account_id": "co-147",
+      "first_name": "Sage",
+      "last_name": "Coburn",
+      "title": "VP Operations",
+      "email": "sage.coburn@sagebrookllc.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-148-01",
+      "account_id": "co-148",
+      "first_name": "Emerson",
+      "last_name": "Marsten",
+      "title": "Director of Procurement",
+      "email": "emerson.marsten@cobblefieldpartners.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-148-02",
+      "account_id": "co-148",
+      "first_name": "Morgan",
+      "last_name": "Okafor",
+      "title": "VP Operations",
+      "email": "morgan.okafor@cobblefieldpartners.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-149-01",
+      "account_id": "co-149",
+      "first_name": "Jordan",
+      "last_name": "Alvarez",
+      "title": "Project Lead",
+      "email": "jordan.alvarez@wrenhavengroup.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-150-01",
+      "account_id": "co-150",
+      "first_name": "Blair",
+      "last_name": "Singh",
+      "title": "Project Lead",
+      "email": "blair.singh@elmsteadholdings.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-150-02",
+      "account_id": "co-150",
+      "first_name": "Riley",
+      "last_name": "Marsten",
+      "title": "VP Operations",
+      "email": "riley.marsten@elmsteadholdings.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-151-01",
+      "account_id": "co-151",
+      "first_name": "Avery",
+      "last_name": "Coburn",
+      "title": "Project Lead",
+      "email": "avery.coburn@copperfenpartners.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-152-01",
+      "account_id": "co-152",
+      "first_name": "Emerson",
+      "last_name": "Yun",
+      "title": "Head of Finance",
+      "email": "emerson.yun@larchmontholdings.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-152-02",
+      "account_id": "co-152",
+      "first_name": "Sage",
+      "last_name": "Delacroix",
+      "title": "VP Operations",
+      "email": "sage.delacroix@larchmontholdings.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-153-01",
+      "account_id": "co-153",
+      "first_name": "Rowan",
+      "last_name": "Marsten",
+      "title": "Project Lead",
+      "email": "rowan.marsten@silverdaleanalytics.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-154-01",
+      "account_id": "co-154",
+      "first_name": "Emerson",
+      "last_name": "Coburn",
+      "title": "VP Operations",
+      "email": "emerson.coburn@windrowholdings.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-154-02",
+      "account_id": "co-154",
+      "first_name": "Rowan",
+      "last_name": "Whitfield",
+      "title": "Director of Procurement",
+      "email": "rowan.whitfield@windrowholdings.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-154-03",
+      "account_id": "co-154",
+      "first_name": "Blair",
+      "last_name": "Okafor",
+      "title": "Project Lead",
+      "email": "blair.okafor@windrowholdings.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-155-01",
+      "account_id": "co-155",
+      "first_name": "Riley",
+      "last_name": "Okafor",
+      "title": "VP Operations",
+      "email": "riley.okafor@hazelmereanalytics.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-155-02",
+      "account_id": "co-155",
+      "first_name": "Rowan",
+      "last_name": "Marsten",
+      "title": "IT Manager",
+      "email": "rowan.marsten@hazelmereanalytics.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-156-01",
+      "account_id": "co-156",
+      "first_name": "Blair",
+      "last_name": "Petrov",
+      "title": "VP Operations",
+      "email": "blair.petrov@brightfengroup.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-157-01",
+      "account_id": "co-157",
+      "first_name": "Sage",
+      "last_name": "Yun",
+      "title": "IT Manager",
+      "email": "sage.yun@cragmooranalytics.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-157-02",
+      "account_id": "co-157",
+      "first_name": "Casey",
+      "last_name": "Yun",
+      "title": "Director of Procurement",
+      "email": "casey.yun@cragmooranalytics.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-158-01",
+      "account_id": "co-158",
+      "first_name": "Avery",
+      "last_name": "Yun",
+      "title": "Director of Procurement",
+      "email": "avery.yun@duskfieldanalytics.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-159-01",
+      "account_id": "co-159",
+      "first_name": "Sage",
+      "last_name": "Nakamura",
+      "title": "Head of Finance",
+      "email": "sage.nakamura@ferngrovesystems.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-159-02",
+      "account_id": "co-159",
+      "first_name": "Rowan",
+      "last_name": "Nakamura",
+      "title": "IT Manager",
+      "email": "rowan.nakamura@ferngrovesystems.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-160-01",
+      "account_id": "co-160",
+      "first_name": "Blair",
+      "last_name": "Okafor",
+      "title": "Project Lead",
+      "email": "blair.okafor@gladewickllc.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-161-01",
+      "account_id": "co-161",
+      "first_name": "Emerson",
+      "last_name": "Whitfield",
+      "title": "Head of Finance",
+      "email": "emerson.whitfield@hollowayvalepartners.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-161-02",
+      "account_id": "co-161",
+      "first_name": "Morgan",
+      "last_name": "Delacroix",
+      "title": "Project Lead",
+      "email": "morgan.delacroix@hollowayvalepartners.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-162-01",
+      "account_id": "co-162",
+      "first_name": "Jordan",
+      "last_name": "Coburn",
+      "title": "Project Lead",
+      "email": "jordan.coburn@ironbrookpartners.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-163-01",
+      "account_id": "co-163",
+      "first_name": "Jordan",
+      "last_name": "Singh",
+      "title": "IT Manager",
+      "email": "jordan.singh@junewoodllc.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-164-01",
+      "account_id": "co-164",
+      "first_name": "Casey",
+      "last_name": "Marsten",
+      "title": "IT Manager",
+      "email": "casey.marsten@kettlebrookpartners.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-164-02",
+      "account_id": "co-164",
+      "first_name": "Sage",
+      "last_name": "Coburn",
+      "title": "Project Lead",
+      "email": "sage.coburn@kettlebrookpartners.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-164-03",
+      "account_id": "co-164",
+      "first_name": "Riley",
+      "last_name": "Delacroix",
+      "title": "VP Operations",
+      "email": "riley.delacroix@kettlebrookpartners.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-165-01",
+      "account_id": "co-165",
+      "first_name": "Blair",
+      "last_name": "Singh",
+      "title": "Director of Procurement",
+      "email": "blair.singh@bramblecourtllc.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-165-02",
+      "account_id": "co-165",
+      "first_name": "Blair",
+      "last_name": "Alvarez",
+      "title": "IT Manager",
+      "email": "blair.alvarez@bramblecourtllc.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-165-03",
+      "account_id": "co-165",
+      "first_name": "Skyler",
+      "last_name": "Marsten",
+      "title": "IT Manager",
+      "email": "skyler.marsten@bramblecourtllc.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-166-01",
+      "account_id": "co-166",
+      "first_name": "Casey",
+      "last_name": "Delacroix",
+      "title": "Project Lead",
+      "email": "casey.delacroix@northfieldgroup.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-166-02",
+      "account_id": "co-166",
+      "first_name": "Blair",
+      "last_name": "Okafor",
+      "title": "Head of Finance",
+      "email": "blair.okafor@northfieldgroup.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-166-03",
+      "account_id": "co-166",
+      "first_name": "Riley",
+      "last_name": "Coburn",
+      "title": "IT Manager",
+      "email": "riley.coburn@northfieldgroup.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-167-01",
+      "account_id": "co-167",
+      "first_name": "Casey",
+      "last_name": "Alvarez",
+      "title": "IT Manager",
+      "email": "casey.alvarez@cinderbrookpartners.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-168-01",
+      "account_id": "co-168",
+      "first_name": "Rowan",
+      "last_name": "Delacroix",
+      "title": "Head of Finance",
+      "email": "rowan.delacroix@amberlinesystems.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-168-02",
+      "account_id": "co-168",
+      "first_name": "Jordan",
+      "last_name": "Coburn",
+      "title": "Head of Finance",
+      "email": "jordan.coburn@amberlinesystems.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    },
+    {
+      "contact_id": "ct-co-169-01",
+      "account_id": "co-169",
+      "first_name": "Sage",
+      "last_name": "Marsten",
+      "title": "VP Operations",
+      "email": "sage.marsten@foxgloveholdings.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-170-01",
+      "account_id": "co-170",
+      "first_name": "Riley",
+      "last_name": "Okafor",
+      "title": "IT Manager",
+      "email": "riley.okafor@amberlineholdings.example",
+      "consent_status": "opted_in",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-170-02",
+      "account_id": "co-170",
+      "first_name": "Blair",
+      "last_name": "Coburn",
+      "title": "Head of Finance",
+      "email": "blair.coburn@amberlineholdings.example",
+      "consent_status": "unknown",
+      "suppressed": "false"
+    },
+    {
+      "contact_id": "ct-co-170-03",
+      "account_id": "co-170",
+      "first_name": "Blair",
+      "last_name": "Alvarez",
+      "title": "IT Manager",
+      "email": "blair.alvarez@amberlineholdings.example",
+      "consent_status": "opted_out",
+      "suppressed": "true"
+    }
+  ],
+  "opportunities": [
+    {
+      "opportunity_id": "opp-co-102-01",
+      "account_id": "co-102",
+      "opportunity_name": "Enterprise Renewal FY27",
+      "stage": "Negotiation",
+      "amount": 480000,
+      "owner_employee_id": "EMP-0265",
+      "owner_name": "Tobin Greywick",
+      "next_step": "",
+      "competitor": "",
+      "created_date": "2025-08-24",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-103-01",
+      "account_id": "co-103",
+      "opportunity_name": "Fernwell Retail Group - New Business",
+      "stage": "Negotiation",
+      "amount": 18311,
+      "owner_employee_id": "EMP-0288",
+      "owner_name": "Quenby Ravenscroft",
+      "next_step": "Await signature",
+      "competitor": "",
+      "created_date": "2025-10-16",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-122-01",
+      "account_id": "co-122",
+      "opportunity_name": "Bellwether Logistics - New Business",
+      "stage": "Qualification",
+      "amount": 72092,
+      "owner_employee_id": "EMP-0331",
+      "owner_name": "Cassian Pemberton",
+      "next_step": "Send proposal",
+      "competitor": "Perigee Systems",
+      "created_date": "2025-09-22",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-124-01",
+      "account_id": "co-124",
+      "opportunity_name": "Osprey Interactive - Renewal",
+      "stage": "Closed Lost",
+      "amount": 27161,
+      "owner_employee_id": "EMP-0307",
+      "owner_name": "Verity Bellcrest",
+      "next_step": "Legal review",
+      "competitor": "",
+      "created_date": "2026-01-11",
+      "close_date": "2026-03-12"
+    },
+    {
+      "opportunity_id": "opp-co-125-01",
+      "account_id": "co-125",
+      "opportunity_name": "Kestrel Health - New Business",
+      "stage": "Qualification",
+      "amount": 152066,
+      "owner_employee_id": "EMP-0266",
+      "owner_name": "Piran Larkspur",
+      "next_step": "Send proposal",
+      "competitor": "",
+      "created_date": "2025-09-29",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-140-01",
+      "account_id": "co-140",
+      "opportunity_name": "Bramblecourt Analytics - New Business",
+      "stage": "Prospecting",
+      "amount": 16208,
+      "owner_employee_id": "EMP-0294",
+      "owner_name": "Lyric Nightshade",
+      "next_step": "Schedule demo",
+      "competitor": "",
+      "created_date": "2025-07-25",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-141-01",
+      "account_id": "co-141",
+      "opportunity_name": "Northfield Holdings - New Business",
+      "stage": "Prospecting",
+      "amount": 166569,
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "next_step": "Follow up call",
+      "competitor": "",
+      "created_date": "2026-01-22",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-142-01",
+      "account_id": "co-142",
+      "opportunity_name": "Cinderbrook LLC - New Business",
+      "stage": "Prospecting",
+      "amount": 210480,
+      "owner_employee_id": "EMP-0287",
+      "owner_name": "Ewald Bellcrest",
+      "next_step": "",
+      "competitor": "",
+      "created_date": "2026-01-09",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-143-01",
+      "account_id": "co-143",
+      "opportunity_name": "Amberline Holdings - New Business",
+      "stage": "Proposal",
+      "amount": 180691,
+      "owner_employee_id": "EMP-0309",
+      "owner_name": "Quillon Greywick",
+      "next_step": "Send proposal",
+      "competitor": "",
+      "created_date": "2026-02-10",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-144-01",
+      "account_id": "co-144",
+      "opportunity_name": "Foxglove Partners - New Business",
+      "stage": "Prospecting",
+      "amount": 226993,
+      "owner_employee_id": "EMP-0324",
+      "owner_name": "Aldous Elderkin",
+      "next_step": "Follow up call",
+      "competitor": "",
+      "created_date": "2026-02-04",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-145-01",
+      "account_id": "co-145",
+      "opportunity_name": "Thornwick Partners - New Business",
+      "stage": "Prospecting",
+      "amount": 138835,
+      "owner_employee_id": "EMP-0324",
+      "owner_name": "Aldous Elderkin",
+      "next_step": "Send proposal",
+      "competitor": "",
+      "created_date": "2025-08-23",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-146-01",
+      "account_id": "co-146",
+      "opportunity_name": "Meridian Vale Group - New Business",
+      "stage": "Proposal",
+      "amount": 70470,
+      "owner_employee_id": "EMP-0310",
+      "owner_name": "Cormac Norwich",
+      "next_step": "Follow up call",
+      "competitor": "",
+      "created_date": "2025-09-18",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-147-01",
+      "account_id": "co-147",
+      "opportunity_name": "Sagebrook LLC - New Business",
+      "stage": "Negotiation",
+      "amount": 164461,
+      "owner_employee_id": "EMP-0316",
+      "owner_name": "Saskia Marchbanks",
+      "next_step": "Legal review",
+      "competitor": "",
+      "created_date": "2025-08-19",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-148-01",
+      "account_id": "co-148",
+      "opportunity_name": "Cobblefield Partners - New Business",
+      "stage": "Negotiation",
+      "amount": 36811,
+      "owner_employee_id": "EMP-0345",
+      "owner_name": "Thessaly Juniper",
+      "next_step": "Schedule demo",
+      "competitor": "",
+      "created_date": "2026-01-27",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-149-01",
+      "account_id": "co-149",
+      "opportunity_name": "Wrenhaven Group - New Business",
+      "stage": "Prospecting",
+      "amount": 99479,
+      "owner_employee_id": "EMP-0314",
+      "owner_name": "Rhoswen Ashgrove",
+      "next_step": "",
+      "competitor": "",
+      "created_date": "2025-07-20",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-150-01",
+      "account_id": "co-150",
+      "opportunity_name": "Elmstead Holdings - New Business",
+      "stage": "Qualification",
+      "amount": 96532,
+      "owner_employee_id": "EMP-0295",
+      "owner_name": "Marlowe Osgood",
+      "next_step": "Send proposal",
+      "competitor": "",
+      "created_date": "2026-01-22",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-151-01",
+      "account_id": "co-151",
+      "opportunity_name": "Copperfen Partners - New Business",
+      "stage": "Proposal",
+      "amount": 246340,
+      "owner_employee_id": "EMP-0317",
+      "owner_name": "Briar Underhill",
+      "next_step": "Legal review",
+      "competitor": "",
+      "created_date": "2025-09-09",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-152-01",
+      "account_id": "co-152",
+      "opportunity_name": "Larchmont Holdings - New Business",
+      "stage": "Negotiation",
+      "amount": 26082,
+      "owner_employee_id": "EMP-0307",
+      "owner_name": "Verity Bellcrest",
+      "next_step": "Follow up call",
+      "competitor": "",
+      "created_date": "2025-11-18",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-153-01",
+      "account_id": "co-153",
+      "opportunity_name": "Silverdale Analytics - New Business",
+      "stage": "Prospecting",
+      "amount": 185480,
+      "owner_employee_id": "EMP-0300",
+      "owner_name": "Tobin Thistlewood",
+      "next_step": "Send proposal",
+      "competitor": "",
+      "created_date": "2026-02-06",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-154-01",
+      "account_id": "co-154",
+      "opportunity_name": "Windrow Holdings - New Business",
+      "stage": "Negotiation",
+      "amount": 204535,
+      "owner_employee_id": "EMP-0270",
+      "owner_name": "Junot Grayling",
+      "next_step": "Schedule demo",
+      "competitor": "",
+      "created_date": "2025-11-10",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-155-01",
+      "account_id": "co-155",
+      "opportunity_name": "Hazelmere Analytics - New Business",
+      "stage": "Proposal",
+      "amount": 194336,
+      "owner_employee_id": "EMP-0335",
+      "owner_name": "Thessaly Greywick",
+      "next_step": "Schedule demo",
+      "competitor": "",
+      "created_date": "2025-11-22",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-156-01",
+      "account_id": "co-156",
+      "opportunity_name": "Brightfen Group - New Business",
+      "stage": "Negotiation",
+      "amount": 216183,
+      "owner_employee_id": "EMP-0276",
+      "owner_name": "Odalys Whitlock",
+      "next_step": "",
+      "competitor": "",
+      "created_date": "2025-08-06",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-157-01",
+      "account_id": "co-157",
+      "opportunity_name": "Cragmoor Analytics - New Business",
+      "stage": "Prospecting",
+      "amount": 151806,
+      "owner_employee_id": "EMP-0306",
+      "owner_name": "Aldous Marchbanks",
+      "next_step": "Legal review",
+      "competitor": "",
+      "created_date": "2025-12-12",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-158-01",
+      "account_id": "co-158",
+      "opportunity_name": "Duskfield Analytics - New Business",
+      "stage": "Proposal",
+      "amount": 43866,
+      "owner_employee_id": "EMP-0277",
+      "owner_name": "Cormac Kestenbaum",
+      "next_step": "Send proposal",
+      "competitor": "",
+      "created_date": "2026-01-16",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-159-01",
+      "account_id": "co-159",
+      "opportunity_name": "Ferngrove Systems - New Business",
+      "stage": "Prospecting",
+      "amount": 181207,
+      "owner_employee_id": "EMP-0295",
+      "owner_name": "Marlowe Osgood",
+      "next_step": "Legal review",
+      "competitor": "",
+      "created_date": "2026-01-27",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-160-01",
+      "account_id": "co-160",
+      "opportunity_name": "Gladewick LLC - New Business",
+      "stage": "Qualification",
+      "amount": 53364,
+      "owner_employee_id": "EMP-0310",
+      "owner_name": "Cormac Norwich",
+      "next_step": "Schedule demo",
+      "competitor": "",
+      "created_date": "2025-08-04",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-161-01",
+      "account_id": "co-161",
+      "opportunity_name": "Holloway Vale Partners - New Business",
+      "stage": "Qualification",
+      "amount": 123816,
+      "owner_employee_id": "EMP-0292",
+      "owner_name": "Tobin Fenmore",
+      "next_step": "Schedule demo",
+      "competitor": "",
+      "created_date": "2025-08-01",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-162-01",
+      "account_id": "co-162",
+      "opportunity_name": "Ironbrook Partners - New Business",
+      "stage": "Proposal",
+      "amount": 20787,
+      "owner_employee_id": "EMP-0299",
+      "owner_name": "Halcyon Norwich",
+      "next_step": "Legal review",
+      "competitor": "",
+      "created_date": "2026-01-10",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-163-01",
+      "account_id": "co-163",
+      "opportunity_name": "Junewood LLC - New Business",
+      "stage": "Proposal",
+      "amount": 238649,
+      "owner_employee_id": "EMP-0326",
+      "owner_name": "Zephyrine Ashby",
+      "next_step": "Send proposal",
+      "competitor": "",
+      "created_date": "2025-10-05",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-164-01",
+      "account_id": "co-164",
+      "opportunity_name": "Kettlebrook Partners - New Business",
+      "stage": "Prospecting",
+      "amount": 85404,
+      "owner_employee_id": "EMP-0339",
+      "owner_name": "Ondine Holloway",
+      "next_step": "Legal review",
+      "competitor": "",
+      "created_date": "2025-10-23",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-165-01",
+      "account_id": "co-165",
+      "opportunity_name": "Bramblecourt LLC - New Business",
+      "stage": "Prospecting",
+      "amount": 85586,
+      "owner_employee_id": "EMP-0313",
+      "owner_name": "Emlyn Underhill",
+      "next_step": "Follow up call",
+      "competitor": "",
+      "created_date": "2025-07-23",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-166-01",
+      "account_id": "co-166",
+      "opportunity_name": "Northfield Group - New Business",
+      "stage": "Qualification",
+      "amount": 130559,
+      "owner_employee_id": "EMP-0347",
+      "owner_name": "Tobin Marchbanks",
+      "next_step": "Await signature",
+      "competitor": "",
+      "created_date": "2025-07-20",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-167-01",
+      "account_id": "co-167",
+      "opportunity_name": "Cinderbrook Partners - New Business",
+      "stage": "Proposal",
+      "amount": 96959,
+      "owner_employee_id": "EMP-0306",
+      "owner_name": "Aldous Marchbanks",
+      "next_step": "Send proposal",
+      "competitor": "",
+      "created_date": "2025-11-26",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-168-01",
+      "account_id": "co-168",
+      "opportunity_name": "Amberline Systems - New Business",
+      "stage": "Negotiation",
+      "amount": 154999,
+      "owner_employee_id": "EMP-0277",
+      "owner_name": "Cormac Kestenbaum",
+      "next_step": "Await signature",
+      "competitor": "",
+      "created_date": "2025-07-21",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-169-01",
+      "account_id": "co-169",
+      "opportunity_name": "Foxglove Holdings - New Business",
+      "stage": "Qualification",
+      "amount": 147243,
+      "owner_employee_id": "EMP-0286",
+      "owner_name": "Lyric Elderkin",
+      "next_step": "Follow up call",
+      "competitor": "",
+      "created_date": "2025-09-21",
+      "close_date": ""
+    },
+    {
+      "opportunity_id": "opp-co-170-01",
+      "account_id": "co-170",
+      "opportunity_name": "Amberline Holdings - New Business",
+      "stage": "Negotiation",
+      "amount": 195432,
+      "owner_employee_id": "EMP-0314",
+      "owner_name": "Rhoswen Ashgrove",
+      "next_step": "Send proposal",
+      "competitor": "",
+      "created_date": "2025-09-26",
+      "close_date": ""
+    }
+  ],
+  "stage_history": [
+    {
+      "opportunity_id": "opp-co-102-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-09-05"
+    },
+    {
+      "opportunity_id": "opp-co-103-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-10-30"
+    },
+    {
+      "opportunity_id": "opp-co-103-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-11-13"
+    },
+    {
+      "opportunity_id": "opp-co-103-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2025-12-02"
+    },
+    {
+      "opportunity_id": "opp-co-103-01",
+      "from_stage": "Proposal",
+      "to_stage": "Negotiation",
+      "changed_date": "2025-12-11"
+    },
+    {
+      "opportunity_id": "opp-co-122-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-10-09"
+    },
+    {
+      "opportunity_id": "opp-co-122-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-10-22"
+    },
+    {
+      "opportunity_id": "opp-co-124-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2026-01-22"
+    },
+    {
+      "opportunity_id": "opp-co-124-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2026-02-03"
+    },
+    {
+      "opportunity_id": "opp-co-124-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2026-02-22"
+    },
+    {
+      "opportunity_id": "opp-co-124-01",
+      "from_stage": "Proposal",
+      "to_stage": "Closed Lost",
+      "changed_date": "2026-03-12"
+    },
+    {
+      "opportunity_id": "opp-co-125-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-10-04"
+    },
+    {
+      "opportunity_id": "opp-co-125-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-10-14"
+    },
+    {
+      "opportunity_id": "opp-co-140-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-08-07"
+    },
+    {
+      "opportunity_id": "opp-co-141-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2026-02-10"
+    },
+    {
+      "opportunity_id": "opp-co-142-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2026-01-23"
+    },
+    {
+      "opportunity_id": "opp-co-143-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2026-02-28"
+    },
+    {
+      "opportunity_id": "opp-co-143-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2026-03-13"
+    },
+    {
+      "opportunity_id": "opp-co-143-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2026-03-28"
+    },
+    {
+      "opportunity_id": "opp-co-144-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2026-02-08"
+    },
+    {
+      "opportunity_id": "opp-co-145-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-09-03"
+    },
+    {
+      "opportunity_id": "opp-co-146-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-09-27"
+    },
+    {
+      "opportunity_id": "opp-co-146-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-10-07"
+    },
+    {
+      "opportunity_id": "opp-co-146-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2025-10-23"
+    },
+    {
+      "opportunity_id": "opp-co-147-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-08-30"
+    },
+    {
+      "opportunity_id": "opp-co-147-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-09-04"
+    },
+    {
+      "opportunity_id": "opp-co-147-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2025-09-22"
+    },
+    {
+      "opportunity_id": "opp-co-147-01",
+      "from_stage": "Proposal",
+      "to_stage": "Negotiation",
+      "changed_date": "2025-10-09"
+    },
+    {
+      "opportunity_id": "opp-co-148-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2026-02-06"
+    },
+    {
+      "opportunity_id": "opp-co-148-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2026-02-22"
+    },
+    {
+      "opportunity_id": "opp-co-148-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2026-03-08"
+    },
+    {
+      "opportunity_id": "opp-co-148-01",
+      "from_stage": "Proposal",
+      "to_stage": "Negotiation",
+      "changed_date": "2026-03-23"
+    },
+    {
+      "opportunity_id": "opp-co-149-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-07-29"
+    },
+    {
+      "opportunity_id": "opp-co-150-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2026-01-26"
+    },
+    {
+      "opportunity_id": "opp-co-150-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2026-02-04"
+    },
+    {
+      "opportunity_id": "opp-co-151-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-09-25"
+    },
+    {
+      "opportunity_id": "opp-co-151-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-10-11"
+    },
+    {
+      "opportunity_id": "opp-co-151-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2025-10-24"
+    },
+    {
+      "opportunity_id": "opp-co-152-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-11-26"
+    },
+    {
+      "opportunity_id": "opp-co-152-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-12-05"
+    },
+    {
+      "opportunity_id": "opp-co-152-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2025-12-21"
+    },
+    {
+      "opportunity_id": "opp-co-152-01",
+      "from_stage": "Proposal",
+      "to_stage": "Negotiation",
+      "changed_date": "2025-12-27"
+    },
+    {
+      "opportunity_id": "opp-co-153-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2026-02-12"
+    },
+    {
+      "opportunity_id": "opp-co-154-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-11-25"
+    },
+    {
+      "opportunity_id": "opp-co-154-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-12-01"
+    },
+    {
+      "opportunity_id": "opp-co-154-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2025-12-19"
+    },
+    {
+      "opportunity_id": "opp-co-154-01",
+      "from_stage": "Proposal",
+      "to_stage": "Negotiation",
+      "changed_date": "2025-12-29"
+    },
+    {
+      "opportunity_id": "opp-co-155-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-11-26"
+    },
+    {
+      "opportunity_id": "opp-co-155-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-12-14"
+    },
+    {
+      "opportunity_id": "opp-co-155-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2025-12-27"
+    },
+    {
+      "opportunity_id": "opp-co-156-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-08-22"
+    },
+    {
+      "opportunity_id": "opp-co-156-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-08-26"
+    },
+    {
+      "opportunity_id": "opp-co-156-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2025-09-03"
+    },
+    {
+      "opportunity_id": "opp-co-156-01",
+      "from_stage": "Proposal",
+      "to_stage": "Negotiation",
+      "changed_date": "2025-09-10"
+    },
+    {
+      "opportunity_id": "opp-co-157-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2026-01-01"
+    },
+    {
+      "opportunity_id": "opp-co-158-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2026-02-01"
+    },
+    {
+      "opportunity_id": "opp-co-158-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2026-02-08"
+    },
+    {
+      "opportunity_id": "opp-co-158-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2026-02-16"
+    },
+    {
+      "opportunity_id": "opp-co-159-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2026-02-12"
+    },
+    {
+      "opportunity_id": "opp-co-160-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-08-15"
+    },
+    {
+      "opportunity_id": "opp-co-160-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-08-23"
+    },
+    {
+      "opportunity_id": "opp-co-161-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-08-22"
+    },
+    {
+      "opportunity_id": "opp-co-161-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-09-08"
+    },
+    {
+      "opportunity_id": "opp-co-162-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2026-01-13"
+    },
+    {
+      "opportunity_id": "opp-co-162-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2026-01-30"
+    },
+    {
+      "opportunity_id": "opp-co-162-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2026-02-03"
+    },
+    {
+      "opportunity_id": "opp-co-163-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-10-24"
+    },
+    {
+      "opportunity_id": "opp-co-163-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-11-10"
+    },
+    {
+      "opportunity_id": "opp-co-163-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2025-11-14"
+    },
+    {
+      "opportunity_id": "opp-co-164-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-11-06"
+    },
+    {
+      "opportunity_id": "opp-co-165-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-07-30"
+    },
+    {
+      "opportunity_id": "opp-co-166-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-08-02"
+    },
+    {
+      "opportunity_id": "opp-co-166-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-08-22"
+    },
+    {
+      "opportunity_id": "opp-co-167-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-12-10"
+    },
+    {
+      "opportunity_id": "opp-co-167-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-12-20"
+    },
+    {
+      "opportunity_id": "opp-co-167-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2025-12-24"
+    },
+    {
+      "opportunity_id": "opp-co-168-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-08-07"
+    },
+    {
+      "opportunity_id": "opp-co-168-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-08-11"
+    },
+    {
+      "opportunity_id": "opp-co-168-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2025-08-30"
+    },
+    {
+      "opportunity_id": "opp-co-168-01",
+      "from_stage": "Proposal",
+      "to_stage": "Negotiation",
+      "changed_date": "2025-09-16"
+    },
+    {
+      "opportunity_id": "opp-co-169-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-09-24"
+    },
+    {
+      "opportunity_id": "opp-co-169-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-10-06"
+    },
+    {
+      "opportunity_id": "opp-co-170-01",
+      "from_stage": "",
+      "to_stage": "Prospecting",
+      "changed_date": "2025-10-04"
+    },
+    {
+      "opportunity_id": "opp-co-170-01",
+      "from_stage": "Prospecting",
+      "to_stage": "Qualification",
+      "changed_date": "2025-10-10"
+    },
+    {
+      "opportunity_id": "opp-co-170-01",
+      "from_stage": "Qualification",
+      "to_stage": "Proposal",
+      "changed_date": "2025-10-28"
+    },
+    {
+      "opportunity_id": "opp-co-170-01",
+      "from_stage": "Proposal",
+      "to_stage": "Negotiation",
+      "changed_date": "2025-11-18"
+    }
+  ],
+  "leads": [
+    {
+      "lead_id": "lead-0001",
+      "owner_employee_id": "EMP-0268",
+      "owner_name": "Tobin Ashby",
+      "created_date": "2026-03-04",
+      "sla_due_date": "2026-03-06",
+      "status": "qualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0002",
+      "owner_employee_id": "EMP-0335",
+      "owner_name": "Thessaly Greywick",
+      "created_date": "2026-03-15",
+      "sla_due_date": "2026-03-17",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0003",
+      "owner_employee_id": "EMP-0307",
+      "owner_name": "Verity Bellcrest",
+      "created_date": "2026-03-10",
+      "sla_due_date": "2026-03-12",
+      "status": "qualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0004",
+      "owner_employee_id": "EMP-0278",
+      "owner_name": "Merritt Crestfall",
+      "created_date": "2026-03-08",
+      "sla_due_date": "2026-03-10",
+      "status": "disqualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0005",
+      "owner_employee_id": "EMP-0290",
+      "owner_name": "Quenby Yarrow",
+      "created_date": "2026-03-01",
+      "sla_due_date": "2026-03-03",
+      "status": "disqualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0006",
+      "owner_employee_id": "EMP-0269",
+      "owner_name": "Fenwick Ivorwood",
+      "created_date": "2026-03-13",
+      "sla_due_date": "2026-03-15",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0007",
+      "owner_employee_id": "EMP-0344",
+      "owner_name": "Sorrel Greywick",
+      "created_date": "2026-02-28",
+      "sla_due_date": "2026-03-02",
+      "status": "qualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0008",
+      "owner_employee_id": "EMP-0296",
+      "owner_name": "Wystan Osgood",
+      "created_date": "2026-03-14",
+      "sla_due_date": "2026-03-16",
+      "status": "new",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0009",
+      "owner_employee_id": "EMP-0291",
+      "owner_name": "Baxter Duskwood",
+      "created_date": "2026-03-02",
+      "sla_due_date": "2026-03-04",
+      "status": "disqualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0010",
+      "owner_employee_id": "EMP-0309",
+      "owner_name": "Quillon Greywick",
+      "created_date": "2026-03-13",
+      "sla_due_date": "2026-03-15",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0011",
+      "owner_employee_id": "EMP-0280",
+      "owner_name": "Verity Hallowell",
+      "created_date": "2026-03-12",
+      "sla_due_date": "2026-03-14",
+      "status": "qualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0012",
+      "owner_employee_id": "EMP-0331",
+      "owner_name": "Cassian Pemberton",
+      "created_date": "2026-03-13",
+      "sla_due_date": "2026-03-15",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0013",
+      "owner_employee_id": "EMP-0301",
+      "owner_name": "Piran Underhill",
+      "created_date": "2026-03-11",
+      "sla_due_date": "2026-03-13",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0014",
+      "owner_employee_id": "EMP-0305",
+      "owner_name": "Faro Juniper",
+      "created_date": "2026-03-10",
+      "sla_due_date": "2026-03-12",
+      "status": "qualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0015",
+      "owner_employee_id": "EMP-0333",
+      "owner_name": "Dashiell Nightshade",
+      "created_date": "2026-02-28",
+      "sla_due_date": "2026-03-02",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0016",
+      "owner_employee_id": "EMP-0342",
+      "owner_name": "Merritt Ashgrove",
+      "created_date": "2026-02-24",
+      "sla_due_date": "2026-02-26",
+      "status": "disqualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0017",
+      "owner_employee_id": "EMP-0329",
+      "owner_name": "Quillon Osgood",
+      "created_date": "2026-03-11",
+      "sla_due_date": "2026-03-13",
+      "status": "qualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0018",
+      "owner_employee_id": "EMP-0328",
+      "owner_name": "Honora Duskwood",
+      "created_date": "2026-03-09",
+      "sla_due_date": "2026-03-11",
+      "status": "disqualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0019",
+      "owner_employee_id": "EMP-0327",
+      "owner_name": "Saskia Holloway",
+      "created_date": "2026-02-26",
+      "sla_due_date": "2026-02-28",
+      "status": "new",
+      "sla_breached": "true"
+    },
+    {
+      "lead_id": "lead-0020",
+      "owner_employee_id": "EMP-0309",
+      "owner_name": "Quillon Greywick",
+      "created_date": "2026-03-10",
+      "sla_due_date": "2026-03-12",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0021",
+      "owner_employee_id": "EMP-0309",
+      "owner_name": "Quillon Greywick",
+      "created_date": "2026-03-16",
+      "sla_due_date": "2026-03-18",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0022",
+      "owner_employee_id": "EMP-0297",
+      "owner_name": "Cassian Whitlock",
+      "created_date": "2026-03-07",
+      "sla_due_date": "2026-03-09",
+      "status": "new",
+      "sla_breached": "true"
+    },
+    {
+      "lead_id": "lead-0023",
+      "owner_employee_id": "EMP-0341",
+      "owner_name": "Cassian Duskwood",
+      "created_date": "2026-03-13",
+      "sla_due_date": "2026-03-15",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0024",
+      "owner_employee_id": "EMP-0317",
+      "owner_name": "Briar Underhill",
+      "created_date": "2026-02-27",
+      "sla_due_date": "2026-03-01",
+      "status": "qualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0025",
+      "owner_employee_id": "EMP-0283",
+      "owner_name": "Hollis Pemberton",
+      "created_date": "2026-03-11",
+      "sla_due_date": "2026-03-13",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0026",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-09",
+      "sla_due_date": "2026-03-11",
+      "status": "disqualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0027",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-11",
+      "sla_due_date": "2026-03-13",
+      "status": "disqualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0028",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-04",
+      "sla_due_date": "2026-03-06",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0029",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-16",
+      "sla_due_date": "2026-03-18",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0030",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-09",
+      "sla_due_date": "2026-03-11",
+      "status": "disqualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0031",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-03",
+      "sla_due_date": "2026-03-05",
+      "status": "new",
+      "sla_breached": "true"
+    },
+    {
+      "lead_id": "lead-0032",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-08",
+      "sla_due_date": "2026-03-10",
+      "status": "new",
+      "sla_breached": "true"
+    },
+    {
+      "lead_id": "lead-0033",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-01",
+      "sla_due_date": "2026-03-03",
+      "status": "disqualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0034",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-09",
+      "sla_due_date": "2026-03-11",
+      "status": "new",
+      "sla_breached": "true"
+    },
+    {
+      "lead_id": "lead-0035",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-14",
+      "sla_due_date": "2026-03-16",
+      "status": "new",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0036",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-06",
+      "sla_due_date": "2026-03-08",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0037",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-05",
+      "sla_due_date": "2026-03-07",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0038",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-02",
+      "sla_due_date": "2026-03-04",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0039",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-01",
+      "sla_due_date": "2026-03-03",
+      "status": "new",
+      "sla_breached": "true"
+    },
+    {
+      "lead_id": "lead-0040",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-06",
+      "sla_due_date": "2026-03-08",
+      "status": "new",
+      "sla_breached": "true"
+    },
+    {
+      "lead_id": "lead-0041",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-02-24",
+      "sla_due_date": "2026-02-26",
+      "status": "new",
+      "sla_breached": "true"
+    },
+    {
+      "lead_id": "lead-0042",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-02-28",
+      "sla_due_date": "2026-03-02",
+      "status": "qualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0043",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-09",
+      "sla_due_date": "2026-03-11",
+      "status": "qualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0044",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-02",
+      "sla_due_date": "2026-03-04",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0045",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-02-25",
+      "sla_due_date": "2026-02-27",
+      "status": "working",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0046",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-12",
+      "sla_due_date": "2026-03-14",
+      "status": "qualified",
+      "sla_breached": "false"
+    },
+    {
+      "lead_id": "lead-0047",
+      "owner_employee_id": "EMP-0264",
+      "owner_name": "Oleander Jarrow",
+      "created_date": "2026-03-16",
+      "sla_due_date": "2026-03-18",
+      "status": "working",
+      "sla_breached": "false"
+    }
+  ]
+}
