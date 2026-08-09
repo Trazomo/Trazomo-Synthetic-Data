@@ -11,7 +11,7 @@
   "accounts": [
     {
       "account_id": "co-102",
-      "name": "Granite Peak Logistics",
+      "name": "Amberfield Logistics",
       "industry": "Logistics",
       "segment": "Enterprise",
       "status": "customer",
@@ -39,7 +39,7 @@
     },
     {
       "account_id": "co-122",
-      "name": "Bellwether Logistics",
+      "name": "Lodestar Logistics",
       "industry": "Logistics",
       "segment": "Enterprise",
       "status": "target",
@@ -53,7 +53,7 @@
     },
     {
       "account_id": "co-124",
-      "name": "Osprey Interactive",
+      "name": "Talonworks Interactive",
       "industry": "Media",
       "segment": "Mid-Market",
       "status": "closed_lost",
@@ -67,7 +67,7 @@
     },
     {
       "account_id": "co-125",
-      "name": "Kestrel Health",
+      "name": "Thornfield Health",
       "industry": "Healthcare",
       "segment": "Enterprise",
       "status": "target",
@@ -464,7 +464,7 @@
       "segment": "SMB",
       "status": "customer",
       "owner_employee_id": "EMP-0279",
-      "owner_name": "Hollis Stonebridge",
+      "owner_name": "Hollis Millgate",
       "last_activity_date": "2025-08-19",
       "stale_flag": "true",
       "industry_source_crm": "Financial Services",
@@ -521,7 +521,7 @@
       "first_name": "Casey",
       "last_name": "Whitfield",
       "title": "Head of Finance",
-      "email": "casey.whitfield@granitepeaklogistics.example",
+      "email": "casey.whitfield@amberfieldlogistics.example",
       "consent_status": "unknown",
       "suppressed": "false"
     },
@@ -551,7 +551,7 @@
       "first_name": "Emerson",
       "last_name": "Petrov",
       "title": "IT Manager",
-      "email": "emerson.petrov@bellwetherlogistics.example",
+      "email": "emerson.petrov@lodestarlogistics.example",
       "consent_status": "opted_in",
       "suppressed": "false"
     },
@@ -561,7 +561,7 @@
       "first_name": "Blair",
       "last_name": "Petrov",
       "title": "Head of Finance",
-      "email": "blair.petrov@bellwetherlogistics.example",
+      "email": "blair.petrov@lodestarlogistics.example",
       "consent_status": "opted_out",
       "suppressed": "true"
     },
@@ -571,7 +571,7 @@
       "first_name": "Casey",
       "last_name": "Marsten",
       "title": "Director of Procurement",
-      "email": "casey.marsten@ospreyinteractive.example",
+      "email": "casey.marsten@talonworksinteractive.example",
       "consent_status": "unknown",
       "suppressed": "false"
     },
@@ -581,7 +581,7 @@
       "first_name": "Morgan",
       "last_name": "Singh",
       "title": "Project Lead",
-      "email": "morgan.singh@ospreyinteractive.example",
+      "email": "morgan.singh@talonworksinteractive.example",
       "consent_status": "opted_out",
       "suppressed": "true"
     },
@@ -591,7 +591,7 @@
       "first_name": "Casey",
       "last_name": "Delacroix",
       "title": "Head of Finance",
-      "email": "casey.delacroix@kestrelhealth.example",
+      "email": "casey.delacroix@thornfieldhealth.example",
       "consent_status": "unknown",
       "suppressed": "false"
     },
@@ -601,7 +601,7 @@
       "first_name": "Rowan",
       "last_name": "Nakamura",
       "title": "Project Lead",
-      "email": "rowan.nakamura@kestrelhealth.example",
+      "email": "rowan.nakamura@thornfieldhealth.example",
       "consent_status": "opted_in",
       "suppressed": "false"
     },
@@ -611,7 +611,7 @@
       "first_name": "Skyler",
       "last_name": "Petrov",
       "title": "Head of Finance",
-      "email": "skyler.petrov@kestrelhealth.example",
+      "email": "skyler.petrov@thornfieldhealth.example",
       "consent_status": "opted_in",
       "suppressed": "false"
     },
@@ -1216,20 +1216,20 @@
     {
       "opportunity_id": "opp-co-122-01",
       "account_id": "co-122",
-      "opportunity_name": "Bellwether Logistics - New Business",
+      "opportunity_name": "Lodestar Logistics - New Business",
       "stage": "Qualification",
       "amount": 72092,
       "owner_employee_id": "EMP-0331",
       "owner_name": "Cassian Pemberton",
       "next_step": "Send proposal",
-      "competitor": "Perigee Systems",
+      "competitor": "Aphelion Systems",
       "created_date": "2025-09-22",
       "close_date": ""
     },
     {
       "opportunity_id": "opp-co-124-01",
       "account_id": "co-124",
-      "opportunity_name": "Osprey Interactive - Renewal",
+      "opportunity_name": "Talonworks Interactive - Renewal",
       "stage": "Closed Lost",
       "amount": 27161,
       "owner_employee_id": "EMP-0307",
@@ -1242,7 +1242,7 @@
     {
       "opportunity_id": "opp-co-125-01",
       "account_id": "co-125",
-      "opportunity_name": "Kestrel Health - New Business",
+      "opportunity_name": "Thornfield Health - New Business",
       "stage": "Qualification",
       "amount": 152066,
       "owner_employee_id": "EMP-0266",

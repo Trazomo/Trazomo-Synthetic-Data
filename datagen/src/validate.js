@@ -18,7 +18,12 @@ const STOPWORDS = new Set([
  * parser -- planted_feature strings are free-text prose written for humans.
  */
 export function significantTokens(feature) {
-  const tokens = feature.match(/[A-Za-z][A-Za-z'-]{3,}|\d[\d,.]*%?|\bL\d{3}\b|\bE\d{3}\b/g) ?? [];
+  // Specs may express a feature as a string or as a one-entry mapping of
+  // section -> description (CORE-05 does this); flatten mappings to text.
+  const text = typeof feature === "string"
+    ? feature
+    : Object.entries(feature).map(([k, v]) => `${k}: ${v}`).join(" ");
+  const tokens = text.match(/[A-Za-z][A-Za-z'-]{3,}|\d[\d,.]*%?|\bL\d{3}\b|\bE\d{3}\b/g) ?? [];
   const seen = new Set();
   const out = [];
   for (const raw of tokens) {

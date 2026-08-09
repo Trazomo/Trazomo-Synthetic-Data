@@ -102,7 +102,7 @@
     {
       "entity_key": "co-115",
       "canon_id": "co-115",
-      "name": "HealthFirst Technologies, Inc.",
+      "name": "CarePeak Technologies, Inc.",
       "type": "corporation",
       "jurisdiction": "Delaware",
       "role": "existing_firm_client"
@@ -227,7 +227,7 @@
     }
   },
   "exact_matches": [
-    {"id": "E-1", "name": "HealthFirst Technologies, Inc.", "canon_id": "co-115", "relationship": "current_client", "matters": ["22-0418", "24-1187", "26-0331"]},
+    {"id": "E-1", "name": "CarePeak Technologies, Inc.", "canon_id": "co-115", "relationship": "current_client", "matters": ["22-0418", "24-1187", "26-0331"]},
     {"id": "E-2", "name": "Atticus Dundee Inc.", "canon_id": "co-002", "relationship": "current_client", "open_matters": 47},
     {"id": "E-3", "name": "Meridian Crest Partners Fund II, L.P.", "canon_id": null, "relationship": "non_client_party_of_record", "matters": ["22-0418"]}
   ],
@@ -282,7 +282,7 @@
       "id": "ISS-1",
       "rule": "Model Rule 1.7(a)(2)",
       "subject": "co-115",
-      "summary": "Common sponsor control between the prospective client and current client HealthFirst through Meridian Crest Capital Management, LLC; shared director; information-flow risk.",
+      "summary": "Common sponsor control between the prospective client and current client CarePeak through Meridian Crest Capital Management, LLC; shared director; information-flow risk.",
       "conclusion": "consentable_material_limitation_risk"
     },
     {

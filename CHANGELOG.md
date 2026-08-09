@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 - 2026-08-08
+
+- Collision-check renames applied across canon, specs, artifacts, generators, and datasets (15 entities; e.g. Amberfield Logistics, Aphelion Systems, Palisade Labs, Thornfield Health, CarePeak Technologies). People names untouched.
+- Atticus Dundee Inc. product defined: B2B workflow and collaboration SaaS with a small-team tier.
+- Canon roster promoted from draft: names confirmed and collision-checked.
+
 ## 1.0.0 - 2026-08-08
 
 - Legal slice complete and frozen after review: 11 drafted artifact sets (~151k words) with canonical DOCX builds, 9 deterministic datasets, spec-driven datagen CLI.

@@ -2,7 +2,7 @@
 
 **Matter ID:** MAT-LIT-0117  
 **Plaintiff:** Atticus Dundee Inc. (co-002)  
-**Defendant:** Redgate Manufacturing (co-117)
+**Defendant:** Ironvale Manufacturing (co-117)
 
 ## Deadline chain
 

@@ -20,7 +20,7 @@ export const LAST_NAMES = [
   "Ashgrove", "Bellcrest", "Corrigan", "Duskwood", "Everhart", "Fairweather",
   "Grayling", "Hallowell", "Ivorwood", "Juniper", "Kestenbaum", "Larkspur",
   "Moorfield", "Norwich", "Osgood", "Pemberton", "Quennell", "Ravenscroft",
-  "Stonebridge", "Thistlewood", "Underhill", "Vantree", "Whitlock",
+  "Millgate", "Thistlewood", "Underhill", "Vantree", "Whitlock",
   "Yarrow", "Ashby", "Blackwood", "Crestfall", "Dunmore", "Elderkin",
   "Fenmore", "Greywick", "Holloway", "Ingledew", "Jarrow", "Kirtland",
   "Loxley", "Marchbanks", "Nightshade", "Oakhurst", "Pennington",

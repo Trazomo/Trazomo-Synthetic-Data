@@ -12,7 +12,7 @@ PREPARED IN ANTICIPATION OF LITIGATION
 | Client | Atticus Dundee Inc. (co-002) |
 | Client contact | Serena B. Alcaraz, Associate General Counsel, Employment and Litigation |
 | Adverse party | Jonah P. Verhoeven (individual, former independent contractor) |
-| Potential additional defendant | Perigee Systems (co-121) |
+| Potential additional defendant | Aphelion Systems (co-121) |
 | Intake record | INT-2026-0433, high-value queue |
 | Estimated matter value | $750,000 |
 | Intake response deadline | 14 days from intake, June 30, 2026. Met. |
@@ -79,13 +79,13 @@ The matter was reported to the firm by Serena B. Alcaraz on June 16, 2026 at 08:
 | 2026-05-29 | Engagement ends. No exit interview. No return-of-materials certificate requested. | HR and procurement records |
 | 2026-06-08 | Security operations triages a backlog of DLP alerts and surfaces DLP-2026-4471, thirteen days after it fired | Security ticket SEC-2026-2210 |
 | 2026-06-11 | Directory account, VPN certificate, and source control access revoked. Thirteen days after the engagement ended. | Identity management log |
-| 2026-06-15 | Contractor's public professional profile updated to show Staff Engineer, Perigee Systems, start date June 15, 2026 | Screen capture, hashed and preserved |
+| 2026-06-15 | Contractor's public professional profile updated to show Staff Engineer, Aphelion Systems, start date June 15, 2026 | Screen capture, hashed and preserved |
 | 2026-06-16 | Matter reported to the firm; high-value intake; fourteen-day response clock starts | INT-2026-0433 |
 | 2026-06-19 | Litigation hold issued to eleven custodians at the client | Hold notice LH-2026-0788 |
 | 2026-06-22 | Forensic examiner retained by counsel; imaging of the returned laptop begins | Engagement letter, examiner file |
-| 2026-06-25 | Preservation demand letters sent to Mr. Verhoeven and to Perigee Systems by certified mail and email | Correspondence file |
+| 2026-06-25 | Preservation demand letters sent to Mr. Verhoeven and to Aphelion Systems by certified mail and email | Correspondence file |
 | 2026-06-30 | Assessment and recommended plan delivered to client. Fourteen-day intake deadline satisfied. | This report, initial version |
-| 2026-07-06 | Perigee Systems counsel acknowledges the preservation demand; denies receipt of client materials; declines to identify the contractor's assigned project | Letter from Perigee counsel |
+| 2026-07-06 | Aphelion Systems counsel acknowledges the preservation demand; denies receipt of client materials; declines to identify the contractor's assigned project | Letter from Aphelion counsel |
 | 2026-07-08 | No response from Mr. Verhoeven | Correspondence file |
 
 ## 5. Evidence
@@ -118,7 +118,7 @@ Vivian Sørensen, EnCE, was retained by counsel on June 22, 2026. The client-iss
 
 ### 5.4 What the client cannot currently show
 
-The client cannot presently show what was in the 1.4 GB, cannot show that any file was opened after transfer, and cannot show that any client material has been used at or transferred to Perigee Systems. Access to the destination cloud account and to Mr. Verhoeven's personal devices requires either his cooperation or an order. This gap is the single most important open item on the file.
+The client cannot presently show what was in the 1.4 GB, cannot show that any file was opened after transfer, and cannot show that any client material has been used at or transferred to Aphelion Systems. Access to the destination cloud account and to Mr. Verhoeven's personal devices requires either his cooperation or an order. This gap is the single most important open item on the file.
 
 ## 6. Trade Secret Identification
 
@@ -155,14 +155,14 @@ The strongest claim, and the one least dependent on forensic reconstruction.
 
 - **ICSA § 8.** Breach is provable from the mirror clones and the transfer without proving the content qualifies as a trade secret.
 - **ICSA § 10.** No certificate of return or destruction was delivered. Breach is established on the face of the record. Damages are nominal but the breach supports specific performance of the return obligation, which is what the client actually wants.
-- **Exhibit B.** If any of the transferred material embodies an invention conceived during the services, the assignment already operated. This matters most if Mr. Verhoeven or Perigee Systems seeks patent protection on anything derived from the pipeline work. A watch has been placed on published applications naming him as an inventor.
+- **Exhibit B.** If any of the transferred material embodies an invention conceived during the services, the assignment already operated. This matters most if Mr. Verhoeven or Aphelion Systems seeks patent protection on anything derived from the pipeline work. A watch has been placed on published applications naming him as an inventor.
 - **ICSA § 9.1.** See Part 7.5.
 
-### 7.4 Tortious interference and claims against Perigee Systems
+### 7.4 Tortious interference and claims against Aphelion Systems
 
-A claim against Perigee Systems for tortious interference with contract requires knowledge of the covenant. Nothing currently shows that Perigee knew of the ICSA before June 25, 2026, when the preservation demand put it on notice. From June 25 forward, continued employment of Mr. Verhoeven in a competing role with knowledge of the covenant supports the claim, and its counsel's July 6, 2026 refusal to identify his assigned project is unhelpful to Perigee on the knowledge element going forward.
+A claim against Aphelion Systems for tortious interference with contract requires knowledge of the covenant. Nothing currently shows that Aphelion knew of the ICSA before June 25, 2026, when the preservation demand put it on notice. From June 25 forward, continued employment of Mr. Verhoeven in a competing role with knowledge of the covenant supports the claim, and its counsel's July 6, 2026 refusal to identify his assigned project is unhelpful to Aphelion on the knowledge element going forward.
 
-Recommendation is to hold this claim. Suing a competitor for hiring an engineer, on a covenant of doubtful enforceability, invites a counterclaim and converts a controllable dispute into a market event. Name Perigee only if the forensic work shows client material inside Perigee's environment.
+Recommendation is to hold this claim. Suing a competitor for hiring an engineer, on a covenant of doubtful enforceability, invites a counterclaim and converts a controllable dispute into a market event. Name Aphelion only if the forensic work shows client material inside Aphelion's environment.
 
 ### 7.5 Enforceability of the non-competition covenant
 
@@ -189,7 +189,7 @@ Not recommended. Mr. Verhoeven had authorized access to `signalpost-ingest`. Whe
 1. **Complete the forensic report.** Nothing should be filed before the examiner reports. Target July 24, 2026.
 2. **Second demand to Mr. Verhoeven** with a proposed stipulated protocol: a neutral examiner images his personal devices and the cloud account, returns and deletes client material, and certifies. Offer to bear the examiner's cost. Many of these matters end here.
 3. **If refused, move for a preliminary injunction** under the DTSA and the state act seeking return, forensic inspection, and a prohibition on use and disclosure. Do not seek to enjoin his employment.
-4. **Hold the claim against Perigee Systems** unless the forensic work places client material inside Perigee's environment.
+4. **Hold the claim against Aphelion Systems** unless the forensic work places client material inside Aphelion's environment.
 5. **Do not plead** the Computer Fraud and Abuse Act count or the § 9.1 non-competition count in the initial complaint. Both can be added if facts develop; neither can be unpleaded once the misclassification defense is invited.
 
 **Budget.** Phase 1 (forensics, demand, and preservation) $85,000 to $110,000. Phase 2 (complaint and preliminary injunction through hearing) $240,000 to $310,000. Phase 3 (expedited discovery to resolution) $300,000 to $400,000. The client's $750,000 exposure estimate is consistent with a case resolved in Phase 2 or early Phase 3.
@@ -211,7 +211,7 @@ These are findings about the client's own program. They are recorded here becaus
 
 Litigation hold LH-2026-0788 issued June 19, 2026 to eleven custodians, comprising the engineering manager, four members of the Data Platform team, two security operations analysts, the procurement owner, the HR business partner, the associate general counsel, and the systems owner for the version control platform. Automated deletion suspended on mail, chat, version control audit logs, endpoint telemetry, and identity logs. Acknowledgements received from ten of eleven custodians; the eleventh acknowledgement is tracked as an open item.
 
-Preservation demands were sent on June 25, 2026 to Mr. Verhoeven and to Perigee Systems. Perigee acknowledged on July 6, 2026. Mr. Verhoeven has not responded.
+Preservation demands were sent on June 25, 2026 to Mr. Verhoeven and to Aphelion Systems. Aphelion acknowledged on July 6, 2026. Mr. Verhoeven has not responded.
 
 ## 11. Open Items
 
@@ -222,7 +222,7 @@ Preservation demands were sent on June 25, 2026 to Mr. Verhoeven and to Perigee 
 | OI-3 | Second demand with stipulated inspection protocol | S. A. Ratliffe | 2026-07-28 | Drafted, held pending OI-1 |
 | OI-4 | Eleventh custodian hold acknowledgement | Client, ACG counsel | 2026-07-15 | Open |
 | OI-5 | Watch for published patent applications naming J. P. Verhoeven as inventor | Firm IP group | Standing, quarterly | Active |
-| OI-6 | Client decision on whether to name Perigee Systems | S. B. Alcaraz | After OI-1 | Pending |
+| OI-6 | Client decision on whether to name Aphelion Systems | S. B. Alcaraz | After OI-1 | Pending |
 | OI-7 | Amend contractor template to add the 18 U.S.C. § 1833(b) notice | Client, contracts | 2026-08-14 | Open |
 
 ## 12. Research Audit Trail

@@ -1,14 +1,14 @@
 contact_id,account_id,first_name,last_name,title,email,consent_status,suppressed
-ct-co-102-01,co-102,Casey,Whitfield,Head of Finance,casey.whitfield@granitepeaklogistics.example,unknown,false
+ct-co-102-01,co-102,Casey,Whitfield,Head of Finance,casey.whitfield@amberfieldlogistics.example,unknown,false
 ct-co-103-01,co-103,Morgan,Alvarez,Project Lead,morgan.alvarez@fernwellretailgroup.example,opted_in,false
 ct-co-103-02,co-103,Riley,Coburn,VP Operations,riley.coburn@fernwellretailgroup.example,opted_out,true
-ct-co-122-01,co-122,Emerson,Petrov,IT Manager,emerson.petrov@bellwetherlogistics.example,opted_in,false
-ct-co-122-02,co-122,Blair,Petrov,Head of Finance,blair.petrov@bellwetherlogistics.example,opted_out,true
-ct-co-124-01,co-124,Casey,Marsten,Director of Procurement,casey.marsten@ospreyinteractive.example,unknown,false
-ct-co-124-02,co-124,Morgan,Singh,Project Lead,morgan.singh@ospreyinteractive.example,opted_out,true
-ct-co-125-01,co-125,Casey,Delacroix,Head of Finance,casey.delacroix@kestrelhealth.example,unknown,false
-ct-co-125-02,co-125,Rowan,Nakamura,Project Lead,rowan.nakamura@kestrelhealth.example,opted_in,false
-ct-co-125-03,co-125,Skyler,Petrov,Head of Finance,skyler.petrov@kestrelhealth.example,opted_in,false
+ct-co-122-01,co-122,Emerson,Petrov,IT Manager,emerson.petrov@lodestarlogistics.example,opted_in,false
+ct-co-122-02,co-122,Blair,Petrov,Head of Finance,blair.petrov@lodestarlogistics.example,opted_out,true
+ct-co-124-01,co-124,Casey,Marsten,Director of Procurement,casey.marsten@talonworksinteractive.example,unknown,false
+ct-co-124-02,co-124,Morgan,Singh,Project Lead,morgan.singh@talonworksinteractive.example,opted_out,true
+ct-co-125-01,co-125,Casey,Delacroix,Head of Finance,casey.delacroix@thornfieldhealth.example,unknown,false
+ct-co-125-02,co-125,Rowan,Nakamura,Project Lead,rowan.nakamura@thornfieldhealth.example,opted_in,false
+ct-co-125-03,co-125,Skyler,Petrov,Head of Finance,skyler.petrov@thornfieldhealth.example,opted_in,false
 ct-co-140-01,co-140,Skyler,Nakamura,VP Operations,skyler.nakamura@bramblecourtanalytics.example,unknown,false
 ct-co-140-02,co-140,Riley,Yun,Head of Finance,riley.yun@bramblecourtanalytics.example,unknown,false
 ct-co-140-03,co-140,Morgan,Alvarez,Director of Procurement,morgan.alvarez@bramblecourtanalytics.example,opted_out,true

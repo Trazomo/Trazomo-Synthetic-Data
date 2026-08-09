@@ -11,14 +11,14 @@ import { buildRoster } from "./core-04-people-roster.js";
 export const id = "CORE-03";
 
 const NAMED_ACCOUNTS = [
-  { canonId: "co-102", name: "Granite Peak Logistics", industry: "Logistics", segment: "Enterprise", status: "customer" },
+  { canonId: "co-102", name: "Amberfield Logistics", industry: "Logistics", segment: "Enterprise", status: "customer" },
   { canonId: "co-103", name: "Fernwell Retail Group", industry: "Retail", segment: "Mid-Market", status: "customer" },
-  { canonId: "co-122", name: "Bellwether Logistics", industry: "Logistics", segment: "Enterprise", status: "target" },
-  { canonId: "co-124", name: "Osprey Interactive", industry: "Media", segment: "Mid-Market", status: "closed_lost" },
-  { canonId: "co-125", name: "Kestrel Health", industry: "Healthcare", segment: "Enterprise", status: "target" },
+  { canonId: "co-122", name: "Lodestar Logistics", industry: "Logistics", segment: "Enterprise", status: "target" },
+  { canonId: "co-124", name: "Talonworks Interactive", industry: "Media", segment: "Mid-Market", status: "closed_lost" },
+  { canonId: "co-125", name: "Thornfield Health", industry: "Healthcare", segment: "Enterprise", status: "target" },
 ];
 
-const COMPETITOR = { canonId: "co-121", name: "Perigee Systems" };
+const COMPETITOR = { canonId: "co-121", name: "Aphelion Systems" };
 
 const GENERATED_COMPANY_WORDS = [
   "Bramblecourt", "Northfield", "Cinderbrook", "Amberline", "Foxglove",

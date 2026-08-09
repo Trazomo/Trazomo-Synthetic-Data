@@ -4,7 +4,7 @@ This Mutual Non-Disclosure Agreement (this "**Agreement**") is entered into as o
 
 **Atticus Dundee Inc.**, a Delaware corporation with its principal place of business at 1450 Halverson Quay, Suite 600, Wilmington, Delaware 19801; and
 
-**Veranda Labs, Inc.**, a Delaware corporation with its principal place of business at 3600 Wexler Point, Building 4, San Mateo, California 94402.
+**Palisade Labs, Inc.**, a Delaware corporation with its principal place of business at 3600 Wexler Point, Building 4, San Mateo, California 94402.
 
 Each of the above is referred to as a "**Party**" and together as the "**Parties**." In relation to any particular item of Confidential Information, the Party disclosing it (including through its Representatives) is the "**Disclosing Party**" and the Party receiving it is the "**Receiving Party**."
 
@@ -113,7 +113,7 @@ All notices under this Agreement must be in writing and are effective on persona
 Attention: General Counsel
 Email: legalnotices@atticusdundee.example
 
-**If to Veranda Labs, Inc.:**
+**If to Palisade Labs, Inc.:**
 3600 Wexler Point, Building 4, San Mateo, California 94402
 Attention: Director, Corporate Development
 Email: corpdev@verandalabs.example

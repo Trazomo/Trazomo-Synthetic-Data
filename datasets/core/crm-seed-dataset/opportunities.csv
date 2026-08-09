@@ -1,9 +1,9 @@
 opportunity_id,account_id,opportunity_name,stage,amount,owner_employee_id,owner_name,next_step,competitor,created_date,close_date
 opp-co-102-01,co-102,Enterprise Renewal FY27,Negotiation,480000,EMP-0265,Tobin Greywick,,,2025-08-24,
 opp-co-103-01,co-103,Fernwell Retail Group - New Business,Negotiation,18311,EMP-0288,Quenby Ravenscroft,Await signature,,2025-10-16,
-opp-co-122-01,co-122,Bellwether Logistics - New Business,Qualification,72092,EMP-0331,Cassian Pemberton,Send proposal,Perigee Systems,2025-09-22,
-opp-co-124-01,co-124,Osprey Interactive - Renewal,Closed Lost,27161,EMP-0307,Verity Bellcrest,Legal review,,2026-01-11,2026-03-12
-opp-co-125-01,co-125,Kestrel Health - New Business,Qualification,152066,EMP-0266,Piran Larkspur,Send proposal,,2025-09-29,
+opp-co-122-01,co-122,Lodestar Logistics - New Business,Qualification,72092,EMP-0331,Cassian Pemberton,Send proposal,Aphelion Systems,2025-09-22,
+opp-co-124-01,co-124,Talonworks Interactive - Renewal,Closed Lost,27161,EMP-0307,Verity Bellcrest,Legal review,,2026-01-11,2026-03-12
+opp-co-125-01,co-125,Thornfield Health - New Business,Qualification,152066,EMP-0266,Piran Larkspur,Send proposal,,2025-09-29,
 opp-co-140-01,co-140,Bramblecourt Analytics - New Business,Prospecting,16208,EMP-0294,Lyric Nightshade,Schedule demo,,2025-07-25,
 opp-co-141-01,co-141,Northfield Holdings - New Business,Prospecting,166569,EMP-0264,Oleander Jarrow,Follow up call,,2026-01-22,
 opp-co-142-01,co-142,Cinderbrook LLC - New Business,Prospecting,210480,EMP-0287,Ewald Bellcrest,,,2026-01-09,

@@ -8,7 +8,7 @@ This Office Lease Agreement (this "**Lease**") is made as of August 14, 2024 (th
 
 The following terms have the meanings set out in this Article 1 wherever they are used in this Lease. In the event of a conflict between this Article 1 and any other provision of this Lease, the other provision controls.
 
-**1.1 Landlord.** Ashgrove Properties LLC, a Delaware limited liability company, c/o Ashgrove Asset Management, 77 Ferry Landing Road, Suite 250, Wilmington, Delaware 19801.
+**1.1 Landlord.** Birchcroft Properties LLC, a Delaware limited liability company, c/o Ashgrove Asset Management, 77 Ferry Landing Road, Suite 250, Wilmington, Delaware 19801.
 
 **1.2 Tenant.** Atticus Dundee Inc., a Delaware corporation, whose notice address before the Commencement Date is 1450 Halverson Quay, Suite 600, Wilmington, Delaware 19801.
 
@@ -255,7 +255,7 @@ Each party represents to the other that it has not dealt with any broker, agent,
 All notices under this Lease must be in writing and are effective on personal delivery, one (1) Business Day after deposit with a nationally recognized overnight courier with tracking, or three (3) Business Days after deposit in the U.S. mail, certified or registered, return receipt requested, addressed as follows:
 
 **If to Landlord:**
-Ashgrove Properties LLC
+Birchcroft Properties LLC
 c/o Ashgrove Asset Management
 77 Ferry Landing Road, Suite 250
 Wilmington, Delaware 19801
@@ -350,7 +350,7 @@ The Premises consist of the entirety of the fifth and sixth floors of the Buildi
 
 **Commencement Date Certificate**
 
-Reference is made to the Office Lease Agreement dated August 14, 2024 between Ashgrove Properties LLC, as Landlord, and Atticus Dundee Inc., as Tenant, for Suite 600 at Halverson Quay Center, 1450 Halverson Quay, Wilmington, Delaware.
+Reference is made to the Office Lease Agreement dated August 14, 2024 between Birchcroft Properties LLC, as Landlord, and Atticus Dundee Inc., as Tenant, for Suite 600 at Halverson Quay Center, 1450 Halverson Quay, Wilmington, Delaware.
 
 Landlord and Tenant confirm that:
 
@@ -361,7 +361,7 @@ Landlord and Tenant confirm that:
 5. Landlord's Work has been substantially completed, subject only to the punch list attached to this certificate.
 6. The Lease is in full force and effect, and to the knowledge of the party signing below, no default exists under the Lease.
 
-**LANDLORD:** Ashgrove Properties LLC
+**LANDLORD:** Birchcroft Properties LLC
 
 By: _______________________________  Name: _______________________________  Title: _______________________________
 

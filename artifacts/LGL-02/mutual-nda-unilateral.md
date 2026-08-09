@@ -4,7 +4,7 @@ This Non-Disclosure Agreement (this "**Agreement**") is entered into as of March
 
 **Atticus Dundee Inc.**, a Delaware corporation with its principal place of business at 1450 Halverson Quay, Suite 600, Wilmington, Delaware 19801 (the "**Disclosing Party**"); and
 
-**Veranda Labs, Inc.**, a Delaware corporation with its principal place of business at 3600 Wexler Point, Building 4, San Mateo, California 94402 (the "**Receiving Party**").
+**Palisade Labs, Inc.**, a Delaware corporation with its principal place of business at 3600 Wexler Point, Building 4, San Mateo, California 94402 (the "**Receiving Party**").
 
 Each is referred to as a "**Party**" and together as the "**Parties**."
 
@@ -115,7 +115,7 @@ Attention: General Counsel
 Email: legalnotices@atticusdundee.example
 
 **If to the Receiving Party:**
-Veranda Labs, Inc.
+Palisade Labs, Inc.
 3600 Wexler Point, Building 4, San Mateo, California 94402
 Attention: Director, Corporate Development
 Email: corpdev@verandalabs.example

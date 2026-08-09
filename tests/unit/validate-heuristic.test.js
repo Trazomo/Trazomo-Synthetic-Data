@@ -33,3 +33,9 @@ test("checkPlantedFeature is case-insensitive", () => {
   const result = checkPlantedFeature(feature, source);
   assert.equal(result.status, "PASS");
 });
+
+test("significantTokens flattens mapping-shaped planted features", () => {
+  const tokens = significantTokens({ "finance section": "one memo superseded by a later one" });
+  assert.ok(tokens.includes("finance"));
+  assert.ok(tokens.includes("superseded"));
+});

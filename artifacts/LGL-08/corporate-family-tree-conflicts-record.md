@@ -46,7 +46,7 @@ The following structure was reported by the requesting attorney at intake and in
 
 TechBridge Solutions, Inc. is majority-owned by a private equity fund, Meridian Crest Partners Fund III, L.P. The remaining equity is held by a founder vehicle, Ferreira Family Holdings, LLC. TechBridge in turn holds one dormant foreign subsidiary.
 
-The fund's general partner is Meridian Crest GP III, LLC, which is majority-owned by Meridian Crest Capital Management, LLC. Meridian Crest Capital Management, LLC is also the investment manager of an earlier vintage fund, Meridian Crest Partners Fund II, L.P. That earlier fund, together with a co-investment stake held by Fund III itself, controls HealthFirst Technologies, Inc., an existing client of this firm.
+The fund's general partner is Meridian Crest GP III, LLC, which is majority-owned by Meridian Crest Capital Management, LLC. Meridian Crest Capital Management, LLC is also the investment manager of an earlier vintage fund, Meridian Crest Partners Fund II, L.P. That earlier fund, together with a co-investment stake held by Fund III itself, controls CarePeak Technologies, Inc., an existing client of this firm.
 
 Separately, the founder of TechBridge sits on the board of directors of Atticus Dundee Inc., the firm's largest client by revenue.
 
@@ -58,11 +58,11 @@ Separately, the founder of TechBridge sits on the board of directors of Atticus 
 | 2 | Meridian Crest Partners Fund III, L.P. | TechBridge Solutions, Inc. (co-114) | 80% | Capitalization table certified by TechBridge CFO, 2026-07-22 |
 | 2 | Ferreira Family Holdings, LLC | TechBridge Solutions, Inc. (co-114) | 20% | Same |
 | 3 | Meridian Crest Capital Management, LLC | Meridian Crest GP III, LLC (general partner of Fund III) | 70% | Delaware LLC agreement, First Amended and Restated, dated 2023-01-31, provided by sponsor counsel |
-| 4 | Meridian Crest Partners Fund II, L.P. | HealthFirst Technologies, Inc. (co-115) | 60% | Firm's own client file 22-0418; stockholders agreement dated 2022-06-14 |
-| 4 | Meridian Crest Partners Fund III, L.P. | HealthFirst Technologies, Inc. (co-115) | 30% | Same; Fund III entered as a co-investor in the 2024 recapitalization |
-| 4 | HealthFirst management holders (various) | HealthFirst Technologies, Inc. (co-115) | 10% | Same |
+| 4 | Meridian Crest Partners Fund II, L.P. | CarePeak Technologies, Inc. (co-115) | 60% | Firm's own client file 22-0418; stockholders agreement dated 2022-06-14 |
+| 4 | Meridian Crest Partners Fund III, L.P. | CarePeak Technologies, Inc. (co-115) | 30% | Same; Fund III entered as a co-investor in the 2024 recapitalization |
+| 4 | CarePeak management holders (various) | CarePeak Technologies, Inc. (co-115) | 10% | Same |
 
-Meridian Crest Capital Management, LLC is the investment manager of both Meridian Crest Partners Fund II, L.P. and Meridian Crest Partners Fund III, L.P. It does not hold equity in either fund's portfolio companies directly. Evelyn K. Brandt is the managing partner of Meridian Crest Capital Management, LLC and sits on the boards of both TechBridge and HealthFirst.
+Meridian Crest Capital Management, LLC is the investment manager of both Meridian Crest Partners Fund II, L.P. and Meridian Crest Partners Fund III, L.P. It does not hold equity in either fund's portfolio companies directly. Evelyn K. Brandt is the managing partner of Meridian Crest Capital Management, LLC and sits on the boards of both TechBridge and CarePeak.
 
 ### 3.3 Individual relationships
 
@@ -97,7 +97,7 @@ The following entities appear in the structure above and are **not** proposed cl
 
 | # | Screened name | Index hit | Relationship to firm | Matters |
 |---|---|---|---|---|
-| E-1 | HealthFirst Technologies, Inc. | HealthFirst Technologies, Inc. | Current client | 22-0418 (corporate), 24-1187 (AML compliance program), 26-0331 (compliance program refresh) |
+| E-1 | CarePeak Technologies, Inc. | CarePeak Technologies, Inc. | Current client | 22-0418 (corporate), 24-1187 (AML compliance program), 26-0331 (compliance program refresh) |
 | E-2 | Atticus Dundee Inc. | Atticus Dundee Inc. | Current client | 47 open matters across five practice groups |
 | E-3 | Meridian Crest Partners Fund II, L.P. | Meridian Crest Partners Fund II, L.P. | Non-client party of record | Appears as a signatory party in 22-0418 |
 
@@ -118,7 +118,7 @@ Eleven pass-two results scored below 85.0 and were auto-cleared, the highest bei
 
 ### 5.4 Personal-interest register
 
-One hit. Partner Marguerite Oyelaran, relationship partner for HealthFirst Technologies, Inc., holds a limited partner interest of less than 0.1% in Meridian Crest Partners Fund II, L.P., disclosed on her 2024, 2025, and 2026 annual certifications. The interest is passive and non-controlling. See Part 7.4.
+One hit. Partner Marguerite Oyelaran, relationship partner for CarePeak Technologies, Inc., holds a limited partner interest of less than 0.1% in Meridian Crest Partners Fund II, L.P., disclosed on her 2024, 2025, and 2026 annual certifications. The interest is passive and non-controlling. See Part 7.4.
 
 ## 6. Verified Corporate Family Tree
 
@@ -134,12 +134,12 @@ Meridian Crest Capital Management, LLC  (investment manager, Funds II and III)
  |                                          |             |
  |                                          |             +-- 100% --> TechBridge Solutions Ltd. (Ireland)
  |                                          |
- |                                          +-- 30% --> HealthFirst Technologies, Inc.  [co-115]
+ |                                          +-- 30% --> CarePeak Technologies, Inc.  [co-115]
  |                                                        (CURRENT FIRM CLIENT)
  |
  +-- investment manager of --> Meridian Crest Partners Fund II, L.P.
                                  |
-                                 +-- 60% --> HealthFirst Technologies, Inc.  [co-115]
+                                 +-- 60% --> CarePeak Technologies, Inc.  [co-115]
                                                (CURRENT FIRM CLIENT)
 
 Ferreira Family Holdings, LLC
@@ -160,17 +160,17 @@ Three questions govern. First, is any person or entity the firm proposes to repr
 
 Corporate affiliation alone does not make an affiliate a client. Under ABA Formal Opinion 95-390 and Model Rule 1.7, cmt. [34], a lawyer who represents a corporation does not thereby represent its parent, its subsidiaries, or its sister companies unless the circumstances create a reasonable expectation to the contrary, the entities operate as a single unit, or the engagement agreement so provides. The analysis below applies that principle rather than treating the whole Meridian Crest structure as one client.
 
-### 7.2 Common-owner analysis: HealthFirst Technologies, Inc. (co-115)
+### 7.2 Common-owner analysis: CarePeak Technologies, Inc. (co-115)
 
-HealthFirst is a current client. Fund II holds 60% of HealthFirst and Fund III holds 30%. Fund III holds 80% of the Prospective Client. The common link is Meridian Crest Capital Management, LLC, which manages both funds and controls the general partner of Fund III.
+CarePeak is a current client. Fund II holds 60% of CarePeak and Fund III holds 30%. Fund III holds 80% of the Prospective Client. The common link is Meridian Crest Capital Management, LLC, which manages both funds and controls the general partner of Fund III.
 
-This is not a direct adversity conflict. The firm is not proposing to act adverse to HealthFirst; HealthFirst is neither a party to the auction nor, as reported, a prospective bidder. The Rule 1.7(a)(1) analysis is therefore negative on the facts as disclosed.
+This is not a direct adversity conflict. The firm is not proposing to act adverse to CarePeak; CarePeak is neither a party to the auction nor, as reported, a prospective bidder. The Rule 1.7(a)(1) analysis is therefore negative on the facts as disclosed.
 
-The Rule 1.7(a)(2) question is closer and turns on two facts. First, Evelyn K. Brandt sits on both boards and is the principal decision-maker for the sponsor on both investments. Second, the auction process will generate valuation, customer-concentration, and product-roadmap information about TechBridge that a lawyer holding it could not readily quarantine from advice given to HealthFirst on adjacent healthcare-technology matters. The risk is a material-limitation risk running to information flow and to the firm's incentive to preserve the sponsor relationship, not a risk of adversity between the two portfolio companies today.
+The Rule 1.7(a)(2) question is closer and turns on two facts. First, Evelyn K. Brandt sits on both boards and is the principal decision-maker for the sponsor on both investments. Second, the auction process will generate valuation, customer-concentration, and product-roadmap information about TechBridge that a lawyer holding it could not readily quarantine from advice given to CarePeak on adjacent healthcare-technology matters. The risk is a material-limitation risk running to information flow and to the firm's incentive to preserve the sponsor relationship, not a risk of adversity between the two portfolio companies today.
 
-Two facts materially change this analysis if they occur, and both are made conditions in Part 8: HealthFirst joining the bidder list, and any HealthFirst-TechBridge commercial negotiation opening during the auction period.
+Two facts materially change this analysis if they occur, and both are made conditions in Part 8: CarePeak joining the bidder list, and any CarePeak-TechBridge commercial negotiation opening during the auction period.
 
-**Conclusion.** Not a present Rule 1.7(a)(1) conflict. A Rule 1.7(a)(2) risk that is consentable and that the firm should manage with an information screen and a written waiver from HealthFirst.
+**Conclusion.** Not a present Rule 1.7(a)(1) conflict. A Rule 1.7(a)(2) risk that is consentable and that the firm should manage with an information screen and a written waiver from CarePeak.
 
 ### 7.3 Former-client analysis: TechBridge Solutions Ltd. (matter 23-0774)
 
@@ -180,7 +180,7 @@ The material point is not a conflict but a records point. Information the firm h
 
 ### 7.4 Personal-interest analysis: Rule 1.7(a)(2) and Rule 1.10
 
-Ms. Oyelaran's limited partner interest in Fund II is passive, is less than 0.1%, is not a controlling interest, and gives her no role in the auction. Under Model Rule 1.7(a)(2) as applied by the firm's Personal Interest Policy Section 3.1, a passive interest below the 1% threshold in a fund that does not hold the transaction subject does not create a material-limitation conflict. No disqualification arises and therefore nothing is imputed under Model Rule 1.10(a). Ms. Oyelaran will nonetheless be walled from the 26-0912 team as a prophylactic measure (Condition C-2), because she is the HealthFirst relationship partner and the same wall serves the Part 7.2 analysis.
+Ms. Oyelaran's limited partner interest in Fund II is passive, is less than 0.1%, is not a controlling interest, and gives her no role in the auction. Under Model Rule 1.7(a)(2) as applied by the firm's Personal Interest Policy Section 3.1, a passive interest below the 1% threshold in a fund that does not hold the transaction subject does not create a material-limitation conflict. No disqualification arises and therefore nothing is imputed under Model Rule 1.10(a). Ms. Oyelaran will nonetheless be walled from the 26-0912 team as a prophylactic measure (Condition C-2), because she is the CarePeak relationship partner and the same wall serves the Part 7.2 analysis.
 
 ### 7.5 Director-relationship analysis: Marcus D. Ferreira and Atticus Dundee Inc. (co-002)
 
@@ -202,8 +202,8 @@ This record does not clear any bidder. It does not clear any financing source, a
 
 | ID | Condition | Owner | Due | Status |
 |---|---|---|---|---|
-| C-1 | Obtain a written, informed conflict waiver from HealthFirst Technologies, Inc. under Model Rule 1.7(b), disclosing the sponsor's common control, the co-investment stake, and the information-flow risk in Part 7.5. Waiver to be signed by HealthFirst's general counsel, not by a sponsor designee on the HealthFirst board. | Marguerite Oyelaran | 2026-08-14 | Open |
-| C-2 | Implement an information screen isolating the 26-0912 deal team from the HealthFirst client team and from Marguerite Oyelaran. Screen to include matter-level document security in the document management system, an acknowledgement from every screened person, and no shared assistants. | Rosalind M. Achebe | 2026-08-07 | Implemented 2026-08-05 |
+| C-1 | Obtain a written, informed conflict waiver from CarePeak Technologies, Inc. under Model Rule 1.7(b), disclosing the sponsor's common control, the co-investment stake, and the information-flow risk in Part 7.5. Waiver to be signed by CarePeak's general counsel, not by a sponsor designee on the CarePeak board. | Marguerite Oyelaran | 2026-08-14 | Open |
+| C-2 | Implement an information screen isolating the 26-0912 deal team from the CarePeak client team and from Marguerite Oyelaran. Screen to include matter-level document security in the document management system, an acknowledgement from every screened person, and no shared assistants. | Rosalind M. Achebe | 2026-08-07 | Implemented 2026-08-05 |
 | C-3 | Deliver a written non-representation acknowledgement to Marcus D. Ferreira in his individual capacity, stating that the firm represents TechBridge Solutions, Inc. and not him, and recommending separate counsel for any personal rollover, employment, or indemnity arrangement. | Douglas H. Wentz | 2026-08-14 | Open |
 | C-4 | Segregate matter 23-0774 (TechBridge Solutions Ltd.) in the document management system and obtain the Prospective Client's written authorization before any 23-0774 material is used in or produced to the data room. | Priya Raghunathan | 2026-08-14 | Open |
 | C-5 | Obtain written confirmation from the general counsel of Atticus Dundee Inc. that co-002 is not and will not become a bidder. If co-002 bids, the firm will decline the bidder relationship and, if TechBridge does not consent to the firm continuing, will withdraw from 26-0912 under Model Rule 1.16(b). State this consequence in the engagement letter. | Simon T. Delacroix | 2026-09-04 | Open |

@@ -1,4 +1,4 @@
-// LGL-11 litigation-matter-commercial-employment: co-002 v. co-117 (Redgate
+// LGL-11 litigation-matter-commercial-employment: co-002 v. co-117 (Ironvale
 // Manufacturing). Two planted deadline-math features:
 //   1. A deadline chain: complaint served -> FRCP 12(a)(1) 21-day response
 //      -> +3-day mail extension -> weekend rollover.
@@ -70,7 +70,7 @@ export function generate() {
     matter_type: "commercial/employment dispute",
     plaintiff_canon_id: "co-002",
     defendant_canon_id: "co-117",
-    defendant_name: "Redgate Manufacturing",
+    defendant_name: "Ironvale Manufacturing",
     deadline_chain: deadlineChain,
     trial_continuance_cascade: cascade,
   };

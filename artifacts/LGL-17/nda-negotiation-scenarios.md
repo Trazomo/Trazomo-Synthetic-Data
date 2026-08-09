@@ -22,16 +22,16 @@ The purpose of keeping these records is not the individual deal. It is to see wh
 
 ---
 
-## Scenario A: Granite Peak Logistics (co-102)
+## Scenario A: Amberfield Logistics (co-102)
 
 | Field | Value |
 |---|---|
 | Record | NEG-2026-0117 |
-| Counterparty | Granite Peak Logistics (co-102) |
+| Counterparty | Amberfield Logistics (co-102) |
 | Counterparty profile | Enterprise customer, existing relationship, healthy payer, largest single account by annual contract value |
 | Counterparty contact | Fiona McAllister-Grange, Deputy General Counsel |
 | Purpose | Technical discovery for a proposed multi-year renewal and platform expansion, requiring exchange of architecture, security, and roadmap material in both directions |
-| Paper | Counterparty paper (Granite Peak standard mutual NDA, v9) |
+| Paper | Counterparty paper (Amberfield standard mutual NDA, v9) |
 | Opened | April 14, 2026 |
 | Executed | May 8, 2026 |
 | Cycle time | 17 business days against a 3 business day target for standard form |
@@ -41,7 +41,7 @@ The purpose of keeping these records is not the individual deal. It is to see wh
 
 ### Posture
 
-Leverage sits with the counterparty. Granite Peak is the company's largest account and the NDA is the gate to a renewal conversation the company wants. That is a reason to negotiate carefully, not a reason to sign anything. The team's instruction from the General Counsel at the outset was that no term in an NDA is worth a renewal, because a term the company concedes to its largest customer becomes the term every other enterprise customer's counsel asks for.
+Leverage sits with the counterparty. Amberfield is the company's largest account and the NDA is the gate to a renewal conversation the company wants. That is a reason to negotiate carefully, not a reason to sign anything. The team's instruction from the General Counsel at the outset was that no term in an NDA is worth a renewal, because a term the company concedes to its largest customer becomes the term every other enterprise customer's counsel asks for.
 
 Accepting counterparty paper was itself the first decision. It was accepted because the counterparty's form is competently drafted, genuinely mutual, and the redline is shorter than the argument about whose paper to use.
 
@@ -52,7 +52,7 @@ Accepting counterparty paper was itself the first decision. It was accepted beca
 | A-1 | Confidentiality duration | Perpetual for all Confidential Information | Three years' survival, indefinite for trade secrets | Five years' survival, indefinite for trade secrets | Perpetual for all information | **Settled at acceptable.** Five years' survival; trade secrets for so long as they remain trade secrets. |
 | A-2 | Indemnity | Receiving Party indemnifies Disclosing Party for any breach, uncapped, including consequential loss | No indemnity in an NDA | No indemnity in an NDA | Any indemnity | **Settled at target.** Removed. Counterparty accepted that Section 8 equitable relief plus damages at law is the remedy set. |
 | A-3 | Audit rights | Disclosing Party may audit Receiving Party's systems on 48 hours' notice, at Receiving Party's cost, twice per year | No audit right | Written self-attestation on request, no more than annually | On-site audit of production systems | **Settled at acceptable.** Annual written attestation on the counterparty's control questionnaire. CISO approved the questionnaire content before signature. |
-| A-4 | Affiliate extension | Confidential Information may be shared with any Granite Peak affiliate | Named affiliates only, listed in a schedule | Affiliates that are controlled subsidiaries, bound by the same terms, with the disclosing entity remaining responsible | Any affiliate, including affiliates acquired later | **Settled at acceptable.** Controlled subsidiaries only; Granite Peak remains responsible for their compliance. |
+| A-4 | Affiliate extension | Confidential Information may be shared with any Amberfield affiliate | Named affiliates only, listed in a schedule | Affiliates that are controlled subsidiaries, bound by the same terms, with the disclosing entity remaining responsible | Any affiliate, including affiliates acquired later | **Settled at acceptable.** Controlled subsidiaries only; Amberfield remains responsible for their compliance. |
 | A-5 | Change of control | Silent | Termination right on a change of control to a competitor | Notice on change of control plus a thirty-day termination right | Assignment to a competitor without notice | **Settled at target.** Counterparty had the same concern and proposed the clause itself. |
 | A-6 | Section 9 immunity notice | Absent from counterparty form | Insert verbatim | Insert verbatim | Any refusal | **Settled at target.** Inserted without discussion. |
 | A-7 | Residual knowledge | Not raised by counterparty | Not offered | Not offered | Any residuals clause | Not raised. Not offered. |
@@ -170,7 +170,7 @@ Escalation to the General Counsel and the Chief Financial Officer opened June 18
 
 | Record | Counterparty | Level | Cycle time | Outcome |
 |---|---|---|---|---|
-| NEG-2026-0117 | Granite Peak Logistics (co-102) | D3 | 17 business days | Executed May 8, 2026 |
+| NEG-2026-0117 | Amberfield Logistics (co-102) | D3 | 17 business days | Executed May 8, 2026 |
 | NEG-2026-0139 | Brightquarry Analytics (co-118) | D3 | 14 business days | Executed June 9, 2026 |
 | NEG-2026-0154 | Torchbird Labs (co-123) | D4 | Open | Deal-breaker escalation, not executed |
 
