@@ -26,7 +26,9 @@ test("buildWithDocxFallback produces a valid docx with headings and a preserved 
 
     const xml = extractText(outPath);
     assert.match(xml, /Fixture Test Agreement/);
-    assert.match(xml, /1\s*Definitions|1  Definitions/);
+    assert.match(xml, /1\. Definitions/);
+    // No injected numbering: the authored number is the only one.
+    assert.doesNotMatch(xml, /1\s+1\. Definitions/);
     assert.match(xml, /Wrenna Ashgrove/);
     assert.match(xml, /Cassian Bellcrest/);
   } finally {
@@ -39,7 +41,7 @@ test("reference.docx exists and is a valid docx template", () => {
   assert.equal(bytes.subarray(0, 2).toString("latin1"), "PK");
 });
 
-test("pandoc path (skipped if pandoc is not installed on this machine): numbered headings, serif theme, signature line breaks preserved", { skip: !pandocAvailable() }, () => {
+test("pandoc path (skipped if pandoc is not installed on this machine): authored numbering preserved, serif theme, signature line breaks preserved", { skip: !pandocAvailable() }, () => {
   const dir = mkdtempSync(join(tmpdir(), "datagen-docx-pandoc-"));
   try {
     const outPath = join(dir, "out.docx");
@@ -48,11 +50,11 @@ test("pandoc path (skipped if pandoc is not installed on this machine): numbered
     assert.equal(bytes.subarray(0, 2).toString("latin1"), "PK");
 
     const xml = extractText(outPath);
-    // Pandoc's --number-sections emits the section number as its own run
-    // right before the heading text.
-    assert.match(xml, /<w:t[^>]*>1<\/w:t>/);
-    assert.match(xml, /<w:t[^>]*>1\.1<\/w:t>/);
-    assert.match(xml, /Definitions/);
+    // Section numbers come from the authored source; pandoc must not add
+    // its own (no standalone bare-number runs before headings).
+    assert.match(xml, /1\. Definitions/);
+    assert.match(xml, /1\.1 Sub Point/);
+    assert.doesNotMatch(xml, /<w:t[^>]*>1<\/w:t><\/w:r><w:r[^>]*><w:t[^>]*>1\. Definitions/);
     // Signature block: two consecutive lines joined by a <w:br/> inside one
     // paragraph (pandoc's rendering of a trailing "\" hard line break).
     assert.match(xml, /Wrenna Ashgrove<\/w:t><\/w:r><w:r><w:br\s*\/><\/w:r>/);

@@ -3,7 +3,8 @@
 // Primary path: pandoc, if `pandoc --version` succeeds on this machine, using
 // datagen/assets/reference.docx (a patched copy of pandoc's own default
 // reference document: serif theme fonts, justified body text, left-aligned
-// numbered headings) plus --number-sections for a real numbered heading
+// numbered headings). Section numbers are canonical in the markdown source
+// (legal cross-references depend on them), so pandoc must NOT renumber:
 // hierarchy, and pandoc's native "\<newline>" hard-break handling for
 // signature-block preservation.
 //
@@ -54,17 +55,16 @@ export function buildWithPandoc(mdPath, outPath, referenceDocxPath) {
     mdPath,
     "-o",
     outPath,
-    "--number-sections",
     `--reference-doc=${referenceDocxPath}`,
   ]);
 }
 
 /**
  * Convert one markdown file to docx using the `docx` npm package fallback
- * (no pandoc available). Applies the same legal-document intent: numbered
- * heading hierarchy (numbers are computed and prefixed manually here, since
- * we are not relying on pandoc's numbering machinery), serif justified body
- * text, and signature-block line-break preservation.
+ * (no pandoc available). Applies the same legal-document intent: headings
+ * rendered exactly as authored (section numbers are canonical in the source;
+ * legal cross-references depend on them, so nothing renumbers), serif
+ * justified body text, and signature-block line-break preservation.
  * @param {string} mdPath
  * @param {string} outPath
  */
@@ -111,7 +111,6 @@ function markdownToParagraphs(body, title) {
     );
   }
 
-  const counters = [0, 0, 0, 0, 0, 0];
   const lines = body.split("\n");
   let paragraphBuffer = [];
 
@@ -130,14 +129,11 @@ function markdownToParagraphs(body, title) {
     if (headingMatch) {
       flushParagraph();
       const level = headingMatch[1].length;
-      counters[level - 1] += 1;
-      for (let i = level; i < counters.length; i++) counters[i] = 0;
-      const number = counters.slice(0, level).join(".");
       children.push(
         new Paragraph({
           heading: HEADING_STYLE_BY_LEVEL[level - 1] ?? HeadingLevel.HEADING_6,
           alignment: AlignmentType.LEFT,
-          children: [new TextRun({ text: `${number}  ${headingMatch[2]}`, bold: true })],
+          children: [new TextRun({ text: headingMatch[2], bold: true })],
         })
       );
       continue;
