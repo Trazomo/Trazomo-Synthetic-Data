@@ -53,14 +53,14 @@ Our client in this Matter is Atticus Dundee Inc. only. Our representation does n
 
 | Name | Role in the Matter | Position | Hourly rate |
 |---|---|---|---|
-| Jonathan K. Sterling | Engagement partner; overall responsibility, negotiation lead | Partner, Mergers and Acquisitions | $985 |
+| Jonathan K. Sedgemoor | Engagement partner; overall responsibility, negotiation lead | Partner, Mergers and Acquisitions | $985 |
 | Amara Diallo-Reyes | Technology, intellectual property, and data protection workstreams | Partner, Technology Transactions | $940 |
 | Corinne Whitfield | Employee benefits, executive compensation, and equity rollover | Counsel, Benefits and Compensation | $760 |
 | Lucian Petrosyan | Day-to-day drafting, diligence management, closing mechanics | Senior Associate, Corporate | $620 |
 | Hana Ishibashi-Cole | Diligence review, disclosure schedules, corporate authorizations | Associate, Corporate | $475 |
 | Bernadette Oyelaran | Closing checklist, signature management, filings | Senior Paralegal | $265 |
 
-Jonathan K. Sterling is the partner responsible for the Matter and your primary point of contact. Lucian Petrosyan is the day-to-day contact.
+Jonathan K. Sedgemoor is the partner responsible for the Matter and your primary point of contact. Lucian Petrosyan is the day-to-day contact.
 
 **3.2 Substitution of Core Team Members.** The Firm will not substitute or remove any member of the Core Team without giving the Company **at least fourteen (14) days' prior written notice**, except where the departure, illness, or unavailability of an individual makes that notice impracticable, in which case the Firm will notify the Company as soon as reasonably possible and in any event within two (2) business days. Any proposed substitute will be of comparable seniority and relevant experience. The Company may object to a proposed substitution, and the Firm will not bill the Company for time spent by a substitute to whom the Company has objected, other than time reasonably required for an orderly transition.
 
@@ -170,7 +170,7 @@ Very truly yours,
 
 By: _______________________________
 
-Jonathan K. Sterling
+Jonathan K. Sedgemoor
 
 Partner
 

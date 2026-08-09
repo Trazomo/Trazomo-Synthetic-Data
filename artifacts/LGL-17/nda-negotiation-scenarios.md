@@ -115,7 +115,7 @@ Every issue settled at acceptable and none at target, which is what a symmetric 
 | Record | NEG-2026-0154 |
 | Counterparty | Torchbird Labs (co-123) |
 | Counterparty profile | Early-stage startup, 11 employees, venture-backed, holds a novel time-series compression technique the company's platform team wants to evaluate |
-| Counterparty contact | Sasha Vukovic, Co-founder and Chief Executive Officer |
+| Counterparty contact | Nikhil Ravensworth, Co-founder and Chief Executive Officer |
 | Purpose | Technical evaluation of a compression library for possible licence or acquisition |
 | Paper | Counterparty paper (Torchbird one-way NDA, converted to mutual at the company's request) |
 | Opened | June 2, 2026 |
