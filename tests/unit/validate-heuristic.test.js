@@ -228,7 +228,9 @@ test("validateDrafted: a phrase cannot bridge the seam between two source files"
 
 test("checkPlantedFeature: the zero-token result carries a reason and no missing tokens", () => {
   // The CLI prints this case, so the shape is a contract, not an internal detail.
-  const result = checkPlantedFeature("deliberately, variant variants exercises", "Unrelated.");
+  // Built from long-standing stopwords only, deliberately not the spec-narration
+  // ones, so that reverting the narration commit cannot break this test.
+  const result = checkPlantedFeature("with from that this into", "Unrelated.");
   assert.equal(result.status, "WARN");
   assert.deepEqual(result.missing, []);
   assert.match(result.reason, /no checkable keywords/);
