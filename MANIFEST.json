@@ -2,7 +2,8 @@
     "manifest_version": 1,
     "universe_version": "1.0.1",
     "canon": {
-        "companies": "canon/companies.md"
+        "companies": "canon/companies.md",
+        "people": "canon/people.md"
     },
     "datasets": [
         {

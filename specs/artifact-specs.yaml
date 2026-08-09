@@ -28,7 +28,7 @@ artifacts:
       - section 7 termination for convenience
       - section 8 indemnification (sole-expense and third-party clauses)
       - consequential-damages waiver-only clause
-      - auto-renewal opt-out windows at 60-day (warning) and 30-day (block) thresholds
+      - "automatic renewal opt-out: 90-day non-renewal deadline, 60-day renewal notice, 30-day late notice void"
       - 7 percent annual payment uplift clause
       - 2,000,000 professional-indemnity insurance figure
       - DPA / data-processing reference and governing-law clause
@@ -153,7 +153,7 @@ artifacts:
     canon_entities: [co-002, co-108]
     planted_features:
       - confidential-info definition, term 1-3yr, survival 2-5yr, 4 standard carve-outs, remedies clause
-      - residual-knowledge clause, DTSA whistleblower notice (18 USC 1833(b))
+      - residual-knowledge clause, Defend Trade Secrets Act whistleblower notice (18 USC 1833(b))
       - 24-month non-solicitation option, unilateral vs mutual variants
       - liquidated-damages red-flag variant (50,000 per breach)
       - 2M-ARR counterparty negotiation variant (perpetual confidentiality, NY law, 10-day return)
@@ -352,7 +352,7 @@ artifacts:
     canon_entities: [co-002, co-119, co-106, co-120, co-102, co-118, co-123]
     planted_features:
       - patent/trademark/copyright renewal calendar (35 USC 41(b) maintenance windows)
-      - 3 invention-disclosure records at varying patentability strength
+      - 3 invention-disclosure records at STRONG / MODERATE / WEAK patentability strength
       - 3 NDA negotiation scenarios (large counterparty co-102, mid-size co-118, small-startup deal-breaker co-123)
       - NDA template plus signing-authority matrix
       - 3 vendor risk assessments (co-119 low/approve, co-106 critical/conditional, co-120 critical/do-not-approve)

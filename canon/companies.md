@@ -16,7 +16,7 @@ Source: 2026-08-08 program consolidation (`docs/plans/2026-08-08-program-consoli
 
 Entities that exist only inside one artifact (for example the holding companies, subsidiaries, and fund vehicles inside the LGL-08 corporate family tree) live in that artifact's spec, not in this roster.
 
-Named people (firm associates, co-002 employees and managers, candidates, the Larkspur crew, household members, beneficial owners) belong in `canon/people.md`, which does not exist yet and is a build dependency of CORE-04, the HR track, and `smb-shift-to-payroll-readiness`.
+Named people (firm associates, co-002 employees and managers, candidates, the Larkspur crew, household members, beneficial owners) belong in `canon/people.md`, a build dependency of CORE-04, the HR track, and `smb-shift-to-payroll-readiness`. That file now exists and reconciles the named cast of the v1.0.1 legal slice; CORE-04's generator is not yet re-pointed at it (follow-up F-1 there).
 
 ## Anchors (decided 2026-08-08)
 
