@@ -1,0 +1,14 @@
+attorney_employee_id,attorney_name,active_matter_count,hours_per_matter_per_week,weekly_hours_committed,weekly_capacity_cap_hours,over_capacity
+EMP-0528,Lyric Everhart,3,3,9,35,false
+EMP-0529,Kestrel Quennell,1,3,3,35,false
+EMP-0530,Rhoswen Blackwood,1,3,3,35,false
+EMP-0531,Fenwick Greywick,7,3,21,35,false
+EMP-0532,Aldous Holloway,3,3,9,35,false
+EMP-0533,Verity Juniper,4,3,12,35,false
+EMP-0534,Wrenna Greywick,1,3,3,35,false
+EMP-0535,Zephyrine Hallowell,1,3,3,35,false
+EMP-0536,Corin Blackwood,0,3,0,35,false
+EMP-0537,Verity Elderkin,1,3,3,35,false
+EMP-0538,Sable Jarrow,5,3,15,35,false
+EMP-0539,Emlyn Osgood,3,3,9,35,false
+EMP-0540,Reyna Grayling,3,3,9,35,false

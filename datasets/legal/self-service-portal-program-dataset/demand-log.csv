@@ -1,0 +1,147 @@
+request_id,request_date,category,priority,handler_tier
+SSP-0015,2026-02-14,Password reset,P3,Tier 2 - Paralegal
+SSP-0017,2026-02-14,Policy question,P3,Tier 2 - Paralegal
+SSP-0130,2026-02-14,Contract template request,P4,Tier 1 - Self-Service Bot
+SSP-0139,2026-02-14,Certificate of insurance,P3,Tier 2 - Paralegal
+SSP-0140,2026-02-14,Other,P2,Tier 3 - Attorney
+SSP-0052,2026-02-15,Signature routing,P1,Tier 4 - Senior Counsel
+SSP-0037,2026-02-16,Certificate of insurance,P4,Tier 1 - Self-Service Bot
+SSP-0044,2026-02-16,Signature routing,P4,Tier 1 - Self-Service Bot
+SSP-0049,2026-02-16,Certificate of insurance,P2,Tier 3 - Attorney
+SSP-0053,2026-02-16,Certificate of insurance,P4,Tier 1 - Self-Service Bot
+SSP-0106,2026-02-16,Signature routing,P3,Tier 2 - Paralegal
+SSP-0111,2026-02-16,Certificate of insurance,P4,Tier 1 - Self-Service Bot
+SSP-0126,2026-02-16,Signature routing,P2,Tier 3 - Attorney
+SSP-0019,2026-02-17,Certificate of insurance,P3,Tier 2 - Paralegal
+SSP-0056,2026-02-17,NDA self-serve,P4,Tier 1 - Self-Service Bot
+SSP-0083,2026-02-17,Policy question,P4,Tier 1 - Self-Service Bot
+SSP-0116,2026-02-17,Other,P4,Tier 1 - Self-Service Bot
+SSP-0121,2026-02-17,Other,P3,Tier 2 - Paralegal
+SSP-0136,2026-02-17,Policy question,P3,Tier 2 - Paralegal
+SSP-0020,2026-02-18,Policy question,P4,Tier 1 - Self-Service Bot
+SSP-0027,2026-02-18,Contract template request,P4,Tier 1 - Self-Service Bot
+SSP-0051,2026-02-18,Vendor intake,P4,Tier 1 - Self-Service Bot
+SSP-0063,2026-02-18,Policy question,P4,Tier 1 - Self-Service Bot
+SSP-0067,2026-02-18,Vendor intake,P4,Tier 1 - Self-Service Bot
+SSP-0084,2026-02-18,NDA self-serve,P3,Tier 2 - Paralegal
+SSP-0089,2026-02-18,Contract template request,P3,Tier 2 - Paralegal
+SSP-0007,2026-02-19,Vendor intake,P2,Tier 3 - Attorney
+SSP-0032,2026-02-19,Certificate of insurance,P4,Tier 1 - Self-Service Bot
+SSP-0043,2026-02-19,NDA self-serve,P3,Tier 2 - Paralegal
+SSP-0079,2026-02-19,Password reset,P4,Tier 1 - Self-Service Bot
+SSP-0081,2026-02-19,Password reset,P3,Tier 2 - Paralegal
+SSP-0086,2026-02-19,Contract template request,P3,Tier 2 - Paralegal
+SSP-0093,2026-02-19,Policy question,P2,Tier 3 - Attorney
+SSP-0058,2026-02-20,Other,P4,Tier 1 - Self-Service Bot
+SSP-0060,2026-02-20,Signature routing,P3,Tier 2 - Paralegal
+SSP-0033,2026-02-21,Contract template request,P3,Tier 2 - Paralegal
+SSP-0074,2026-02-21,Policy question,P4,Tier 1 - Self-Service Bot
+SSP-0119,2026-02-21,Password reset,P4,Tier 1 - Self-Service Bot
+SSP-0129,2026-02-21,Signature routing,P3,Tier 2 - Paralegal
+SSP-0026,2026-02-22,Signature routing,P4,Tier 1 - Self-Service Bot
+SSP-0046,2026-02-22,Policy question,P2,Tier 3 - Attorney
+SSP-0054,2026-02-22,Password reset,P3,Tier 2 - Paralegal
+SSP-0065,2026-02-22,Password reset,P4,Tier 1 - Self-Service Bot
+SSP-0090,2026-02-22,Vendor intake,P3,Tier 2 - Paralegal
+SSP-0131,2026-02-22,Certificate of insurance,P4,Tier 1 - Self-Service Bot
+SSP-0132,2026-02-22,NDA self-serve,P2,Tier 3 - Attorney
+SSP-0137,2026-02-22,Vendor intake,P3,Tier 2 - Paralegal
+SSP-0069,2026-02-23,Policy question,P4,Tier 1 - Self-Service Bot
+SSP-0108,2026-02-23,NDA self-serve,P4,Tier 1 - Self-Service Bot
+SSP-0109,2026-02-23,Contract template request,P4,Tier 1 - Self-Service Bot
+SSP-0115,2026-02-23,Vendor intake,P4,Tier 1 - Self-Service Bot
+SSP-0118,2026-02-23,Signature routing,P2,Tier 3 - Attorney
+SSP-0016,2026-02-24,Contract template request,P2,Tier 3 - Attorney
+SSP-0061,2026-02-24,Password reset,P4,Tier 1 - Self-Service Bot
+SSP-0094,2026-02-24,NDA self-serve,P4,Tier 1 - Self-Service Bot
+SSP-0122,2026-02-24,Password reset,P4,Tier 1 - Self-Service Bot
+SSP-0134,2026-02-24,Signature routing,P4,Tier 1 - Self-Service Bot
+SSP-0029,2026-02-25,Certificate of insurance,P3,Tier 2 - Paralegal
+SSP-0031,2026-02-25,Password reset,P4,Tier 1 - Self-Service Bot
+SSP-0071,2026-02-25,Other,P3,Tier 2 - Paralegal
+SSP-0105,2026-02-25,Signature routing,P4,Tier 1 - Self-Service Bot
+SSP-0030,2026-02-26,Vendor intake,P3,Tier 2 - Paralegal
+SSP-0039,2026-02-26,Other,P4,Tier 1 - Self-Service Bot
+SSP-0012,2026-02-27,NDA self-serve,P3,Tier 2 - Paralegal
+SSP-0021,2026-02-27,Contract template request,P3,Tier 2 - Paralegal
+SSP-0057,2026-02-27,Other,P3,Tier 2 - Paralegal
+SSP-0073,2026-02-27,NDA self-serve,P3,Tier 2 - Paralegal
+SSP-0145,2026-02-27,NDA self-serve,P4,Tier 1 - Self-Service Bot
+SSP-0014,2026-02-28,Password reset,P3,Tier 2 - Paralegal
+SSP-0041,2026-02-28,Other,P3,Tier 2 - Paralegal
+SSP-0078,2026-02-28,Vendor intake,P4,Tier 1 - Self-Service Bot
+SSP-0092,2026-02-28,Other,P3,Tier 2 - Paralegal
+SSP-0114,2026-02-28,Policy question,P2,Tier 3 - Attorney
+SSP-0125,2026-02-28,Other,P3,Tier 2 - Paralegal
+SSP-0004,2026-03-01,Vendor intake,P2,Tier 3 - Attorney
+SSP-0036,2026-03-01,Other,P4,Tier 1 - Self-Service Bot
+SSP-0100,2026-03-01,Vendor intake,P3,Tier 2 - Paralegal
+SSP-0117,2026-03-01,Password reset,P4,Tier 1 - Self-Service Bot
+SSP-0005,2026-03-02,Signature routing,P2,Tier 3 - Attorney
+SSP-0010,2026-03-02,Policy question,P4,Tier 1 - Self-Service Bot
+SSP-0013,2026-03-02,Certificate of insurance,P4,Tier 1 - Self-Service Bot
+SSP-0133,2026-03-02,Certificate of insurance,P4,Tier 1 - Self-Service Bot
+SSP-0141,2026-03-02,Signature routing,P3,Tier 2 - Paralegal
+SSP-0035,2026-03-03,Vendor intake,P3,Tier 2 - Paralegal
+SSP-0075,2026-03-03,Signature routing,P3,Tier 2 - Paralegal
+SSP-0087,2026-03-03,Contract template request,P3,Tier 2 - Paralegal
+SSP-0103,2026-03-03,Other,P3,Tier 2 - Paralegal
+SSP-0006,2026-03-04,Other,P3,Tier 2 - Paralegal
+SSP-0034,2026-03-04,Certificate of insurance,P4,Tier 1 - Self-Service Bot
+SSP-0042,2026-03-04,Policy question,P4,Tier 1 - Self-Service Bot
+SSP-0066,2026-03-04,Policy question,P4,Tier 1 - Self-Service Bot
+SSP-0077,2026-03-04,Contract template request,P3,Tier 2 - Paralegal
+SSP-0096,2026-03-04,Certificate of insurance,P4,Tier 1 - Self-Service Bot
+SSP-0097,2026-03-04,NDA self-serve,P4,Tier 1 - Self-Service Bot
+SSP-0112,2026-03-04,Signature routing,P3,Tier 2 - Paralegal
+SSP-0124,2026-03-05,Vendor intake,P4,Tier 1 - Self-Service Bot
+SSP-0022,2026-03-06,Signature routing,P4,Tier 1 - Self-Service Bot
+SSP-0028,2026-03-06,Other,P4,Tier 1 - Self-Service Bot
+SSP-0113,2026-03-06,Password reset,P2,Tier 3 - Attorney
+SSP-0001,2026-03-07,Signature routing,P4,Tier 1 - Self-Service Bot
+SSP-0047,2026-03-07,Other,P4,Tier 1 - Self-Service Bot
+SSP-0048,2026-03-07,Contract template request,P3,Tier 2 - Paralegal
+SSP-0127,2026-03-07,Contract template request,P2,Tier 3 - Attorney
+SSP-0143,2026-03-07,Certificate of insurance,P3,Tier 2 - Paralegal
+SSP-0146,2026-03-07,Signature routing,P3,Tier 2 - Paralegal
+SSP-0008,2026-03-08,Other,P4,Tier 1 - Self-Service Bot
+SSP-0085,2026-03-08,Password reset,P3,Tier 2 - Paralegal
+SSP-0101,2026-03-08,Signature routing,P3,Tier 2 - Paralegal
+SSP-0107,2026-03-08,Other,P3,Tier 2 - Paralegal
+SSP-0095,2026-03-09,Policy question,P3,Tier 2 - Paralegal
+SSP-0099,2026-03-09,NDA self-serve,P4,Tier 1 - Self-Service Bot
+SSP-0135,2026-03-09,Password reset,P4,Tier 1 - Self-Service Bot
+SSP-0144,2026-03-09,Other,P3,Tier 2 - Paralegal
+SSP-0038,2026-03-10,Signature routing,P4,Tier 1 - Self-Service Bot
+SSP-0045,2026-03-10,Contract template request,P3,Tier 2 - Paralegal
+SSP-0064,2026-03-10,NDA self-serve,P4,Tier 1 - Self-Service Bot
+SSP-0088,2026-03-10,Vendor intake,P2,Tier 3 - Attorney
+SSP-0120,2026-03-10,NDA self-serve,P3,Tier 2 - Paralegal
+SSP-0142,2026-03-10,Password reset,P4,Tier 1 - Self-Service Bot
+SSP-0009,2026-03-11,Certificate of insurance,P1,Tier 4 - Senior Counsel
+SSP-0018,2026-03-11,NDA self-serve,P4,Tier 1 - Self-Service Bot
+SSP-0024,2026-03-11,Policy question,P2,Tier 3 - Attorney
+SSP-0080,2026-03-11,Contract template request,P3,Tier 2 - Paralegal
+SSP-0091,2026-03-11,Password reset,P3,Tier 2 - Paralegal
+SSP-0002,2026-03-12,Certificate of insurance,P3,Tier 2 - Paralegal
+SSP-0040,2026-03-12,Certificate of insurance,P4,Tier 1 - Self-Service Bot
+SSP-0072,2026-03-12,Signature routing,P4,Tier 1 - Self-Service Bot
+SSP-0076,2026-03-12,Policy question,P3,Tier 2 - Paralegal
+SSP-0082,2026-03-12,Contract template request,P2,Tier 3 - Attorney
+SSP-0098,2026-03-12,Signature routing,P3,Tier 2 - Paralegal
+SSP-0102,2026-03-12,Certificate of insurance,P4,Tier 1 - Self-Service Bot
+SSP-0104,2026-03-12,Vendor intake,P3,Tier 2 - Paralegal
+SSP-0003,2026-03-13,Other,P4,Tier 1 - Self-Service Bot
+SSP-0011,2026-03-13,Vendor intake,P4,Tier 1 - Self-Service Bot
+SSP-0050,2026-03-13,Policy question,P4,Tier 1 - Self-Service Bot
+SSP-0055,2026-03-13,Vendor intake,P3,Tier 2 - Paralegal
+SSP-0059,2026-03-13,Contract template request,P3,Tier 2 - Paralegal
+SSP-0062,2026-03-13,Policy question,P4,Tier 1 - Self-Service Bot
+SSP-0070,2026-03-13,Contract template request,P4,Tier 1 - Self-Service Bot
+SSP-0110,2026-03-13,Vendor intake,P2,Tier 3 - Attorney
+SSP-0128,2026-03-13,NDA self-serve,P4,Tier 1 - Self-Service Bot
+SSP-0138,2026-03-13,NDA self-serve,P4,Tier 1 - Self-Service Bot
+SSP-0023,2026-03-14,Contract template request,P2,Tier 3 - Attorney
+SSP-0025,2026-03-14,Contract template request,P4,Tier 1 - Self-Service Bot
+SSP-0068,2026-03-14,Signature routing,P4,Tier 1 - Self-Service Bot
+SSP-0123,2026-03-14,Password reset,P4,Tier 1 - Self-Service Bot

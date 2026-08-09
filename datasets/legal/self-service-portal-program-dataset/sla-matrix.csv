@@ -1,0 +1,5 @@
+priority,handler_tier,response_time_hours,resolution_time_hours
+P1,Tier 4 - Senior Counsel,2,24
+P2,Tier 3 - Attorney,8,72
+P3,Tier 2 - Paralegal,24,120
+P4,Tier 1 - Self-Service Bot,1,24

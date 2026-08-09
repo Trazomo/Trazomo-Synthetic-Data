@@ -1,0 +1,49 @@
+matter_id,state,opened_date,assigned_attorney_employee_id,assigned_attorney_name,age_days,is_open,aging_escalation_flag
+MAT-0001,closed,2025-12-21,EMP-0531,Fenwick Greywick,85,false,false
+MAT-0002,intake,2025-10-30,,,137,true,true
+MAT-0003,in_progress,2025-11-24,EMP-0540,Reyna Grayling,112,true,true
+MAT-0004,triage,2026-02-22,EMP-0538,Sable Jarrow,22,true,false
+MAT-0005,assigned,2025-12-23,EMP-0538,Sable Jarrow,83,true,true
+MAT-0006,in_progress,2025-12-21,EMP-0533,Verity Juniper,85,true,true
+MAT-0007,intake,2025-12-28,,,78,true,true
+MAT-0008,assigned,2025-12-19,EMP-0540,Reyna Grayling,87,true,true
+MAT-0009,in_progress,2025-09-06,EMP-0539,Emlyn Osgood,191,true,true
+MAT-0010,review,2025-08-31,EMP-0531,Fenwick Greywick,197,true,true
+MAT-0011,review,2025-11-01,EMP-0538,Sable Jarrow,135,true,true
+MAT-0012,in_progress,2025-08-19,EMP-0538,Sable Jarrow,209,true,true
+MAT-0013,review,2025-12-18,EMP-0534,Wrenna Greywick,88,true,true
+MAT-0014,in_progress,2025-11-25,EMP-0533,Verity Juniper,111,true,true
+MAT-0015,triage,2026-01-22,EMP-0531,Fenwick Greywick,53,true,false
+MAT-0016,in_progress,2026-01-21,EMP-0531,Fenwick Greywick,54,true,false
+MAT-0017,intake,2025-09-10,,,187,true,true
+MAT-0018,intake,2025-09-20,,,177,true,true
+MAT-0019,in_progress,2025-08-15,EMP-0528,Lyric Everhart,213,true,true
+MAT-0020,closed,2025-08-19,EMP-0540,Reyna Grayling,209,false,false
+MAT-0021,in_progress,2025-10-23,EMP-0539,Emlyn Osgood,144,true,true
+MAT-0022,intake,2025-12-12,,,94,true,true
+MAT-0023,review,2025-12-13,EMP-0528,Lyric Everhart,93,true,true
+MAT-0024,review,2026-02-18,EMP-0533,Verity Juniper,26,true,false
+MAT-0025,intake,2025-12-17,,,89,true,true
+MAT-0026,in_progress,2025-11-22,EMP-0539,Emlyn Osgood,114,true,true
+MAT-0027,review,2026-01-13,EMP-0531,Fenwick Greywick,62,true,true
+MAT-0028,review,2026-02-27,EMP-0535,Zephyrine Hallowell,17,true,false
+MAT-0029,review,2025-09-01,EMP-0537,Verity Elderkin,196,true,true
+MAT-0030,in_progress,2026-02-22,EMP-0531,Fenwick Greywick,22,true,false
+MAT-0031,in_progress,2026-01-17,EMP-0530,Rhoswen Blackwood,58,true,false
+MAT-0032,triage,2025-11-17,EMP-0531,Fenwick Greywick,119,true,true
+MAT-0033,in_progress,2026-01-27,EMP-0531,Fenwick Greywick,48,true,false
+MAT-0034,closed,2025-12-06,EMP-0538,Sable Jarrow,100,false,false
+MAT-0035,closed,2025-12-22,EMP-0530,Rhoswen Blackwood,84,false,false
+MAT-0036,intake,2025-11-26,,,110,true,true
+MAT-0037,assigned,2025-09-06,EMP-0540,Reyna Grayling,191,true,true
+MAT-0038,closed,2025-09-11,EMP-0536,Corin Blackwood,186,false,false
+MAT-0039,review,2026-01-14,EMP-0532,Aldous Holloway,61,true,true
+MAT-0040,closed,2025-11-28,EMP-0538,Sable Jarrow,108,false,false
+MAT-0041,review,2025-08-22,EMP-0532,Aldous Holloway,206,true,true
+MAT-0042,intake,2025-08-10,,,218,true,true
+MAT-0043,in_progress,2026-03-09,EMP-0533,Verity Juniper,7,true,false
+MAT-0044,triage,2025-10-09,EMP-0529,Kestrel Quennell,158,true,true
+MAT-0045,assigned,2025-10-27,EMP-0538,Sable Jarrow,140,true,true
+MAT-0046,in_progress,2025-10-10,EMP-0528,Lyric Everhart,157,true,true
+MAT-0047,assigned,2025-12-08,EMP-0532,Aldous Holloway,98,true,true
+MAT-0048,intake,2025-10-29,,,138,true,true

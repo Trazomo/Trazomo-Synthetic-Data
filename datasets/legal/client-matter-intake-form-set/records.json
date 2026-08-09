@@ -1,0 +1,119 @@
+{
+  "universe_version": "0.2.0",
+  "generated_from_spec": "LGL-07",
+  "critical_risk_auto_escalation_threshold_usd": 500000,
+  "vendor_routing_thresholds_usd": {
+    "low": 25000,
+    "high": 100000
+  },
+  "records": [
+    {
+      "record_id": "LGL-07-STD-001",
+      "record_type": "matter_intake",
+      "intake_date": "2026-03-11",
+      "requestor_employee_id": "EMP-0534",
+      "requestor_name": "Wrenna Greywick",
+      "matter_type": "cloud-hosting SLA dispute",
+      "matter_value_usd": 250000,
+      "counterparty_canon_id": "co-110",
+      "counterparty_name": "CloudHost Inc.",
+      "response_deadline": "2026-04-10",
+      "critical_risk_threshold_usd": 500000,
+      "auto_escalated": false
+    },
+    {
+      "record_id": "LGL-07-HV-001",
+      "record_type": "matter_intake",
+      "intake_date": "2026-03-14",
+      "requestor_employee_id": "EMP-0539",
+      "requestor_name": "Emlyn Osgood",
+      "matter_type": "employment/trade-secret matter",
+      "matter_value_usd": 750000,
+      "response_deadline_days": 14,
+      "response_deadline": "2026-03-28",
+      "thread_reference": "LGL-12",
+      "critical_risk_threshold_usd": 500000,
+      "auto_escalated": true
+    },
+    {
+      "record_id": "LGL-07-VEND-001",
+      "record_type": "vendor_intake",
+      "subpath": "new_vendor",
+      "intake_date": "2026-02-24",
+      "vendor_value_usd": 12000,
+      "route_low_threshold_usd": 25000,
+      "route_high_threshold_usd": 100000,
+      "routed_to": "self_service"
+    },
+    {
+      "record_id": "LGL-07-VEND-002",
+      "record_type": "vendor_intake",
+      "subpath": "new_vendor",
+      "intake_date": "2026-02-24",
+      "vendor_value_usd": 60000,
+      "route_low_threshold_usd": 25000,
+      "route_high_threshold_usd": 100000,
+      "routed_to": "standard_review"
+    },
+    {
+      "record_id": "LGL-07-VEND-003",
+      "record_type": "vendor_intake",
+      "subpath": "renewal",
+      "intake_date": "2026-02-16",
+      "vendor_value_usd": 95000,
+      "route_low_threshold_usd": 25000,
+      "route_high_threshold_usd": 100000,
+      "routed_to": "standard_review"
+    },
+    {
+      "record_id": "LGL-07-VEND-004",
+      "record_type": "vendor_intake",
+      "subpath": "renewal",
+      "intake_date": "2026-03-03",
+      "vendor_value_usd": 140000,
+      "route_low_threshold_usd": 25000,
+      "route_high_threshold_usd": 100000,
+      "routed_to": "escalated_review"
+    },
+    {
+      "record_id": "LGL-07-VEND-005",
+      "record_type": "vendor_intake",
+      "subpath": "compliance",
+      "intake_date": "2026-03-15",
+      "vendor_value_usd": 8000,
+      "route_low_threshold_usd": 25000,
+      "route_high_threshold_usd": 100000,
+      "routed_to": "self_service"
+    },
+    {
+      "record_id": "LGL-07-VEND-006",
+      "record_type": "vendor_intake",
+      "subpath": "compliance",
+      "intake_date": "2026-02-28",
+      "vendor_value_usd": 25000,
+      "route_low_threshold_usd": 25000,
+      "route_high_threshold_usd": 100000,
+      "routed_to": "standard_review"
+    },
+    {
+      "record_id": "LGL-07-VEND-007",
+      "record_type": "vendor_intake",
+      "subpath": "dispute",
+      "intake_date": "2026-03-16",
+      "vendor_value_usd": 110000,
+      "route_low_threshold_usd": 25000,
+      "route_high_threshold_usd": 100000,
+      "routed_to": "escalated_review"
+    },
+    {
+      "record_id": "LGL-07-VEND-008",
+      "record_type": "vendor_intake",
+      "subpath": "dispute",
+      "intake_date": "2026-03-03",
+      "vendor_value_usd": 30000,
+      "route_low_threshold_usd": 25000,
+      "route_high_threshold_usd": 100000,
+      "routed_to": "standard_review"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "universe_version": "0.2.0",
+  "generated_from_spec": "LGL-21",
+  "sla_matrix": [
+    {
+      "priority": "P1",
+      "handler_tier": "Tier 4 - Senior Counsel",
+      "response_time_hours": 2,
+      "resolution_time_hours": 24
+    },
+    {
+      "priority": "P2",
+      "handler_tier": "Tier 3 - Attorney",
+      "response_time_hours": 8,
+      "resolution_time_hours": 72
+    },
+    {
+      "priority": "P3",
+      "handler_tier": "Tier 2 - Paralegal",
+      "response_time_hours": 24,
+      "resolution_time_hours": 120
+    },
+    {
+      "priority": "P4",
+      "handler_tier": "Tier 1 - Self-Service Bot",
+      "response_time_hours": 1,
+      "resolution_time_hours": 24
+    }
+  ],
+  "faq_records": [
+    {
+      "faq_id": "FAQ-001",
+      "category": "NDA self-serve",
+      "question": "Can I sign a one-way NDA without legal review?",
+      "answer": "Yes, if it uses the approved template unmodified; any redline routes to Tier 3."
+    },
+    {
+      "faq_id": "FAQ-002",
+      "category": "Contract template request",
+      "question": "Where do I find the current MSA template?",
+      "answer": "The self-service portal always serves the current approved version; do not use saved local copies."
+    },
+    {
+      "faq_id": "FAQ-003",
+      "category": "Vendor intake",
+      "question": "What triggers escalated review for a new vendor?",
+      "answer": "Contract value at or above the vendor-intake routing threshold (see LGL-07)."
+    },
+    {
+      "faq_id": "FAQ-004",
+      "category": "Certificate of insurance",
+      "question": "How fast can I get a COI issued?",
+      "answer": "Tier 1 self-service issues standard COIs within 1 business hour."
+    },
+    {
+      "faq_id": "FAQ-005",
+      "category": "Signature routing",
+      "question": "Who can route a document for e-signature?",
+      "answer": "Any employee with an active portal account; routing does not require legal review for approved templates."
+    },
+    {
+      "faq_id": "FAQ-006",
+      "category": "Policy question",
+      "question": "Where is the current policy library?",
+      "answer": "See the internal policy library corpus (CORE-05); the portal links directly to the current version."
+    }
+  ],
+  "roi": {
+    "period_months": 6,
+    "cost_usd": 57000,
+    "value_usd": 104738,
+    "roi_pct": 83.8,
+    "window_start": "2026-02-14",
+    "window_end": "2026-03-16",
+    "total_requests_in_window": 146
+  }
+}

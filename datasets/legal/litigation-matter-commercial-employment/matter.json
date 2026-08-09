@@ -1,0 +1,84 @@
+{
+  "universe_version": "0.2.0",
+  "generated_from_spec": "LGL-11",
+  "matter_id": "MAT-LIT-0117",
+  "matter_type": "commercial/employment dispute",
+  "plaintiff_canon_id": "co-002",
+  "defendant_canon_id": "co-117",
+  "defendant_name": "Redgate Manufacturing",
+  "deadline_chain": {
+    "complaint_served_date": "2026-01-20",
+    "frcp_12a1_response_days": 21,
+    "base_response_deadline": "2026-02-10",
+    "mail_extension_days": 3,
+    "response_deadline_with_mail_extension": "2026-02-13",
+    "landed_on_weekend": false,
+    "final_response_deadline": "2026-02-13"
+  },
+  "trial_continuance_cascade": {
+    "original_trial_date": "2026-11-02",
+    "continuance_shift_days": 63,
+    "new_trial_date": "2027-01-04",
+    "dependent_deadline_count": 7,
+    "before": [
+      {
+        "name": "discovery_cutoff",
+        "date": "2026-08-04"
+      },
+      {
+        "name": "expert_disclosure",
+        "date": "2026-09-03"
+      },
+      {
+        "name": "dispositive_motions_deadline",
+        "date": "2026-09-18"
+      },
+      {
+        "name": "final_pretrial_conference",
+        "date": "2026-10-19"
+      },
+      {
+        "name": "motions_in_limine_deadline",
+        "date": "2026-10-23"
+      },
+      {
+        "name": "proposed_jury_instructions_due",
+        "date": "2026-10-26"
+      },
+      {
+        "name": "final_witness_exhibit_list_due",
+        "date": "2026-10-28"
+      }
+    ],
+    "after": [
+      {
+        "name": "discovery_cutoff",
+        "date": "2026-10-06"
+      },
+      {
+        "name": "expert_disclosure",
+        "date": "2026-11-05"
+      },
+      {
+        "name": "dispositive_motions_deadline",
+        "date": "2026-11-20"
+      },
+      {
+        "name": "final_pretrial_conference",
+        "date": "2026-12-21"
+      },
+      {
+        "name": "motions_in_limine_deadline",
+        "date": "2026-12-25"
+      },
+      {
+        "name": "proposed_jury_instructions_due",
+        "date": "2026-12-28"
+      },
+      {
+        "name": "final_witness_exhibit_list_due",
+        "date": "2026-12-30"
+      }
+    ]
+  }
+}

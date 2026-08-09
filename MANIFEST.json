@@ -4,6 +4,167 @@
     "canon": {
         "companies": "canon/companies.md"
     },
-    "datasets": [],
-    "specs": "specs/artifact-specs.yaml"
+    "datasets": [
+        {
+            "id": "CORE-02",
+            "name": "outside-counsel-invoice",
+            "track": "core",
+            "type": "invoice",
+            "format": "ledes-csv + pdf",
+            "generation": "deterministic",
+            "path": "datasets/core/outside-counsel-invoice",
+            "files": [
+                "invoice.json",
+                "invoice.ledes.csv"
+            ],
+            "row_counts": {
+                "invoice.ledes.csv": 38
+            }
+        },
+        {
+            "id": "CORE-03",
+            "name": "crm-seed-dataset",
+            "track": "core",
+            "type": "dataset",
+            "format": "csv + json",
+            "generation": "deterministic",
+            "path": "datasets/core/crm-seed-dataset",
+            "files": [
+                "accounts.csv",
+                "contacts.csv",
+                "crm-seed.json",
+                "leads.csv",
+                "opportunities.csv",
+                "stage_history.csv"
+            ],
+            "row_counts": {
+                "accounts.csv": 36,
+                "contacts.csv": 67,
+                "leads.csv": 47,
+                "opportunities.csv": 36,
+                "stage_history.csv": 86
+            }
+        },
+        {
+            "id": "CORE-04",
+            "name": "people-roster",
+            "track": "core",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/core/people-roster",
+            "files": [
+                "people-roster.csv"
+            ],
+            "row_counts": {
+                "people-roster.csv": 600
+            }
+        },
+        {
+            "id": "LGL-07",
+            "name": "client-matter-intake-form-set",
+            "track": "legal",
+            "type": "form",
+            "format": "json + markdown",
+            "generation": "deterministic",
+            "path": "datasets/legal/client-matter-intake-form-set",
+            "files": [
+                "intake-summary.md",
+                "records.json"
+            ],
+            "row_counts": {}
+        },
+        {
+            "id": "LGL-11",
+            "name": "litigation-matter-commercial-employment",
+            "track": "legal",
+            "type": "record",
+            "format": "markdown + json",
+            "generation": "deterministic",
+            "path": "datasets/legal/litigation-matter-commercial-employment",
+            "files": [
+                "matter.json",
+                "matter.md"
+            ],
+            "row_counts": {}
+        },
+        {
+            "id": "LGL-18",
+            "name": "outside-counsel-rfp-panel-benchmark",
+            "track": "legal",
+            "type": "dataset",
+            "format": "csv + markdown",
+            "generation": "deterministic",
+            "path": "datasets/legal/outside-counsel-rfp-panel-benchmark",
+            "files": [
+                "balanced-scorecard.csv",
+                "comparison-table.csv",
+                "panel-benchmark.md",
+                "rfp-rubric.csv"
+            ],
+            "row_counts": {
+                "balanced-scorecard.csv": 7,
+                "comparison-table.csv": 3,
+                "rfp-rubric.csv": 7
+            }
+        },
+        {
+            "id": "LGL-20",
+            "name": "legal-ops-budget-roi-dataset",
+            "track": "legal",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/legal/legal-ops-budget-roi-dataset",
+            "files": [
+                "board-dashboard.csv",
+                "cost-allocation.csv",
+                "roi-worked-examples.csv",
+                "spend-by-category.csv"
+            ],
+            "row_counts": {
+                "board-dashboard.csv": 3,
+                "cost-allocation.csv": 5,
+                "roi-worked-examples.csv": 3,
+                "spend-by-category.csv": 18
+            }
+        },
+        {
+            "id": "LGL-21",
+            "name": "self-service-portal-program-dataset",
+            "track": "legal",
+            "type": "dataset",
+            "format": "csv + json",
+            "generation": "deterministic",
+            "path": "datasets/legal/self-service-portal-program-dataset",
+            "files": [
+                "demand-log.csv",
+                "portal-program.json",
+                "sla-matrix.csv"
+            ],
+            "row_counts": {
+                "demand-log.csv": 146,
+                "sla-matrix.csv": 4
+            }
+        },
+        {
+            "id": "LGL-22",
+            "name": "matter-portfolio-dashboard-dataset",
+            "track": "legal",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/legal/matter-portfolio-dashboard-dataset",
+            "files": [
+                "capacity-model.csv",
+                "matter-portfolio.csv"
+            ],
+            "row_counts": {
+                "capacity-model.csv": 13,
+                "matter-portfolio.csv": 48
+            }
+        }
+    ],
+    "specs": "specs/artifact-specs.yaml",
+    "artifacts": []
 }
