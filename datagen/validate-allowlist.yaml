@@ -1,0 +1,54 @@
+# Permanent-WARN allowlist for `datagen validate`.
+#
+# `validate` confirms a drafted planted_feature by looking for its keywords in
+# the document. A few features are real, correctly drafted, and permanently
+# unconfirmable that way -- not because the content is missing, but because the
+# feature describes something the document could never say about itself. Those
+# would WARN forever, and a warning that never clears teaches people to skim
+# past the warnings that matter.
+#
+# This file records those, and only those. Rules:
+#
+#   * `artifact` and `feature` must match a spec id and one of its
+#     planted_features verbatim. `reason` is required -- an entry without one
+#     is just a silencer, and six months from now nobody can tell an accepted
+#     limitation from a bug somebody hid.
+#   * Entries self-expire. `validate` FAILs if an entry names an unknown
+#     artifact, quotes a planted_feature that no longer exists (someone
+#     reworded the spec), or covers a feature that now passes on its own.
+#     Fixing the underlying problem is therefore always safe: the run tells you
+#     to delete the entry.
+#   * This is NOT for vocabulary drift. When a spec says `DTSA` and the
+#     document spells out "Defend Trade Secrets Act", the fix is a one-word
+#     spec edit, not an allowlist entry.
+#
+# Reviewed 2026-08-09 against data-pack v1.0.1.
+
+version: 1
+
+allowed:
+  - artifact: LGL-02
+    feature: "broken QA-fail twin (unresolved governing_law_state placeholder, section numbering jumps 3 to 5, inconsistent party terms, contradictory liability language, DRAFT DO NOT SIGN footer)"
+    reason: >-
+      Unconfirmable by construction. This artifact is the deliberately-broken
+      twin of the mutual NDA, and finding its defects is the exercise. The
+      feature text describes those defects from outside -- "broken",
+      "unresolved", "inconsistent", "contradictory" -- and a document that
+      announced its own defects would not be a usable training artifact. The
+      defects are present and verified by hand in
+      artifacts/LGL-02/mutual-nda-qa-broken.md: the governing_law_state
+      placeholder is unresolved, section numbering jumps 3 to 5, and the
+      DRAFT DO NOT SIGN footer is in place. No rewording of the spec can make
+      this checkable, so this entry is expected to be permanent.
+
+  - artifact: CORE-01
+    feature: "annual SaaS subscription schedule (finance amortization source)"
+    reason: >-
+      Cross-track pointer, not document vocabulary. The parenthetical records
+      that the finance track will amortize this schedule; it names a downstream
+      consumer that does not exist yet, so "finance" and "amortization" are
+      about another track's artifacts rather than anything this agreement would
+      say. The subscription schedule itself is drafted (Exhibit A, and the
+      annual uplift at section 5.4). The document also never writes the acronym
+      "SaaS", though it is a SaaS agreement throughout. Revisit when the FIN
+      track lands and the pointer can become a real cross-reference.

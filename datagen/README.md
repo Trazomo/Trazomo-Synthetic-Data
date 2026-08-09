@@ -98,14 +98,79 @@ Both build paths honor this convention.
   `artifacts/<ID>/` and, for each `planted_features` entry, extracts its
   significant keywords/numbers and checks how many appear in the source
   text. This is a heuristic over free-text prose, not a parser -- it reports
-  `PASS` or `WARN` per feature, never a hard failure, and the overall
-  spec status is `PASS` only if every feature passed. `MISSING` if
-  `artifacts/<ID>/` doesn't exist yet.
+  `PASS`, `WARN` or `ALLOWED` per feature, never a hard failure, and the overall
+  spec status is `PASS` only if every feature passed or is allowlisted.
+  `MISSING` if `artifacts/<ID>/` doesn't exist yet.
+  Keywords a spec author wrote as a hyphenated compound (`consequential-damages`,
+  `governing-law`) are treated as phrases: drafted prose reading "Waiver of
+  Consequential Damages" confirms the feature even though it carries no hyphen.
+  Only hyphens split a phrase. A possessive (`requester's`) and a number with a
+  comma or decimal point (`50,000`, `0.5`) are matched literally instead, so
+  they cannot degrade into "the word followed by any s-word" or be satisfied by
+  a table row `| 0 | 5 |`.
+  The phrase match is deliberately tight: the words must be adjacent, separated
+  by nothing more than spaces, tabs or hyphens, and both ends must land on a
+  word boundary. It therefore never becomes a bag-of-words check, never spans a
+  sentence end, line break, table cell or the file join between two `.md`
+  sources in the same artifact directory, and never matches a longer word's head
+  or tail. One consequence worth knowing when writing specs: an abbreviation no
+  longer matches the word it abbreviates -- write `confidential-information`
+  rather than `confidential-info`.
+  A `WARN` means "could not confirm," not "absent." The common cause of a
+  residual `WARN` is vocabulary drift between the spec's description and the
+  document's own words -- an acronym the document spells out (`DTSA` vs "Defend
+  Trade Secrets Act"), or spec narration that no drafted document would ever
+  contain ("tiering exercises," "broken QA-fail twin"). Read the cited feature
+  against the source before treating a `WARN` as a content gap. The usual fix
+  is a one-word spec edit, not a code change.
+  A feature listed in the allowlist (below) reports `ALLOWED` instead, with its
+  recorded reason, and is counted separately in the summary.
 - **`generation: deterministic`** specs: regenerates the spec and diffs
   every output file byte-for-byte against what's committed under
   `datasets/<track>/<artifact-name>/`. `PASS`/`FAIL`, or `MISSING` if
   nothing has been generated yet, or `SKIP` if there's no generator
   registered for that id yet.
+
+#### Permanent-WARN allowlist
+
+A few planted features are real, correctly drafted, and permanently
+unconfirmable by a keyword check -- not because content is missing, but because
+the feature describes something the document could never say about itself.
+LGL-02's QA-broken twin is the clearest case: finding its defects is the
+exercise, so a document that announced them would be useless. Those features
+would `WARN` forever, and a warning that never clears teaches people to skim
+past the ones that matter.
+
+`datagen/validate-allowlist.yaml` records them, and only them:
+
+```yaml
+allowed:
+  - artifact: LGL-02
+    feature: "broken QA-fail twin (unresolved governing_law_state placeholder, ...)"
+    reason: >-
+      Unconfirmable by construction. Finding these defects is the exercise...
+```
+
+- `artifact` and `feature` must match a spec id and one of its
+  `planted_features` **verbatim**. `reason` is required: an entry without one is
+  just a silencer, and later nobody can tell an accepted limitation from a bug
+  somebody hid. A blank reason is rejected at load time.
+- **Entries self-expire.** `validate` reports `FAIL` and exits non-zero if an
+  entry names an unknown artifact, quotes a `planted_feature` that no longer
+  exists (someone reworded the spec), or covers a feature that now passes on its
+  own. Fixing the underlying problem is therefore always safe -- the next run
+  tells you to delete the entry. Only specs included in the current run are
+  judged, so `validate CORE-01` never fails over an untouched LGL-02 entry.
+- **Not for vocabulary drift.** When a spec says `DTSA` and the document spells
+  out "Defend Trade Secrets Act", edit the spec.
+- Override the path with `--allowlist <path>`; an absent file is an empty
+  allowlist, not an error, so fixture universes need none.
+
+Summary line reports allowlisted features separately:
+
+```
+validate summary: 137 checked, 30 failed, 2 allowlisted.
+```
 
 ```bash
 node datagen/src/cli.js validate CORE-02
