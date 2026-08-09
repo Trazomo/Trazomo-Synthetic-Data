@@ -7,8 +7,16 @@ curated named individuals now have a home, IDs, and a precedence rule.
 **The v1.0.1 legal slice is frozen.** This file *declares* canon; it does not rewrite
 artifacts. Where a frozen document names someone other than the person canon seats,
 the divergence is recorded as an erratum against the exact frozen location and queued
-for the next corpus version. Nothing in `artifacts/`, `datasets/`, or any DOCX build
-was edited to produce this file.
+for the next corpus version.
+
+**Amended 2026-08-09 by operator decision.** That rule now has one deliberate
+exception. The two HIGH real-person collisions found by the screen below were cleared
+in frozen text on 2026-08-09 instead of being deferred to v1.1, because this repository
+is public and both names matched verifiable living lawyers. Four strings moved, across
+two markdown files and the two DOCX builds derived from them; the record is in
+"Renames applied" below. Nothing else in `artifacts/`, `datasets/`, or the DOCX builds
+was edited, no dataset was regenerated, and no generator input changed. The amendment
+tags as v1.0.2 at merge.
 
 Source: reconciliation of the 82 invented person rows in the merged PR #2
 (`data/core-and-contracts`, 30 rows) and PR #3 (`data/legal-docs`, 52 rows), against
@@ -56,7 +64,7 @@ a future artifact must not accidentally reuse the name.
 
 | ID | Name | Role / title (as the artifact states it) | Appears in (grep-verified) | Status |
 |---|---|---|---|---|
-| pe-001 | Jonathan K. Sterling | Partner, Mergers and Acquisitions; engagement partner | LGL-05 | CANONICAL |
+| pe-001 | Jonathan K. Sedgemoor | Partner, Mergers and Acquisitions; engagement partner | LGL-05 | CANONICAL (renamed 2026-08-09, was Jonathan K. Sterling) |
 | pe-002 | Amara Diallo-Reyes | Partner, Technology Transactions | LGL-04, LGL-05 | CANONICAL |
 | pe-003 | Corinne Whitfield | Counsel, Benefits and Compensation | LGL-05 | CANONICAL |
 | pe-004 | Lucian Petrosyan | Senior Associate, Corporate | LGL-05 | CANONICAL |
@@ -97,10 +105,12 @@ They are **not** the LGL-05 Core Team under different names. CORE-02 bills matte
 `MAT-OC-0142` at $725 / $465 / $220; LGL-05 staffs matter `2026-0417` (Project Beacon)
 at $985 through $265. Different matter, different rate card, no contested seat. Note
 that pe-021 Jordan K. Sable initials to **JKS**, the same initials as pe-001 Jonathan K.
-Sterling, and that CORE-02's planted block-billed narrative line begins "JKS 03/12 2.4
+Sedgemoor, and that CORE-02's planted block-billed narrative line begins "JKS 03/12 2.4
 hrs L510". That line refers to pe-021, who is the only JKS on that invoice. Do not
 "reconcile" pe-001 and pe-021 into one person: they are two co-001 partners on two
-unrelated matters.
+unrelated matters. The 2026-08-09 rename preserved the JKS monogram on pe-001 for the
+same reason it was noted here in the first place: the collision of initials is a
+deliberate distractor, and losing it would quietly remove a planted feature.
 
 ## co-002 Atticus Dundee Inc. (pe-101 to pe-199)
 
@@ -145,7 +155,7 @@ same company. Closing that is follow-up F-1.
 | pe-205 | Marisol Etchegaray | Chief Executive Officer | co-110 CloudHost Inc. | LGL-04 | CANONICAL |
 | pe-206 | Peter Hallowell-Boyd | General Counsel | co-110 CloudHost Inc. | LGL-04 | CANONICAL |
 | pe-207 | Yolanda Pritchard-Naidoo | General Counsel | co-118 Brightquarry Analytics | LGL-02 | CANONICAL (tier b) |
-| pe-208 | Nikhil Ravensworth | Chief Executive Officer and Co-Founder | co-123 Torchbird Labs | LGL-02 | CANONICAL (tier b) |
+| pe-208 | Nikhil Ravensworth | Chief Executive Officer and Co-Founder | co-123 Torchbird Labs | LGL-02, LGL-17 (from 2026-08-09) | CANONICAL (tier b) |
 | pe-209 | Marcus D. Ferreira | Founder and Chief Executive Officer of co-114; sole managing member of Ferreira Family Holdings, LLC; non-employee director of co-002 | co-114 TechBridge Solutions | LGL-08 | CANONICAL |
 | pe-210 | Teodor S. Kavaris | Ultimate beneficial owner; settlor and protector of The Kavaris Family Settlement; former PEP | co-116 Horizon Energy Holdings | LGL-09 | CANONICAL |
 | pe-211 | Andrei Kavaris | Director of the prospective client; son of pe-210 | co-116 Horizon Energy Holdings | LGL-09 | CANONICAL |
@@ -188,11 +198,42 @@ and lists Marbury Regional Medical Center and Sheffield Falls Physical Therapy a
 separate facility rows, without tying either physician to either facility. Canon follows
 the artifact and does not invent an employer for them.
 
+## Renames applied 2026-08-09 (real-person collisions)
+
+Two names were removed from frozen text on operator decision, closing both HIGH flags
+from the collision screen. This is the one place where canon has rewritten an artifact
+rather than recording an erratum against it. Both retired names are reserved here so a
+future author does not re-invent them.
+
+| Retired name | Replaced by | Seat | Exact locations changed | Reason | Commit |
+|---|---|---|---|---|---|
+| Jonathan K. Sterling | pe-001 Jonathan K. Sedgemoor | co-001 engagement partner, LGL-05 | `artifacts/LGL-05/engagement-letter.md:56` (Core Team rate table), `:63` (responsible-partner sentence), `:173` (signature block), plus `artifacts/LGL-05/build/engagement-letter.docx` | HIGH real-person collision (see the screen below) | `6c35840` |
+| Sasha Vukovic | pe-208 Nikhil Ravensworth | co-123 CEO and co-founder, LGL-17 Scenario C | `artifacts/LGL-17/nda-negotiation-scenarios.md:118` (counterparty contact), plus `artifacts/LGL-17/build/nda-negotiation-scenarios.docx` | HIGH real-person collision; also the F-3 substitution, so one edit closed both | `6c35840` |
+
+Neither rename touches `datasets/`. pe-001's occurrences are confined to one LGL-05
+markdown file, and the only "JKS" strings in committed data belong to pe-021 Jordan K.
+Sable on matter `MAT-OC-0142`, a different person on a different matter, so no
+deterministic generator input moved and byte-determinism holds. The DOCX rebuild
+changed `word/document.xml` in exactly those two files and nothing else.
+
+**Sedgemoor was chosen over a middle-initial change on purpose.** The real-world match
+was on the given-plus-surname pair, which an initial does not break, so the surname is
+what had to move. Sedgemoor screens CLEAR, keeps the JKS monogram that CORE-02's
+distractor depends on, and stays inside the place-derived surname register the pack
+already uses (Ashgrove, Larkspur, Ravenscroft).
+
 ## Errata: names in frozen text that canon does not seat
 
 Each row below is a real name in a real shipped document. The document is not being
-changed. Canon records it as an alias of the seated person so that anyone joining
-across the corpus knows the two refer to one seat.
+changed, with the one exception noted immediately below. Canon records the name as an
+alias of the seated person so that anyone joining across the corpus knows the two refer
+to one seat.
+
+**Two of the eight rows are not live errata.** Rosalind Achterberg never landed in the
+tree at all and is here only because she is the third claimant to the co-002 CEO seat.
+The Sasha Vukovic row was resolved on 2026-08-09 by editing the document, which is the
+exception above (see "Renames applied"). The other six describe frozen text as it stands
+today; both non-live rows are kept for the audit trail.
 
 | Frozen name | Alias of | Seat | Erratum in (exact frozen location) | Why it lost |
 |---|---|---|---|---|
@@ -203,7 +244,7 @@ across the corpus knows the two refer to one seat.
 | Hannah T. Ostrowski | pe-104 Tobias Lindqvist | co-002 CISO | `artifacts/LGL-17/ip-and-vendor-program-bundle.md:101` and 4 further LGL-17 files | Closest call in the set: 12 occurrences across 5 files versus Lindqvist's 17 across 3, both confined to one artifact set. Broken on tiebreak 4: seating Ostrowski would split the co-002 officer team across two documents that already disagree, whereas Lindqvist keeps CORE-05's officer block internally consistent. **Tiebreak 3 leans the other way and this call rests entirely on tiebreak 4.** Ostrowski renders dated binding decisions (`vendor-risk-assessment-talentforce.md:133` "Conditionally approved"; `vendor-risk-assessment-globalcomms.md:123` "Do not approve"), which is closer to executing authority than policy ownership, while 11 of Lindqvist's 17 occurrences are policy revision-history rows, so his count lead is softer than it looks. This is the seat most worth a human overrule. |
 | Theresa J. Muldoon | pe-106 Marlowe Bellcrest | co-002 VP Engineering | `artifacts/LGL-17/ip-and-vendor-program-bundle.md:104`; `vendor-risk-assessment-datapulse-analytics.md:11,109`; `vendor-risk-register.csv:2,5,9`; `invention-disclosure-records.md:228` | 6 full-name occurrences plus 1 initialled "T. J. Muldoon", 7 in all, across 4 files in 1 set. Tier a beats tier b: EMP-0002 is manager-of-record for eleven Engineering directors over a 190-person organisation. |
 | Trevor Nakagawa | pe-207 Yolanda Pritchard-Naidoo | co-118 legal chief | `artifacts/LGL-17/nda-negotiation-scenarios.md:73` | LGL-17 Scenario B (co-118, residual-knowledge clause, NEG-2026-0139) summarises the same deal that LGL-02 `mutual-nda-negotiated-enterprise.md` executes. Tiebreak 3: Pritchard-Naidoo is the executing signatory at line 163; Nakagawa is a contact line. |
-| Sasha Vukovic | pe-208 Nikhil Ravensworth | co-123 CEO / co-founder | `artifacts/LGL-17/nda-negotiation-scenarios.md:118` | LGL-17 Scenario C (co-123, $50,000 liquidated damages per breach, NEG-2026-0154) summarises the same deal that LGL-02 `mutual-nda-liquidated-damages.md` records. Tiebreak 3: Ravensworth is the executing signatory at line 165. |
+| Sasha Vukovic | pe-208 Nikhil Ravensworth | co-123 CEO / co-founder | ~~`artifacts/LGL-17/nda-negotiation-scenarios.md:118`~~ **RESOLVED 2026-08-09 (`6c35840`)**: the string is gone from the document | LGL-17 Scenario C (co-123, $50,000 liquidated damages per breach, NEG-2026-0154) summarises the same deal that LGL-02 `mutual-nda-liquidated-damages.md` records. Tiebreak 3: Ravensworth is the executing signatory at line 165. Also a HIGH real-person collision, which is why this one was executed early rather than waiting for the rest of F-3. |
 
 ### Title drift (canon follows the artifact, not the PR body)
 
@@ -267,12 +308,13 @@ Grady L. Thomsen, and the co-002 CEO seat by pe-101 Kestrel Ashgrove.
 | Canon entries in this file (`pe-` IDs) | 73 |
 | of those, canonical | 72, of which 2 carry a HOMONYM flag (pe-019, pe-202) |
 | of those, carries an ID but is an erratum, not canon | 1 (pe-020) |
-| Rows in the errata table | 8: 7 named in frozen text, 1 (Achterberg) in PR prose only |
+| Rows in the errata table | 8: 6 still live in frozen text, 1 (Vukovic) resolved 2026-08-09, 1 (Achterberg) in PR prose only |
 | Reserved-unused | 7 |
 | Promoted from the generator population | 2 (pe-101 EMP-0001, pe-106 EMP-0002) |
 | Sourced from committed data, in neither PR | 3 (pe-021 to pe-023, CORE-02 timekeepers) |
 | Contested seats resolved | 7 |
 | Distinct names screened for real-person collision | 85: 78 clear, 2 HIGH, 5 MEDIUM |
+| Names renamed in frozen text after the screen | 2, both HIGH, on 2026-08-09 (4 strings, 2 markdown files, 2 DOCX) |
 
 Reconciling to 82: 7 rows never landed (reserved-unused), 7 rows lost a contested seat
 to a name that did land (the errata table's frozen-text rows), and the remaining 68 rows
@@ -331,16 +373,20 @@ aliases, and the 7 reserved-unused names, which is 85 distinct names once the fo
 duplicated names are counted once each. **78 came back CLEAR or LOW with no notable
 match.** The 7 below are flagged.
 
-**No name was renamed.** The governing rule was to rename immediately if a flagged name
-had zero occurrences in frozen artifacts or datasets, since canon is unmerged and free
-to move. All 7 flagged names were grep-verified as already baked into frozen v1.0.1
-text, so each keeps the entry that matches the shipped document and carries a flag plus
-a v1.1 proposal instead. The occurrence counts below are that verification.
+**Both HIGH flags were renamed on 2026-08-09; the 5 MEDIUM flags were not.** The screen
+ran under a rule that renamed a flagged name only if it had zero occurrences in frozen
+artifacts or datasets, since canon was unmerged and free to move. All 7 flagged names
+failed that test, so the screen as first written proposed v1.1 edits and renamed
+nothing. The operator overrode that for the HIGH tier on 2026-08-09: a public repository
+naming two verifiable living lawyers is a publishing risk that does not wait for a
+version bump, and the total cost was four strings in two files. The MEDIUM tier still
+stands unrenamed and is still a human call. The occurrence counts below are the
+verification that made the cost knowable.
 
 | Name | Canon position | Flag | Frozen occurrences (grep-verified) | Real-person evidence | Disposition |
 |---|---|---|---|---|---|
-| Jonathan K. Sterling | pe-001, co-001 engagement partner | **HIGH** | 3, all in `artifacts/LGL-05/engagement-letter.md` (:56, :63, :173) | "Jonathan Sterling", Shareholder at Carlton Fields (AmLaw 200, Hartford); 2026 Best Lawyers "Lawyer of the Year", Super Lawyers listed. Exact given plus surname, same profession as the canon role. | **COLLISION-FLAGGED.** v1.1 rename proposed: **Jonathan K. Sedgemoor** (see F-5). |
-| Sasha Vukovic | errata alias of pe-208, co-123 CEO | **HIGH** | 1, `artifacts/LGL-17/nda-negotiation-scenarios.md:118` | "Sasha Vukovic", Senior Associate, Real Estate, Dentons (Vancouver); official firm bio. Exact match, notable-tier global firm. | **COLLISION-FLAGGED.** No replacement name needed: F-3 already deletes this string, substituting pe-208 Nikhil Ravensworth (CLEAR). |
+| Jonathan K. Sterling | was pe-001, co-001 engagement partner | **HIGH** | was 3, all in `artifacts/LGL-05/engagement-letter.md` (:56, :63, :173); **now 0 repo-wide** | "Jonathan Sterling", Shareholder at Carlton Fields (AmLaw 200, Hartford); 2026 Best Lawyers "Lawyer of the Year", Super Lawyers listed. Exact given plus surname, same profession as the canon role. | **RESOLVED 2026-08-09 (`6c35840`).** Renamed to **Jonathan K. Sedgemoor**, which screens CLEAR; DOCX rebuilt in `7be55c0`. |
+| Sasha Vukovic | was errata alias of pe-208, co-123 CEO | **HIGH** | was 1, `artifacts/LGL-17/nda-negotiation-scenarios.md:118`; **now 0 repo-wide** | "Sasha Vukovic", Senior Associate, Real Estate, Dentons (Vancouver); official firm bio. Exact match, notable-tier global firm. | **RESOLVED 2026-08-09 (`6c35840`).** Replaced by pe-208 Nikhil Ravensworth (CLEAR), which is the F-3 substitution; DOCX rebuilt in `7be55c0`. |
 | Tobias Lindqvist | pe-104, co-002 CISO | MEDIUM | 17 across 3 CORE-05 files | "Tobias Lindqvist", Investment Strategist, LaSalle Investment Management (London); verified staff bio. Finance sector, publicly identifiable, not notable. | COLLISION-NOTE. No rename. |
 | Hannah T. Ostrowski | errata alias of pe-104, co-002 CISO | MEDIUM | 12 across 5 LGL-17 files | "Hannah Ostrowski", Client Service Associate, Morgan Stanley Wealth Management; verified LinkedIn. Finance sector, publicly identifiable, not notable. | COLLISION-NOTE. No rename. |
 | Roland Pham | pe-212, VP Security and Trust, co-119 | MEDIUM | 1, `artifacts/LGL-17/vendor-risk-assessment-datapulse-analytics.md` | "Roland A.H. Pham", Boston bankruptcy and immigration attorney, principal of Pham Law PC; Avvo and LinkedIn profiles. Legal field, publicly identifiable, not notable. | COLLISION-NOTE. No rename. |
@@ -353,21 +399,22 @@ and returned no real-person match. Note only that "Sable" appears in the names o
 several real US law firms (Sable and Sable LLC; Sable Law Group). That is a firm-name
 adjacency, not a person collision, and pe-021 practises at a fictional firm.
 
-**Middle initials are a cheap de-collision lever for v1.1, but a weak one here.** Adding
-or changing a middle initial costs one search-and-replace and no structural change, so
-it is the first thing to reach for. It does not help much in this particular set: the
+**Middle initials are a cheap de-collision lever, but a weak one here.** Adding or
+changing a middle initial costs one search-and-replace and no structural change, so it
+is the first thing to reach for. It does not help much in this particular set: the
 real-world matches for Sterling, Lindqvist, Pham, Nakashima and Raval are all on the
 given-plus-surname pair, which a middle initial does not break, and in three of those
 cases canon already carries an initial the real person does not. A surname change is
-what actually de-collides, which is why the only rename proposed below is a surname.
+what actually de-collides, which is why the rename that was applied is a surname and why
+any future MEDIUM-tier decision should be a surname too.
 
 ## Ground rules
 
 - One universe, shared canon IDs. A person named here is the same person wherever they appear: the general counsel who signs the NDA is the general counsel who owns the policy library.
 - Fully synthetic. No real people, no real PII, obviously fictional names. Email domains use the IANA-reserved `.example` TLD; telephone numbers use the 555 exchange.
-- **The standing real-person collision screen has been run**, on 2026-08-08, the same date companies passed that gate (record in the Trazomo repo at `docs/plans/2026-08-08-verification-canon-pm-tools.md`). Results are in the Real-person collision screen section above: 85 names screened, 78 clear, 2 HIGH and 5 MEDIUM flagged, 0 renamed because every flagged name is already baked into frozen text. The 2 HIGH flags are live publishing risk until F-5 lands. Any name added to this file after that date has not been screened and must be before it ships.
+- **The standing real-person collision screen has been run**, on 2026-08-08, the same date companies passed that gate (record in the Trazomo repo at `docs/plans/2026-08-08-verification-canon-pm-tools.md`). Results are in the Real-person collision screen section above: 85 names screened, 78 clear, 2 HIGH and 5 MEDIUM flagged. **Both HIGH flags were renamed in frozen text on 2026-08-09, so no live publishing risk remains at that tier**; the 5 MEDIUM flags are recorded and undecided. Any name added to this file after 2026-08-08 has not been screened and must be before it ships.
 - Curated named people live here. The generator-produced population (`EMP-NNNN`, `ct-co-NNN-NN`) is drawn from `datagen/src/namePool.js` and is deliberately not curated; do not promote a generated name into this file without a reason, and record the reason when you do (pe-101 and pe-106 are the only two so far).
-- Canon declares; it does not retro-edit frozen artifacts. A divergence becomes an erratum row with an exact location, and a follow-up.
+- Canon declares; it does not retro-edit frozen artifacts. A divergence becomes an erratum row with an exact location, and a follow-up. The single exception so far is the 2026-08-09 HIGH-collision rename, taken by operator decision and recorded in "Renames applied" above; treat it as a precedent for publishing risk only, not for tidiness.
 - Planted findings ship in the data; answer keys live only in private training content keyed to the data-pack version. Nothing in this file is an answer key.
 
 ## Follow-ups for next corpus version
@@ -398,11 +445,16 @@ wants a curated CEO, v1.1 must rename EMP-0001 *and* correct
 `artifacts/LGL-17/signing-authority-matrix.md:44` in the same change, or the conflict
 simply moves.
 
-**F-3: Redraft LGL-17 to the canonical roster.** Seven substitutions across roughly a
-dozen files, then rebuild the DOCX: Prewitt→Ashgrove, Sandoval→Osei-Bonsu,
-Aitken→Raghunathan, Ostrowski→Lindqvist, Muldoon→Bellcrest,
-Nakagawa→Pritchard-Naidoo, Vukovic→Ravensworth. LGL-17 is the single artifact set that
-carries every losing variant, so this is one focused edit, not a corpus sweep.
+**F-3: Redraft LGL-17 to the canonical roster.** *(1 of 7 done.)* Seven substitutions
+across roughly a dozen files, then rebuild the DOCX: Prewitt→Ashgrove,
+Sandoval→Osei-Bonsu, Aitken→Raghunathan, Ostrowski→Lindqvist, Muldoon→Bellcrest,
+Nakagawa→Pritchard-Naidoo, ~~Vukovic→Ravensworth~~ **done 2026-08-09 (`6c35840`)**.
+LGL-17 is the single artifact set that carries every losing variant, so this is one
+focused edit, not a corpus sweep. The six remaining substitutions are ordinary canon
+hygiene with no publishing-risk deadline, which is why only the seventh was pulled
+forward. Note that Ostrowski→Lindqvist is the substitution this file flags as the one
+most worth a human overrule (see the pe-104 errata row), so F-3 should not be executed
+as a blind find-and-replace.
 
 **F-4: Resolve the two homonyms.** Rename the co-001 Senior Conflicts Analyst
 (pe-020) off "Priya Raghunathan" in LGL-08: 7 full-name occurrences plus 8 initialled
@@ -412,18 +464,22 @@ Director in CORE-01's six MSA variants (pe-202) or the co-001 Docketing Speciali
 LGL-10 (pe-019). LGL-10 is the cheaper edit and the docketing note initialled
 "R. Villalobos" is load-bearing narrative, so prefer renaming pe-202.
 
-**F-5: Clear the two HIGH real-person collisions.** The screen has now run (see the
-Real-person collision screen section); what remains is acting on it. Both HIGH flags sit
-in frozen text, so both are v1.1 edits, and this is a publishing gate rather than a
-nicety because the repo is public.
+**F-5: Clear the two HIGH real-person collisions. CLOSED 2026-08-09.** Both were
+executed rather than deferred, on operator decision, because the repository is public
+and a publishing gate does not wait for a version bump. The record is in "Renames
+applied" above.
 
-- **pe-001 Jonathan K. Sterling to Jonathan K. Sedgemoor.** Three occurrences in one file, `artifacts/LGL-05/engagement-letter.md` (:56, :63, :173), plus that file's DOCX rebuild. Nothing else moves: the initials JKS are load-bearing only in CORE-02, and CORE-02's JKS is pe-021 Jordan K. Sable on a different matter, so no committed dataset is touched and determinism holds. "Sedgemoor" was screened and returns no real-person match; it keeps the JKS monogram and the place-derived register the surname pool already uses (Ashgrove, Larkspur, Ravenscroft).
-- **Sasha Vukovic needs no new name.** F-3 already replaces that string with pe-208 Nikhil Ravensworth, who screened CLEAR. Doing F-3 clears this HIGH flag as a side effect. If F-3 is deferred, this one line still needs changing on its own, because a verified Dentons attorney's exact name currently sits in a shipped document.
+- ~~pe-001 Jonathan K. Sterling to Jonathan K. Sedgemoor.~~ **Done** (`6c35840`, DOCX in `7be55c0`). Three occurrences in `artifacts/LGL-05/engagement-letter.md` (:56, :63, :173) plus that file's DOCX. Nothing else moved: the initials JKS are load-bearing only in CORE-02, and CORE-02's JKS is pe-021 Jordan K. Sable on a different matter, so no committed dataset was touched and determinism holds.
+- ~~Sasha Vukovic needs no new name.~~ **Done** (`6c35840`, DOCX in `7be55c0`) by executing the F-3 substitution to pe-208 Nikhil Ravensworth early, one line at `artifacts/LGL-17/nda-negotiation-scenarios.md:118`.
 
-The 5 MEDIUM flags are recorded as COLLISION-NOTE and left for a human call. They are
-identifiable but non-notable people, the kind of match that is arguably unavoidable when
-inventing 85 names, and renaming them costs edits to frozen text across CORE-05 and
-LGL-17. Recommend deciding them as a set rather than one at a time.
+**What is left of F-5 is the MEDIUM tier**, which is still open. The 5 MEDIUM flags are
+recorded as COLLISION-NOTE and left for a human call. They are identifiable but
+non-notable people, the kind of match that is arguably unavoidable when inventing 85
+names, and renaming them costs edits to frozen text across CORE-05 and LGL-17. Recommend
+deciding them as a set rather than one at a time. Tobias Lindqvist is the expensive one
+at 17 occurrences across 3 CORE-05 files, and he is also the person the pe-104 errata
+row says is the most contestable seat, so a MEDIUM decision on him should be taken
+together with that call rather than separately.
 
 **F-6: Finish the v1.0.1 renames (adjacent, but it bears on person canon).** The
 collision-check renames were phrase- and case-scoped and missed the uppercase forms and
