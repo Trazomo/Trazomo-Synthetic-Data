@@ -1,5 +1,39 @@
 # Changelog
 
+## 1.0.3 - 2026-08-11
+
+**Tags at merge.** The tag is cut by the release controller after merge, not on
+the branch. Consumers pinned to `v1.0.2` are unaffected until they move the pin.
+
+**This release corrects an internal arithmetic error in frozen v1.0.2 text.**
+LGL-08 (`corporate-family-tree-conflicts-record`) Part 5.2, row F-4, stated a
+fuzzy-match similarity of **92.0**. The record states its own method (pass two:
+`(1 - edit_distance / length_of_longer_normalized_name) * 100`) and carries its
+own normalized name pair for the row, `MERIDIAN CREST GP III LLC` vs
+`MERIDIAN CREST GP II LLC`: edit distance 1 over a longer length of 25, which is
+**96.0**. The stated 92.0 is unreachable from the record's own inputs (it implies
+an edit distance of 2). Rows F-1, F-2, and F-3 each reproduce their stated
+similarity exactly under the same method, so the error is isolated to F-4.
+
+This is an erratum, not a planted feature. The LGL-08 spec's `planted_features`
+declare an ownership/conflict structure and one fuzzy pair "~87.5 percent
+similarity" (that is F-1); none of them concern a wrong similarity value, and no
+consuming module (`client-intake-conflicts`) references F-4 or the 92.0 figure.
+The correction keeps F-4 above the 85.0 human-review threshold, so every count in
+the record (Parts 5.2, 5.3, and the Part 11 log: "4 results at or above 85.0, 11
+below") is unchanged.
+
+- `artifacts/LGL-08/corporate-family-tree-conflicts-record.md` (:111) and
+  `...record.json` (F-4 `similarity`): `92.0` to `96.0`. One value in each file.
+- `artifacts/LGL-08/build/corporate-family-tree-conflicts-record.docx` rebuilt
+  from the corrected markdown; the only text change in `document.xml` is
+  `92.0` to `96.0` (DOCX zip metadata is not byte-deterministic and also moves).
+- Added `tests/artifacts/lgl-08-similarity.test.js`: recomputes every
+  `fuzzy_matches` similarity from the row's own normalized names and asserts it
+  matches the stated value, and checks any stored `edit_distance` /
+  `length_of_longer` against the names. This guard fails on the old 92.0 and is
+  what the drafted-frozen record lacked.
+
 ## 1.0.2 - 2026-08-09
 
 **Tags at merge of PR #4.** The tag is cut by the release controller after
