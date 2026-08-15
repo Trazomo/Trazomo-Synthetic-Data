@@ -3,7 +3,8 @@
     "universe_version": "1.0.1",
     "canon": {
         "companies": "canon/companies.md",
-        "people": "canon/people.md"
+        "people": "canon/people.md",
+        "timeline": "canon/timeline.md"
     },
     "datasets": [
         {
