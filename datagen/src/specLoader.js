@@ -81,6 +81,34 @@ function validateArtifact(artifact, index, specPath) {
       `${specPath}: ${artifact.id}.canon_entities must be a list`
     );
   }
+  // Optional structured-data fields (added with the finance slice, 2026-08-15).
+  // `columns`: the header row of the artifact's CSV, in order, so tests can pin
+  // generator output to the spec. `period`: the fiscal window the rows cover.
+  if ("columns" in artifact) {
+    const cols = artifact.columns;
+    const ok = Array.isArray(cols)
+      && cols.length > 0
+      && cols.every((c) => typeof c === "string" && c.trim() !== "")
+      && new Set(cols).size === cols.length;
+    if (!ok) {
+      throw new SpecValidationError(
+        `${specPath}: ${artifact.id}.columns must be a non-empty list of unique, non-empty strings`
+      );
+    }
+  }
+  if ("period" in artifact) {
+    const p = artifact.period;
+    const iso = /^\d{4}-\d{2}-\d{2}$/;
+    const ok = p && typeof p === "object"
+      && typeof p.start === "string" && iso.test(p.start)
+      && typeof p.end === "string" && iso.test(p.end)
+      && p.start <= p.end;
+    if (!ok) {
+      throw new SpecValidationError(
+        `${specPath}: ${artifact.id}.period must be { start: YYYY-MM-DD, end: YYYY-MM-DD } with start <= end`
+      );
+    }
+  }
 }
 
 /** Track prefix (LGL, FIN, ...) parsed off an artifact id like "LGL-07". */

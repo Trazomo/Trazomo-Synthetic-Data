@@ -421,16 +421,22 @@ artifacts:
     source_plan: legal-coverage-matrix (A22)
 
   # ----------------------------------------------------------------- FIN (finance path)
+  # Finance anchor period: March 2026 (canon/timeline.md). FIN-01, FIN-02 and
+  # FIN-03 come from one seeded builder (datagen/src/generators/fin-01-cash-recon.js).
   - id: FIN-01
     name: bank-transactions
     type: dataset
-    format: csv
+    format: csv + json
     generation: deterministic
-    canon_entities: [co-002, co-104]
+    canon_entities: [co-002, co-104, co-102, co-105, co-106, co-107, co-109, co-119, co-140+]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [txn_id, posted_date, value_date, description, counterparty, reference, type, amount, running_balance, channel]
     planted_features:
-      - 1 duplicated deposit
-      - 2 unmatched payments
-      - 1 deposit-in-transit timing difference
+      - "1 duplicated deposit (bank error): one customer receipt posted twice in the bank feed, two txn_ids with the same amount and reference one or two days apart, while the GL records it once; hold for human review, never auto-clear"
+      - 2 unmatched payments, each with one root cause. A (unrecorded item) is a bank service fee debit with no GL entry, not yet booked, needs a journal entry. B (amount error) is a vendor ACH debit whose GL entry carries a transposed amount so exact matching fails, a preparer keying error, needs a correcting entry
+      - "1 deposit-in-transit timing difference: a customer receipt the GL records on 2026-03-31 that the bank posts on 2026-04-01, so it is absent from the March statement"
+      - bank-statement-summary.json carries period, opening balance, ending balance, credit and debit counts and totals; no answers
+      - the tie-out holds to the cent, adjusted bank balance = ending balance + deposit in transit - outstanding checks (FIN-03) - duplicated deposit; adjusted book balance = GL ending balance (FIN-02) - unrecorded bank fee + (GL transposed amount - bank amount)
     consuming_modules: [finance-cash-bank-reconciliation, finance-local-ai]
     source_plan: finance-implementation-plan
 
@@ -439,8 +445,12 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
-    planted_features: []
+    canon_entities: [co-002, co-102, co-105, co-106, co-107, co-109, co-119, co-140+]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [je_id, posting_date, gl_account, description, counterparty, reference, debit, credit, source, prepared_by]
+    planted_features:
+      - every row posts to the FIN-22 operating cash account (1010); je_id is JE-202603-NNNN in posting order; prepared_by is a CORE-04 Staff Accountant EMP id (never the roster's SoD-conflict row)
+      - carries the GL side of the FIN-01 planted features (one entry for the duplicated deposit, no entry for the unrecorded bank fee, the transposed vendor payment amount, the deposit in transit dated 2026-03-31) and the twelve FIN-03 outstanding checks
     consuming_modules: [finance-cash-bank-reconciliation]
     source_plan: finance-implementation-plan
 
@@ -449,8 +459,11 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
-    planted_features: []
+    canon_entities: [co-002, co-105, co-106, co-107, co-109, co-119]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [check_number, issue_date, payee, amount, gl_je_id, status]
+    planted_features:
+      - about 12 checks issued in March 2026 that had not cleared the bank by 2026-03-31; legitimate timing items, not defects; each gl_je_id resolves to a FIN-02 row and none appears in FIN-01
     consuming_modules: [finance-cash-bank-reconciliation]
     source_plan: finance-implementation-plan
 
@@ -669,9 +682,11 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
+    canon_entities: [co-002, co-104]
+    columns: [account_code, account_name, type, subtype, normal_balance, active]
     planted_features:
-      - 1 renamed/merged account (stale-reference trap)
+      - about 60 accounts across asset, liability, equity, revenue and expense; the operating cash account is 1010 (Operating Cash - Anchor Point Bank), the account FIN-01, FIN-02, FIN-05, FIN-09 and FIN-24 post against
+      - 1 renamed/merged account (stale-reference trap), kept on the chart as inactive with its name pointing at the surviving account
     consuming_modules: [finance-spreadsheet-ops, finance-knowledge-base]
     source_plan: finance-implementation-plan
 
