@@ -88,11 +88,18 @@ const PAYROLL_PLATFORM = CANON_VENDORS[1];
 // Screened by web search on 2026-08-15, two queries per name: the full name,
 // then the bare distinctive stem on its own. A name was rejected when its stem
 // resolved to a registered company, to an operating business on its own domain,
-// or to a real place with a business of the same trade at that address. Six of
+// or to a real place with a business of the same trade at that address. Seven of
 // the ten names first drafted were rejected and replaced on that basis. Common
 // noun echoes (a bird, a moor, a hedgerow plant) and fictional-setting use in
 // games or RPG wikis were not treated as collisions, since neither is a
 // business this data could be confused with.
+//
+// The seventh replacement came from the release screen, which reran both
+// queries over the whole list: "Duskmere Catering" was dropped because the
+// exact-name query returned a real bookable self-catering holiday cottage,
+// Duskmere Retreat in Keilour, Perth and Kinross, as its top result. Hospitality
+// is close enough to the vendor's trade to confuse a reader, so the slot went to
+// "Fallowmere Catering", whose two queries return only fictional settings.
 //
 // The structural test pins every counterparty and payee to this list plus canon
 // and CORE-03 names, so nothing unscreened can enter the data. Adding a name
@@ -106,7 +113,7 @@ export const NEUTRAL_VENDORS = [
   "Thackenridge Courier",
   "Sarrowmere Print Works",
   "Fenwhistle Travel Desk",
-  "Duskmere Catering",
+  "Fallowmere Catering",
   "Braxmoor Recruiting Group",
   "Wrenfallow Security Systems",
 ];

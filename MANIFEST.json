@@ -165,6 +165,67 @@
                 "capacity-model.csv": 13,
                 "matter-portfolio.csv": 48
             }
+        },
+        {
+            "id": "FIN-01",
+            "name": "bank-transactions",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv + json",
+            "generation": "deterministic",
+            "path": "datasets/finance/bank-transactions",
+            "files": [
+                "bank-statement-summary.json",
+                "bank-transactions.csv"
+            ],
+            "row_counts": {
+                "bank-transactions.csv": 196
+            }
+        },
+        {
+            "id": "FIN-02",
+            "name": "gl-cash-ledger",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/gl-cash-ledger",
+            "files": [
+                "gl-cash-ledger.csv"
+            ],
+            "row_counts": {
+                "gl-cash-ledger.csv": 207
+            }
+        },
+        {
+            "id": "FIN-03",
+            "name": "outstanding-checks",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/outstanding-checks",
+            "files": [
+                "outstanding-checks.csv"
+            ],
+            "row_counts": {
+                "outstanding-checks.csv": 12
+            }
+        },
+        {
+            "id": "FIN-22",
+            "name": "chart-of-accounts",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/chart-of-accounts",
+            "files": [
+                "chart-of-accounts.csv"
+            ],
+            "row_counts": {
+                "chart-of-accounts.csv": 65
+            }
         }
     ],
     "specs": "specs/artifact-specs.yaml",
