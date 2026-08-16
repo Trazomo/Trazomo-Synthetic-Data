@@ -81,23 +81,34 @@ const LANDLORD = CANON_VENDORS[3];
 const PAYROLL_PLATFORM = CANON_VENDORS[1];
 
 // Neutral generated vendor names for the remainder (design Section 2.4), in
-// the invented-compound style of CORE-03's account words. Every name here went
-// through the standing real-company collision screen (WebSearch, method of
-// docs/plans/2026-08-08-verification-canon-pm-tools.md) before release; the
-// structural test pins counterparties to this list plus canon and CORE-03
-// names, so nothing unscreened can enter the data. Adding a name here means
-// screening it first and recording the result in the PR.
+// the invented-compound style of CORE-03's account words. These exist to
+// satisfy the standing collision gate in canon/companies.md ("Ground rules":
+// check every name against real companies before publishing).
+//
+// Screened by web search on 2026-08-15, two queries per name: the full name,
+// then the bare distinctive stem on its own. A name was rejected when its stem
+// resolved to a registered company, to an operating business on its own domain,
+// or to a real place with a business of the same trade at that address. Six of
+// the ten names first drafted were rejected and replaced on that basis. Common
+// noun echoes (a bird, a moor, a hedgerow plant) and fictional-setting use in
+// games or RPG wikis were not treated as collisions, since neither is a
+// business this data could be confused with.
+//
+// The structural test pins every counterparty and payee to this list plus canon
+// and CORE-03 names, so nothing unscreened can enter the data. Adding a name
+// here means running the same two queries first and recording the verdict in
+// the PR.
 export const NEUTRAL_VENDORS = [
-  "Quillbrook Cloud Services",
+  "Halvermoor Cloud Services",
   "Harrowfen Facilities Group",
   "Kestrelmoor Staffing Partners",
   "Loamfield Power Cooperative",
-  "Rooksbridge Courier",
-  "Tallowmere Print Works",
-  "Bramblewick Travel Desk",
+  "Thackenridge Courier",
+  "Sarrowmere Print Works",
+  "Fenwhistle Travel Desk",
   "Duskmere Catering",
-  "Gorsewood Recruiting Group",
-  "Cindervale Security Systems",
+  "Braxmoor Recruiting Group",
+  "Wrenfallow Security Systems",
 ];
 
 // Category counts (fixed composition; dates, amounts and counterparties draw
@@ -134,9 +145,14 @@ function businessDaysBefore(iso, n) {
   return d < PERIOD.start ? iso : d;
 }
 
-/** value_date rule: ach and check carry one business day of float; everything else posts same day. */
-function valueDateFor(channel, postedDate) {
-  return channel === "ach" || channel === "check" ? nextBusinessDay(postedDate) : postedDate;
+/**
+ * value_date rule: an inbound ach or check credit carries one business day of
+ * float before the funds are available. Money leaving the account is gone on
+ * the day it posts, so every debit values on its posting date.
+ */
+function valueDateFor(channel, direction, postedDate) {
+  const floats = direction === "credit" && (channel === "ach" || channel === "check");
+  return floats ? nextBusinessDay(postedDate) : postedDate;
 }
 
 /**
@@ -349,7 +365,7 @@ export function buildCashReconciliation() {
     return {
       txn_id: `BNK-${PERIOD.label}-${String(i + 1).padStart(4, "0")}`,
       posted_date: e.date,
-      value_date: valueDateFor(e.channel, e.date),
+      value_date: valueDateFor(e.channel, e.direction, e.date),
       description: e.bankDescription,
       counterparty: e.counterparty,
       reference: e.reference,

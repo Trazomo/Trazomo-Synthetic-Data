@@ -113,6 +113,34 @@ test("FIN-01: ids, dates, value dates, amounts, running balance and channel mix"
   assert.equal(summary.account.gl_account, OPERATING_CASH_ACCOUNT.code);
 });
 
+test("FIN-01 summary: totals, currency and account block are recomputable from the emitted rows", () => {
+  const creditTotal = bankCredits.reduce((s, r) => s + toCents(r.amount), 0);
+  const debitTotal = bankDebits.reduce((s, r) => s + toCents(r.amount), 0);
+  assert.equal(toCents(summary.credit_total), creditTotal, "credit_total must be the sum of the credit rows");
+  assert.equal(toCents(summary.debit_total), debitTotal, "debit_total must be the sum of the debit rows");
+  assert.equal(
+    toCents(summary.opening_balance) + creditTotal - debitTotal,
+    toCents(summary.ending_balance),
+    "opening plus credits minus debits must equal the ending balance"
+  );
+  assert.equal(summary.currency, "USD");
+  assert.equal(summary.account.gl_account, OPERATING_CASH_ACCOUNT.code);
+  assert.match(summary.account.number_masked, /^XXXX-\d{4}$/, "the account number must be masked");
+  assert.ok(summary.account.description.length > 0, "the account description must not be empty");
+});
+
+test("FIN-01: only inbound credits carry value-date float; every debit values on its posting date", () => {
+  for (const r of bank) {
+    if (r.type === "debit") {
+      assert.equal(r.value_date, r.posted_date, `${r.txn_id} is a debit and must value on its posting date`);
+    } else if (r.channel === "ach" || r.channel === "check") {
+      assert.ok(r.value_date > r.posted_date, `${r.txn_id} is an inbound ${r.channel} credit and should carry float`);
+    } else {
+      assert.equal(r.value_date, r.posted_date, `${r.txn_id} is a same-day credit channel`);
+    }
+  }
+});
+
 test("FIN-02: ids in posting order, one populated side per row, cash account, sources, dates inside the period", () => {
   const sources = new Set(["ap", "ar", "payroll", "manual", "bank_fee"]);
   gl.forEach((r, i) => {
