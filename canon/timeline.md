@@ -1,7 +1,8 @@
 # Canon Timeline
 
-Status: PROPOSAL (D1, 2026-08-15), pending Salvador's approval in the D1 PR. Once
-approved, this file is canon: later finance artifacts (AR aging, PO matching,
+Status: proposed in PR #7 (D1, 2026-08-15); becomes canon when PR #7 merges (the
+merge is the approval; the anchors marked "(proposal)" below are what is being
+approved). Once it is canon, later finance artifacts (AR aging, PO matching,
 accruals, flux) use the same anchor period unless their spec says otherwise.
 
 ## Anchors derived from the dated CORE artifacts on tag v1.0.2
@@ -19,9 +20,6 @@ CORE-04, LGL-07, LGL-21 and LGL-22 generators, not the universe "now". Do not bu
 it for D1: bumping rerolls the bytes of all five.
 
 ## Dated events
-
-The rows sourced to `datasets/finance` and to the FIN specs land later in this same
-PR (Tasks 3 to 6); they are not on disk at the commit that adds this file.
 
 | Date | Event | Source |
 |---|---|---|
