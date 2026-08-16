@@ -174,6 +174,26 @@ test("FIN-02: prepared_by is a roster Staff Accountant, the reviewer is a roster
   assert.notEqual(PREPARER_EMPLOYEE_ID, REVIEWER_EMPLOYEE_ID);
 });
 
+// The generator hardcodes display names next to their canon ids so the emitted
+// rows read like a bank feed rather than a join. That copy is only safe while
+// it agrees with canon/companies.md: rename a company there and every FIN file
+// would keep shipping the old name, silently breaking the cross-track join that
+// canon ids exist to guarantee. Compared against the repo's own canon loader,
+// which strips the "(proposed)"/"(adopted)" status suffix.
+test("FIN-01/02/03: every hardcoded counterparty name matches what canon/companies.md gives that id", () => {
+  const named = [...CANON_VENDORS, ACCOUNT_HOLDER, BANK];
+  assert.ok(named.length > 0);
+  for (const v of named) {
+    const entry = canon.get(v.canon_id);
+    assert.ok(entry, `${v.canon_id} is not in canon/companies.md`);
+    assert.equal(
+      entry.name,
+      v.name,
+      `${v.canon_id} is "${entry.name}" in canon/companies.md but the generator calls it "${v.name}"`
+    );
+  }
+});
+
 test("FIN-01/02: every counterparty is a canon company, a CORE-03 customer account, or a declared neutral vendor", () => {
   const crmFiles = generateCrmSeed({ rng: (stream) => createRng("CORE-03", stream) });
   const crm = JSON.parse(crmFiles.find((f) => f.path === "crm-seed.json").content);
