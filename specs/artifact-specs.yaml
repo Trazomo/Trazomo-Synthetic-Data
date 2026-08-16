@@ -134,8 +134,8 @@ artifacts:
       - six-document base library (data retention, remote work, acceptable use, social media, travel expense, BYOD) with mixed freshness states (current, review-due, overdue, stale, orphaned, superseded)
       - single consistent doc_id scheme across all reuses
       - data retention policy with section 3 retention periods (7yr/10yr employment, 7yr financial, 5yr/6yr client-contract)
-      - finance section: one accounting policy memo superseded by a later one (citation trap)
-      - HR section: handbook with one recently updated policy (versioning test) and one question whose answer spans two sections (citation-grounding test)
+      - "finance section: one accounting policy memo superseded by a later one (citation trap)"
+      - "HR section: handbook with one recently updated policy (versioning test) and one question whose answer spans two sections (citation-grounding test)"
     consuming_modules:
       - legal-knowledge-base
       - finance-knowledge-base
