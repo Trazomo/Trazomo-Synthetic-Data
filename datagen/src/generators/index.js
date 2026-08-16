@@ -5,6 +5,9 @@
 import * as core02 from "./core-02-invoice.js";
 import * as core03 from "./core-03-crm-seed.js";
 import * as core04 from "./core-04-people-roster.js";
+import * as fin01 from "./fin-01-cash-recon.js";
+import * as fin02 from "./fin-02-gl-cash-ledger.js";
+import * as fin03 from "./fin-03-outstanding-checks.js";
 import * as fin22 from "./fin-22-chart-of-accounts.js";
 import * as lgl07 from "./lgl-07-intake.js";
 import * as lgl11 from "./lgl-11-litigation.js";
@@ -21,11 +24,13 @@ import { NotImplementedError } from "../errors.js";
 // is the CLI's own test fixture (see generators/test-01-fixture.js), not a
 // program artifact, and must never appear in that reporting.
 export const PROGRAM_GENERATOR_IDS = [
-  core02.id, core03.id, core04.id, fin22.id, lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
+  core02.id, core03.id, core04.id,
+  fin01.id, fin02.id, fin03.id, fin22.id,
+  lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
 ];
 
 const REGISTRY = new Map(
-  [core02, core03, core04, fin22, lgl07, lgl11, lgl18, lgl20, lgl21, lgl22, test01].map((mod) => [mod.id, mod])
+  [core02, core03, core04, fin01, fin02, fin03, fin22, lgl07, lgl11, lgl18, lgl20, lgl21, lgl22, test01].map((mod) => [mod.id, mod])
 );
 
 export function hasGenerator(specId) {
