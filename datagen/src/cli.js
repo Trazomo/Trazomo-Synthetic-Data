@@ -8,7 +8,7 @@ import { loadCanonCompanies } from "./canon.js";
 import { generateArtifact } from "./engine.js";
 import { hasGenerator, implementedIds } from "./generators/index.js";
 import { NotImplementedError } from "./errors.js";
-import { buildManifest } from "./manifest.js";
+import { buildManifest, manifestIds } from "./manifest.js";
 import { evaluateAllowlist, loadAllowlist, validateOne } from "./validate.js";
 import { pandocAvailable, buildWithPandoc, buildWithDocxFallback } from "./docx.js";
 
@@ -55,7 +55,8 @@ Usage:
   datagen build-docx <ID>            Convert artifacts/<ID>/*.md to DOCX
   datagen build-docx --all           Convert every artifacts/<ID>/*.md found on disk
   datagen validate <ID>              Validate one spec (keyword check or determinism diff)
-  datagen validate --all             Validate every spec in the catalog
+  datagen validate --all             Validate every spec in the catalog (unbuilt drafts included)
+  datagen validate --manifest        Validate exactly the ids MANIFEST.json lists (what CI runs)
   datagen manifest                   Regenerate MANIFEST.json from disk + specs
 
 Options:
@@ -218,17 +219,51 @@ function wrap(text, width) {
 
 // ---------------------------------------------------------------- validate
 
+/**
+ * Targets for `validate --manifest`: exactly the ids MANIFEST.json lists.
+ *
+ * The spec catalog is a roadmap, so `--all` is permanently red over the specs
+ * nobody has drafted yet -- useful to a human reading the list, useless as a
+ * gate. MANIFEST.json holds only what was actually built and committed, so
+ * checking it is the regression question: is everything this repo ships still
+ * there, and still byte-identical? Catalog specs the manifest does not name are
+ * unbuilt drafts and are skipped, counted in the header line so the skip is
+ * visible rather than silent.
+ */
+function manifestTargets({ root, specs }) {
+  const ids = manifestIds(join(root, "MANIFEST.json"));
+  const unknown = ids.filter((id) => !specs.byId.has(id));
+  if (unknown.length > 0) {
+    throw new Error(
+      `MANIFEST.json lists ${unknown.join(", ")}, which the spec catalog does not define. `
+      + "Regenerate it with `datagen manifest`, or fix the spec id."
+    );
+  }
+  const listed = new Set(ids);
+  return specs.artifacts.filter((s) => listed.has(s.id));
+}
+
 function runValidate({ root, positional, options }) {
   const { specsPath, canonPath, allowlistPath } = paths(root, options);
   const specs = loadSpecs(specsPath);
   const canon = loadCanonCompanies(canonPath);
   const allowlist = loadAllowlist(allowlistPath);
 
-  const targets = options.all ? specs.artifacts : resolveIdArgs(positional, specs);
-  if (targets.length === 0) {
-    console.error("validate: no target spec id given. Use `validate <ID>` or `validate --all`.");
+  const manifestMode = Boolean(options.manifest);
+  const targets = manifestMode
+    ? manifestTargets({ root, specs })
+    : options.all ? specs.artifacts : resolveIdArgs(positional, specs);
+  if (targets.length === 0 && !manifestMode) {
+    console.error("validate: no target spec id given. Use `validate <ID>`, `validate --all` or `validate --manifest`.");
     process.exitCode = 1;
     return;
+  }
+  if (manifestMode) {
+    const skipped = specs.artifacts.length - targets.length;
+    console.log(
+      `validate --manifest: ${targets.length} id(s) listed in MANIFEST.json, `
+      + `${skipped} unbuilt catalog spec(s) skipped.\n`
+    );
   }
 
   let failCount = 0;
@@ -264,7 +299,11 @@ function runValidate({ root, positional, options }) {
       for (const f of result.files ?? []) {
         if (f.status !== "MATCH") console.log(`      ${f.status}  ${f.path}`);
       }
-      if (result.status === "FAIL") failCount += 1;
+      // MISSING counts here exactly as it does for a drafted spec above. A
+      // dataset directory that is gone is the loudest regression this command
+      // can find, and it used to exit 0. SKIP (no generator registered yet) is
+      // still not a failure.
+      if (result.status === "FAIL" || result.status === "MISSING") failCount += 1;
     }
   }
 

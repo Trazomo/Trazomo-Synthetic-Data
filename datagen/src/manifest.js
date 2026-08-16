@@ -3,6 +3,45 @@ import { join, relative } from "node:path";
 import { trackDir } from "./specLoader.js";
 
 /**
+ * The ids MANIFEST.json claims are built and committed: every entry of its
+ * "datasets" and "artifacts" sections, in file order, deduplicated.
+ *
+ * This is the list `validate --manifest` checks. The spec catalog is a
+ * roadmap (most of it is still unbuilt), so it cannot answer "did a committed
+ * dataset just disappear". MANIFEST.json can: an entry exists only because
+ * files were on disk when `manifest` last ran.
+ *
+ * A missing or malformed manifest throws rather than yielding an empty list.
+ * Checking nothing is exactly how a CI job stays green over a repo that lost
+ * its index.
+ *
+ * @param {string} manifestPath
+ * @returns {string[]}
+ */
+export function manifestIds(manifestPath) {
+  if (!existsSync(manifestPath)) {
+    throw new Error(`no MANIFEST.json at ${manifestPath} -- run 'datagen manifest' first`);
+  }
+  const doc = JSON.parse(readFileSync(manifestPath, "utf8"));
+  const ids = [];
+  for (const section of ["datasets", "artifacts"]) {
+    const entries = doc?.[section];
+    if (entries == null) continue; // a universe with no drafted artifacts yet
+    if (!Array.isArray(entries)) {
+      throw new Error(`${manifestPath}: "${section}" must be a list, found ${typeof entries}`);
+    }
+    for (const [index, entry] of entries.entries()) {
+      const id = entry?.id;
+      if (typeof id !== "string" || id.trim() === "") {
+        throw new Error(`${manifestPath}: ${section}[${index}] needs a non-empty string "id"`);
+      }
+      if (!ids.includes(id)) ids.push(id);
+    }
+  }
+  return ids;
+}
+
+/**
  * Regenerate MANIFEST.json's "datasets" and "artifacts" sections from what
  * is actually present on disk under `datasets/` and `artifacts/`, cross
  * referenced against the spec catalog. Never invents an entry for a spec

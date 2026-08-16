@@ -92,7 +92,32 @@ Atticus Dundee Inc.
 
 Both build paths honor this convention.
 
-### `validate <ID> [<ID> ...]` / `validate --all`
+### `validate <ID> [<ID> ...]` / `validate --all` / `validate --manifest`
+
+Three scopes over the same checks:
+
+| Invocation | Checks | Use |
+|---|---|---|
+| `validate <ID>` | the ids you name | working on one artifact |
+| `validate --all` | every spec in the catalog | a human reading where the program stands |
+| `validate --manifest` | exactly the ids `MANIFEST.json` lists | the gate (`npm run validate`, CI) |
+
+The catalog is a roadmap: most specs are drafts nobody has built yet, so
+`--all` reports them `MISSING` and exits non-zero by design. That is honest
+output for a person and useless as a gate. `MANIFEST.json` holds only what was
+actually built and committed, so `--manifest` asks the regression question
+instead: is everything this repo ships still on disk, and still byte-identical?
+A `MISSING` id there is a failure (non-zero exit) whether it is a dataset or a
+drafted artifact. Catalog specs the manifest does not name are skipped, and the
+header line counts them so the skip stays visible:
+
+```
+validate --manifest: 24 id(s) listed in MANIFEST.json, 113 unbuilt catalog spec(s) skipped.
+```
+
+`--manifest` fails loudly if `MANIFEST.json` is absent or names an id the spec
+catalog does not define: regenerate it with `datagen manifest`. Nothing about
+the per-spec checks changes between the three scopes:
 
 - **`generation: drafted-frozen`** specs: reads every `.md` file under
   `artifacts/<ID>/` and, for each `planted_features` entry, extracts its
@@ -129,7 +154,9 @@ Both build paths honor this convention.
   every output file byte-for-byte against what's committed under
   `datasets/<track>/<artifact-name>/`. `PASS`/`FAIL`, or `MISSING` if
   nothing has been generated yet, or `SKIP` if there's no generator
-  registered for that id yet.
+  registered for that id yet. `MISSING` counts as a failure, exactly as it
+  does for a drafted spec: a dataset directory that used to be there and is
+  now gone is the loudest regression this command can find.
 
 #### Permanent-WARN allowlist
 
@@ -175,6 +202,7 @@ validate summary: 137 checked, 30 failed, 2 allowlisted.
 ```bash
 node datagen/src/cli.js validate CORE-02
 node datagen/src/cli.js validate --all
+npm run validate                          # validate --manifest, the CI gate
 ```
 
 ### `manifest`
@@ -268,10 +296,24 @@ Adding a new artifact to the program:
    ```
 4. **Commit the output** (`datasets/...` or `artifacts/<ID>/build/...`)
    alongside the spec change and the regenerated `MANIFEST.json`.
-5. **Add a test.** For a generator, add it to
-   `tests/generators/determinism.test.js`'s coverage (add its id to
-   `PROGRAM_GENERATOR_IDS` in `datagen/src/generators/index.js`) and a
-   planted-feature spot check in `tests/generators/planted-features.test.js`.
+5. **Add a test.** Every generator joins the determinism sweep: add its id to
+   `PROGRAM_GENERATOR_IDS` in `datagen/src/generators/index.js`, which is what
+   `tests/generators/determinism.test.js` iterates. Then cover the planted
+   features, in one of two places:
+   - **A dedicated per-generator file** (preferred for anything with derived
+     structure: totals that must tie out, cross-file joins, a shared builder
+     feeding several specs). Name it after the slice, e.g.
+     `tests/generators/fin-cash-recon.test.js` for FIN-01/02/03 or
+     `tests/generators/fin-22-chart-of-accounts.test.js`. This is where a
+     structural assertion belongs: recompute the tie-out from the emitted
+     files, count the planted shapes, pin the header to the spec's `columns`,
+     and check hardcoded canon names still match `canon/companies.md`.
+   - **A spot check in `tests/generators/planted-features.test.js`** for a
+     generator whose features are simple presence or count assertions.
+
+   Assert shapes, never instances: count the anomalies, recompute the totals,
+   but do not name the row, id or amount that carries a planted defect. Those
+   are answer keys (see below), and they do not live in this repo.
 
 ### Answer keys
 
@@ -289,22 +331,34 @@ that content belongs somewhere else.
 ## Testing
 
 ```bash
-npm test
+npm test        # node --test over tests/
+npm run validate  # validate --manifest over what MANIFEST.json ships
 ```
 
-Runs `node --test` over `tests/`:
+CI (`.github/workflows/ci.yml`) runs exactly those two on every push and pull
+request, on Node 22, after `npm ci`.
+
+`npm test` runs `node --test` over `tests/`:
 
 - `tests/unit/` -- seeding, dates, spec loading/validation, canon parsing,
-  CSV escaping, manifest regeneration, the validate keyword heuristic.
+  CSV escaping, manifest regeneration and reading, the validate keyword
+  heuristic.
 - `tests/generators/determinism.test.js` -- every implemented generator,
   run twice, byte-identical output.
 - `tests/generators/planted-features.test.js` -- spot checks that each
   generator's committed `planted_features` actually show up in its output
   (exact totals, record counts, threshold behavior).
+- `tests/generators/<slice>.test.js` -- per-generator structural suites for
+  slices with derived structure, e.g. `fin-cash-recon.test.js` (FIN-01/02/03:
+  the reconciliation tie-out recomputed from the files, the planted shapes
+  counted, canon names checked against `canon/companies.md`) and
+  `fin-22-chart-of-accounts.test.js`.
 - `tests/cli/test01-fixture-e2e.test.js` -- spawns the real CLI against a
   throwaway copy of `tests/fixtures/TEST-01` (never the real repo root):
   `generate` → `validate` → `manifest` for a fixture `deterministic` spec,
-  and `build-docx` → `validate` for a fixture `drafted-frozen` spec.
+  `build-docx` → `validate` for a fixture `drafted-frozen` spec, and the
+  `validate --manifest` exit codes (green over unbuilt specs, non-zero the
+  moment a manifest-listed directory is deleted).
 - `tests/docx/docx-build.test.js` -- both `build-docx` code paths (pandoc
   and the `docx` fallback) against the TEST-01-DOC fixture; the pandoc test
   is skipped (not failed) on a machine without pandoc installed.

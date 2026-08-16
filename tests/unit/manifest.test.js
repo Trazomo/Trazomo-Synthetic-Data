@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { buildManifest } from "../../datagen/src/manifest.js";
+import { buildManifest, manifestIds } from "../../datagen/src/manifest.js";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 
 function makeSpecsFixture(dir) {
@@ -100,5 +100,45 @@ test("MANIFEST.json on disk matches a fresh buildManifest over the real repo (da
   assert.deepEqual(fresh.artifacts, committed.artifacts);
   for (const id of ["FIN-01", "FIN-02", "FIN-03", "FIN-22"]) {
     assert.ok(committed.datasets.some((d) => d.id === id), `${id} missing from MANIFEST.json datasets`);
+  }
+});
+
+test("manifestIds reads both sections, keeps catalog-independent order, and rejects a malformed manifest", () => {
+  const root = mkdtempSync(join(tmpdir(), "datagen-manifest-test-"));
+  try {
+    const manifestPath = join(root, "MANIFEST.json");
+    writeFileSync(
+      manifestPath,
+      JSON.stringify({
+        manifest_version: 1,
+        canon: { companies: "canon/companies.md" },
+        datasets: [{ id: "LGL-97" }, { id: "LGL-98" }],
+        artifacts: [{ id: "LGL-99" }],
+      })
+    );
+    assert.deepEqual(manifestIds(manifestPath), ["LGL-97", "LGL-98", "LGL-99"]);
+
+    // An absent manifest is a hard error, not an empty run: silently checking
+    // nothing is how a CI job goes green over a repo that lost its index.
+    assert.throws(() => manifestIds(join(root, "nope.json")), /no MANIFEST\.json/);
+
+    writeFileSync(manifestPath, JSON.stringify({ datasets: { id: "LGL-97" }, artifacts: [] }));
+    assert.throws(() => manifestIds(manifestPath), /"datasets" must be a list/);
+
+    writeFileSync(manifestPath, JSON.stringify({ datasets: [{ name: "no-id" }], artifacts: [] }));
+    assert.throws(() => manifestIds(manifestPath), /needs a non-empty string "id"/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("manifestIds treats an absent section as empty, so a manifest with no drafted artifacts still loads", () => {
+  const root = mkdtempSync(join(tmpdir(), "datagen-manifest-test-"));
+  try {
+    const manifestPath = join(root, "MANIFEST.json");
+    writeFileSync(manifestPath, JSON.stringify({ datasets: [{ id: "LGL-97" }] }));
+    assert.deepEqual(manifestIds(manifestPath), ["LGL-97"]);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
   }
 });
