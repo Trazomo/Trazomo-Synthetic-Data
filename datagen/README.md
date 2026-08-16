@@ -204,6 +204,10 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | CORE-02 | outside-counsel-invoice | invoice | genuine LEDES 1998B pipe-delimited file + JSON summary |
 | CORE-03 | crm-seed-dataset | dataset | accounts/contacts/opportunities/stage-history/leads CSVs + JSON bundle |
 | CORE-04 | people-roster | dataset | 600-row employee CSV (shared by CORE-03's owners and LGL-07/LGL-22's attorneys) |
+| FIN-01 | bank-transactions | dataset | March 2026 bank feed CSV + statement summary JSON (planted duplicate deposit, unrecorded fee, transposed amount, deposit in transit) |
+| FIN-02 | gl-cash-ledger | dataset | cash GL ledger CSV, from FIN-01's builder |
+| FIN-03 | outstanding-checks | dataset | outstanding checks CSV, from FIN-01's builder |
+| FIN-22 | chart-of-accounts | dataset | 65-account chart CSV (cash account 1010) |
 | LGL-07 | client-matter-intake-form-set | form | intake records JSON + markdown summary |
 | LGL-11 | litigation-matter-commercial-employment | record | deadline-chain + trial-continuance-cascade JSON + markdown |
 | LGL-18 | outside-counsel-rfp-panel-benchmark | dataset | rubric/comparison/scorecard CSVs + markdown |
@@ -211,11 +215,11 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | LGL-21 | self-service-portal-program-dataset | dataset | demand-log/SLA CSVs + JSON (FAQ + ROI) |
 | LGL-22 | matter-portfolio-dashboard-dataset | dataset | matter-state + capacity-model CSVs |
 
-**Not implemented yet**: every other `generation: deterministic` spec (FIN,
-HR, REV, OPS, SMB, and the remaining LGL corpus/config bundles LGL-13,
-LGL-14, LGL-16 -- these are multi-file bundles with folder trees and
-hash-chain fixtures that are a meaningfully larger lift than the CSV/JSON
-work above). Calling `generate <ID>` on any of these raises a
+**Not implemented yet**: every other `generation: deterministic` spec (the
+remaining FIN, HR, REV, OPS, SMB, and the remaining LGL corpus/config
+bundles LGL-13, LGL-14, LGL-16 -- these are multi-file bundles with folder
+trees and hash-chain fixtures that are a meaningfully larger lift than the
+CSV/JSON work above). Calling `generate <ID>` on any of these raises a
 `NotImplementedError` naming the spec id; `generate --all-structured`
 reports them as `STUB` and keeps going.
 
@@ -233,6 +237,9 @@ Adding a new artifact to the program:
    ID-namespace convention (`CORE-`, `LGL-`, `FIN-`, `HR-`, `REV-`, `OPS-`,
    `SMB-`) and check `canon/companies.md` for entity ids before inventing a
    new company -- reuse an existing one if the relationship already fits.
+   Structured specs may also carry `columns` (the CSV header, in order;
+   tests pin generator output to it) and `period` (`{ start, end }` as
+   quoted ISO dates).
 2a. **If `generation: deterministic`**: add
    `datagen/src/generators/<id-lowercase>-<short-name>.js` exporting
    `id` (must equal the spec's `id`) and

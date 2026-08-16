@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.1.0 - 2026-08-15
+
+**Tags at merge of the D1 PR (`feat/fin-cash-reconciliation-slice`).** The tag
+is cut by the release controller after merge, not on the branch. Consumers
+pinned to `v1.0.2` are unaffected until they move the pin; trazomo's
+`finance-cash-bank-reconciliation` module pins `v1.1.0`.
+
+First finance datasets, all `generation: deterministic` (no drafted text, so no
+freeze review):
+
+- **FIN-01 bank-transactions**: co-002's March 2026 operating account at co-104 Anchor Point Bank, 196 rows plus `bank-statement-summary.json`. Planted: one duplicated deposit, two unmatched payments (an unrecorded bank fee, a transposed vendor ACH amount), one deposit in transit. Row ids and amounts stay out of this repo (answer-key rule).
+- **FIN-02 gl-cash-ledger**: 207 rows on cash account 1010, prepared by a CORE-04 Staff Accountant; **FIN-03 outstanding-checks**: 12 March checks not cleared by 2026-03-31. Both come from FIN-01's seeded builder, so the three files tie out to the cent (asserted in the generator and in `tests/generators/fin-cash-recon.test.js`).
+- **FIN-22 chart-of-accounts**: 65 accounts; fixes operating cash 1010 for FIN-05, FIN-09, FIN-24.
+- Customers are CORE-03 CRM accounts (co-102 first), vendors are canon co-105/106/107/109/119 plus ten screened neutral names; cross-track joins resolve.
+- `canon/timeline.md` added (proposal): universe "now" first week of April 2026, co-002 fiscal year = calendar year, finance anchor period March 2026, March close roles.
+- Spec catalog: optional `columns` and `period` fields, validated by `specLoader`; FIN-01/02/03/22 carry exact planted-feature wording. No ids or consuming modules changed.
+- Universe version 1.1.0. Suite: 116 tests (91 before this release).
+
 ## 1.0.2 - 2026-08-09
 
 **Tags at merge of PR #4.** The tag is cut by the release controller after
