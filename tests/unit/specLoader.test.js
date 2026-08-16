@@ -68,6 +68,42 @@ test("loadSpecs throws on unknown generation value", () => {
   }
 });
 
+test("loadSpecs: optional columns / period fields are validated when present", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of ["FIN-01", "FIN-02", "FIN-03", "FIN-22"]) {
+    const spec = byId.get(id);
+    assert.ok(Array.isArray(spec.columns) && spec.columns.length > 0, `${id} has no columns`);
+    assert.equal(new Set(spec.columns).size, spec.columns.length, `${id} has duplicate columns`);
+  }
+  for (const id of ["FIN-01", "FIN-02", "FIN-03"]) {
+    assert.deepEqual(byId.get(id).period, { start: "2026-03-01", end: "2026-03-31" }, `${id} period`);
+  }
+  assert.equal(byId.get("FIN-22").period, undefined, "a chart of accounts has no period");
+});
+
+test("loadSpecs throws on malformed columns or period", () => {
+  const dir = mkdtempSync(join(tmpdir(), "datagen-spec-test-"));
+  const base = "artifacts:\n  - id: BAD-03\n    name: n\n    type: dataset\n    format: csv\n    generation: deterministic\n    canon_entities: []\n    planted_features: []\n    consuming_modules: []\n";
+  const cases = [
+    "    columns: []\n",
+    "    columns: [a, a]\n",
+    "    columns: [a, '']\n",
+    "    columns: nope\n",
+    "    period: { start: 2026-03-01, end: 2026-03-31 }\n", // unquoted YAML dates parse as Date objects, not strings
+    "    period: { start: \"2026-03-31\", end: \"2026-03-01\" }\n",
+    "    period: { start: \"2026-03-01\" }\n",
+  ];
+  try {
+    for (const [i, extra] of cases.entries()) {
+      const badPath = join(dir, `bad-${i}.yaml`);
+      writeFileSync(badPath, base + extra);
+      assert.throws(() => loadSpecs(badPath), SpecValidationError, `case ${i} should throw: ${extra.trim()}`);
+    }
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("trackPrefix / trackDir map every real spec id to a known dataset track", () => {
   const { artifacts } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
   const known = new Set(["core", "legal", "finance", "hr", "revenue", "operations", "smb"]);

@@ -13,7 +13,7 @@ The shared synthetic-data universe for [Trazomo](https://www.trazomo.com) exempl
 
 ## Status
 
-Skeleton (v0.1.0). The legal slice ships first with data-pack v1.0. Lessons and demo videos pin to tagged releases.
+Legal slice frozen at v1.0.2; the finance cash reconciliation slice (FIN-01, FIN-02, FIN-03, FIN-22) ships in v1.1.0. Lessons and demo videos pin to tagged releases.
 
 ## Using it
 

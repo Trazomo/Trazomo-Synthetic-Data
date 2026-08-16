@@ -1,0 +1,28 @@
+{
+  "generated_from_spec": "FIN-01",
+  "account_holder": {
+    "canon_id": "co-002",
+    "name": "Atticus Dundee Inc."
+  },
+  "bank": {
+    "canon_id": "co-104",
+    "name": "Anchor Point Bank"
+  },
+  "account": {
+    "description": "Operating account",
+    "number_masked": "XXXX-4410",
+    "gl_account": "1010"
+  },
+  "currency": "USD",
+  "period": {
+    "start": "2026-03-01",
+    "end": "2026-03-31"
+  },
+  "opening_balance": "3482915.22",
+  "ending_balance": "2806284.46",
+  "credit_count": 103,
+  "credit_total": "4431080.12",
+  "debit_count": 93,
+  "debit_total": "5107710.88",
+  "transaction_count": 196
+}

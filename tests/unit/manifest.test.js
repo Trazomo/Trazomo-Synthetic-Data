@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { buildManifest } from "../../datagen/src/manifest.js";
@@ -88,5 +88,17 @@ test("buildManifest returns empty sections when nothing has been generated yet",
     assert.deepEqual(manifest.artifacts, []);
   } finally {
     rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("MANIFEST.json on disk matches a fresh buildManifest over the real repo (datasets and artifacts sections)", () => {
+  const REPO_ROOT = join(import.meta.dirname, "..", "..");
+  const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const committed = JSON.parse(readFileSync(join(REPO_ROOT, "MANIFEST.json"), "utf8"));
+  const fresh = buildManifest({ root: REPO_ROOT, specs, existingManifest: committed });
+  assert.deepEqual(fresh.datasets, committed.datasets, "run `node datagen/src/cli.js manifest` and commit MANIFEST.json");
+  assert.deepEqual(fresh.artifacts, committed.artifacts);
+  for (const id of ["FIN-01", "FIN-02", "FIN-03", "FIN-22"]) {
+    assert.ok(committed.datasets.some((d) => d.id === id), `${id} missing from MANIFEST.json datasets`);
   }
 });

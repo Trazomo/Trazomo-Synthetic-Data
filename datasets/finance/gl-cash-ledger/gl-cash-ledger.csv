@@ -1,0 +1,208 @@
+je_id,posting_date,gl_account,description,counterparty,reference,debit,credit,source,prepared_by
+JE-202603-0001,2026-03-02,1010,Customer receipt - Silverdale Analytics - INV-2026-0411,Silverdale Analytics,INV-2026-0411,26673.34,,ar,EMP-0486
+JE-202603-0002,2026-03-02,1010,Customer receipt - Foxglove Partners - INV-2026-0446,Foxglove Partners,INV-2026-0446,11189.26,,ar,EMP-0486
+JE-202603-0003,2026-03-02,1010,Transfer from money market sweep,Atticus Dundee Inc.,MMKT-2026-03-02,250000.00,,manual,EMP-0486
+JE-202603-0004,2026-03-02,1010,Vendor payment - Thackenridge Courier - AP-2026-0353,Thackenridge Courier,AP-2026-0353,,2411.64,ap,EMP-0486
+JE-202603-0005,2026-03-02,1010,Vendor payment - DataPulse Analytics - AP-2026-0370,DataPulse Analytics,AP-2026-0370,,4904.90,ap,EMP-0486
+JE-202603-0006,2026-03-02,1010,Vendor payment - Birchcroft Properties - RENT-2026-03,Birchcroft Properties,RENT-2026-03,,185000.00,ap,EMP-0486
+JE-202603-0007,2026-03-02,1010,Vendor payment - TalentForce HR Platform - AP-2026-0385,TalentForce HR Platform,AP-2026-0385,,34736.72,ap,EMP-0486
+JE-202603-0008,2026-03-02,1010,Check 10421 - Cedarline Office Supply,Cedarline Office Supply,10421,,5083.15,ap,EMP-0486
+JE-202603-0009,2026-03-02,1010,Check 10422 - Halvermoor Cloud Services,Halvermoor Cloud Services,10422,,2520.15,ap,EMP-0486
+JE-202603-0010,2026-03-03,1010,Customer receipt - Cinderbrook LLC - INV-2026-0455,Cinderbrook LLC,INV-2026-0455,24426.53,,ar,EMP-0486
+JE-202603-0011,2026-03-03,1010,Customer receipt - Northfield Group - INV-2026-0459,Northfield Group,INV-2026-0459,7316.77,,ar,EMP-0486
+JE-202603-0012,2026-03-03,1010,Customer receipt - Cinderbrook LLC - INV-2026-0466,Cinderbrook LLC,INV-2026-0466,13646.09,,ar,EMP-0486
+JE-202603-0013,2026-03-03,1010,Customer receipt - Hazelmere Analytics - INV-2026-0484,Hazelmere Analytics,INV-2026-0484,199693.98,,ar,EMP-0486
+JE-202603-0014,2026-03-03,1010,Card settlement - small-team tier - 2026-03-03,Anchor Point Bank,SETTLE-20260303,7823.48,,ar,EMP-0486
+JE-202603-0015,2026-03-03,1010,Vendor payment - DataPulse Analytics - AP-2026-0334,DataPulse Analytics,AP-2026-0334,,26444.16,ap,EMP-0486
+JE-202603-0016,2026-03-03,1010,Vendor payment - Millgate Insurance Services - AP-2026-0344,Millgate Insurance Services,AP-2026-0344,,8137.58,ap,EMP-0486
+JE-202603-0017,2026-03-03,1010,Vendor payment - Wrenfallow Security Systems - AP-2026-0364,Wrenfallow Security Systems,AP-2026-0364,,21996.96,ap,EMP-0486
+JE-202603-0018,2026-03-03,1010,Vendor payment - TalentForce HR Platform - AP-2026-0380,TalentForce HR Platform,AP-2026-0380,,24295.91,ap,EMP-0486
+JE-202603-0019,2026-03-03,1010,Check 10423 - Wrenfallow Security Systems,Wrenfallow Security Systems,10423,,5444.26,ap,EMP-0486
+JE-202603-0020,2026-03-03,1010,Check 10424 - TalentForce HR Platform,TalentForce HR Platform,10424,,12043.43,ap,EMP-0486
+JE-202603-0021,2026-03-03,1010,Check 10425 - Birchcroft Properties,Birchcroft Properties,10425,,4731.44,ap,EMP-0486
+JE-202603-0022,2026-03-04,1010,Customer receipt - Holloway Vale Partners - INV-2026-0449,Holloway Vale Partners,INV-2026-0449,47723.91,,ar,EMP-0486
+JE-202603-0023,2026-03-04,1010,Vendor payment - DataPulse Analytics - AP-2026-0361,DataPulse Analytics,AP-2026-0361,,13425.01,ap,EMP-0486
+JE-202603-0024,2026-03-04,1010,Vendor payment - Sarrowmere Print Works - AP-2026-0378,Sarrowmere Print Works,AP-2026-0378,,6893.13,ap,EMP-0486
+JE-202603-0025,2026-03-04,1010,Check 10426 - TalentForce HR Platform,TalentForce HR Platform,10426,,2884.08,ap,EMP-0486
+JE-202603-0026,2026-03-04,1010,Check 10427 - Fallowmere Catering,Fallowmere Catering,10427,,3593.29,ap,EMP-0486
+JE-202603-0027,2026-03-05,1010,Customer receipt - Amberfield Logistics - INV-2026-0401,Amberfield Logistics,INV-2026-0401,36478.01,,ar,EMP-0486
+JE-202603-0028,2026-03-05,1010,Customer receipt - Sagebrook LLC - INV-2026-0404,Sagebrook LLC,INV-2026-0404,5516.58,,ar,EMP-0486
+JE-202603-0029,2026-03-05,1010,Customer receipt - Kettlebrook Partners - INV-2026-0416,Kettlebrook Partners,INV-2026-0416,8664.47,,ar,EMP-0486
+JE-202603-0030,2026-03-05,1010,Customer receipt - Cinderbrook LLC - INV-2026-0432,Cinderbrook LLC,INV-2026-0432,20025.58,,ar,EMP-0486
+JE-202603-0031,2026-03-05,1010,Customer receipt - Copperfen Partners - INV-2026-0458,Copperfen Partners,INV-2026-0458,32443.96,,ar,EMP-0486
+JE-202603-0032,2026-03-05,1010,Customer receipt - Gladewick LLC - INV-2026-0471,Gladewick LLC,INV-2026-0471,109323.98,,ar,EMP-0486
+JE-202603-0033,2026-03-05,1010,Card settlement - small-team tier - 2026-03-05,Anchor Point Bank,SETTLE-20260305,6739.75,,ar,EMP-0486
+JE-202603-0034,2026-03-05,1010,Vendor payment - Braxmoor Recruiting Group - AP-2026-0342,Braxmoor Recruiting Group,AP-2026-0342,,4143.03,ap,EMP-0486
+JE-202603-0035,2026-03-05,1010,Benefits remittance - TalentForce HR Platform - March 2026,TalentForce HR Platform,BEN-2026-03,,217927.27,payroll,EMP-0486
+JE-202603-0036,2026-03-05,1010,Check 10428 - Wrenfallow Security Systems,Wrenfallow Security Systems,10428,,8560.97,ap,EMP-0486
+JE-202603-0037,2026-03-06,1010,Customer receipt - Cinderbrook LLC - INV-2026-0402,Cinderbrook LLC,INV-2026-0402,14544.91,,ar,EMP-0486
+JE-202603-0038,2026-03-06,1010,Customer receipt - Thornwick Partners - INV-2026-0464,Thornwick Partners,INV-2026-0464,18840.87,,ar,EMP-0486
+JE-202603-0039,2026-03-06,1010,Card settlement - small-team tier - 2026-03-06,Anchor Point Bank,SETTLE-20260306,2152.12,,ar,EMP-0486
+JE-202603-0040,2026-03-06,1010,Corporate card settlement - 2026-03-06,Anchor Point Bank,CARD-20260306,,16809.31,ap,EMP-0486
+JE-202603-0041,2026-03-06,1010,Check 10429 - Fenwhistle Travel Desk,Fenwhistle Travel Desk,10429,,12224.06,ap,EMP-0486
+JE-202603-0042,2026-03-06,1010,Check 10430 - DataPulse Analytics,DataPulse Analytics,10430,,11520.72,ap,EMP-0486
+JE-202603-0043,2026-03-09,1010,Customer receipt - Northfield Group - INV-2026-0425,Northfield Group,INV-2026-0425,6101.38,,ar,EMP-0486
+JE-202603-0044,2026-03-09,1010,Customer receipt - Hazelmere Analytics - INV-2026-0445,Hazelmere Analytics,INV-2026-0445,16477.89,,ar,EMP-0486
+JE-202603-0045,2026-03-09,1010,Customer receipt - Holloway Vale Partners - INV-2026-0476,Holloway Vale Partners,INV-2026-0476,191770.73,,ar,EMP-0486
+JE-202603-0046,2026-03-09,1010,Card settlement - small-team tier - 2026-03-09,Anchor Point Bank,SETTLE-20260309,5538.56,,ar,EMP-0486
+JE-202603-0047,2026-03-09,1010,Vendor payment - Halvermoor Cloud Services - AP-2026-0375,Halvermoor Cloud Services,AP-2026-0375,,3096.54,ap,EMP-0486
+JE-202603-0048,2026-03-09,1010,Check 10431 - Harrowfen Facilities Group,Harrowfen Facilities Group,10431,,305.51,ap,EMP-0486
+JE-202603-0049,2026-03-09,1010,Check 10432 - Loamfield Power Cooperative,Loamfield Power Cooperative,10432,,624.77,ap,EMP-0486
+JE-202603-0050,2026-03-10,1010,Customer receipt - Foxglove Partners - INV-2026-0408,Foxglove Partners,INV-2026-0408,32200.40,,ar,EMP-0486
+JE-202603-0051,2026-03-10,1010,Customer receipt - Silverdale Analytics - INV-2026-0433,Silverdale Analytics,INV-2026-0433,1578.29,,ar,EMP-0486
+JE-202603-0052,2026-03-10,1010,Vendor payment - Sarrowmere Print Works - AP-2026-0336,Sarrowmere Print Works,AP-2026-0336,,10499.12,ap,EMP-0486
+JE-202603-0053,2026-03-10,1010,Vendor payment - Harrowfen Facilities Group - AP-2026-0356,Harrowfen Facilities Group,AP-2026-0356,,11849.30,ap,EMP-0486
+JE-202603-0054,2026-03-10,1010,Vendor payment - Fallowmere Catering - AP-2026-0357,Fallowmere Catering,AP-2026-0357,,14321.62,ap,EMP-0486
+JE-202603-0055,2026-03-10,1010,Vendor payment - Loamfield Power Cooperative - AP-2026-0365,Loamfield Power Cooperative,AP-2026-0365,,3419.47,ap,EMP-0486
+JE-202603-0056,2026-03-10,1010,Vendor payment - Halvermoor Cloud Services - AP-2026-0377,Halvermoor Cloud Services,AP-2026-0377,,12814.57,ap,EMP-0486
+JE-202603-0057,2026-03-10,1010,Check 10433 - Birchcroft Properties,Birchcroft Properties,10433,,5732.56,ap,EMP-0486
+JE-202603-0058,2026-03-11,1010,Customer receipt - Windrow Holdings - INV-2026-0417,Windrow Holdings,INV-2026-0417,13060.47,,ar,EMP-0486
+JE-202603-0059,2026-03-11,1010,Customer receipt - Amberfield Logistics - INV-2026-0419,Amberfield Logistics,INV-2026-0419,39057.83,,ar,EMP-0486
+JE-202603-0060,2026-03-11,1010,Customer receipt - Silverdale Analytics - INV-2026-0439,Silverdale Analytics,INV-2026-0439,12567.95,,ar,EMP-0486
+JE-202603-0061,2026-03-11,1010,Customer receipt - Elmstead Holdings - INV-2026-0488,Elmstead Holdings,INV-2026-0488,100586.19,,ar,EMP-0486
+JE-202603-0062,2026-03-11,1010,Card settlement - small-team tier - 2026-03-11,Anchor Point Bank,SETTLE-20260311,2231.86,,ar,EMP-0486
+JE-202603-0063,2026-03-11,1010,Vendor payment - Birchcroft Properties - AP-2026-0372,Birchcroft Properties,AP-2026-0372,,34012.30,ap,EMP-0486
+JE-202603-0064,2026-03-11,1010,Vendor payment - Braxmoor Recruiting Group - AP-2026-0374,Braxmoor Recruiting Group,AP-2026-0374,,25036.80,ap,EMP-0486
+JE-202603-0065,2026-03-11,1010,Vendor payment - Wrenfallow Security Systems - AP-2026-0382,Wrenfallow Security Systems,AP-2026-0382,,57711.45,ap,EMP-0486
+JE-202603-0066,2026-03-11,1010,Check 10434 - Cedarline Office Supply,Cedarline Office Supply,10434,,564.33,ap,EMP-0486
+JE-202603-0067,2026-03-12,1010,Customer receipt - Amberline Holdings - INV-2026-0424,Amberline Holdings,INV-2026-0424,20678.01,,ar,EMP-0486
+JE-202603-0068,2026-03-12,1010,Customer receipt - Gladewick LLC - INV-2026-0431,Gladewick LLC,INV-2026-0431,27362.67,,ar,EMP-0486
+JE-202603-0069,2026-03-12,1010,Customer receipt - Wrenhaven Group - INV-2026-0474,Wrenhaven Group,INV-2026-0474,125015.05,,ar,EMP-0486
+JE-202603-0070,2026-03-12,1010,Customer receipt - Hazelmere Analytics - INV-2026-0475,Hazelmere Analytics,INV-2026-0475,190716.24,,ar,EMP-0486
+JE-202603-0071,2026-03-12,1010,Customer receipt - Windrow Holdings - INV-2026-0479,Windrow Holdings,INV-2026-0479,146665.15,,ar,EMP-0486
+JE-202603-0072,2026-03-12,1010,Card settlement - small-team tier - 2026-03-12,Anchor Point Bank,SETTLE-20260312,2556.90,,ar,EMP-0486
+JE-202603-0073,2026-03-12,1010,Vendor payment - Sarrowmere Print Works - AP-2026-0333,Sarrowmere Print Works,AP-2026-0333,,30597.04,ap,EMP-0486
+JE-202603-0074,2026-03-12,1010,Vendor payment - Kestrelmoor Staffing Partners - AP-2026-0352,Kestrelmoor Staffing Partners,AP-2026-0352,,20748.20,ap,EMP-0486
+JE-202603-0075,2026-03-12,1010,Check 10435 - Loamfield Power Cooperative,Loamfield Power Cooperative,10435,,6867.43,ap,EMP-0486
+JE-202603-0076,2026-03-12,1010,Check 10436 - Millgate Insurance Services,Millgate Insurance Services,10436,,7974.01,ap,EMP-0486
+JE-202603-0077,2026-03-13,1010,Customer receipt - Northfield Group - INV-2026-0461,Northfield Group,INV-2026-0461,47475.34,,ar,EMP-0486
+JE-202603-0078,2026-03-13,1010,Customer receipt - Thornwick Partners - INV-2026-0481,Thornwick Partners,INV-2026-0481,91964.81,,ar,EMP-0486
+JE-202603-0079,2026-03-13,1010,Customer receipt - Copperfen Partners - INV-2026-0483,Copperfen Partners,INV-2026-0483,96394.24,,ar,EMP-0486
+JE-202603-0080,2026-03-13,1010,Card settlement - small-team tier - 2026-03-13,Anchor Point Bank,SETTLE-20260313,5599.11,,ar,EMP-0486
+JE-202603-0081,2026-03-13,1010,Vendor payment - Fenwhistle Travel Desk - AP-2026-0339,Fenwhistle Travel Desk,AP-2026-0339,,24330.57,ap,EMP-0486
+JE-202603-0082,2026-03-13,1010,Vendor payment - Kestrelmoor Staffing Partners - AP-2026-0343,Kestrelmoor Staffing Partners,AP-2026-0343,,3656.02,ap,EMP-0486
+JE-202603-0083,2026-03-13,1010,Vendor payment - Loamfield Power Cooperative - AP-2026-0345,Loamfield Power Cooperative,AP-2026-0345,,15794.93,ap,EMP-0486
+JE-202603-0084,2026-03-13,1010,Vendor payment - Harrowfen Facilities Group - AP-2026-0373,Harrowfen Facilities Group,AP-2026-0373,,12324.78,ap,EMP-0486
+JE-202603-0085,2026-03-13,1010,Vendor payment - Fenwhistle Travel Desk - AP-2026-0381,Fenwhistle Travel Desk,AP-2026-0381,,56637.56,ap,EMP-0486
+JE-202603-0086,2026-03-13,1010,Payroll funding transfer - 2026-03-13,Atticus Dundee Inc.,PAYROLL-20260313,,1631595.12,payroll,EMP-0486
+JE-202603-0087,2026-03-13,1010,Corporate card settlement - 2026-03-13,Anchor Point Bank,CARD-20260313,,17738.84,ap,EMP-0486
+JE-202603-0088,2026-03-13,1010,Check 10437 - Harrowfen Facilities Group,Harrowfen Facilities Group,10437,,4629.36,ap,EMP-0486
+JE-202603-0089,2026-03-13,1010,Check 10438 - Wrenfallow Security Systems,Wrenfallow Security Systems,10438,,4559.33,ap,EMP-0486
+JE-202603-0090,2026-03-16,1010,Customer receipt - Hazelmere Analytics - INV-2026-0405,Hazelmere Analytics,INV-2026-0405,7732.71,,ar,EMP-0486
+JE-202603-0091,2026-03-16,1010,Customer receipt - Sagebrook LLC - INV-2026-0415,Sagebrook LLC,INV-2026-0415,31092.26,,ar,EMP-0486
+JE-202603-0092,2026-03-16,1010,Customer receipt - Cinderbrook LLC - INV-2026-0422,Cinderbrook LLC,INV-2026-0422,30450.38,,ar,EMP-0486
+JE-202603-0093,2026-03-16,1010,Customer receipt - Windrow Holdings - INV-2026-0436,Windrow Holdings,INV-2026-0436,17561.07,,ar,EMP-0486
+JE-202603-0094,2026-03-16,1010,Customer receipt - Silverdale Analytics - INV-2026-0443,Silverdale Analytics,INV-2026-0443,17500.59,,ar,EMP-0486
+JE-202603-0095,2026-03-16,1010,Customer receipt - Silverdale Analytics - INV-2026-0487,Silverdale Analytics,INV-2026-0487,223760.83,,ar,EMP-0486
+JE-202603-0096,2026-03-16,1010,Card settlement - small-team tier - 2026-03-16,Anchor Point Bank,SETTLE-20260316,4503.33,,ar,EMP-0486
+JE-202603-0097,2026-03-16,1010,Vendor payment - TalentForce HR Platform - AP-2026-0360,TalentForce HR Platform,AP-2026-0360,,27050.90,ap,EMP-0486
+JE-202603-0098,2026-03-16,1010,Vendor payment - Birchcroft Properties - AP-2026-0366,Birchcroft Properties,AP-2026-0366,,18356.18,ap,EMP-0486
+JE-202603-0099,2026-03-16,1010,Vendor payment - DataPulse Analytics - AP-2026-0368,DataPulse Analytics,AP-2026-0368,,33426.53,ap,EMP-0486
+JE-202603-0100,2026-03-16,1010,Check 10439 - Loamfield Power Cooperative,Loamfield Power Cooperative,10439,,3808.22,ap,EMP-0486
+JE-202603-0101,2026-03-17,1010,Customer receipt - Northfield Group - INV-2026-0406,Northfield Group,INV-2026-0406,2200.54,,ar,EMP-0486
+JE-202603-0102,2026-03-17,1010,Customer receipt - Holloway Vale Partners - INV-2026-0430,Holloway Vale Partners,INV-2026-0430,8912.27,,ar,EMP-0486
+JE-202603-0103,2026-03-17,1010,Customer receipt - Silverdale Analytics - INV-2026-0434,Silverdale Analytics,INV-2026-0434,15315.32,,ar,EMP-0486
+JE-202603-0104,2026-03-17,1010,Customer receipt - Amberfield Logistics - INV-2026-0453,Amberfield Logistics,INV-2026-0453,20453.41,,ar,EMP-0486
+JE-202603-0105,2026-03-17,1010,Customer receipt - Bramblecourt LLC - INV-2026-0460,Bramblecourt LLC,INV-2026-0460,33772.75,,ar,EMP-0486
+JE-202603-0106,2026-03-17,1010,Customer receipt - Hazelmere Analytics - INV-2026-0463,Hazelmere Analytics,INV-2026-0463,9886.68,,ar,EMP-0486
+JE-202603-0107,2026-03-17,1010,Customer receipt - Sagebrook LLC - INV-2026-0482,Sagebrook LLC,INV-2026-0482,91692.36,,ar,EMP-0486
+JE-202603-0108,2026-03-17,1010,Vendor payment - Kestrelmoor Staffing Partners - AP-2026-0369,Kestrelmoor Staffing Partners,AP-2026-0369,,22549.71,ap,EMP-0486
+JE-202603-0109,2026-03-17,1010,Check 10440 - Kestrelmoor Staffing Partners,Kestrelmoor Staffing Partners,10440,,9514.67,ap,EMP-0486
+JE-202603-0110,2026-03-17,1010,Check 10441 - Braxmoor Recruiting Group,Braxmoor Recruiting Group,10441,,7317.19,ap,EMP-0486
+JE-202603-0111,2026-03-18,1010,Customer receipt - Amberfield Logistics - INV-2026-0403,Amberfield Logistics,INV-2026-0403,12228.03,,ar,EMP-0486
+JE-202603-0112,2026-03-18,1010,Customer receipt - Bramblecourt LLC - INV-2026-0440,Bramblecourt LLC,INV-2026-0440,22539.21,,ar,EMP-0486
+JE-202603-0113,2026-03-18,1010,Customer receipt - Northfield Group - INV-2026-0442,Northfield Group,INV-2026-0442,1755.14,,ar,EMP-0486
+JE-202603-0114,2026-03-18,1010,Customer receipt - Amberline Holdings - INV-2026-0450,Amberline Holdings,INV-2026-0450,14571.41,,ar,EMP-0486
+JE-202603-0115,2026-03-18,1010,Customer receipt - Bramblecourt LLC - INV-2026-0456,Bramblecourt LLC,INV-2026-0456,26511.43,,ar,EMP-0486
+JE-202603-0116,2026-03-18,1010,Card settlement - small-team tier - 2026-03-18,Anchor Point Bank,SETTLE-20260318,7784.56,,ar,EMP-0486
+JE-202603-0117,2026-03-18,1010,Vendor payment - Sarrowmere Print Works - AP-2026-0351,Sarrowmere Print Works,AP-2026-0351,,6454.86,ap,EMP-0486
+JE-202603-0118,2026-03-18,1010,Vendor payment - Fenwhistle Travel Desk - AP-2026-0358,Fenwhistle Travel Desk,AP-2026-0358,,16182.59,ap,EMP-0486
+JE-202603-0119,2026-03-18,1010,Check 10442 - Wrenfallow Security Systems,Wrenfallow Security Systems,10442,,1473.61,ap,EMP-0486
+JE-202603-0120,2026-03-19,1010,Customer receipt - Bramblecourt Analytics - INV-2026-0412,Bramblecourt Analytics,INV-2026-0412,31595.67,,ar,EMP-0486
+JE-202603-0121,2026-03-19,1010,Customer receipt - Bramblecourt LLC - INV-2026-0437,Bramblecourt LLC,INV-2026-0437,14393.28,,ar,EMP-0486
+JE-202603-0122,2026-03-19,1010,Customer receipt - Windrow Holdings - INV-2026-0441,Windrow Holdings,INV-2026-0441,13839.74,,ar,EMP-0486
+JE-202603-0123,2026-03-19,1010,Customer receipt - Bramblecourt Analytics - INV-2026-0477,Bramblecourt Analytics,INV-2026-0477,143514.36,,ar,EMP-0486
+JE-202603-0124,2026-03-19,1010,Vendor payment - TalentForce HR Platform - AP-2026-0348,TalentForce HR Platform,AP-2026-0348,,27964.31,ap,EMP-0486
+JE-202603-0125,2026-03-19,1010,Vendor payment - Kestrelmoor Staffing Partners - AP-2026-0350,Kestrelmoor Staffing Partners,AP-2026-0350,,12777.58,ap,EMP-0486
+JE-202603-0126,2026-03-19,1010,Vendor payment - Kestrelmoor Staffing Partners - AP-2026-0379,Kestrelmoor Staffing Partners,AP-2026-0379,,26346.89,ap,EMP-0486
+JE-202603-0127,2026-03-19,1010,Check 10443 - TalentForce HR Platform,TalentForce HR Platform,10443,,11820.96,ap,EMP-0486
+JE-202603-0128,2026-03-19,1010,Check 10444 - Cedarline Office Supply,Cedarline Office Supply,10444,,6657.08,ap,EMP-0486
+JE-202603-0129,2026-03-20,1010,Customer receipt - Copperfen Partners - INV-2026-0413,Copperfen Partners,INV-2026-0413,26425.42,,ar,EMP-0486
+JE-202603-0130,2026-03-20,1010,Customer receipt - Elmstead Holdings - INV-2026-0414,Elmstead Holdings,INV-2026-0414,36103.76,,ar,EMP-0486
+JE-202603-0131,2026-03-20,1010,Customer receipt - Cinderbrook LLC - INV-2026-0420,Cinderbrook LLC,INV-2026-0420,35320.44,,ar,EMP-0486
+JE-202603-0132,2026-03-20,1010,Customer receipt - Amberline Holdings - INV-2026-0427,Amberline Holdings,INV-2026-0427,43194.38,,ar,EMP-0486
+JE-202603-0133,2026-03-20,1010,Customer receipt - Elmstead Holdings - INV-2026-0447,Elmstead Holdings,INV-2026-0447,28623.04,,ar,EMP-0486
+JE-202603-0134,2026-03-20,1010,Vendor payment - Wrenfallow Security Systems - AP-2026-0383,Wrenfallow Security Systems,AP-2026-0383,,71644.95,ap,EMP-0486
+JE-202603-0135,2026-03-20,1010,Corporate card settlement - 2026-03-20,Anchor Point Bank,CARD-20260320,,17546.36,ap,EMP-0486
+JE-202603-0136,2026-03-23,1010,Customer receipt - Thornwick Partners - INV-2026-0468,Thornwick Partners,INV-2026-0468,22015.25,,ar,EMP-0486
+JE-202603-0137,2026-03-23,1010,Card settlement - small-team tier - 2026-03-23,Anchor Point Bank,SETTLE-20260323,943.65,,ar,EMP-0486
+JE-202603-0138,2026-03-23,1010,Vendor payment - Birchcroft Properties - AP-2026-0338,Birchcroft Properties,AP-2026-0338,,12363.96,ap,EMP-0486
+JE-202603-0139,2026-03-23,1010,Vendor payment - Birchcroft Properties - AP-2026-0341,Birchcroft Properties,AP-2026-0341,,19570.45,ap,EMP-0486
+JE-202603-0140,2026-03-23,1010,Vendor payment - Cedarline Office Supply - AP-2026-0346,Cedarline Office Supply,AP-2026-0346,,32135.18,ap,EMP-0486
+JE-202603-0141,2026-03-23,1010,Vendor payment - DataPulse Analytics - AP-2026-0363,DataPulse Analytics,AP-2026-0363,,34337.54,ap,EMP-0486
+JE-202603-0142,2026-03-23,1010,Vendor payment - Wrenfallow Security Systems - AP-2026-0371,Wrenfallow Security Systems,AP-2026-0371,,18930.76,ap,EMP-0486
+JE-202603-0143,2026-03-23,1010,Check 10445 - Millgate Insurance Services,Millgate Insurance Services,10445,,6802.16,ap,EMP-0486
+JE-202603-0144,2026-03-23,1010,Check 10446 - DataPulse Analytics,DataPulse Analytics,10446,,3014.81,ap,EMP-0486
+JE-202603-0145,2026-03-23,1010,Check 10447 - Thackenridge Courier,Thackenridge Courier,10447,,8751.36,ap,EMP-0486
+JE-202603-0146,2026-03-23,1010,Check 10448 - DataPulse Analytics,DataPulse Analytics,10448,,1312.48,ap,EMP-0486
+JE-202603-0147,2026-03-23,1010,Check 10449 - Loamfield Power Cooperative,Loamfield Power Cooperative,10449,,1085.75,ap,EMP-0486
+JE-202603-0148,2026-03-23,1010,Check 10450 - Millgate Insurance Services,Millgate Insurance Services,10450,,7257.65,ap,EMP-0486
+JE-202603-0149,2026-03-24,1010,Customer receipt - Gladewick LLC - INV-2026-0448,Gladewick LLC,INV-2026-0448,21341.21,,ar,EMP-0486
+JE-202603-0150,2026-03-24,1010,Vendor payment - Cedarline Office Supply - AP-2026-0337,Cedarline Office Supply,AP-2026-0337,,623.65,ap,EMP-0486
+JE-202603-0151,2026-03-24,1010,Vendor payment - Fallowmere Catering - AP-2026-0355,Fallowmere Catering,AP-2026-0355,,28342.42,ap,EMP-0486
+JE-202603-0152,2026-03-24,1010,Vendor payment - Thackenridge Courier - AP-2026-0367,Thackenridge Courier,AP-2026-0367,,19730.51,ap,EMP-0486
+JE-202603-0153,2026-03-24,1010,Check 10451 - Kestrelmoor Staffing Partners,Kestrelmoor Staffing Partners,10451,,4851.37,ap,EMP-0486
+JE-202603-0154,2026-03-24,1010,Check 10452 - Braxmoor Recruiting Group,Braxmoor Recruiting Group,10452,,1597.78,ap,EMP-0486
+JE-202603-0155,2026-03-24,1010,Check 10453 - Fallowmere Catering,Fallowmere Catering,10453,,2935.35,ap,EMP-0486
+JE-202603-0156,2026-03-24,1010,Check 10454 - Wrenfallow Security Systems,Wrenfallow Security Systems,10454,,3487.83,ap,EMP-0486
+JE-202603-0157,2026-03-25,1010,Customer receipt - Bramblecourt Analytics - INV-2026-0407,Bramblecourt Analytics,INV-2026-0407,34342.56,,ar,EMP-0486
+JE-202603-0158,2026-03-25,1010,Customer receipt - Cinderbrook LLC - INV-2026-0444,Cinderbrook LLC,INV-2026-0444,33444.43,,ar,EMP-0486
+JE-202603-0159,2026-03-25,1010,Customer receipt - Amberfield Logistics - INV-2026-0451,Amberfield Logistics,INV-2026-0451,39716.47,,ar,EMP-0486
+JE-202603-0160,2026-03-25,1010,Customer receipt - Cinderbrook LLC - INV-2026-0454,Cinderbrook LLC,INV-2026-0454,23852.93,,ar,EMP-0486
+JE-202603-0161,2026-03-25,1010,Customer receipt - Gladewick LLC - INV-2026-0473,Gladewick LLC,INV-2026-0473,179113.53,,ar,EMP-0486
+JE-202603-0162,2026-03-25,1010,Customer receipt - Northfield Group - INV-2026-0480,Northfield Group,INV-2026-0480,226100.62,,ar,EMP-0486
+JE-202603-0163,2026-03-25,1010,Customer receipt - Gladewick LLC - INV-2026-0485,Gladewick LLC,INV-2026-0485,105745.75,,ar,EMP-0486
+JE-202603-0164,2026-03-25,1010,Customer receipt - Wrenhaven Group - INV-2026-0486,Wrenhaven Group,INV-2026-0486,68478.04,,ar,EMP-0486
+JE-202603-0165,2026-03-25,1010,Vendor payment - DataPulse Analytics - AP-2026-0332,DataPulse Analytics,AP-2026-0332,,22804.05,ap,EMP-0486
+JE-202603-0166,2026-03-25,1010,Vendor payment - DataPulse Analytics - AP-2026-0354,DataPulse Analytics,AP-2026-0354,,34300.05,ap,EMP-0486
+JE-202603-0167,2026-03-25,1010,Vendor payment - Fallowmere Catering - AP-2026-0376,Fallowmere Catering,AP-2026-0376,,30781.23,ap,EMP-0486
+JE-202603-0168,2026-03-25,1010,Check 10455 - Halvermoor Cloud Services,Halvermoor Cloud Services,10455,,3325.60,ap,EMP-0486
+JE-202603-0169,2026-03-26,1010,Customer receipt - Holloway Vale Partners - INV-2026-0423,Holloway Vale Partners,INV-2026-0423,14716.71,,ar,EMP-0486
+JE-202603-0170,2026-03-26,1010,Customer receipt - Sagebrook LLC - INV-2026-0452,Sagebrook LLC,INV-2026-0452,3971.40,,ar,EMP-0486
+JE-202603-0171,2026-03-27,1010,Customer receipt - Amberline Holdings - INV-2026-0421,Amberline Holdings,INV-2026-0421,33990.56,,ar,EMP-0486
+JE-202603-0172,2026-03-27,1010,Customer receipt - Holloway Vale Partners - INV-2026-0428,Holloway Vale Partners,INV-2026-0428,25071.59,,ar,EMP-0486
+JE-202603-0173,2026-03-27,1010,Customer receipt - Holloway Vale Partners - INV-2026-0438,Holloway Vale Partners,INV-2026-0438,43718.73,,ar,EMP-0486
+JE-202603-0174,2026-03-27,1010,Customer receipt - Elmstead Holdings - INV-2026-0469,Elmstead Holdings,INV-2026-0469,41552.34,,ar,EMP-0486
+JE-202603-0175,2026-03-27,1010,Customer receipt - Kettlebrook Partners - INV-2026-0472,Kettlebrook Partners,INV-2026-0472,55666.34,,ar,EMP-0486
+JE-202603-0176,2026-03-27,1010,Card settlement - small-team tier - 2026-03-27,Anchor Point Bank,SETTLE-20260327,3035.39,,ar,EMP-0486
+JE-202603-0177,2026-03-27,1010,Vendor payment - Fallowmere Catering - AP-2026-0340,Fallowmere Catering,AP-2026-0340,,20210.56,ap,EMP-0486
+JE-202603-0178,2026-03-27,1010,Vendor payment - DataPulse Analytics - AP-2026-0347,DataPulse Analytics,AP-2026-0347,,18395.82,ap,EMP-0486
+JE-202603-0179,2026-03-27,1010,Vendor payment - TalentForce HR Platform - AP-2026-0349,TalentForce HR Platform,AP-2026-0349,,18596.70,ap,EMP-0486
+JE-202603-0180,2026-03-27,1010,Vendor payment - Fenwhistle Travel Desk - AP-2026-0362,Fenwhistle Travel Desk,AP-2026-0362,,3716.58,ap,EMP-0486
+JE-202603-0181,2026-03-27,1010,Vendor payment - TalentForce HR Platform - AP-2026-0384,TalentForce HR Platform,AP-2026-0384,,52548.31,ap,EMP-0486
+JE-202603-0182,2026-03-27,1010,Payroll funding transfer - 2026-03-27,Atticus Dundee Inc.,PAYROLL-20260327,,1646480.53,payroll,EMP-0486
+JE-202603-0183,2026-03-27,1010,Corporate card settlement - 2026-03-27,Anchor Point Bank,CARD-20260327,,24659.45,ap,EMP-0486
+JE-202603-0184,2026-03-30,1010,Customer receipt - Wrenhaven Group - INV-2026-0409,Wrenhaven Group,INV-2026-0409,14568.96,,ar,EMP-0486
+JE-202603-0185,2026-03-30,1010,Customer receipt - Gladewick LLC - INV-2026-0418,Gladewick LLC,INV-2026-0418,37428.85,,ar,EMP-0486
+JE-202603-0186,2026-03-30,1010,Customer receipt - Kettlebrook Partners - INV-2026-0426,Kettlebrook Partners,INV-2026-0426,18382.45,,ar,EMP-0486
+JE-202603-0187,2026-03-30,1010,Customer receipt - Wrenhaven Group - INV-2026-0429,Wrenhaven Group,INV-2026-0429,22543.40,,ar,EMP-0486
+JE-202603-0188,2026-03-30,1010,Customer receipt - Cinderbrook LLC - INV-2026-0435,Cinderbrook LLC,INV-2026-0435,12036.95,,ar,EMP-0486
+JE-202603-0189,2026-03-30,1010,Customer receipt - Windrow Holdings - INV-2026-0457,Windrow Holdings,INV-2026-0457,22759.29,,ar,EMP-0486
+JE-202603-0190,2026-03-30,1010,Customer receipt - Sagebrook LLC - INV-2026-0465,Sagebrook LLC,INV-2026-0465,16355.58,,ar,EMP-0486
+JE-202603-0191,2026-03-30,1010,Customer receipt - Amberfield Logistics - INV-2026-0467,Amberfield Logistics,INV-2026-0467,12890.25,,ar,EMP-0486
+JE-202603-0192,2026-03-30,1010,Customer receipt - Gladewick LLC - INV-2026-0470,Gladewick LLC,INV-2026-0470,27622.23,,ar,EMP-0486
+JE-202603-0193,2026-03-30,1010,Vendor payment - Thackenridge Courier - AP-2026-0331,Thackenridge Courier,AP-2026-0331,,8773.43,ap,EMP-0486
+JE-202603-0194,2026-03-30,1010,Vendor payment - Cedarline Office Supply - AP-2026-0359,Cedarline Office Supply,AP-2026-0359,,33788.29,ap,EMP-0486
+JE-202603-0195,2026-03-30,1010,Check 10456 - Sarrowmere Print Works,Sarrowmere Print Works,10456,,1437.74,ap,EMP-0486
+JE-202603-0196,2026-03-30,1010,Check 10457 - Sarrowmere Print Works,Sarrowmere Print Works,10457,,7627.47,ap,EMP-0486
+JE-202603-0197,2026-03-30,1010,Check 10458 - Thackenridge Courier,Thackenridge Courier,10458,,6850.30,ap,EMP-0486
+JE-202603-0198,2026-03-30,1010,Check 10459 - Kestrelmoor Staffing Partners,Kestrelmoor Staffing Partners,10459,,7744.38,ap,EMP-0486
+JE-202603-0199,2026-03-31,1010,Customer receipt - Copperfen Partners - INV-2026-0410,Copperfen Partners,INV-2026-0410,18673.43,,ar,EMP-0486
+JE-202603-0200,2026-03-31,1010,Customer receipt - Kettlebrook Partners - INV-2026-0462,Kettlebrook Partners,INV-2026-0462,5470.51,,ar,EMP-0486
+JE-202603-0201,2026-03-31,1010,Customer receipt - Holloway Vale Partners - INV-2026-0478,Holloway Vale Partners,INV-2026-0478,224422.37,,ar,EMP-0486
+JE-202603-0202,2026-03-31,1010,Card settlement - small-team tier - 2026-03-31,Anchor Point Bank,SETTLE-20260331,7709.11,,ar,EMP-0486
+JE-202603-0203,2026-03-31,1010,Interest income - March 2026,Anchor Point Bank,INT-2026-03,1316.63,,manual,EMP-0486
+JE-202603-0204,2026-03-31,1010,Vendor payment - Braxmoor Recruiting Group - AP-2026-0335,Braxmoor Recruiting Group,AP-2026-0335,,34913.72,ap,EMP-0486
+JE-202603-0205,2026-03-31,1010,Bank service charge - March 2026,Anchor Point Bank,MAINT-2026-03,,245.00,bank_fee,EMP-0486
+JE-202603-0206,2026-03-31,1010,Check 10460 - Halvermoor Cloud Services,Halvermoor Cloud Services,10460,,6456.73,ap,EMP-0486
+JE-202603-0207,2026-03-31,1010,Customer receipt - Foxglove Partners - INV-2026-0489,Foxglove Partners,INV-2026-0489,11241.57,,ar,EMP-0486
