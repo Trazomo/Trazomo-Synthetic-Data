@@ -19,13 +19,19 @@ export const OPERATING_CASH_ACCOUNT = { code: "1010", name: "Operating Cash - An
 export const COLUMNS = ["account_code", "account_name", "type", "subtype", "normal_balance", "active"];
 
 // [account_code, account_name, type, subtype, normal_balance, active]
+//
+// Contra accounts carry their own subtype (contra_asset, contra_revenue) rather
+// than sharing a subtype with the accounts they offset, so a consumer can group
+// or exclude them by subtype instead of parsing account names. The invariant is
+// checked in tests: an asset row with a credit normal balance is contra_asset,
+// and every contra_asset row is a credit-balance asset.
 const ACCOUNTS = [
   ["1010", OPERATING_CASH_ACCOUNT.name, "asset", "cash", "debit", "true"],
   ["1020", "Payroll Cash - Anchor Point Bank", "asset", "cash", "debit", "true"],
   ["1030", "Money Market Sweep - Anchor Point Bank", "asset", "cash", "debit", "true"],
   ["1050", "Petty Cash", "asset", "cash", "debit", "true"],
   ["1100", "Accounts Receivable - Trade", "asset", "receivable", "debit", "true"],
-  ["1110", "Allowance for Doubtful Accounts", "asset", "receivable", "credit", "true"],
+  ["1110", "Allowance for Doubtful Accounts", "asset", "contra_asset", "credit", "true"],
   ["1120", "Unbilled Receivables", "asset", "receivable", "debit", "true"],
   ["1200", "Prepaid Software Subscriptions", "asset", "prepaid", "debit", "true"],
   ["1210", "Prepaid Insurance", "asset", "prepaid", "debit", "true"],
@@ -35,9 +41,9 @@ const ACCOUNTS = [
   ["1400", "Computer Equipment", "asset", "fixed_asset", "debit", "true"],
   ["1410", "Furniture and Fixtures", "asset", "fixed_asset", "debit", "true"],
   ["1420", "Leasehold Improvements", "asset", "fixed_asset", "debit", "true"],
-  ["1490", "Accumulated Depreciation", "asset", "fixed_asset", "credit", "true"],
+  ["1490", "Accumulated Depreciation", "asset", "contra_asset", "credit", "true"],
   ["1500", "Capitalized Software Development", "asset", "intangible", "debit", "true"],
-  ["1590", "Accumulated Amortization", "asset", "intangible", "credit", "true"],
+  ["1590", "Accumulated Amortization", "asset", "contra_asset", "credit", "true"],
   ["1600", "Operating Lease Right-of-Use Asset", "asset", "lease", "debit", "true"],
   ["2000", "Accounts Payable - Trade", "liability", "payable", "credit", "true"],
   ["2010", "Accrued Liabilities", "liability", "accrued", "credit", "true"],

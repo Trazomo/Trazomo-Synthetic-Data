@@ -57,6 +57,23 @@ test("FIN-22: header equals spec columns, about 60 accounts, unique codes, valid
   for (const t of types) assert.ok(rows.some((r) => r.type === t), `no ${t} accounts`);
 });
 
+// The chart's contra-account convention as a checked invariant, so later
+// generators can pattern-match on subtype instead of reading account names.
+test("FIN-22: contra assets are labelled by subtype, not just by name", () => {
+  const files = generateArtifact(specs.byId.get("FIN-22"), canon);
+  const { rows } = csvTable(files[0].content);
+  assert.ok(rows.some((r) => r.subtype === "contra_asset"), "expected at least one contra_asset row");
+  for (const r of rows) {
+    if (r.type === "asset" && r.normal_balance === "credit") {
+      assert.equal(r.subtype, "contra_asset", `${r.account_code} offsets an asset but its subtype is ${r.subtype}`);
+    }
+    if (r.subtype === "contra_asset") {
+      assert.equal(r.type, "asset", `${r.account_code} is contra_asset but type is ${r.type}`);
+      assert.equal(r.normal_balance, "credit", `${r.account_code} is contra_asset but normal_balance is ${r.normal_balance}`);
+    }
+  }
+});
+
 test("FIN-22: the operating cash account is fixed at 1010 and active", () => {
   const files = generateArtifact(specs.byId.get("FIN-22"), canon);
   const { rows } = csvTable(files[0].content);
