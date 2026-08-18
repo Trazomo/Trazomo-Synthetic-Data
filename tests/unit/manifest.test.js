@@ -104,4 +104,5 @@ test("MANIFEST.json on disk matches a fresh buildManifest over the real repo (da
   ]) {
     assert.ok(committed.datasets.some((d) => d.id === id), `${id} missing from MANIFEST.json datasets`);
   }
+  assert.ok(committed.artifacts.some((a) => a.id === "FIN-12"), "FIN-12 missing from MANIFEST.json artifacts");
 });
