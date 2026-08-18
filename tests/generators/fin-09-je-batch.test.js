@@ -183,6 +183,10 @@ test("FIN-09 P8: every counterparty's expense coding has an unambiguous mode, an
     const m = mode(lines.map((l) => l.gl_account));
     assert.ok(m.count * 2 > lines.length, `${counterparty}: modal expense account is not a strict majority (${m.count} of ${lines.length})`);
     if (lines.length > 1) {
+      // The real rule, stated rather than assumed: a counterparty either has a
+      // single expense line, in which case there is no mode to deviate from, or
+      // it has at least four and a strict majority. Anything between the two
+      // makes the modal-minority plant underivable.
       assert.ok(lines.length >= 4, `${counterparty}: ${lines.length} expense lines, too few for an unambiguous mode`);
     }
     deviations += lines.filter((l) => l.gl_account !== m.value).length;
@@ -249,7 +253,7 @@ test("FIN-09 P10: exactly one supporting document is cited by two entries, whose
 test("FIN-09 P11: exactly one entry carries no supporting document, and every other citation resolves in shape", () => {
   const unsupported = [...entries.entries()].filter(([, lines]) => lines.every((l) => l.source_document === ""));
   assert.equal(unsupported.length, 1, "expected exactly one entry with no supporting document on any line");
-  const resolvable = /^(VINV|BILL|PO)-2026-0\d{3}$|^CORE-01$|^FIN-12$/;
+  const resolvable = /^(VINV|BILL)-2026-0\d{3}$|^CORE-01$|^FIN-12$/;
   for (const [id, lines] of entries) {
     if (id === unsupported[0][0]) continue;
     for (const l of lines) assert.match(l.source_document, resolvable, `${id}: source_document does not resolve`);

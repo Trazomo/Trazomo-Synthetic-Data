@@ -99,22 +99,26 @@ const NEUTRAL_VENDOR_ID_START = 181;
 
 // Trade, ledger account, requesting department and vendor invoice-number prefix,
 // per vendor. gl_account is always an active FIN-22 code.
+// `autopay` vendors are settled by direct debit on posting, which is why their
+// bills are the only March bills already closed at the cut-off. Everything else
+// is billed on thirty day terms inside March and is therefore not yet due at
+// 2026-03-31, which is what a payables balance is supposed to look like.
 const VENDOR_TRADES = {
-  "co-101": { account: "6200", dept: "Engineering", prefix: "CPL", uom: "license", items: ["Annual platform licence renewal", "Additional developer seats", "Sandbox environment add-on"] },
+  "co-101": { account: "6200", dept: "Engineering", prefix: "CPL", uom: "license", items: ["Annual platform license renewal", "Additional developer seats", "Sandbox environment add-on"] },
   "co-105": { account: "6600", dept: "Operations", prefix: "MLG", uom: "month", items: ["Commercial package placement fee", "Facilities services retainer", "Certificate administration"] },
-  "co-106": { account: "6020", dept: "People", prefix: "TFH", uom: "seat", items: ["Benefits administration seats", "Payroll platform module", "Open enrolment support hours"] },
+  "co-106": { account: "6020", dept: "People", prefix: "TFH", autopay: true, uom: "seat", items: ["Benefits administration seats", "Payroll platform module", "Open enrollment support hours"] },
   "co-107": { account: "6120", dept: "Operations", prefix: "CDL", uom: "case", items: ["Office paper and consumables", "Breakroom supplies", "Printer toner cartridges", "Desk accessories"] },
-  "co-109": { account: "6100", dept: "Operations", prefix: "BCP", uom: "month", items: ["Suite 400 common area charge", "Parking allocation", "After-hours HVAC"] },
+  "co-109": { account: "6100", dept: "Operations", prefix: "BCP", autopay: true, uom: "month", items: ["Suite 400 common area charge", "Parking allocation", "After-hours HVAC"] },
   "co-119": { account: "6200", dept: "Product", prefix: "DPA", uom: "license", items: ["Product analytics workspace", "Event volume tier", "Data warehouse connector"] },
   "co-181": { account: "5000", dept: "Engineering", prefix: "HVM", uom: "month", items: ["Production compute reservation", "Object storage tier", "Managed database nodes"] },
   "co-182": { account: "6100", dept: "Operations", prefix: "HRF", uom: "month", items: ["Cleaning and janitorial service", "Grounds and waste service", "Reception desk coverage"] },
   "co-183": { account: "6030", dept: "People", prefix: "KSM", uom: "hour", items: ["Contract QA engineer hours", "Interim analyst placement", "Seasonal support staffing"] },
-  "co-184": { account: "6110", dept: "Operations", prefix: "LMF", uom: "month", items: ["Electricity supply, Suite 400", "Demand charge true-up", "Metered water and sewer"] },
+  "co-184": { account: "6110", dept: "Operations", prefix: "LMF", autopay: true, uom: "month", items: ["Electricity supply, Suite 400", "Demand charge true-up", "Metered water and sewer"] },
   "co-185": { account: "6120", dept: "Operations", prefix: "TKR", uom: "each", items: ["Overnight document courier", "Equipment transfer runs", "Archive collection pickup"] },
   "co-186": { account: "6300", dept: "Marketing", prefix: "SRM", uom: "each", items: ["Conference collateral print run", "Branded folder stock", "Direct mail production"] },
   "co-187": { account: "6400", dept: "Sales", prefix: "FNW", uom: "each", items: ["Managed travel booking fees", "Field team itineraries", "Group rate coordination"] },
   "co-188": { account: "6310", dept: "People", prefix: "FLM", uom: "each", items: ["All-hands catering", "Customer advisory board dinner", "Onsite lunch service"] },
-  "co-189": { account: "6040", dept: "People", prefix: "BXM", uom: "each", items: ["Engineering search retainer", "Sourcing sprint", "Assessment licence block"] },
+  "co-189": { account: "6040", dept: "People", prefix: "BXM", uom: "each", items: ["Engineering search retainer", "Sourcing sprint", "Assessment license block"] },
   "co-190": { account: "1400", dept: "IT & Security", prefix: "WRF", uom: "each", items: ["Badge readers and controllers", "Camera refresh units", "Door hardware kits"] },
 };
 
@@ -174,17 +178,13 @@ const PO_NUMBER_START = 101;
 const INVOICE_ID_START = 101;
 const PAYMENT_ID_START = 101;
 const BILL_ID_START = 101;
-/** The purchase-order number P5's invoice cites; deliberately outside the minted block. */
-const ORPHAN_PO_NUMBER = "PO-2026-0192";
 /**
- * The missing accrual (P12) has to sit on a purchase order no close entry
- * cites, or the "nothing in the universe accounts for this receipt" rule stops
- * resolving. FIN-09 caps its purchase-order citations at its CITED_PO_CEILING
- * (PO-2026-0120); this floor sits above that with room to spare, so the two
- * generators stay independent and neither has to import the other. Neither
- * constant moves alone.
+ * How far past the last minted purchase-order number the unmatched invoice's
+ * reference may fall. A range, not a value: writing the number here would put a
+ * planted row's answer in a public source file, and a grep for it would resolve
+ * straight to the invoice that carries it (datagen/README.md, answer-key rule).
  */
-const ACCRUAL_PLANT_PO_FLOOR = "PO-2026-0130";
+const UNMINTED_PO_OFFSET = { min: 4, max: 40 };
 
 /** CORE-01 section 5.2: $450,000 invoiced in advance, 2026-02-01 to 2027-01-31, earned ratably. */
 const CORE01 = {
@@ -193,7 +193,7 @@ const CORE01 = {
   serviceStart: "2026-02-01", serviceEnd: "2027-01-31",
   scheduleId: "AMS-2026-001", monthsElapsed: 2,
 };
-/** FIN-12: annual commercial insurance and facilities programme, policy year 2026-04-01 to 2027-03-31. */
+/** FIN-12: annual commercial insurance and facilities program, policy year 2026-04-01 to 2027-03-31. */
 const FIN12 = {
   vendorId: "co-105", amountCents: 31200000, months: 12,
   billDate: "2026-03-24", postedDate: "2026-03-24",
@@ -213,6 +213,19 @@ function businessDaysBetween(startIso, endIso) {
 }
 
 const TERMS_DAYS = { net_15: 15, net_30: 30, net_45: 45 };
+/** Vendor bills carry thirty day terms, the same as the AP queue's modal terms. */
+const BILL_TERMS_DAYS = 30;
+
+/**
+ * Open or closed at the cut-off, by rule rather than by draw: a bill is settled
+ * if it fell due inside the period, or if the vendor is on direct debit. Every
+ * other March bill is still outstanding, because thirty day terms on a March
+ * invoice do not fall due until April.
+ */
+function billPaymentStatus(vendor, postedDate) {
+  if (vendor.autopay) return "paid";
+  return addDays(postedDate, BILL_TERMS_DAYS) <= AS_OF ? "paid" : "open";
+}
 
 function assertRole(row, employeeId, roleTitle, where) {
   if (!row) throw new Error(`FIN-06: ${employeeId} is not in the CORE-04 roster`);
@@ -456,8 +469,10 @@ export function buildProcureToPay() {
   // P5: an invoice citing a purchase order that is not on the file.
   const orphanVendor = plantRng.pick(vendors.filter((v) => v.canon_id !== "co-107"));
   const orphanBand = VENDOR_BANDS[orphanVendor.canon_id];
+  const unmintedPo = `PO-2026-0${PO_NUMBER_START + COUNTS.purchaseOrders
+    + plantRng.int(UNMINTED_PO_OFFSET.min, UNMINTED_PO_OFFSET.max)}`;
   const p5 = makeInvoice({
-    vendor: orphanVendor, poNumber: ORPHAN_PO_NUMBER, poLine: 1,
+    vendor: orphanVendor, poNumber: unmintedPo, poLine: 1,
     description: plantRng.pick(orphanVendor.items),
     quantity: plantRng.int(orphanBand[2], orphanBand[3]),
     unitPriceCents: plantRng.int(orphanBand[0], orphanBand[1]),
@@ -465,7 +480,7 @@ export function buildProcureToPay() {
   p5.status = "matched";
   p5.forcedIntoRun = true;
   invoices.push(p5);
-  must(!orderByNumber.has(ORPHAN_PO_NUMBER), "the orphan purchase-order number collides with a real one");
+  must(!orderByNumber.has(unmintedPo), "the unmatched invoice cites a purchase order that does exist");
 
   // P6: co-107's remit-to account changes on its most recent invoice.
   const cedarline = invoices.filter((inv) => inv.vendor.canon_id === "co-107");
@@ -511,9 +526,11 @@ export function buildProcureToPay() {
   // ---- pass 4b: P12, the receipt that was never invoiced and never accrued ---
   const openLineRefs = orders.flatMap((po) => po.lines.filter((l) => l.isOpen).map((l) => ({ po, line: l })));
   must(openLineRefs.length === COUNTS.openPoLines, "open line count drifted");
+  // No block reservation and no floor: FIN-09 cites no purchase order at all,
+  // so every candidate here is equally invisible to the close batch and nothing
+  // in this file narrows where the plant can land.
   const accrualCandidates = openLineRefs.filter(
-    ({ po, line }) => line.quantityInvoiced === 0 && line.quantityReceived > 0
-      && po.poNumber >= ACCRUAL_PLANT_PO_FLOOR
+    ({ line }) => line.quantityInvoiced === 0 && line.quantityReceived > 0
   );
   must(accrualCandidates.length > 0, "no candidate line for the missing accrual");
   // The largest un-invoiced receipt, not a random one. A missed accrual worth a
@@ -567,7 +584,7 @@ export function buildProcureToPay() {
       poNumber: po ? po.poNumber : "",
       sourceContract: "", scheduleId: "",
       monthlyAmortizationCents: null, monthsElapsed: null, prepaidBalanceCents: null,
-      paymentStatus: billRng.pick(["paid", "paid", "paid", "open", "open"]),
+      paymentStatus: billPaymentStatus(vendor, postedDate),
     });
   }
   const core01Vendor = vendorById.get(CORE01.vendorId);
@@ -593,7 +610,7 @@ export function buildProcureToPay() {
     vendorInvoiceNumber: `${fin12Vendor.prefix}-${fin12Vendor.billSeq++}`,
     billDate: FIN12.billDate, postedDate: FIN12.postedDate,
     glAccount: PREPAID_INSURANCE_ACCOUNT.code,
-    description: "Annual commercial insurance and facilities programme premium, payable in advance",
+    description: "Annual commercial insurance and facilities program premium, payable in advance",
     serviceStart: FIN12.serviceStart, serviceEnd: FIN12.serviceEnd,
     amountCents: FIN12.amountCents, poNumber: "", sourceContract: "FIN-12",
     scheduleId: "", monthlyAmortizationCents: null, monthsElapsed: null, prepaidBalanceCents: null,
@@ -722,7 +739,13 @@ export function buildProcureToPay() {
   );
   const accruedTotalCents = openLineRefs.reduce((s, { line }) => s + line.accruedValueCents, 0);
   const p12ResidualCents = p12.line.receivedValueCents - p12.line.invoicedValueCents - p12.line.accruedValueCents;
-  const openingBalanceCents = createRng(id, "rollforward").int(180000000, 240000000);
+  // February's accrual, reversed in March and re-accrued from the open receipts.
+  // Scaled off this month's figure rather than drawn free: an opening balance
+  // four times the closing one would say the accrual base collapsed in March,
+  // which nothing else in the pack supports.
+  const openingBalanceCents = Math.round(
+    accruedTotalCents * createRng(id, "rollforward").amount(0.82, 1.38, 4)
+  );
   const rollForward = {
     generated_from_spec: "FIN-10",
     entity: ACCOUNT_HOLDER,
@@ -765,6 +788,9 @@ export function buildProcureToPay() {
   const multiMonth = bills.filter((b) => b.serviceStart.slice(0, 7) !== b.serviceEnd.slice(0, 7));
   must(multiMonth.length === 2, `expected exactly two multi-month bills, got ${multiMonth.length}`);
   const apOpenCents = bills.filter((b) => b.paymentStatus === "open").reduce((s, b) => s + b.amountCents, 0);
+  const marchPostedBillsCents = bills
+    .filter((b) => b.postedDate >= "2026-03-01" && b.postedDate <= AS_OF)
+    .reduce((s, b) => s + b.amountCents, 0);
 
   return {
     pos: poRows,
@@ -775,6 +801,12 @@ export function buildProcureToPay() {
     bills: billRows,
     tieOut: {
       apOpenBillsCents: apOpenCents,
+      marchPostedBillsCents,
+      prepaidSoftware: {
+        billAmountCents: p14.amountCents, postedDate: p14.postedDate,
+        monthlyAmortizationCents: p14.monthlyAmortizationCents, monthsElapsed: p14.monthsElapsed,
+      },
+      prepaidInsurance: { billAmountCents: p13.amountCents, postedDate: p13.postedDate },
       accrualClosingCents: accruedTotalCents,
       receivedNotInvoicedCents,
       p12ResidualCents,

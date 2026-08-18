@@ -64,8 +64,15 @@ const TERM_NAMES = Object.keys(TERM_DAYS);
 /** The healthy enterprise payer and the collections problem, both canon roles. */
 const HEALTHY_CUSTOMER_ID = "co-102";
 const DISTRESSED_CUSTOMER_ID = "co-103";
-/** The Enterprise account that carries the subledger-only invoice (P1). */
-const UNPOSTED_INVOICE_CUSTOMER_ID = "co-153";
+/**
+ * The subledger-only invoice sits on an Enterprise account, so the cross-pack
+ * story holds against FIN-01's receipts, but WHICH Enterprise account is drawn
+ * rather than written down. Naming it here would narrow a planted row to one
+ * customer's slice of the file from a public source (datagen/README.md,
+ * answer-key rule); the rule that actually resolves the plant is the delta
+ * against the GL control account, and that needs no id at all.
+ */
+const UNPOSTED_INVOICE_SEGMENT = "Enterprise";
 
 const BUCKET_WEIGHTS = {
   healthy: ["current", "current", "current", "current", "1-30"],
@@ -197,10 +204,8 @@ export function buildArAging() {
   if (customers.length < 10 || customers[0].account_id !== HEALTHY_CUSTOMER_ID) {
     throw new Error(`FIN-04: expected ${HEALTHY_CUSTOMER_ID} first among at least 10 CRM customers, got ${customers.length}`);
   }
-  for (const required of [DISTRESSED_CUSTOMER_ID, UNPOSTED_INVOICE_CUSTOMER_ID]) {
-    if (!customers.some((c) => c.account_id === required)) {
-      throw new Error(`FIN-04: ${required} is not a live CORE-03 customer account`);
-    }
+  if (!customers.some((c) => c.account_id === DISTRESSED_CUSTOMER_ID)) {
+    throw new Error(`FIN-04: ${DISTRESSED_CUSTOMER_ID} is not a live CORE-03 customer account`);
   }
 
   const profileRng = createRng(id, "profiles");
@@ -336,10 +341,16 @@ export function buildArAging() {
   // Its amount has to be unique across every open_balance in the file, or the
   // delta rule (subledger total less the GL control balance) resolves to more
   // than one row and the plant stops being derivable.
-  const plantRow = [...numbered].reverse().find(
-    (d) => d.documentType === "invoice" && d.customer.account_id === UNPOSTED_INVOICE_CUSTOMER_ID
+  const carrierPool = customers.filter(
+    (c) => c.segment === UNPOSTED_INVOICE_SEGMENT
+      && c.account_id !== HEALTHY_CUSTOMER_ID && c.account_id !== DISTRESSED_CUSTOMER_ID
   );
-  if (!plantRow) throw new Error(`FIN-04: ${UNPOSTED_INVOICE_CUSTOMER_ID} has no invoice to carry the unposted plant`);
+  if (carrierPool.length === 0) throw new Error("FIN-04: no Enterprise account to carry the unposted invoice");
+  const carrier = plantRng.pick(carrierPool);
+  const plantRow = [...numbered].reverse().find(
+    (d) => d.documentType === "invoice" && d.customer.account_id === carrier.account_id
+  );
+  if (!plantRow) throw new Error("FIN-04: the chosen carrier account has no invoice to carry the unposted plant");
   const otherOpen = new Set(numbered.filter((d) => d !== plantRow).map((d) => d.openCents));
   let unpostedCents = 0;
   let redraws = 0;

@@ -23,7 +23,6 @@ import {
   AP_REQUESTER_EMPLOYEE_ID, AP_APPROVER_EMPLOYEE_ID, PO_APPROVERS, AVOIDED_EMPLOYEE_IDS,
 } from "../../datagen/src/generators/fin-06-procure-to-pay.js";
 import { buildChartOfAccounts } from "../../datagen/src/generators/fin-22-chart-of-accounts.js";
-import { CITED_PO_CEILING } from "../../datagen/src/generators/fin-09-je-batch.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
@@ -302,14 +301,13 @@ test("P12: exactly one open line was received, never invoiced and never accrued"
   assert.ok(!bills.some((b) => b.po_number === target.po_number), "no bill may cite the un-accrued purchase order");
   assert.ok(!invoices.some((r) => lineKey(r) === lineKey(target)), "no invoice may cite the un-accrued line");
   // Nothing anywhere in the universe accounts for this receipt, which is the
-  // whole point of the plant. The close batch caps its purchase-order citations
-  // at CITED_PO_CEILING and this line sits above it, so the two generators stay
-  // independent while the rule still resolves.
+  // whole point of the plant. The close batch cites no purchase order at all,
+  // so the rule holds for every purchase order in the pack and no constant in
+  // either generator narrows where the plant is allowed to land.
   const cited = new Set(closeBatch.map((r) => r.source_document).filter(Boolean));
   assert.ok(!cited.has(target.po_number), "no close entry may cite the un-accrued purchase order");
-  const citedPos = [...cited].filter((d) => d.startsWith("PO-")).map((d) => Number(d.slice(-4)));
-  assert.ok(Math.max(...citedPos) <= CITED_PO_CEILING, "the close batch ran past its reserved citation block");
-  assert.ok(Number(target.po_number.slice(-4)) > CITED_PO_CEILING, "the missing accrual sits inside the cited block");
+  assert.equal([...cited].filter((d) => d.startsWith("PO-")).length, 0,
+    "the close batch cites a purchase order, which would reintroduce the reserved-block coupling");
 });
 
 test("T-D1 / T-D3: the accrual roll-forward closes from its own movements and reconciles to the open lines", () => {
@@ -432,6 +430,23 @@ test("segregation of duties: the run has two people, purchase orders have two, a
     assert.equal(raiser.employment_status, "active");
     assert.equal(raiser.level, "Manager");
   }
+  // The threshold is applied at purchase-order grain, which is where an approval
+  // actually happens: a $60,000 order is a director's decision even when it is
+  // split into three $20,000 lines. Asserted in both directions so the spec text
+  // and the data cannot drift apart again.
+  const totals = new Map();
+  const levels = new Map();
+  for (const r of pos) {
+    totals.set(r.po_number, (totals.get(r.po_number) ?? 0) + toCents(r.line_amount));
+    const seen = levels.get(r.po_number);
+    assert.ok(seen === undefined || seen === r.approval_level, `${r.po_number}: two approval levels on one order`);
+    levels.set(r.po_number, r.approval_level);
+  }
+  for (const [poNumber, total] of totals) {
+    assert.equal(levels.get(poNumber), total >= DIRECTOR_THRESHOLD_CENTS ? "director" : "manager",
+      `${poNumber}: order total ${total} does not match its approval level`);
+  }
+
   const everyId = new Set([
     ...pos.map((r) => r.requested_by_employee_id), ...pos.map((r) => r.approved_by_employee_id),
     ...payments.map((r) => r.requested_by_employee_id), ...payments.map((r) => r.approved_by_employee_id),

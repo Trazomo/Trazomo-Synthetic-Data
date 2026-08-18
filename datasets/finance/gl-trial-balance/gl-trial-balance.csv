@@ -1,66 +1,66 @@
 account_code,account_name,type,subtype,normal_balance,beginning_balance,period_debit,period_credit,ending_balance,ending_debit,ending_credit
-1010,Operating Cash - Anchor Point Bank,asset,cash,debit,3133591.09,65767.19,458999.19,2740359.09,2740359.09,
-1020,Payroll Cash - Anchor Point Bank,asset,cash,debit,405475.03,11239.25,28572.59,388141.69,388141.69,
-1030,Money Market Sweep - Anchor Point Bank,asset,cash,debit,61942669.96,11714542.97,7480717.53,66176495.40,66176495.40,
-1050,Petty Cash,asset,cash,debit,3878.36,351.46,38.29,4191.53,4191.53,
-1100,Accounts Receivable - Trade,asset,receivable,debit,2509085.45,999988.05,118975.22,3390098.28,3390098.28,
-1110,Allowance for Doubtful Accounts,asset,contra_asset,credit,301736.56,2954.99,8684.63,307466.20,,307466.20
-1120,Unbilled Receivables,asset,receivable,debit,953400.56,41582.02,45133.14,949849.44,949849.44,
-1200,Prepaid Software Subscriptions,asset,prepaid,debit,268463.86,110789.04,4252.90,375000.00,375000.00,
-1210,Prepaid Insurance,asset,prepaid,debit,246795.09,92323.75,27118.84,312000.00,312000.00,
-1220,Prepaid Rent,asset,prepaid,debit,218145.34,31902.75,63069.21,186978.88,186978.88,
-1230,Other Prepaid Expenses,asset,prepaid,debit,132621.90,80466.86,31163.09,181925.67,181925.67,
-1310,Security Deposits,asset,other_current_asset,debit,367992.15,11972.25,2789.96,377174.44,377174.44,
-1400,Computer Equipment,asset,fixed_asset,debit,5090099.03,99717.35,53817.16,5135999.22,5135999.22,
-1410,Furniture and Fixtures,asset,fixed_asset,debit,2254896.17,11292.08,34747.35,2231440.90,2231440.90,
-1420,Leasehold Improvements,asset,fixed_asset,debit,3556864.74,21366.37,79707.92,3498523.19,3498523.19,
-1490,Accumulated Depreciation,asset,contra_asset,credit,4306516.51,95651.71,250223.65,4461088.45,,4461088.45
-1500,Capitalized Software Development,asset,intangible,debit,10304723.42,21162.76,294867.22,10031018.96,10031018.96,
-1590,Accumulated Amortization,asset,contra_asset,credit,5793176.88,174997.41,29234.90,5647414.37,,5647414.37
-1600,Operating Lease Right-of-Use Asset,asset,lease,debit,13785771.64,122426.20,219543.69,13688654.15,13688654.15,
-2000,Accounts Payable - Trade,liability,payable,credit,1530636.18,363982.11,194301.75,1360955.82,,1360955.82
-2010,Accrued Liabilities,liability,accrued,credit,481951.14,44501.08,76354.66,513804.72,,513804.72
-2020,Accrued Payroll,liability,accrued,credit,6613885.07,1359754.68,241212.68,5495343.07,,5495343.07
-2030,Accrued Bonus,liability,accrued,credit,3700897.75,45050.86,798239.32,4454086.21,,4454086.21
-2040,Accrued Commissions,liability,accrued,credit,2715270.88,835951.83,289207.05,2168526.10,,2168526.10
-2100,Payroll Taxes Payable,liability,payroll,credit,709724.20,63520.28,366711.14,1012915.06,,1012915.06
-2110,Employee Benefits Payable,liability,payroll,credit,859858.19,140749.76,192334.33,911442.76,,911442.76
-2200,Sales Tax Payable,liability,tax,credit,478945.57,111596.41,53467.07,420816.23,,420816.23
-2210,Income Tax Payable,liability,tax,credit,565768.14,121383.96,16551.49,460935.67,,460935.67
-2300,Deferred Revenue - Current,liability,deferred_revenue,credit,46599381.84,8157676.44,2420114.99,40861820.39,,40861820.39
-2310,Deferred Revenue - Non-Current,liability,deferred_revenue,credit,7518302.89,208936.10,1172397.92,8481764.71,,8481764.71
-2400,Corporate Card Payable,liability,payable,credit,969144.95,338291.32,115640.64,746494.27,,746494.27
-2500,Operating Lease Liability - Current,liability,lease,credit,2900625.04,26332.77,8522.66,2882814.93,,2882814.93
-2510,Operating Lease Liability - Non-Current,liability,lease,credit,8170969.17,41189.91,26189.93,8155969.19,,8155969.19
-3000,Common Stock,equity,contributed_capital,credit,1091.60,0.00,0.00,1091.60,,1091.60
-3010,Additional Paid-In Capital,equity,contributed_capital,credit,260487266.44,0.00,0.00,260487266.44,,260487266.44
-3100,Retained Earnings,equity,retained_earnings,credit,-260476699.75,0.00,0.00,-260476699.75,260476699.75,
-3200,Current Year Earnings,equity,retained_earnings,credit,0.00,0.00,10656267.20,10656267.20,,10656267.20
-4000,Subscription Revenue - Enterprise,revenue,subscription,credit,21197840.06,402689.51,10606809.10,31401959.65,,31401959.65
-4010,Subscription Revenue - Mid-Market,revenue,subscription,credit,8264646.10,73937.30,4099294.34,12290003.14,,12290003.14
-4020,Subscription Revenue - Small Team,revenue,subscription,credit,2914069.01,24049.54,1533811.29,4423830.76,,4423830.76
-4100,Professional Services Revenue,revenue,services,credit,2529127.15,53398.59,1257148.40,3732876.96,,3732876.96
-4200,Interest Income,revenue,other_income,credit,107858.85,1336.83,54579.91,161101.93,,161101.93
-4900,Sales Discounts and Credits,revenue,contra_revenue,debit,429067.06,239396.09,13726.76,654736.39,654736.39,
-5000,Hosting and Infrastructure,expense,cost_of_revenue,debit,3035763.97,1655397.07,96198.14,4594962.90,4594962.90,
-5010,Third-Party Software in Product,expense,cost_of_revenue,debit,556304.48,284892.08,7833.30,833363.26,833363.26,
-5020,Customer Support Salaries,expense,cost_of_revenue,debit,1747956.29,869779.19,16899.04,2600836.44,2600836.44,
-5100,Payment Processing Fees,expense,cost_of_revenue,debit,603757.76,316093.60,18990.53,900860.83,900860.83,
-6000,Salaries and Wages,expense,people,debit,9133996.88,4522220.98,112554.46,13543663.40,13543663.40,
-6010,Payroll Taxes,expense,people,debit,1130151.66,641706.16,41915.30,1729942.52,1729942.52,
-6020,Employee Benefits,expense,people,debit,1419995.45,719119.86,28199.73,2110915.58,2110915.58,
-6030,Contractors and Consultants,expense,people,debit,1106063.63,549229.90,18023.82,1637269.71,1637269.71,
-6040,Recruiting,expense,people,debit,532988.07,295091.86,17907.80,810172.13,810172.13,
-6100,Rent and Facilities,expense,facilities,debit,1041727.31,553206.17,39013.36,1555920.12,1555920.12,
-6110,Utilities,expense,facilities,debit,121882.28,63734.35,4610.16,181006.47,181006.47,
-6120,Office Expense,expense,facilities,debit,221554.10,122392.74,8594.50,335352.34,335352.34,
+1010,Operating Cash - Anchor Point Bank,asset,cash,debit,3482915.22,4422296.11,5164852.24,2740359.09,2740359.09,
+1020,Payroll Cash - Anchor Point Bank,asset,cash,debit,287648.59,17345.70,59141.16,245853.13,245853.13,
+1030,Money Market Sweep - Anchor Point Bank,asset,cash,debit,31061118.47,831610.32,4964502.74,26928226.05,26928226.05,
+1050,Petty Cash,asset,cash,debit,2954.77,884.48,455.38,3383.87,3383.87,
+1100,Accounts Receivable - Trade,asset,receivable,debit,3564146.83,4032265.07,4175817.20,3420594.70,3420594.70,
+1110,Allowance for Doubtful Accounts,asset,contra_asset,credit,375086.84,20843.92,8115.05,362357.97,,362357.97
+1120,Unbilled Receivables,asset,receivable,debit,996206.02,126120.95,166349.55,955977.42,955977.42,
+1200,Prepaid Software Subscriptions,asset,prepaid,debit,412500.00,0.00,37500.00,375000.00,375000.00,
+1210,Prepaid Insurance,asset,prepaid,debit,0.00,312000.00,0.00,312000.00,312000.00,
+1220,Prepaid Rent,asset,prepaid,debit,297036.63,22229.58,69153.88,250112.33,250112.33,
+1230,Other Prepaid Expenses,asset,prepaid,debit,86871.62,35849.97,1376.18,121345.41,121345.41,
+1310,Security Deposits,asset,other_current_asset,debit,455272.89,2016.80,2794.65,454495.04,454495.04,
+1400,Computer Equipment,asset,fixed_asset,debit,4541168.22,175772.29,50362.31,4666578.20,4666578.20,
+1410,Furniture and Fixtures,asset,fixed_asset,debit,2278555.57,88362.16,24896.77,2342020.96,2342020.96,
+1420,Leasehold Improvements,asset,fixed_asset,debit,4047523.59,23292.58,83917.19,3986898.98,3986898.98,
+1490,Accumulated Depreciation,asset,contra_asset,credit,4592000.65,81732.08,112104.57,4622373.14,,4622373.14
+1500,Capitalized Software Development,asset,intangible,debit,10123069.63,95368.13,269564.37,9948873.39,9948873.39,
+1590,Accumulated Amortization,asset,contra_asset,credit,4219760.86,102260.79,48697.46,4166197.53,,4166197.53
+1600,Operating Lease Right-of-Use Asset,asset,lease,debit,13277695.53,357026.87,36052.68,13598669.72,13598669.72,
+2000,Accounts Payable - Trade,liability,payable,credit,1410146.52,1668604.32,2171634.38,1913176.58,,1913176.58
+2010,Accrued Liabilities,liability,accrued,credit,445303.21,445303.21,441637.62,441637.62,,441637.62
+2020,Accrued Payroll,liability,accrued,credit,1865093.30,534881.72,165144.85,1495356.43,,1495356.43
+2030,Accrued Bonus,liability,accrued,credit,1102566.23,293157.71,132486.61,941895.13,,941895.13
+2040,Accrued Commissions,liability,accrued,credit,591987.48,32188.58,31078.24,590877.14,,590877.14
+2100,Payroll Taxes Payable,liability,payroll,credit,457697.11,42261.58,72512.14,487947.67,,487947.67
+2110,Employee Benefits Payable,liability,payroll,credit,380748.50,78278.43,13886.14,316356.21,,316356.21
+2200,Sales Tax Payable,liability,tax,credit,139726.91,1700.88,30137.41,168163.44,,168163.44
+2210,Income Tax Payable,liability,tax,credit,109919.58,33841.00,11707.68,87786.26,,87786.26
+2300,Deferred Revenue - Current,liability,deferred_revenue,credit,16673420.67,614812.70,3549396.23,19608004.20,,19608004.20
+2310,Deferred Revenue - Non-Current,liability,deferred_revenue,credit,2851291.77,226567.17,309603.69,2934328.29,,2934328.29
+2400,Corporate Card Payable,liability,payable,credit,70953.39,16532.45,7920.88,62341.82,,62341.82
+2500,Operating Lease Liability - Current,liability,lease,credit,2292380.65,59025.68,8048.53,2241403.50,,2241403.50
+2510,Operating Lease Liability - Non-Current,liability,lease,credit,7940977.80,308407.31,91494.33,7724064.82,,7724064.82
+3000,Common Stock,equity,contributed_capital,credit,685.22,0.00,0.00,685.22,,685.22
+3010,Additional Paid-In Capital,equity,contributed_capital,credit,200145618.86,0.00,0.00,200145618.86,,200145618.86
+3100,Retained Earnings,equity,retained_earnings,credit,-167151204.90,0.00,0.00,-167151204.90,167151204.90,
+3200,Current Year Earnings,equity,retained_earnings,credit,0.00,5404489.32,0.00,-5404489.32,5404489.32,
+4000,Subscription Revenue - Enterprise,revenue,subscription,credit,4641605.17,522.57,2255263.82,6896346.42,,6896346.42
+4010,Subscription Revenue - Mid-Market,revenue,subscription,credit,2185498.36,34954.35,1135441.17,3285985.18,,3285985.18
+4020,Subscription Revenue - Small Team,revenue,subscription,credit,635378.64,12385.31,342239.87,965233.20,,965233.20
+4100,Professional Services Revenue,revenue,services,credit,797211.11,8077.55,402349.27,1191482.83,,1191482.83
+4200,Interest Income,revenue,other_income,credit,203754.45,3870.67,101953.06,301836.84,,301836.84
+4900,Sales Discounts and Credits,revenue,contra_revenue,debit,96681.17,47954.21,864.93,143770.45,143770.45,
+5000,Hosting and Infrastructure,expense,cost_of_revenue,debit,722160.06,380106.73,5959.92,1096306.87,1096306.87,
+5010,Third-Party Software in Product,expense,cost_of_revenue,debit,195869.48,97360.47,4135.48,289094.47,289094.47,
+5020,Customer Support Salaries,expense,cost_of_revenue,debit,579154.17,293069.88,7178.18,865045.87,865045.87,
+5100,Payment Processing Fees,expense,cost_of_revenue,debit,115425.92,64401.39,3692.72,176134.59,176134.59,
+6000,Salaries and Wages,expense,people,debit,5095268.99,2778441.74,161460.31,7712250.42,7712250.42,
+6010,Payroll Taxes,expense,people,debit,501819.25,256989.35,7066.09,751742.51,751742.51,
+6020,Employee Benefits,expense,people,debit,574639.96,285939.57,5555.55,855023.98,855023.98,
+6030,Contractors and Consultants,expense,people,debit,284311.10,148849.30,8942.69,424217.71,424217.71,
+6040,Recruiting,expense,people,debit,88017.01,43577.01,1084.59,130509.43,130509.43,
+6100,Rent and Facilities,expense,facilities,debit,621734.49,353024.17,23059.02,951699.64,951699.64,
+6110,Utilities,expense,facilities,debit,195351.32,98930.60,3879.48,290402.44,290402.44,
+6120,Office Expense,expense,facilities,debit,107357.53,53309.74,1749.44,158917.83,158917.83,
 6125,Office Supplies (merged into 6120 Office Expense),expense,facilities,debit,0.00,0.00,0.00,0.00,0.00,
-6200,Software Subscriptions,expense,technology,debit,969073.25,523942.31,33058.72,1459956.84,1459956.84,
-6300,Marketing Programs,expense,marketing,debit,1572013.57,869025.10,47228.09,2393810.58,2393810.58,
-6310,Events and Conferences,expense,marketing,debit,807455.05,432185.85,29103.98,1210536.92,1210536.92,
-6400,Travel and Entertainment,expense,travel,debit,636419.35,336075.69,16694.13,955800.91,955800.91,
-6500,Professional Fees - Legal,expense,professional_fees,debit,325651.93,170620.07,4448.01,491823.99,491823.99,
-6510,Professional Fees - Accounting and Audit,expense,professional_fees,debit,414045.56,207391.70,1322.93,620114.33,620114.33,
-6600,Insurance,expense,insurance,debit,385920.54,207663.45,10180.14,583403.85,583403.85,
-6700,Bank Fees and Service Charges,expense,bank,debit,32140.26,15832.84,534.05,47439.05,47439.05,
-6800,Depreciation and Amortization,expense,depreciation,debit,1404548.45,699171.04,2102.81,2101616.68,2101616.68,
+6200,Software Subscriptions,expense,technology,debit,1373910.69,665189.36,2686.50,2036413.55,2036413.55,
+6300,Marketing Programs,expense,marketing,debit,312440.54,150046.82,1803.46,460683.90,460683.90,
+6310,Events and Conferences,expense,marketing,debit,47692.04,23774.66,1213.74,70252.96,70252.96,
+6400,Travel and Entertainment,expense,travel,debit,103604.21,50604.87,1423.45,152785.63,152785.63,
+6500,Professional Fees - Legal,expense,professional_fees,debit,115808.58,62613.45,3950.67,174471.36,174471.36,
+6510,Professional Fees - Accounting and Audit,expense,professional_fees,debit,86448.42,47789.57,2597.18,131640.81,131640.81,
+6600,Insurance,expense,insurance,debit,112113.06,60007.90,4041.02,168079.94,168079.94,
+6700,Bank Fees and Service Charges,expense,bank,debit,696.40,367.74,18.26,1045.88,1045.88,
+6800,Depreciation and Amortization,expense,depreciation,debit,665364.59,348607.03,9088.07,1004883.55,1004883.55,

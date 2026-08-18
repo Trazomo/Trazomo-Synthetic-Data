@@ -223,10 +223,6 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | LGL-21 | self-service-portal-program-dataset | dataset | demand-log/SLA CSVs + JSON (FAQ + ROI) |
 | LGL-22 | matter-portfolio-dashboard-dataset | dataset | matter-state + capacity-model CSVs |
 
-FIN-12 `vendor-contract-insurance` is the cluster's one drafted-frozen artifact:
-it is authored under `artifacts/FIN-12/`, not generated, and its stated premium
-is the number FIN-11's prepaid bill has to match.
-
 **Not implemented yet**: every other `generation: deterministic` spec (the
 remaining FIN, HR, REV, OPS, SMB, and the remaining LGL corpus/config
 bundles LGL-13, LGL-14, LGL-16 -- these are multi-file bundles with folder

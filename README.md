@@ -13,7 +13,7 @@ The shared synthetic-data universe for [Trazomo](https://www.trazomo.com) exempl
 
 ## Status
 
-Legal slice frozen at v1.0.2; the finance cash reconciliation slice (FIN-01, FIN-02, FIN-03, FIN-22) ships in v1.1.0 and the finance reconciliation cluster (FIN-04 through FIN-12) in v1.2.0. Lessons and demo videos pin to tagged releases.
+Legal slice frozen at v1.0.2; the finance cash reconciliation slice (FIN-01, FIN-02, FIN-03, FIN-22) ships in v1.1.0 and the finance reconciliation-cluster datasets (FIN-04 through FIN-11) in v1.2.0. Lessons and demo videos pin to tagged releases.
 
 ## Using it
 

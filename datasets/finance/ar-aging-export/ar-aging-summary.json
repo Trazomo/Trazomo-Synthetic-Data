@@ -18,7 +18,7 @@
     {
       "bucket": "current",
       "document_count": 49,
-      "open_balance": "1508803.31"
+      "open_balance": "1448099.67"
     },
     {
       "bucket": "1-30",
@@ -41,5 +41,5 @@
       "open_balance": "417207.71"
     }
   ],
-  "subledger_total": "3498745.06"
+  "subledger_total": "3438041.42"
 }

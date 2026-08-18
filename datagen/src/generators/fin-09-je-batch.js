@@ -10,8 +10,9 @@
 // the chart (FIN-22), the roster (CORE-04), and FIN-01's canon constants.
 //
 // source_document citations are drawn from the id blocks FIN-06, FIN-07 and
-// FIN-11 mint in this same release (PO-2026-0101..0148, VINV-2026-0101..0172,
-// BILL-2026-0101..0155) plus the two drafted contracts, so a citation resolves
+// FIN-11 mint in this same release, plus the two drafted contracts, so a
+// citation resolves. The blocks are referred to by shape rather than by
+// endpoint: writing a first or last id here would name a row
 // somewhere real without this file having to import those builders.
 //
 // Planted features (spec FIN-09, plan Section 2.3). Each is derivable by a
@@ -44,12 +45,6 @@ export const id = "FIN-09";
 /** The close batch posts inside the March 2026 finance anchor period. */
 export const BATCH_PERIOD = { start: "2026-03-01", end: "2026-03-31" };
 /** March close runs 2026-04-01 to 2026-04-07 (canon/timeline.md). */
-/**
- * The highest purchase-order number this batch will ever cite. FIN-06 keeps its
- * missing-accrual plant strictly above this, so the two never collide.
- */
-export const CITED_PO_CEILING = 120;
-
 export const APPROVAL_WINDOW = { start: "2026-04-01", end: "2026-04-07" };
 
 export const ENTRY_TYPES = [
@@ -108,10 +103,10 @@ const expenseFor = (party) => {
 // Line narration, indexed by ordinal so two lines of one entry read differently.
 const PHRASES = {
   [canonVendor("co-105").name]: ["property and casualty program", "cyber liability program", "broker servicing fees", "umbrella policy instalment", "employment practices cover"],
-  [PAYROLL_PLATFORM.name]: ["benefits administration", "payroll platform usage", "employer contributions", "open enrolment support", "leave administration"],
+  [PAYROLL_PLATFORM.name]: ["benefits administration", "payroll platform usage", "employer contributions", "open enrollment support", "leave administration"],
   [canonVendor("co-107").name]: ["office consumables", "breakroom supplies", "print and stationery", "workspace consumables", "desk equipment"],
-  [canonVendor("co-109").name]: ["headquarters rent", "operating expense recovery", "parking licences", "facilities service charge", "signage and access"],
-  [canonVendor("co-119").name]: ["analytics platform seats", "usage overage", "data enrichment credits", "reporting workspace", "connector licences"],
+  [canonVendor("co-109").name]: ["headquarters rent", "operating expense recovery", "parking licenses", "facilities service charge", "signage and access"],
+  [canonVendor("co-119").name]: ["analytics platform seats", "usage overage", "data enrichment credits", "reporting workspace", "connector licenses"],
   ["Halvermoor Cloud Services"]: ["compute reservations", "object storage", "egress and transfer", "managed database", "observability tier"],
   ["Kestrelmoor Staffing Partners"]: ["contract engineering", "contract analyst cover", "interim support", "contract design cover", "project resourcing"],
   ["Sarrowmere Print Works"]: ["printed materials and stationery"],
@@ -192,14 +187,16 @@ export function buildCloseBatch() {
   // Document-id counters. Every citation lands inside a block another cluster 1
   // artifact actually mints, so a reader who follows the reference finds a row.
   //
-  // The purchase-order citations are additionally capped at CITED_PO_CEILING.
-  // FIN-06 places its missing-accrual line above that ceiling, so the rule
-  // "the un-accrued purchase order is cited by no close entry" holds without
-  // either generator importing the other. Neither constant moves alone.
-  let poSeq = 101;
+  // This batch deliberately cites NO purchase order. A purchase order is not
+  // support for a journal entry in the first place (depreciation is supported by
+  // the fixed-asset register, an allocation by an internal memo, an accrual by
+  // the invoice or bill behind it), and citing none is also what lets FIN-06
+  // place its missing-accrual line anywhere it likes: the rule "no close entry
+  // cites this purchase order" then holds for every purchase order in the pack,
+  // with no reserved block and no constant in either generator narrowing where
+  // the plant can be. Neither file imports the other.
   let vinvSeq = 101;
   let billSeq = 101;
-  const nextPo = () => `PO-2026-${String(poSeq++).padStart(4, "0")}`;
   const nextVinv = () => `VINV-2026-${String(vinvSeq++).padStart(4, "0")}`;
   const nextBill = () => `BILL-2026-${String(billSeq++).padStart(4, "0")}`;
 
@@ -273,7 +270,7 @@ export function buildCloseBatch() {
     push({
       key: `inhouse-${i}`,
       type,
-      source: i === 2 ? "CORE-01" : nextPo(),
+      source: i === 2 ? "CORE-01" : nextBill(),
       postingDate: BATCH_PERIOD.end,
       lines: [
         debitLine(expenseFor(holder), holder, amount, narrative),
@@ -324,7 +321,7 @@ export function buildCloseBatch() {
   push({
     key: "allocation",
     type: "allocation",
-    source: nextPo(),
+    source: nextBill(),
     postingDate: BATCH_PERIOD.end,
     lines: [
       debitLine("1500", staffing, allocationAmount, `Allocation of contract development cost - ${staffing}`),
@@ -454,9 +451,6 @@ export function buildCloseBatch() {
 
   assertPostConditions(sorted, lines, chart);
 
-  if (poSeq - 1 > CITED_PO_CEILING) {
-    throw new Error(`FIN-09: purchase-order citations ran past the reserved ceiling (${poSeq - 1} > ${CITED_PO_CEILING})`);
-  }
 
   return {
     lines,
