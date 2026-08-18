@@ -302,7 +302,7 @@ Declare it on the parent's spec entry:
       - name: ach-receipts-mar-05-06
         file: variants/ach-receipts-mar-05-06.csv
         derived_from: bank-transactions.csv
-        rule: 'every parent row with channel == "ach", type == "credit" and posted_date in {2026-03-05, 2026-03-06}, in parent file order, with the parent header'
+        rule: 'every parent row with channel == "ach", type == "credit" and posted_date in {2026-03-05, 2026-03-06}, in parent file order, with the parent header. running_balance is carried through from the parent statement unchanged, so it does not run continuously inside the slice; recompute it from the parent if a lesson needs a running total'
         consuming_modules: [finance-local-ai]
 ```
 
@@ -324,6 +324,11 @@ share a folder:
    fails the build if the window loses the repeated receipt or leaves its size
    band, because a demo excerpt with nothing in it to find is worse than no
    excerpt.
+
+A slice inherits every column of its parent, including ones that only make sense
+in the parent: FIN-01's `running_balance` is the statement's balance after that
+transaction, so it does not run continuously down an eight-row slice. Say so in
+the rule rather than leaving a consumer to discover it.
 
 State the rule without naming the defect. `channel == "ach" and type ==
 "credit"` on two statement dates is a predicate; "the rows around the duplicate"
@@ -358,7 +363,7 @@ Runs `node --test` over `tests/`:
   generator's committed `planted_features` actually show up in its output
   (exact totals, record counts, threshold behavior).
 - `tests/drafted/` -- structural screens over drafted-frozen documents: what
-  must be *absent*. The real-name screen asserts that every capitalised phrase
+  must be *absent*. The real-name screen asserts that every capitalized phrase
   in the document is the canon protagonist, a role title an active CORE-04
   employee holds, or listed document furniture, since a drafted artifact is
   where a new person or company name slips into the universe unnoticed.

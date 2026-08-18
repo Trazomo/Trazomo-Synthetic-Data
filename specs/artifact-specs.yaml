@@ -446,7 +446,7 @@ artifacts:
       - name: ach-receipts-mar-05-06
         file: variants/ach-receipts-mar-05-06.csv
         derived_from: bank-transactions.csv
-        rule: 'every parent row with channel == "ach", type == "credit" and posted_date in {2026-03-05, 2026-03-06}, in parent file order, with the parent header'
+        rule: 'every parent row with channel == "ach", type == "credit" and posted_date in {2026-03-05, 2026-03-06}, in parent file order, with the parent header. running_balance is carried through from the parent statement unchanged, so it does not run continuously inside the slice; recompute it from the parent if a lesson needs a running total'
         consuming_modules: [finance-local-ai]
     consuming_modules: [finance-cash-bank-reconciliation, finance-local-ai]
     source_plan: finance-implementation-plan
@@ -901,11 +901,13 @@ artifacts:
     generation: deterministic
     canon_entities: [co-002]
     period: { start: "2026-03-01", end: "2026-03-31" }
-    columns: [line_id, account_code, account_name, statement_section, owner_role, budget_amount, actual_amount, variance_amount, variance_pct, explanation_threshold_usd, variance_explanation]
+    columns: [line_id, account_code, account_name, statement_section, normal_balance, owner_role, budget_amount, actual_amount, variance_amount, variance_pct, explanation_threshold_usd, variance_explanation]
     planted_features:
       - no defects; the tracker ships as a schema, not as a worked answer
       - the row spine is every active FIN-22 profit-and-loss account, read off the chart rather than retyped, so a chart change shows up here
-      - budget_amount is populated and rounded to whole hundreds; actual_amount, variance_amount, variance_pct and variance_explanation ship empty because a person enters the figure
+      - budget_amount is each account's own prior run rate, read off FIN-05 (the beginning column is year to date at 2026-02-28, so half of it is the January and February monthly average), moved by a seeded planning adjustment of at most 3 percent and rounded to whole hundreds. March is not an input, so a handful of lines breach their own threshold in March and most do not
+      - actual_amount, variance_amount, variance_pct and variance_explanation ship empty because a person enters the figure
+      - normal_balance is read off the FIN-22 chart, so a consumer knows which way a line runs without parsing its name; the contra-revenue line is a revenue-section row with a debit normal balance whose budget is the planned discount as a positive magnitude
       - explanation_threshold_usd is 5 percent of budget, floored at 10000 and rounded up to the nearest 1000 (see UNCONFIRMED 3 in the D3-lite plan; FIN-26 materiality-thresholds has no generator yet)
     consuming_modules: [finance-spreadsheet-ops, finance-google-workspace, finance-microsoft-365]
     source_plan: finance-implementation-plan + shared-foundational-skeleton (5.5, B1 to B3)
@@ -940,7 +942,7 @@ artifacts:
       - "the finance-only hard control: every decision that moves money or posts an entry carries ai_autonomy_level prohibited, whatever the amount"
       - "four data classes (public, internal, confidential, restricted); no restricted row is autonomous or review_before_commit"
       - amount bands step at 5000 and at 50000, and the 50000 step matches FIN-06's shipped purchase-order rule that a line of 50000 or more is approved at director level
-      - every approver_role and escalation_role is the role_title of an active CORE-04 Finance employee, and the escalation role is strictly more senior than the approver role
+      - every approver_role and escalation_role is the role_title of an active CORE-04 employee, in Finance except for the single Chief Executive Officer escalation on DA-20, and the escalation role is strictly more senior than the approver role
     consuming_modules: [finance-operational-controls]
     source_plan: finance-implementation-plan + shared-foundational-skeleton (2.6, B5)
 
@@ -960,7 +962,7 @@ artifacts:
       - "handling instructions that prohibit forwarding, printing and pasting any part of the document into an external or consumer AI assistant, and require approved internal systems only"
       - "a quiet period stated with dates: the board meeting, the results announcement, and the window during which the contents stay unreleased"
       - "distribution stated by role title only (Board of Directors, Chief Executive Officer, VP, Finance, Controller); no individual is named anywhere and there is no signature line"
-      - "two rounded financial figures, each labelled draft and unreleased and subject to close adjustments, consistent with the FIN-05 result that the quarter is a loss"
+      - "two rounded financial figures, each marked draft and unreleased and subject to close adjustments, and each naming the subtotal it reads: total revenue and net loss, both recomputable from the FIN-05 trial balance"
       - "a pending strategic matter under exclusivity, described without a counterparty name, so the sensitivity does not depend on the numbers alone"
     consuming_modules: [finance-operational-controls]
     source_plan: finance-implementation-plan + shared-foundational-skeleton (2.6, B5)

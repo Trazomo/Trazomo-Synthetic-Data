@@ -24,7 +24,7 @@ export const ROLE_LADDER = [
   "Director, Finance",
   "VP, Finance",
   // Not a Finance-department title: the only rung above VP, Finance, used as the
-  // escalation target for a decision the finance organisation cannot settle on
+  // escalation target for a decision the finance organization cannot settle on
   // its own.
   "Chief Executive Officer",
 ];

@@ -9,7 +9,7 @@ The shared synthetic-data universe for [Trazomo](https://www.trazomo.com) exempl
 - `canon/` — the universe bible: companies, people, and timeline that keep entity IDs consistent across every dataset
 - `datasets/` — per-track data (`legal`, `finance`, `hr`, `revenue`, `operations`, `smb`) sharing canon IDs so cross-track joins work
 - `datagen/` — seeded, deterministic generators; same seed, same output
-- `MANIFEST.json` — machine-readable index of every dataset, including dataset variants and how each one is derived
+- `MANIFEST.json`: machine-readable index of every dataset, including dataset variants and how each one is derived
 
 ## Status
 

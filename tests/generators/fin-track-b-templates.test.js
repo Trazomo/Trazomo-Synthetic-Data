@@ -10,9 +10,10 @@ import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
 import { csvTable, fileByPath } from "../helpers/csv-table.js";
 import { buildChartOfAccounts } from "../../datagen/src/generators/fin-22-chart-of-accounts.js";
+import { buildTrialBalance } from "../../datagen/src/generators/fin-05-gl-trial-balance.js";
 import { financeRoster, ROLE_LADDER, seniority } from "../../datagen/src/generators/finance-roles.js";
 import { CATEGORIES } from "../../datagen/src/generators/fin-36-close-checklist-template.js";
-import { explanationThreshold, STATEMENT_SECTIONS } from "../../datagen/src/generators/fin-37-budget-vs-actual-template.js";
+import { STATEMENT_SECTIONS } from "../../datagen/src/generators/fin-37-budget-vs-actual-template.js";
 import {
   DATA_CLASSES, AUTONOMY_LEVELS, DIRECTOR_APPROVAL_FLOOR_USD,
 } from "../../datagen/src/generators/fin-39-decision-authority-matrix.js";
@@ -21,6 +22,19 @@ const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
 const canon = loadCanonCompanies(join(REPO_ROOT, "canon", "companies.md"));
 const roster = financeRoster();
+const trialBalance = new Map(buildTrialBalance().rows.map((r) => [r.account_code, r]));
+
+// FIN-37's two rules, re-expressed here rather than imported. Importing the
+// generator's own helper only asserts that a function equals itself: a mutation
+// that changed the rule in both places would stay green.
+const cents = (value) => Math.round(Number(value || 0) * 100);
+const expectedThreshold = (budgetUsd) => Math.ceil(Math.max(10000, budgetUsd * 0.05) / 1000) * 1000;
+const priorRunRate = (row) => cents(row.beginning_balance) / 2 / 100; // beginning column is Jan + Feb
+/** The March movement of one trial-balance row, in the account's natural direction. */
+const marchActual = (row) => {
+  const sign = row.normal_balance === "credit" ? 1 : -1;
+  return (sign * (cents(row.period_credit) - cents(row.period_debit))) / 100;
+};
 
 function tableFor(id, file) {
   const spec = specs.byId.get(id);
@@ -103,13 +117,14 @@ test("FIN-37: budget is a positive whole hundred, the threshold recomputes from 
   const { rows } = tableFor("FIN-37", "budget-vs-actual-template.csv");
   for (const row of rows) {
     assert.ok(STATEMENT_SECTIONS.includes(row.statement_section), `${row.line_id} section`);
+    assert.ok(["debit", "credit"].includes(row.normal_balance), `${row.line_id} normal_balance`);
     assertRosterRole(row.owner_role, "FIN-37", `${row.line_id} owner`);
     const budget = Number(row.budget_amount);
     assert.ok(budget > 0, `${row.line_id} budget is not positive`);
     assert.equal(budget % 100, 0, `${row.line_id} budget is not a whole hundred`);
     assert.equal(row.budget_amount, budget.toFixed(2), `${row.line_id} budget is not a 2dp string`);
     assert.equal(
-      Number(row.explanation_threshold_usd), explanationThreshold(budget),
+      Number(row.explanation_threshold_usd), expectedThreshold(budget),
       `${row.line_id} threshold does not follow the stated rule`
     );
     assert.equal(row.actual_amount, "", `${row.line_id} actual_amount`);
@@ -117,6 +132,64 @@ test("FIN-37: budget is a positive whole hundred, the threshold recomputes from 
     assert.equal(row.variance_pct, "", `${row.line_id} variance_pct`);
     assert.equal(row.variance_explanation, "", `${row.line_id} variance_explanation`);
   }
+});
+
+test("FIN-37: normal_balance is the chart's, so the contra-revenue line is a debit inside the revenue section", () => {
+  const { rows } = tableFor("FIN-37", "budget-vs-actual-template.csv");
+  const chart = new Map(buildChartOfAccounts().map((a) => [a.account_code, a]));
+  for (const row of rows) {
+    assert.equal(row.normal_balance, chart.get(row.account_code).normal_balance, `${row.line_id} normal_balance`);
+  }
+  const contra = rows.filter((r) => r.statement_section === "revenue" && r.normal_balance === "debit");
+  assert.equal(contra.length, 1, "expected exactly one contra-revenue line in the revenue section");
+  assert.ok(Number(contra[0].budget_amount) > 0, "the contra line budgets its discount as a positive magnitude");
+});
+
+test("FIN-37: every budget is that account's own prior run rate off FIN-05, within the planning limit", () => {
+  const { rows } = tableFor("FIN-37", "budget-vs-actual-template.csv");
+  for (const row of rows) {
+    const tbRow = trialBalance.get(row.account_code);
+    assert.ok(tbRow, `${row.line_id} has no FIN-05 row to plan from`);
+    const runRate = priorRunRate(tbRow);
+    assert.ok(runRate > 0, `${row.line_id} has no prior activity`);
+    const drift = Math.abs(Number(row.budget_amount) - runRate) / runRate;
+    // 5 percent planning judgment, plus the whole-hundreds rounding, which is
+    // worth more than 5 percent only on a line budgeted in the hundreds.
+    assert.ok(
+      drift <= 0.05 + 100 / runRate,
+      `${row.line_id} budget is ${(drift * 100).toFixed(1)} percent off its own run rate`
+    );
+  }
+});
+
+test("FIN-37: the plan is internally plausible against the payroll it is planning", () => {
+  const { rows } = tableFor("FIN-37", "budget-vs-actual-template.csv");
+  const budget = (code) => Number(rows.find((r) => r.account_code === code).budget_amount);
+  const salaries = budget("6000");
+  // Bands are wide on purpose: they are a smell test on the shipped ledger's own
+  // ratios, not a model of one company's benefits policy.
+  const taxRatio = budget("6010") / salaries;
+  assert.ok(taxRatio >= 0.06 && taxRatio <= 0.14, `payroll taxes are ${(taxRatio * 100).toFixed(0)} percent of salaries`);
+  const benefitRatio = budget("6020") / salaries;
+  assert.ok(benefitRatio >= 0.08 && benefitRatio <= 0.35, `benefits are ${(benefitRatio * 100).toFixed(0)} percent of salaries`);
+  const contractorRatio = budget("6030") / salaries;
+  assert.ok(contractorRatio <= 0.25, `contractors are ${(contractorRatio * 100).toFixed(0)} percent of salaries`);
+  for (const row of rows) {
+    if (row.account_code === "6000") continue;
+    assert.ok(Number(row.budget_amount) <= salaries, `${row.line_id} is budgeted above the whole payroll`);
+  }
+});
+
+test("FIN-37: a handful of lines breach their own threshold against March, not none and not most", () => {
+  const { rows } = tableFor("FIN-37", "budget-vs-actual-template.csv");
+  const breaches = rows.filter((row) => {
+    const variance = Math.abs(marchActual(trialBalance.get(row.account_code)) - Number(row.budget_amount));
+    return variance > Number(row.explanation_threshold_usd);
+  });
+  assert.ok(
+    breaches.length >= 2 && breaches.length <= 6,
+    `${breaches.length} of ${rows.length} lines breach their threshold; the lesson needs a handful to explain`
+  );
 });
 
 // ------------------------------------------------------------------- FIN-39
@@ -148,6 +221,23 @@ test("FIN-39: nothing that moves money or posts an entry is left to AI, and rest
       `${row.control_id} lets restricted data run ahead of approval`
     );
   }
+});
+
+test("FIN-39: approval is always a Finance role, and only the board-material row escalates outside Finance", () => {
+  const { rows } = tableFor("FIN-39", "decision-authority-matrix-template.csv");
+  const financeTitles = new Set(
+    roster.filter((r) => r.employment_status === "active" && r.department === "Finance").map((r) => r.role_title)
+  );
+  for (const row of rows) {
+    assert.ok(financeTitles.has(row.approver_role), `${row.control_id} is approved outside Finance by "${row.approver_role}"`);
+  }
+  const outside = rows.filter((r) => !financeTitles.has(r.escalation_role));
+  assert.equal(outside.length, 1, "exactly one decision should escalate above the finance organization");
+  assert.equal(outside[0].escalation_role, "Chief Executive Officer");
+  const holders = roster.filter(
+    (r) => r.role_title === outside[0].escalation_role && r.employment_status === "active"
+  );
+  assert.ok(holders.length > 0 && holders[0].department === "Executive", "the one outside escalation is the CEO");
 });
 
 test("FIN-39: approval seniority rises with the band, the 50k step is director level, and escalation is always more senior", () => {

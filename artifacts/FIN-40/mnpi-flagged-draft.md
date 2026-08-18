@@ -39,12 +39,12 @@ The contents stay unreleased through the window from 2026-04-01 to the announcem
 
 ## 4. Draft results, unreleased
 
-Two figures are marked below. Both are draft, both are unreleased, and both are subject to close adjustments.
+Two figures are marked below. Each names the subtotal it is, because a board pack that says "the loss" without saying which line it read is not reporting, it is rounding. Both are draft, both are unreleased, and both are subject to close adjustments.
 
-- Revenue for the quarter is approximately 12.2 million. Draft, unreleased, subject to close adjustments.
-- The quarter closes at an operating loss of approximately 5.4 million. Draft, unreleased, subject to close adjustments.
+- Total revenue for the quarter, including interest income and net of discounts and credits, is approximately 12.2 million. Draft, unreleased, subject to close adjustments.
+- The quarter closes at a net loss of approximately 5.2 million, after all operating expense and after the interest income above. Draft, unreleased, subject to close adjustments.
 
-Figures are rounded for the board's reading. The schedules carry them to the cent, and the March close reconciliations support them: the cash reconciliation completed inside the close window and its open items are timing differences rather than losses.
+Figures are rounded to the nearest hundred thousand for the board's reading. The schedules carry them to the cent, and the March close reconciliations support them: the cash reconciliation completed inside the close window and its open items are timing differences rather than losses.
 
 ## 5. Pending strategic matter
 

@@ -30,11 +30,20 @@ dataset-variant convention.
 - **FIN-37 budget-vs-actual-template**: 27 lines, one per active FIN-22
   profit-and-loss account, **read off the chart rather than retyped**, so the
   tracker cannot drift from the chart the rest of the finance pack posts
-  against. Budget is populated and rounded to whole hundreds; `actual_amount`,
-  `variance_amount`, `variance_pct` and `variance_explanation` ship empty,
-  because the module's hard rule is that a person enters the figure and AI never
-  commits a cell. `explanation_threshold_usd` recomputes from budget by a stated
-  rule (5 percent, floored at 10,000, rounded up to the nearest 1,000).
+  against. **Each line's budget is that account's own prior run rate, read off
+  FIN-05**: the trial balance's beginning column is year to date at 2026-02-28,
+  so half of it is the January and February monthly average, and a seeded
+  planning adjustment of at most 5 percent moves the plan off that average the
+  way a real plan does. March is deliberately not an input, because a plan set
+  before the period cannot know the period, and that is what leaves **four** of
+  the twenty-seven lines breaching their own explanation threshold in March
+  rather than none or most. `normal_balance` is read off the chart too, so the
+  contra-revenue line is legible as a revenue-section row that subtracts.
+  `actual_amount`, `variance_amount`, `variance_pct` and `variance_explanation`
+  ship empty, because the module's hard rule is that a person enters the figure
+  and AI never commits a cell. `explanation_threshold_usd` recomputes from budget
+  by a stated rule (5 percent, floored at 10,000, rounded up to the nearest
+  1,000).
 - **FIN-38 reliability-drill-transactions**: 15 AI-proposed readings of rows that
   already ship in the pack, each citing its source the way
   `finance-ai-reliability` teaches (`txn_id` in FIN-01, `je_id` in FIN-02,
@@ -55,14 +64,17 @@ dataset-variant convention.
   Restricted data is never autonomous. Approver seniority never falls as the
   amount band rises, and the 50,000 step is director level, which is FIN-06's
   shipped purchase-order rule, so the matrix and the orders agree. Every role is
-  the title of an active CORE-04 Finance employee and escalation is always
-  strictly more senior.
+  the title of an active CORE-04 employee, in Finance except the single Chief
+  Executive Officer escalation on the board-material row, and escalation is
+  always strictly more senior.
 - **FIN-40 mnpi-flagged-draft** (drafted-frozen): a one-and-a-half page
   pre-announcement board pack excerpt carrying the classification at the head and
   the foot, handling instructions that forbid pasting any part of it into an
   external or consumer AI assistant, a quiet period with dates, distribution by
-  role title only, and two rounded figures marked draft and unreleased. The
-  figures are consistent with FIN-05's shipped result that the quarter is a loss.
+  role title only, and two rounded figures marked draft and unreleased. **Each
+  figure names the subtotal it reads**, total revenue and net loss, and both are
+  recomputed from the FIN-05 trial balance by a test, so the board pack cannot
+  quote a number the ledger does not report.
   No individual is named, there is no signature line, and the pending strategic
   matter is described without a counterparty. **This document needs Salvador's
   freeze review.**
@@ -96,7 +108,7 @@ dataset-variant convention.
   its counterparties from the shipped FIN-01 population, and FIN-40 names only
   co-002 and role titles that active CORE-04 employees hold. The collision screen
   is unchanged, and a structural test enforces both.
-- Universe version 1.3.0: 25 datasets, 12 drafted artifact sets. Suite: 215
+- Universe version 1.3.0: 25 datasets, 12 drafted artifact sets. Suite: 222
   tests, 182 before this release.
 
 ## 1.2.0 - 2026-08-18
