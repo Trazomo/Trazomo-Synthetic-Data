@@ -151,7 +151,7 @@ Millgate and the Insured are each referred to as a "**Party**" and collectively 
 
 ## 14. Notices
 
-**14.1 Form.** A notice under this Agreement must be in writing and delivered by hand, by nationally recognised overnight courier, or by email with confirmation of receipt, to the addresses on the first page or to such other address as a Party notifies under this Section 14.
+**14.1 Form.** A notice under this Agreement must be in writing and delivered by hand, by nationally recognized overnight courier, or by email with confirmation of receipt, to the addresses on the first page or to such other address as a Party notifies under this Section 14.
 
 **14.2 Insured's Notice Contact.** Notices to the Insured are delivered to the attention of the Vice President, Finance, with a copy to the Insured's Controller.
 
@@ -163,7 +163,7 @@ Millgate and the Insured are each referred to as a "**Party**" and collectively 
 
 **15.2 Order of Precedence.** If this Agreement conflicts with a policy issued by a carrier as to the scope of coverage, the policy controls. If this Agreement conflicts with any Millgate invoice or service document as to premium, payment terms, or refund, this Agreement controls.
 
-**15.3 Amendment.** An amendment to this Agreement is effective only if it is in writing and signed by an authorised representative of each Party.
+**15.3 Amendment.** An amendment to this Agreement is effective only if it is in writing and signed by an authorized representative of each Party.
 
 **15.4 Assignment.** Neither Party may assign this Agreement without the other Party's prior written consent, except that either Party may assign it in connection with a merger or a sale of substantially all of its assets on written notice to the other Party.
 
@@ -210,4 +210,4 @@ Title: Authorized Signatory
 
 Date: March 20, 2026
 
-Millgate executes this Agreement by an authorised signatory under its standing program authority. The individual signing is identified in Millgate's execution record and is not named on the face of this Agreement.
+Millgate executes this Agreement by an authorized signatory under its standing program authority. The individual signing is identified in Millgate's execution record and is not named on the face of this Agreement.
