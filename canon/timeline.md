@@ -23,10 +23,18 @@ it for D1: bumping rerolls the bytes of all five.
 
 | Date | Event | Source |
 |---|---|---|
+| 2025-11-14 to 2026-03-31 | FIN-04 AR aging document dates; the oldest open invoice is the 90+ bucket floor | `datasets/finance/ar-aging-export` |
+| 2026-01-05 to 2026-03-27 | FIN-06 purchase orders raised; goods and services received through 2026-03-31 | `datasets/finance/purchase-orders`, `datasets/finance/open-pos` |
 | 2026-01-12 | CORE-01 MSA Effective Date, the date the agreement is entered into (co-002 with co-101) | artifacts/CORE-01 |
 | 2026-02-01 | CORE-01 Subscription Start Date; the initial subscription term runs twelve months to 2027-01-31 | artifacts/CORE-01 |
+| 2026-02-01 | co-101 CORE-01 subscription invoiced in advance, $450,000, service 2026-02-01 to 2027-01-31, amortized $37,500 a month from February | `artifacts/CORE-01` section 5.2, `datasets/finance/vendor-bills` |
 | 2026-02-15 to 2026-03-14 | CORE-02 outside-counsel billing period; invoice dated 2026-03-20, in the finance inbound queue as pending_classification | datasets/core/outside-counsel-invoice/invoice.json |
 | 2026-03-01 to 2026-03-31 | FIN-01 statement period; FIN-02 posting period; FIN-03 checks issued and outstanding at period end | datasets/finance |
+| 2026-03-01 to 2026-03-31 | FIN-07 vendor invoices received into the AP queue; FIN-11 bills posted | `datasets/finance` |
 | 2026-03-13, 2026-03-27 | co-002 payroll funding transfers (operating to payroll account) | FIN-01/FIN-02 |
+| 2026-03-24 | FIN-12 annual insurance premium invoiced by co-105, policy period 2026-04-01 to 2027-03-31 | `artifacts/FIN-12` |
+| 2026-03-31 | FIN-04 aging as-of date; FIN-05 pre-close trial balance; FIN-09 close batch posting date; FIN-10 open-PO cut-off | `datasets/finance` |
 | 2026-04-01 | the FIN-01 deposit in transit posts at the bank | FIN-01 spec |
 | 2026-04-01 to 2026-04-07 | March close | this file |
+| 2026-04-01 to 2026-04-07 | FIN-09 entries approved inside the March close window | `canon/timeline.md` |
+| 2026-04-02 | FIN-08 proposed payment run `PR-2026-04-02`, pending approval, unreleased | `datasets/finance/payment-run` |
