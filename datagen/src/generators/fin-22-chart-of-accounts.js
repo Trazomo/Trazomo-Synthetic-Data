@@ -93,6 +93,23 @@ const ACCOUNTS = [
   ["6800", "Depreciation and Amortization", "expense", "depreciation", "debit", "true"],
 ];
 
+const nameOf = (code) => {
+  const row = ACCOUNTS.find(([c]) => c === code);
+  if (!row) throw new Error(`FIN-22: no account ${code} on the chart`);
+  return row[1];
+};
+
+// Control accounts the cluster 1 generators (FIN-04..FIN-11) post against.
+// Each name is read back off ACCOUNTS rather than retyped, so renaming a chart
+// row cannot silently desync a downstream generator from the chart it cites.
+export const AR_CONTROL_ACCOUNT = { code: "1100", name: nameOf("1100") };
+export const AP_CONTROL_ACCOUNT = { code: "2000", name: nameOf("2000") };
+export const ACCRUED_LIABILITIES_ACCOUNT = { code: "2010", name: nameOf("2010") };
+export const PREPAID_SOFTWARE_ACCOUNT = { code: "1200", name: nameOf("1200") };
+export const PREPAID_INSURANCE_ACCOUNT = { code: "1210", name: nameOf("1210") };
+/** FIN-05's plug: the residual lands here so the trial balance balances by construction. */
+export const RETAINED_EARNINGS_PLUG_ACCOUNT = { code: "3200", name: nameOf("3200") };
+
 /**
  * The chart as row objects keyed by COLUMNS. Exported so FIN-01's builder and
  * later FIN generators can look up account codes and names from the same table.

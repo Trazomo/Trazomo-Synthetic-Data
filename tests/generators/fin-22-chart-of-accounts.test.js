@@ -6,7 +6,10 @@ import { join } from "node:path";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
-import { OPERATING_CASH_ACCOUNT } from "../../datagen/src/generators/fin-22-chart-of-accounts.js";
+import {
+  OPERATING_CASH_ACCOUNT, AR_CONTROL_ACCOUNT, AP_CONTROL_ACCOUNT, ACCRUED_LIABILITIES_ACCOUNT,
+  PREPAID_SOFTWARE_ACCOUNT, PREPAID_INSURANCE_ACCOUNT, RETAINED_EARNINGS_PLUG_ACCOUNT,
+} from "../../datagen/src/generators/fin-22-chart-of-accounts.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
@@ -96,4 +99,27 @@ test("FIN-22: exactly one inactive merged account whose name points at an active
   assert.ok(match, "inactive account name must say which account it merged into");
   const survivor = rows.find((r) => r.account_code === match[1]);
   assert.ok(survivor && survivor.active === "true", "merge target must be an active account on the chart");
+});
+
+test("FIN-22: the control accounts every later FIN generator posts against are exported and on the chart", () => {
+  const { rows } = csvTable(generateArtifact(specs.byId.get("FIN-22"), canon)[0].content);
+  const byCode = new Map(rows.map((r) => [r.account_code, r]));
+  const cases = [
+    [AR_CONTROL_ACCOUNT, "1100", "asset", "receivable", "debit"],
+    [AP_CONTROL_ACCOUNT, "2000", "liability", "payable", "credit"],
+    [ACCRUED_LIABILITIES_ACCOUNT, "2010", "liability", "accrued", "credit"],
+    [PREPAID_SOFTWARE_ACCOUNT, "1200", "asset", "prepaid", "debit"],
+    [PREPAID_INSURANCE_ACCOUNT, "1210", "asset", "prepaid", "debit"],
+    [RETAINED_EARNINGS_PLUG_ACCOUNT, "3200", "equity", "retained_earnings", "credit"],
+  ];
+  for (const [exported, code, type, subtype, normal] of cases) {
+    assert.equal(exported.code, code);
+    const row = byCode.get(code);
+    assert.ok(row, `${code} missing from the chart`);
+    assert.equal(row.account_name, exported.name);
+    assert.equal(row.type, type);
+    assert.equal(row.subtype, subtype);
+    assert.equal(row.normal_balance, normal);
+    assert.equal(row.active, "true");
+  }
 });
