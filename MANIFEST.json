@@ -638,6 +638,20 @@
             ]
         },
         {
+            "id": "FIN-12",
+            "name": "vendor-contract-insurance",
+            "type": "contract",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/FIN-12",
+            "source_files": [
+                "vendor-contract-insurance.md"
+            ],
+            "build_files": [
+                "vendor-contract-insurance.docx"
+            ]
+        },
+        {
             "id": "FIN-40",
             "name": "mnpi-flagged-draft",
             "type": "document",

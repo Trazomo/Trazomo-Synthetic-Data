@@ -613,7 +613,14 @@ artifacts:
     generation: drafted-frozen
     canon_entities: [co-002, co-105]
     planted_features:
-      - annual insurance/facilities contract, second prepaid schedule source (distractor from the CORE-01 SaaS pattern)
+      - annual commercial insurance and facilities services program agreement between the insured and its program administrator, with the coverage parts, limits, retention levels and premium allocation for a twelve month policy period
+      - "policy period April 1, 2026 to March 31, 2027, with a statement that coverage does not attach before the policy period begins, so nothing is amortized at the March close"
+      - annual premium payable in advance, invoiced March 24, 2026 on thirty day payment terms; the stated premium equals the FIN-11 prepaid bill amount to the cent
+      - premium is fully earned ratably across the twelve months of the policy period, in equal monthly proportions
+      - renewal terms delivered before expiry with a written notice window and automatic renewal, and no automatic premium uplift
+      - a short-rate cancellation clause returning ninety percent of the unearned premium, against a pro rata return where a carrier cancels
+      - a change of remittance instructions requires written notice signed by an officer and telephone confirmation to a previously known contact
+      - "signature block: the insured signs by a named finance officer from the CORE-04 roster; the counterparty executes by title only, so no new person name enters the universe"
     consuming_modules: [finance-accruals-and-prepaids]
     source_plan: finance-implementation-plan
 
