@@ -98,7 +98,10 @@ test("MANIFEST.json on disk matches a fresh buildManifest over the real repo (da
   const fresh = buildManifest({ root: REPO_ROOT, specs, existingManifest: committed });
   assert.deepEqual(fresh.datasets, committed.datasets, "run `node datagen/src/cli.js manifest` and commit MANIFEST.json");
   assert.deepEqual(fresh.artifacts, committed.artifacts);
-  for (const id of ["FIN-01", "FIN-02", "FIN-03", "FIN-22"]) {
+  for (const id of [
+    "FIN-01", "FIN-02", "FIN-03", "FIN-22",
+    "FIN-04", "FIN-05", "FIN-06", "FIN-07", "FIN-08", "FIN-09", "FIN-10", "FIN-11",
+  ]) {
     assert.ok(committed.datasets.some((d) => d.id === id), `${id} missing from MANIFEST.json datasets`);
   }
 });

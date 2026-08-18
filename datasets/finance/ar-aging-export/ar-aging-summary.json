@@ -1,0 +1,45 @@
+{
+  "generated_from_spec": "FIN-04",
+  "entity": {
+    "canon_id": "co-002",
+    "name": "Atticus Dundee Inc."
+  },
+  "as_of": "2026-03-31",
+  "currency": "USD",
+  "control_account": {
+    "code": "1100",
+    "name": "Accounts Receivable - Trade"
+  },
+  "customer_count": 19,
+  "document_count": 150,
+  "invoice_count": 144,
+  "credit_memo_count": 6,
+  "buckets": [
+    {
+      "bucket": "current",
+      "document_count": 49,
+      "open_balance": "1508803.31"
+    },
+    {
+      "bucket": "1-30",
+      "document_count": 31,
+      "open_balance": "639268.31"
+    },
+    {
+      "bucket": "31-60",
+      "document_count": 22,
+      "open_balance": "542745.97"
+    },
+    {
+      "bucket": "61-90",
+      "document_count": 29,
+      "open_balance": "390719.76"
+    },
+    {
+      "bucket": "90+",
+      "document_count": 19,
+      "open_balance": "417207.71"
+    }
+  ],
+  "subledger_total": "3498745.06"
+}
