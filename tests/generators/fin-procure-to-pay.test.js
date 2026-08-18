@@ -10,6 +10,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { join } from "node:path";
+import { readFileSync } from "node:fs";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
@@ -370,9 +371,9 @@ test("P13 / P14: exactly two bills span more than one calendar month, one schedu
   assert.equal(p14.gl_account, "1200");
   assert.equal(p14.payment_status, "paid");
 
-  // P13 is the insurance premium. Nothing about its amount is asserted here:
-  // the document that states it is drafted separately and the trial balance
-  // recomputes the figure rather than repeating it.
+  // P13 is the insurance premium. Its amount is not written down here either:
+  // it is read back off the drafted contract, which is the one number the two
+  // artifacts have to agree on.
   const p13 = unscheduled[0];
   assert.equal(p13.source_contract, "FIN-12");
   assert.equal(p13.months_elapsed, "", "T-D6: no month is amortized before the policy attaches");
@@ -384,6 +385,30 @@ test("P13 / P14: exactly two bills span more than one calendar month, one schedu
   assert.ok(p13.posted_date < p13.service_period_start, "the premium is paid before the policy attaches");
   assert.equal(p13.gl_account, "1210");
   assert.equal(p13.payment_status, "open");
+});
+
+test("FIN-11 to FIN-12: the drafted contract states the prepaid bill's amount to the cent", () => {
+  // The only test in this repo that reads a drafted document from a structured
+  // test. It earns its place because the premium is the single number the two
+  // artifacts must agree on, and nothing else would catch them drifting apart.
+  const month = (d) => d.slice(0, 7);
+  const p13 = bills.find(
+    (b) => month(b.service_period_start) !== month(b.service_period_end) && b.amortization_schedule_id === ""
+  );
+  assert.ok(p13, "no unscheduled multi-month bill to check the contract against");
+  assert.equal(p13.source_contract, "FIN-12");
+  const contract = readFileSync(join(REPO_ROOT, "artifacts", "FIN-12", "vendor-contract-insurance.md"), "utf8");
+  const formatted = `$${Number(p13.bill_amount).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  assert.match(formatted, /^\$\d{1,3}(,\d{3})*\.\d{2}$/);
+  assert.ok(contract.includes(formatted), `the contract does not state the bill amount ${formatted}`);
+  // And the monthly proportion the contract publishes has to be that amount
+  // over twelve, or the schedule the module builds starts from a wrong number.
+  const monthlyCents = toCents(p13.bill_amount) / 12;
+  assert.ok(Number.isInteger(monthlyCents), "the premium does not divide into whole cents");
+  const monthly = `$${(monthlyCents / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  assert.ok(contract.includes(monthly), `the contract does not state the monthly proportion ${monthly}`);
+  assert.ok(contract.includes(p13.service_period_start.replace(/^(\d{4})-04-01$/, "April 1, $1")),
+    "the contract does not state the policy period start the bill assumes");
 });
 
 test("FIN-11: every bill is well formed and every source_contract is a known literal", () => {
