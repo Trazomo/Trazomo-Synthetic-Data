@@ -1,6 +1,6 @@
 {
     "manifest_version": 1,
-    "universe_version": "1.1.0",
+    "universe_version": "1.2.0",
     "canon": {
         "companies": "canon/companies.md",
         "people": "canon/people.md",
@@ -210,6 +210,128 @@
             ],
             "row_counts": {
                 "outstanding-checks.csv": 12
+            }
+        },
+        {
+            "id": "FIN-04",
+            "name": "ar-aging-export",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv + json",
+            "generation": "deterministic",
+            "path": "datasets/finance/ar-aging-export",
+            "files": [
+                "ar-aging-export.csv",
+                "ar-aging-summary.json"
+            ],
+            "row_counts": {
+                "ar-aging-export.csv": 150
+            }
+        },
+        {
+            "id": "FIN-05",
+            "name": "gl-trial-balance",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/gl-trial-balance",
+            "files": [
+                "gl-trial-balance.csv"
+            ],
+            "row_counts": {
+                "gl-trial-balance.csv": 65
+            }
+        },
+        {
+            "id": "FIN-06",
+            "name": "purchase-orders",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/purchase-orders",
+            "files": [
+                "purchase-orders.csv"
+            ],
+            "row_counts": {
+                "purchase-orders.csv": 90
+            }
+        },
+        {
+            "id": "FIN-07",
+            "name": "vendor-invoices",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/vendor-invoices",
+            "files": [
+                "vendor-invoices.csv"
+            ],
+            "row_counts": {
+                "vendor-invoices.csv": 72
+            }
+        },
+        {
+            "id": "FIN-08",
+            "name": "payment-run",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/payment-run",
+            "files": [
+                "payment-run.csv"
+            ],
+            "row_counts": {
+                "payment-run.csv": 42
+            }
+        },
+        {
+            "id": "FIN-09",
+            "name": "journal-entries-batch",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/journal-entries-batch",
+            "files": [
+                "journal-entries-batch.csv"
+            ],
+            "row_counts": {
+                "journal-entries-batch.csv": 78
+            }
+        },
+        {
+            "id": "FIN-10",
+            "name": "open-pos",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv + json",
+            "generation": "deterministic",
+            "path": "datasets/finance/open-pos",
+            "files": [
+                "accrual-rollforward.json",
+                "open-pos.csv"
+            ],
+            "row_counts": {
+                "open-pos.csv": 34
+            }
+        },
+        {
+            "id": "FIN-11",
+            "name": "vendor-bills",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/vendor-bills",
+            "files": [
+                "vendor-bills.csv"
+            ],
+            "row_counts": {
+                "vendor-bills.csv": 55
             }
         },
         {

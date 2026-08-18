@@ -1,0 +1,56 @@
+bill_id,vendor_canon_id,vendor_name,vendor_invoice_number,bill_date,posted_date,gl_account,description,service_period_start,service_period_end,bill_amount,currency,po_number,source_contract,amortization_schedule_id,monthly_amortization,months_elapsed,prepaid_balance,payment_status
+BILL-2026-0101,co-101,Copperline Software,CPL-73352,2026-02-01,2026-02-01,1200,"Annual subscription fee, initial term, invoiced in advance",2026-02-01,2027-01-31,450000.00,USD,,CORE-01,AMS-2026-001,37500.00,2,375000.00,paid
+BILL-2026-0102,co-119,DataPulse Analytics,DPA-74061,2026-03-03,2026-03-03,6200,Data warehouse connector,2026-03-01,2026-03-31,128605.49,USD,PO-2026-0124,,,,,,open
+BILL-2026-0103,co-101,Copperline Software,CPL-73349,2026-03-04,2026-03-05,6200,Annual platform license renewal,2026-03-01,2026-03-31,99836.61,USD,PO-2026-0148,,,,,,open
+BILL-2026-0104,co-188,Fallowmere Catering,FLM-68201,2026-03-05,2026-03-10,6310,All-hands catering,2026-03-01,2026-03-31,8456.18,USD,,,,,,,open
+BILL-2026-0105,co-181,Halvermoor Cloud Services,HVM-66719,2026-03-05,2026-03-11,5000,Managed database nodes,2026-03-01,2026-03-31,252305.99,USD,PO-2026-0112,,,,,,open
+BILL-2026-0106,co-189,Braxmoor Recruiting Group,BXM-65339,2026-03-06,2026-03-11,6040,Engineering search retainer,2026-03-01,2026-03-31,25396.84,USD,,,,,,,open
+BILL-2026-0107,co-101,Copperline Software,CPL-73350,2026-03-09,2026-03-12,6200,Annual platform license renewal,2026-03-01,2026-03-31,199023.55,USD,PO-2026-0132,,,,,,open
+BILL-2026-0108,co-183,Kestrelmoor Staffing Partners,KSM-70511,2026-03-12,2026-03-12,6030,Interim analyst placement,2026-03-01,2026-03-31,14757.40,USD,PO-2026-0116,,,,,,open
+BILL-2026-0109,co-188,Fallowmere Catering,FLM-68200,2026-03-05,2026-03-12,6310,Customer advisory board dinner,2026-03-01,2026-03-31,9936.27,USD,,,,,,,open
+BILL-2026-0110,co-187,Fenwhistle Travel Desk,FNW-72001,2026-03-09,2026-03-13,6400,Field team itineraries,2026-03-01,2026-03-31,1322.43,USD,,,,,,,open
+BILL-2026-0111,co-189,Braxmoor Recruiting Group,BXM-65341,2026-03-05,2026-03-13,6040,Sourcing sprint,2026-03-01,2026-03-31,25959.36,USD,,,,,,,open
+BILL-2026-0112,co-184,Loamfield Power Cooperative,LMF-66305,2026-03-17,2026-03-18,6110,Metered water and sewer,2026-03-01,2026-03-31,15398.92,USD,PO-2026-0133,,,,,,paid
+BILL-2026-0113,co-186,Sarrowmere Print Works,SRM-74590,2026-03-13,2026-03-18,6300,Conference collateral print run,2026-03-01,2026-03-31,31240.38,USD,,,,,,,open
+BILL-2026-0114,co-119,DataPulse Analytics,DPA-74063,2026-03-05,2026-03-18,6200,Data warehouse connector,2026-03-01,2026-03-31,41198.46,USD,,,,,,,open
+BILL-2026-0115,co-185,Thackenridge Courier,TKR-71507,2026-03-13,2026-03-19,6120,Equipment transfer runs,2026-03-01,2026-03-31,1122.44,USD,PO-2026-0109,,,,,,open
+BILL-2026-0116,co-107,Cedarline Office Supply,CDL-61924,2026-03-05,2026-03-19,6120,Office paper and consumables,2026-03-01,2026-03-31,6027.84,USD,,,,,,,open
+BILL-2026-0117,co-190,Wrenfallow Security Systems,WRF-67987,2026-03-04,2026-03-19,1400,Door hardware kits,2026-03-01,2026-03-31,13895.45,USD,,,,,,,open
+BILL-2026-0118,co-190,Wrenfallow Security Systems,WRF-67985,2026-03-16,2026-03-20,1400,Badge readers and controllers,2026-03-01,2026-03-31,124505.97,USD,PO-2026-0102,,,,,,open
+BILL-2026-0119,co-106,TalentForce HR Platform,TFH-64895,2026-03-13,2026-03-20,6020,Open enrollment support hours,2026-03-01,2026-03-31,11947.18,USD,,,,,,,paid
+BILL-2026-0120,co-187,Fenwhistle Travel Desk,FNW-72002,2026-03-02,2026-03-20,6400,Group rate coordination,2026-03-01,2026-03-31,2173.60,USD,,,,,,,open
+BILL-2026-0121,co-107,Cedarline Office Supply,CDL-61923,2026-03-17,2026-03-23,6120,Desk accessories,2026-03-01,2026-03-31,13276.41,USD,PO-2026-0143,,,,,,open
+BILL-2026-0122,co-181,Halvermoor Cloud Services,HVM-66720,2026-03-18,2026-03-23,5000,Object storage tier,2026-03-01,2026-03-31,85960.50,USD,PO-2026-0130,,,,,,open
+BILL-2026-0123,co-182,Harrowfen Facilities Group,HRF-71336,2026-03-20,2026-03-23,6100,Grounds and waste service,2026-03-01,2026-03-31,17476.25,USD,,,,,,,open
+BILL-2026-0124,co-186,Sarrowmere Print Works,SRM-74591,2026-03-12,2026-03-23,6300,Direct mail production,2026-03-01,2026-03-31,1633.50,USD,,,,,,,open
+BILL-2026-0125,co-186,Sarrowmere Print Works,SRM-74592,2026-03-13,2026-03-23,6300,Branded folder stock,2026-03-01,2026-03-31,2080.30,USD,,,,,,,open
+BILL-2026-0126,co-105,Millgate Insurance Services,MLG-67118,2026-03-05,2026-03-24,6600,Commercial package placement fee,2026-03-01,2026-03-31,27674.64,USD,PO-2026-0140,,,,,,open
+BILL-2026-0127,co-182,Harrowfen Facilities Group,HRF-71335,2026-03-06,2026-03-24,6100,Cleaning and janitorial service,2026-03-01,2026-03-31,22574.80,USD,PO-2026-0145,,,,,,open
+BILL-2026-0128,co-184,Loamfield Power Cooperative,LMF-66307,2026-03-02,2026-03-24,6110,Metered water and sewer,2026-03-01,2026-03-31,16338.81,USD,,,,,,,paid
+BILL-2026-0129,co-183,Kestrelmoor Staffing Partners,KSM-70513,2026-03-23,2026-03-24,6030,Interim analyst placement,2026-03-01,2026-03-31,14204.84,USD,,,,,,,open
+BILL-2026-0130,co-105,Millgate Insurance Services,MLG-67119,2026-03-24,2026-03-24,1210,"Annual commercial insurance and facilities program premium, payable in advance",2026-04-01,2027-03-31,312000.00,USD,,FIN-12,,,,,open
+BILL-2026-0131,co-185,Thackenridge Courier,TKR-71506,2026-03-06,2026-03-25,6120,Equipment transfer runs,2026-03-01,2026-03-31,10951.75,USD,PO-2026-0138,,,,,,open
+BILL-2026-0132,co-187,Fenwhistle Travel Desk,FNW-71998,2026-03-16,2026-03-25,6400,Group rate coordination,2026-03-01,2026-03-31,11285.15,USD,PO-2026-0107,,,,,,open
+BILL-2026-0133,co-185,Thackenridge Courier,TKR-71508,2026-03-16,2026-03-25,6120,Equipment transfer runs,2026-03-01,2026-03-31,1472.02,USD,,,,,,,open
+BILL-2026-0134,co-190,Wrenfallow Security Systems,WRF-67988,2026-03-23,2026-03-25,1400,Camera refresh units,2026-03-01,2026-03-31,46207.00,USD,,,,,,,open
+BILL-2026-0135,co-186,Sarrowmere Print Works,SRM-74589,2026-03-04,2026-03-26,6300,Branded folder stock,2026-03-01,2026-03-31,17645.70,USD,PO-2026-0121,,,,,,open
+BILL-2026-0136,co-190,Wrenfallow Security Systems,WRF-67986,2026-03-26,2026-03-27,1400,Badge readers and controllers,2026-03-01,2026-03-31,4606.47,USD,PO-2026-0104,,,,,,open
+BILL-2026-0137,co-188,Fallowmere Catering,FLM-68199,2026-03-27,2026-03-27,6310,Onsite lunch service,2026-03-01,2026-03-31,8963.96,USD,PO-2026-0122,,,,,,open
+BILL-2026-0138,co-109,Birchcroft Properties,BCP-62909,2026-03-26,2026-03-27,6100,Suite 400 common area charge,2026-03-01,2026-03-31,85618.90,USD,PO-2026-0137,,,,,,paid
+BILL-2026-0139,co-189,Braxmoor Recruiting Group,BXM-65337,2026-03-25,2026-03-27,6040,Sourcing sprint,2026-03-01,2026-03-31,13902.33,USD,,,,,,,open
+BILL-2026-0140,co-189,Braxmoor Recruiting Group,BXM-65338,2026-03-12,2026-03-27,6040,Engineering search retainer,2026-03-01,2026-03-31,8342.04,USD,,,,,,,open
+BILL-2026-0141,co-101,Copperline Software,CPL-73351,2026-03-10,2026-03-27,6200,Sandbox environment add-on,2026-03-01,2026-03-31,58137.79,USD,,,,,,,open
+BILL-2026-0142,co-119,DataPulse Analytics,DPA-74060,2026-03-27,2026-03-30,6200,Event volume tier,2026-03-01,2026-03-31,35762.49,USD,PO-2026-0144,,,,,,open
+BILL-2026-0143,co-184,Loamfield Power Cooperative,LMF-66304,2026-03-24,2026-03-30,6110,Demand charge true-up,2026-03-01,2026-03-31,46880.44,USD,PO-2026-0117,,,,,,paid
+BILL-2026-0144,co-187,Fenwhistle Travel Desk,FNW-71999,2026-03-24,2026-03-30,6400,Managed travel booking fees,2026-03-01,2026-03-31,19923.66,USD,PO-2026-0125,,,,,,open
+BILL-2026-0145,co-183,Kestrelmoor Staffing Partners,KSM-70512,2026-03-16,2026-03-30,6030,Contract QA engineer hours,2026-03-01,2026-03-31,33319.84,USD,PO-2026-0127,,,,,,open
+BILL-2026-0146,co-184,Loamfield Power Cooperative,LMF-66306,2026-03-16,2026-03-30,6110,"Electricity supply, Suite 400",2026-03-01,2026-03-31,19849.32,USD,,,,,,,paid
+BILL-2026-0147,co-189,Braxmoor Recruiting Group,BXM-65340,2026-03-16,2026-03-30,6040,Sourcing sprint,2026-03-01,2026-03-31,21506.76,USD,,,,,,,open
+BILL-2026-0148,co-106,TalentForce HR Platform,TFH-64896,2026-03-27,2026-03-30,6020,Open enrollment support hours,2026-03-01,2026-03-31,17573.72,USD,,,,,,,paid
+BILL-2026-0149,co-188,Fallowmere Catering,FLM-68198,2026-03-17,2026-03-31,6310,All-hands catering,2026-03-01,2026-03-31,10646.06,USD,PO-2026-0110,,,,,,open
+BILL-2026-0150,co-186,Sarrowmere Print Works,SRM-74587,2026-03-10,2026-03-31,6300,Conference collateral print run,2026-03-01,2026-03-31,44653.51,USD,PO-2026-0114,,,,,,open
+BILL-2026-0151,co-186,Sarrowmere Print Works,SRM-74588,2026-03-31,2026-03-31,6300,Branded folder stock,2026-03-01,2026-03-31,7610.85,USD,PO-2026-0141,,,,,,open
+BILL-2026-0152,co-106,TalentForce HR Platform,TFH-64894,2026-03-31,2026-03-31,6020,Benefits administration seats,2026-03-01,2026-03-31,30123.39,USD,PO-2026-0128,,,,,,paid
+BILL-2026-0153,co-187,Fenwhistle Travel Desk,FNW-72000,2026-03-13,2026-03-31,6400,Managed travel booking fees,2026-03-01,2026-03-31,4960.06,USD,,,,,,,open
+BILL-2026-0154,co-184,Loamfield Power Cooperative,LMF-66308,2026-03-30,2026-03-31,6110,Metered water and sewer,2026-03-01,2026-03-31,14727.12,USD,,,,,,,paid
+BILL-2026-0155,co-119,DataPulse Analytics,DPA-74062,2026-03-31,2026-03-31,6200,Event volume tier,2026-03-01,2026-03-31,70633.64,USD,,,,,,,open

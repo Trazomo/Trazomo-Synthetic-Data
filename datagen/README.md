@@ -207,6 +207,14 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | FIN-01 | bank-transactions | dataset | March 2026 bank feed CSV + statement summary JSON (planted duplicate deposit, unrecorded fee, transposed amount, deposit in transit) |
 | FIN-02 | gl-cash-ledger | dataset | cash GL ledger CSV, from FIN-01's builder |
 | FIN-03 | outstanding-checks | dataset | outstanding checks CSV, from FIN-01's builder |
+| FIN-04 | ar-aging-export | dataset | 150-row AR aging CSV as of 2026-03-31 + summary JSON (subledger-only invoice, unapplied credit memo) |
+| FIN-05 | gl-trial-balance | dataset | 65-row pre-close trial balance CSV; the cluster's assembler, tying cash, receivables, payables, accruals and both prepaids to their subledgers |
+| FIN-06 | purchase-orders | dataset | 90 purchase-order lines across 48 orders CSV, with the approval threshold |
+| FIN-07 | vendor-invoices | dataset | 72-invoice AP queue CSV, from FIN-06's builder (price mismatch, duplicate, no matching PO, changed remit account) |
+| FIN-08 | payment-run | dataset | 42-payment proposed run CSV, unreleased, from FIN-06's builder |
+| FIN-09 | journal-entries-batch | dataset | 78-line close journal batch CSV (3 miscodings, 1 duplicate, 1 entry with no support) |
+| FIN-10 | open-pos | dataset | 34 open order lines CSV + accrual roll-forward JSON, from FIN-06's builder |
+| FIN-11 | vendor-bills | dataset | 55-bill CSV, from FIN-06's builder (one prepaid schedule already correct, one still to build) |
 | FIN-22 | chart-of-accounts | dataset | 65-account chart CSV (cash account 1010) |
 | LGL-07 | client-matter-intake-form-set | form | intake records JSON + markdown summary |
 | LGL-11 | litigation-matter-commercial-employment | record | deadline-chain + trial-continuance-cascade JSON + markdown |

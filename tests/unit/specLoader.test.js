@@ -112,3 +112,19 @@ test("trackPrefix / trackDir map every real spec id to a known dataset track", (
     assert.ok(known.has(trackDir(a.id)), `${a.id} mapped to unknown track dir`);
   }
 });
+
+test("loadSpecs: cluster 1 FIN specs carry columns and (except FIN-12) a period", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const structured = ["FIN-04", "FIN-05", "FIN-06", "FIN-07", "FIN-08", "FIN-09", "FIN-10", "FIN-11"];
+  for (const id of structured) {
+    const spec = byId.get(id);
+    assert.ok(Array.isArray(spec.columns) && spec.columns.length > 0, `${id} has no columns`);
+    assert.equal(new Set(spec.columns).size, spec.columns.length, `${id} has duplicate columns`);
+    assert.deepEqual(spec.period, { start: "2026-03-01", end: "2026-03-31" }, `${id} period`);
+    assert.equal(spec.generation, "deterministic", `${id} generation`);
+  }
+  assert.equal(byId.get("FIN-12").generation, "drafted-frozen");
+  assert.equal(byId.get("FIN-12").columns, undefined, "a drafted contract has no columns");
+  assert.equal(byId.get("FIN-04").format, "csv + json");
+  assert.equal(byId.get("FIN-10").format, "csv + json");
+});
