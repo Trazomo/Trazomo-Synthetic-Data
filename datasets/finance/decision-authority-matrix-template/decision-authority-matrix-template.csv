@@ -1,0 +1,21 @@
+control_id,decision,data_class,amount_min_usd,amount_max_usd,ai_autonomy_level,approver_role,escalation_role,evidence_required,moves_money_or_posts
+DA-01,Draft a variance narrative for a budget line,internal,,,autonomous,Finance Manager,Controller,draft saved with the source rows it cites,false
+DA-02,Summarize a published accounting standard for the team,public,,,autonomous,Staff Accountant,Finance Manager,link to the published source,false
+DA-03,Flag a close task that is overdue against the checklist,internal,,,autonomous,Finance Manager,Controller,flag written back to the checklist row,false
+DA-04,Classify an inbound finance request for routing,internal,,,autonomous,Finance Manager,Controller,routing decision and the rule that produced it,false
+DA-05,Summarize a reconciliation working paper for the reviewer,confidential,,,review_before_commit,Staff Accountant,Controller,reviewer sign off before the summary is used,false
+DA-06,Propose a ledger code for an uncoded transaction,internal,0,4999,review_before_commit,Staff Accountant,Finance Manager,proposed code and the rule behind it,false
+DA-07,Propose a ledger code for an uncoded transaction,internal,5000,49999,review_before_commit,Finance Manager,Controller,proposed code and the rule behind it,false
+DA-08,Propose a ledger code for an uncoded transaction,internal,50000,,approval_before_action,"Director, Finance","VP, Finance","proposed code, the rule behind it, and a named approver",false
+DA-09,Approve a purchase order line,internal,0,4999,review_before_commit,Finance Manager,"Director, Finance","order, quote and budget line",false
+DA-10,Approve a purchase order line,internal,5000,49999,approval_before_action,Finance Manager,"Director, Finance","order, quote and budget line",false
+DA-11,Approve a purchase order line,internal,50000,,approval_before_action,"Director, Finance","VP, Finance","order, quote, budget line and a second approver",false
+DA-12,Propose a receivable write off for approval,confidential,0,4999,approval_before_action,Finance Manager,Controller,aging history and the collection log,false
+DA-13,Propose a receivable write off for approval,confidential,5000,,approval_before_action,"Director, Finance","VP, Finance","aging history, collection log and a written recommendation",false
+DA-14,Create or amend a vendor master record,confidential,,,approval_before_action,Finance Manager,Controller,requester and approver are different people,false
+DA-15,Send finance data to a model endpoint outside the approved environment,restricted,,,approval_before_action,"Director, Finance","VP, Finance","data class, destination and retention terms recorded",false
+DA-16,Change a vendor bank account or remit to detail,restricted,,,prohibited,Controller,"VP, Finance","call back to a known contact, logged with the caller",true
+DA-17,Post a journal entry to the ledger,confidential,,,prohibited,Controller,"VP, Finance","entry, its support, and preparer separate from approver",true
+DA-18,Release a payment run to the bank,restricted,,,prohibited,Controller,"VP, Finance",dual approval recorded before release,true
+DA-19,Lock the period after the close is approved,confidential,,,prohibited,Controller,"VP, Finance",close approval and the lock confirmation,true
+DA-20,Share pre-announcement board material outside the distribution list,restricted,,,prohibited,"VP, Finance",Chief Executive Officer,distribution list and the classification of the material,false

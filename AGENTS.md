@@ -8,6 +8,7 @@ This repository is the canonical synthetic-data universe for Trazomo training an
 - Entity IDs are canonical across the whole repo: the same company ID refers to the same fictional company in every dataset, in every track directory.
 - Never invent additional facts about canon entities. Extend the universe by adding to `canon/` and regenerating via `datagen/`.
 - Datasets contain deliberately planted anomalies for training exercises. Do not "fix" them; finding them is the exercise. Answer keys are intentionally not in this repo.
+- Some datasets ship a `variants/` directory: a trimmed slice of the same data, derived from a sibling file by the rule recorded in `MANIFEST.json`. Read the rule before using a variant, and never edit one by hand; regenerate its parent.
 
 ## Layout
 
@@ -18,4 +19,4 @@ This repository is the canonical synthetic-data universe for Trazomo training an
 
 ## Current state
 
-v1.2.0: legal slice (11 drafted artifact sets, 9 datasets) plus the finance cash reconciliation and reconciliation-cluster datasets (12 finance datasets). Check `MANIFEST.json` for what is actually present before assuming a dataset exists.
+v1.3.0: legal slice (11 drafted artifact sets, 9 datasets) plus the finance cash reconciliation, reconciliation-cluster and Track B datasets (16 finance datasets) and the FIN-40 board-pack excerpt. Check `MANIFEST.json` for what is actually present before assuming a dataset exists.

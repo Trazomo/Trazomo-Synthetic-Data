@@ -216,6 +216,10 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | FIN-10 | open-pos | dataset | 34 open order lines CSV + accrual roll-forward JSON, from FIN-06's builder |
 | FIN-11 | vendor-bills | dataset | 55-bill CSV, from FIN-06's builder (one prepaid schedule already correct, one still to build) |
 | FIN-22 | chart-of-accounts | dataset | 65-account chart CSV (cash account 1010) |
+| FIN-36 | close-checklist-template | template | 24-task month-end close checklist CSV, relative close days, learner columns empty |
+| FIN-37 | budget-vs-actual-template | template | 27-line variance tracker CSV, one line per active FIN-22 profit-and-loss account, actuals empty |
+| FIN-38 | reliability-drill-transactions | dataset | 15 AI-proposed readings of FIN-01/02/03 rows (one transposed amount, one off-chart account, one correct high-confidence control) |
+| FIN-39 | decision-authority-matrix-template | template | 20-decision authority matrix CSV (four data classes, four autonomy levels, the money-moving hard block) |
 | LGL-07 | client-matter-intake-form-set | form | intake records JSON + markdown summary |
 | LGL-11 | litigation-matter-commercial-employment | record | deadline-chain + trial-continuance-cascade JSON + markdown |
 | LGL-18 | outside-counsel-rfp-panel-benchmark | dataset | rubric/comparison/scorecard CSVs + markdown |
@@ -263,6 +267,8 @@ Adding a new artifact to the program:
    Inject every `planted_features` entry from the spec literally where
    practical (exact numbers, exact quoted strings) so `validate` and
    downstream lesson content can rely on them.
+   If the artifact also needs a trimmed slice of itself for a lesson, emit it
+   as a **variant** rather than as a second spec: see "Dataset variants" below.
 2b. **If `generation: drafted-frozen`**: author the markdown under
    `artifacts/<ID>/<name>.md` (variants as sibling files, e.g.
    `<name>-v1-draft.md`). Do not touch the generator registry -- `build-docx`
@@ -280,6 +286,53 @@ Adding a new artifact to the program:
    `tests/generators/determinism.test.js`'s coverage (add its id to
    `PROGRAM_GENERATOR_IDS` in `datagen/src/generators/index.js`) and a
    planted-feature spot check in `tests/generators/planted-features.test.js`.
+
+### Dataset variants
+
+A **variant** is a trimmed slice of a dataset, for a lesson that needs the same
+data in a smaller shape (an excerpt that fits a prompt, a single channel, one
+period). It lives at `datasets/<track>/<name>/variants/<variant>.csv`, the
+parent's own generator emits it, and it is derived from a sibling file by a
+predicate over that file's own columns.
+
+Declare it on the parent's spec entry:
+
+```yaml
+    variants:
+      - name: ach-receipts-mar-05-06
+        file: variants/ach-receipts-mar-05-06.csv
+        derived_from: bank-transactions.csv
+        rule: 'every parent row with channel == "ach", type == "credit" and posted_date in {2026-03-05, 2026-03-06}, in parent file order, with the parent header. running_balance is carried through from the parent statement unchanged, so it does not run continuously inside the slice; recompute it from the parent if a lesson needs a running total'
+        consuming_modules: [finance-local-ai]
+```
+
+`specLoader` validates the shape (all four fields non-empty, `file` under
+`variants/`, `derived_from` a sibling file, names unique). `manifest` records the
+variant on the dataset entry, rule included, and the file also appears in `files`
+and `row_counts` like any other, so a consumer that has never heard of variants
+still sees it.
+
+Three rules make a variant a variant rather than a second dataset that happens to
+share a folder:
+
+1. **The rule is a predicate over the parent's columns**, and it is written down.
+   A reader has to be able to re-derive the file with one filter.
+2. **The test re-derives it from the parent**, in the test's own code, rather than
+   importing the generator's predicate. If the spec sentence and the generator
+   ever part company, the test says so (`tests/generators/fin-01-variants.test.js`).
+3. **The generator asserts what the slice must still contain.** FIN-01's variant
+   fails the build if the window loses the repeated receipt or leaves its size
+   band, because a demo excerpt with nothing in it to find is worse than no
+   excerpt.
+
+A slice inherits every column of its parent, including ones that only make sense
+in the parent: FIN-01's `running_balance` is the statement's balance after that
+transaction, so it does not run continuously down an eight-row slice. Say so in
+the rule rather than leaving a consumer to discover it.
+
+State the rule without naming the defect. `channel == "ach" and type ==
+"credit"` on two statement dates is a predicate; "the rows around the duplicate"
+is an answer key.
 
 ### Answer keys
 
@@ -309,6 +362,13 @@ Runs `node --test` over `tests/`:
 - `tests/generators/planted-features.test.js` -- spot checks that each
   generator's committed `planted_features` actually show up in its output
   (exact totals, record counts, threshold behavior).
+- `tests/drafted/` -- structural screens over drafted-frozen documents: what
+  must be *absent*. The real-name screen asserts that every capitalized phrase
+  in the document is the canon protagonist, a role title an active CORE-04
+  employee holds, or listed document furniture, since a drafted artifact is
+  where a new person or company name slips into the universe unnoticed.
+- `tests/helpers/` -- shared test utilities (the quote-aware CSV reader). Not
+  test files; the older generator tests keep their own local copies.
 - `tests/cli/test01-fixture-e2e.test.js` -- spawns the real CLI against a
   throwaway copy of `tests/fixtures/TEST-01` (never the real repo root):
   `generate` → `validate` → `manifest` for a fixture `deterministic` spec,

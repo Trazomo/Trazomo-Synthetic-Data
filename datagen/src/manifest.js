@@ -56,7 +56,7 @@ function describeDataset(root, spec) {
     }
   }
 
-  return {
+  const entry = {
     id: spec.id,
     name: spec.name,
     track,
@@ -67,6 +67,27 @@ function describeDataset(root, spec) {
     files,
     row_counts: rowCounts,
   };
+
+  // Declared variants get their own manifest entry, carrying the derivation rule
+  // a consumer needs in order to know this file is a slice of a sibling rather
+  // than an independent dataset. Only variants actually on disk are listed, the
+  // same trustworthiness rule the rest of this module follows. The file also
+  // stays in `files` and `row_counts`, so a consumer that has never heard of
+  // variants still sees it.
+  const variants = [];
+  for (const variant of spec.variants ?? []) {
+    if (!files.includes(variant.file)) continue;
+    variants.push({
+      name: variant.name,
+      file: variant.file,
+      derived_from: variant.derived_from,
+      rule: variant.rule,
+      row_count: rowCounts[variant.file] ?? null,
+    });
+  }
+  if (variants.length > 0) entry.variants = variants;
+
+  return entry;
 }
 
 function describeArtifact(root, spec) {

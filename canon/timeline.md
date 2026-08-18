@@ -37,3 +37,6 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-04-01 | the FIN-01 deposit in transit posts at the bank | FIN-01 spec |
 | 2026-04-01 to 2026-04-07 | March close; the window inside which the FIN-09 batch is approved | this file, `datasets/finance/journal-entries-batch` |
 | 2026-04-02 | FIN-08 proposed payment run `PR-2026-04-02`, pending approval, unreleased | `datasets/finance/payment-run` |
+| 2026-04-01 to 2026-04-30 | FIN-40 quiet period: the Q1 2026 draft figures stay unreleased until the results announcement | `artifacts/FIN-40` |
+| 2026-04-21 | Board meeting at which the FIN-40 Q1 2026 board pack is presented | `artifacts/FIN-40` |
+| 2026-04-30 | Q1 2026 results announcement to investors and employees; the FIN-40 excerpt stops being material non-public information | `artifacts/FIN-40` |

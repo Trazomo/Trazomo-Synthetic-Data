@@ -1,5 +1,122 @@
 # Changelog
 
+## 1.3.0 - 2026-08-18
+
+**Tags at merge of the D3-lite PR (`feat/fin-track-b-artifacts-d3lite`), which is
+stacked on `feat/fin-cluster1-d2a-datasets`.** The tag is cut by the release
+controller after merge, not on the branch. Consumers pinned to `v1.2.0` are
+unaffected until they move the pin; trazomo's Track B finance modules pin
+`v1.3.0`.
+
+**Do not cut this tag before the FIN-40 freeze review.** Everything else here is
+deterministic and reproducible; FIN-40 is drafted prose, frozen in bytes but not
+yet approved.
+
+The six data gates on the Track B finance modules
+(`docs/plans/2026-08-17-shared-foundational-skeleton.md` Section 6.1): four small
+`generation: deterministic` artifacts, one drafted-frozen document, and the
+dataset-variant convention.
+
+- **FIN-36 close-checklist-template**: 24 close tasks over five relative close
+  days, for `finance-spreadsheet-ops` and reused by `finance-google-workspace`
+  and `finance-microsoft-365`. No defects, because three modules deploy it as
+  their starting schema. What it does carry is checkable structure: `close_day`
+  is `D+1` to `D+5` rather than a date, so the template survives the period; no
+  task depends on a task later in the close; owner and reviewer are never the
+  same role, so segregation of duties lives in the schema rather than in a
+  policy paragraph; and `status`, `completed_date` and `notes` ship empty.
+  FIN-17 `close-checklist`, the populated in-flight checklist, keeps its own spec
+  and is untouched.
+- **FIN-37 budget-vs-actual-template**: 27 lines, one per active FIN-22
+  profit-and-loss account, **read off the chart rather than retyped**, so the
+  tracker cannot drift from the chart the rest of the finance pack posts
+  against. **Each line's budget is that account's own prior run rate, read off
+  FIN-05**: the trial balance's beginning column is year to date at 2026-02-28,
+  so half of it is the January and February monthly average, and a seeded
+  planning adjustment of at most 5 percent moves the plan off that average the
+  way a real plan does. March is deliberately not an input, because a plan set
+  before the period cannot know the period, and that is what leaves **four** of
+  the twenty-seven lines breaching their own explanation threshold in March
+  rather than none or most. `normal_balance` is read off the chart too, so the
+  contra-revenue line is legible as a revenue-section row that subtracts.
+  `actual_amount`, `variance_amount`, `variance_pct` and `variance_explanation`
+  ship empty, because the module's hard rule is that a person enters the figure
+  and AI never commits a cell. `explanation_threshold_usd` recomputes from budget
+  by a stated rule (5 percent, floored at 10,000, rounded up to the nearest
+  1,000).
+- **FIN-38 reliability-drill-transactions**: 15 AI-proposed readings of rows that
+  already ship in the pack, each citing its source the way
+  `finance-ai-reliability` teaches (`txn_id` in FIN-01, `je_id` in FIN-02,
+  `check_number` in FIN-03, `account_code` in FIN-22), so every claim is
+  checkable against the tagged data. Planted: exactly one proposed amount is a
+  digit transposition of its source row's amount, exactly one proposed account is
+  not on the chart, and exactly three claims are reported at high confidence, of
+  which exactly one is wrong. **The two plants sit at different confidence
+  levels on purpose**: the transposition is confident and the fabricated account
+  code is not. Had both plants been the confident rows and every quieter row been
+  clean, confidence would have been a perfect defect locator and the file would
+  have taught the opposite of its lesson, since a learner could score full marks
+  by reading one column and never verifying anything. As shipped, neither stratum
+  is safe to skip: triaging by confidence misses a plant, and rejecting
+  everything fails on the two confident claims that are right. Source rows are drawn
+  from a clean pool computed by rule (unique amount and reference in the feed,
+  matched once in the ledger at the same amount), so FIN-01's own duplicated
+  deposit, unrecorded fee and transposed payment can never double as a drill
+  answer.
+- **FIN-39 decision-authority-matrix-template**: 20 decisions across four data
+  classes and four autonomy levels, for `finance-operational-controls`. The
+  finance-only hard control is data rather than prose: **every decision that
+  moves money or posts an entry is `prohibited` for AI, whatever the amount**.
+  Restricted data is never autonomous. Approver seniority never falls as the
+  amount band rises, and the 50,000 step is director level, which is FIN-06's
+  shipped purchase-order rule, so the matrix and the orders agree. Every role is
+  the title of an active CORE-04 employee, in Finance except the single Chief
+  Executive Officer escalation on the board-material row, and escalation is
+  always strictly more senior.
+- **FIN-40 mnpi-flagged-draft** (drafted-frozen): a one-and-a-half page
+  pre-announcement board pack excerpt carrying the classification at the head and
+  the foot, handling instructions that forbid pasting any part of it into an
+  external or consumer AI assistant, a quiet period with dates, distribution by
+  role title only, and two rounded figures marked draft and unreleased. **Each
+  figure names the subtotal it reads**, total revenue and net loss, and both are
+  recomputed from the FIN-05 trial balance by a test, so the board pack cannot
+  quote a number the ledger does not report.
+  No individual is named, there is no signature line, and the pending strategic
+  matter is described without a counterparty. **This document needs Salvador's
+  freeze review.**
+- **Dataset variants, a new repo-wide convention**
+  (`datagen/README.md`, "Dataset variants"): a trimmed slice of a dataset, under
+  `datasets/<track>/<name>/variants/<variant>.csv`, emitted by the parent's own
+  generator and derived from a sibling file by a predicate over that file's
+  columns. The parent's spec declares it (`name`, `file`, `derived_from`, `rule`,
+  `consuming_modules`), `specLoader` validates the shape, and `MANIFEST.json`
+  records it with the derivation rule so a consumer can tell a slice from an
+  independent dataset. The rule is the contract: a variant nobody can re-derive
+  is a second dataset that will drift the first time its parent is regenerated.
+- **FIN-01 gains its first variant**, `variants/ach-receipts-mar-05-06.csv`, 8
+  rows, for `finance-local-ai`'s offline comparison: every parent row with
+  `channel == "ach"`, `type == "credit"` and `posted_date` in {2026-03-05,
+  2026-03-06}. The predicate names no defect, and the parent's duplicated deposit
+  falls inside the window, so the small slice still has something in it to find.
+  The generator refuses to build a window that loses the repeated receipt or
+  leaves the 6-to-10-row size band. **No byte of `bank-transactions.csv` or
+  `bank-statement-summary.json` changed**; the variant is an added file.
+- Spec catalog: FIN-36 through FIN-39 gain `columns`, FIN-37 and FIN-38 a
+  `period`, and all five gain exact planted-feature wording. FIN-36 and FIN-37
+  gain `finance-google-workspace` and `finance-microsoft-365` as consumers, which
+  is what the skeleton's B2 and B3 gates are. FIN-40's single planted feature,
+  which described what the learner must do, is rewritten as six that describe the
+  document, so `validate` confirms them instead of warning forever. No id changed
+  and no id was added.
+- `canon/timeline.md`: three dated events added (the quiet period, the board
+  meeting, the results announcement). No existing row changed.
+- **No new counterparty name enters the universe in this release.** FIN-38 draws
+  its counterparties from the shipped FIN-01 population, and FIN-40 names only
+  co-002 and role titles that active CORE-04 employees hold. The collision screen
+  is unchanged, and a structural test enforces both.
+- Universe version 1.3.0: 25 datasets, 12 drafted artifact sets. Suite: 223
+  tests, 182 before this release.
+
 ## 1.2.0 - 2026-08-18
 
 **Tags at merge of the D2 PRs (`feat/fin-cluster1-d2a-datasets`, then

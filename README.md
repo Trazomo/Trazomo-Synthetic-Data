@@ -9,11 +9,11 @@ The shared synthetic-data universe for [Trazomo](https://www.trazomo.com) exempl
 - `canon/` — the universe bible: companies, people, and timeline that keep entity IDs consistent across every dataset
 - `datasets/` — per-track data (`legal`, `finance`, `hr`, `revenue`, `operations`, `smb`) sharing canon IDs so cross-track joins work
 - `datagen/` — seeded, deterministic generators; same seed, same output
-- `MANIFEST.json` — machine-readable index of every dataset
+- `MANIFEST.json`: machine-readable index of every dataset, including dataset variants and how each one is derived
 
 ## Status
 
-Legal slice frozen at v1.0.2; the finance cash reconciliation slice (FIN-01, FIN-02, FIN-03, FIN-22) ships in v1.1.0 and the finance reconciliation-cluster datasets (FIN-04 through FIN-11) in v1.2.0. Lessons and demo videos pin to tagged releases.
+Legal slice frozen at v1.0.2; the finance cash reconciliation slice (FIN-01, FIN-02, FIN-03, FIN-22) ships in v1.1.0, the finance reconciliation-cluster datasets (FIN-04 through FIN-11) in v1.2.0, and the Track B templates, reliability drill and board-pack excerpt (FIN-36 through FIN-40) in v1.3.0. Lessons and demo videos pin to tagged releases.
 
 ## Using it
 

@@ -96,6 +96,48 @@ function validateArtifact(artifact, index, specPath) {
       );
     }
   }
+  // Optional `variants` (added 2026-08-18): trimmed slices of this artifact's own
+  // output, emitted by the same generator under `variants/`, each derived from a
+  // sibling file by a predicate over that file's columns. The `rule` is the whole
+  // point of the field: a variant nobody can re-derive is a second dataset that
+  // happens to live in the same folder, and it will drift the first time the
+  // parent is regenerated. See datagen/README.md, "Dataset variants".
+  if ("variants" in artifact) {
+    const variants = artifact.variants;
+    if (!Array.isArray(variants) || variants.length === 0) {
+      throw new SpecValidationError(
+        `${specPath}: ${artifact.id}.variants must be a non-empty list`
+      );
+    }
+    const names = new Set();
+    for (const [i, variant] of variants.entries()) {
+      const where = `${artifact.id}.variants[${i}]`;
+      for (const field of ["name", "file", "derived_from", "rule"]) {
+        if (typeof variant?.[field] !== "string" || variant[field].trim() === "") {
+          throw new SpecValidationError(
+            `${specPath}: ${where} needs a non-empty "${field}". A variant without a stated `
+            + `rule cannot be re-derived, and an unre-derivable variant is a second dataset.`
+          );
+        }
+      }
+      if (!variant.file.startsWith("variants/")) {
+        throw new SpecValidationError(
+          `${specPath}: ${where}.file must live under "variants/" (got "${variant.file}")`
+        );
+      }
+      if (variant.derived_from.includes("/")) {
+        throw new SpecValidationError(
+          `${specPath}: ${where}.derived_from must name a sibling file of the dataset root (got "${variant.derived_from}")`
+        );
+      }
+      if (names.has(variant.name)) {
+        throw new SpecValidationError(
+          `${specPath}: ${artifact.id} has two variants named "${variant.name}"`
+        );
+      }
+      names.add(variant.name);
+    }
+  }
   if ("period" in artifact) {
     const p = artifact.period;
     const iso = /^\d{4}-\d{2}-\d{2}$/;

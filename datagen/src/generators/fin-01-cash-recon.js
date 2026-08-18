@@ -493,6 +493,58 @@ function assertRole(row, employeeId, roleTitle) {
   if (row.finance_system_role === SOD_CONFLICT_ROLE) throw new Error(`FIN-01: ${employeeId} is the planted SoD-conflict row`);
 }
 
+// ---------------------------------------------------------------- variants
+
+// A variant is a trimmed slice of this dataset, emitted by this generator under
+// variants/, derived from a sibling file by a predicate over that file's own
+// columns (spec FIN-01 `variants`, datagen/README.md "Dataset variants"). The
+// predicate lives here, the sentence describing it lives in the spec, and the
+// test re-derives the file from the parent rather than trusting the bytes.
+//
+// This one exists for finance-local-ai, which compares a local model against a
+// cloud model on a bank feed small enough to fit in a prompt. The predicate
+// names no defect; it selects the ACH customer receipts of two statement days.
+// The parent's duplicated deposit falls inside that window, which is what makes
+// the slice worth classifying, and the assertions below fail the build if a
+// future reroll of the feed moves it out.
+export const VARIANT_ACH_RECEIPTS = {
+  name: "ach-receipts-mar-05-06",
+  file: "variants/ach-receipts-mar-05-06.csv",
+  derivedFrom: "bank-transactions.csv",
+  dates: ["2026-03-05", "2026-03-06"],
+  predicate: (row) =>
+    row.channel === "ach"
+    && row.type === "credit"
+    && VARIANT_ACH_RECEIPTS.dates.includes(row.posted_date),
+};
+
+/**
+ * Apply a variant's predicate to the parent rows, in parent file order.
+ * Exported so the test derives the variant the same way the generator does,
+ * from one definition rather than two.
+ */
+export function selectVariantRows(bank, variant = VARIANT_ACH_RECEIPTS) {
+  return bank.filter(variant.predicate);
+}
+
+function buildAchReceiptsVariant(bank) {
+  const rows = selectVariantRows(bank, VARIANT_ACH_RECEIPTS);
+  if (rows.length < 6 || rows.length > 10) {
+    throw new Error(
+      `FIN-01 variant ${VARIANT_ACH_RECEIPTS.name}: ${rows.length} rows, expected 6 to 10 `
+      + `(the excerpt has to fit a lesson card and a tutor prompt)`
+    );
+  }
+  const pairs = rows.map((r) => `${r.amount}|${r.reference}`);
+  if (new Set(pairs).size === pairs.length) {
+    throw new Error(
+      `FIN-01 variant ${VARIANT_ACH_RECEIPTS.name}: the window no longer contains the repeated `
+      + `receipt, so the offline demo has nothing in it to find`
+    );
+  }
+  return { path: VARIANT_ACH_RECEIPTS.file, content: toCsv(BANK_COLUMNS, rows) };
+}
+
 // ---------------------------------------------------------------- generate
 
 export function generate() {
@@ -500,5 +552,6 @@ export function generate() {
   return [
     { path: "bank-transactions.csv", content: toCsv(BANK_COLUMNS, bank) },
     { path: "bank-statement-summary.json", content: JSON.stringify(summary, null, 2) + "\n" },
+    buildAchReceiptsVariant(bank),
   ];
 }
