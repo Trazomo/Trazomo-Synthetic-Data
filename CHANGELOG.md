@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.2.0 - 2026-08-18
+
+**Tags at merge of the D2 PRs (`feat/fin-cluster1-d2a-datasets`, then
+`feat/fin-cluster1-d2b-fin12`).** The tag is cut by the release controller after
+both merge, not on either branch. Consumers pinned to `v1.1.0` are unaffected
+until they move the pin; trazomo's cluster 1 finance modules pin `v1.2.0`.
+
+The March 2026 reconciliation cluster: AR aging and the GL tie-out, the
+three-way match, the close journal batch, accruals and prepaids. Eight
+`generation: deterministic` datasets plus one drafted-frozen contract.
+
+- **FIN-04 ar-aging-export**: 150 open documents across 19 CORE-03 customers as of 2026-03-31, plus `ar-aging-summary.json`. Planted: one invoice the subledger carries and the ledger does not, and one unapplied customer credit memo on the customer canon assigns the collections problem. Both are found by a rule over the data, never by a column. Row ids and amounts stay out of this repo (answer-key rule).
+- **FIN-05 gl-trial-balance**: 65 rows, one per FIN-22 account, pre-close at 2026-03-31. It is the cluster's assembler: cash comes from FIN-01's builder, receivables from FIN-04, payables and accruals and both prepaids from FIN-06's builder, and the residual lands on current year earnings with a bounds check, so an implausible plug fails the build.
+- **FIN-06 purchase-orders, FIN-07 vendor-invoices, FIN-08 payment-run**: one procure-to-pay world. 90 purchase-order lines across 48 orders raised since January, 72 invoices received into the AP queue during March, and a 42-payment run proposed for 2026-04-02. Four matching exceptions are planted in the invoices: a price mismatch against the order, a duplicate vendor invoice number, an invoice citing an order that does not exist, and a changed remit-to account on the canon vendor that owns the bank-detail-change story. **All four sit inside the proposed run, so the run as written overpays by exactly the duplicated invoice.** That is the lesson, not a defect: the run is `pending_approval` and unreleased, and catching it before money moves is the point.
+- **FIN-09 journal-entries-batch**: 78 lines across 31 entries in the close window, every entry balanced and the batch balanced. Planted: three miscodings that each need a different detection rule (one to the account the chart carries as inactive, one against its own vendor's modal account, one against the payroll accrual mode), one duplicate entry, and one entry with no supporting document.
+- **FIN-10 open-pos, FIN-11 vendor-bills**: 34 order lines still open at the cut-off with `accrual-rollforward.json`, and 55 bills posted for March. Planted: one line received but never invoiced and never accrued, cited by no bill and by no close entry; one multi-month prepaid whose schedule is already correct (the CORE-01 subscription, $450,000 over 2026-02-01 to 2027-01-31, two months elapsed) and one that still needs a schedule (the FIN-12 insurance premium, posted in March against a policy year that opens 2026-04-01). Every other bill sits inside a single calendar month, so the multi-month predicate resolves to exactly those two rows.
+- **FIN-12 vendor-contract-insurance** (drafted-frozen, second PR): the annual commercial insurance and facilities programme with co-105, whose stated premium equals the FIN-11 prepaid bill to the cent.
+- **Cross-artifact ties, all recomputed rather than written down**: FIN-05 account 1010 equals FIN-02's ending cash of `2,740,359.09`, the first assertion in this repo that two data packs describe the same company; account 1100 equals the FIN-04 subledger total less the unposted invoice; account 2000 equals the FIN-11 bills still open; account 2010 equals the accrual roll-forward's closing balance; accounts 1200 and 1210 carry the two prepaid balances.
+- `canon/timeline.md`: eight dated events added (AR aging window and as-of date, the purchase-order and goods-receipt window, both prepaid service periods, the insurance invoice date, the open-PO cut-off, the proposed run, the close approval window). No existing row changed.
+- Spec catalog: FIN-04 through FIN-11 gain `columns` and `period`, and exact planted-feature wording. FIN-04 and FIN-10 move to `format: csv + json`. No ids and no `consuming_modules` changed.
+- **No new counterparty name enters the universe in this release.** The vendor population is the sixteen names already screened and shipped at v1.1.0, with the ten neutral names taking stable ids in the `co-140` and up generator range that `canon/companies.md` reserves for generated population. The collision screen is unchanged.
+- Universe version 1.2.0: 21 datasets, 12 drafted artifact sets. Suite: 179 tests after the first PR (116 before this release).
+
 ## 1.1.0 - 2026-08-15
 
 **Tags at merge of the D1 PR (`feat/fin-cash-reconciliation-slice`).** The tag
