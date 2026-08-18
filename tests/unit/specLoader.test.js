@@ -104,6 +104,72 @@ test("loadSpecs throws on malformed columns or period", () => {
   }
 });
 
+test("loadSpecs: the FIN-01 variant declaration carries a name, a file under variants/, a parent and a rule", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const variants = byId.get("FIN-01").variants;
+  assert.ok(Array.isArray(variants) && variants.length > 0, "FIN-01 declares no variants");
+  for (const variant of variants) {
+    for (const field of ["name", "file", "derived_from", "rule"]) {
+      assert.equal(typeof variant[field], "string", `variant.${field}`);
+      assert.notEqual(variant[field].trim(), "", `variant.${field} is empty`);
+    }
+    assert.ok(variant.file.startsWith("variants/"), "a variant file lives under variants/");
+    assert.ok(!variant.derived_from.includes("/"), "derived_from names a sibling file");
+  }
+  // Nothing else in the catalog declares variants yet; this is the first user of
+  // the convention, so the count is worth pinning until a second one lands.
+  const withVariants = [...byId.values()].filter((s) => "variants" in s).map((s) => s.id);
+  assert.deepEqual(withVariants, ["FIN-01"]);
+});
+
+test("loadSpecs throws on a malformed variants declaration", () => {
+  const dir = mkdtempSync(join(tmpdir(), "datagen-spec-test-"));
+  const base = "artifacts:\n  - id: BAD-04\n    name: n\n    type: dataset\n    format: csv\n    generation: deterministic\n    canon_entities: []\n    planted_features: []\n    consuming_modules: []\n";
+  const variant = (extra) =>
+    `    variants:\n      - name: v\n        file: variants/v.csv\n        derived_from: rows.csv\n${extra}`;
+  const cases = [
+    "    variants: []\n",
+    "    variants: nope\n",
+    variant("        rule: ''\n"), // a variant nobody can re-derive is a second dataset
+    "    variants:\n      - name: v\n        file: rows-slice.csv\n        derived_from: rows.csv\n        rule: r\n",
+    "    variants:\n      - name: v\n        file: variants/v.csv\n        derived_from: nested/rows.csv\n        rule: r\n",
+    "    variants:\n      - name: v\n        file: variants/a.csv\n        derived_from: rows.csv\n        rule: r\n      - name: v\n        file: variants/b.csv\n        derived_from: rows.csv\n        rule: r\n",
+  ];
+  try {
+    for (const [i, extra] of cases.entries()) {
+      const badPath = join(dir, `bad-variant-${i}.yaml`);
+      writeFileSync(badPath, base + extra);
+      assert.throws(() => loadSpecs(badPath), SpecValidationError, `case ${i} should throw`);
+    }
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("loadSpecs: the Track B artifacts carry columns, and the drafted one does not", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of ["FIN-36", "FIN-37", "FIN-38", "FIN-39"]) {
+    const spec = byId.get(id);
+    assert.equal(spec.generation, "deterministic", `${id} generation`);
+    assert.ok(Array.isArray(spec.columns) && spec.columns.length > 0, `${id} has no columns`);
+    assert.equal(new Set(spec.columns).size, spec.columns.length, `${id} has duplicate columns`);
+    assert.ok(spec.consuming_modules.length > 0, `${id} serves no module`);
+  }
+  for (const id of ["FIN-37", "FIN-38"]) {
+    assert.deepEqual(byId.get(id).period, { start: "2026-03-01", end: "2026-03-31" }, `${id} period`);
+  }
+  assert.equal(byId.get("FIN-36").period, undefined, "a checklist template counts close days, not dates");
+  assert.equal(byId.get("FIN-40").generation, "drafted-frozen");
+  assert.equal(byId.get("FIN-40").columns, undefined, "a drafted document has no columns");
+  for (const id of ["FIN-36", "FIN-37"]) {
+    assert.deepEqual(
+      byId.get(id).consuming_modules,
+      ["finance-spreadsheet-ops", "finance-google-workspace", "finance-microsoft-365"],
+      `${id} is consumed by all three template modules`
+    );
+  }
+});
+
 test("trackPrefix / trackDir map every real spec id to a known dataset track", () => {
   const { artifacts } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
   const known = new Set(["core", "legal", "finance", "hr", "revenue", "operations", "smb"]);

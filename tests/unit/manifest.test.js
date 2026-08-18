@@ -101,7 +101,62 @@ test("MANIFEST.json on disk matches a fresh buildManifest over the real repo (da
   for (const id of [
     "FIN-01", "FIN-02", "FIN-03", "FIN-22",
     "FIN-04", "FIN-05", "FIN-06", "FIN-07", "FIN-08", "FIN-09", "FIN-10", "FIN-11",
+    "FIN-36", "FIN-37", "FIN-38", "FIN-39",
   ]) {
     assert.ok(committed.datasets.some((d) => d.id === id), `${id} missing from MANIFEST.json datasets`);
+  }
+  assert.ok(committed.artifacts.some((a) => a.id === "FIN-40"), "FIN-40 missing from MANIFEST.json artifacts");
+});
+
+test("buildManifest records a declared variant that is on disk, and skips one that is not", () => {
+  const root = mkdtempSync(join(tmpdir(), "datagen-manifest-variant-test-"));
+  try {
+    const specsPath = join(root, "artifact-specs.yaml");
+    const entry = (id, name, variantFile) => [
+      `  - id: ${id}`,
+      `    name: ${name}`,
+      "    type: dataset",
+      "    format: csv",
+      "    generation: deterministic",
+      "    canon_entities: []",
+      "    planted_features: []",
+      "    consuming_modules: []",
+      "    variants:",
+      "      - name: slice",
+      `        file: ${variantFile}`,
+      "        derived_from: rows.csv",
+      "        rule: rows where flag is true",
+      "",
+    ].join("\n");
+    writeFileSync(specsPath, `artifacts:\n${entry("LGL-96", "with-variant", "variants/slice.csv")}${entry("LGL-95", "variant-missing", "variants/slice.csv")}`);
+    const specs = loadSpecs(specsPath);
+
+    const present = join(root, "datasets", "legal", "with-variant");
+    mkdirSync(join(present, "variants"), { recursive: true });
+    writeFileSync(join(present, "rows.csv"), "a,flag\n1,true\n2,false\n");
+    writeFileSync(join(present, "variants", "slice.csv"), "a,flag\n1,true\n");
+
+    const declaredButAbsent = join(root, "datasets", "legal", "variant-missing");
+    mkdirSync(declaredButAbsent, { recursive: true });
+    writeFileSync(join(declaredButAbsent, "rows.csv"), "a,flag\n1,true\n");
+
+    const manifest = buildManifest({ root, specs, existingManifest: {} });
+    const withVariant = manifest.datasets.find((d) => d.id === "LGL-96");
+    assert.deepEqual(withVariant.files, ["rows.csv", "variants/slice.csv"]);
+    assert.equal(withVariant.row_counts["variants/slice.csv"], 1);
+    assert.deepEqual(withVariant.variants, [{
+      name: "slice",
+      file: "variants/slice.csv",
+      derived_from: "rows.csv",
+      rule: "rows where flag is true",
+      row_count: 1,
+    }]);
+
+    // Declared but never emitted: MANIFEST reports what is on disk, not what a
+    // spec hopes for.
+    const missing = manifest.datasets.find((d) => d.id === "LGL-95");
+    assert.equal(missing.variants, undefined);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
   }
 });
