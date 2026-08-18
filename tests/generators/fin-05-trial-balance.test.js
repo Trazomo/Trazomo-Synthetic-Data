@@ -90,9 +90,13 @@ test("T-E2: FIN-05 mirrors the FIN-22 chart row for row", () => {
   assert.equal(retiredRow.ending_credit, "");
 });
 
-test("T-E1 / T-E4: the trial balance balances and every row's movement reconciles", () => {
+test("T-E1 / T-E4: all three columns foot and every row's movement reconciles", () => {
   let debitTotal = 0;
   let creditTotal = 0;
+  let openingDebit = 0;
+  let openingCredit = 0;
+  let periodDebit = 0;
+  let periodCredit = 0;
   for (const row of tb) {
     const debit = optionalCents(row.ending_debit);
     const credit = optionalCents(row.ending_credit);
@@ -102,18 +106,29 @@ test("T-E1 / T-E4: the trial balance balances and every row's movement reconcile
 
     const ending = toCents(row.ending_balance);
     const beginning = toCents(row.beginning_balance);
-    const periodDebit = toCents(row.period_debit);
-    const periodCredit = toCents(row.period_credit);
-    assert.ok(periodDebit >= 0 && periodCredit >= 0, `${row.account_code}: negative period column`);
-    const net = row.normal_balance === "debit" ? periodDebit - periodCredit : periodCredit - periodDebit;
+    const periodDebitCents = toCents(row.period_debit);
+    const periodCreditCents = toCents(row.period_credit);
+    assert.ok(periodDebitCents >= 0 && periodCreditCents >= 0, `${row.account_code}: negative period column`);
+    const net = row.normal_balance === "debit" ? periodDebitCents - periodCreditCents : periodCreditCents - periodDebitCents;
     assert.equal(beginning + net, ending, `T-E4 ${row.account_code}`);
     const onDebitSide = row.normal_balance === "debit" ? ending >= 0 : ending < 0;
     assert.equal(onDebitSide ? debit : credit, Math.abs(ending), `${row.account_code}: presentation side disagrees with the balance`);
+
+    // The opening column is itself a trial balance, at 2026-02-28, and the
+    // period column is a month of double entry. Each has to foot on its own; a
+    // pack whose only balanced column is the closing one is not a trial balance,
+    // it is a closing balance sheet with two decorative columns beside it.
+    const openingOnDebitSide = row.normal_balance === "debit" ? beginning >= 0 : beginning < 0;
+    if (openingOnDebitSide) openingDebit += Math.abs(beginning); else openingCredit += Math.abs(beginning);
+    periodDebit += periodDebitCents;
+    periodCredit += periodCreditCents;
     for (const col of ["beginning_balance", "period_debit", "period_credit", "ending_balance"]) {
       assert.match(row[col], /^-?\d+\.\d{2}$/, `${row.account_code}.${col} is not a 2dp decimal`);
     }
   }
-  assert.equal(debitTotal, creditTotal, "T-E1: the trial balance does not balance");
+  assert.equal(debitTotal, creditTotal, "T-E1: the closing column does not foot");
+  assert.equal(openingDebit, openingCredit, "T-E1: the opening column does not foot, so the books were out at 2026-02-28");
+  assert.equal(periodDebit, periodCredit, "T-E1: the period column does not foot, so March's postings are not double entry");
 });
 
 test("T-E3: account 1010 equals FIN-02's ending cash, recomputed from the cash builder", () => {
@@ -153,14 +168,32 @@ test("every derived control account takes all four columns from its subledger, n
   const ar = tbByCode.get(AR_CONTROL_ACCOUNT.code);
   assert.equal(toCents(ar.period_credit), arReceipts + marchMemos,
     "1100 period_credit is March cash collected plus the credit memos raised in March");
-  // Billings equal the revenue actually recognised, net of credits and excluding
-  // interest, which is earned rather than billed.
-  const billings = tb
+  // Receivables are debited with what was BILLED, which for a business billing
+  // in advance is what it recognized plus the month's build in deferred revenue.
+  const revenue = tb
     .filter((r) => r.type === "revenue" && r.account_code !== "4200")
     .reduce((s, r) => s + (r.normal_balance === "credit"
       ? toCents(r.period_credit) - toCents(r.period_debit)
       : -(toCents(r.period_debit) - toCents(r.period_credit))), 0);
-  assert.equal(toCents(ar.period_debit), billings, "1100 period_debit is what was billed in March");
+  const deferred = tbByCode.get("2300");
+  const deferredMovement = toCents(deferred.period_credit) - toCents(deferred.period_debit);
+  assert.equal(toCents(ar.period_debit), revenue + deferredMovement, "1100 period_debit is what was billed in March");
+
+  // 1030: the sweep is a cash account in a cash-reconciliation pack, so its
+  // movement has to be the movement the frozen ledger records and nothing else.
+  const sweepTransfers = cashLedger
+    .filter((r) => r.reference.startsWith("MMKT-") && r.debit !== "")
+    .reduce((s, r) => s + toCents(r.debit), 0);
+  const sweep = tbByCode.get("1030");
+  assert.ok(sweepTransfers > 0, "the cash ledger records no sweep activity to check against");
+  assert.equal(toCents(sweep.period_credit), sweepTransfers,
+    "1030 period_credit is the transfer the cash ledger actually records");
+  const operatingInterest = cashLedger
+    .filter((r) => r.reference.startsWith("INT-") && r.debit !== "")
+    .reduce((s, r) => s + toCents(r.debit), 0);
+  assert.equal(toCents(sweep.period_debit),
+    Math.max(0, toCents(tbByCode.get("4200").period_credit) - operatingInterest),
+    "1030 period_debit is the interest the sweep earned that never reached the operating account");
 
   // 1200 and 1210: the two prepaid bills state every column.
   const month = (d) => d.slice(0, 7);
@@ -230,7 +263,7 @@ test("contributed capital and the accumulated deficit are not the same number tw
     "contributed capital and the deficit landed within a rounding error of each other, which reads as machine output");
 });
 
-test("T-E5: the residual lands on 3200 as a credit inside a believable band", () => {
+test("T-E5: the year to date result lands on 3200 as a debit, a loss, inside a believable band", () => {
   const plug = tbByCode.get(RETAINED_EARNINGS_PLUG_ACCOUNT.code);
   assert.equal(plug.ending_credit, "", "the quarter is a loss, so current year earnings is a debit balance");
   const plugCents = toCents(plug.ending_debit);
@@ -242,8 +275,14 @@ test("T-E5: the residual lands on 3200 as a credit inside a believable band", ()
     .filter((r) => ["revenue", "expense"].includes(r.type))
     .reduce((sum, r) => sum + (r.ending_debit === "" ? toCents(r.ending_credit) : -toCents(r.ending_debit)), 0);
   assert.equal(-plugCents, plResult, "current year earnings does not equal the profit and loss accounts");
-  assert.equal(toCents(plug.beginning_balance), 0, "the fiscal year opens at zero");
-  assert.equal(toCents(plug.period_debit), plugCents, "the year to date result accumulates through the period columns");
+  // The period column is March, so the account moved by March's result and
+  // opened holding the two months already run. It opened at zero on 1 January,
+  // not on 1 March.
+  const marchResult = toCents(plug.period_credit) - toCents(plug.period_debit);
+  assert.equal(toCents(plug.beginning_balance), -plugCents - marchResult,
+    "3200 opens holding the result of the months before the period");
+  assert.ok(toCents(plug.period_debit) > 0 && toCents(plug.period_credit) === 0, "March was a loss month too");
+  assert.ok(toCents(plug.period_debit) < plugCents, "one month cannot be the whole quarter's loss");
 });
 
 test("T-A1 / T-A2: the AR delta resolves to exactly one aging row, and that value is unique in the file", () => {

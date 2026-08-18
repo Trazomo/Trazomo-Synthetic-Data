@@ -46,6 +46,23 @@ export const ACCUMULATED_DEFICIT_ACCOUNT = { code: "3100" };
 const INTEREST_INCOME_CODE = "4200";
 /** Sales discounts and credits: revenue-typed but debit-normal. */
 const CONTRA_REVENUE_CODE = "4900";
+/** The sweep account the operating account transfers to and from. */
+const MONEY_MARKET_SWEEP_CODE = "1030";
+const SWEEP_REFERENCE_PREFIX = "MMKT-";
+const INTEREST_REFERENCE_PREFIX = "INT-";
+/**
+ * Deferred revenue moves by billings less revenue recognized, which for a
+ * subscription business billed in advance is the identity that defines it. It
+ * is derived from those two figures rather than drawn or plugged.
+ */
+const DEFERRED_REVENUE_CODE = "2300";
+/**
+ * Accounts that do not move inside a period: contributed capital moves only on
+ * a financing event, and retained earnings only at the year-end close.
+ */
+const STATIC_CODES = new Set(["3000", "3010"]);
+/** No modelled account may turn over more than this share of itself in a month. */
+const MODELLED_MOVEMENT_MAX_SHARE = 0.35;
 /**
  * T-E5: a year-to-date result outside this magnitude means the model, not the
  * data, is wrong. The sign is asserted separately, and it is a DEBIT: the
@@ -137,6 +154,8 @@ function foldCashLedger(gl) {
   let creditCents = 0;
   let arReceiptsCents = 0;
   let apPaymentsCents = 0;
+  let sweepTransfersOutCents = 0;
+  let operatingInterestCents = 0;
   for (const row of gl) {
     const debit = row.debit === "" ? 0 : Math.round(Number(row.debit) * 100);
     const credit = row.credit === "" ? 0 : Math.round(Number(row.credit) * 100);
@@ -144,6 +163,9 @@ function foldCashLedger(gl) {
     creditCents += credit;
     if (row.source === "ar") arReceiptsCents += debit;
     if (row.source === "ap") apPaymentsCents += credit;
+    // Money arriving in the operating account from the sweep left the sweep.
+    if (row.reference.startsWith(SWEEP_REFERENCE_PREFIX)) sweepTransfersOutCents += debit;
+    if (row.reference.startsWith(INTEREST_REFERENCE_PREFIX)) operatingInterestCents += debit;
   }
   return {
     openingCents: OPENING_BALANCE_CENTS,
@@ -152,6 +174,8 @@ function foldCashLedger(gl) {
     endingCents: OPENING_BALANCE_CENTS + debitCents - creditCents,
     arReceiptsCents,
     apPaymentsCents,
+    sweepTransfersOutCents,
+    operatingInterestCents,
   };
 }
 
@@ -209,10 +233,14 @@ export function buildTrialBalance() {
   const rng = createRng(id, "model");
   const balances = new Map();
   const movements = new Map();
+  const modelledWeights = new Map();
   const derivedCodes = new Set([
     OPERATING_CASH_ACCOUNT.code, AR_CONTROL_ACCOUNT.code, AP_CONTROL_ACCOUNT.code,
     ACCRUED_LIABILITIES_ACCOUNT.code, PREPAID_SOFTWARE_ACCOUNT.code, PREPAID_INSURANCE_ACCOUNT.code,
   ]);
+  // The sweep takes its closing balance from a band like any modelled account,
+  // but its movement from the ledger, so it stays in the modelling loop below
+  // and has its movement replaced once the interest row is known.
   for (const row of chart) {
     const code = row.account_code;
     if (code === ACCUMULATED_DEFICIT_ACCOUNT.code || code === RETAINED_EARNINGS_PLUG_ACCOUNT.code) continue;
@@ -220,7 +248,11 @@ export function buildTrialBalance() {
     if (MODEL_BANDS[code]) {
       const ending = rng.int(MODEL_BANDS[code][0], MODEL_BANDS[code][1]);
       balances.set(code, ending);
-      movements.set(code, movement(rng, ending, row.normal_balance, row.subtype));
+      // The movement is allocated later, not drawn here. Drawing each balance
+      // sheet account's movement independently is what stopped the period column
+      // footing: twenty-five independent draws do not add up to a month of double
+      // entry, and the leftover had to be plugged into one account.
+      modelledWeights.set(code, rng.amount(0.5, 1.5, 4) * (MOVEMENT_RATE_BY_SUBTYPE[row.subtype] ?? DEFAULT_MOVEMENT_RATE));
     } else if (MONTHLY_PL_BANDS[code]) {
       const monthly = rng.int(MONTHLY_PL_BANDS[code][0], MONTHLY_PL_BANDS[code][1]);
       const ending = monthly * 3 + (monthly === 0 ? 0 : rng.int(-Math.floor(monthly * 0.12), Math.floor(monthly * 0.12)));
@@ -237,16 +269,20 @@ export function buildTrialBalance() {
   }
   must(balances.get("6125") === 0, "the retired account must carry a zero balance");
 
-  // March billings, which is what receivables were debited with. Equal to the
-  // revenue actually recognized for the month net of credits, and excluding
-  // interest income, which is never billed to a customer.
-  const marchBillingsCents = chart
-    .filter((r) => r.type === "revenue")
+  // What March actually recognized, net of credits and excluding interest, which
+  // is earned rather than billed.
+  const marchRevenueCents = chart
+    .filter((r) => r.type === "revenue" && r.account_code !== INTEREST_INCOME_CODE)
     .reduce((sum, r) => {
       const move = movements.get(r.account_code);
-      if (r.account_code === INTEREST_INCOME_CODE) return sum;
       return sum + (r.normal_balance === "credit" ? move.credit - move.debit : -(move.debit - move.credit));
     }, 0);
+  // A business billing annually in advance bills more than it recognizes in a
+  // growing month and less in a quiet one; the gap is the deferred revenue
+  // movement, and billings follow from the two. Receivables are then debited
+  // with what was billed, not with what was recognized.
+  const deferredRevenueNetCents = Math.round(balances.get(DEFERRED_REVENUE_CODE) * rng.amount(-0.03, 0.08, 5));
+  const marchBillingsCents = marchRevenueCents + deferredRevenueNetCents;
 
   // ---- the six derived control accounts, all four columns from the source ----
   // `beginning` is a stated fact wherever the source states one (cash, the
@@ -254,6 +290,21 @@ export function buildTrialBalance() {
   // the two movement legs are the derived facts and the opening balance is what
   // double entry says it must have been, which is a different thing from
   // drawing it: change either leg and this number moves with it.
+  // Write a movement from a net expressed in the account's own normal sense,
+  // keeping a little traffic on the opposite side, the way a real month does.
+  const setSignedMovement = (code, net, normalBalance) => {
+    const opposite = Math.round(Math.abs(net) * rng.amount(0.02, 0.22, 4));
+    // A shrinking balance posts on the side opposite its normal one, so the
+    // sign of the net decides which column carries it.
+    const onNormalSide = net >= 0 ? net + opposite : opposite;
+    const onOtherSide = net >= 0 ? opposite : -net + opposite;
+    movements.set(code, normalBalance === "debit"
+      ? { debit: onNormalSide, credit: onOtherSide, net }
+      : { debit: onOtherSide, credit: onNormalSide, net });
+    const move = movements.get(code);
+    must(move.debit >= 0 && move.credit >= 0, `${code}: a period column went negative`);
+  };
+
   const setDerived = (code, { beginning, debit, credit, ending }) => {
     const row = chart.find((r) => r.account_code === code);
     const net = row.normal_balance === "debit" ? debit - credit : credit - debit;
@@ -300,6 +351,17 @@ export function buildTrialBalance() {
     beginning: rollCents(roll.opening_balance), debit: rollCents(roll.reversals),
     credit: rollCents(roll.accruals_booked), ending: rollCents(roll.closing_balance),
   });
+  // The sweep is a cash account in a cash-reconciliation pack, so its movement
+  // has to be the movement the frozen ledger records: one transfer out to the
+  // operating account, plus the interest the sweep earned that never reached
+  // that account. A drawn movement here would ship millions of unexplained cash
+  // activity next to a ledger that accounts for every dollar of it.
+  const sweepEnding = balances.get(MONEY_MARKET_SWEEP_CODE);
+  const sweepInterestCents = Math.max(0, movements.get(INTEREST_INCOME_CODE).credit - cash.operatingInterestCents);
+  setDerived(MONEY_MARKET_SWEEP_CODE, {
+    beginning: sweepEnding + cash.sweepTransfersOutCents - sweepInterestCents,
+    debit: sweepInterestCents, credit: cash.sweepTransfersOutCents, ending: sweepEnding,
+  });
   for (const code of derivedCodes) {
     must(balances.get(code) > 0, `derived balance for ${code} is ${balances.get(code)}`);
     must(movements.get(code) !== undefined, `derived movement for ${code} is missing`);
@@ -322,9 +384,17 @@ export function buildTrialBalance() {
   must(Math.abs(plugCents) >= PLUG_BOUNDS_CENTS.min && Math.abs(plugCents) <= PLUG_BOUNDS_CENTS.max,
     `T-E5: the year to date result landed at ${cents(plugCents)}, outside ${cents(PLUG_BOUNDS_CENTS.min)} to ${cents(PLUG_BOUNDS_CENTS.max)} in magnitude`);
   balances.set(RETAINED_EARNINGS_PLUG_ACCOUNT.code, plugCents);
-  // Current year earnings opens the fiscal year at zero and accumulates. A loss
-  // is a debit to a credit-normal account, so the movement runs the other way.
-  movements.set(RETAINED_EARNINGS_PLUG_ACCOUNT.code, { debit: -plugCents, credit: 0, net: plugCents });
+  // The period column is March, so what current year earnings moved by in the
+  // period is March's result, not the quarter's. The opening balance is then the
+  // two months already run, which is what the account actually held on
+  // 2026-03-01. It opened at zero on 1 January, not on 1 March.
+  const marchResultCents = -plCodes.reduce((sum, code) => {
+    const move = movements.get(code);
+    return sum + move.debit - move.credit;
+  }, 0);
+  movements.set(RETAINED_EARNINGS_PLUG_ACCOUNT.code, marchResultCents >= 0
+    ? { debit: 0, credit: marchResultCents, net: marchResultCents }
+    : { debit: -marchResultCents, credit: 0, net: marchResultCents });
 
   // Retained earnings then reconciles the balance sheet: a credit-normal
   // account carrying a debit balance, which is what a venture-funded company's
@@ -335,6 +405,55 @@ export function buildTrialBalance() {
     .reduce((sum, r) => sum + signed(r.account_code), 0);
   balances.set(ACCUMULATED_DEFICIT_ACCOUNT.code, retainedEarningsCents);
   movements.set(ACCUMULATED_DEFICIT_ACCOUNT.code, { debit: 0, credit: 0, net: 0 });
+
+  // A trial balance has to foot in all three columns, not just the closing one.
+  // The closing column balances because retained earnings absorbs its residual.
+  // The period column is a month of postings and has to balance on its own, and
+  // once it does the opening column follows for free, because every row opens at
+  // its closing balance less its own movement. Without this the books were out
+  // by the period residual at 2026-02-28.
+  //
+  // Deferred revenue carries the balancing movement. That is not a plug of
+  // convenience: in a subscription business billed in advance, deferred revenue
+  // is precisely the account where the gap between what was billed and what was
+  // recognized lands each month.
+  // Contributed capital does not move between financing events.
+  for (const code of STATIC_CODES) movements.set(code, { debit: 0, credit: 0, net: 0 });
+
+  // Deferred revenue moves by exactly what was billed less what was recognized.
+  must(marchBillingsCents - marchRevenueCents === deferredRevenueNetCents,
+    "the deferred revenue movement is not the gap between billings and revenue");
+  setSignedMovement(DEFERRED_REVENUE_CODE, deferredRevenueNetCents, "credit");
+
+  // Everything the month's double entry has not yet accounted for is spread
+  // across the remaining modelled balance sheet accounts in proportion to how
+  // much of itself each one turns over in a month, so the period column foots
+  // without any single account carrying a plug. Contributed capital, retained
+  // earnings, the derived control accounts, the sweep and deferred revenue are
+  // all excluded: each of those already has a movement it is answerable for.
+  const allocationCodes = chart
+    .map((r) => r.account_code)
+    .filter((code) => modelledWeights.has(code)
+      && !STATIC_CODES.has(code) && code !== DEFERRED_REVENUE_CODE && code !== MONEY_MARKET_SWEEP_CODE);
+  const weightTotal = allocationCodes.reduce((sum, code) => sum + balances.get(code) * modelledWeights.get(code), 0);
+  must(weightTotal > 0, "no modelled account is available to carry the period movement");
+  const residualCents = chart.reduce((sum, r) => {
+    const move = movements.get(r.account_code);
+    return move ? sum + move.debit - move.credit : sum;
+  }, 0);
+  let allocated = 0;
+  allocationCodes.forEach((code, i) => {
+    const share = i === allocationCodes.length - 1
+      ? -residualCents - allocated
+      : Math.round(-residualCents * (balances.get(code) * modelledWeights.get(code)) / weightTotal);
+    allocated += share;
+    const row = chart.find((r) => r.account_code === code);
+    // `share` is debit-positive; a movement's `net` is in the account's own sense.
+    setSignedMovement(code, row.normal_balance === "debit" ? share : -share, row.normal_balance);
+    must(Math.abs(share) <= Math.round(balances.get(code) * MODELLED_MOVEMENT_MAX_SHARE),
+      `account ${code} would have to turn over ${cents(share)} against a balance of `
+      + `${cents(balances.get(code))}; the period column is not closing on a believable set of movements`);
+  });
   const deficitCents = -retainedEarningsCents;
   must(deficitCents >= DEFICIT_BOUNDS_CENTS.min && deficitCents <= DEFICIT_BOUNDS_CENTS.max,
     `the accumulated deficit landed at ${cents(deficitCents)}, outside the plausible band`);
@@ -393,6 +512,23 @@ export function buildTrialBalance() {
   const debitTotal = rows.reduce((s, r) => s + (r.ending_debit === "" ? 0 : Math.round(Number(r.ending_debit) * 100)), 0);
   const creditTotal = rows.reduce((s, r) => s + (r.ending_credit === "" ? 0 : Math.round(Number(r.ending_credit) * 100)), 0);
   must(debitTotal === creditTotal, `T-E1: debits ${cents(debitTotal)} do not equal credits ${cents(creditTotal)}`);
+  // The opening column is a trial balance at 2026-02-28 and has to foot on its
+  // own, and the period column is a month of postings and has to foot on its own.
+  let openingDebit = 0;
+  let openingCredit = 0;
+  let periodDebit = 0;
+  let periodCredit = 0;
+  for (const row of rows) {
+    const opening = Math.round(Number(row.beginning_balance) * 100);
+    const onDebitSide = row.normal_balance === "debit" ? opening >= 0 : opening < 0;
+    if (onDebitSide) openingDebit += Math.abs(opening); else openingCredit += Math.abs(opening);
+    periodDebit += Math.round(Number(row.period_debit) * 100);
+    periodCredit += Math.round(Number(row.period_credit) * 100);
+  }
+  must(openingDebit === openingCredit,
+    `T-E1: the opening column does not foot, debits ${cents(openingDebit)} against credits ${cents(openingCredit)}`);
+  must(periodDebit === periodCredit,
+    `T-E1: the period column does not foot, debits ${cents(periodDebit)} against credits ${cents(periodCredit)}`);
 
   return {
     rows,
@@ -419,6 +555,12 @@ export function buildTrialBalance() {
       dpo,
       debitTotalCents: debitTotal,
       creditTotalCents: creditTotal,
+      openingDebitTotalCents: openingDebit,
+      periodDebitTotalCents: periodDebit,
+      marchResultCents,
+      deferredRevenueMovementCents: deferredRevenueNetCents,
+      marchRevenueCents,
+      sweepTransfersOutCents: cash.sweepTransfersOutCents,
     },
   };
 }
