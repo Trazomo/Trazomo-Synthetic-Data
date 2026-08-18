@@ -176,6 +176,15 @@ const PAYMENT_ID_START = 101;
 const BILL_ID_START = 101;
 /** The purchase-order number P5's invoice cites; deliberately outside the minted block. */
 const ORPHAN_PO_NUMBER = "PO-2026-0192";
+/**
+ * The missing accrual (P12) has to sit on a purchase order no close entry
+ * cites, or the "nothing in the universe accounts for this receipt" rule stops
+ * resolving. FIN-09 caps its purchase-order citations at its CITED_PO_CEILING
+ * (PO-2026-0120); this floor sits above that with room to spare, so the two
+ * generators stay independent and neither has to import the other. Neither
+ * constant moves alone.
+ */
+const ACCRUAL_PLANT_PO_FLOOR = "PO-2026-0130";
 
 /** CORE-01 section 5.2: $450,000 invoiced in advance, 2026-02-01 to 2027-01-31, earned ratably. */
 const CORE01 = {
@@ -503,7 +512,8 @@ export function buildProcureToPay() {
   const openLineRefs = orders.flatMap((po) => po.lines.filter((l) => l.isOpen).map((l) => ({ po, line: l })));
   must(openLineRefs.length === COUNTS.openPoLines, "open line count drifted");
   const accrualCandidates = openLineRefs.filter(
-    ({ line }) => line.quantityInvoiced === 0 && line.quantityReceived > 0
+    ({ po, line }) => line.quantityInvoiced === 0 && line.quantityReceived > 0
+      && po.poNumber >= ACCRUAL_PLANT_PO_FLOOR
   );
   must(accrualCandidates.length > 0, "no candidate line for the missing accrual");
   const p12 = plantRng.pick(accrualCandidates);

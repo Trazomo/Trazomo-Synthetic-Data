@@ -23,6 +23,7 @@ import {
   AP_REQUESTER_EMPLOYEE_ID, AP_APPROVER_EMPLOYEE_ID, PO_APPROVERS, AVOIDED_EMPLOYEE_IDS,
 } from "../../datagen/src/generators/fin-06-procure-to-pay.js";
 import { buildChartOfAccounts } from "../../datagen/src/generators/fin-22-chart-of-accounts.js";
+import { CITED_PO_CEILING } from "../../datagen/src/generators/fin-09-je-batch.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
@@ -84,6 +85,7 @@ const bills = billTable.rows;
 const poByLine = new Map(pos.map((r) => [lineKey(r), r]));
 const poNumbers = new Set(pos.map((r) => r.po_number));
 const invoiceById = new Map(invoices.map((r) => [r.invoice_id, r]));
+const closeBatch = csvTable(fileByPath(generateArtifact(specs.byId.get("FIN-09"), canon), "journal-entries-batch.csv").content).rows;
 const chart = buildChartOfAccounts();
 const chartByCode = new Map(chart.map((r) => [r.account_code, r]));
 const roster = buildRoster(createRng("CORE-04", "roster"));
@@ -299,6 +301,15 @@ test("P12: exactly one open line was received, never invoiced and never accrued"
   assert.equal(toCents(target.invoiced_value), 0, "the missing accrual sits on a line with no invoice at all");
   assert.ok(!bills.some((b) => b.po_number === target.po_number), "no bill may cite the un-accrued purchase order");
   assert.ok(!invoices.some((r) => lineKey(r) === lineKey(target)), "no invoice may cite the un-accrued line");
+  // Nothing anywhere in the universe accounts for this receipt, which is the
+  // whole point of the plant. The close batch caps its purchase-order citations
+  // at CITED_PO_CEILING and this line sits above it, so the two generators stay
+  // independent while the rule still resolves.
+  const cited = new Set(closeBatch.map((r) => r.source_document).filter(Boolean));
+  assert.ok(!cited.has(target.po_number), "no close entry may cite the un-accrued purchase order");
+  const citedPos = [...cited].filter((d) => d.startsWith("PO-")).map((d) => Number(d.slice(-4)));
+  assert.ok(Math.max(...citedPos) <= CITED_PO_CEILING, "the close batch ran past its reserved citation block");
+  assert.ok(Number(target.po_number.slice(-4)) > CITED_PO_CEILING, "the missing accrual sits inside the cited block");
 });
 
 test("T-D1 / T-D3: the accrual roll-forward closes from its own movements and reconciles to the open lines", () => {
