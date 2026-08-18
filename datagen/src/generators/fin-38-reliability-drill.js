@@ -13,9 +13,15 @@
 //   2. exactly one proposed_gl_account is not on the FIN-22 chart. The code is
 //      computed as the lowest unused code in the facilities block rather than
 //      typed, so it cannot quietly become a real account if the chart grows.
-//   3. exactly three rows carry model_confidence high. Two of them are the rows
-//      above; the third is right. Confidence therefore does not sort right from
-//      wrong, and rejecting everything fails the drill too.
+//   3. exactly three rows carry model_confidence high, of which exactly ONE is
+//      wrong: the transposition. The fabricated code deliberately sits below
+//      high. That matters more than it looks. If both plants were the confident
+//      rows and every quieter row were clean, confidence would be a perfect
+//      defect locator and the drill would teach the opposite of its lesson: a
+//      learner could skip verification entirely and score full marks by reading
+//      one column. As shipped, high confidence holds two right answers and one
+//      wrong one, and a plant also sits outside the high rows, so neither
+//      stratum is safe to skip and only verification finds both.
 //
 // Source rows come from a clean pool computed by rule: a unique amount and
 // reference in the bank feed, matched once in the GL at the same amount. That
@@ -201,15 +207,26 @@ export function buildReliabilityDrill(rng) {
     if (claim.proposedCents === undefined) claim.proposedCents = claim.trueCents;
   }
 
-  // The control: the largest claim that is right about both the amount and the
-  // account, reported at the same confidence as the two that are wrong.
-  const control = claims
+  // The controls: the largest claims that are right about both the amount and
+  // the account, reported at the same confidence as the transposition. The
+  // fabricated code is deliberately NOT among them, so the high rows hold one
+  // wrong answer out of three and one plant sits below high. Largest first is a
+  // rule rather than a draw, so the controls are the claims a reviewer is most
+  // tempted to challenge and least able to skip.
+  const controls = claims
     .filter((c) => c !== transposed && c !== fabricated)
-    .reduce((best, c) => (c.trueCents > best.trueCents ? c : best));
+    .sort((a, b) => b.trueCents - a.trueCents || a.source_row_id.localeCompare(b.source_row_id))
+    .slice(0, HIGH_CONFIDENCE_COUNT - 1);
+  if (controls.length !== HIGH_CONFIDENCE_COUNT - 1) {
+    throw new Error(`${id}: too few clean claims to report ${HIGH_CONFIDENCE_COUNT - 1} controls at high confidence`);
+  }
 
-  const highConfidence = new Set([transposed, fabricated, control]);
+  const highConfidence = new Set([transposed, ...controls]);
   if (highConfidence.size !== HIGH_CONFIDENCE_COUNT) {
-    throw new Error(`${id}: the two defects and the control are not three distinct rows`);
+    throw new Error(`${id}: the transposition and the controls are not ${HIGH_CONFIDENCE_COUNT} distinct rows`);
+  }
+  if (highConfidence.has(fabricated)) {
+    throw new Error(`${id}: both plants are high confidence, which would make confidence a defect locator`);
   }
   const confidenceRng = rng("confidence");
   const rows = claims.map((claim, i) => ({
@@ -239,16 +256,29 @@ function assertPlantedFeatures(rows, claims, chart) {
   if (offChart.length !== 1) {
     throw new Error(`${id}: ${offChart.length} claims cite an account off the chart, expected 1`);
   }
+  const isClean = (row) => {
+    const claim = claims[rows.indexOf(row)];
+    return claim.proposedCents === claim.trueCents && onChart.has(row.proposed_gl_account);
+  };
   const high = rows.filter((r) => r.model_confidence === "high");
   if (high.length !== HIGH_CONFIDENCE_COUNT) {
     throw new Error(`${id}: ${high.length} claims are high confidence, expected ${HIGH_CONFIDENCE_COUNT}`);
   }
-  const cleanHigh = high.filter((r) => {
-    const claim = claims[rows.indexOf(r)];
-    return claim.proposedCents === claim.trueCents && onChart.has(r.proposed_gl_account);
-  });
-  if (cleanHigh.length !== 1) {
-    throw new Error(`${id}: ${cleanHigh.length} of the high-confidence claims are right, expected 1`);
+  const wrongHigh = high.filter((r) => !isClean(r));
+  if (wrongHigh.length !== 1) {
+    throw new Error(`${id}: ${wrongHigh.length} of the high-confidence claims are wrong, expected 1`);
+  }
+  // The plants have to span more than one confidence level, or confidence sorts
+  // them for the learner and the drill stops being a verification exercise.
+  const planted = rows.filter((r) => !isClean(r));
+  if (planted.length !== 2) {
+    throw new Error(`${id}: ${planted.length} claims are wrong, expected 2`);
+  }
+  if (new Set(planted.map((r) => r.model_confidence)).size !== 2) {
+    throw new Error(`${id}: both plants report the same confidence, so confidence locates them`);
+  }
+  if (offChart[0].model_confidence === "high") {
+    throw new Error(`${id}: the fabricated account code is reported at high confidence`);
   }
   for (const row of rows) {
     if (row.reviewer_verdict !== "" || row.reviewer_note !== "") {

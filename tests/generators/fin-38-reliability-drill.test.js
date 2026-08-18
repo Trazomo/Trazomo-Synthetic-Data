@@ -89,13 +89,36 @@ test("FIN-38 planted 2: exactly one proposed account is off the FIN-22 chart, an
   );
 });
 
-test("FIN-38 planted 3: exactly three claims are high confidence, and exactly one of those is right", () => {
+const isClean = (row) =>
+  toCents(row.proposed_amount) === sourceAmountCents(row) && activeCodes.has(row.proposed_gl_account);
+
+test("FIN-38 planted 3: exactly three claims are high confidence, and exactly one of those is wrong", () => {
   const high = drill.rows.filter((r) => r.model_confidence === "high");
   assert.equal(high.length, HIGH_CONFIDENCE_COUNT);
-  const clean = high.filter(
-    (r) => toCents(r.proposed_amount) === sourceAmountCents(r) && activeCodes.has(r.proposed_gl_account)
+  const wrong = high.filter((r) => !isClean(r));
+  assert.equal(wrong.length, 1, "one confident claim is wrong, so confidence is not a proof of correctness");
+  assert.equal(
+    high.length - wrong.length, HIGH_CONFIDENCE_COUNT - 1,
+    "the other confident claims verify clean, so blanket rejection fails the drill too"
   );
-  assert.equal(clean.length, 1, "confidence must not sort right from wrong, and it must not condemn everything");
+});
+
+test("FIN-38: the plants sit at different confidence levels, so confidence locates neither of them", () => {
+  const planted = drill.rows.filter((r) => !isClean(r));
+  assert.equal(planted.length, 2, "the drill plants exactly two wrong claims");
+  assert.equal(
+    new Set(planted.map((r) => r.model_confidence)).size, 2,
+    "both plants report the same confidence, so a learner could find them by reading one column"
+  );
+  // Stated as the property that matters: neither stratum of the file is clean,
+  // so neither can be skipped. A drill where every plant is confident and every
+  // quiet row is right teaches the opposite of "verify every claim".
+  const high = drill.rows.filter((r) => r.model_confidence === "high");
+  const rest = drill.rows.filter((r) => r.model_confidence !== "high");
+  assert.ok(high.some((r) => !isClean(r)), "no plant among the confident claims");
+  assert.ok(rest.some((r) => !isClean(r)), "no plant outside the confident claims");
+  const offChart = drill.rows.find((r) => !activeCodes.has(r.proposed_gl_account));
+  assert.notEqual(offChart.model_confidence, "high", "the fabricated account code is reported at high confidence");
 });
 
 test("FIN-38: the reviewer columns ship empty, because the verdict is the learner's work", () => {

@@ -51,8 +51,14 @@ dataset-variant convention.
   checkable against the tagged data. Planted: exactly one proposed amount is a
   digit transposition of its source row's amount, exactly one proposed account is
   not on the chart, and exactly three claims are reported at high confidence, of
-  which exactly one is right. **Confidence therefore sorts nothing**: triaging by
-  it fails the drill, and so does rejecting everything. Source rows are drawn
+  which exactly one is wrong. **The two plants sit at different confidence
+  levels on purpose**: the transposition is confident and the fabricated account
+  code is not. Had both plants been the confident rows and every quieter row been
+  clean, confidence would have been a perfect defect locator and the file would
+  have taught the opposite of its lesson, since a learner could score full marks
+  by reading one column and never verifying anything. As shipped, neither stratum
+  is safe to skip: triaging by confidence misses a plant, and rejecting
+  everything fails on the two confident claims that are right. Source rows are drawn
   from a clean pool computed by rule (unique amount and reference in the feed,
   matched once in the ledger at the same amount), so FIN-01's own duplicated
   deposit, unrecorded fee and transposed payment can never double as a drill
@@ -108,7 +114,7 @@ dataset-variant convention.
   its counterparties from the shipped FIN-01 population, and FIN-40 names only
   co-002 and role titles that active CORE-04 employees hold. The collision screen
   is unchanged, and a structural test enforces both.
-- Universe version 1.3.0: 25 datasets, 12 drafted artifact sets. Suite: 222
+- Universe version 1.3.0: 25 datasets, 12 drafted artifact sets. Suite: 223
   tests, 182 before this release.
 
 ## 1.2.0 - 2026-08-18

@@ -924,7 +924,7 @@ artifacts:
       - "15 AI-proposed readings of rows that already ship in the pack, each citing its source: txn_id in FIN-01, je_id in FIN-02, check_number in FIN-03. Every claim is checkable against the tagged data, which is the whole exercise"
       - "1 AI-proposed answer confidently wrong (transposed balance): exactly one proposed_amount is a digit transposition of its source row's amount"
       - "1 fabricated GL code: exactly one proposed_gl_account is not on the FIN-22 chart; every other proposed account is on the chart and active"
-      - "1 correct answer as a control: exactly three rows carry model_confidence high, two of which are the wrong ones above, so confidence does not sort right from wrong and blanket rejection fails the drill too"
+      - "1 correct answer as a control: exactly three rows carry model_confidence high, of which exactly ONE is wrong (the transposition). The fabricated code is reported below high, so the two plants sit at different confidence levels and confidence locates neither of them. Two of the three confident claims verify clean, so blanket rejection fails the drill as surely as trusting the confident rows does, and only verifying every claim finds both plants"
       - source rows are drawn only from a clean pool (unique amount and reference in the bank feed, matched at the same amount in the GL), so FIN-01's own planted duplicate, unrecorded fee and transposed payment never double as a drill answer
       - reviewer_verdict and reviewer_note ship empty for the learner to fill
     consuming_modules: [finance-ai-reliability]
