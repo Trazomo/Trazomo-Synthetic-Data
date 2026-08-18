@@ -516,7 +516,19 @@ export function buildProcureToPay() {
       && po.poNumber >= ACCRUAL_PLANT_PO_FLOOR
   );
   must(accrualCandidates.length > 0, "no candidate line for the missing accrual");
-  const p12 = plantRng.pick(accrualCandidates);
+  // The largest un-invoiced receipt, not a random one. A missed accrual worth a
+  // few thousand dollars would fall under any materiality floor a learner sets,
+  // which would make "no adjustment" a defensible answer and cost the module its
+  // point. Deterministic: sorted by value, ties broken by purchase-order line.
+  const p12 = accrualCandidates
+    .slice()
+    .sort((a, b) => {
+      const av = a.line.quantityReceived * a.line.unitPriceCents;
+      const bv = b.line.quantityReceived * b.line.unitPriceCents;
+      if (av !== bv) return bv - av;
+      return a.po.poNumber < b.po.poNumber ? -1 : a.po.poNumber > b.po.poNumber ? 1 : a.line.lineNo - b.line.lineNo;
+    })[0];
+  plantRng.float(); // keep this stream's position stable against the removed pick
   for (const { po, line } of openLineRefs) {
     const receivedValue = line.quantityReceived * line.unitPriceCents;
     line.receivedValueCents = receivedValue;

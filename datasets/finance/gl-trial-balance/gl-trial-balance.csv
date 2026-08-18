@@ -19,7 +19,7 @@ account_code,account_name,type,subtype,normal_balance,beginning_balance,period_d
 1590,Accumulated Amortization,asset,contra_asset,credit,5793176.88,174997.41,29234.90,5647414.37,,5647414.37
 1600,Operating Lease Right-of-Use Asset,asset,lease,debit,13785771.64,122426.20,219543.69,13688654.15,13688654.15,
 2000,Accounts Payable - Trade,liability,payable,credit,1530636.18,363982.11,194301.75,1360955.82,,1360955.82
-2010,Accrued Liabilities,liability,accrued,credit,513990.30,47459.42,81430.56,547961.44,,547961.44
+2010,Accrued Liabilities,liability,accrued,credit,481951.14,44501.08,76354.66,513804.72,,513804.72
 2020,Accrued Payroll,liability,accrued,credit,6613885.07,1359754.68,241212.68,5495343.07,,5495343.07
 2030,Accrued Bonus,liability,accrued,credit,3700897.75,45050.86,798239.32,4454086.21,,4454086.21
 2040,Accrued Commissions,liability,accrued,credit,2715270.88,835951.83,289207.05,2168526.10,,2168526.10
@@ -34,7 +34,7 @@ account_code,account_name,type,subtype,normal_balance,beginning_balance,period_d
 2510,Operating Lease Liability - Non-Current,liability,lease,credit,8170969.17,41189.91,26189.93,8155969.19,,8155969.19
 3000,Common Stock,equity,contributed_capital,credit,1091.60,0.00,0.00,1091.60,,1091.60
 3010,Additional Paid-In Capital,equity,contributed_capital,credit,260487266.44,0.00,0.00,260487266.44,,260487266.44
-3100,Retained Earnings,equity,retained_earnings,credit,-260510856.47,0.00,0.00,-260510856.47,260510856.47,
+3100,Retained Earnings,equity,retained_earnings,credit,-260476699.75,0.00,0.00,-260476699.75,260476699.75,
 3200,Current Year Earnings,equity,retained_earnings,credit,0.00,0.00,10656267.20,10656267.20,,10656267.20
 4000,Subscription Revenue - Enterprise,revenue,subscription,credit,21197840.06,402689.51,10606809.10,31401959.65,,31401959.65
 4010,Subscription Revenue - Mid-Market,revenue,subscription,credit,8264646.10,73937.30,4099294.34,12290003.14,,12290003.14

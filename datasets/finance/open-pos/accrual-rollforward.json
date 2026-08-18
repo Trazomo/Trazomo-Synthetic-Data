@@ -14,10 +14,10 @@
     "name": "Accrued Liabilities"
   },
   "opening_balance": "2001767.06",
-  "accruals_booked": "547961.44",
+  "accruals_booked": "513804.72",
   "reversals": "2001767.06",
-  "closing_balance": "547961.44",
+  "closing_balance": "513804.72",
   "open_po_count": 22,
   "received_not_invoiced_total": "551035.56",
-  "accrued_total": "547961.44"
+  "accrued_total": "513804.72"
 }
