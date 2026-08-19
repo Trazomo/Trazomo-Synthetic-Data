@@ -108,7 +108,7 @@ The following entities appear in the structure above and are **not** proposed cl
 | F-1 | TECHBRIDGE SOLUTIONS INC | TECHBRIDGE SOLUTIONS LTD | 87.5 | **MATCH — RELATED ENTITY.** Index entry is TechBridge Solutions Ltd. (Ireland), the Prospective Client's wholly owned subsidiary. The firm's Dublin office represented that entity in matter 23-0774, a closed employment matter. Escalated; see Part 7.3. |
 | F-2 | TECHBRIDGE SOLUTIONS INC | TECHBRIDGE SOLUTIONS LLC | 91.7 | **MATCH — SAME ENTITY, PRIOR NAME.** Predecessor name of the Prospective Client before its 2021 conversion. No matters found under the predecessor name. No further action. |
 | F-3 | MERIDIAN CREST CAPITAL MANAGEMENT LLC | MERIDIAN CREST CAPITAL MANAGEMENT GROUP | 87.2 | **NO MATCH.** Index entry is a Nevada entity with a different registered agent, different principals, and no common ownership. Verified against Nevada registry, 2026-07-23. Auto-clear not permitted at this score; cleared by analyst with documented basis. |
-| F-4 | MERIDIAN CREST GP III, LLC | MERIDIAN CREST GP II LLC | 92.0 | **MATCH — AFFILIATE.** General partner of Fund II. No firm matters. Logged; no further action. |
+| F-4 | MERIDIAN CREST GP III, LLC | MERIDIAN CREST GP II LLC | 96.0 | **MATCH — AFFILIATE.** General partner of Fund II. No firm matters. Logged; no further action. |
 
 Note on F-1: the exact-match pass returned nothing for this entity because the screened name and the index name differ in entity suffix and jurisdiction. The relationship was surfaced only by the fuzzy pass. The analyst has opened a policy ticket (POL-2026-088) asking whether foreign-suffix normalization should be added to the pass-one rule set.
 
