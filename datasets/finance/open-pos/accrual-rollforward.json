@@ -1,0 +1,23 @@
+{
+  "generated_from_spec": "FIN-10",
+  "entity": {
+    "canon_id": "co-002",
+    "name": "Atticus Dundee Inc."
+  },
+  "period": {
+    "start": "2026-03-01",
+    "end": "2026-03-31"
+  },
+  "currency": "USD",
+  "account": {
+    "code": "2010",
+    "name": "Accrued Liabilities"
+  },
+  "opening_balance": "445303.21",
+  "accruals_booked": "441637.62",
+  "reversals": "445303.21",
+  "closing_balance": "441637.62",
+  "open_po_count": 22,
+  "received_not_invoiced_total": "551035.56",
+  "accrued_total": "441637.62"
+}

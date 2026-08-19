@@ -421,16 +421,33 @@ artifacts:
     source_plan: legal-coverage-matrix (A22)
 
   # ----------------------------------------------------------------- FIN (finance path)
+  # Finance anchor period: March 2026 (canon/timeline.md). FIN-01, FIN-02 and
+  # FIN-03 come from one seeded builder (datagen/src/generators/fin-01-cash-recon.js).
   - id: FIN-01
     name: bank-transactions
     type: dataset
-    format: csv
+    format: csv + json
     generation: deterministic
-    canon_entities: [co-002, co-104]
+    canon_entities: [co-002, co-104, co-102, co-105, co-106, co-107, co-109, co-119, co-140+]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [txn_id, posted_date, value_date, description, counterparty, reference, type, amount, running_balance, channel]
     planted_features:
-      - 1 duplicated deposit
-      - 2 unmatched payments
-      - 1 deposit-in-transit timing difference
+      - "1 duplicated deposit (bank error): one customer receipt posted twice in the bank feed, two txn_ids with the same amount and reference one or two days apart, while the GL records it once; hold for human review, never auto-clear"
+      - 2 unmatched payments, each with one root cause. A (unrecorded item) is a bank service fee debit with no GL entry, not yet booked, needs a journal entry. B (amount error) is a vendor ACH debit whose GL entry carries a transposed amount so exact matching fails, a preparer keying error, needs a correcting entry
+      - "1 deposit-in-transit timing difference: a customer receipt the GL records on 2026-03-31 that the bank posts on 2026-04-01, so it is absent from the March statement"
+      - bank-statement-summary.json carries period, opening balance, ending balance, credit and debit counts and totals; no answers
+      - the tie-out holds to the cent, adjusted bank balance = ending balance + deposit in transit - outstanding checks (FIN-03) - duplicated deposit; adjusted book balance = GL ending balance (FIN-02) - unrecorded bank fee + (GL transposed amount - bank amount)
+    # Dataset variants (convention added 2026-08-18, datagen/README.md "Dataset
+    # variants"): a trimmed slice of this dataset, emitted by this generator,
+    # derived from a sibling file by a predicate over that file's own columns.
+    # The rule is the contract: a reader re-derives the variant with one filter,
+    # and tests re-derive it from the parent rather than trusting the bytes.
+    variants:
+      - name: ach-receipts-mar-05-06
+        file: variants/ach-receipts-mar-05-06.csv
+        derived_from: bank-transactions.csv
+        rule: 'every parent row with channel == "ach", type == "credit" and posted_date in {2026-03-05, 2026-03-06}, in parent file order, with the parent header. running_balance is carried through from the parent statement unchanged, so it does not run continuously inside the slice; recompute it from the parent if a lesson needs a running total'
+        consuming_modules: [finance-local-ai]
     consuming_modules: [finance-cash-bank-reconciliation, finance-local-ai]
     source_plan: finance-implementation-plan
 
@@ -439,8 +456,12 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
-    planted_features: []
+    canon_entities: [co-002, co-102, co-105, co-106, co-107, co-109, co-119, co-140+]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [je_id, posting_date, gl_account, description, counterparty, reference, debit, credit, source, prepared_by]
+    planted_features:
+      - every row posts to the FIN-22 operating cash account (1010); je_id is JE-202603-NNNN in posting order; prepared_by is a CORE-04 Staff Accountant EMP id (never the roster's SoD-conflict row)
+      - carries the GL side of the FIN-01 planted features (one entry for the duplicated deposit, no entry for the unrecorded bank fee, the transposed vendor payment amount, the deposit in transit dated 2026-03-31) and the twelve FIN-03 outstanding checks
     consuming_modules: [finance-cash-bank-reconciliation]
     source_plan: finance-implementation-plan
 
@@ -449,20 +470,28 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
-    planted_features: []
+    canon_entities: [co-002, co-105, co-106, co-107, co-109, co-119]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [check_number, issue_date, payee, amount, gl_je_id, status]
+    planted_features:
+      - about 12 checks issued in March 2026 that had not cleared the bank by 2026-03-31; legitimate timing items, not defects; each gl_je_id resolves to a FIN-02 row and none appears in FIN-01
     consuming_modules: [finance-cash-bank-reconciliation]
     source_plan: finance-implementation-plan
 
   - id: FIN-04
     name: ar-aging-export
     type: dataset
-    format: csv
+    format: csv + json
     generation: deterministic
-    canon_entities: [co-002, co-102, co-103]
+    canon_entities: [co-002, co-102, co-103, co-140+]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [customer_canon_id, customer_name, document_type, document_number, document_date, due_date, terms, original_amount, open_balance, currency, days_past_due, aging_bucket, applied_to_document, ar_owner_employee_id]
     planted_features:
-      - 1 invoice in the AR subledger not reflected in GL
-      - 1 unapplied customer credit memo
+      - "1 invoice in the AR subledger not reflected in GL: the subledger total less the FIN-05 receivable control balance equals exactly one row's open_balance, and no other row in the file carries that value"
+      - "1 unapplied customer credit memo: exactly one credit_memo row has an empty applied_to_document, on the customer canon assigns the collections problem; every other credit memo names an invoice of the same customer"
+      - aging as of 2026-03-31 over documents dated from 2025-11-14; days_past_due and aging_bucket are both derived from due_date, so a bucket is recomputable rather than a label, and all five buckets (current, 1-30, 31-60, 61-90, 90+) are non-empty
+      - document numbers are disjoint from the FIN-02 reference block, because a receipt collected during March cannot still be open at 2026-03-31
+      - ar-aging-summary.json carries the as-of date, the receivable control account, per-bucket document counts and totals, and the subledger total; no answers
     consuming_modules: [finance-ar-aging-gl-tie-out, finance-collections-ar-follow-up]
     source_plan: finance-implementation-plan
 
@@ -472,7 +501,12 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
-    planted_features: []
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [account_code, account_name, type, subtype, normal_balance, beginning_balance, period_debit, period_credit, ending_balance, ending_debit, ending_credit]
+    planted_features:
+      - one row per FIN-22 account, 65 rows, with account_code, account_name, type, subtype and normal_balance copied from the chart so the trial balance and the chart cannot drift apart
+      - "pre-close at 2026-03-31, before the FIN-09 batch posts and before the FIN-01 reconciliation adjustments are booked: total ending debits equal total ending credits, exactly one of ending_debit and ending_credit is populated per row, and account 3200 carries the residual"
+      - "cross-artifact ties, each recomputed rather than written down: account 1010 equals FIN-02's ending GL cash, account 1100 equals the FIN-04 subledger total less the one unposted invoice, account 2000 equals the FIN-11 bills still open, account 2010 equals the FIN-10 accrual roll-forward closing balance, and accounts 1200 and 1210 carry the two prepaid balances"
     consuming_modules: [finance-ar-aging-gl-tie-out]
     source_plan: finance-implementation-plan
 
@@ -481,8 +515,13 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
-    planted_features: []
+    canon_entities: [co-002, co-101, co-105, co-106, co-107, co-109, co-119]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [po_number, po_line, po_date, vendor_canon_id, vendor_name, description, gl_account, uom, quantity_ordered, unit_price, line_amount, currency, requested_by_employee_id, approved_by_employee_id, approval_level, status, expected_delivery_date]
+    planted_features:
+      - "PO grain: po_number is PO-2026-0NNN and po_line runs 1..n inside a PO; line_amount equals quantity_ordered times unit_price to the cent on every row"
+      - "approval threshold, applied to the purchase-order total rather than to a single line, because that is the grain at which an order is approved: an order of $50,000 or more carries approval_level director on every one of its lines, an order below it manager, so a line under the threshold can and does sit on a director-approved order; the requester is a CORE-04 manager of the requesting department, is never the approver, and is never the roster's SoD-conflict row"
+      - "every gl_account is an active FIN-22 code, and the (po_number, po_line) pair is the join key that FIN-07 invoices and FIN-10 open lines resolve against"
     consuming_modules: [finance-po-invoice-payment-match]
     source_plan: finance-implementation-plan
 
@@ -491,12 +530,15 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002, co-101, co-105, co-106, co-107]
+    canon_entities: [co-002, co-101, co-105, co-106, co-107, co-109, co-119]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [invoice_id, vendor_canon_id, vendor_name, invoice_number, invoice_date, received_date, po_number, po_line, description, quantity_billed, unit_price, invoice_amount, currency, payment_terms, due_date, remit_to_bank, remit_to_account_masked, status]
     planted_features:
-      - 1 price mismatch (invoice vs PO)
-      - 1 duplicate invoice
-      - 1 invoice with no matching PO
-      - 1 vendor bank-detail change on co-107 (fraud-pattern flag)
+      - "1 price mismatch (invoice vs PO): exactly one invoice bills the ordered quantity at a unit price that differs from its purchase-order line by 2 to 6 percent, so a tolerance rule is a real decision rather than an exact-match check"
+      - "1 duplicate invoice: exactly one (vendor_canon_id, invoice_number) pair appears on two invoice_ids carrying the same po_number, po_line and invoice_amount, received 2 to 5 days apart"
+      - "1 invoice with no matching PO: exactly one row carries a po_number that is absent from FIN-06, chosen over a blank po_number because blank is ambiguous against legitimate non-PO spend"
+      - "1 vendor bank-detail change on co-107 (fraud-pattern flag): exactly one vendor shows more than one distinct remit_to_account_masked, the new value first appearing on that vendor's most recent received_date and carried into the FIN-08 run"
+      - invoice_amount equals quantity_billed times unit_price on every row including the mismatch; invoice_id is VINV-2026-0NNN, textually disjoint from FIN-02's AP-2026-NNNN references, and invoice_number is the vendor's own number so the duplicate rule is vendor-scoped
     consuming_modules: [finance-po-invoice-payment-match]
     source_plan: finance-implementation-plan
 
@@ -505,8 +547,13 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
-    planted_features: []
+    canon_entities: [co-002, co-101, co-105, co-106, co-107, co-109, co-119]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [payment_run_id, payment_id, run_date, vendor_canon_id, vendor_name, invoice_id, invoice_number, po_number, payment_amount, currency, payment_method, remit_to_bank, remit_to_account_masked, requested_by_employee_id, approved_by_employee_id, status]
+    planted_features:
+      - "one run, PR-2026-04-02, dated inside the March close window with status pending_approval on every row: the run is proposed and unreleased, which is what makes holding a payment a live decision rather than a post-mortem"
+      - the run deliberately carries all four FIN-07 exceptions, including both halves of the duplicate, so the run total exceeds the distinct invoices it pays by exactly the duplicated amount
+      - every payment_amount equals its own invoice's invoice_amount; requested_by_employee_id and approved_by_employee_id are different CORE-04 Finance ids, the requester holds no approver right, the approver does, and neither is the roster's SoD-conflict row
     consuming_modules: [finance-po-invoice-payment-match]
     source_plan: finance-implementation-plan
 
@@ -515,21 +562,30 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
+    canon_entities: [co-002, co-101, co-105, co-106, co-107, co-109, co-119]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [entry_id, line_no, posting_date, approved_date, gl_account, account_name, description, counterparty, debit, credit, currency, entry_type, source_document, prepared_by, approved_by]
     planted_features:
-      - 2-3 JEs miscoded to the wrong GL account
-      - 1 duplicate JE
-      - 1 JE missing a supporting-document reference
+      - "3 JEs miscoded to the wrong GL account, one per detection rule: one line posts to the FIN-22 account the chart carries as inactive, one line deviates from the modal account its own counterparty is otherwise coded to, and one payroll-platform accrual line credits an accrual account other than the modal one. A counterparty carries either a single expense line, where there is no mode to deviate from, or at least four with a strict-majority mode; nothing in between, or the modal rule stops resolving"
+      - "1 duplicate JE: exactly one source_document appears on two entry_ids whose line sets and totals are identical, posted 0 or 1 day apart"
+      - "1 JE missing a supporting-document reference: exactly one entry_id carries an empty source_document on every line, while every other entry cites a document that resolves elsewhere in the universe"
+      - every entry balances and the batch balances; exactly one of debit and credit is populated per line; entry_id is JE-202603-CNNN and is disjoint from the FIN-02 je_id block; posting dates sit inside March 2026 and approved dates inside the 2026-04-01 to 2026-04-07 close window
+      - source_document cites a vendor invoice, a vendor bill or one of the two contracts, and never a purchase order, which is not support for a journal entry; every citation resolves to a document another cluster 1 artifact mints
     consuming_modules: [finance-journal-entry-reclass]
     source_plan: finance-implementation-plan
 
   - id: FIN-10
     name: open-pos
     type: dataset
-    format: csv
+    format: csv + json
     generation: deterministic
-    canon_entities: [co-002]
-    planted_features: []
+    canon_entities: [co-002, co-101, co-105, co-106, co-107, co-109, co-119]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [po_number, po_line, vendor_canon_id, vendor_name, description, gl_account, quantity_ordered, quantity_received, quantity_invoiced, unit_price, ordered_value, received_value, invoiced_value, accrued_value, last_receipt_date, currency, as_of]
+    planted_features:
+      - "1 line received but neither invoiced nor accrued: exactly one row has received_value less invoiced_value less accrued_value greater than zero, every other row resolves to zero, and no FIN-11 bill and no FIN-09 entry cites that purchase-order line"
+      - every (po_number, po_line) resolves to a FIN-06 line, quantity_received never exceeds quantity_ordered, and invoiced_value equals the sum of the FIN-07 invoice amounts booked against that line
+      - accrual-rollforward.json carries the opening balance, accruals booked, reversals and closing balance for the accrued-liabilities account, plus the open-PO count and the received-not-invoiced and accrued totals; no answers
     consuming_modules: [finance-accruals-and-prepaids]
     source_plan: finance-implementation-plan
 
@@ -538,11 +594,15 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002, co-101, co-105]
+    canon_entities: [co-002, co-101, co-105, co-106, co-107, co-109, co-119]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [bill_id, vendor_canon_id, vendor_name, vendor_invoice_number, bill_date, posted_date, gl_account, description, service_period_start, service_period_end, bill_amount, currency, po_number, source_contract, amortization_schedule_id, monthly_amortization, months_elapsed, prepaid_balance, payment_status]
     planted_features:
-      - 1 missing accrual (goods/services received, not yet billed)
-      - 1 prepaid needing a fresh amortization schedule
-      - 1 already-correct schedule as a distractor
+      - "1 missing accrual (goods/services received, not yet billed): no bill in this file covers the FIN-10 line that was received and never invoiced, so the accrual has to come from the open-PO file rather than from a document in the AP queue"
+      - "1 prepaid needing a fresh amortization schedule: exactly one bill whose service period spans more than one calendar month carries an empty amortization_schedule_id; it is the FIN-12 insurance premium, posted in March against a policy period that opens 2026-04-01, so nothing is amortized at 2026-03-31"
+      - "1 already-correct schedule as a distractor: exactly one bill whose service period spans more than one calendar month carries a populated amortization_schedule_id; it is the CORE-01 subscription, and its monthly amortization, months elapsed and prepaid balance are internally consistent and meant to be confirmed rather than re-proposed"
+      - every other bill's service period sits inside one calendar month and carries no schedule id, so the multi-month predicate resolves to exactly the two prepaid rows and nothing else is a candidate
+      - payment_status is derived, not drawn: a bill is settled at the cut-off only if it fell due inside the period or the vendor is on direct debit, so a March bill on thirty day terms is still open at 2026-03-31, which is what makes the payables balance a believable number of days of purchases
     consuming_modules: [finance-accruals-and-prepaids]
     source_plan: finance-implementation-plan
 
@@ -553,7 +613,14 @@ artifacts:
     generation: drafted-frozen
     canon_entities: [co-002, co-105]
     planted_features:
-      - annual insurance/facilities contract, second prepaid schedule source (distractor from the CORE-01 SaaS pattern)
+      - annual commercial insurance and facilities services program agreement between the insured and its program administrator, with the coverage parts, limits, retention levels and premium allocation for a twelve month policy period
+      - "policy period April 1, 2026 to March 31, 2027, with a statement that coverage does not attach before the policy period begins, so nothing is amortized at the March close"
+      - annual premium payable in advance, invoiced March 24, 2026 on thirty day payment terms; the stated premium equals the FIN-11 prepaid bill amount to the cent
+      - premium is fully earned ratably across the twelve months of the policy period, in equal monthly proportions
+      - renewal terms delivered before expiry with a written notice window and automatic renewal, and no automatic premium uplift
+      - a short-rate cancellation clause returning ninety percent of the unearned premium, against a pro rata return where a carrier cancels
+      - a change of remittance instructions requires written notice signed by an officer and telephone confirmation to a previously known contact
+      - "signature block: the insured signs by a named finance officer from the CORE-04 roster; the counterparty executes by title only, so no new person name enters the universe"
     consuming_modules: [finance-accruals-and-prepaids]
     source_plan: finance-implementation-plan
 
@@ -669,9 +736,11 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
+    canon_entities: [co-002, co-104]
+    columns: [account_code, account_name, type, subtype, normal_balance, active]
     planted_features:
-      - 1 renamed/merged account (stale-reference trap)
+      - about 60 accounts across asset, liability, equity, revenue and expense; the operating cash account is 1010 (Operating Cash - Anchor Point Bank), the account FIN-01, FIN-02, FIN-05, FIN-09 and FIN-24 post against
+      - 1 renamed/merged account (stale-reference trap), kept on the chart as inactive with its name pointing at the surviving account
     consuming_modules: [finance-spreadsheet-ops, finance-knowledge-base]
     source_plan: finance-implementation-plan
 
@@ -814,49 +883,81 @@ artifacts:
     consuming_modules: [finance-intake-routing]
     source_plan: finance-implementation-plan
 
+  # FIN-36 is the empty template a team deploys at the start of a period.
+  # FIN-17 close-checklist is the populated, in-flight checklist of one close and
+  # keeps its own spec; the two must not drift into each other.
   - id: FIN-36
     name: close-checklist-template
     type: template
     format: csv
     generation: deterministic
-    canon_entities: []
-    planted_features: []
-    consuming_modules: [finance-spreadsheet-ops]
-    source_plan: finance-implementation-plan
+    canon_entities: [co-002]
+    columns: [task_id, close_day, task, category, owner_role, reviewer_role, depends_on, evidence_required, status, completed_date, notes]
+    planted_features:
+      - no defects; a template ships clean because three modules deploy it as their starting schema
+      - close_day is D+1 to D+5 (relative, not dated) so the same template is reused every period; the canon close window is 2026-04-01 to 2026-04-07
+      - owner_role and reviewer_role are always different CORE-04 Finance role titles, so segregation of duties is in the schema rather than in a policy paragraph
+      - depends_on never points forward in the close, and status, completed_date and notes ship empty for the learner to fill
+    consuming_modules: [finance-spreadsheet-ops, finance-google-workspace, finance-microsoft-365]
+    source_plan: finance-implementation-plan + shared-foundational-skeleton (5.5, B1 to B3)
 
   - id: FIN-37
     name: budget-vs-actual-template
     type: template
     format: csv
     generation: deterministic
-    canon_entities: []
-    planted_features: []
-    consuming_modules: [finance-spreadsheet-ops]
-    source_plan: finance-implementation-plan
+    canon_entities: [co-002]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [line_id, account_code, account_name, statement_section, normal_balance, owner_role, budget_amount, actual_amount, variance_amount, variance_pct, explanation_threshold_usd, variance_explanation]
+    planted_features:
+      - no defects; the tracker ships as a schema, not as a worked answer
+      - the row spine is every active FIN-22 profit-and-loss account, read off the chart rather than retyped, so a chart change shows up here
+      - budget_amount is each account's own prior run rate, read off FIN-05 (the beginning column is year to date at 2026-02-28, so half of it is the January and February monthly average), moved by a seeded planning adjustment of at most 3 percent and rounded to whole hundreds. March is not an input, so a handful of lines breach their own threshold in March and most do not
+      - actual_amount, variance_amount, variance_pct and variance_explanation ship empty because a person enters the figure
+      - normal_balance is read off the FIN-22 chart, so a consumer knows which way a line runs without parsing its name; the contra-revenue line is a revenue-section row with a debit normal balance whose budget is the planned discount as a positive magnitude
+      - explanation_threshold_usd is 5 percent of budget, floored at 10000 and rounded up to the nearest 1000 (see UNCONFIRMED 3 in the D3-lite plan; FIN-26 materiality-thresholds has no generator yet)
+    consuming_modules: [finance-spreadsheet-ops, finance-google-workspace, finance-microsoft-365]
+    source_plan: finance-implementation-plan + shared-foundational-skeleton (5.5, B1 to B3)
 
   - id: FIN-38
     name: reliability-drill-transactions
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
+    canon_entities: [co-002, co-104, co-140+]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [claim_id, source_artifact, source_row_id, source_reference, counterparty, proposed_amount, proposed_gl_account, model_confidence, reviewer_verdict, reviewer_note]
     planted_features:
-      - 1 AI-proposed answer confidently wrong (transposed balance)
-      - 1 fabricated GL code
-      - 1 correct answer as a control
+      - "15 AI-proposed readings of rows that already ship in the pack, each citing its source: txn_id in FIN-01, je_id in FIN-02, check_number in FIN-03. Every claim is checkable against the tagged data, which is the whole exercise"
+      - "1 AI-proposed answer confidently wrong (transposed balance): exactly one proposed_amount is a digit transposition of its source row's amount"
+      - "1 fabricated GL code: exactly one proposed_gl_account is not on the FIN-22 chart; every other proposed account is on the chart and active"
+      - "1 correct answer as a control: exactly three rows carry model_confidence high, of which exactly ONE is wrong (the transposition). The fabricated code is reported below high, so the two plants sit at different confidence levels and confidence locates neither of them. Two of the three confident claims verify clean, so blanket rejection fails the drill as surely as trusting the confident rows does, and only verifying every claim finds both plants"
+      - source rows are drawn only from a clean pool (unique amount and reference in the bank feed, matched at the same amount in the GL), so FIN-01's own planted duplicate, unrecorded fee and transposed payment never double as a drill answer
+      - reviewer_verdict and reviewer_note ship empty for the learner to fill
     consuming_modules: [finance-ai-reliability]
-    source_plan: finance-implementation-plan
+    source_plan: finance-implementation-plan + shared-foundational-skeleton (2.5, B4)
 
   - id: FIN-39
     name: decision-authority-matrix-template
     type: template
     format: csv
     generation: deterministic
-    canon_entities: []
-    planted_features: []
+    canon_entities: [co-002]
+    columns: [control_id, decision, data_class, amount_min_usd, amount_max_usd, ai_autonomy_level, approver_role, escalation_role, evidence_required, moves_money_or_posts]
+    planted_features:
+      - no defects; the matrix is the policy a validator runs against
+      - "the finance-only hard control: every decision that moves money or posts an entry carries ai_autonomy_level prohibited, whatever the amount"
+      - "four data classes (public, internal, confidential, restricted); no restricted row is autonomous or review_before_commit"
+      - amount bands step at 5000 and at 50000, and the 50000 step matches FIN-06's shipped purchase-order rule that a line of 50000 or more is approved at director level
+      - every approver_role and escalation_role is the role_title of an active CORE-04 employee, in Finance except for the single Chief Executive Officer escalation on DA-20, and the escalation role is strictly more senior than the approver role
     consuming_modules: [finance-operational-controls]
-    source_plan: finance-implementation-plan
+    source_plan: finance-implementation-plan + shared-foundational-skeleton (2.6, B5)
 
+  # FREEZE REVIEW PENDING (Salvador). The bytes are frozen; the prose is not
+  # approved until reviewed. Do not cut a tag that includes FIN-40 before then.
+  # planted_features rewritten 2026-08-18: the original line described what the
+  # learner must do, which no document can contain, so `validate` could never
+  # confirm it. These five describe the document.
   - id: FIN-40
     name: mnpi-flagged-draft
     type: document
@@ -864,9 +965,14 @@ artifacts:
     generation: drafted-frozen
     canon_entities: [co-002]
     planted_features:
-      - visible classification header the learner must recognize and refuse to paste into a consumer AI tool
+      - "RESTRICTED - MATERIAL NON-PUBLIC INFORMATION classification banner on the first line, repeated in the footer of the document"
+      - "handling instructions that prohibit forwarding, printing and pasting any part of the document into an external or consumer AI assistant, and require approved internal systems only"
+      - "a quiet period stated with dates: the board meeting, the results announcement, and the window during which the contents stay unreleased"
+      - "distribution stated by role title only (Board of Directors, Chief Executive Officer, VP, Finance, Controller); no individual is named anywhere and there is no signature line"
+      - "two rounded financial figures, each marked draft and unreleased and subject to close adjustments, and each naming the subtotal it reads: total revenue and net loss, both recomputable from the FIN-05 trial balance"
+      - "a pending strategic matter under exclusivity, described without a counterparty name, so the sensitivity does not depend on the numbers alone"
     consuming_modules: [finance-operational-controls]
-    source_plan: finance-implementation-plan
+    source_plan: finance-implementation-plan + shared-foundational-skeleton (2.6, B5)
 
   # ----------------------------------------------------------------- HR (people-hr path)
   - id: HR-01

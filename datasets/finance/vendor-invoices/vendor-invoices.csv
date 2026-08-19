@@ -1,0 +1,73 @@
+invoice_id,vendor_canon_id,vendor_name,invoice_number,invoice_date,received_date,po_number,po_line,description,quantity_billed,unit_price,invoice_amount,currency,payment_terms,due_date,remit_to_bank,remit_to_account_masked,status
+VINV-2026-0101,co-182,Harrowfen Facilities Group,HRF-18785,2026-02-25,2026-03-02,PO-2026-0145,1,Grounds and waste service,5,4514.96,22574.80,USD,net_45,2026-04-11,Anchor Point Bank,XXXX-5466,matched
+VINV-2026-0102,co-101,Copperline Software,CPL-21029,2026-02-26,2026-03-03,PO-2026-0132,2,Additional developer seats,35,2353.01,82355.35,USD,net_30,2026-03-28,Anchor Point Bank,XXXX-2186,matched
+VINV-2026-0103,co-119,DataPulse Analytics,DPA-18901,2026-03-02,2026-03-03,PO-2026-0144,2,Event volume tier,18,966.94,17404.92,USD,net_45,2026-04-16,Anchor Point Bank,XXXX-9155,matched
+VINV-2026-0104,co-185,Thackenridge Courier,TKR-16955,2026-02-26,2026-03-03,PO-2026-0123,1,Overnight document courier,13,55.81,725.53,USD,net_45,2026-04-12,Anchor Point Bank,XXXX-2211,on_hold
+VINV-2026-0105,co-190,Wrenfallow Security Systems,WRF-21289,2026-02-28,2026-03-04,PO-2026-0104,1,Door hardware kits,9,511.83,4606.47,USD,net_30,2026-03-30,Anchor Point Bank,XXXX-9232,matched
+VINV-2026-0106,co-181,Halvermoor Cloud Services,HVM-13597,2026-02-26,2026-03-04,PO-2026-0112,1,Object storage tier,6,19805.47,118832.82,USD,net_45,2026-04-12,Anchor Point Bank,XXXX-4795,matched
+VINV-2026-0107,co-183,Kestrelmoor Staffing Partners,KSM-19537,2026-03-03,2026-03-04,PO-2026-0116,1,Contract QA engineer hours,140,105.41,14757.40,USD,net_45,2026-04-17,Anchor Point Bank,XXXX-6969,matched
+VINV-2026-0108,co-185,Thackenridge Courier,TKR-16952,2026-02-26,2026-03-04,PO-2026-0123,3,Equipment transfer runs,58,32.39,1878.62,USD,net_45,2026-04-12,Anchor Point Bank,XXXX-2211,matched
+VINV-2026-0109,co-101,Copperline Software,CPL-21028,2026-03-01,2026-03-04,PO-2026-0132,1,Sandbox environment add-on,60,1944.47,116668.20,USD,net_30,2026-03-31,Anchor Point Bank,XXXX-2186,matched
+VINV-2026-0110,co-185,Thackenridge Courier,TKR-16953,2026-02-25,2026-03-04,PO-2026-0138,1,Overnight document courier,50,144.35,7217.50,USD,net_45,2026-04-11,Anchor Point Bank,XXXX-2211,matched
+VINV-2026-0111,co-106,TalentForce HR Platform,TFH-19038,2026-02-24,2026-03-04,PO-2026-0101,1,Benefits administration seats,278,109.33,30393.74,USD,net_30,2026-03-26,Anchor Point Bank,XXXX-9813,matched
+VINV-2026-0112,co-182,Harrowfen Facilities Group,HRF-18786,2026-02-28,2026-03-04,PO-2026-0139,1,Reception desk coverage,3,6287.83,18863.49,USD,net_30,2026-03-30,Anchor Point Bank,XXXX-5466,matched
+VINV-2026-0113,co-184,Loamfield Power Cooperative,LMF-20250,2026-02-28,2026-03-05,PO-2026-0133,1,"Electricity supply, Suite 400",3,2683.28,8049.84,USD,net_15,2026-03-15,Anchor Point Bank,XXXX-1626,matched
+VINV-2026-0114,co-190,Wrenfallow Security Systems,WRF-21288,2026-02-27,2026-03-06,PO-2026-0102,3,Badge readers and controllers,68,730.04,49642.72,USD,net_15,2026-03-14,Anchor Point Bank,XXXX-9232,matched
+VINV-2026-0115,co-107,Cedarline Office Supply,CDL-23721,2026-03-04,2026-03-06,PO-2026-0143,2,Desk accessories,150,53.14,7971.00,USD,net_15,2026-03-19,Anchor Point Bank,XXXX-3953,matched
+VINV-2026-0116,co-119,DataPulse Analytics,DPA-18903,2026-02-27,2026-03-06,PO-2026-0119,2,Event volume tier,9,2030.41,18273.69,USD,net_30,2026-03-29,Anchor Point Bank,XXXX-9155,matched
+VINV-2026-0117,co-106,TalentForce HR Platform,TFH-19039,2026-03-08,2026-03-09,PO-2026-0120,1,Benefits administration seats,73,94.52,6899.96,USD,net_15,2026-03-23,Anchor Point Bank,XXXX-9813,unmatched
+VINV-2026-0118,co-187,Fenwhistle Travel Desk,FNW-14197,2026-03-05,2026-03-10,PO-2026-0107,1,Managed travel booking fees,158,55.39,8751.62,USD,net_30,2026-04-04,Anchor Point Bank,XXXX-3167,matched
+VINV-2026-0119,co-186,Sarrowmere Print Works,SRM-19594,2026-03-08,2026-03-10,PO-2026-0114,2,Branded folder stock,451,52.23,23555.73,USD,net_45,2026-04-22,Anchor Point Bank,XXXX-5259,matched
+VINV-2026-0120,co-181,Halvermoor Cloud Services,HVM-13595,2026-03-08,2026-03-11,PO-2026-0108,2,Managed database nodes,9,11164.87,100483.83,USD,net_30,2026-04-07,Anchor Point Bank,XXXX-4795,on_hold
+VINV-2026-0121,co-186,Sarrowmere Print Works,SRM-19593,2026-03-07,2026-03-11,PO-2026-0114,1,Direct mail production,220,70.51,15512.20,USD,net_30,2026-04-06,Anchor Point Bank,XXXX-5259,matched
+VINV-2026-0122,co-184,Loamfield Power Cooperative,LMF-20249,2026-03-07,2026-03-11,PO-2026-0117,3,"Electricity supply, Suite 400",1,4161.44,4161.44,USD,net_45,2026-04-21,Anchor Point Bank,XXXX-1626,matched
+VINV-2026-0123,co-119,DataPulse Analytics,DPA-18898,2026-03-05,2026-03-11,PO-2026-0124,1,Event volume tier,19,2258.15,42904.85,USD,net_30,2026-04-04,Anchor Point Bank,XXXX-9155,matched
+VINV-2026-0124,co-106,TalentForce HR Platform,TFH-19036,2026-03-10,2026-03-11,PO-2026-0128,1,Open enrollment support hours,125,102.19,12773.75,USD,net_30,2026-04-09,Anchor Point Bank,XXXX-9813,matched
+VINV-2026-0125,co-107,Cedarline Office Supply,CDL-23720,2026-03-10,2026-03-11,PO-2026-0143,1,Breakroom supplies,233,22.77,5305.41,USD,net_45,2026-04-24,Anchor Point Bank,XXXX-3953,matched
+VINV-2026-0126,co-119,DataPulse Analytics,DPA-18903,2026-02-27,2026-03-11,PO-2026-0119,2,Event volume tier,9,2030.41,18273.69,USD,net_30,2026-03-29,Anchor Point Bank,XXXX-9155,matched
+VINV-2026-0127,co-184,Loamfield Power Cooperative,LMF-20247,2026-03-11,2026-03-13,PO-2026-0117,1,Metered water and sewer,5,5588.17,27940.85,USD,net_45,2026-04-25,Anchor Point Bank,XXXX-1626,matched
+VINV-2026-0128,co-187,Fenwhistle Travel Desk,FNW-14199,2026-03-08,2026-03-13,PO-2026-0125,1,Group rate coordination,178,49.39,8791.42,USD,net_45,2026-04-22,Anchor Point Bank,XXXX-3167,on_hold
+VINV-2026-0129,co-187,Fenwhistle Travel Desk,FNW-14200,2026-03-06,2026-03-13,PO-2026-0125,2,Group rate coordination,193,57.68,11132.24,USD,net_30,2026-04-05,Anchor Point Bank,XXXX-3167,on_hold
+VINV-2026-0130,co-105,Millgate Insurance Services,MLG-13722,2026-03-05,2026-03-13,PO-2026-0105,1,Certificate administration,3,6874.40,20623.20,USD,net_30,2026-04-04,Anchor Point Bank,XXXX-5183,matched
+VINV-2026-0131,co-185,Thackenridge Courier,TKR-16950,2026-03-08,2026-03-16,PO-2026-0109,1,Overnight document courier,22,51.02,1122.44,USD,net_45,2026-04-22,Anchor Point Bank,XXXX-2211,unmatched
+VINV-2026-0132,co-188,Fallowmere Catering,FLM-19217,2026-03-14,2026-03-16,PO-2026-0110,1,All-hands catering,61,57.86,3529.46,USD,net_15,2026-03-29,Anchor Point Bank,XXXX-7719,matched
+VINV-2026-0133,co-181,Halvermoor Cloud Services,HVM-13599,2026-03-11,2026-03-16,PO-2026-0112,3,Production compute reservation,3,11602.39,34807.17,USD,net_45,2026-04-25,Anchor Point Bank,XXXX-4795,matched
+VINV-2026-0134,co-119,DataPulse Analytics,DPA-18897,2026-03-09,2026-03-17,PO-2026-0119,3,Product analytics workspace,4,1067.16,4268.64,USD,net_15,2026-03-24,Anchor Point Bank,XXXX-9155,unmatched
+VINV-2026-0135,co-109,Birchcroft Properties,BCP-16140,2026-03-09,2026-03-17,PO-2026-0137,2,Suite 400 common area charge,6,11321.05,67926.30,USD,net_45,2026-04-23,Anchor Point Bank,XXXX-9180,matched
+VINV-2026-0136,co-181,Halvermoor Cloud Services,HVM-13598,2026-03-13,2026-03-18,PO-2026-0112,2,Object storage tier,8,13040.59,104324.72,USD,net_30,2026-04-12,Anchor Point Bank,XXXX-4795,matched
+VINV-2026-0137,co-184,Loamfield Power Cooperative,LMF-20251,2026-03-13,2026-03-18,PO-2026-0133,2,Metered water and sewer,1,3440.20,3440.20,USD,net_30,2026-04-12,Anchor Point Bank,XXXX-1626,matched
+VINV-2026-0138,co-101,Copperline Software,CPL-21031,2026-03-15,2026-03-18,PO-2026-0148,2,Sandbox environment add-on,21,2205.01,46305.21,USD,net_30,2026-04-14,Anchor Point Bank,XXXX-2186,matched
+VINV-2026-0139,co-105,Millgate Insurance Services,MLG-13723,2026-03-13,2026-03-18,PO-2026-0105,2,Commercial package placement fee,4,7921.52,31686.08,USD,net_30,2026-04-12,Anchor Point Bank,XXXX-5183,matched
+VINV-2026-0140,co-187,Fenwhistle Travel Desk,FNW-14198,2026-03-16,2026-03-19,PO-2026-0107,2,Group rate coordination,79,32.07,2533.53,USD,net_15,2026-03-31,Anchor Point Bank,XXXX-3167,matched
+VINV-2026-0141,co-186,Sarrowmere Print Works,SRM-19596,2026-03-17,2026-03-19,PO-2026-0121,1,Branded folder stock,262,67.35,17645.70,USD,net_30,2026-04-16,Anchor Point Bank,XXXX-5259,matched
+VINV-2026-0142,co-183,Kestrelmoor Staffing Partners,KSM-19538,2026-03-11,2026-03-19,PO-2026-0127,1,Interim analyst placement,232,143.62,33319.84,USD,net_15,2026-03-26,Anchor Point Bank,XXXX-6969,matched
+VINV-2026-0143,co-183,Kestrelmoor Staffing Partners,KSM-19539,2026-03-11,2026-03-19,PO-2026-0131,2,Seasonal support staffing,109,106.71,11631.39,USD,net_30,2026-04-10,Anchor Point Bank,XXXX-6969,matched
+VINV-2026-0144,co-184,Loamfield Power Cooperative,LMF-20248,2026-03-12,2026-03-20,PO-2026-0117,2,Metered water and sewer,3,4926.05,14778.15,USD,net_45,2026-04-26,Anchor Point Bank,XXXX-1626,on_hold
+VINV-2026-0145,co-184,Loamfield Power Cooperative,LMF-20252,2026-03-15,2026-03-20,PO-2026-0133,3,Metered water and sewer,1,3908.88,3908.88,USD,net_30,2026-04-14,Anchor Point Bank,XXXX-1626,matched
+VINV-2026-0146,co-186,Sarrowmere Print Works,SRM-19595,2026-03-19,2026-03-23,PO-2026-0114,3,Conference collateral print run,186,30.03,5585.58,USD,net_30,2026-04-18,Anchor Point Bank,XXXX-5259,unmatched
+VINV-2026-0147,co-185,Thackenridge Courier,TKR-16951,2026-03-21,2026-03-23,PO-2026-0123,2,Equipment transfer runs,87,37.38,3252.06,USD,net_30,2026-04-20,Anchor Point Bank,XXXX-2211,matched
+VINV-2026-0148,co-106,TalentForce HR Platform,TFH-19037,2026-03-16,2026-03-23,PO-2026-0128,2,Payroll platform module,301,57.64,17349.64,USD,net_15,2026-03-31,Anchor Point Bank,XXXX-9813,matched
+VINV-2026-0149,co-109,Birchcroft Properties,BCP-16139,2026-03-16,2026-03-23,PO-2026-0137,1,Suite 400 common area charge,2,8846.30,17692.60,USD,net_30,2026-04-15,Anchor Point Bank,XXXX-9180,matched
+VINV-2026-0150,co-189,Braxmoor Recruiting Group,BXM-12709,2026-03-18,2026-03-23,PO-2026-0115,2,Sourcing sprint,5,1281.58,6407.90,USD,net_15,2026-04-02,Anchor Point Bank,XXXX-4287,matched
+VINV-2026-0151,co-106,TalentForce HR Platform,TFH-19035,2026-03-23,2026-03-24,PO-2026-0101,2,Payroll platform module,419,64.11,26862.09,USD,net_30,2026-04-22,Anchor Point Bank,XXXX-9813,matched
+VINV-2026-0152,co-190,Wrenfallow Security Systems,WRF-21287,2026-03-18,2026-03-24,PO-2026-0102,2,Badge readers and controllers,57,622.01,35454.57,USD,net_45,2026-05-02,Anchor Point Bank,XXXX-9232,matched
+VINV-2026-0153,co-188,Fallowmere Catering,FLM-19218,2026-03-20,2026-03-24,PO-2026-0110,2,Onsite lunch service,145,49.08,7116.60,USD,net_45,2026-05-04,Anchor Point Bank,XXXX-7719,matched
+VINV-2026-0154,co-186,Sarrowmere Print Works,SRM-19597,2026-03-22,2026-03-24,PO-2026-0141,1,Direct mail production,117,65.05,7610.85,USD,net_30,2026-04-21,Anchor Point Bank,XXXX-5259,matched
+VINV-2026-0155,co-119,DataPulse Analytics,DPA-18900,2026-03-20,2026-03-25,PO-2026-0144,1,Product analytics workspace,11,1668.87,18357.57,USD,net_30,2026-04-19,Anchor Point Bank,XXXX-9155,matched
+VINV-2026-0156,co-189,Braxmoor Recruiting Group,BXM-12707,2026-03-23,2026-03-26,PO-2026-0118,2,Engineering search retainer,12,1816.80,21801.60,USD,net_15,2026-04-07,Anchor Point Bank,XXXX-4287,on_hold
+VINV-2026-0157,co-105,Millgate Insurance Services,MLG-13721,2026-03-20,2026-03-26,PO-2026-0140,1,Certificate administration,3,9224.88,27674.64,USD,net_15,2026-04-04,Anchor Point Bank,XXXX-5183,matched
+VINV-2026-0158,co-101,Copperline Software,CPL-21030,2026-03-23,2026-03-26,PO-2026-0148,1,Additional developer seats,15,3568.76,53531.40,USD,net_30,2026-04-22,Anchor Point Bank,XXXX-2186,unmatched
+VINV-2026-0159,co-109,Birchcroft Properties,BCP-16141,2026-03-24,2026-03-26,PO-2026-0113,1,Suite 400 common area charge,2,10654.12,21308.24,USD,net_30,2026-04-23,Anchor Point Bank,XXXX-9180,on_hold
+VINV-2026-0160,co-119,DataPulse Analytics,DPA-18902,2026-03-21,2026-03-26,PO-2026-0119,1,Product analytics workspace,9,1110.71,9996.39,USD,net_30,2026-04-20,Anchor Point Bank,XXXX-9155,matched
+VINV-2026-0161,co-190,Wrenfallow Security Systems,WRF-21290,2026-03-24,2026-03-26,PO-2026-0129,2,Badge readers and controllers,4,220.59,882.36,USD,net_30,2026-04-23,Anchor Point Bank,XXXX-9232,matched
+VINV-2026-0162,co-109,Birchcroft Properties,BCP-16142,2026-03-18,2026-03-26,PO-2026-0135,2,After-hours HVAC,2,7733.41,15466.82,USD,net_30,2026-04-17,Anchor Point Bank,XXXX-9180,matched
+VINV-2026-0163,co-188,Fallowmere Catering,FLM-19219,2026-03-24,2026-03-27,PO-2026-0122,1,Customer advisory board dinner,62,144.58,8963.96,USD,net_45,2026-05-08,Anchor Point Bank,XXXX-7719,matched
+VINV-2026-0164,co-185,Thackenridge Courier,TKR-16954,2026-03-26,2026-03-27,PO-2026-0138,2,Equipment transfer runs,39,95.75,3734.25,USD,net_30,2026-04-25,Anchor Point Bank,XXXX-2211,unmatched
+VINV-2026-0165,co-190,Wrenfallow Security Systems,WRF-21286,2026-03-23,2026-03-30,PO-2026-0102,1,Door hardware kits,53,743.56,39408.68,USD,net_30,2026-04-22,Anchor Point Bank,XXXX-9232,matched
+VINV-2026-0166,co-119,DataPulse Analytics,DPA-18899,2026-03-29,2026-03-30,PO-2026-0124,2,Event volume tier,38,2255.28,85700.64,USD,net_30,2026-04-28,Anchor Point Bank,XXXX-9155,on_hold
+VINV-2026-0167,co-181,Halvermoor Cloud Services,HVM-13600,2026-03-25,2026-03-30,PO-2026-0130,1,Object storage tier,6,14326.75,85960.50,USD,net_30,2026-04-24,Anchor Point Bank,XXXX-4795,matched
+VINV-2026-0168,co-107,Cedarline Office Supply,CDL-23719,2026-03-24,2026-03-30,PO-2026-0134,2,Breakroom supplies,42,57.83,2428.86,USD,net_30,2026-04-23,Anchor Point Bank,XXXX-1354,matched
+VINV-2026-0169,co-189,Braxmoor Recruiting Group,BXM-12710,2026-03-28,2026-03-30,PO-2026-0118,1,Engineering search retainer,2,1335.99,2671.98,USD,net_45,2026-05-12,Anchor Point Bank,XXXX-4287,unmatched
+VINV-2026-0170,co-181,Halvermoor Cloud Services,HVM-13596,2026-03-23,2026-03-31,PO-2026-0108,3,Object storage tier,8,13373.19,106985.52,USD,net_15,2026-04-07,Anchor Point Bank,XXXX-4795,unmatched
+VINV-2026-0171,co-189,Braxmoor Recruiting Group,BXM-12708,2026-03-24,2026-03-31,PO-2026-0118,3,Engineering search retainer,10,1978.92,19789.20,USD,net_45,2026-05-08,Anchor Point Bank,XXXX-4287,matched
+VINV-2026-0172,co-101,Copperline Software,CPL-21032,2026-03-29,2026-03-31,PO-2026-0155,1,Annual platform license renewal,57,2911.45,165952.65,USD,net_15,2026-04-13,Anchor Point Bank,XXXX-2186,matched

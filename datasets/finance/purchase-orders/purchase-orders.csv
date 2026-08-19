@@ -1,0 +1,91 @@
+po_number,po_line,po_date,vendor_canon_id,vendor_name,description,gl_account,uom,quantity_ordered,unit_price,line_amount,currency,requested_by_employee_id,approved_by_employee_id,approval_level,status,expected_delivery_date
+PO-2026-0101,1,2026-01-05,co-106,TalentForce HR Platform,Benefits administration seats,6020,seat,557,109.33,60896.81,USD,EMP-0504,EMP-0463,director,received,2026-01-28
+PO-2026-0101,2,2026-01-05,co-106,TalentForce HR Platform,Payroll platform module,6020,seat,419,64.11,26862.09,USD,EMP-0504,EMP-0463,director,closed,2026-01-28
+PO-2026-0102,1,2026-01-06,co-190,Wrenfallow Security Systems,Door hardware kits,1400,each,53,743.56,39408.68,USD,EMP-0546,EMP-0463,director,closed,2026-01-20
+PO-2026-0102,2,2026-01-06,co-190,Wrenfallow Security Systems,Badge readers and controllers,1400,each,57,622.01,35454.57,USD,EMP-0546,EMP-0463,director,closed,2026-01-20
+PO-2026-0102,3,2026-01-06,co-190,Wrenfallow Security Systems,Badge readers and controllers,1400,each,68,730.04,49642.72,USD,EMP-0546,EMP-0463,director,closed,2026-01-20
+PO-2026-0103,1,2026-01-07,co-105,Millgate Insurance Services,Commercial package placement fee,6600,month,2,6446.69,12893.38,USD,EMP-0574,EMP-0465,manager,open,2026-02-02
+PO-2026-0103,2,2026-01-07,co-105,Millgate Insurance Services,Certificate administration,6600,month,2,4760.95,9521.90,USD,EMP-0574,EMP-0465,manager,received,2026-02-02
+PO-2026-0104,1,2026-01-08,co-190,Wrenfallow Security Systems,Door hardware kits,1400,each,9,511.83,4606.47,USD,EMP-0546,EMP-0465,manager,closed,2026-02-19
+PO-2026-0105,1,2026-01-09,co-105,Millgate Insurance Services,Certificate administration,6600,month,6,6874.40,41246.40,USD,EMP-0574,EMP-0463,director,received,2026-01-21
+PO-2026-0105,2,2026-01-09,co-105,Millgate Insurance Services,Commercial package placement fee,6600,month,9,7921.52,71293.68,USD,EMP-0574,EMP-0463,director,received,2026-01-21
+PO-2026-0106,1,2026-01-12,co-184,Loamfield Power Cooperative,Demand charge true-up,6110,month,6,5514.24,33085.44,USD,EMP-0574,EMP-0465,manager,partially_received,2026-01-27
+PO-2026-0106,2,2026-01-12,co-184,Loamfield Power Cooperative,"Electricity supply, Suite 400",6110,month,2,2868.21,5736.42,USD,EMP-0574,EMP-0465,manager,received,2026-01-27
+PO-2026-0107,1,2026-01-12,co-187,Fenwhistle Travel Desk,Managed travel booking fees,6400,each,158,55.39,8751.62,USD,EMP-0252,EMP-0465,manager,closed,2026-02-22
+PO-2026-0107,2,2026-01-12,co-187,Fenwhistle Travel Desk,Group rate coordination,6400,each,79,32.07,2533.53,USD,EMP-0252,EMP-0465,manager,closed,2026-02-22
+PO-2026-0108,1,2026-01-13,co-181,Halvermoor Cloud Services,Production compute reservation,5000,month,2,18796.04,37592.08,USD,EMP-0027,EMP-0463,director,received,2026-02-17
+PO-2026-0108,2,2026-01-13,co-181,Halvermoor Cloud Services,Managed database nodes,5000,month,9,11164.87,100483.83,USD,EMP-0027,EMP-0463,director,closed,2026-02-17
+PO-2026-0108,3,2026-01-13,co-181,Halvermoor Cloud Services,Object storage tier,5000,month,8,13373.19,106985.52,USD,EMP-0027,EMP-0463,director,closed,2026-02-17
+PO-2026-0109,1,2026-01-13,co-185,Thackenridge Courier,Overnight document courier,6120,each,22,51.02,1122.44,USD,EMP-0576,EMP-0465,manager,closed,2026-01-27
+PO-2026-0110,1,2026-01-15,co-188,Fallowmere Catering,All-hands catering,6310,each,61,57.86,3529.46,USD,EMP-0503,EMP-0465,manager,closed,2026-01-25
+PO-2026-0110,2,2026-01-15,co-188,Fallowmere Catering,Onsite lunch service,6310,each,145,49.08,7116.60,USD,EMP-0503,EMP-0465,manager,closed,2026-01-25
+PO-2026-0111,1,2026-01-16,co-101,Copperline Software,Sandbox environment add-on,6200,license,25,2550.83,63770.75,USD,EMP-0020,EMP-0463,director,received,2026-01-27
+PO-2026-0112,1,2026-01-16,co-181,Halvermoor Cloud Services,Object storage tier,5000,month,6,18862.35,113174.10,USD,EMP-0027,EMP-0463,director,closed,2026-01-31
+PO-2026-0112,2,2026-01-16,co-181,Halvermoor Cloud Services,Object storage tier,5000,month,8,13040.59,104324.72,USD,EMP-0027,EMP-0463,director,closed,2026-01-31
+PO-2026-0112,3,2026-01-16,co-181,Halvermoor Cloud Services,Production compute reservation,5000,month,3,11602.39,34807.17,USD,EMP-0027,EMP-0463,director,closed,2026-01-31
+PO-2026-0113,1,2026-01-20,co-109,Birchcroft Properties,Suite 400 common area charge,6100,month,5,10654.12,53270.60,USD,EMP-0575,EMP-0463,director,received,2026-02-06
+PO-2026-0113,2,2026-01-20,co-109,Birchcroft Properties,Parking allocation,6100,month,6,18232.99,109397.94,USD,EMP-0575,EMP-0463,director,received,2026-02-06
+PO-2026-0114,1,2026-01-22,co-186,Sarrowmere Print Works,Direct mail production,6300,each,220,70.51,15512.20,USD,EMP-0355,EMP-0465,manager,closed,2026-01-31
+PO-2026-0114,2,2026-01-22,co-186,Sarrowmere Print Works,Branded folder stock,6300,each,451,52.23,23555.73,USD,EMP-0355,EMP-0465,manager,closed,2026-01-31
+PO-2026-0114,3,2026-01-22,co-186,Sarrowmere Print Works,Conference collateral print run,6300,each,186,30.03,5585.58,USD,EMP-0355,EMP-0465,manager,closed,2026-01-31
+PO-2026-0115,1,2026-01-26,co-189,Braxmoor Recruiting Group,Engineering search retainer,6040,each,8,1711.44,13691.52,USD,EMP-0503,EMP-0465,manager,partially_received,2026-02-13
+PO-2026-0115,2,2026-01-26,co-189,Braxmoor Recruiting Group,Sourcing sprint,6040,each,10,1281.58,12815.80,USD,EMP-0503,EMP-0465,manager,received,2026-02-13
+PO-2026-0116,1,2026-01-28,co-183,Kestrelmoor Staffing Partners,Contract QA engineer hours,6030,hour,140,105.41,14757.40,USD,EMP-0503,EMP-0465,manager,closed,2026-02-21
+PO-2026-0117,1,2026-01-28,co-184,Loamfield Power Cooperative,Metered water and sewer,6110,month,5,5588.17,27940.85,USD,EMP-0574,EMP-0465,manager,closed,2026-03-06
+PO-2026-0117,2,2026-01-28,co-184,Loamfield Power Cooperative,Metered water and sewer,6110,month,3,4926.05,14778.15,USD,EMP-0574,EMP-0465,manager,closed,2026-03-06
+PO-2026-0117,3,2026-01-28,co-184,Loamfield Power Cooperative,"Electricity supply, Suite 400",6110,month,1,4161.44,4161.44,USD,EMP-0574,EMP-0465,manager,closed,2026-03-06
+PO-2026-0118,1,2026-01-29,co-189,Braxmoor Recruiting Group,Engineering search retainer,6040,each,5,1335.99,6679.95,USD,EMP-0503,EMP-0465,manager,received,2026-03-09
+PO-2026-0118,2,2026-01-29,co-189,Braxmoor Recruiting Group,Engineering search retainer,6040,each,12,1816.80,21801.60,USD,EMP-0503,EMP-0465,manager,closed,2026-03-09
+PO-2026-0118,3,2026-01-29,co-189,Braxmoor Recruiting Group,Engineering search retainer,6040,each,10,1978.92,19789.20,USD,EMP-0503,EMP-0465,manager,closed,2026-03-09
+PO-2026-0119,1,2026-02-04,co-119,DataPulse Analytics,Product analytics workspace,6200,license,19,1110.71,21103.49,USD,EMP-0202,EMP-0463,director,received,2026-03-02
+PO-2026-0119,2,2026-02-04,co-119,DataPulse Analytics,Event volume tier,6200,license,19,2030.41,38577.79,USD,EMP-0202,EMP-0463,director,received,2026-03-02
+PO-2026-0119,3,2026-02-04,co-119,DataPulse Analytics,Product analytics workspace,6200,license,4,1067.16,4268.64,USD,EMP-0202,EMP-0463,director,closed,2026-03-02
+PO-2026-0120,1,2026-02-05,co-106,TalentForce HR Platform,Benefits administration seats,6020,seat,244,94.52,23062.88,USD,EMP-0504,EMP-0465,manager,partially_received,2026-03-16
+PO-2026-0120,2,2026-02-05,co-106,TalentForce HR Platform,Benefits administration seats,6020,seat,156,110.45,17230.20,USD,EMP-0504,EMP-0465,manager,open,2026-03-16
+PO-2026-0121,1,2026-02-05,co-186,Sarrowmere Print Works,Branded folder stock,6300,each,262,67.35,17645.70,USD,EMP-0355,EMP-0465,manager,closed,2026-03-12
+PO-2026-0122,1,2026-02-06,co-188,Fallowmere Catering,Customer advisory board dinner,6310,each,62,144.58,8963.96,USD,EMP-0503,EMP-0465,manager,closed,2026-03-21
+PO-2026-0123,1,2026-02-10,co-185,Thackenridge Courier,Overnight document courier,6120,each,27,55.81,1506.87,USD,EMP-0576,EMP-0465,manager,received,2026-03-12
+PO-2026-0123,2,2026-02-10,co-185,Thackenridge Courier,Equipment transfer runs,6120,each,87,37.38,3252.06,USD,EMP-0576,EMP-0465,manager,closed,2026-03-12
+PO-2026-0123,3,2026-02-10,co-185,Thackenridge Courier,Equipment transfer runs,6120,each,58,32.39,1878.62,USD,EMP-0576,EMP-0465,manager,closed,2026-03-12
+PO-2026-0124,1,2026-02-13,co-119,DataPulse Analytics,Event volume tier,6200,license,19,2258.15,42904.85,USD,EMP-0202,EMP-0463,director,closed,2026-02-21
+PO-2026-0124,2,2026-02-13,co-119,DataPulse Analytics,Event volume tier,6200,license,38,2255.28,85700.64,USD,EMP-0202,EMP-0463,director,closed,2026-02-21
+PO-2026-0125,1,2026-02-17,co-187,Fenwhistle Travel Desk,Group rate coordination,6400,each,178,49.39,8791.42,USD,EMP-0252,EMP-0465,manager,closed,2026-03-11
+PO-2026-0125,2,2026-02-17,co-187,Fenwhistle Travel Desk,Group rate coordination,6400,each,193,57.68,11132.24,USD,EMP-0252,EMP-0465,manager,closed,2026-03-11
+PO-2026-0126,1,2026-02-17,co-189,Braxmoor Recruiting Group,Assessment license block,6040,each,6,1721.50,10329.00,USD,EMP-0503,EMP-0465,manager,received,2026-03-19
+PO-2026-0126,2,2026-02-17,co-189,Braxmoor Recruiting Group,Sourcing sprint,6040,each,9,1197.39,10776.51,USD,EMP-0503,EMP-0465,manager,received,2026-03-19
+PO-2026-0127,1,2026-02-18,co-183,Kestrelmoor Staffing Partners,Interim analyst placement,6030,hour,232,143.62,33319.84,USD,EMP-0503,EMP-0465,manager,closed,2026-04-02
+PO-2026-0128,1,2026-02-19,co-106,TalentForce HR Platform,Open enrollment support hours,6020,seat,125,102.19,12773.75,USD,EMP-0504,EMP-0465,manager,closed,2026-03-30
+PO-2026-0128,2,2026-02-19,co-106,TalentForce HR Platform,Payroll platform module,6020,seat,301,57.64,17349.64,USD,EMP-0504,EMP-0465,manager,closed,2026-03-30
+PO-2026-0129,1,2026-02-23,co-190,Wrenfallow Security Systems,Badge readers and controllers,1400,each,65,645.20,41938.00,USD,EMP-0546,EMP-0465,manager,open,2026-03-28
+PO-2026-0129,2,2026-02-23,co-190,Wrenfallow Security Systems,Badge readers and controllers,1400,each,9,220.59,1985.31,USD,EMP-0546,EMP-0465,manager,received,2026-03-28
+PO-2026-0130,1,2026-02-25,co-181,Halvermoor Cloud Services,Object storage tier,5000,month,6,14326.75,85960.50,USD,EMP-0027,EMP-0463,director,closed,2026-03-16
+PO-2026-0131,1,2026-02-26,co-183,Kestrelmoor Staffing Partners,Interim analyst placement,6030,hour,70,109.79,7685.30,USD,EMP-0503,EMP-0465,manager,partially_received,2026-04-02
+PO-2026-0131,2,2026-02-26,co-183,Kestrelmoor Staffing Partners,Seasonal support staffing,6030,hour,291,106.71,31052.61,USD,EMP-0503,EMP-0465,manager,partially_received,2026-04-02
+PO-2026-0132,1,2026-02-27,co-101,Copperline Software,Sandbox environment add-on,6200,license,60,1944.47,116668.20,USD,EMP-0020,EMP-0463,director,closed,2026-03-12
+PO-2026-0132,2,2026-02-27,co-101,Copperline Software,Additional developer seats,6200,license,35,2353.01,82355.35,USD,EMP-0020,EMP-0463,director,closed,2026-03-12
+PO-2026-0133,1,2026-03-02,co-184,Loamfield Power Cooperative,"Electricity supply, Suite 400",6110,month,3,2683.28,8049.84,USD,EMP-0574,EMP-0465,manager,closed,2026-04-06
+PO-2026-0133,2,2026-03-02,co-184,Loamfield Power Cooperative,Metered water and sewer,6110,month,1,3440.20,3440.20,USD,EMP-0574,EMP-0465,manager,closed,2026-04-06
+PO-2026-0133,3,2026-03-02,co-184,Loamfield Power Cooperative,Metered water and sewer,6110,month,1,3908.88,3908.88,USD,EMP-0574,EMP-0465,manager,closed,2026-04-06
+PO-2026-0134,1,2026-03-04,co-107,Cedarline Office Supply,Office paper and consumables,6120,case,113,93.84,10603.92,USD,EMP-0575,EMP-0465,manager,partially_received,2026-03-24
+PO-2026-0134,2,2026-03-04,co-107,Cedarline Office Supply,Breakroom supplies,6120,case,42,57.83,2428.86,USD,EMP-0575,EMP-0465,manager,closed,2026-03-24
+PO-2026-0135,1,2026-03-04,co-109,Birchcroft Properties,Suite 400 common area charge,6100,month,3,12410.28,37230.84,USD,EMP-0575,EMP-0463,director,received,2026-04-16
+PO-2026-0135,2,2026-03-04,co-109,Birchcroft Properties,After-hours HVAC,6100,month,4,7733.41,30933.64,USD,EMP-0575,EMP-0463,director,received,2026-04-16
+PO-2026-0136,1,2026-03-09,co-182,Harrowfen Facilities Group,Reception desk coverage,6100,month,6,3605.98,21635.88,USD,EMP-0574,EMP-0465,manager,open,2026-04-22
+PO-2026-0137,1,2026-03-09,co-109,Birchcroft Properties,Suite 400 common area charge,6100,month,2,8846.30,17692.60,USD,EMP-0575,EMP-0463,director,closed,2026-04-18
+PO-2026-0137,2,2026-03-09,co-109,Birchcroft Properties,Suite 400 common area charge,6100,month,6,11321.05,67926.30,USD,EMP-0575,EMP-0463,director,closed,2026-04-18
+PO-2026-0138,1,2026-03-16,co-185,Thackenridge Courier,Overnight document courier,6120,each,50,144.35,7217.50,USD,EMP-0576,EMP-0465,manager,closed,2026-04-30
+PO-2026-0138,2,2026-03-16,co-185,Thackenridge Courier,Equipment transfer runs,6120,each,39,95.75,3734.25,USD,EMP-0576,EMP-0465,manager,closed,2026-04-30
+PO-2026-0139,1,2026-03-16,co-182,Harrowfen Facilities Group,Reception desk coverage,6100,month,7,6287.83,44014.81,USD,EMP-0574,EMP-0463,director,received,2026-04-19
+PO-2026-0139,2,2026-03-16,co-182,Harrowfen Facilities Group,Cleaning and janitorial service,6100,month,3,5664.84,16994.52,USD,EMP-0574,EMP-0463,director,received,2026-04-19
+PO-2026-0140,1,2026-03-19,co-105,Millgate Insurance Services,Certificate administration,6600,month,3,9224.88,27674.64,USD,EMP-0574,EMP-0465,manager,closed,2026-04-14
+PO-2026-0141,1,2026-03-19,co-186,Sarrowmere Print Works,Direct mail production,6300,each,117,65.05,7610.85,USD,EMP-0355,EMP-0465,manager,closed,2026-04-18
+PO-2026-0142,1,2026-03-20,co-187,Fenwhistle Travel Desk,Managed travel booking fees,6400,each,74,20.57,1522.18,USD,EMP-0252,EMP-0465,manager,open,2026-04-18
+PO-2026-0143,1,2026-03-20,co-107,Cedarline Office Supply,Breakroom supplies,6120,case,233,22.77,5305.41,USD,EMP-0575,EMP-0465,manager,closed,2026-03-28
+PO-2026-0143,2,2026-03-20,co-107,Cedarline Office Supply,Desk accessories,6120,case,150,53.14,7971.00,USD,EMP-0575,EMP-0465,manager,closed,2026-03-28
+PO-2026-0144,1,2026-03-23,co-119,DataPulse Analytics,Product analytics workspace,6200,license,11,1668.87,18357.57,USD,EMP-0202,EMP-0465,manager,closed,2026-04-02
+PO-2026-0144,2,2026-03-23,co-119,DataPulse Analytics,Event volume tier,6200,license,18,966.94,17404.92,USD,EMP-0202,EMP-0465,manager,closed,2026-04-02
+PO-2026-0145,1,2026-03-23,co-182,Harrowfen Facilities Group,Grounds and waste service,6100,month,5,4514.96,22574.80,USD,EMP-0574,EMP-0465,manager,closed,2026-05-07
+PO-2026-0146,1,2026-03-24,co-107,Cedarline Office Supply,Printer toner cartridges,6120,case,238,76.95,18314.10,USD,EMP-0575,EMP-0465,manager,partially_received,2026-04-12
+PO-2026-0147,1,2026-03-26,co-188,Fallowmere Catering,Customer advisory board dinner,6310,each,71,75.46,5357.66,USD,EMP-0503,EMP-0465,manager,partially_received,2026-04-29
+PO-2026-0148,1,2026-03-26,co-101,Copperline Software,Additional developer seats,6200,license,15,3568.76,53531.40,USD,EMP-0020,EMP-0463,director,closed,2026-04-23
+PO-2026-0148,2,2026-03-26,co-101,Copperline Software,Sandbox environment add-on,6200,license,21,2205.01,46305.21,USD,EMP-0020,EMP-0463,director,closed,2026-04-23

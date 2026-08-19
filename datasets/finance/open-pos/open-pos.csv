@@ -1,0 +1,35 @@
+po_number,po_line,vendor_canon_id,vendor_name,description,gl_account,quantity_ordered,quantity_received,quantity_invoiced,unit_price,ordered_value,received_value,invoiced_value,accrued_value,last_receipt_date,currency,as_of
+PO-2026-0101,1,co-106,TalentForce HR Platform,Benefits administration seats,6020,557,557,278,109.33,60896.81,60896.81,30393.74,30503.07,2026-02-27,USD,2026-03-31
+PO-2026-0103,1,co-105,Millgate Insurance Services,Commercial package placement fee,6600,2,0,0,6446.69,12893.38,0.00,0.00,0.00,,USD,2026-03-31
+PO-2026-0103,2,co-105,Millgate Insurance Services,Certificate administration,6600,2,2,0,4760.95,9521.90,9521.90,0.00,9521.90,2026-02-11,USD,2026-03-31
+PO-2026-0105,1,co-105,Millgate Insurance Services,Certificate administration,6600,6,6,3,6874.40,41246.40,41246.40,20623.20,20623.20,2026-01-16,USD,2026-03-31
+PO-2026-0105,2,co-105,Millgate Insurance Services,Commercial package placement fee,6600,9,9,4,7921.52,71293.68,71293.68,31686.08,39607.60,2026-02-05,USD,2026-03-31
+PO-2026-0106,1,co-184,Loamfield Power Cooperative,Demand charge true-up,6110,6,3,0,5514.24,33085.44,16542.72,0.00,16542.72,2026-03-15,USD,2026-03-31
+PO-2026-0106,2,co-184,Loamfield Power Cooperative,"Electricity supply, Suite 400",6110,2,2,0,2868.21,5736.42,5736.42,0.00,5736.42,2026-02-16,USD,2026-03-31
+PO-2026-0108,1,co-181,Halvermoor Cloud Services,Production compute reservation,5000,2,2,0,18796.04,37592.08,37592.08,0.00,37592.08,2026-01-17,USD,2026-03-31
+PO-2026-0111,1,co-101,Copperline Software,Sandbox environment add-on,6200,25,25,0,2550.83,63770.75,63770.75,0.00,63770.75,2026-01-31,USD,2026-03-31
+PO-2026-0113,1,co-109,Birchcroft Properties,Suite 400 common area charge,6100,5,5,2,10654.12,53270.60,53270.60,21308.24,31962.36,2026-02-19,USD,2026-03-31
+PO-2026-0113,2,co-109,Birchcroft Properties,Parking allocation,6100,6,6,0,18232.99,109397.94,109397.94,0.00,0.00,2026-02-17,USD,2026-03-31
+PO-2026-0115,1,co-189,Braxmoor Recruiting Group,Engineering search retainer,6040,8,3,0,1711.44,13691.52,5134.32,0.00,5134.32,2026-02-07,USD,2026-03-31
+PO-2026-0115,2,co-189,Braxmoor Recruiting Group,Sourcing sprint,6040,10,10,5,1281.58,12815.80,12815.80,6407.90,6407.90,2026-02-16,USD,2026-03-31
+PO-2026-0118,1,co-189,Braxmoor Recruiting Group,Engineering search retainer,6040,5,5,2,1335.99,6679.95,6679.95,2671.98,4007.97,2026-03-30,USD,2026-03-31
+PO-2026-0119,1,co-119,DataPulse Analytics,Product analytics workspace,6200,19,19,9,1110.71,21103.49,21103.49,9996.39,11107.10,2026-02-27,USD,2026-03-31
+PO-2026-0119,2,co-119,DataPulse Analytics,Event volume tier,6200,19,19,18,2030.41,38577.79,38577.79,36547.38,2030.41,2026-03-25,USD,2026-03-31
+PO-2026-0120,1,co-106,TalentForce HR Platform,Benefits administration seats,6020,244,146,73,94.52,23062.88,13799.92,6899.96,6899.96,2026-02-21,USD,2026-03-31
+PO-2026-0120,2,co-106,TalentForce HR Platform,Benefits administration seats,6020,156,0,0,110.45,17230.20,0.00,0.00,0.00,,USD,2026-03-31
+PO-2026-0123,1,co-185,Thackenridge Courier,Overnight document courier,6120,27,27,13,55.81,1506.87,1506.87,725.53,781.34,2026-03-17,USD,2026-03-31
+PO-2026-0126,1,co-189,Braxmoor Recruiting Group,Assessment license block,6040,6,6,0,1721.50,10329.00,10329.00,0.00,10329.00,2026-03-22,USD,2026-03-31
+PO-2026-0126,2,co-189,Braxmoor Recruiting Group,Sourcing sprint,6040,9,9,0,1197.39,10776.51,10776.51,0.00,10776.51,2026-03-16,USD,2026-03-31
+PO-2026-0129,1,co-190,Wrenfallow Security Systems,Badge readers and controllers,1400,65,0,0,645.20,41938.00,0.00,0.00,0.00,,USD,2026-03-31
+PO-2026-0129,2,co-190,Wrenfallow Security Systems,Badge readers and controllers,1400,9,9,4,220.59,1985.31,1985.31,882.36,1102.95,2026-03-26,USD,2026-03-31
+PO-2026-0131,1,co-183,Kestrelmoor Staffing Partners,Interim analyst placement,6030,70,28,0,109.79,7685.30,3074.12,0.00,3074.12,2026-03-18,USD,2026-03-31
+PO-2026-0131,2,co-183,Kestrelmoor Staffing Partners,Seasonal support staffing,6030,291,218,109,106.71,31052.61,23262.78,11631.39,11631.39,2026-03-27,USD,2026-03-31
+PO-2026-0134,1,co-107,Cedarline Office Supply,Office paper and consumables,6120,113,68,0,93.84,10603.92,6381.12,0.00,6381.12,2026-03-23,USD,2026-03-31
+PO-2026-0135,1,co-109,Birchcroft Properties,Suite 400 common area charge,6100,3,3,0,12410.28,37230.84,37230.84,0.00,37230.84,2026-03-24,USD,2026-03-31
+PO-2026-0135,2,co-109,Birchcroft Properties,After-hours HVAC,6100,4,4,2,7733.41,30933.64,30933.64,15466.82,15466.82,2026-03-22,USD,2026-03-31
+PO-2026-0136,1,co-182,Harrowfen Facilities Group,Reception desk coverage,6100,6,0,0,3605.98,21635.88,0.00,0.00,0.00,,USD,2026-03-31
+PO-2026-0139,1,co-182,Harrowfen Facilities Group,Reception desk coverage,6100,7,7,3,6287.83,44014.81,44014.81,18863.49,25151.32,2026-03-26,USD,2026-03-31
+PO-2026-0139,2,co-182,Harrowfen Facilities Group,Cleaning and janitorial service,6100,3,3,0,5664.84,16994.52,16994.52,0.00,16994.52,2026-03-30,USD,2026-03-31
+PO-2026-0142,1,co-187,Fenwhistle Travel Desk,Managed travel booking fees,6400,74,0,0,20.57,1522.18,0.00,0.00,0.00,,USD,2026-03-31
+PO-2026-0146,1,co-107,Cedarline Office Supply,Printer toner cartridges,6120,238,119,0,76.95,18314.10,9157.05,0.00,9157.05,2026-03-29,USD,2026-03-31
+PO-2026-0147,1,co-188,Fallowmere Catering,Customer advisory board dinner,6310,71,28,0,75.46,5357.66,2112.88,0.00,2112.88,2026-03-31,USD,2026-03-31
