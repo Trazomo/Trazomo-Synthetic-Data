@@ -87,3 +87,44 @@ test("generate refuses to run for a spec id from the wrong catalog", () => {
     assert.throws(() => runCli(["generate", "CORE-02"], root));
   });
 });
+
+test("validate --manifest is green over a catalog that still has an unbuilt spec, and names how many it skipped", () => {
+  withFixtureCopy((root) => {
+    runCli(["generate", "TEST-01"], root);
+    runCli(["manifest"], root);
+
+    const out = runCli(["validate", "--manifest"], root);
+    assert.match(out, /validate --manifest: 2 id\(s\) listed in MANIFEST\.json/);
+    assert.match(out, /1 catalog spec\(s\) not built yet and skipped/, "the unbuilt TEST-02 spec is not counted in the header");
+    assert.match(out, /PASS\s+TEST-01/);
+    assert.doesNotMatch(out, /TEST-02/, "manifest mode checked a spec MANIFEST.json does not list");
+    assert.match(out, /0 failed/);
+
+    // The same tree under --all still walks TEST-02 and reports it, because the
+    // catalog is the plan. Both answers are correct; they are different
+    // questions, which is why CI asks the manifest one.
+    const allOut = runCli(["validate", "--all"], root);
+    assert.match(allOut, /TEST-02/, "--all stopped reporting the unbuilt catalog spec");
+    assert.match(allOut, /3 checked/);
+  });
+});
+
+test("validate --manifest goes red the moment a manifest-listed dataset directory is deleted", () => {
+  withFixtureCopy((root) => {
+    runCli(["generate", "TEST-01"], root);
+    runCli(["manifest"], root);
+    runCli(["validate", "--manifest"], root); // green before the deletion
+
+    rmSync(join(root, "datasets", "fixture", "fixture-structured-dataset"), { recursive: true, force: true });
+    let failure = null;
+    try {
+      runCli(["validate", "--manifest"], root);
+    } catch (err) {
+      failure = err;
+    }
+    assert.ok(failure, "deleting a manifest-listed dataset left validate --manifest green");
+    assert.notEqual(failure.status, 0);
+    assert.match(`${failure.stdout}`, /MISSING\s+TEST-01/);
+    assert.match(`${failure.stdout}`, /1 failed/);
+  });
+});

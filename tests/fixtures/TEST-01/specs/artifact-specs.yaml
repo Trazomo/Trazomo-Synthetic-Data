@@ -29,3 +29,19 @@ artifacts:
       - 2026-01-01 fixture effective date
     consuming_modules: [datagen-self-test]
     source_plan: datagen test fixture
+
+  # An unbuilt catalog spec: no generator, no dataset directory, and none is
+  # ever created. `validate --all` reports it MISSING and fails; `validate
+  # --manifest` never looks at it, because MANIFEST.json only lists what is on
+  # disk. That difference is the point of the two scopes and is asserted in
+  # tests/cli/test01-fixture-e2e.test.js.
+  - id: TEST-02
+    name: fixture-unbuilt-dataset
+    type: dataset
+    format: csv
+    generation: deterministic
+    canon_entities: [co-900]
+    planted_features:
+      - never generated, so never on disk
+    consuming_modules: [datagen-self-test]
+    source_plan: datagen test fixture

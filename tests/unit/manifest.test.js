@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { buildManifest } from "../../datagen/src/manifest.js";
+import { buildManifest, manifestIds, ManifestError } from "../../datagen/src/manifest.js";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 
 function makeSpecsFixture(dir) {
@@ -219,4 +219,63 @@ test("buildManifest reports an empty JSONL file as zero records", () => {
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
+});
+
+// ---------------------------------------------------------------------------
+// manifestIds: the ids `validate --manifest` checks. The catalog is a plan and
+// the manifest is the record of what shipped, so reading it back has to fail
+// loudly rather than return a short list.
+
+/** Write one MANIFEST.json into a throwaway root and hand back its path. */
+function withManifest(contents, fn) {
+  const root = mkdtempSync(join(tmpdir(), "datagen-manifest-ids-"));
+  try {
+    const path = join(root, "MANIFEST.json");
+    writeFileSync(path, typeof contents === "string" ? contents : JSON.stringify(contents, null, 4));
+    fn(path);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+}
+
+test("manifestIds reads both sections, in the order the manifest lists them", () => {
+  withManifest(
+    { universe_version: "1.4.0", datasets: [{ id: "FIN-09" }, { id: "FIN-22" }], artifacts: [{ id: "CORE-05" }] },
+    (path) => {
+      assert.deepEqual(manifestIds(path), { datasets: ["FIN-09", "FIN-22"], artifacts: ["CORE-05"] });
+    }
+  );
+});
+
+test("manifestIds treats an absent section as empty, because a repo can ship no drafted artifacts", () => {
+  withManifest({ datasets: [{ id: "FIN-09" }] }, (path) => {
+    assert.deepEqual(manifestIds(path), { datasets: ["FIN-09"], artifacts: [] });
+  });
+});
+
+test("manifestIds fails hard when the manifest is missing", () => {
+  const root = mkdtempSync(join(tmpdir(), "datagen-manifest-ids-"));
+  try {
+    assert.throws(() => manifestIds(join(root, "MANIFEST.json")), ManifestError);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("manifestIds fails hard on a malformed section or a row with no id", () => {
+  withManifest({ datasets: { id: "FIN-09" } }, (path) => {
+    assert.throws(() => manifestIds(path), /"datasets" is object, expected a list/);
+  });
+  withManifest({ datasets: [{ id: "FIN-09" }, { name: "no-id-here" }] }, (path) => {
+    assert.throws(() => manifestIds(path), /datasets\[1\] has no "id" string/);
+  });
+  withManifest({ datasets: [], artifacts: [{ id: "" }] }, (path) => {
+    assert.throws(() => manifestIds(path), /artifacts\[0\] has no "id" string/);
+  });
+  withManifest("{ not json", (path) => {
+    assert.throws(() => manifestIds(path), /is not valid JSON/);
+  });
+  withManifest([{ id: "FIN-09" }], (path) => {
+    assert.throws(() => manifestIds(path), /expected an object at the top level/);
+  });
 });

@@ -8,7 +8,7 @@ import { loadCanonCompanies } from "./canon.js";
 import { generateArtifact } from "./engine.js";
 import { hasGenerator, implementedIds } from "./generators/index.js";
 import { NotImplementedError } from "./errors.js";
-import { buildManifest } from "./manifest.js";
+import { buildManifest, manifestIds } from "./manifest.js";
 import { evaluateAllowlist, loadAllowlist, validateOne } from "./validate.js";
 import { pandocAvailable, buildWithPandoc, buildWithDocxFallback } from "./docx.js";
 
@@ -55,7 +55,8 @@ Usage:
   datagen build-docx <ID>            Convert artifacts/<ID>/*.md to DOCX
   datagen build-docx --all           Convert every artifacts/<ID>/*.md found on disk
   datagen validate <ID>              Validate one spec (keyword check or determinism diff)
-  datagen validate --all             Validate every spec in the catalog
+  datagen validate --all             Validate every spec in the catalog, built or not
+  datagen validate --manifest        Validate exactly what MANIFEST.json says shipped (the CI gate)
   datagen manifest                   Regenerate MANIFEST.json from disk + specs
 
 Options:
@@ -224,12 +225,45 @@ function runValidate({ root, positional, options }) {
   const canon = loadCanonCompanies(canonPath);
   const allowlist = loadAllowlist(allowlistPath);
 
-  const targets = options.all ? specs.artifacts : resolveIdArgs(positional, specs);
+  // Three scopes, one checker. `--all` walks the whole catalog and reports the
+  // unbuilt ones as MISSING, which is the human-facing view of how far the pack
+  // has got. `--manifest` checks exactly the ids MANIFEST.json says are on
+  // disk, which is the view CI can hold to: it goes red the moment a listed
+  // dataset stops reproducing or stops existing, and it stays green while the
+  // catalog still has specs nobody has built.
+  let manifestHeader = null;
+  let targets;
+  if (options.manifest) {
+    if (options.all) {
+      console.error("validate: --manifest and --all are different scopes. Pass one or the other.");
+      process.exitCode = 1;
+      return;
+    }
+    const listed = manifestIds(join(root, "MANIFEST.json"));
+    const listedIds = [...listed.datasets, ...listed.artifacts];
+    targets = listedIds.map((listedId) => {
+      const spec = specs.byId.get(listedId);
+      if (!spec) {
+        throw new Error(
+          `validate --manifest: MANIFEST.json lists "${listedId}", which is not in the spec catalog. `
+          + "Regenerate the manifest, or restore the spec: an id in one and not the other means one of the two is lying."
+        );
+      }
+      return spec;
+    });
+    const unbuilt = specs.artifacts.length - targets.length;
+    manifestHeader = `validate --manifest: ${targets.length} id(s) listed in MANIFEST.json `
+      + `(${listed.datasets.length} dataset(s), ${listed.artifacts.length} drafted artifact(s)); `
+      + `${unbuilt} catalog spec(s) not built yet and skipped.`;
+  } else {
+    targets = options.all ? specs.artifacts : resolveIdArgs(positional, specs);
+  }
   if (targets.length === 0) {
-    console.error("validate: no target spec id given. Use `validate <ID>` or `validate --all`.");
+    console.error("validate: no target spec id given. Use `validate <ID>`, `validate --all` or `validate --manifest`.");
     process.exitCode = 1;
     return;
   }
+  if (manifestHeader) console.log(`${manifestHeader}\n`);
 
   let failCount = 0;
   let allowedCount = 0;
@@ -264,7 +298,11 @@ function runValidate({ root, positional, options }) {
       for (const f of result.files ?? []) {
         if (f.status !== "MATCH") console.log(`      ${f.status}  ${f.path}`);
       }
-      if (result.status === "FAIL") failCount += 1;
+      // MISSING counts here for the same reason it counts on the drafted
+      // branch: a structured spec whose dataset directory is gone has not
+      // passed anything. Counting it only as a printed line let a deleted
+      // dataset exit 0.
+      if (result.status === "FAIL" || result.status === "MISSING") failCount += 1;
     }
   }
 
