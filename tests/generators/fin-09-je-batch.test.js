@@ -21,7 +21,7 @@ import {
   ACCOUNT_HOLDER, CANON_VENDORS, NEUTRAL_VENDORS,
 } from "../../datagen/src/generators/fin-01-cash-recon.js";
 import {
-  BATCH_PERIOD, APPROVAL_WINDOW, ENTRY_TYPES, PAYROLL_PLATFORM,
+  BATCH_PERIOD, APPROVAL_WINDOW, ENTRY_TYPES, INTERNAL_SCHEDULE_TYPES, PAYROLL_PLATFORM,
 } from "../../datagen/src/generators/fin-09-je-batch.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
@@ -250,17 +250,27 @@ test("FIN-09 P10: exactly one supporting document is cited by two entries, whose
   assert.ok(gap <= 1, `the duplicated entries post ${gap} days apart`);
 });
 
-test("FIN-09 P11: exactly one entry carries no supporting document, and every other citation resolves in shape", () => {
-  const unsupported = [...entries.entries()].filter(([, lines]) => lines.every((l) => l.source_document === ""));
-  assert.equal(unsupported.length, 1, "expected exactly one entry with no supporting document on any line");
+test("FIN-09 P11: exactly one entry a document is expected for carries none, and every other citation resolves in shape", () => {
+  // The population is the entries a supporting document is expected for, which
+  // is every entry except the internal schedule. An internal depreciation or
+  // amortization entry cites the bill that capitalized the class it writes down
+  // and cites nothing when the universe never bought that class, so a blank
+  // there is a stated rule rather than the missing-evidence plant
+  // (data-repo issue #14).
+  const expectsDocument = [...entries.entries()].filter(([, lines]) => !INTERNAL_SCHEDULE_TYPES.has(lines[0].entry_type));
+  const unsupported = expectsDocument.filter(([, lines]) => lines.every((l) => l.source_document === ""));
+  assert.equal(unsupported.length, 1, "expected exactly one entry a document is expected for with no supporting document on any line");
   const resolvable = /^(VINV|BILL)-2026-0\d{3}$|^CORE-01$|^FIN-12$/;
-  for (const [id, lines] of entries) {
+  for (const [id, lines] of expectsDocument) {
     if (id === unsupported[0][0]) continue;
     for (const l of lines) assert.match(l.source_document, resolvable, `${id}: source_document does not resolve`);
   }
-  // No line in a supported entry is blank, and no line in the unsupported one is filled.
-  const blanks = rows.filter((r) => r.source_document === "");
-  assert.equal(blanks.length, unsupported[0][1].length);
+  // No line of a documented entry is blank and no line of an undocumented one
+  // is filled, so `source_document` is never partially populated.
+  for (const [id, lines] of entries) {
+    const blanks = lines.filter((l) => l.source_document === "").length;
+    assert.ok(blanks === 0 || blanks === lines.length, `${id}: source_document is populated on some lines and blank on others`);
+  }
 });
 
 test("FIN-09: preparer and approver are the canon close roles, verified against the roster, and are different people", () => {
@@ -330,6 +340,11 @@ test("FIN-09 join: every source_document of bill type resolves to exactly one FI
     assert.equal(matches.length, 1, `${id}: ${doc} resolves to ${matches.length} FIN-11 bills`);
     const bill = matches[0];
     const facts = entryFacts(lines);
+    // An internal schedule entry cites the bill that capitalized the asset it
+    // writes down, so its counterparty is the account holder rather than the
+    // supplier and its charge is a fraction of the price. That shape is
+    // asserted in full by the internal-schedule test below.
+    if (INTERNAL_SCHEDULE_TYPES.has(lines[0].entry_type)) continue;
     assert.equal(bill.vendor_name, facts.counterparty, `${id}: ${doc} is ${bill.vendor_name}'s bill, but the entry books ${facts.counterparty}`);
     assert.ok(facts.accounts.has(bill.gl_account), `${id}: ${doc} posts to ${bill.gl_account}, which the entry never touches`);
     assert.equal(facts.debitCents, toCents(bill.bill_amount), `${id}: the entry totals ${facts.debitCents} cents against a bill of ${toCents(bill.bill_amount)}`);
@@ -344,12 +359,68 @@ test("FIN-09 join: every source_document of vendor-invoice type resolves to exac
     const matches = invoiceRows.filter((i) => i.invoice_id === doc);
     assert.equal(matches.length, 1, `${id}: ${doc} resolves to ${matches.length} FIN-07 invoices`);
     const facts = entryFacts(lines);
-    // An entry whose counterparty is the account holder is internal: the March
-    // depreciation or amortization charge is a fraction of the asset it cites,
-    // so only the citation itself is asserted.
-    if (facts.counterparty === ACCOUNT_HOLDER.name) continue;
+    // No exemption by counterparty. A vendor invoice is the accounting for that
+    // vendor's charge, so an entry booked against the account holder itself has
+    // no business citing one: that exemption is what hid data-repo issue #14,
+    // where three internal entries cited a security supplier's invoices.
+    assert.notEqual(
+      facts.counterparty, ACCOUNT_HOLDER.name,
+      `${id}: an entry booked against the account holder cites vendor invoice ${doc}; an internal schedule entry cites the capitalization bill or nothing`
+    );
     assert.equal(matches[0].vendor_name, facts.counterparty, `${id}: ${doc} is ${matches[0].vendor_name}'s invoice, but the entry books ${facts.counterparty}`);
     assert.equal(facts.debitCents, toCents(matches[0].invoice_amount), `${id}: the entry totals ${facts.debitCents} cents against an invoice of ${toCents(matches[0].invoice_amount)}`);
+  }
+});
+
+// Data-repo issue #14. An internal schedule entry writes down an asset class
+// the company already owns, so the document that supports it is the FIN-11 bill
+// that capitalized that class, read off the chart by the class the entry names
+// in its own narration. Where the universe never bought the class there is no
+// such document and the entry cites nothing: a month of the schedule is a
+// fraction of the asset rather than its price, so no amount can stand in for
+// the citation. Nothing here imports the builder; the rule is re-derived from
+// the emitted rows, the FIN-22 chart and FIN-11's bills.
+const capitalizationAccounts = chart.filter((r) => r.subtype === "fixed_asset" || r.subtype === "intangible");
+
+/** The FIN-22 capitalization account for the asset class an entry narrates. */
+function capitalizationAccountFor(assetClass) {
+  const matches = capitalizationAccounts.filter((r) => r.account_name.toLowerCase().startsWith(assetClass.toLowerCase()));
+  assert.equal(matches.length, 1, `"${assetClass}" resolves to ${matches.length} FIN-22 capitalization accounts`);
+  return matches[0];
+}
+
+test("FIN-09 join: an internal schedule entry cites the FIN-11 bill that capitalized the class it writes down, or nothing at all", () => {
+  const internal = [...entries.entries()].filter(([, lines]) => INTERNAL_SCHEDULE_TYPES.has(lines[0].entry_type));
+  assert.ok(internal.length > 0, "no internal schedule entry, so the rule is untested");
+  for (const [id, lines] of internal) {
+    const doc = lines[0].source_document;
+    const facts = entryFacts(lines);
+    assert.equal(facts.counterparty, ACCOUNT_HOLDER.name, `${id}: an internal schedule entry books ${facts.counterparty}, not the account holder`);
+    // The two drafted contracts are prose the pack ships rather than rows to
+    // join, so membership is all that can be asserted of them.
+    if (CONTRACT_DOCUMENTS.has(doc)) continue;
+    const account = capitalizationAccountFor(lines[0].description.split(" - ").pop());
+    const capitalizing = billRows.filter(
+      (b) => b.gl_account === account.account_code && toCents(b.bill_amount) > facts.debitCents
+    );
+    if (doc === "") {
+      assert.equal(
+        capitalizing.length, 0,
+        `${id}: cites nothing while FIN-11 carries ${capitalizing.length} bill(s) capitalizing ${account.account_code} ${account.account_name}`
+      );
+      continue;
+    }
+    assert.ok(capitalizing.length > 0, `${id}: cites ${doc}, but FIN-11 capitalizes no ${account.account_name} the charge is a fraction of`);
+    const bill = billRows.find((b) => b.bill_id === doc);
+    assert.ok(bill, `${id}: ${doc} is not a FIN-11 bill; an internal schedule entry cites the capitalization bill, never a vendor invoice`);
+    assert.equal(
+      bill.gl_account, account.account_code,
+      `${id}: ${doc} posts to ${bill.gl_account}, not the ${account.account_code} ${account.account_name} account this entry writes down`
+    );
+    assert.ok(
+      facts.debitCents < toCents(bill.bill_amount),
+      `${id}: one month of the schedule is ${facts.debitCents} cents against a capitalized ${bill.bill_amount}, so the charge is not a fraction of the asset`
+    );
   }
 });
 

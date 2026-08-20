@@ -1,5 +1,63 @@
 # Changelog
 
+## Unreleased (tags as 1.4.1 with the next release)
+
+**Proposed version, for Salvador to ratify: `1.4.1`.** A data fix inside one
+shipped dataset. No new artifact, no new column, no row added or removed, and no
+other dataset regenerated, so the patch position is the one that moves.
+`v1.4.0`'s bytes are frozen and unchanged; a consumer pinned to `v1.4.0` sees
+nothing until it moves the pin. `universe_version` in `MANIFEST.json` still
+reads `1.4.0` and is bumped by the release controller when the tag is cut, the
+way `1.4.0` itself was.
+
+- **FIN-09 journal-entries-batch, data-repo issue #14**: the three internal-type
+  entries cited vendor invoices belonging to Wrenfallow Security Systems for
+  goods unrelated to the balances they write down. `JE-202603-C024`
+  (depreciation, computer equipment) cited `VINV-2026-0165`, `JE-202603-C025`
+  (depreciation, furniture and fixtures) cited `VINV-2026-0152`, and
+  `JE-202603-C027` (amortization, leasehold improvements) cited
+  `VINV-2026-0114`. Every id resolved, which is why issue #12's fix and the
+  join guard both passed over them: the join exempted an entry booked against
+  the account holder from the vendor and amount checks **by counterparty**, so
+  the only leg left to test was resolution, and resolution was never the
+  problem.
+- **The rule, now stated on the spec and asserted in the generator.** An
+  internal schedule entry cites the source document when the universe carries
+  it. Its support is the FIN-11 bill that capitalized the asset class the entry
+  names, matched to that class through the FIN-22 chart and larger than the
+  month's charge; where the universe never bought that class, the entry cites
+  nothing at all. A month of depreciation is a fraction of the asset rather
+  than its price, so amounts never match and the citation is the only leg that
+  joins. A vendor invoice never supports one: it is the accounting for a
+  vendor's charge, not for a balance the company already owns.
+- **What that resolves to.** FIN-11 capitalizes exactly one class,
+  `1400 Computer Equipment`, through four Wrenfallow bills. `JE-202603-C024`
+  therefore cites `BILL-2026-0118`, the only computer-equipment bill its
+  $110,907.33 charge is a fraction of. Nothing in the pack is ever billed to
+  `1410 Furniture and Fixtures` or `1420 Leasehold Improvements`, so
+  `JE-202603-C025` and `JE-202603-C027` cite nothing. `JE-202603-C026` keeps
+  `CORE-01`, the contract behind the capitalized software, and is untouched.
+- **P11 is restated, and this is the part to read before merging.** Its
+  population is now the entries a supporting document is expected for, which
+  excludes the internal depreciation and amortization schedule. Exactly one
+  entry in that population carries an empty `source_document` on every line,
+  and it is the same entry as before; the two internal blanks are the rule
+  above rather than a finding. A naive "find the entry citing nothing" now
+  returns three rows instead of one, so **trazomo's
+  `finance-journal-entry-reclass` lesson 3 selection rule and its guard need
+  the same restatement when it re-vendors**, tracked as the follow-up to this
+  fix rather than done here.
+- **Surgical by construction.** The regenerated file is 79 lines with the same
+  header and the same trailing byte, and six cells differ from `v1.4.0`, all of
+  them `source_document` on the six lines of those three entries. Row counts are
+  unchanged, so `datagen manifest` is a no-op on the tree.
+- **Tests.** The FIN-09 join gains an internal-schedule case (the cited document
+  is the capitalization bill for the class the entry names, posted to that
+  account and larger than the charge, or the citation is empty and the universe
+  carries no such bill), and the vendor-invoice join loses its account-holder
+  exemption outright. Both fail against `v1.4.0`'s generator and pass after the
+  fix. 374 tests.
+
 ## 1.4.0 - 2026-08-19
 
 **Tags at merge of the D4a PR (`feat/fin-cluster2-d4a-datasets`).** The tag is
