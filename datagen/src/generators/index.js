@@ -21,6 +21,7 @@ import * as fin14 from "./fin-14-spend-policy.js";
 import * as fin17 from "./fin-17-close-checklist.js";
 import * as fin18 from "./fin-18-control-matrix.js";
 import * as fin19 from "./fin-19-access-assignments.js";
+import * as fin20 from "./fin-20-regulatory-feed.js";
 import * as fin22 from "./fin-22-chart-of-accounts.js";
 import * as fin36 from "./fin-36-close-checklist-template.js";
 import * as fin37 from "./fin-37-budget-vs-actual-template.js";
@@ -44,7 +45,7 @@ export const PROGRAM_GENERATOR_IDS = [
   core02.id, core03.id, core04.id,
   fin01.id, fin02.id, fin03.id, fin04.id, fin05.id,
   fin06.id, fin07.id, fin08.id, fin09.id, fin10.id, fin11.id,
-  fin13.id, fin14.id, fin17.id, fin18.id, fin19.id, fin22.id,
+  fin13.id, fin14.id, fin17.id, fin18.id, fin19.id, fin20.id, fin22.id,
   fin36.id, fin37.id, fin38.id, fin39.id,
   lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
 ];
@@ -53,7 +54,7 @@ const REGISTRY = new Map(
   [
     core02, core03, core04,
     fin01, fin02, fin03, fin04, fin05, fin06, fin07, fin08, fin09, fin10, fin11,
-    fin13, fin14, fin17, fin18, fin19, fin22,
+    fin13, fin14, fin17, fin18, fin19, fin20, fin22,
     fin36, fin37, fin38, fin39,
     lgl07, lgl11, lgl18, lgl20, lgl21, lgl22, test01,
   ].map((mod) => [mod.id, mod])
