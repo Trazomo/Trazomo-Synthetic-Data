@@ -1,0 +1,46 @@
+assignment_id,employee_id,employee_name,department,role_title,system,entitlement,entitlement_class,granted_date,granted_by_employee_id,last_review_date,last_used_date
+UAR-0001,EMP-0462,Wrenna Yarrow,Finance,"VP, Finance",GL,gl_inquiry,view,2019-03-27,EMP-0001,2026-01-07,2026-03-19
+UAR-0002,EMP-0470,Corwin Pennington,Finance,Controller,AP,ap_invoice_approve,approve,2022-08-22,EMP-0466,2026-01-07,2026-04-03
+UAR-0003,EMP-0471,Tamsin Juniper,Finance,Staff Accountant,AP,ap_invoice_entry,create,2020-12-22,EMP-0465,2026-01-07,2026-03-19
+UAR-0004,EMP-0471,Tamsin Juniper,Finance,Staff Accountant,AP,vendor_master_maintain,modify,2020-12-22,EMP-0465,2026-01-07,2026-03-25
+UAR-0005,EMP-0472,Briar Duskwood,Finance,AR Clerk,AR,ar_invoice_entry,create,2022-02-17,EMP-0466,2026-01-07,2026-03-27
+UAR-0006,EMP-0472,Briar Duskwood,Finance,AR Clerk,AR,ar_credit_memo_entry,create,2022-02-17,EMP-0466,2026-01-07,2026-04-03
+UAR-0007,EMP-0473,Piran Pemberton,Finance,Controller,AP,ap_invoice_approve,approve,2021-11-08,EMP-0467,2026-01-07,2026-03-30
+UAR-0008,EMP-0474,Branwen Pennington,Finance,AR Clerk,PAY,payment_run_release,release,2025-08-25,EMP-0466,2026-01-07,2026-03-30
+UAR-0009,EMP-0475,Ondine Fairweather,Finance,AP Clerk,AP,ap_invoice_approve,approve,2023-06-30,EMP-0466,2026-01-07,2026-03-24
+UAR-0010,EMP-0476,Quenby Corrigan,Finance,Staff Accountant,AP,ap_invoice_approve,approve,2022-01-24,EMP-0465,2026-01-07,2026-03-26
+UAR-0011,EMP-0477,Nessa Thistlewood,Finance,Staff Accountant,PAY,payment_run_release,release,2025-10-02,EMP-0465,2026-01-07,2026-03-18
+UAR-0012,EMP-0478,Sorrel Thistlewood,Finance,FP&A Analyst,AP,ap_invoice_approve,approve,2023-12-06,EMP-0467,2026-01-07,2026-03-30
+UAR-0013,EMP-0479,Rhoswen Osgood,Finance,AR Clerk,AR,ar_invoice_entry,create,2024-10-28,EMP-0467,2026-01-07,2026-03-30
+UAR-0014,EMP-0479,Rhoswen Osgood,Finance,AR Clerk,AR,ar_credit_memo_entry,create,2024-10-28,EMP-0467,2026-01-07,2026-03-30
+UAR-0015,EMP-0480,Freya Norwich,Finance,FP&A Analyst,AP,ap_invoice_entry,create,2022-02-04,EMP-0469,2026-01-07,2026-04-03
+UAR-0016,EMP-0480,Freya Norwich,Finance,FP&A Analyst,AP,vendor_master_maintain,modify,2022-02-04,EMP-0469,2026-01-07,2026-03-16
+UAR-0017,EMP-0480,Freya Norwich,Finance,FP&A Analyst,PAY,payment_run_release,release,2023-02-06,EMP-0469,2026-01-07,2026-03-18
+UAR-0018,EMP-0481,Reyna Vantree,Finance,Controller,AP,ap_invoice_entry,create,2020-04-13,EMP-0465,2026-01-07,2026-03-19
+UAR-0019,EMP-0481,Reyna Vantree,Finance,Controller,AP,vendor_master_maintain,modify,2020-04-13,EMP-0465,2026-01-07,2026-04-02
+UAR-0020,EMP-0482,Ewald Underhill,Finance,AP Clerk,GL,je_entry,create,2021-09-17,EMP-0467,2026-01-07,2026-04-03
+UAR-0021,EMP-0482,Ewald Underhill,Finance,AP Clerk,GL,gl_account_maintain,modify,2021-09-17,EMP-0467,2026-01-07,2026-03-17
+UAR-0022,EMP-0483,Lior Juniper,Finance,FP&A Analyst,AR,ar_invoice_entry,create,2024-11-13,EMP-0468,2026-01-07,2026-03-16
+UAR-0023,EMP-0483,Lior Juniper,Finance,FP&A Analyst,AR,ar_credit_memo_entry,create,2024-11-13,EMP-0468,2026-01-07,2026-04-02
+UAR-0024,EMP-0484,Quillon Blackwood,Finance,AR Clerk,AP,ap_invoice_approve,approve,2023-12-11,EMP-0467,2026-01-07,2026-03-16
+UAR-0025,EMP-0485,Cormac Blackwood,Finance,AP Clerk,AP,ap_invoice_approve,approve,2022-10-21,EMP-0466,2026-01-07,2026-03-18
+UAR-0026,EMP-0486,Emlyn Ravenscroft,Finance,Staff Accountant,GL,je_entry,create,2021-09-22,EMP-0467,2026-01-07,2026-03-18
+UAR-0027,EMP-0486,Emlyn Ravenscroft,Finance,Staff Accountant,GL,gl_account_maintain,modify,2021-09-22,EMP-0467,2026-01-07,2026-03-27
+UAR-0028,EMP-0487,Junot Kirtland,Finance,AP Clerk,GL,gl_inquiry,view,2025-08-20,EMP-0469,2026-01-07,2026-04-01
+UAR-0029,EMP-0488,Ulric Larkspur,Finance,FP&A Analyst,PAY,payment_run_release,release,2025-01-28,EMP-0465,2026-01-07,2026-03-31
+UAR-0030,EMP-0489,Faro Grayling,Finance,FP&A Analyst,GL,je_entry,create,2025-10-13,EMP-0468,2026-01-07,2026-04-06
+UAR-0031,EMP-0489,Faro Grayling,Finance,FP&A Analyst,GL,gl_account_maintain,modify,2025-10-13,EMP-0468,2026-01-07,2026-04-02
+UAR-0032,EMP-0490,Tamsin Jarrow,Finance,AP Clerk,AR,ar_invoice_entry,create,2022-04-06,EMP-0469,2026-01-07,2026-03-18
+UAR-0033,EMP-0490,Tamsin Jarrow,Finance,AP Clerk,AR,ar_credit_memo_entry,create,2022-04-06,EMP-0469,2026-01-07,2026-04-01
+UAR-0034,EMP-0491,Faro Pemberton,Finance,AP Clerk,AP,ap_invoice_approve,approve,2025-02-24,EMP-0467,2026-01-07,2026-03-30
+UAR-0035,EMP-0492,Yara Everhart,Finance,AP Clerk,AP,ap_invoice_entry,create,2021-12-01,EMP-0466,2026-01-07,2026-03-24
+UAR-0036,EMP-0492,Yara Everhart,Finance,AP Clerk,AP,vendor_master_maintain,modify,2021-12-01,EMP-0466,2026-01-07,2026-03-27
+UAR-0037,EMP-0493,Lyric Oakhurst,Finance,Staff Accountant,AR,ar_invoice_entry,create,2026-02-09,EMP-0466,2026-01-07,2026-03-31
+UAR-0038,EMP-0493,Lyric Oakhurst,Finance,Staff Accountant,AR,ar_credit_memo_entry,create,2026-02-09,EMP-0466,2026-01-07,2026-03-20
+UAR-0039,EMP-0494,Corwin Underhill,Finance,FP&A Analyst,AP,ap_invoice_entry,create,2026-02-09,EMP-0469,2026-01-07,2026-03-31
+UAR-0040,EMP-0494,Corwin Underhill,Finance,FP&A Analyst,AP,vendor_master_maintain,modify,2026-02-09,EMP-0469,2026-01-07,2026-03-31
+UAR-0041,EMP-0495,Ivo Ashby,Finance,FP&A Analyst,GL,je_entry,create,2025-07-21,EMP-0469,2026-01-07,2026-04-02
+UAR-0042,EMP-0495,Ivo Ashby,Finance,FP&A Analyst,GL,gl_account_maintain,modify,2025-07-21,EMP-0469,2026-01-07,2026-03-20
+UAR-0043,EMP-0496,Quenby Dunmore,Finance,FP&A Analyst,AR,ar_invoice_entry,create,2020-06-01,EMP-0466,2026-01-07,2026-03-30
+UAR-0044,EMP-0496,Quenby Dunmore,Finance,FP&A Analyst,AR,ar_credit_memo_entry,create,2020-06-01,EMP-0466,2026-01-07,2026-03-31
+UAR-0045,EMP-0497,Tobin Millgate,Finance,AR Clerk,PAY,payment_run_release,release,2023-10-18,EMP-0467,2026-01-07,2026-03-26
