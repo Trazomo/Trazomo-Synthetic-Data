@@ -92,7 +92,25 @@ Atticus Dundee Inc.
 
 Both build paths honor this convention.
 
-### `validate <ID> [<ID> ...]` / `validate --all`
+### `validate <ID> [<ID> ...]` / `validate --all` / `validate --manifest`
+
+Three scopes, one checker. Pick by the question you are asking:
+
+| Scope | Checks | Use it for |
+|---|---|---|
+| `validate --manifest` | exactly the ids `MANIFEST.json` lists, in both its `datasets` and `artifacts` sections; unbuilt catalog specs are skipped and counted in the header line | CI (`npm run validate`). Green today, and red the moment something that shipped stops reproducing or stops existing |
+| `validate --all` | every spec in the catalog, built or not | reading how far the pack has got. Red by design while specs remain unbuilt, so it cannot gate anything |
+| `validate <ID> ...` | the ids you name | working on one artifact |
+
+Failure semantics are the same in every scope. `FAIL` and `MISSING` both count
+as failures and set a non-zero exit code, for drafted and structured specs
+alike: a spec whose directory is gone has not passed anything. `SKIP` (no
+generator registered yet) and `WARN` (a keyword the heuristic could not
+confirm) do not. `ALLOWED` is a `WARN` with a recorded reason and is counted
+separately. Manifest mode fails hard, before checking anything, if
+`MANIFEST.json` is absent, if a section is not a list, if a row has no `id`, or
+if it lists an id the spec catalog does not know: a scope that quietly checks a
+short list is how a deleted dataset ships green.
 
 - **`generation: drafted-frozen`** specs: reads every `.md` file under
   `artifacts/<ID>/` and, for each `planted_features` entry, extracts its
@@ -218,7 +236,16 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | FIN-09 | journal-entries-batch | dataset | 78-line close journal batch CSV (3 miscodings, 1 duplicate, 1 entry with no support) |
 | FIN-10 | open-pos | dataset | 34 open order lines CSV + accrual roll-forward JSON, from FIN-06's builder |
 | FIN-11 | vendor-bills | dataset | 55-bill CSV, from FIN-06's builder (one prepaid schedule already correct, one still to build) |
+| FIN-13 | expense-reports | dataset | 88 expense lines across 18 reports CSV, every report submitted or in review (over-cap meal, missing receipt above the threshold, non-reimbursable category, one booking split under an approval band) |
+| FIN-14 | spend-policy | config | the Travel and Expense Policy ADI-POL-005 v4.3 as YAML: receipt threshold, meal and lodging caps by city tier, approval bands, non-reimbursable list, every figure taken from the CORE-05 prose |
+| FIN-15 | customer-credit-notes | dataset | 16 credit notes CSV on the FIN-04 aging spine (the 6 credit memos FIN-04 ships, 8 issued and applied before period end, 2 still requested) |
+| FIN-16 | collections-contact-log | log | 64 contacts across the 12 largest exposures CSV + collections-policy.json (dunning ladder, credit limits, one broken promise to pay, one live dispute) |
+| FIN-17 | close-checklist | dataset | 24-task March close in flight at D+4 CSV, spine imported from FIN-36 (one overdue task, one account unreconciled past its deadline, one double-booked reviewer) |
+| FIN-18 | control-matrix | dataset | 26-control SOX matrix CSV (one control past its testing due date, one key control passed with an empty evidence binder) |
+| FIN-19 | user-access-role-assignments | dataset | 45 entitlement grants across the 29 Finance employees who hold a finance_system_role CSV, derived from CORE-04 by the published mapping below (one user can both prepare and release) |
+| FIN-20 | regulatory-updates-feed | dataset | 14-record regulatory feed JSONL + 10-row policy-index.csv parsed out of the CORE-05 document-control blocks at build time |
 | FIN-22 | chart-of-accounts | dataset | 65-account chart CSV (cash account 1010) |
+| FIN-35 | inbound-requests-queue | dataset | 38 untriaged requests CSV at 2026-04-06, resolving to FIN-07 invoices, FIN-13 reports, screened vendor masters and the CORE-02 outside-counsel invoice |
 | FIN-36 | close-checklist-template | template | 24-task month-end close checklist CSV, relative close days, learner columns empty |
 | FIN-37 | budget-vs-actual-template | template | 27-line variance tracker CSV, one line per active FIN-22 profit-and-loss account, actuals empty |
 | FIN-38 | reliability-drill-transactions | dataset | 15 AI-proposed readings of FIN-01/02/03 rows (one transposed amount, one off-chart account, one correct high-confidence control) |
@@ -249,6 +276,40 @@ day after period end, weekends skipped: D+1 is 2026-04-01 and D+5 is
 FIN-17 dates it. `closeDayDate()` in `datagen/src/dates.js` is the only place
 that rule is implemented, over `addBusinessDays()`; nothing recomputes it by
 adding calendar days, which would put D+4 on the Sunday.
+
+FIN-20 is the first generator that reads the repository at build time: it parses
+the ten CORE-05 document-control blocks out of `artifacts/CORE-05/*.md` to build
+`policy-index.csv`, sorted by `document_id`, so a version bump or a review date
+in the shipped markdown moves the register instead of leaving it stale. Two
+consequences. A CORE-05 formatting change breaks generation rather than a test,
+which is the correct failure but a loud one. And the CORE-05 path is resolved
+from the module's own location, not from `--root`, so `generate FIN-20 --root
+<fixture>` reads this repo's CORE-05: threading the root through the generator
+signature is a follow-up ticket, not something a fixture universe needs today.
+An Owner field is split at its first comma into a person and a title and only
+the title is published; `(vacant)` is the one accepted alternative, and any
+other unsplittable Owner stops the build.
+
+### FIN-19 `finance_system_role` to entitlements
+
+FIN-19's spec calls this "a published mapping", so here it is. `ROLE_ENTITLEMENTS`
+in `datagen/src/generators/fin-19-access-assignments.js` is the authoritative
+copy; this table is for readers, and the FIN-19 test carries its own literal
+copy and asserts the generator's exported table still equals it.
+
+| `finance_system_role` | Grants (system, entitlement, class) |
+|---|---|
+| AP Clerk | AP `ap_invoice_entry` create; AP `vendor_master_maintain` modify |
+| AR Clerk | AR `ar_invoice_entry` create; AR `ar_credit_memo_entry` create |
+| AP Approver | AP `ap_invoice_approve` approve |
+| Payment Approver | PAY `payment_run_release` release |
+| GL Admin | GL `je_entry` create; GL `gl_account_maintain` modify |
+| Read Only | GL `gl_inquiry` view |
+
+`create` and `modify` are preparer classes, `approve` and `release` are releaser
+classes. The mapping reads `finance_system_role` and never `role_title`, so the
+one user who can both prepare and release comes out of the roster's own
+comma-valued cell rather than out of a draw made in the generator.
 
 ## Spec-authoring guide
 
@@ -294,10 +355,28 @@ Adding a new artifact to the program:
    ```
 4. **Commit the output** (`datasets/...` or `artifacts/<ID>/build/...`)
    alongside the spec change and the regenerated `MANIFEST.json`.
-5. **Add a test.** For a generator, add it to
-   `tests/generators/determinism.test.js`'s coverage (add its id to
-   `PROGRAM_GENERATOR_IDS` in `datagen/src/generators/index.js`) and a
-   planted-feature spot check in `tests/generators/planted-features.test.js`.
+5. **Add tests**, in this order:
+   - **The determinism sweep, for everything.** Add the id to
+     `PROGRAM_GENERATOR_IDS` in `datagen/src/generators/index.js`.
+     `tests/generators/determinism.test.js` then runs the generator twice and
+     diffs the bytes, with no new file to write.
+   - **A per-generator test file, preferred for anything with derived
+     structure**: a tie-out, a cross-file join, a spine imported from another
+     artifact, a shared builder that emits more than one id. Name it
+     `tests/generators/<id>-<short-name>.test.js`, pin the header with
+     `assert.deepEqual(header, spec.columns)`, and re-derive each planted
+     feature from the generated bytes without importing the builder's own
+     predicate, so the test can disagree with the generator. The files that
+     exist today are listed under Testing below.
+   - **A spot check in `tests/generators/planted-features.test.js`** where the
+     feature is a simple presence or count and nothing derived hangs off it.
+     Anything more than that belongs in a per-generator file.
+
+   **Assert shapes, never instances.** "Exactly one line posts to the account
+   the chart carries as inactive" is a test; "line 44 of entry C013 posts to
+   6125" is an answer key (see below) and breaks on the next reroll for no
+   reason. The same rule is why a cross-artifact test reads the other pack's
+   emitted bytes rather than importing its builder.
 
 ### Dataset variants
 
@@ -373,7 +452,21 @@ Runs `node --test` over `tests/`:
   run twice, byte-identical output.
 - `tests/generators/planted-features.test.js` -- spot checks that each
   generator's committed `planted_features` actually show up in its output
-  (exact totals, record counts, threshold behavior).
+  (exact totals, record counts, threshold behavior). Simple presence and count
+  assertions only; anything derived lives in a per-generator file.
+- **Per-generator test files** -- one per generator or builder with derived
+  structure, each reading the generated bytes rather than the builder:
+  `fin-cash-recon` (FIN-01/02/03, including the canon-name check against
+  `canon/companies.md`), `fin-01-variants`, `fin-04-ar-aging`,
+  `fin-05-trial-balance`, `fin-procure-to-pay` (FIN-06/07/08/10/11),
+  `fin-09-je-batch` (including the FIN-09 to FIN-11 and FIN-07 citation join),
+  `fin-13-expense-reports` (FIN-13 and FIN-14), `fin-14-spend-policy`,
+  `fin-15-credit-notes`, `fin-16-collections-log`, `fin-17-close-checklist`,
+  `fin-18-control-matrix`, `fin-19-user-access`, `fin-20-regulatory-feed`,
+  `fin-22-chart-of-accounts`, `fin-35-inbound-requests`,
+  `fin-38-reliability-drill`, `fin-track-b-templates` (FIN-36/37/39).
+- `tests/artifacts/` -- checks over drafted-frozen artifacts that recompute a
+  stated figure from the document's own inputs.
 - `tests/drafted/` -- structural screens over drafted-frozen documents: what
   must be *absent*. The real-name screen asserts that every capitalized phrase
   in the document is the canon protagonist, a role title an active CORE-04
@@ -384,7 +477,10 @@ Runs `node --test` over `tests/`:
 - `tests/cli/test01-fixture-e2e.test.js` -- spawns the real CLI against a
   throwaway copy of `tests/fixtures/TEST-01` (never the real repo root):
   `generate` → `validate` → `manifest` for a fixture `deterministic` spec,
-  and `build-docx` → `validate` for a fixture `drafted-frozen` spec.
+  `build-docx` → `validate` for a fixture `drafted-frozen` spec, and both
+  `validate --manifest` cases: green while the fixture catalog still carries an
+  unbuilt spec, non-zero the moment a manifest-listed dataset directory is
+  deleted.
 - `tests/docx/docx-build.test.js` -- both `build-docx` code paths (pandoc
   and the `docx` fallback) against the TEST-01-DOC fixture; the pandoc test
   is skipped (not failed) on a machine without pandoc installed.

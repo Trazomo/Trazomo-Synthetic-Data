@@ -200,3 +200,84 @@ test("LGL-22: matter state machine states and the 3 hrs/matter/week, 35-hour cap
     assert.equal(row.weekly_hours_committed, String(Number(row.active_matter_count) * 3));
   }
 });
+
+// ---------------------------------------------------------------------------
+// Cluster 2 (FIN-13 to FIN-20, FIN-35). Presence and count only. Every derived
+// assertion, every tie-out and every cross-file join lives in the per-generator
+// file named beside each test, which is the convention datagen/README.md's
+// spec-authoring step 5 sets out.
+
+/** The files one spec emits, keyed by path. */
+function emitted(id) {
+  return generateArtifact(specs.byId.get(id), canon);
+}
+
+test("FIN-13: 88 expense lines across 18 reports, every one submitted or in review (fin-13-expense-reports.test.js)", () => {
+  const rows = csvRows(fileByPath(emitted("FIN-13"), "expense-reports.csv").content);
+  assert.equal(rows.length, 88);
+  assert.equal(new Set(rows.map((r) => r.report_id)).size, 18);
+  for (const r of rows) assert.ok(["submitted", "in_review"].includes(r.status), `${r.status} is neither submitted nor in_review`);
+});
+
+test("FIN-14: the spend policy names the CORE-05 document it encodes (fin-14-spend-policy.test.js)", () => {
+  const files = emitted("FIN-14");
+  assert.equal(files.length, 1);
+  const yamlText = fileByPath(files, "spend-policy.yaml").content;
+  assert.match(yamlText, /^policy_document_id: ADI-POL-005$/m);
+  assert.match(yamlText, /^source_artifact: CORE-05$/m);
+});
+
+test("FIN-15: 16 credit notes, exactly 2 still requested (fin-15-credit-notes.test.js)", () => {
+  const rows = csvRows(fileByPath(emitted("FIN-15"), "customer-credit-notes.csv").content);
+  assert.equal(rows.length, 16);
+  assert.equal(rows.filter((r) => r.status === "requested").length, 2);
+});
+
+test("FIN-16: 64 contacts across 12 customers, plus the four-stage dunning ladder (fin-16-collections-log.test.js)", () => {
+  const files = emitted("FIN-16");
+  const rows = csvRows(fileByPath(files, "collections-contact-log.csv").content);
+  assert.equal(rows.length, 64);
+  assert.equal(new Set(rows.map((r) => r.customer_canon_id)).size, 12);
+  const policy = JSON.parse(fileByPath(files, "collections-policy.json").content);
+  assert.equal(policy.dunning_ladder.length, 4);
+});
+
+test("FIN-17: 24 close tasks, one per FIN-36 task id, notes empty on every row (fin-17-close-checklist.test.js)", () => {
+  const rows = csvRows(fileByPath(emitted("FIN-17"), "close-checklist.csv").content);
+  assert.equal(rows.length, 24);
+  const template = csvRows(fileByPath(emitted("FIN-36"), "close-checklist-template.csv").content);
+  assert.deepEqual(rows.map((r) => r.task_id), template.map((r) => r.task_id));
+  for (const r of rows) assert.equal(r.notes, "", `${r.task_id} ships a note`);
+});
+
+test("FIN-18: 26 controls, exactly one with an exception noted (fin-18-control-matrix.test.js)", () => {
+  const rows = csvRows(fileByPath(emitted("FIN-18"), "control-matrix.csv").content);
+  assert.equal(rows.length, 26);
+  assert.equal(new Set(rows.map((r) => r.control_id)).size, 26);
+});
+
+test("FIN-19: 45 grants across 29 employees, every entitlement class a known one (fin-19-user-access.test.js)", () => {
+  const rows = csvRows(fileByPath(emitted("FIN-19"), "user-access-role-assignments.csv").content);
+  assert.equal(rows.length, 45);
+  assert.equal(new Set(rows.map((r) => r.employee_id)).size, 29);
+  for (const r of rows) {
+    assert.ok(["create", "modify", "approve", "release", "view"].includes(r.entitlement_class), `${r.entitlement_class} is not an entitlement class`);
+  }
+});
+
+test("FIN-20: 14 feed records and a 10-row policy index sorted by document_id (fin-20-regulatory-feed.test.js)", () => {
+  const files = emitted("FIN-20");
+  const records = fileByPath(files, "regulatory-updates-feed.jsonl").content
+    .trim().split("\n").map((line) => JSON.parse(line));
+  assert.equal(records.length, 14);
+  const index = csvRows(fileByPath(files, "policy-index.csv").content);
+  assert.equal(index.length, 10);
+  const ids = index.map((r) => r.document_id);
+  assert.deepEqual(ids, [...ids].sort(), "the policy index is not sorted by document_id");
+});
+
+test("FIN-35: 38 inbound requests, every one pending_classification (fin-35-inbound-requests.test.js)", () => {
+  const rows = csvRows(fileByPath(emitted("FIN-35"), "inbound-requests-queue.csv").content);
+  assert.equal(rows.length, 38);
+  for (const r of rows) assert.equal(r.status, "pending_classification");
+});
