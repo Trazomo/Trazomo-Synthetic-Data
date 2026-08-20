@@ -3,17 +3,24 @@
 // depreciation, one contractor-cost allocation, one prepaid reclass, and the
 // five planted defects the reclass module teaches.
 //
-// This module deliberately does NOT import the procure-to-pay builder or the
-// AR aging builder. FIN-05's trial balance is pre-close, so it must not depend
-// on this batch, and keeping FIN-09 off those edges keeps the dependency graph
-// shallow and acyclic. What FIN-09 needs from the rest of the universe is only
-// the chart (FIN-22), the roster (CORE-04), and FIN-01's canon constants.
+// This module does not import the AR aging builder, and nothing imports this
+// one: FIN-05's trial balance is pre-close, so it must not depend on this
+// batch. The edge that does exist runs the other way. FIN-09 reads the
+// procure-to-pay builder because FIN-11 is the authority for what a vendor
+// bill is and FIN-07 for what a vendor invoice is, and this batch cites their
+// documents rather than minting citation ids of its own.
 //
-// source_document citations are drawn from the id blocks FIN-06, FIN-07 and
-// FIN-11 mint in this same release, plus the two drafted contracts, so a
-// citation resolves. The blocks are referred to by shape rather than by
-// endpoint: writing a first or last id here would name a row
-// somewhere real without this file having to import those builders.
+// Data-repo issue #12 (ruled 2026-08-18, fixed in v1.4.0): the batch used to
+// mint BILL-2026-01NN and VINV-2026-01NN ids by shape, which landed them
+// inside the blocks FIN-11 and FIN-07 really mint, so every citation named a
+// document whose vendor, account and amount contradicted the entry citing it.
+// The rule now is the D2 plan's section 1.4 join: an entry that is the
+// accounting for a bill already on the ledger cites that bill and agrees with
+// it on vendor, account and amount; an accrual cites the vendor invoice it
+// accrues for and agrees on vendor and total; an internal entry cites the
+// document behind the balance it moves. assertPostConditions re-derives all
+// three from the emitted rows, so a citation that stops resolving is a build
+// failure.
 //
 // Planted features (spec FIN-09, plan Section 2.3). Each is derivable by a
 // selection rule over the data and carries no label:
@@ -33,6 +40,7 @@ import { addDays } from "../dates.js";
 import { createRng } from "../seed.js";
 import { buildRoster } from "./core-04-people-roster.js";
 import { buildChartOfAccounts } from "./fin-22-chart-of-accounts.js";
+import { buildProcureToPay } from "./fin-06-procure-to-pay.js";
 import {
   ACCOUNT_HOLDER, CANON_VENDORS, NEUTRAL_VENDORS,
   PREPARER_EMPLOYEE_ID, REVIEWER_EMPLOYEE_ID, SOD_CONFLICT_ROLE,
@@ -46,6 +54,9 @@ export const id = "FIN-09";
 export const BATCH_PERIOD = { start: "2026-03-01", end: "2026-03-31" };
 /** March close runs 2026-04-01 to 2026-04-07 (canon/timeline.md). */
 export const APPROVAL_WINDOW = { start: "2026-04-01", end: "2026-04-07" };
+
+/** The two drafted contracts a close entry may cite instead of a document id. */
+export const CONTRACT_DOCUMENTS = new Set(["CORE-01", "FIN-12"]);
 
 export const ENTRY_TYPES = [
   "accrual", "accrual_reversal", "reclass", "amortization",
@@ -123,6 +134,32 @@ const phrase = (party, ordinal) => {
 
 function cents(n) { return (n / 100).toFixed(2); }
 
+/** Read another artifact's emitted 2dp money string back into integer cents. */
+function toCents(amount) { return Math.round(Number(amount) * 100); }
+
+/**
+ * Split a cited document's total across the expense lines an entry codes it to.
+ * How a cost is split across accounts is a coding decision, so the shares are
+ * drawn; the total is not, because it belongs to the document.
+ */
+function splitAcross(totalCents, lineCount, rng) {
+  if (lineCount === 1) return [totalCents];
+  const weights = Array.from({ length: lineCount }, () => rng.int(25, 75));
+  const weightTotal = weights.reduce((s, w) => s + w, 0);
+  const parts = [];
+  let allocated = 0;
+  for (let i = 0; i < lineCount - 1; i++) {
+    const part = Math.round((totalCents * weights[i]) / weightTotal);
+    parts.push(part);
+    allocated += part;
+  }
+  parts.push(totalCents - allocated);
+  for (const part of parts) {
+    if (part < 100) throw new Error(`FIN-09: splitting ${cents(totalCents)} across ${lineCount} lines leaves a line of ${cents(part)}`);
+  }
+  return parts;
+}
+
 function debitLine(code, counterparty, amountCents, description) {
   return { side: "debit", code, counterparty, amountCents, description };
 }
@@ -184,21 +221,51 @@ export function buildCloseBatch() {
   const entryRng = createRng(id, "entries");
   const plantRng = createRng(id, "planted");
 
-  // Document-id counters. Every citation lands inside a block another cluster 1
-  // artifact actually mints, so a reader who follows the reference finds a row.
+  // The documents this batch cites, read from the artifacts that mint them.
   //
   // This batch deliberately cites NO purchase order. A purchase order is not
   // support for a journal entry in the first place (depreciation is supported by
-  // the fixed-asset register, an allocation by an internal memo, an accrual by
-  // the invoice or bill behind it), and citing none is also what lets FIN-06
+  // the asset's own invoice, an accrual by the invoice behind it, a reversal by
+  // the bill that superseded it), and citing none is also what lets FIN-06
   // place its missing-accrual line anywhere it likes: the rule "no close entry
   // cites this purchase order" then holds for every purchase order in the pack,
-  // with no reserved block and no constant in either generator narrowing where
-  // the plant can be. Neither file imports the other.
-  let vinvSeq = 101;
-  let billSeq = 101;
-  const nextVinv = () => `VINV-2026-${String(vinvSeq++).padStart(4, "0")}`;
-  const nextBill = () => `BILL-2026-${String(billSeq++).padStart(4, "0")}`;
+  // with no reserved block narrowing where the plant can be.
+  const { bills, invoices } = buildProcureToPay();
+  const docRng = createRng(id, "documents");
+  const pooled = (rows) => {
+    const pool = new Map();
+    for (const row of rows) {
+      if (!pool.has(row.vendor_name)) pool.set(row.vendor_name, []);
+      pool.get(row.vendor_name).push(row);
+    }
+    for (const [vendor, list] of pool) pool.set(vendor, docRng.shuffle(list));
+    return pool;
+  };
+  // Shifted rather than picked, so no document is cited twice by accident: the
+  // one duplicated citation in this batch is P10 and it is placed on purpose.
+  const invoicePool = pooled(invoices);
+  const billPool = pooled(bills);
+  const takeInvoice = (vendorName) => {
+    const queue = invoicePool.get(vendorName) ?? [];
+    if (queue.length === 0) throw new Error(`FIN-09: FIN-07 mints no unused invoice for "${vendorName}"`);
+    return queue.shift();
+  };
+  const takeBill = (vendorName, glAccount) => {
+    const queue = billPool.get(vendorName) ?? [];
+    const at = queue.findIndex((b) => b.gl_account === glAccount);
+    if (at === -1) throw new Error(`FIN-09: FIN-11 mints no unused bill for "${vendorName}" on account ${glAccount}`);
+    return queue.splice(at, 1)[0];
+  };
+  // The fixed assets this batch depreciates were bought from whichever vendor
+  // FIN-11 bills to the fixed-asset account, derived rather than named here so
+  // a change of supplier in FIN-06 repoints these citations instead of
+  // silently leaving them on the old one.
+  const fixedAssetCodes = new Set(chart.filter((r) => r.subtype === "fixed_asset").map((r) => r.account_code));
+  const assetVendors = [...new Set(bills.filter((b) => fixedAssetCodes.has(b.gl_account)).map((b) => b.vendor_name))];
+  if (assetVendors.length !== 1) {
+    throw new Error(`FIN-09: expected one fixed-asset vendor in FIN-11, found ${assetVendors.length}`);
+  }
+  const [assetVendor] = assetVendors;
 
   const closeDays = ["2026-03-27", "2026-03-28", "2026-03-29", "2026-03-30", "2026-03-31"];
   const approvalDays = [];
@@ -212,15 +279,18 @@ export function buildCloseBatch() {
   };
 
   // ---- co-106 payroll-platform benefit accruals (P9's population) --------
-  // Five two-line accruals so the modal credit account is unambiguous.
+  // Five two-line accruals so the modal credit account is unambiguous. Each
+  // accrues one TalentForce invoice sitting in the FIN-07 queue, so the accrual
+  // is the invoice's amount rather than a number of its own.
   const payrollEntries = [];
   for (let i = 0; i < 5; i++) {
-    const amount = entryRng.int(900000, 4200000);
     const party = PAYROLL_PLATFORM.name;
+    const invoice = takeInvoice(party);
+    const amount = toCents(invoice.invoice_amount);
     payrollEntries.push(push({
       key: `payroll-${i}`,
       type: "accrual",
-      source: nextBill(),
+      source: invoice.invoice_id,
       postingDate: entryRng.pick(closeDays.slice(1)),
       lines: [
         debitLine(expenseFor(party), party, amount, `March 2026 accrual - ${party} - ${phrase(party, i)}`),
@@ -244,18 +314,16 @@ export function buildCloseBatch() {
   for (const { party, wide } of vendorBlocks) {
     let ordinal = 0;
     for (const count of [wide, 2]) {
-      const debits = [];
-      for (let i = 0; i < count; i++) {
-        debits.push(debitLine(
-          expenseFor(party), party, entryRng.int(120000, 8500000),
-          `March 2026 accrual - ${party} - ${phrase(party, ordinal++)}`
-        ));
-      }
-      const total = debits.reduce((s, l) => s + l.amountCents, 0);
+      const invoice = takeInvoice(party);
+      const total = toCents(invoice.invoice_amount);
+      const debits = splitAcross(total, count, entryRng).map((share) => debitLine(
+        expenseFor(party), party, share,
+        `March 2026 accrual - ${party} - ${phrase(party, ordinal++)}`
+      ));
       vendorEntries.push(push({
         key: `vendor-${party}-${count}`,
         type: "accrual",
-        source: nextVinv(),
+        source: invoice.invoice_id,
         postingDate: entryRng.pick(closeDays),
         lines: [...debits, creditLine("2010", party, total, `March 2026 accrual - ${party} - accrued liabilities`)],
       }));
@@ -263,6 +331,11 @@ export function buildCloseBatch() {
   }
 
   // ---- depreciation and amortization, booked in-house --------------------
+  // These are the batch's internal entries: the counterparty is the account
+  // holder, and the charge is a month of an asset's life rather than the price
+  // of anything. Each cites the document behind the balance it moves, the
+  // capitalized-software one the CORE-01 contract and the rest the asset
+  // vendor's own invoice, so a reader can still follow the reference.
   const holder = ACCOUNT_HOLDER.name;
   for (const [i, [type, contra]] of [["depreciation", "1490"], ["depreciation", "1490"], ["amortization", "1590"], ["amortization", "1590"]].entries()) {
     const amount = type === "depreciation" ? entryRng.int(4000000, 12000000) : entryRng.int(2500000, 9000000);
@@ -270,7 +343,7 @@ export function buildCloseBatch() {
     push({
       key: `inhouse-${i}`,
       type,
-      source: i === 2 ? "CORE-01" : nextBill(),
+      source: i === 2 ? "CORE-01" : takeInvoice(assetVendor).invoice_id,
       postingDate: BATCH_PERIOD.end,
       lines: [
         debitLine(expenseFor(holder), holder, amount, narrative),
@@ -287,14 +360,17 @@ export function buildCloseBatch() {
     neutralVendor("Kestrelmoor Staffing Partners"),
   ];
   for (const [i, party] of reversalParties.entries()) {
-    const amount = entryRng.int(150000, 6000000);
+    // The insurance reversal cites the policy itself and keeps its own amount;
+    // the rest are superseded by a bill now posted to the ledger, so they carry
+    // that bill's vendor, account and amount.
+    const isInsurance = party === canonVendor("co-105").name;
+    const bill = isInsurance ? null : takeBill(party, expenseFor(party));
+    const amount = isInsurance ? entryRng.int(150000, 6000000) : toCents(bill.bill_amount);
     const narrative = `Reversal of February 2026 accrual - ${party}`;
     push({
       key: `reversal-${i}`,
       type: "accrual_reversal",
-      // The insurance reversal cites the policy itself; the rest cite the bill
-      // that superseded the accrual.
-      source: party === canonVendor("co-105").name ? "FIN-12" : nextBill(),
+      source: isInsurance ? "FIN-12" : bill.bill_id,
       postingDate: entryRng.pick(["2026-03-01", "2026-03-02"]),
       lines: [
         debitLine("2010", party, amount, narrative),
@@ -306,22 +382,26 @@ export function buildCloseBatch() {
   // ---- prepaid reclass and the contractor-cost allocation ----------------
   const analytics = canonVendor("co-119").name;
   const staffing = neutralVendor("Kestrelmoor Staffing Partners");
-  const reclassAmount = entryRng.int(300000, 2500000);
+  const reclassInvoice = takeInvoice(analytics);
+  const reclassAmount = toCents(reclassInvoice.invoice_amount);
   push({
     key: "reclass",
     type: "reclass",
-    source: nextBill(),
+    source: reclassInvoice.invoice_id,
     postingDate: entryRng.pick(closeDays.slice(3)),
     lines: [
       debitLine("1230", analytics, reclassAmount, `Reclass of prepaid balance - ${analytics}`),
       creditLine("1200", analytics, reclassAmount, `Reclass of prepaid balance - ${analytics}`),
     ],
   });
-  const allocationAmount = entryRng.int(1500000, 6500000);
+  // The contract development cost being capitalized is one posted bill, so the
+  // allocation moves exactly that bill out of expense and into the asset.
+  const allocationBill = takeBill(staffing, expenseFor(staffing));
+  const allocationAmount = toCents(allocationBill.bill_amount);
   push({
     key: "allocation",
     type: "allocation",
-    source: nextBill(),
+    source: allocationBill.bill_id,
     postingDate: BATCH_PERIOD.end,
     lines: [
       debitLine("1500", staffing, allocationAmount, `Allocation of contract development cost - ${staffing}`),
@@ -360,11 +440,12 @@ export function buildCloseBatch() {
   const printWorks = neutralVendor("Sarrowmere Print Works");
   const retiredAccount = chart.find((r) => r.active === "false");
   if (!retiredAccount) throw new Error("FIN-09: the chart carries no inactive account for P7");
-  const retiredAmount = plantRng.int(80000, 450000);
+  const printInvoice = takeInvoice(printWorks);
+  const retiredAmount = toCents(printInvoice.invoice_amount);
   push({
     key: "retired-account",
     type: "accrual",
-    source: nextVinv(),
+    source: printInvoice.invoice_id,
     postingDate: BATCH_PERIOD.end,
     rng: plantRng,
     lines: [
@@ -377,8 +458,9 @@ export function buildCloseBatch() {
   // P10: the same analytics invoice accrued twice, a day apart, by two entries
   // whose lines are identical. Nothing but the shared citation and the matching
   // amounts reveals it.
-  const duplicateSource = nextVinv();
-  const duplicateAmount = plantRng.int(1200000, 3800000);
+  const duplicateInvoice = takeInvoice(analytics);
+  const duplicateSource = duplicateInvoice.invoice_id;
+  const duplicateAmount = toCents(duplicateInvoice.invoice_amount);
   const duplicateStart = plantRng.pick(["2026-03-29", "2026-03-30"]);
   for (const [i, postingDate] of [duplicateStart, addDays(duplicateStart, 1)].entries()) {
     const narrative = `March 2026 accrual - ${analytics} - ${phrase(analytics, 1)}`;
@@ -449,7 +531,7 @@ export function buildCloseBatch() {
     });
   }
 
-  assertPostConditions(sorted, lines, chart);
+  assertPostConditions(sorted, lines, chart, { bills, invoices });
 
 
   return {
@@ -469,7 +551,7 @@ export function buildCloseBatch() {
  * something other than exactly one row. A plant that stops being derivable is a
  * build failure, not a data quirk.
  */
-function assertPostConditions(entries, lines, chart) {
+function assertPostConditions(entries, lines, chart, documents) {
   const byCode = new Map(chart.map((r) => [r.account_code, r]));
   const expenseCodes = new Set(chart.filter((r) => r.type === "expense").map((r) => r.account_code));
   const inactive = new Set(chart.filter((r) => r.active === "false").map((r) => r.account_code));
@@ -532,10 +614,41 @@ function assertPostConditions(entries, lines, chart) {
 
   const unsupported = entries.filter((e) => e.source === "");
   if (unsupported.length !== 1) throw new Error(`FIN-09: P11 resolves to ${unsupported.length} entries, expected 1`);
-  const resolvable = /^(VINV|BILL|PO)-2026-0\d{3}$|^CORE-01$|^FIN-12$/;
+
+  // The D2 plan's section 1.4 join, re-derived from the entries themselves.
+  const billById = new Map(documents.bills.map((b) => [b.bill_id, b]));
+  const invoiceById = new Map(documents.invoices.map((i) => [i.invoice_id, i]));
   for (const entry of entries) {
-    if (entry.source === "") continue;
-    if (!resolvable.test(entry.source)) throw new Error(`FIN-09: source_document "${entry.source}" does not resolve`);
+    if (entry.source === "" || CONTRACT_DOCUMENTS.has(entry.source)) continue;
+    const parties = new Set(entry.lines.map((l) => l.counterparty));
+    const party = parties.size === 1 ? [...parties][0] : null;
+    const debitTotal = entry.lines.filter((l) => l.side === "debit").reduce((s, l) => s + l.amountCents, 0);
+    const bill = billById.get(entry.source);
+    if (bill) {
+      if (party !== bill.vendor_name) {
+        throw new Error(`FIN-09: ${entry.source} is ${bill.vendor_name}'s bill, but the entry books ${party ?? "several counterparties"}`);
+      }
+      if (!entry.lines.some((l) => l.code === bill.gl_account)) {
+        throw new Error(`FIN-09: ${entry.source} posts to ${bill.gl_account}, which the entry citing it never touches`);
+      }
+      if (debitTotal !== toCents(bill.bill_amount)) {
+        throw new Error(`FIN-09: the entry citing ${entry.source} totals ${cents(debitTotal)} against a bill of ${bill.bill_amount}`);
+      }
+      continue;
+    }
+    const invoice = invoiceById.get(entry.source);
+    if (!invoice) {
+      throw new Error(`FIN-09: source_document "${entry.source}" is neither a FIN-11 bill nor a FIN-07 invoice`);
+    }
+    // An internal entry cites the document behind the balance it moves; a month
+    // of depreciation is a fraction of the asset, so only the citation holds.
+    if (party === ACCOUNT_HOLDER.name) continue;
+    if (party !== invoice.vendor_name) {
+      throw new Error(`FIN-09: ${entry.source} is ${invoice.vendor_name}'s invoice, but the entry books ${party ?? "several counterparties"}`);
+    }
+    if (debitTotal !== toCents(invoice.invoice_amount)) {
+      throw new Error(`FIN-09: the entry citing ${entry.source} totals ${cents(debitTotal)} against an invoice of ${invoice.invoice_amount}`);
+    }
   }
 }
 

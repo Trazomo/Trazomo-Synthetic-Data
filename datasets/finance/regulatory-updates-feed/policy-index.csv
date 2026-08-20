@@ -1,0 +1,11 @@
+document_id,title,version,status,owner_title,effective_date,last_reviewed,next_review_due,supersedes,superseded_by,source_file
+ADI-FIN-001,Accounting Policy Memorandum: Capitalization of Internal-Use Software (ASC 350-40),1.0,Superseded,"Manager, Technical Accounting",2024-02-15,2024-02-15,2026-02-15,None,ADI-FIN-002,artifacts/CORE-05/internal-policy-library-finance-memo-software-capitalization-2024.md
+ADI-FIN-002,"Accounting Policy Memorandum: Capitalization of Internal-Use Software (ASC 350-40), Revised",2.0,Active,"Manager, Technical Accounting",2026-01-20,2026-01-20,2028-01-20,ADI-FIN-001,None,artifacts/CORE-05/internal-policy-library-finance-memo-software-capitalization-2026.md
+ADI-HR-001,Employee Handbook,4.2,Active,Chief People Officer,2026-07-01,2026-07-01,2027-07-01,ADI-HR-001 v4.1,None,artifacts/CORE-05/internal-policy-library-employee-handbook.md
+ADI-POL-000,Internal Policy Library and Policy Register,2.1,Active,General Counsel and Corporate Secretary,2024-01-08,2026-07-06,2027-07-06,ADI-POL-000 v2.0,None,artifacts/CORE-05/internal-policy-library.md
+ADI-POL-001,Data Retention Policy,3.1,Active,General Counsel and Corporate Secretary,2025-06-01,2026-05-18,2027-05-18,ADI-POL-001 v3.0,None,artifacts/CORE-05/internal-policy-library-data-retention-policy.md
+ADI-POL-002,Remote Work Policy,2.0,Active,Chief People Officer,2025-09-30,2025-09-30,2026-09-30,ADI-POL-002 v1.3,None,artifacts/CORE-05/internal-policy-library-remote-work-policy.md
+ADI-POL-003,Acceptable Use Policy,5.0,Active,Chief Information Security Officer,2026-03-01,2025-06-30,2026-06-30,ADI-POL-006,None,artifacts/CORE-05/internal-policy-library-acceptable-use-policy.md
+ADI-POL-004,Social Media Policy,1.2,Active,"Vice President, Brand and Communications",2022-11-04,2022-11-04,2023-11-04,ADI-POL-004 v1.1,None,artifacts/CORE-05/internal-policy-library-social-media-policy.md
+ADI-POL-005,Travel and Expense Policy,4.3,Active,Workplace Services,2025-10-15,2025-10-15,2026-10-15,ADI-POL-005 v4.2,None,artifacts/CORE-05/internal-policy-library-travel-and-expense-policy.md
+ADI-POL-006,Bring Your Own Device (BYOD) Policy,1.4,Superseded,Chief Information Security Officer,2023-04-01,2024-04-01,2025-04-01,ADI-POL-006 v1.3,ADI-POL-003 v5.0 (effective 2026-03-01),artifacts/CORE-05/internal-policy-library-byod-policy.md

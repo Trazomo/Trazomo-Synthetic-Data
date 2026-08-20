@@ -1,6 +1,6 @@
 {
     "manifest_version": 1,
-    "universe_version": "1.3.0",
+    "universe_version": "1.4.0",
     "canon": {
         "companies": "canon/companies.md",
         "people": "canon/people.md",
@@ -346,6 +346,127 @@
             }
         },
         {
+            "id": "FIN-13",
+            "name": "expense-reports",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/expense-reports",
+            "files": [
+                "expense-reports.csv"
+            ],
+            "row_counts": {
+                "expense-reports.csv": 88
+            }
+        },
+        {
+            "id": "FIN-14",
+            "name": "spend-policy",
+            "track": "finance",
+            "type": "config",
+            "format": "yaml",
+            "generation": "deterministic",
+            "path": "datasets/finance/spend-policy",
+            "files": [
+                "spend-policy.yaml"
+            ],
+            "row_counts": {}
+        },
+        {
+            "id": "FIN-15",
+            "name": "customer-credit-notes",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/customer-credit-notes",
+            "files": [
+                "customer-credit-notes.csv"
+            ],
+            "row_counts": {
+                "customer-credit-notes.csv": 16
+            }
+        },
+        {
+            "id": "FIN-16",
+            "name": "collections-contact-log",
+            "track": "finance",
+            "type": "log",
+            "format": "csv + json",
+            "generation": "deterministic",
+            "path": "datasets/finance/collections-contact-log",
+            "files": [
+                "collections-contact-log.csv",
+                "collections-policy.json"
+            ],
+            "row_counts": {
+                "collections-contact-log.csv": 64
+            }
+        },
+        {
+            "id": "FIN-17",
+            "name": "close-checklist",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/close-checklist",
+            "files": [
+                "close-checklist.csv"
+            ],
+            "row_counts": {
+                "close-checklist.csv": 24
+            }
+        },
+        {
+            "id": "FIN-18",
+            "name": "control-matrix",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/control-matrix",
+            "files": [
+                "control-matrix.csv"
+            ],
+            "row_counts": {
+                "control-matrix.csv": 26
+            }
+        },
+        {
+            "id": "FIN-19",
+            "name": "user-access-role-assignments",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/user-access-role-assignments",
+            "files": [
+                "user-access-role-assignments.csv"
+            ],
+            "row_counts": {
+                "user-access-role-assignments.csv": 45
+            }
+        },
+        {
+            "id": "FIN-20",
+            "name": "regulatory-updates-feed",
+            "track": "finance",
+            "type": "dataset",
+            "format": "jsonl + csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/regulatory-updates-feed",
+            "files": [
+                "policy-index.csv",
+                "regulatory-updates-feed.jsonl"
+            ],
+            "row_counts": {
+                "policy-index.csv": 10,
+                "regulatory-updates-feed.jsonl": 14
+            }
+        },
+        {
             "id": "FIN-22",
             "name": "chart-of-accounts",
             "track": "finance",
@@ -358,6 +479,21 @@
             ],
             "row_counts": {
                 "chart-of-accounts.csv": 65
+            }
+        },
+        {
+            "id": "FIN-35",
+            "name": "inbound-requests-queue",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/inbound-requests-queue",
+            "files": [
+                "inbound-requests-queue.csv"
+            ],
+            "row_counts": {
+                "inbound-requests-queue.csv": 38
             }
         },
         {

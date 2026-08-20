@@ -49,10 +49,11 @@ function describeDataset(root, spec) {
   const files = listFilesRecursive(dirPath).sort();
   const rowCounts = {};
   for (const file of files) {
+    const abs = join(dirPath, file);
     if (file.endsWith(".csv")) {
-      const abs = join(dirPath, file);
-      const lineCount = countCsvDataRows(abs);
-      rowCounts[file] = lineCount;
+      rowCounts[file] = countCsvDataRows(abs);
+    } else if (file.endsWith(".jsonl")) {
+      rowCounts[file] = countJsonlRecords(abs);
     }
   }
 
@@ -132,4 +133,67 @@ function countCsvDataRows(absPath) {
   const text = readFileSync(absPath, "utf8");
   const lines = text.split("\n").filter((l) => l.length > 0);
   return Math.max(0, lines.length - 1); // minus header row
+}
+
+// A JSONL file is one record per line and carries no header, so the record
+// count is the non-empty line count rather than that count less one. Without
+// this, a feed like FIN-20 lands in MANIFEST.json with no count at all and a
+// consumer cannot tell an empty feed from an unread one.
+function countJsonlRecords(absPath) {
+  const text = readFileSync(absPath, "utf8");
+  return text.split("\n").filter((l) => l.trim().length > 0).length;
+}
+
+export class ManifestError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ManifestError";
+  }
+}
+
+/**
+ * Read back the ids MANIFEST.json says are actually present, so a caller can
+ * check exactly those rather than the whole catalog. This is the input to
+ * `validate --manifest`: the catalog is a plan, the manifest is the record of
+ * what shipped, and only the second is something CI can hold to.
+ *
+ * Every failure here is hard. An absent manifest, a section that is not a list,
+ * or a row with no string `id` all mean the caller cannot know what to check,
+ * and quietly checking nothing is how a deleted dataset ships green. An absent
+ * section is not a failure: a repo with no drafted artifacts has no "artifacts"
+ * to list.
+ *
+ * @param {string} manifestPath absolute path to MANIFEST.json
+ * @returns {{datasets: string[], artifacts: string[]}}
+ */
+export function manifestIds(manifestPath) {
+  if (!existsSync(manifestPath)) {
+    throw new ManifestError(`${manifestPath} does not exist. Run \`datagen manifest\` and commit it.`);
+  }
+  let doc;
+  try {
+    doc = JSON.parse(readFileSync(manifestPath, "utf8"));
+  } catch (err) {
+    throw new ManifestError(`${manifestPath} is not valid JSON: ${err.message}`);
+  }
+  if (doc === null || typeof doc !== "object" || Array.isArray(doc)) {
+    throw new ManifestError(`${manifestPath}: expected an object at the top level, found ${Array.isArray(doc) ? "an array" : typeof doc}`);
+  }
+
+  const out = { datasets: [], artifacts: [] };
+  for (const section of ["datasets", "artifacts"]) {
+    const rows = doc[section];
+    if (rows === undefined) continue;
+    if (!Array.isArray(rows)) {
+      throw new ManifestError(`${manifestPath}: "${section}" is ${rows === null ? "null" : typeof rows}, expected a list`);
+    }
+    rows.forEach((row, index) => {
+      const value = row?.id;
+      if (typeof value !== "string" || value.trim() === "") {
+        throw new ManifestError(`${manifestPath}: ${section}[${index}] has no "id" string`);
+      }
+      out[section].push(value);
+    });
+  }
+  return out;
 }

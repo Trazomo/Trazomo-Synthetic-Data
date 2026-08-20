@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { buildManifest } from "../../datagen/src/manifest.js";
+import { buildManifest, manifestIds, ManifestError } from "../../datagen/src/manifest.js";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 
 function makeSpecsFixture(dir) {
@@ -160,4 +160,122 @@ test("buildManifest records a declared variant that is on disk, and skips one th
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
+});
+
+test("buildManifest counts JSONL records as well as CSV data rows", () => {
+  const root = mkdtempSync(join(tmpdir(), "datagen-manifest-jsonl-test-"));
+  try {
+    const specsPath = join(root, "artifact-specs.yaml");
+    writeFileSync(
+      specsPath,
+      [
+        "artifacts:",
+        "  - id: LGL-94",
+        "    name: feed-and-index",
+        "    type: dataset",
+        "    format: jsonl + csv",
+        "    generation: deterministic",
+        "    canon_entities: []",
+        "    planted_features: []",
+        "    consuming_modules: []",
+        "",
+      ].join("\n")
+    );
+    const specs = loadSpecs(specsPath);
+
+    const dir = join(root, "datasets", "legal", "feed-and-index");
+    mkdirSync(dir, { recursive: true });
+    // A JSONL file has no header row, so three lines are three records. The
+    // trailing newline every generator writes is not a fourth.
+    writeFileSync(join(dir, "feed.jsonl"), '{"a":1}\n{"a":2}\n{"a":3}\n');
+    writeFileSync(join(dir, "index.csv"), "a,b\n1,2\n3,4\n");
+    writeFileSync(join(dir, "notes.md"), "# not a table\n");
+
+    const manifest = buildManifest({ root, specs, existingManifest: {} });
+    const entry = manifest.datasets.find((d) => d.id === "LGL-94");
+    assert.deepEqual(entry.files, ["feed.jsonl", "index.csv", "notes.md"]);
+    assert.equal(entry.row_counts["feed.jsonl"], 3, "three records, not two and not four");
+    assert.equal(entry.row_counts["index.csv"], 2, "a CSV still reports data rows, header excluded");
+    assert.equal("notes.md" in entry.row_counts, false, "a format with no records carries no count");
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("buildManifest reports an empty JSONL file as zero records", () => {
+  const root = mkdtempSync(join(tmpdir(), "datagen-manifest-jsonl-empty-"));
+  try {
+    const specsPath = join(root, "artifact-specs.yaml");
+    writeFileSync(
+      specsPath,
+      "artifacts:\n  - id: LGL-93\n    name: empty-feed\n    type: dataset\n    format: jsonl\n    generation: deterministic\n    canon_entities: []\n    planted_features: []\n    consuming_modules: []\n"
+    );
+    const specs = loadSpecs(specsPath);
+    const dir = join(root, "datasets", "legal", "empty-feed");
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, "feed.jsonl"), "");
+    const manifest = buildManifest({ root, specs, existingManifest: {} });
+    assert.equal(manifest.datasets.find((d) => d.id === "LGL-93").row_counts["feed.jsonl"], 0);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+// ---------------------------------------------------------------------------
+// manifestIds: the ids `validate --manifest` checks. The catalog is a plan and
+// the manifest is the record of what shipped, so reading it back has to fail
+// loudly rather than return a short list.
+
+/** Write one MANIFEST.json into a throwaway root and hand back its path. */
+function withManifest(contents, fn) {
+  const root = mkdtempSync(join(tmpdir(), "datagen-manifest-ids-"));
+  try {
+    const path = join(root, "MANIFEST.json");
+    writeFileSync(path, typeof contents === "string" ? contents : JSON.stringify(contents, null, 4));
+    fn(path);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+}
+
+test("manifestIds reads both sections, in the order the manifest lists them", () => {
+  withManifest(
+    { universe_version: "1.4.0", datasets: [{ id: "FIN-09" }, { id: "FIN-22" }], artifacts: [{ id: "CORE-05" }] },
+    (path) => {
+      assert.deepEqual(manifestIds(path), { datasets: ["FIN-09", "FIN-22"], artifacts: ["CORE-05"] });
+    }
+  );
+});
+
+test("manifestIds treats an absent section as empty, because a repo can ship no drafted artifacts", () => {
+  withManifest({ datasets: [{ id: "FIN-09" }] }, (path) => {
+    assert.deepEqual(manifestIds(path), { datasets: ["FIN-09"], artifacts: [] });
+  });
+});
+
+test("manifestIds fails hard when the manifest is missing", () => {
+  const root = mkdtempSync(join(tmpdir(), "datagen-manifest-ids-"));
+  try {
+    assert.throws(() => manifestIds(join(root, "MANIFEST.json")), ManifestError);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("manifestIds fails hard on a malformed section or a row with no id", () => {
+  withManifest({ datasets: { id: "FIN-09" } }, (path) => {
+    assert.throws(() => manifestIds(path), /"datasets" is object, expected a list/);
+  });
+  withManifest({ datasets: [{ id: "FIN-09" }, { name: "no-id-here" }] }, (path) => {
+    assert.throws(() => manifestIds(path), /datasets\[1\] has no "id" string/);
+  });
+  withManifest({ datasets: [], artifacts: [{ id: "" }] }, (path) => {
+    assert.throws(() => manifestIds(path), /artifacts\[0\] has no "id" string/);
+  });
+  withManifest("{ not json", (path) => {
+    assert.throws(() => manifestIds(path), /is not valid JSON/);
+  });
+  withManifest([{ id: "FIN-09" }], (path) => {
+    assert.throws(() => manifestIds(path), /expected an object at the top level/);
+  });
 });
