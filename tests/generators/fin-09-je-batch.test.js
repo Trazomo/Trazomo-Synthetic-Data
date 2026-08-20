@@ -299,3 +299,66 @@ test("FIN-09: regeneration is byte-identical", () => {
     assert.equal(again[i].content, files[i].content);
   }
 });
+
+// ---------------------------------------------------------------------------
+// The FIN-09 to FIN-11 / FIN-07 join (D2 plan section 1.4, data-repo issue #12).
+//
+// Both halves read the other pack's emitted bytes rather than importing its
+// builder, so a citation that stops resolving fails here rather than in a
+// lesson. FIN-11 is the authority for what a bill is and FIN-07 for what a
+// vendor invoice is.
+const billRows = csvTable(fileByPath(generateArtifact(specs.byId.get("FIN-11"), canon), "vendor-bills.csv").content).rows;
+const invoiceRows = csvTable(fileByPath(generateArtifact(specs.byId.get("FIN-07"), canon), "vendor-invoices.csv").content).rows;
+const CONTRACT_DOCUMENTS = new Set(["CORE-01", "FIN-12"]);
+
+/** One counterparty and one debit total per entry, both taken from the file. */
+function entryFacts(lines) {
+  const counterparties = new Set(lines.map((l) => l.counterparty));
+  return {
+    counterparty: counterparties.size === 1 ? [...counterparties][0] : null,
+    debitCents: lines.reduce((s, l) => s + (l.debit === "" ? 0 : toCents(l.debit)), 0),
+    accounts: new Set(lines.map((l) => l.gl_account)),
+  };
+}
+
+test("FIN-09 join: every source_document of bill type resolves to exactly one FIN-11 bill, with vendor, account and amount agreeing", () => {
+  const cited = [...entries.entries()].filter(([, lines]) => lines[0].source_document.startsWith("BILL-"));
+  assert.ok(cited.length > 0, "no entry cites a vendor bill, so the join is untested");
+  for (const [id, lines] of cited) {
+    const doc = lines[0].source_document;
+    const matches = billRows.filter((b) => b.bill_id === doc);
+    assert.equal(matches.length, 1, `${id}: ${doc} resolves to ${matches.length} FIN-11 bills`);
+    const bill = matches[0];
+    const facts = entryFacts(lines);
+    assert.equal(bill.vendor_name, facts.counterparty, `${id}: ${doc} is ${bill.vendor_name}'s bill, but the entry books ${facts.counterparty}`);
+    assert.ok(facts.accounts.has(bill.gl_account), `${id}: ${doc} posts to ${bill.gl_account}, which the entry never touches`);
+    assert.equal(facts.debitCents, toCents(bill.bill_amount), `${id}: the entry totals ${facts.debitCents} cents against a bill of ${toCents(bill.bill_amount)}`);
+  }
+});
+
+test("FIN-09 join: every source_document of vendor-invoice type resolves to exactly one FIN-07 invoice, and an entry booked against a vendor agrees on vendor and total", () => {
+  const cited = [...entries.entries()].filter(([, lines]) => lines[0].source_document.startsWith("VINV-"));
+  assert.ok(cited.length > 0, "no entry cites a vendor invoice, so the join is untested");
+  for (const [id, lines] of cited) {
+    const doc = lines[0].source_document;
+    const matches = invoiceRows.filter((i) => i.invoice_id === doc);
+    assert.equal(matches.length, 1, `${id}: ${doc} resolves to ${matches.length} FIN-07 invoices`);
+    const facts = entryFacts(lines);
+    // An entry whose counterparty is the account holder is internal: the March
+    // depreciation or amortization charge is a fraction of the asset it cites,
+    // so only the citation itself is asserted.
+    if (facts.counterparty === ACCOUNT_HOLDER.name) continue;
+    assert.equal(matches[0].vendor_name, facts.counterparty, `${id}: ${doc} is ${matches[0].vendor_name}'s invoice, but the entry books ${facts.counterparty}`);
+    assert.equal(facts.debitCents, toCents(matches[0].invoice_amount), `${id}: the entry totals ${facts.debitCents} cents against an invoice of ${toCents(matches[0].invoice_amount)}`);
+  }
+});
+
+test("FIN-09 join: no source_document names a document no other artifact mints", () => {
+  const billIds = new Set(billRows.map((b) => b.bill_id));
+  const invoiceIds = new Set(invoiceRows.map((i) => i.invoice_id));
+  for (const [id, lines] of entries) {
+    const doc = lines[0].source_document;
+    if (doc === "" || CONTRACT_DOCUMENTS.has(doc)) continue;
+    assert.ok(billIds.has(doc) || invoiceIds.has(doc), `${id}: ${doc} is neither a FIN-11 bill nor a FIN-07 invoice`);
+  }
+});
