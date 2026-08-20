@@ -1,0 +1,166 @@
+{
+  "generated_from_spec": "FIN-16",
+  "as_of": "2026-04-03",
+  "currency": "USD",
+  "dunning_ladder": [
+    {
+      "stage": 1,
+      "days_past_due_min": 1,
+      "channel": "email",
+      "owner_role": "AR Clerk",
+      "action": "Send the statement and a first reminder naming the open documents"
+    },
+    {
+      "stage": 2,
+      "days_past_due_min": 31,
+      "channel": "phone",
+      "owner_role": "AR Clerk",
+      "action": "Call the accounts payable contact and record a promise to pay"
+    },
+    {
+      "stage": 3,
+      "days_past_due_min": 61,
+      "channel": "phone",
+      "owner_role": "AR Clerk",
+      "action": "Confirm the promise in writing and put new orders under review"
+    },
+    {
+      "stage": 4,
+      "days_past_due_min": 91,
+      "channel": "letter",
+      "owner_role": "AR Clerk",
+      "action": "Issue a formal demand and prepare a write off recommendation for approval"
+    }
+  ],
+  "credit_limits": [
+    {
+      "customer_canon_id": "co-102",
+      "customer_name": "Amberfield Logistics",
+      "segment": "Enterprise",
+      "credit_limit": "750000.00"
+    },
+    {
+      "customer_canon_id": "co-103",
+      "customer_name": "Fernwell Retail Group",
+      "segment": "Mid-Market",
+      "credit_limit": "180000.00"
+    },
+    {
+      "customer_canon_id": "co-140",
+      "customer_name": "Bramblecourt Analytics",
+      "segment": "Enterprise",
+      "credit_limit": "750000.00"
+    },
+    {
+      "customer_canon_id": "co-142",
+      "customer_name": "Cinderbrook LLC",
+      "segment": "Mid-Market",
+      "credit_limit": "180000.00"
+    },
+    {
+      "customer_canon_id": "co-143",
+      "customer_name": "Amberline Holdings",
+      "segment": "SMB",
+      "credit_limit": "60000.00"
+    },
+    {
+      "customer_canon_id": "co-144",
+      "customer_name": "Foxglove Partners",
+      "segment": "SMB",
+      "credit_limit": "60000.00"
+    },
+    {
+      "customer_canon_id": "co-145",
+      "customer_name": "Thornwick Partners",
+      "segment": "Mid-Market",
+      "credit_limit": "180000.00"
+    },
+    {
+      "customer_canon_id": "co-147",
+      "customer_name": "Sagebrook LLC",
+      "segment": "SMB",
+      "credit_limit": "60000.00"
+    },
+    {
+      "customer_canon_id": "co-149",
+      "customer_name": "Wrenhaven Group",
+      "segment": "SMB",
+      "credit_limit": "60000.00"
+    },
+    {
+      "customer_canon_id": "co-150",
+      "customer_name": "Elmstead Holdings",
+      "segment": "Mid-Market",
+      "credit_limit": "180000.00"
+    },
+    {
+      "customer_canon_id": "co-151",
+      "customer_name": "Copperfen Partners",
+      "segment": "Mid-Market",
+      "credit_limit": "180000.00"
+    },
+    {
+      "customer_canon_id": "co-153",
+      "customer_name": "Silverdale Analytics",
+      "segment": "Enterprise",
+      "credit_limit": "750000.00"
+    },
+    {
+      "customer_canon_id": "co-154",
+      "customer_name": "Windrow Holdings",
+      "segment": "SMB",
+      "credit_limit": "60000.00"
+    },
+    {
+      "customer_canon_id": "co-155",
+      "customer_name": "Hazelmere Analytics",
+      "segment": "SMB",
+      "credit_limit": "60000.00"
+    },
+    {
+      "customer_canon_id": "co-160",
+      "customer_name": "Gladewick LLC",
+      "segment": "Mid-Market",
+      "credit_limit": "180000.00"
+    },
+    {
+      "customer_canon_id": "co-161",
+      "customer_name": "Holloway Vale Partners",
+      "segment": "Mid-Market",
+      "credit_limit": "180000.00"
+    },
+    {
+      "customer_canon_id": "co-164",
+      "customer_name": "Kettlebrook Partners",
+      "segment": "Enterprise",
+      "credit_limit": "750000.00"
+    },
+    {
+      "customer_canon_id": "co-165",
+      "customer_name": "Bramblecourt LLC",
+      "segment": "SMB",
+      "credit_limit": "60000.00"
+    },
+    {
+      "customer_canon_id": "co-166",
+      "customer_name": "Northfield Group",
+      "segment": "SMB",
+      "credit_limit": "60000.00"
+    }
+  ],
+  "credit_hold_rule": {
+    "rule": "an account goes on credit hold when its open balance exceeds its credit limit and its oldest document is more than oldest_days_past_due_over days past due",
+    "open_balance_exceeds_credit_limit": true,
+    "oldest_days_past_due_over": 90,
+    "combine": "all"
+  },
+  "dispute_rule": {
+    "rule": "while a document is disputed, dunning on that document stops and the dispute is escalated rather than chased",
+    "hold_outreach": true,
+    "escalate_to_role": "Controller"
+  },
+  "write_off_authority": [
+    "DA-12",
+    "DA-13"
+  ]
+}
