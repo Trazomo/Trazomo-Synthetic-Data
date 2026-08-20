@@ -298,3 +298,31 @@ test("transposeDollars swaps the tens and units digits and always changes the am
   assert.equal(transposeDollars(3300), 4300); // 33.00 -> 43.00
   for (const c of [451760, 1200050, 3300, 999999]) assert.notEqual(transposeDollars(c), c);
 });
+
+test("FIN-01 / FIN-02 / FIN-03: every canon name these files ship is the name canon/companies.md carries today", () => {
+  // canon/companies.md is the register; fin-01-cash-recon.js hard-codes the
+  // names three artifacts print. Without this check a rename in the register
+  // leaves the pack shipping the old name, and nothing goes red until a
+  // learner notices two documents calling one company two things.
+  // loadCanonCompanies strips the "(proposed)" / "(adopted)" suffix, so this
+  // compares the name rather than its adoption status.
+  const registered = [ACCOUNT_HOLDER, BANK, ...CANON_VENDORS];
+  assert.ok(registered.length >= 7, "the canon-name check lost entities to compare");
+  for (const entity of registered) {
+    const row = canon.get(entity.canon_id);
+    assert.ok(row, `${entity.canon_id} is not in canon/companies.md`);
+    assert.equal(
+      entity.name, row.name,
+      `${entity.canon_id}: FIN-01 ships "${entity.name}" while canon/companies.md now says "${row.name}"`
+    );
+  }
+  // The register-matching names are also the ones actually printed, so the
+  // constants cannot agree with canon while the emitted files disagree with
+  // both. Customer names on these rows come from CORE-03 and are checked there.
+  const shipped = new Set([...bank, ...gl].map((r) => r.counterparty));
+  assert.ok(shipped.has(BANK.name), "the bank does not appear as a counterparty under its canon name");
+  for (const vendor of CANON_VENDORS) {
+    if (!shipped.has(vendor.name)) continue;
+    assert.equal(canon.get(vendor.canon_id).name, vendor.name);
+  }
+});
