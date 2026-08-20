@@ -1,0 +1,88 @@
+# FIN-14 spend-policy: the Travel and Expense Policy as configuration.
+#
+# Every figure here is the figure ADI-POL-005 v4.3 states in prose. The
+# document itself ships as CORE-05; read it for the reasoning, read this
+# for the rule a program can run. Generated, not hand maintained:
+# datagen/src/generators/fin-14-spend-policy.js.
+policy_document_id: ADI-POL-005
+policy_version: "4.3"
+policy_effective_date: "2025-10-15"
+source_artifact: CORE-05
+currency: USD
+
+# CORE-05 section 10.1: an itemized receipt is required at or above this amount.
+receipt_required_at_or_above: 75.00
+
+# CORE-05 section 7.2: the daily meal ceiling by destination city tier,
+# claimed as actual cost or as per diem.
+meal_daily_limits:
+  tier_1: 95.00
+  tier_2: 75.00
+  tier_3: 60.00
+
+# CORE-05 section 6.1: the nightly room rate cap by city tier, exclusive of
+# taxes and mandatory fees.
+lodging_nightly_limits:
+  tier_1: 375.00
+  tier_2: 275.00
+  tier_3: 200.00
+
+# CORE-05 section 7.6: a team meal with no external guest needs Vice
+# President approval above this amount per attendee.
+team_meal_per_attendee_vp_approval: 75.00
+
+# CORE-05 section 7.5: a business meal with external guests is claimed at
+# actual cost and is not measured against the daily meal limit.
+business_meal_exempt_from_daily_limit: true
+
+# CORE-05 section 11.2: who approves, by report total. Contiguous from zero
+# and open ended at the top, so every total falls in exactly one band.
+report_approval_bands:
+  - band: 1
+    min_usd: 0.00
+    max_usd: 2500.00
+    approvers: ["manager"]
+  - band: 2
+    min_usd: 2500.01
+    max_usd: 10000.00
+    approvers: ["Vice President"]
+  - band: 3
+    min_usd: 10000.01
+    max_usd: 25000.00
+    approvers: ["Vice President", "Corporate Controller"]
+  - band: 4
+    min_usd: 25000.01
+    max_usd: null
+    approvers: ["Chief Financial Officer"]
+
+# CORE-05 section 11.1: the submission window, and the point past which the
+# report needs the top escalation and may be treated as taxable income.
+submission_window_days: 30
+late_submission_escalation_days: 90
+
+# CORE-05 sections 5.3 and 8.4: the closed list a merchant_category is
+# checked against. A category outside this list is not a finding.
+non_reimbursable_categories:
+  - parking_fine
+  - moving_violation
+  - towing
+  - first_class_airfare
+
+# CORE-05 section 3.3.
+self_approval_prohibited: true
+
+# CORE-05 section 14 forbids splitting a transaction to stay under an
+# approval threshold. The threshold is the first approval band's ceiling;
+# the window is how close together two reports have to sit to be one
+# transaction, which the prose leaves to the validator.
+structuring_rule:
+  window_days: 2
+  threshold_usd: 2500.00
+
+# The policy names three titles the CORE-04 roster does not carry as
+# written. Mapping them here rather than in a comment is what lets a
+# validator resolve an approver to a person.
+role_map:
+  Vice President: "VP, Finance"
+  Corporate Controller: "Controller"
+  Chief Financial Officer: "Chief Executive Officer"
