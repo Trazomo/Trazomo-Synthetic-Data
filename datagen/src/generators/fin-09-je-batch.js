@@ -22,6 +22,16 @@
 // three from the emitted rows, so a citation that stops resolving is a build
 // failure.
 //
+// Data-repo issue #14 (ruled 2026-08-20, fixed for the next tag): "the document
+// behind the balance" was still read as "any unused FIN-07 invoice of the
+// vendor FIN-11 bills to a fixed-asset account", and the join exempted internal
+// entries from the vendor and amount checks by counterparty, so every id
+// resolved while three of them named a security supplier's invoices for
+// unrelated goods. An internal schedule entry now cites the FIN-11 bill that
+// capitalized the class it writes down, matched to the class through the FIN-22
+// chart, and cites nothing where the universe never bought that class. Only
+// FIN-11's asset-account bills can support one; a vendor invoice never can.
+//
 // Planted features (spec FIN-09, plan Section 2.3). Each is derivable by a
 // selection rule over the data and carries no label:
 //   P7  one line posts to the FIN-22 account the chart carries as inactive.
@@ -31,7 +41,10 @@
 //   P9  one payroll-platform accrual credits an accrual account other than the
 //       modal one for that counterparty.
 //   P10 one supporting document is cited by two entries with identical lines.
-//   P11 one entry cites no supporting document on any line.
+//   P11 one entry a supporting document is expected for cites none on any line.
+//       Internal schedule entries whose asset class the universe never
+//       capitalized also cite nothing, by the rule above rather than as a
+//       finding, so the plant is derived over everything except those.
 //
 // Every draw comes from createRng("FIN-09", stream). No Math.random, no
 // Date.now. Every amount is integer cents internally and a 2dp string on disk.
@@ -62,6 +75,13 @@ export const ENTRY_TYPES = [
   "accrual", "accrual_reversal", "reclass", "amortization",
   "depreciation", "allocation", "standard",
 ];
+
+/**
+ * The entry types the company books against itself off a schedule rather than
+ * off a document a supplier sent it. Their support is the bill that capitalized
+ * the asset, and where the universe never bought that class there is none.
+ */
+export const INTERNAL_SCHEDULE_TYPES = new Set(["depreciation", "amortization"]);
 
 export const COLUMNS = [
   "entry_id", "line_no", "posting_date", "approved_date", "gl_account",
@@ -160,6 +180,32 @@ function splitAcross(totalCents, lineCount, rng) {
   return parts;
 }
 
+/**
+ * The FIN-11 bill that put `assetClass` on the books, or "" when the universe
+ * never bought that class. The class is read off the FIN-22 chart by name, so
+ * the citation follows the account the entry writes down rather than a vendor
+ * named here, and only a bill larger than the month's charge qualifies: a month
+ * of a schedule is a fraction of the asset, never a multiple of it. Ties break
+ * to the largest bill, the principal purchase behind the class.
+ *
+ * Data-repo issue #14 (ruled 2026-08-20): this used to take whatever FIN-07
+ * invoice the asset vendor had left in the queue, which resolved but named a
+ * document of the wrong vendor for the wrong thing.
+ */
+function capitalizationBillFor(chart, bills, assetClass, chargeCents) {
+  const accounts = chart.filter(
+    (r) => (r.subtype === "fixed_asset" || r.subtype === "intangible")
+      && r.account_name.toLowerCase().startsWith(assetClass.toLowerCase())
+  );
+  if (accounts.length !== 1) {
+    throw new Error(`FIN-09: "${assetClass}" resolves to ${accounts.length} FIN-22 capitalization accounts, expected 1`);
+  }
+  const capitalizing = bills
+    .filter((b) => b.gl_account === accounts[0].account_code && toCents(b.bill_amount) > chargeCents)
+    .sort((a, b) => toCents(b.bill_amount) - toCents(a.bill_amount) || a.bill_id.localeCompare(b.bill_id));
+  return capitalizing.length === 0 ? "" : capitalizing[0].bill_id;
+}
+
 function debitLine(code, counterparty, amountCents, description) {
   return { side: "debit", code, counterparty, amountCents, description };
 }
@@ -256,18 +302,8 @@ export function buildCloseBatch() {
     if (at === -1) throw new Error(`FIN-09: FIN-11 mints no unused bill for "${vendorName}" on account ${glAccount}`);
     return queue.splice(at, 1)[0];
   };
-  // The fixed assets this batch depreciates were bought from whichever vendor
-  // FIN-11 bills to the fixed-asset account, derived rather than named here so
-  // a change of supplier in FIN-06 repoints these citations instead of
-  // silently leaving them on the old one.
-  const fixedAssetCodes = new Set(chart.filter((r) => r.subtype === "fixed_asset").map((r) => r.account_code));
-  const assetVendors = [...new Set(bills.filter((b) => fixedAssetCodes.has(b.gl_account)).map((b) => b.vendor_name))];
-  if (assetVendors.length !== 1) {
-    throw new Error(`FIN-09: expected one fixed-asset vendor in FIN-11, found ${assetVendors.length}`);
-  }
-  const [assetVendor] = assetVendors;
 
-  const closeDays = ["2026-03-27", "2026-03-28", "2026-03-29", "2026-03-30", "2026-03-31"];
+  const closeDays =["2026-03-27", "2026-03-28", "2026-03-29", "2026-03-30", "2026-03-31"];
   const approvalDays = [];
   for (let d = APPROVAL_WINDOW.start; d <= APPROVAL_WINDOW.end; d = addDays(d, 1)) approvalDays.push(d);
 
@@ -334,8 +370,11 @@ export function buildCloseBatch() {
   // These are the batch's internal entries: the counterparty is the account
   // holder, and the charge is a month of an asset's life rather than the price
   // of anything. Each cites the document behind the balance it moves, the
-  // capitalized-software one the CORE-01 contract and the rest the asset
-  // vendor's own invoice, so a reader can still follow the reference.
+  // capitalized-software one the CORE-01 contract and the rest the FIN-11 bill
+  // that capitalized the class it writes down. A class the universe never
+  // bought carries no such bill, and the entry then cites nothing at all: no
+  // document in the pack supports it, and a resolving id of the wrong vendor is
+  // worse than a blank (data-repo issue #14).
   const holder = ACCOUNT_HOLDER.name;
   for (const [i, [type, contra]] of [["depreciation", "1490"], ["depreciation", "1490"], ["amortization", "1590"], ["amortization", "1590"]].entries()) {
     const amount = type === "depreciation" ? entryRng.int(4000000, 12000000) : entryRng.int(2500000, 9000000);
@@ -343,7 +382,7 @@ export function buildCloseBatch() {
     push({
       key: `inhouse-${i}`,
       type,
-      source: i === 2 ? "CORE-01" : takeInvoice(assetVendor).invoice_id,
+      source: i === 2 ? "CORE-01" : capitalizationBillFor(chart, bills, phrase(holder, i), amount),
       postingDate: BATCH_PERIOD.end,
       lines: [
         debitLine(expenseFor(holder), holder, amount, narrative),
@@ -612,17 +651,37 @@ function assertPostConditions(entries, lines, chart, documents) {
     throw new Error("FIN-09: the two entries citing one document are not identical");
   }
 
-  const unsupported = entries.filter((e) => e.source === "");
+  // P11 is the entry a document is expected for that carries none. An internal
+  // schedule entry whose class the universe never capitalized also cites
+  // nothing, and that is a stated rule rather than the plant, so the plant is
+  // derived over the entries a document is expected for.
+  const unsupported = entries.filter((e) => e.source === "" && !INTERNAL_SCHEDULE_TYPES.has(e.type));
   if (unsupported.length !== 1) throw new Error(`FIN-09: P11 resolves to ${unsupported.length} entries, expected 1`);
 
   // The D2 plan's section 1.4 join, re-derived from the entries themselves.
   const billById = new Map(documents.bills.map((b) => [b.bill_id, b]));
   const invoiceById = new Map(documents.invoices.map((i) => [i.invoice_id, i]));
   for (const entry of entries) {
-    if (entry.source === "" || CONTRACT_DOCUMENTS.has(entry.source)) continue;
+    if (CONTRACT_DOCUMENTS.has(entry.source)) continue;
     const parties = new Set(entry.lines.map((l) => l.counterparty));
     const party = parties.size === 1 ? [...parties][0] : null;
     const debitTotal = entry.lines.filter((l) => l.side === "debit").reduce((s, l) => s + l.amountCents, 0);
+    // An internal schedule entry is booked against the company itself off a
+    // depreciation or amortization schedule. Its support is the bill that
+    // capitalized the class it names, re-derived here from the chart and the
+    // emitted rows, and "" when the universe carries no such bill.
+    if (INTERNAL_SCHEDULE_TYPES.has(entry.type)) {
+      if (party !== ACCOUNT_HOLDER.name) {
+        throw new Error(`FIN-09: an internal ${entry.type} entry books ${party ?? "several counterparties"}, not the account holder`);
+      }
+      const assetClass = entry.lines[0].description.split(" - ").pop();
+      const expected = capitalizationBillFor(chart, documents.bills, assetClass, debitTotal);
+      if (entry.source !== expected) {
+        throw new Error(`FIN-09: the ${assetClass} schedule cites "${entry.source}", but FIN-11 capitalizes that class with "${expected}"`);
+      }
+      continue;
+    }
+    if (entry.source === "") continue;
     const bill = billById.get(entry.source);
     if (bill) {
       if (party !== bill.vendor_name) {
@@ -640,9 +699,9 @@ function assertPostConditions(entries, lines, chart, documents) {
     if (!invoice) {
       throw new Error(`FIN-09: source_document "${entry.source}" is neither a FIN-11 bill nor a FIN-07 invoice`);
     }
-    // An internal entry cites the document behind the balance it moves; a month
-    // of depreciation is a fraction of the asset, so only the citation holds.
-    if (party === ACCOUNT_HOLDER.name) continue;
+    // No exemption by counterparty: a vendor invoice is the accounting for that
+    // vendor's charge, so an entry booked against the account holder never
+    // cites one. Exempting them by counterparty is what hid issue #14.
     if (party !== invoice.vendor_name) {
       throw new Error(`FIN-09: ${entry.source} is ${invoice.vendor_name}'s invoice, but the entry books ${party ?? "several counterparties"}`);
     }

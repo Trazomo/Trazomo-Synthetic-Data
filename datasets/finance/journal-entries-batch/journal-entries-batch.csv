@@ -59,14 +59,14 @@ JE-202603-C022,3,2026-03-31,2026-04-06,2010,Accrued Liabilities,March 2026 accru
 JE-202603-C023,1,2026-03-31,2026-04-03,6200,Software Subscriptions,March 2026 accrual - DataPulse Analytics - analytics platform seats,DataPulse Analytics,2398.57,,USD,accrual,VINV-2026-0134,EMP-0486,EMP-0473
 JE-202603-C023,2,2026-03-31,2026-04-03,6200,Software Subscriptions,March 2026 accrual - DataPulse Analytics - usage overage,DataPulse Analytics,1870.07,,USD,accrual,VINV-2026-0134,EMP-0486,EMP-0473
 JE-202603-C023,3,2026-03-31,2026-04-03,2010,Accrued Liabilities,March 2026 accrual - DataPulse Analytics - accrued liabilities,DataPulse Analytics,,4268.64,USD,accrual,VINV-2026-0134,EMP-0486,EMP-0473
-JE-202603-C024,1,2026-03-31,2026-04-02,6800,Depreciation and Amortization,March 2026 depreciation - computer equipment,Atticus Dundee Inc.,110907.33,,USD,depreciation,VINV-2026-0165,EMP-0486,EMP-0473
-JE-202603-C024,2,2026-03-31,2026-04-02,1490,Accumulated Depreciation,March 2026 depreciation - computer equipment,Atticus Dundee Inc.,,110907.33,USD,depreciation,VINV-2026-0165,EMP-0486,EMP-0473
-JE-202603-C025,1,2026-03-31,2026-04-04,6800,Depreciation and Amortization,March 2026 depreciation - furniture and fixtures,Atticus Dundee Inc.,86701.17,,USD,depreciation,VINV-2026-0152,EMP-0486,EMP-0473
-JE-202603-C025,2,2026-03-31,2026-04-04,1490,Accumulated Depreciation,March 2026 depreciation - furniture and fixtures,Atticus Dundee Inc.,,86701.17,USD,depreciation,VINV-2026-0152,EMP-0486,EMP-0473
+JE-202603-C024,1,2026-03-31,2026-04-02,6800,Depreciation and Amortization,March 2026 depreciation - computer equipment,Atticus Dundee Inc.,110907.33,,USD,depreciation,BILL-2026-0118,EMP-0486,EMP-0473
+JE-202603-C024,2,2026-03-31,2026-04-02,1490,Accumulated Depreciation,March 2026 depreciation - computer equipment,Atticus Dundee Inc.,,110907.33,USD,depreciation,BILL-2026-0118,EMP-0486,EMP-0473
+JE-202603-C025,1,2026-03-31,2026-04-04,6800,Depreciation and Amortization,March 2026 depreciation - furniture and fixtures,Atticus Dundee Inc.,86701.17,,USD,depreciation,,EMP-0486,EMP-0473
+JE-202603-C025,2,2026-03-31,2026-04-04,1490,Accumulated Depreciation,March 2026 depreciation - furniture and fixtures,Atticus Dundee Inc.,,86701.17,USD,depreciation,,EMP-0486,EMP-0473
 JE-202603-C026,1,2026-03-31,2026-04-04,6800,Depreciation and Amortization,March 2026 amortization - capitalized software,Atticus Dundee Inc.,66779.06,,USD,amortization,CORE-01,EMP-0486,EMP-0473
 JE-202603-C026,2,2026-03-31,2026-04-04,1590,Accumulated Amortization,March 2026 amortization - capitalized software,Atticus Dundee Inc.,,66779.06,USD,amortization,CORE-01,EMP-0486,EMP-0473
-JE-202603-C027,1,2026-03-31,2026-04-02,6800,Depreciation and Amortization,March 2026 amortization - leasehold improvements,Atticus Dundee Inc.,35787.26,,USD,amortization,VINV-2026-0114,EMP-0486,EMP-0473
-JE-202603-C027,2,2026-03-31,2026-04-02,1590,Accumulated Amortization,March 2026 amortization - leasehold improvements,Atticus Dundee Inc.,,35787.26,USD,amortization,VINV-2026-0114,EMP-0486,EMP-0473
+JE-202603-C027,1,2026-03-31,2026-04-02,6800,Depreciation and Amortization,March 2026 amortization - leasehold improvements,Atticus Dundee Inc.,35787.26,,USD,amortization,,EMP-0486,EMP-0473
+JE-202603-C027,2,2026-03-31,2026-04-02,1590,Accumulated Amortization,March 2026 amortization - leasehold improvements,Atticus Dundee Inc.,,35787.26,USD,amortization,,EMP-0486,EMP-0473
 JE-202603-C028,1,2026-03-31,2026-04-04,1230,Other Prepaid Expenses,Reclass of prepaid balance - DataPulse Analytics,DataPulse Analytics,9996.39,,USD,reclass,VINV-2026-0160,EMP-0486,EMP-0473
 JE-202603-C028,2,2026-03-31,2026-04-04,1200,Prepaid Software Subscriptions,Reclass of prepaid balance - DataPulse Analytics,DataPulse Analytics,,9996.39,USD,reclass,VINV-2026-0160,EMP-0486,EMP-0473
 JE-202603-C029,1,2026-03-31,2026-04-04,1500,Capitalized Software Development,Allocation of contract development cost - Kestrelmoor Staffing Partners,Kestrelmoor Staffing Partners,14204.84,,USD,allocation,BILL-2026-0129,EMP-0486,EMP-0473
