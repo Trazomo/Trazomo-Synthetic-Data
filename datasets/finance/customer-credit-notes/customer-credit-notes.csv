@@ -1,0 +1,17 @@
+credit_note_id,customer_canon_id,customer_name,requested_date,issued_date,reason_code,amount,currency,status,applied_to_document,ar_document_number,requested_by_employee_id,approved_by_employee_id
+CN-2026-0101,co-150,Elmstead Holdings,2025-12-13,2025-12-20,dispute_settlement,6622.76,USD,issued,INV-2025-0803,CM-2026-0001,EMP-0479,EMP-0463
+CN-2026-0102,co-140,Bramblecourt Analytics,2026-01-19,2026-01-27,dispute_settlement,4628.37,USD,issued,INV-2025-0901,CM-2026-0101,EMP-0472,EMP-0465
+CN-2026-0103,co-151,Copperfen Partners,2026-01-19,2026-01-26,duplicate_billing,547.87,USD,issued,INV-2025-0906,CM-2026-0106,EMP-0472,EMP-0465
+CN-2026-0104,co-142,Cinderbrook LLC,2026-01-20,2026-01-23,dispute_settlement,7720.44,USD,issued,INV-2025-0904,CM-2026-0104,EMP-0479,EMP-0463
+CN-2026-0105,co-160,Gladewick LLC,2026-01-26,2026-02-02,duplicate_billing,1974.35,USD,issued,INV-2025-0903,CM-2026-0103,EMP-0472,EMP-0465
+CN-2026-0106,co-164,Kettlebrook Partners,2026-01-26,2026-02-02,goodwill,885.15,USD,issued,INV-2025-0902,CM-2026-0102,EMP-0472,EMP-0465
+CN-2026-0107,co-153,Silverdale Analytics,2026-01-29,2026-02-07,pricing_error,18697.67,USD,issued,INV-2025-0810,CM-2026-0002,EMP-0479,EMP-0463
+CN-2026-0108,co-161,Holloway Vale Partners,2026-02-02,2026-02-04,pricing_error,2394.43,USD,issued,INV-2025-0905,CM-2026-0105,EMP-0479,EMP-0465
+CN-2026-0109,co-165,Bramblecourt LLC,2026-02-10,2026-02-17,pricing_error,7581.75,USD,issued,INV-2025-0908,CM-2026-0108,EMP-0479,EMP-0463
+CN-2026-0110,co-102,Amberfield Logistics,2026-02-13,2026-02-17,pricing_error,10036.54,USD,issued,INV-2026-0203,CM-2026-0003,EMP-0472,EMP-0463
+CN-2026-0111,co-145,Thornwick Partners,2026-02-16,2026-02-19,pricing_error,6553.63,USD,issued,INV-2025-0907,CM-2026-0107,EMP-0472,EMP-0463
+CN-2026-0112,co-166,Northfield Group,2026-02-18,2026-02-22,goodwill,540.06,USD,issued,INV-2025-0806,CM-2026-0004,EMP-0472,EMP-0465
+CN-2026-0113,co-143,Amberline Holdings,2026-02-24,2026-02-28,service_credit,654.14,USD,issued,INV-2025-0802,CM-2026-0005,EMP-0472,EMP-0465
+CN-2026-0114,co-103,Fernwell Retail Group,2026-03-10,2026-03-14,service_credit,4837.72,USD,issued,,CM-2026-0006,EMP-0479,EMP-0465
+CN-2026-0115,co-102,Amberfield Logistics,2026-03-23,,dispute_settlement,48872.54,USD,requested,INV-2026-0506,,EMP-0472,
+CN-2026-0116,co-154,Windrow Holdings,2026-03-23,,pricing_error,1868.23,USD,requested,INV-2026-0114,,EMP-0472,
