@@ -629,12 +629,16 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
+    canon_entities: [co-002, co-101, co-105, co-106, co-107, co-109, co-119]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [report_id, line_no, employee_id, employee_department, approver_employee_id, report_submitted_date, expense_date, expense_type, merchant, merchant_category, city_tier, claim_type, attendee_count, external_attendees, business_purpose, gl_account, amount, currency, payment_method, receipt_reference, missing_receipt_declaration, report_total, status]
     planted_features:
-      - 1 over-limit meal expense
-      - 1 missing receipt
-      - 1 personal-looking expense
-      - 1 split transaction just under the approval threshold (structuring pattern)
+      - "1 over-limit meal: exactly one meal line with claim_type actual and external_attendees zero carries an amount above the FIN-14 meal_daily_limits figure for its own city_tier. Exactly one other meal line is also above that figure but carries external_attendees above zero and a populated business_purpose, which the policy allows, so the rule has to read three columns rather than one"
+      - "1 missing receipt: exactly one line at or above the FIN-14 receipt_required_at_or_above figure carries an empty receipt_reference and missing_receipt_declaration false. Exactly one other line at or above that figure carries an empty receipt_reference and missing_receipt_declaration true, which the policy allows"
+      - "1 non-reimbursable expense: exactly one line carries a merchant_category listed in FIN-14 non_reimbursable_categories, and no other line in the file carries any of them"
+      - "1 structuring pattern: exactly one (employee_id, merchant) pair has lines on two different report_ids inside the FIN-14 structuring_rule window, each of those report_totals below the rule threshold and the pair above it"
+      - "1 line the policy does not decide: exactly one line carries an empty business_purpose on a weekend expense_date, so no figure in FIN-14 resolves it and it is held for a person"
+      - "grain and vocabulary: report_id is EXP-2026-0NNN with line_no running 1..n inside a report, and report_total repeats that report's own line sum on every one of its lines to the cent; status is submitted or in_review on every row, so nothing here is posted and the frozen FIN-05 trial balance is untouched; merchant is drawn only from the sixteen screened vendor names and is empty on per_diem meals and on fines and tolls, where a card feed carries a category and no merchant; every gl_account is an active FIN-22 expense code; every approver_employee_id is the submitter's CORE-04 manager_employee_id and never the submitter"
     consuming_modules: [finance-spend-policy-guardrails]
     source_plan: finance-implementation-plan
 
@@ -644,7 +648,13 @@ artifacts:
     format: yaml
     generation: deterministic
     canon_entities: [co-002]
-    planted_features: []
+    planted_features:
+      - no defects; the config is the rule set a validator runs against, so a figure planted wrong here would be a broken policy rather than a finding
+      - "documented key list, in this order (a YAML document carries keys, not a header row): policy_document_id, policy_version, policy_effective_date, source_artifact, currency, receipt_required_at_or_above, meal_daily_limits, lodging_nightly_limits, team_meal_per_attendee_vp_approval, business_meal_exempt_from_daily_limit, report_approval_bands, submission_window_days, late_submission_escalation_days, non_reimbursable_categories, self_approval_prohibited, structuring_rule, role_map"
+      - "every figure is the machine-readable encoding of the shipped CORE-05 Travel and Expense Policy ADI-POL-005 v4.3, effective 2025-10-15: each limit, threshold and window appears verbatim in artifacts/CORE-05/internal-policy-library-travel-and-expense-policy.md, and source_artifact names CORE-05, so the derivation is stated rather than remembered"
+      - report_approval_bands run contiguously from zero upward without overlapping, so every report total falls in exactly one band and every band names an approver
+      - "role_map exists because the policy prose names a Vice President, a Corporate Controller and a Chief Financial Officer while the CORE-04 roster holds a VP, Finance and a Controller and no CFO; the map resolves the third to Chief Executive Officer, which is what the shipped FIN-39 DA-20 row already does, and every role_map value is the role_title of an active CORE-04 employee"
+      - "the three rules no expense file can carry are config rather than prose: structuring_rule states a window in days and a threshold in dollars, self_approval_prohibited is a boolean, and non_reimbursable_categories is the closed list a FIN-13 merchant_category is checked against"
     consuming_modules: [finance-spend-policy-guardrails]
     source_plan: finance-implementation-plan
 
@@ -653,21 +663,34 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002, co-103]
-    planted_features: []
+    canon_entities: [co-002, co-102, co-103, co-140+]
+    period: { start: "2026-01-01", end: "2026-03-31" }
+    columns: [credit_note_id, customer_canon_id, customer_name, requested_date, issued_date, reason_code, amount, currency, status, applied_to_document, ar_document_number, requested_by_employee_id, approved_by_employee_id]
+    planted_features:
+      - "the six credit memos already shipped in FIN-04 are the spine: every one appears here with status issued, the same applied_to_document, and an amount equal to the absolute value of its FIN-04 open_balance to the cent, so the two files can never describe different receivables"
+      - "2 notes still requested: exactly two rows carry status requested with an empty issued_date and an empty ar_document_number, and one of them is the note behind the FIN-16 live dispute, so the disputed invoice is not collectable as billed"
+      - "8 notes issued and fully applied before the period end: each carries an ar_document_number and none appears in the FIN-04 aging, which is consistent rather than a gap, because an applied credit leaves no open balance"
+      - credit_note_id runs CN-2026-0101 upward and is textually disjoint from the FIN-04 CM-2026-000N block, so a join between the two files never resolves by accident
+      - reason_code is one of pricing_error, service_credit, duplicate_billing, goodwill or dispute_settlement, and ar_document_number is empty exactly while status is requested
+      - requested_by_employee_id and approved_by_employee_id are two different active CORE-04 employees on every issued note and neither is the roster's segregation-of-duties conflict row
     consuming_modules: [finance-collections-ar-follow-up]
     source_plan: finance-implementation-plan
 
   - id: FIN-16
     name: collections-contact-log
     type: log
-    format: csv
+    format: csv + json
     generation: deterministic
-    canon_entities: [co-002, co-103]
+    canon_entities: [co-002, co-102, co-103, co-140+]
+    period: { start: "2026-02-02", end: "2026-04-03" }
+    columns: [contact_id, customer_canon_id, customer_name, contact_date, channel, direction, dunning_stage, owner_employee_id, outcome, promise_to_pay_date, promise_amount, disputed_document_number, next_action_date]
     planted_features:
-      - co-103 past its credit-hold threshold
-      - 1 broken promise-to-pay
-      - 1 dispute flag that must escalate to a human, not auto-dun
+      - "1 customer past the credit-hold threshold: exactly one customer's FIN-04 open balance exceeds the credit_limit collections-policy.json carries for it, and it is the account the aging already shows carrying documents 61 or more days past due"
+      - "1 broken promise to pay: exactly one customer has a promise_to_pay outcome whose promise_to_pay_date falls before the as-of and for whom no later row records payment_received of at least promise_amount"
+      - "1 live dispute: exactly one customer has a dispute_raised outcome with no later resolving row, and its disputed_document_number resolves both to a FIN-04 invoice and to a FIN-15 note still in status requested. It sits on the healthy payer rather than on the distressed account, so the distressed account is not the answer to every question the log asks"
+      - "collections-policy.json carries the inputs no contact log can derive: a four-stage dunning ladder (days_past_due_min, channel, owner_role, action), one credit_limit per FIN-04 customer, the credit_hold_rule, the dispute_rule that holds outreach and escalates to the Controller, and write_off_authority naming the two decision rows the shipped FIN-39 matrix already carries"
+      - "a dunning_stage is recomputable rather than a label: every one agrees with the ladder given that customer's oldest FIN-04 days_past_due. Contacts run 2026-02-02 to 2026-04-03 and every owner_employee_id is one of the two active CORE-04 AR Clerks the aging already uses"
+      - there is no free-text note column, because a note is where an answer key hides
     consuming_modules: [finance-collections-ar-follow-up]
     source_plan: finance-implementation-plan
 
@@ -677,10 +700,15 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-04-01", end: "2026-04-07" }
+    columns: [task_id, close_day, due_date, task, category, owner_role, owner_employee_id, reviewer_role, reviewer_employee_id, depends_on, evidence_required, account_code, status, completed_date, notes]
     planted_features:
-      - 1 overdue task
-      - 1 unreconciled account past the close deadline
-      - 1 owner double-booked across two SoD-sensitive tasks
+      - "the spine is FIN-36 rather than a retyped copy of it: exactly 24 rows, and the (task_id, close_day, task, category, owner_role, reviewer_role, depends_on, evidence_required) tuple set equals buildCloseChecklistTemplate() row for row, so the template and this in-flight close cannot drift apart"
+      - "due_date is close_day resolved by the business-day rule datagen/README.md states: D+1 is 2026-04-01 and D+5 is 2026-04-07, no due_date lands on a weekend, and the close status is as of D+4, 2026-04-06"
+      - "1 overdue task: exactly one row carries a status other than complete, a due_date before the as-of and an empty account_code"
+      - "1 unreconciled account past the close deadline: exactly one row carries a status other than complete, a due_date before the as-of and a populated account_code, and that account is an active FIN-22 code with a non-zero FIN-05 ending balance"
+      - "1 reviewer double-booked across two segregation-of-duties-sensitive tasks: exactly one employee reviews both a task and a controls task that depends on it, so the person who reviewed the batch posting also reviews the control that tests whether anyone approved their own entry"
+      - "status is complete, in_progress or not_started, and completed_date is populated exactly on the complete rows and never falls after the as-of; account_code is populated only on the four reconciliation tasks and is always a FIN-22 account_code; notes ships empty on all 24 rows; owner_employee_id and reviewer_employee_id are different active CORE-04 Finance employees each holding that row's own owner_role or reviewer_role"
     consuming_modules: [finance-close-checklist-risk-radar, finance-close-memo-disclosures]
     source_plan: finance-implementation-plan
 
@@ -690,9 +718,15 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-01-01", end: "2026-03-31" }
+    columns: [control_id, control_name, process, control_objective, control_type, frequency, key_control, owner_role, owner_employee_id, tester_employee_id, last_tested_date, next_due_date, test_result, exceptions_noted, evidence_artifact, evidence_reference, related_decision_id]
     planted_features:
-      - 1 control past its testing due date
-      - 1 control missing evidence attachment
+      - "1 control past its testing due date: exactly one row carries a next_due_date before the 2026-04-06 as-of together with test_result not_tested"
+      - "1 control missing its evidence: exactly one row carries test_result pass with an empty evidence_reference, while every other tested control carries a binder locator"
+      - "26 rows, control_id CTL-001 upward, across the five processes order_to_cash, procure_to_pay, close, access and treasury; control_type is preventive or detective, frequency is monthly, quarterly or annual, and test_result is pass, exception or not_tested"
+      - "every non-empty evidence_artifact is a spec id MANIFEST.json actually lists, so a control cites evidence that exists in the pack rather than a filename someone hoped for, and evidence_reference is a binder locator EVB-2026Q1-NNN"
+      - every non-empty related_decision_id is a control_id in the shipped FIN-39 decision-authority matrix, so the controls and the authority they run under stay one system
+      - "owner_employee_id and tester_employee_id are different active CORE-04 Finance employees and neither is the roster's segregation-of-duties conflict row; last_tested_date is on or before next_due_date, and next_due_date is last_tested_date advanced by that row's own frequency in months"
     consuming_modules: [finance-sox-controls-monitor]
     source_plan: finance-implementation-plan
 
@@ -702,22 +736,32 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-01-07", end: "2026-04-06" }
+    columns: [assignment_id, employee_id, employee_name, department, role_title, system, entitlement, entitlement_class, granted_date, granted_by_employee_id, last_review_date, last_used_date]
     planted_features:
-      - 1 segregation-of-duties conflict (same user can create and approve a vendor or JE)
-      - derives from CORE-04 people roster
+      - "1 segregation-of-duties conflict: exactly one employee_id holds at least one entitlement of class create or modify together with at least one of class approve or release. It is the roster's own comma-valued finance_system_role, so the conflict comes out of CORE-04 rather than out of a draw made here"
+      - "grants are derived, not drawn: the (employee_id, entitlement) set recomputes exactly from the CORE-04 finance_system_role column by a published mapping, one row per grant, so a roster change lands here instead of being quietly outvoted"
+      - "45 rows across the 29 active Finance employees who carry a non-empty finance_system_role; the Finance employees who carry none appear nowhere, because an entitlement list is not a headcount"
+      - "the mapping neither infers an entitlement from role_title nor treats je_entry with gl_account_maintain as toxic, and both choices are load bearing: inferring from the title would put eight roster rows in conflict and the plant would lose its cardinality"
+      - "system is AP, AR, GL or PAY and entitlement_class is create, modify, approve, release or view, so the toxic pair is a predicate over two columns rather than a hand-written list of bad entitlements"
+      - last_review_date is 2026-01-07 on every row, the prior quarterly review, which is why the close task that reviews the finance system access list is still open at D+4
     consuming_modules: [finance-sox-controls-monitor]
     source_plan: finance-implementation-plan
 
   - id: FIN-20
     name: regulatory-updates-feed
     type: dataset
-    format: jsonl
+    format: jsonl + csv
     generation: deterministic
-    canon_entities: []
+    canon_entities: [co-002]
+    period: { start: "2026-01-15", end: "2026-03-30" }
     planted_features:
-      - 1 update materially relevant to co-002 revenue recognition
-      - 1 irrelevant distractor
-      - 1 update requiring a policy-doc revision that has not happened yet (checks against CORE-05)
+      - "1 update materially relevant to co-002: exactly one record's scope matches a private software company on a subscription revenue model and names at least one affected account that is an active FIN-22 code carrying a non-zero FIN-05 balance"
+      - "1 irrelevant distractor: exactly one record's affected_accounts intersect the FIN-22 chart in zero codes and its industries exclude software, so relevance is a join rather than a matter of tone"
+      - "1 policy gap: exactly one record carries an effective_date on or after the effective_date of the CORE-05 document it names in affected_policy_document_ids and a published_date after that document's last_reviewed, so a controlled document is behind the rule it encodes"
+      - "documented record key list, in this fixed order (a JSONL feed carries keys, not a header row): update_id, published_date, effective_date, issuer, issuer_type, citation, title, summary, scope (entity_types, industries, revenue_models, transaction_types), affected_accounts, affected_policy_document_ids, comment_deadline, source_reference, status. 14 records published 2026-01-15 to 2026-03-30, effective 2026-04-01 to 2027-01-01"
+      - "policy-index.csv is derived from the CORE-05 document-control blocks at build time rather than retyped, so it cannot drift: ten rows, one per markdown source under artifacts/CORE-05/, with the columns document_id, title, version, status, owner_title, effective_date, last_reviewed, next_review_due, supersedes, superseded_by, source_file. owner_title is the text after the first comma of the Owner field and never the person name, and the generator throws if an Owner field carries no comma"
+      - "issuers are generic labels (an accounting standards board, a national tax authority, a securities regulator, a state revenue department) carrying the real codification citations CORE-05 already uses; no real organization is named anywhere in the feed and there are no URLs"
     consuming_modules: [finance-regulatory-change]
     source_plan: finance-implementation-plan
 
@@ -875,11 +919,16 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002, co-001]
+    canon_entities: [co-002, co-001, co-101, co-105, co-106, co-107, co-109, co-119]
+    period: { start: "2026-03-23", end: "2026-04-06" }
+    columns: [request_id, received_date, channel, request_type, submitter_employee_id, submitter_department, counterparty_canon_id, counterparty_name, subject, reference_document, po_number, amount, currency, due_date, attachment_count, status]
     planted_features:
-      - 1 record missing a required field
-      - 1 duplicate submission
-      - 1 ambiguous vendor request routable to legal or finance (the CORE-02 invoice, cross-track routing-boundary case)
+      - "1 record missing a required field: exactly one row leaves empty a cell that every other row of the same request_type populates, so the file is its own schema and no config states the requirement"
+      - "1 duplicate submission: exactly one pair shares (counterparty_canon_id, reference_document, amount) under two different request_ids, arriving on two different channels 1 to 3 days apart"
+      - "1 cross-track routing boundary: exactly one row names the outside-counsel firm as its counterparty, carrying the invoice number, the amount and the matter reference the shipped CORE-02 invoice.json already holds. It is the only row whose counterparty is neither an AP vendor nor an employee, so it is the one request finance cannot route on its own"
+      - "the queue is untriaged: status is pending_classification on every row, which is what makes routing a live decision rather than a post mortem, and received_date runs 2026-03-23 to 2026-04-06"
+      - "the joins are exact: every vendor_invoice reference_document resolves to exactly one FIN-07 invoice_number with the amounts agreeing to the cent, and every expense_report reference_document resolves to a FIN-13 report_id whose report_total equals the queued amount"
+      - "channel is ap_inbox, expense_tool, vendor_portal or email and request_type is vendor_invoice, expense_report, vendor_request or other; every submitter_employee_id is an active CORE-04 employee and every counterparty_name is one of the screened names the pack already ships"
     consuming_modules: [finance-intake-routing]
     source_plan: finance-implementation-plan
 
