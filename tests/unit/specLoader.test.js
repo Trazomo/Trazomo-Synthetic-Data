@@ -299,3 +299,20 @@ test("loadSpecs: cluster 2 canon entities name every counterparty the joins pull
   }
   assert.deepEqual(byId.get("FIN-20").canon_entities, ["co-002"], "FIN-20's policy index is co-002's own library");
 });
+
+test("loadSpecs: every planted_feature is a string, not a YAML mapping", () => {
+  // A feature written with an unquoted "label: detail" parses as a single-key
+  // mapping, so `validate`'s keyword check reads the label and silently drops
+  // the detail. Three entries were shipped that way (CORE-05 twice, FIN-11
+  // once) before this check existed.
+  const { artifacts } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const a of artifacts) {
+    for (const [i, feature] of a.planted_features.entries()) {
+      assert.equal(
+        typeof feature, "string",
+        `${a.id}.planted_features[${i}] parsed as ${Array.isArray(feature) ? "a list" : typeof feature}. `
+        + "A feature containing a colon and a space has to be quoted."
+      );
+    }
+  }
+});

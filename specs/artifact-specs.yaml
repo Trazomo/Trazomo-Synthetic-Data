@@ -134,8 +134,8 @@ artifacts:
       - six-document base library (data retention, remote work, acceptable use, social media, travel expense, BYOD) with mixed freshness states (current, review-due, overdue, stale, orphaned, superseded)
       - single consistent doc_id scheme across all reuses
       - data retention policy with section 3 retention periods (7yr/10yr employment, 7yr financial, 5yr/6yr client-contract)
-      - finance section: one accounting policy memo superseded by a later one (citation trap)
-      - HR section: handbook with one recently updated policy (versioning test) and one question whose answer spans two sections (citation-grounding test)
+      - "finance section: one accounting policy memo superseded by a later one (citation trap)"
+      - "HR section: handbook with one recently updated policy (versioning test) and one question whose answer spans two sections (citation-grounding test)"
     consuming_modules:
       - legal-knowledge-base
       - finance-knowledge-base
@@ -602,7 +602,7 @@ artifacts:
       - "1 prepaid needing a fresh amortization schedule: exactly one bill whose service period spans more than one calendar month carries an empty amortization_schedule_id; it is the FIN-12 insurance premium, posted in March against a policy period that opens 2026-04-01, so nothing is amortized at 2026-03-31"
       - "1 already-correct schedule as a distractor: exactly one bill whose service period spans more than one calendar month carries a populated amortization_schedule_id; it is the CORE-01 subscription, and its monthly amortization, months elapsed and prepaid balance are internally consistent and meant to be confirmed rather than re-proposed"
       - every other bill's service period sits inside one calendar month and carries no schedule id, so the multi-month predicate resolves to exactly the two prepaid rows and nothing else is a candidate
-      - payment_status is derived, not drawn: a bill is settled at the cut-off only if it fell due inside the period or the vendor is on direct debit, so a March bill on thirty day terms is still open at 2026-03-31, which is what makes the payables balance a believable number of days of purchases
+      - "payment_status is derived, not drawn: a bill is settled at the cut-off only if it fell due inside the period or the vendor is on direct debit, so a March bill on thirty day terms is still open at 2026-03-31, which is what makes the payables balance a believable number of days of purchases"
     consuming_modules: [finance-accruals-and-prepaids]
     source_plan: finance-implementation-plan
 
@@ -1002,11 +1002,9 @@ artifacts:
     consuming_modules: [finance-operational-controls]
     source_plan: finance-implementation-plan + shared-foundational-skeleton (2.6, B5)
 
-  # FREEZE REVIEW PENDING (Salvador). The bytes are frozen; the prose is not
-  # approved until reviewed. Do not cut a tag that includes FIN-40 before then.
   # planted_features rewritten 2026-08-18: the original line described what the
   # learner must do, which no document can contain, so `validate` could never
-  # confirm it. These five describe the document.
+  # confirm it. These six describe the document.
   - id: FIN-40
     name: mnpi-flagged-draft
     type: document
