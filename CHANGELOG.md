@@ -1,6 +1,181 @@
 # Changelog
 
-## Unreleased (tags as 1.4.0 with the D4a release)
+## 1.4.0 - 2026-08-19
+
+**Tags at merge of the D4a PR (`feat/fin-cluster2-d4a-datasets`).** The tag is
+cut by the release controller after merge, not on the branch. Consumers pinned
+to `v1.2.0` or `v1.3.0` are unaffected until they move the pin; trazomo's
+cluster 2 finance modules (11, 17, 18, 19, 20, 21) pin `v1.4.0`.
+
+Nine datasets, no new drafted prose. Every prose artifact cluster 2 needs is
+already frozen and shipped, so CORE-05 is read and derived from here, never
+edited, and no freeze review gates this tag.
+
+- **FIN-13 expense-reports**: 88 expense lines across 18 reports, every report
+  `submitted` or `in_review`, so **FIN-05's trial balance is untouched and the
+  review is a live decision** rather than a post mortem. Four findings, none of
+  them labelled: a meal over its own city tier's daily cap, a receipt missing
+  above the threshold with no declaration, a category on the non-reimbursable
+  list, and one booking split across two reports that each land just under the
+  first approval band. Two ship with an in-policy lookalike (the business meal
+  section 7.5 exempts, the missing receipt section 9.3 allows), so the rule has
+  to read three columns rather than one. **Per-diem meal lines carry no receipt
+  and no merchant on purpose**: they sit below the receipt threshold, which is
+  what a card feed actually looks like and what keeps the missing-receipt
+  finding a finding rather than one of thirty.
+- **FIN-14 spend-policy**: the Travel and Expense Policy ADI-POL-005 v4.3 as one
+  YAML document. The receipt threshold, the meal and lodging caps by city tier,
+  the approval bands, the submission windows, the non-reimbursable list, and the
+  two rules no expense file can carry. Every figure is the figure the CORE-05
+  prose states, and the test looks each one up in the shipped markdown rather
+  than retyping it, so an edit the prose does not support fails the suite.
+- **FIN-15 customer-credit-notes**: 16 notes behind the March receivable. The six
+  credit memos FIN-04 already ships are the spine, read out of `buildArAging()`:
+  same customer, same `applied_to_document`, amount equal to the absolute value
+  of the FIN-04 `open_balance` to the cent. Eight more were issued and fully
+  applied before period end, so they appear nowhere in the aging, and two are
+  still requested. **Its `period` is 2026-01-01 to 2026-03-31, describing its own
+  notes rather than the March anchor**, and the spine rows carry FIN-04's dates
+  verbatim rather than redrawing them.
+- **FIN-16 collections-contact-log**: 64 contacts across the twelve largest
+  exposures in the aging, plus `collections-policy.json` for the inputs no
+  contact log can derive (a four-stage dunning ladder, one credit limit per aged
+  customer, the credit-hold and dispute rules, and the FIN-39 rows DA-12 and
+  DA-13 that authorize a write off). Every `dunning_stage` recomputes from the
+  ladder given that customer's oldest FIN-04 `days_past_due`. Exactly one
+  promise to pay is broken and exactly one dispute is live, and **the live
+  dispute sits on the healthiest payer**, so the distressed account is not the
+  answer to every question the log asks.
+- **FIN-17 close-checklist**: the March close in flight at D+4, 24 tasks, one per
+  FIN-36 task id. The spine is imported from `buildCloseChecklistTemplate()` and
+  carried through, never retyped, so the template and the populated checklist
+  cannot drift. 13 complete, 4 in progress, 7 not started; one task overdue at
+  the as-of, one account unreconciled past its deadline, one reviewer double
+  booked across a posting and the control that tests it. `notes` ships empty on
+  all 24 rows.
+- **FIN-18 control-matrix**: 26 SOX controls across order to cash, procure to
+  pay, close, access and treasury. One control is past its testing due date and
+  one key control passed with an empty evidence binder, each carrier picked from
+  a population defined by a rule rather than named in the file. Evidence
+  artifacts are spec ids the pack ships, related decisions are `control_id`s in
+  the shipped FIN-39 matrix, and the access review is dated off
+  `closeDayDate("D+5")` and FIN-19's own last review date, so the control, close
+  task CLS-21 and the access list cannot drift.
+- **FIN-19 user-access-role-assignments**: 45 grants across the 29 active Finance
+  employees who carry a `finance_system_role`, computed from that one CORE-04
+  column by a published mapping rather than drawn. The mapping is in
+  `datagen/README.md` and its authoritative copy is `ROLE_ENTITLEMENTS` in the
+  generator. The roster's own comma-valued cell is what produces the single user
+  who can both prepare and release, so the segregation-of-duties conflict comes
+  out of CORE-04 instead of out of a draw made here.
+- **FIN-20 regulatory-updates-feed**: a 14-record JSONL feed plus a 10-row
+  `policy-index.csv`, one row per CORE-05 markdown source, **sorted by
+  `document_id`**. One update is materially relevant on both legs (its scope
+  covers this company and it touches an active FIN-22 account with a non-zero
+  FIN-05 balance); six pass the scope leg and five the account leg, so neither
+  leg can be skipped. Issuers are generic labels and the citations are the
+  codification topics the policy library already cites: no real organization,
+  agency or URL appears.
+- **FIN-35 inbound-requests-queue**: 38 requests waiting at 2026-04-06, every one
+  `pending_classification`, so routing is a live decision. Nothing in the queue
+  is invented: sixteen rows resolve to FIN-07 invoice numbers and repeat that
+  invoice's amount, purchase order and due date; twelve resolve to FIN-13 report
+  ids and carry their `report_total`; eight amend screened vendor masters under
+  FIN-39 DA-14; and one carries the invoice number, amount and matter reference
+  the shipped CORE-02 `invoice.json` holds, read out of the CORE-02 generator
+  rather than retyped.
+
+**FIN-09 `source_document` now cites documents that exist (data-repo issue
+#12).** The close batch minted its own `BILL-2026-01NN` and `VINV-2026-01NN`
+citation ids "by shape", which landed every one of them inside the id blocks
+FIN-11 and FIN-07 really mint. All thirteen bill references, and the fourteen
+invoice references the issue did not reach, named a real document whose vendor,
+account and amount contradicted the entry citing it: `BILL-2026-0101` was cited
+as a benefits accrual while FIN-11 carries it as a $450,000.00 software
+subscription. Salvador ruled option (b) on 2026-08-18: fix here, in v1.4.0, with
+FIN-11 staying the authority for what a bill is. FIN-09 now reads the
+procure-to-pay builder and cites real rows. An accrual cites the FIN-07 invoice
+it accrues for and carries that invoice's vendor and total, split across the
+expense lines it codes. An accrual reversal superseded by a posted bill, and the
+allocation that capitalizes one, cite that FIN-11 bill and agree on vendor,
+account and amount. The internal depreciation and amortization entries cite the
+document behind the balance they move, the CORE-01 contract or the asset
+vendor's own invoice, because a month of depreciation is a fraction of the asset
+rather than its price. The insurance reversal still cites FIN-12 and the one
+unsupported entry still cites nothing. The D2 plan's section 1.4 join is now
+asserted in the builder and in three public tests that read FIN-11's and FIN-07's
+emitted bytes, so it cannot recur. **Row count is unchanged at 78 lines over 31
+entries, every planted feature still resolves to exactly one row, and no byte of
+v1.2.0 or v1.3.0 changes**: those tags are sha-pinned in trazomo and a consumer
+sees this only when it moves its pin. Trazomo re-vendors FIN-09 at v1.4.0,
+restores the `source_document` column in `finance-journal-entry-reclass` lesson
+3, and extends that module's guard to assert the join.
+
+**The close-day rule, written down once.** `close_day` is the business day of the
+close counted from the first business day after period end, weekends skipped: D+1
+is 2026-04-01 and D+5 is 2026-04-07, so D+4 is Monday 2026-04-06. Counting
+calendar days instead puts D+4 on a Saturday, which is a due date nobody can
+meet. `addBusinessDays()` and `closeDayDate()` in `datagen/src/dates.js` are the
+only implementation, `datagen/README.md` states the rule, and `ANCHOR_DATE` is
+untouched. Eight dated rows are appended to `canon/timeline.md` for the events
+cluster 2 introduces (the prior access review, the FIN-20 publication window, the
+collections contacts, the March expenses, the intake window, the five close days,
+the 2026-04-06 as-of and the 2026-04-07 access review due at D+5). No existing
+row is touched, above all the "March close roles" row a trazomo guard parses, and
+a test asserts every pre-existing line is still present byte for byte.
+
+**MANIFEST.json counts JSONL records.** `describeDataset` counted rows only for
+`.csv`, so a feed landed with no count at all and a consumer could not tell an
+empty feed from an unread one. FIN-20 now reports both of its files:
+`regulatory-updates-feed.jsonl` at 14 records (non-empty lines, no header to
+subtract) and `policy-index.csv` at 10 rows. The manifest is at 34 datasets and
+13 drafted artifact sets, and `universe_version` is `1.4.0`.
+
+**Hygiene shipped in the same release** (was PR #8, folded in here):
+
+- **`validate --manifest`**, and `npm run validate`. It checks exactly the ids
+  `MANIFEST.json` lists and counts the unbuilt catalog specs in a header line.
+  `validate --all` walks the whole 137-spec catalog and is red by design while
+  specs remain unbuilt, so it could never gate anything; manifest mode is green
+  today and goes red the moment a shipped dataset stops reproducing or stops
+  existing. An absent manifest, a malformed section, a row with no `id`, or an id
+  the catalog does not know are all hard errors. `MISSING` now counts as a
+  failure for structured specs as it already did for drafted ones, so a deleted
+  dataset can no longer exit 0. `validate --all` output is byte identical before
+  and after.
+- **CI** (`.github/workflows/ci.yml`): `npm ci`, `npm test` and `npm run validate`
+  on Node 22 for every push and pull request, with `actions/checkout` and
+  `actions/setup-node` pinned to v5.
+- **Canon names are checked against the register.** `tests/generators/fin-cash-recon.test.js`
+  compares `ACCOUNT_HOLDER`, `BANK` and all five `CANON_VENDORS` against
+  `canon/companies.md` through the repo's canon loader, so a rename in the
+  register cannot leave FIN-01, FIN-02 and FIN-03 shipping the old name.
+- **Three `planted_features` were parsing as YAML mappings**, not strings,
+  because they contain an unquoted colon and a space: two in CORE-05 and one in
+  FIN-11. `validate`'s keyword check read the label and silently dropped the
+  detail. Same wording, now double-quoted, with a spec-loader test that every
+  planted feature is a string. `validate --all` output is byte identical before
+  and after.
+- **The stale FIN-40 freeze note is struck.** "Do not cut a tag that includes
+  FIN-40 before the freeze review" was answered on 2026-08-18 and v1.3.0 shipped
+  FIN-40. The half of the comment recording the 2026-08-18 planted-features
+  rewrite stays.
+
+**Two things worth a reader's attention.** FIN-20 is the first generator that
+reads the repository at build time: it parses the ten CORE-05 document-control
+blocks out of `artifacts/CORE-05/*.md`, so a version bump or a review date in the
+shipped markdown moves the register with it, an Owner field is split at its first
+comma into a person and a title with only the title published (`(vacant)` is the
+one accepted alternative and any other unsplittable Owner stops the build), and a
+CORE-05 formatting change breaks generation rather than a test. That path is
+resolved from the module's own location rather than from `--root`, so
+`generate FIN-20 --root <fixture>` reads this repo's CORE-05; threading the root
+through the generator signature is a follow-up ticket. And FIN-09's fix covers the
+citation classes FIN-07 and FIN-11 mint; nothing else in the pack asserts a
+cross-artifact document reference yet.
+
+**Also carried by this tag: the LGL-08 F-4 erratum**, merged to `main` on
+2026-08-19 ahead of D4a and recorded as written.
 
 **Merged to `main` on 2026-08-19 ahead of the next tag; written on 2026-08-11
 against v1.0.2.** No tag is cut for this entry on its own: it ships in v1.4.0
