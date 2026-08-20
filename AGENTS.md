@@ -19,4 +19,4 @@ This repository is the canonical synthetic-data universe for Trazomo training an
 
 ## Current state
 
-v1.4.0: legal slice (11 drafted artifact sets, 9 datasets) plus the finance cash reconciliation, reconciliation-cluster, Track B and cluster 2 payables, collections and controls datasets (25 finance datasets) and the FIN-40 board-pack excerpt. Check `MANIFEST.json` for what is actually present before assuming a dataset exists.
+v1.4.1: legal slice (11 drafted artifact sets, 9 datasets) plus the finance cash reconciliation, reconciliation-cluster, Track B and cluster 2 payables, collections and controls datasets (25 finance datasets) and the FIN-40 board-pack excerpt; v1.4.1 differs from v1.4.0 only in the FIN-09 internal-schedule citations (issue #14). Check `MANIFEST.json` for what is actually present before assuming a dataset exists.

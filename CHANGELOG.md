@@ -1,14 +1,13 @@
 # Changelog
 
-## Unreleased (tags as 1.4.1 with the next release)
+## 1.4.1
 
-**Proposed version, for Salvador to ratify: `1.4.1`.** A data fix inside one
+**Version `1.4.1`, ratified by Salvador 2026-08-20 (C024 keeps `BILL-2026-0118`).**
+A data fix inside one
 shipped dataset. No new artifact, no new column, no row added or removed, and no
 other dataset regenerated, so the patch position is the one that moves.
 `v1.4.0`'s bytes are frozen and unchanged; a consumer pinned to `v1.4.0` sees
-nothing until it moves the pin. `universe_version` in `MANIFEST.json` still
-reads `1.4.0` and is bumped by the release controller when the tag is cut, the
-way `1.4.0` itself was.
+nothing until it moves the pin.
 
 - **FIN-09 journal-entries-batch, data-repo issue #14**: the three internal-type
   entries cited vendor invoices belonging to Wrenfallow Security Systems for
