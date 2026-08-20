@@ -1,0 +1,65 @@
+contact_id,customer_canon_id,customer_name,contact_date,channel,direction,dunning_stage,owner_employee_id,outcome,promise_to_pay_date,promise_amount,disputed_document_number,next_action_date
+COL-2026-0101,co-145,Thornwick Partners,2026-02-05,letter,outbound,4,EMP-0472,no_answer,,,,2026-02-16
+COL-2026-0102,co-143,Amberline Holdings,2026-02-06,letter,outbound,4,EMP-0472,message_left,,,,2026-02-16
+COL-2026-0103,co-150,Elmstead Holdings,2026-02-06,letter,outbound,4,EMP-0479,no_answer,,,,2026-02-18
+COL-2026-0104,co-103,Fernwell Retail Group,2026-02-09,letter,outbound,4,EMP-0479,no_answer,,,,2026-02-17
+COL-2026-0105,co-140,Bramblecourt Analytics,2026-02-09,letter,outbound,4,EMP-0472,message_left,,,,2026-02-19
+COL-2026-0106,co-151,Copperfen Partners,2026-02-09,letter,outbound,4,EMP-0472,no_answer,,,,2026-02-17
+COL-2026-0107,co-153,Silverdale Analytics,2026-02-09,letter,outbound,4,EMP-0479,no_answer,,,,2026-02-19
+COL-2026-0108,co-160,Gladewick LLC,2026-02-09,email,inbound,4,EMP-0472,dispute_raised,,,INV-2025-0823,2026-02-19
+COL-2026-0109,co-161,Holloway Vale Partners,2026-02-09,letter,outbound,4,EMP-0479,no_answer,,,,2026-02-19
+COL-2026-0110,co-164,Kettlebrook Partners,2026-02-09,letter,outbound,4,EMP-0472,no_answer,,,,2026-02-23
+COL-2026-0111,co-142,Cinderbrook LLC,2026-02-10,phone,outbound,2,EMP-0479,message_left,,,,2026-02-26
+COL-2026-0112,co-102,Amberfield Logistics,2026-02-13,email,outbound,1,EMP-0472,no_answer,,,,2026-03-05
+COL-2026-0113,co-143,Amberline Holdings,2026-02-16,letter,outbound,4,EMP-0472,no_answer,,,,2026-02-24
+COL-2026-0114,co-145,Thornwick Partners,2026-02-16,letter,outbound,4,EMP-0472,message_left,,,,2026-02-24
+COL-2026-0115,co-103,Fernwell Retail Group,2026-02-17,letter,outbound,4,EMP-0479,message_left,,,,2026-03-02
+COL-2026-0116,co-151,Copperfen Partners,2026-02-17,letter,outbound,4,EMP-0472,promise_to_pay,2026-02-26,41034.71,,2026-03-02
+COL-2026-0117,co-150,Elmstead Holdings,2026-02-18,letter,outbound,4,EMP-0479,no_answer,,,,2026-03-02
+COL-2026-0118,co-140,Bramblecourt Analytics,2026-02-19,letter,outbound,4,EMP-0472,no_answer,,,,2026-03-04
+COL-2026-0119,co-153,Silverdale Analytics,2026-02-19,letter,outbound,4,EMP-0479,message_left,,,,2026-03-05
+COL-2026-0120,co-160,Gladewick LLC,2026-02-19,letter,outbound,4,EMP-0472,message_left,,,,2026-03-04
+COL-2026-0121,co-161,Holloway Vale Partners,2026-02-19,letter,outbound,4,EMP-0479,no_answer,,,,2026-03-03
+COL-2026-0122,co-164,Kettlebrook Partners,2026-02-23,letter,outbound,4,EMP-0472,promise_to_pay,2026-03-04,129826.81,,2026-03-04
+COL-2026-0123,co-143,Amberline Holdings,2026-02-24,letter,outbound,4,EMP-0472,no_answer,,,,2026-03-04
+COL-2026-0124,co-145,Thornwick Partners,2026-02-24,letter,outbound,4,EMP-0472,no_answer,,,,2026-03-04
+COL-2026-0125,co-142,Cinderbrook LLC,2026-02-26,phone,outbound,2,EMP-0479,message_left,,,,2026-03-13
+COL-2026-0126,co-103,Fernwell Retail Group,2026-03-02,letter,outbound,4,EMP-0479,no_answer,,,,2026-03-09
+COL-2026-0127,co-150,Elmstead Holdings,2026-03-02,letter,outbound,4,EMP-0479,message_left,,,,2026-03-10
+COL-2026-0128,co-151,Copperfen Partners,2026-03-02,email,inbound,4,EMP-0472,payment_received,,41113.36,,2026-03-09
+COL-2026-0129,co-161,Holloway Vale Partners,2026-03-03,letter,outbound,4,EMP-0479,no_answer,,,,2026-03-17
+COL-2026-0130,co-140,Bramblecourt Analytics,2026-03-04,letter,outbound,4,EMP-0472,no_answer,,,,2026-03-16
+COL-2026-0131,co-143,Amberline Holdings,2026-03-04,letter,outbound,4,EMP-0472,message_left,,,,2026-03-13
+COL-2026-0132,co-145,Thornwick Partners,2026-03-04,letter,outbound,4,EMP-0472,message_left,,,,2026-03-13
+COL-2026-0133,co-160,Gladewick LLC,2026-03-04,letter,outbound,4,EMP-0472,no_answer,,,,2026-03-16
+COL-2026-0134,co-164,Kettlebrook Partners,2026-03-04,letter,outbound,4,EMP-0472,no_answer,,,,2026-03-16
+COL-2026-0135,co-102,Amberfield Logistics,2026-03-05,email,outbound,1,EMP-0472,no_answer,,,,2026-03-24
+COL-2026-0136,co-153,Silverdale Analytics,2026-03-05,letter,outbound,4,EMP-0479,message_left,,,,2026-03-17
+COL-2026-0137,co-103,Fernwell Retail Group,2026-03-09,letter,outbound,4,EMP-0479,no_answer,,,,2026-03-19
+COL-2026-0138,co-151,Copperfen Partners,2026-03-09,letter,outbound,4,EMP-0472,message_left,,,,2026-03-19
+COL-2026-0139,co-150,Elmstead Holdings,2026-03-10,letter,outbound,4,EMP-0479,no_answer,,,,2026-03-18
+COL-2026-0140,co-142,Cinderbrook LLC,2026-03-13,phone,outbound,2,EMP-0479,promise_to_pay,2026-03-23,65871.97,,2026-03-27
+COL-2026-0141,co-143,Amberline Holdings,2026-03-13,letter,outbound,4,EMP-0472,no_answer,,,,2026-03-23
+COL-2026-0142,co-145,Thornwick Partners,2026-03-13,letter,outbound,4,EMP-0472,no_answer,,,,2026-03-23
+COL-2026-0143,co-140,Bramblecourt Analytics,2026-03-16,letter,outbound,4,EMP-0472,no_answer,,,,2026-03-30
+COL-2026-0144,co-160,Gladewick LLC,2026-03-16,letter,outbound,4,EMP-0472,message_left,,,,2026-03-30
+COL-2026-0145,co-164,Kettlebrook Partners,2026-03-16,email,inbound,4,EMP-0472,payment_received,,130245.21,,2026-03-30
+COL-2026-0146,co-153,Silverdale Analytics,2026-03-17,letter,outbound,4,EMP-0479,message_left,,,,2026-03-27
+COL-2026-0147,co-161,Holloway Vale Partners,2026-03-17,letter,outbound,4,EMP-0479,message_left,,,,2026-03-30
+COL-2026-0148,co-150,Elmstead Holdings,2026-03-18,letter,outbound,4,EMP-0479,no_answer,,,,2026-03-30
+COL-2026-0149,co-103,Fernwell Retail Group,2026-03-19,letter,outbound,4,EMP-0479,no_answer,,,,2026-03-30
+COL-2026-0150,co-151,Copperfen Partners,2026-03-19,letter,outbound,4,EMP-0472,message_left,,,,2026-03-30
+COL-2026-0151,co-143,Amberline Holdings,2026-03-23,letter,outbound,4,EMP-0472,message_left,,,,2026-03-30
+COL-2026-0152,co-145,Thornwick Partners,2026-03-23,letter,outbound,4,EMP-0472,no_answer,,,,2026-03-31
+COL-2026-0153,co-102,Amberfield Logistics,2026-03-24,email,inbound,1,EMP-0472,dispute_raised,,,INV-2026-0506,2026-03-31
+COL-2026-0154,co-142,Cinderbrook LLC,2026-03-27,phone,outbound,2,EMP-0479,no_answer,,,,2026-04-03
+COL-2026-0155,co-153,Silverdale Analytics,2026-03-27,letter,outbound,4,EMP-0479,escalated,,,,2026-04-03
+COL-2026-0156,co-103,Fernwell Retail Group,2026-03-30,letter,outbound,4,EMP-0479,escalated,,,,2026-04-06
+COL-2026-0157,co-140,Bramblecourt Analytics,2026-03-30,letter,outbound,4,EMP-0472,escalated,,,,2026-04-06
+COL-2026-0158,co-143,Amberline Holdings,2026-03-30,letter,outbound,4,EMP-0472,escalated,,,,2026-04-06
+COL-2026-0159,co-150,Elmstead Holdings,2026-03-30,letter,outbound,4,EMP-0479,escalated,,,,2026-04-06
+COL-2026-0160,co-151,Copperfen Partners,2026-03-30,letter,outbound,4,EMP-0472,no_answer,,,,2026-04-06
+COL-2026-0161,co-160,Gladewick LLC,2026-03-30,email,inbound,4,EMP-0472,payment_received,,43767.02,INV-2025-0823,2026-04-06
+COL-2026-0162,co-161,Holloway Vale Partners,2026-03-30,letter,outbound,4,EMP-0479,escalated,,,,2026-04-06
+COL-2026-0163,co-164,Kettlebrook Partners,2026-03-30,letter,outbound,4,EMP-0472,no_answer,,,,2026-04-06
+COL-2026-0164,co-145,Thornwick Partners,2026-03-31,letter,outbound,4,EMP-0472,escalated,,,,2026-04-07
