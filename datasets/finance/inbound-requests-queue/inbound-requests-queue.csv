@@ -1,0 +1,39 @@
+request_id,received_date,channel,request_type,submitter_employee_id,submitter_department,counterparty_canon_id,counterparty_name,subject,reference_document,po_number,amount,currency,due_date,attachment_count,status
+REQ-2026-0101,2026-03-23,vendor_portal,vendor_request,EMP-0475,Finance,co-101,Copperline Software,Bank detail change request for Copperline Software,,,,,,1,pending_classification
+REQ-2026-0102,2026-03-23,email,other,EMP-0475,Finance,co-001,Atticus Dundee LLP,Outside counsel invoice INV-ADLLP-100142 for matter MAT-OC-0142,INV-ADLLP-100142,,47000.00,USD,2026-04-19,1,pending_classification
+REQ-2026-0103,2026-03-25,vendor_portal,vendor_request,EMP-0482,Finance,co-105,Millgate Insurance Services,Tax form refresh request for Millgate Insurance Services,,,,,,2,pending_classification
+REQ-2026-0104,2026-03-26,ap_inbox,vendor_invoice,EMP-0487,Finance,co-109,Birchcroft Properties,Invoice for Suite 400 common area charge,BCP-16141,PO-2026-0113,21308.24,USD,2026-04-23,2,pending_classification
+REQ-2026-0105,2026-03-27,ap_inbox,vendor_invoice,EMP-0490,Finance,co-109,Birchcroft Properties,Invoice for After-hours HVAC,BCP-16142,PO-2026-0135,15466.82,USD,2026-04-17,2,pending_classification
+REQ-2026-0106,2026-03-27,expense_tool,expense_report,EMP-0358,Marketing,,Lior Underhill,Expense report for Marketing,EXP-2026-0113,,1800.50,USD,,3,pending_classification
+REQ-2026-0107,2026-03-27,vendor_portal,vendor_request,EMP-0485,Finance,co-106,TalentForce HR Platform,Remit to address change request for TalentForce HR Platform,,,,,,1,pending_classification
+REQ-2026-0108,2026-03-30,ap_inbox,vendor_invoice,EMP-0482,Finance,co-107,Cedarline Office Supply,Invoice for Breakroom supplies,CDL-23719,PO-2026-0134,2428.86,USD,2026-04-23,3,pending_classification
+REQ-2026-0109,2026-03-30,ap_inbox,vendor_invoice,EMP-0485,Finance,co-119,DataPulse Analytics,Invoice for Event volume tier,DPA-18899,PO-2026-0124,85700.64,USD,2026-04-28,3,pending_classification
+REQ-2026-0110,2026-03-30,ap_inbox,vendor_invoice,EMP-0491,Finance,co-101,Copperline Software,Invoice for Additional developer seats,CPL-21030,PO-2026-0148,53531.40,USD,2026-04-22,3,pending_classification
+REQ-2026-0111,2026-03-30,ap_inbox,vendor_invoice,EMP-0492,Finance,co-119,DataPulse Analytics,Invoice for Product analytics workspace,DPA-18902,PO-2026-0119,9996.39,USD,,1,pending_classification
+REQ-2026-0112,2026-03-30,ap_inbox,vendor_invoice,EMP-0475,Finance,co-105,Millgate Insurance Services,Invoice for Certificate administration,MLG-13721,PO-2026-0140,27674.64,USD,2026-04-04,2,pending_classification
+REQ-2026-0113,2026-03-30,ap_inbox,vendor_invoice,EMP-0482,Finance,co-119,DataPulse Analytics,Invoice for Product analytics workspace,DPA-18900,PO-2026-0144,18357.57,USD,2026-04-19,3,pending_classification
+REQ-2026-0114,2026-03-30,expense_tool,expense_report,EMP-0463,Finance,,Aldous Duskwood,Expense report for Finance,EXP-2026-0111,,5282.40,USD,,3,pending_classification
+REQ-2026-0115,2026-03-30,expense_tool,expense_report,EMP-0267,Sales,,Marlowe Yarrow,Expense report for Sales,EXP-2026-0115,,1179.10,USD,,1,pending_classification
+REQ-2026-0116,2026-03-30,expense_tool,expense_report,EMP-0506,People,,Lyric Corrigan,Expense report for People,EXP-2026-0110,,626.15,USD,,3,pending_classification
+REQ-2026-0117,2026-03-30,expense_tool,expense_report,EMP-0266,Sales,,Piran Larkspur,Expense report for Sales,EXP-2026-0106,,579.60,USD,,3,pending_classification
+REQ-2026-0118,2026-03-30,vendor_portal,vendor_request,EMP-0487,Finance,co-107,Cedarline Office Supply,Tax form refresh request for Cedarline Office Supply,,,,,,1,pending_classification
+REQ-2026-0119,2026-03-31,ap_inbox,vendor_invoice,EMP-0475,Finance,co-101,Copperline Software,Invoice for Annual platform license renewal,CPL-21032,PO-2026-0155,165952.65,USD,2026-04-13,3,pending_classification
+REQ-2026-0120,2026-03-31,ap_inbox,vendor_invoice,EMP-0485,Finance,co-106,TalentForce HR Platform,Invoice for Payroll platform module,TFH-19035,PO-2026-0101,26862.09,USD,2026-04-22,1,pending_classification
+REQ-2026-0121,2026-03-31,expense_tool,expense_report,EMP-0203,Product,,Verity Blackwood,Expense report for Product,EXP-2026-0109,,1068.10,USD,,2,pending_classification
+REQ-2026-0122,2026-03-31,vendor_portal,vendor_request,EMP-0490,Finance,co-109,Birchcroft Properties,Tax form refresh request for Birchcroft Properties,,,,,,1,pending_classification
+REQ-2026-0123,2026-04-01,ap_inbox,vendor_invoice,EMP-0487,Finance,co-109,Birchcroft Properties,Invoice for Suite 400 common area charge,BCP-16139,PO-2026-0137,17692.60,USD,2026-04-15,1,pending_classification
+REQ-2026-0124,2026-04-01,expense_tool,expense_report,EMP-0359,Marketing,,Baxter Nightshade,Expense report for Marketing,EXP-2026-0117,,2445.00,USD,,3,pending_classification
+REQ-2026-0125,2026-04-01,email,vendor_invoice,EMP-0475,Finance,co-105,Millgate Insurance Services,Invoice for Certificate administration,MLG-13721,PO-2026-0140,27674.64,USD,2026-04-04,2,pending_classification
+REQ-2026-0126,2026-04-02,ap_inbox,vendor_invoice,EMP-0490,Finance,co-106,TalentForce HR Platform,Invoice for Payroll platform module,TFH-19037,PO-2026-0128,17349.64,USD,2026-03-31,3,pending_classification
+REQ-2026-0127,2026-04-02,expense_tool,expense_report,EMP-0043,Engineering,,Delphine Bellcrest,Expense report for Engineering,EXP-2026-0112,,643.00,USD,,2,pending_classification
+REQ-2026-0128,2026-04-02,vendor_portal,vendor_request,EMP-0491,Finance,co-119,DataPulse Analytics,Remit to address change request for DataPulse Analytics,,,,,,2,pending_classification
+REQ-2026-0129,2026-04-03,ap_inbox,vendor_invoice,EMP-0491,Finance,co-101,Copperline Software,Invoice for Sandbox environment add-on,CPL-21031,PO-2026-0148,46305.21,USD,2026-04-14,2,pending_classification
+REQ-2026-0130,2026-04-03,expense_tool,expense_report,EMP-0406,Customer Success,,Corwin Elderkin,Expense report for Customer Success,EXP-2026-0118,,1516.10,USD,,4,pending_classification
+REQ-2026-0131,2026-04-03,expense_tool,expense_report,EMP-0359,Marketing,,Baxter Nightshade,Expense report for Marketing,EXP-2026-0116,,2435.00,USD,,3,pending_classification
+REQ-2026-0132,2026-04-06,ap_inbox,vendor_invoice,EMP-0492,Finance,co-105,Millgate Insurance Services,Invoice for Commercial package placement fee,MLG-13723,PO-2026-0105,31686.08,USD,2026-04-12,2,pending_classification
+REQ-2026-0133,2026-04-06,ap_inbox,vendor_invoice,EMP-0475,Finance,co-109,Birchcroft Properties,Invoice for Suite 400 common area charge,BCP-16140,PO-2026-0137,67926.30,USD,2026-04-23,2,pending_classification
+REQ-2026-0134,2026-04-06,ap_inbox,vendor_invoice,EMP-0482,Finance,co-119,DataPulse Analytics,Invoice for Product analytics workspace,DPA-18897,PO-2026-0119,4268.64,USD,2026-03-24,2,pending_classification
+REQ-2026-0135,2026-04-06,expense_tool,expense_report,EMP-0042,Engineering,,Sable Yarrow,Expense report for Engineering,EXP-2026-0103,,1302.65,USD,,4,pending_classification
+REQ-2026-0136,2026-04-06,expense_tool,expense_report,EMP-0265,Sales,,Tobin Greywick,Expense report for Sales,EXP-2026-0105,,1226.85,USD,,2,pending_classification
+REQ-2026-0137,2026-04-06,vendor_portal,vendor_request,EMP-0492,Finance,co-101,Copperline Software,Payment terms change request for Copperline Software,,,,,,2,pending_classification
+REQ-2026-0138,2026-04-06,vendor_portal,vendor_request,EMP-0475,Finance,co-105,Millgate Insurance Services,Remit to address change request for Millgate Insurance Services,,,,,,2,pending_classification
