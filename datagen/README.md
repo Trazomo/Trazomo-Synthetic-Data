@@ -238,6 +238,13 @@ reports them as `STUB` and keeps going.
 Adding a new generator does not require touching the CLI: see
 "Spec-authoring guide" below.
 
+## Finance conventions
+
+`close_day` is the business day of the close counted from the first business
+day after period end, weekends skipped: D+1 is 2026-04-01 and D+5 is
+2026-04-07, so D+4 is Monday 2026-04-06. FIN-36 carries the relative `D+n`;
+FIN-17 dates it.
+
 ## Spec-authoring guide
 
 Adding a new artifact to the program:
