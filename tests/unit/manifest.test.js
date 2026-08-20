@@ -161,3 +161,62 @@ test("buildManifest records a declared variant that is on disk, and skips one th
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test("buildManifest counts JSONL records as well as CSV data rows", () => {
+  const root = mkdtempSync(join(tmpdir(), "datagen-manifest-jsonl-test-"));
+  try {
+    const specsPath = join(root, "artifact-specs.yaml");
+    writeFileSync(
+      specsPath,
+      [
+        "artifacts:",
+        "  - id: LGL-94",
+        "    name: feed-and-index",
+        "    type: dataset",
+        "    format: jsonl + csv",
+        "    generation: deterministic",
+        "    canon_entities: []",
+        "    planted_features: []",
+        "    consuming_modules: []",
+        "",
+      ].join("\n")
+    );
+    const specs = loadSpecs(specsPath);
+
+    const dir = join(root, "datasets", "legal", "feed-and-index");
+    mkdirSync(dir, { recursive: true });
+    // A JSONL file has no header row, so three lines are three records. The
+    // trailing newline every generator writes is not a fourth.
+    writeFileSync(join(dir, "feed.jsonl"), '{"a":1}\n{"a":2}\n{"a":3}\n');
+    writeFileSync(join(dir, "index.csv"), "a,b\n1,2\n3,4\n");
+    writeFileSync(join(dir, "notes.md"), "# not a table\n");
+
+    const manifest = buildManifest({ root, specs, existingManifest: {} });
+    const entry = manifest.datasets.find((d) => d.id === "LGL-94");
+    assert.deepEqual(entry.files, ["feed.jsonl", "index.csv", "notes.md"]);
+    assert.equal(entry.row_counts["feed.jsonl"], 3, "three records, not two and not four");
+    assert.equal(entry.row_counts["index.csv"], 2, "a CSV still reports data rows, header excluded");
+    assert.equal("notes.md" in entry.row_counts, false, "a format with no records carries no count");
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("buildManifest reports an empty JSONL file as zero records", () => {
+  const root = mkdtempSync(join(tmpdir(), "datagen-manifest-jsonl-empty-"));
+  try {
+    const specsPath = join(root, "artifact-specs.yaml");
+    writeFileSync(
+      specsPath,
+      "artifacts:\n  - id: LGL-93\n    name: empty-feed\n    type: dataset\n    format: jsonl\n    generation: deterministic\n    canon_entities: []\n    planted_features: []\n    consuming_modules: []\n"
+    );
+    const specs = loadSpecs(specsPath);
+    const dir = join(root, "datasets", "legal", "empty-feed");
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, "feed.jsonl"), "");
+    const manifest = buildManifest({ root, specs, existingManifest: {} });
+    assert.equal(manifest.datasets.find((d) => d.id === "LGL-93").row_counts["feed.jsonl"], 0);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});

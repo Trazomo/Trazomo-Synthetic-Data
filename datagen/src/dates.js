@@ -54,3 +54,46 @@ export function rollForwardPastWeekend(isoDate) {
 export function diffDays(aIso, bIso) {
   return toEpochDay(bIso) - toEpochDay(aIso);
 }
+
+// ------------------------------------------------------------- business days
+// A close is counted in business days, not calendar days, and March 2026 closes
+// across a weekend: D+3 is Friday 2026-04-03 and D+4 is Monday 2026-04-06. The
+// naive "period end plus n" puts D+4 on Saturday and D+5 on Sunday, which is a
+// due date nobody can meet, so the walk below is the only place that rule lives.
+
+/** Period end the finance close counts from (canon/timeline.md, March 2026). */
+export const CLOSE_PERIOD_END = "2026-03-31";
+
+/**
+ * Walk `n` business days from an ISO date, skipping Saturdays and Sundays.
+ * `n` of 0 returns the date untouched, weekend or not; a negative `n` walks
+ * backwards by the same rule, so the walk is reversible.
+ */
+export function addBusinessDays(isoDate, n) {
+  if (!Number.isInteger(n)) {
+    throw new Error(`addBusinessDays: n must be a whole number of days, got ${JSON.stringify(n)}`);
+  }
+  const step = n < 0 ? -1 : 1;
+  let date = isoDate;
+  for (let moved = 0; moved < Math.abs(n); moved += 1) {
+    do {
+      date = addDays(date, step);
+    } while (isWeekend(date));
+  }
+  return date;
+}
+
+/**
+ * Resolve a close-day label ("D+1" .. "D+n", the vocabulary FIN-36 carries) to
+ * the ISO date it falls on: the nth business day after `CLOSE_PERIOD_END`.
+ * D+1 is 2026-04-01 and D+5 is 2026-04-07, so D+4 is Monday 2026-04-06.
+ */
+export function closeDayDate(closeDay) {
+  const match = typeof closeDay === "string" ? /^D\+([1-9]\d*)$/.exec(closeDay) : null;
+  if (!match) {
+    throw new Error(
+      `close day must be a "D+n" label with n at or above 1, got ${JSON.stringify(closeDay)}`
+    );
+  }
+  return addBusinessDays(CLOSE_PERIOD_END, Number(match[1]));
+}

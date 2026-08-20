@@ -186,6 +186,9 @@ aren't present -- `MANIFEST.json` should always be trustworthy (see
 `AGENTS.md`: "check MANIFEST.json for what is actually present before
 assuming a dataset exists").
 
+`row_counts` covers `.csv` data rows (header excluded) and `.jsonl` records
+(one per non-empty line). Other formats carry no count.
+
 ```bash
 node datagen/src/cli.js manifest
 ```
@@ -243,7 +246,9 @@ Adding a new generator does not require touching the CLI: see
 `close_day` is the business day of the close counted from the first business
 day after period end, weekends skipped: D+1 is 2026-04-01 and D+5 is
 2026-04-07, so D+4 is Monday 2026-04-06. FIN-36 carries the relative `D+n`;
-FIN-17 dates it.
+FIN-17 dates it. `closeDayDate()` in `datagen/src/dates.js` is the only place
+that rule is implemented, over `addBusinessDays()`; nothing recomputes it by
+adding calendar days, which would put D+4 on the Sunday.
 
 ## Spec-authoring guide
 

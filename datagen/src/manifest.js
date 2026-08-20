@@ -49,10 +49,11 @@ function describeDataset(root, spec) {
   const files = listFilesRecursive(dirPath).sort();
   const rowCounts = {};
   for (const file of files) {
+    const abs = join(dirPath, file);
     if (file.endsWith(".csv")) {
-      const abs = join(dirPath, file);
-      const lineCount = countCsvDataRows(abs);
-      rowCounts[file] = lineCount;
+      rowCounts[file] = countCsvDataRows(abs);
+    } else if (file.endsWith(".jsonl")) {
+      rowCounts[file] = countJsonlRecords(abs);
     }
   }
 
@@ -132,4 +133,13 @@ function countCsvDataRows(absPath) {
   const text = readFileSync(absPath, "utf8");
   const lines = text.split("\n").filter((l) => l.length > 0);
   return Math.max(0, lines.length - 1); // minus header row
+}
+
+// A JSONL file is one record per line and carries no header, so the record
+// count is the non-empty line count rather than that count less one. Without
+// this, a feed like FIN-20 lands in MANIFEST.json with no count at all and a
+// consumer cannot tell an empty feed from an unread one.
+function countJsonlRecords(absPath) {
+  const text = readFileSync(absPath, "utf8");
+  return text.split("\n").filter((l) => l.trim().length > 0).length;
 }
