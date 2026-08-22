@@ -300,6 +300,134 @@ test("loadSpecs: cluster 2 canon entities name every counterparty the joins pull
   assert.deepEqual(byId.get("FIN-20").canon_entities, ["co-002"], "FIN-20's policy index is co-002's own library");
 });
 
+// Clusters 3 and 4 (D5): FIN-21, FIN-23 through FIN-34. Task 3 of the D5 plan
+// writes the contract every later generator test pins against -- the header a
+// generator emits, the period its rows cover, and the exact planted-feature
+// wording that carries both cardinalities. Failing here beats failing in eight
+// generator tests at once, which is why this block runs before any of them
+// exist.
+const CLUSTER_34 = [
+  "FIN-21", "FIN-23", "FIN-24", "FIN-25", "FIN-26", "FIN-27",
+  "FIN-28", "FIN-29", "FIN-30", "FIN-31", "FIN-32", "FIN-33", "FIN-34",
+];
+const CLUSTER_34_CSV = ["FIN-23", "FIN-24", "FIN-25", "FIN-27", "FIN-31", "FIN-32", "FIN-33"];
+/** The three that ship one document with keys rather than a header row. */
+const CLUSTER_34_KEYED = ["FIN-26", "FIN-29", "FIN-34"];
+const CLUSTER_34_DRAFTED = ["FIN-21", "FIN-28", "FIN-30"];
+
+test("loadSpecs: every cluster 3 and 4 spec carries the fields its generator or author pins against", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of CLUSTER_34) {
+    const spec = byId.get(id);
+    assert.ok(spec, `${id} is not in the catalog`);
+    assert.ok(spec.consuming_modules.length > 0, `${id} serves no module`);
+    assert.ok(spec.planted_features.length > 0, `${id} states no planted features`);
+    assert.ok(spec.planted_features.length <= 6, `${id} carries more than six planted features`);
+    assert.equal(spec.variants, undefined, `${id} declares variants; D5 ships none (plan U12)`);
+    for (const feature of spec.planted_features) {
+      assert.equal(typeof feature, "string", `${id} has a planted feature that is not a string (quote the colon)`);
+      assert.ok(feature.trim() !== "", `${id} has an empty planted feature`);
+      assert.ok(!/learner/i.test(feature), `${id} describes what a learner does, which no file can contain: ${feature}`);
+      assert.ok(!feature.includes("—"), `${id} planted feature carries an em dash`);
+    }
+  }
+  for (const id of [...CLUSTER_34_CSV, ...CLUSTER_34_KEYED]) {
+    assert.equal(byId.get(id).generation, "deterministic", `${id} generation`);
+  }
+  for (const id of CLUSTER_34_DRAFTED) {
+    assert.equal(byId.get(id).generation, "drafted-frozen", `${id} generation`);
+    assert.equal(byId.get(id).columns, undefined, `${id} is a drafted document, so it has no columns`);
+  }
+});
+
+test("loadSpecs: the seven cluster 3 and 4 CSV ids carry columns; the YAML and JSON ids document their keys instead", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of CLUSTER_34_CSV) {
+    const cols = byId.get(id).columns;
+    assert.ok(Array.isArray(cols) && cols.length > 0, `${id} has no columns`);
+    assert.equal(new Set(cols).size, cols.length, `${id} has duplicate columns`);
+    for (const col of cols) {
+      assert.match(col, /^[a-z][a-z0-9_]*$/, `${id} column "${col}" is not snake_case`);
+    }
+  }
+  for (const id of CLUSTER_34_KEYED) {
+    assert.equal(byId.get(id).columns, undefined, `${id} is not a CSV, so it has no columns`);
+    assert.ok(
+      byId.get(id).planted_features.some((f) => f.includes("documented") && f.includes("key list")),
+      `${id} states no documented key list`
+    );
+  }
+});
+
+test("loadSpecs: FIN-24 carries the sign column and neither answer-key column", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const cols = byId.get("FIN-24").columns;
+  // Rule R-SIGN: a section subtotal is one pass over this file, so the sign a
+  // contra line contributes to its section has to be a column rather than a
+  // table a consumer is expected to already hold.
+  assert.ok(cols.includes("section_sign"), "FIN-24 drops section_sign, so no consumer can subtotal without an external table");
+  for (const col of ["prior_period", "prior_period_actual", "flux_amount", "flux_pct"]) {
+    assert.ok(cols.includes(col), `FIN-24 needs "${col}" to carry the flux comparison`);
+  }
+  assert.ok(cols.includes("variance_explanation"), "FIN-24 keeps the empty explanation column FIN-37 defines");
+  for (const col of ["root_cause", "supporting_entry_ids"]) {
+    assert.ok(!cols.includes(col), `FIN-24 ships "${col}", which is an answer key: the root cause is derivable from FIN-25 by rule`);
+  }
+  // The eight-value tuple imported from the FIN-37 builder, not a header slice:
+  // explanation_threshold_usd is FIN-37's eleventh column, so FIN-24's first
+  // eight are not a prefix of it.
+  for (const col of ["line_id", "account_code", "account_name", "statement_section", "normal_balance", "owner_role", "budget_amount", "explanation_threshold_usd"]) {
+    assert.ok(byId.get("FIN-37").columns.includes(col), `FIN-37 no longer carries "${col}"`);
+    assert.ok(cols.includes(col), `FIN-24 drops the imported FIN-37 column "${col}"`);
+  }
+  assert.notEqual(
+    cols.slice(0, 8).join(","),
+    byId.get("FIN-37").columns.slice(0, 8).join(","),
+    "FIN-24's first eight columns are a prefix of FIN-37's, which means someone diffed the headers instead of importing the tuple"
+  );
+});
+
+test("loadSpecs: FIN-33 is the shared spine, and FIN-24 shares its line definition", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  // Plan U14: a spec that hides three of its four consumers is how a
+  // regeneration surprises three modules.
+  assert.deepEqual(
+    byId.get("FIN-33").consuming_modules,
+    [
+      "finance-driver-scenario-planning",
+      "finance-flux-variance-investigation",
+      "finance-close-memo-disclosures",
+      "finance-fpa-kpi-dashboards",
+    ],
+    "FIN-33 does not name all four of its real consumers"
+  );
+  for (const col of ["line_id", "account_code", "account_name", "statement_section", "normal_balance"]) {
+    assert.ok(byId.get("FIN-33").columns.includes(col), `FIN-33 drops the FIN-37 spine column "${col}"`);
+    assert.ok(byId.get("FIN-24").columns.includes(col), `FIN-24 drops the FIN-37 spine column "${col}"`);
+  }
+  assert.ok(byId.get("FIN-33").columns.includes("period"), "FIN-33 is a trend, so every row states its month");
+});
+
+test("loadSpecs: the three FP&A files cover one 24-month window, and the configs state no fiscal window", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of ["FIN-31", "FIN-32", "FIN-33"]) {
+    assert.equal(byId.get(id).period.end, "2026-03-31", `${id} does not end the trend at the close period end`);
+    assert.ok(byId.get(id).period.start < "2024-05-01", `${id} does not open the trend 24 months back`);
+  }
+  assert.deepEqual(
+    byId.get("FIN-31").period,
+    byId.get("FIN-32").period,
+    "FIN-31 and FIN-32 are the same month-end series and must declare the same window"
+  );
+  // A driver set states a base period and a horizon, not a fiscal window, the
+  // same reading FIN-14's policy config already takes.
+  assert.equal(byId.get("FIN-34").period, undefined, "a driver config states a base period and a horizon, not a fiscal window");
+  assert.equal(byId.get("FIN-21").period, undefined, "a runbook states a close-day rule, not a fiscal window");
+  assert.deepEqual(byId.get("FIN-28").period, { start: "2026-02-01", end: "2026-02-28" }, "FIN-28 is the February exemplar");
+  assert.deepEqual(byId.get("FIN-30").period, { start: "2025-10-01", end: "2025-12-31" }, "FIN-30 is the Q4 2025 agenda");
+  assert.ok(byId.get("FIN-32").canon_entities.includes("co-104"), "FIN-32 carries bank balances, so it names the bank");
+});
+
 test("loadSpecs: every planted_feature is a string, not a YAML mapping", () => {
   // A feature written with an unquoted "label: detail" parses as a single-key
   // mapping, so `validate`'s keyword check reads the label and silently drops
