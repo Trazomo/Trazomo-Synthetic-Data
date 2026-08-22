@@ -33,15 +33,19 @@
 // explanation_threshold_usd is its eleventh column, so FIN-24's first eight
 // columns are not a prefix of FIN-37's; a generator author who diffs the two
 // headers and stops will get this wrong.
+import { toCsv } from "../csv.js";
 import { cents, toCents } from "../money.js";
 import { assertRolesUsed } from "./finance-roles.js";
-import { FLUX_RULE, fluxThresholdCents } from "./fin-33-actuals-24mo.js";
+import { actualAmountCents, sectionSign, sectionSubtotalsCents } from "./finance-statement.js";
+import { buildActuals24mo, FLUX_RULE, fluxThresholdCents } from "./fin-33-actuals-24mo.js";
+import { buildTrialBalance } from "./fin-05-gl-trial-balance.js";
 import { buildBudgetVsActualTemplate } from "./fin-37-budget-vs-actual-template.js";
 import { buildDecisionAuthorityMatrix } from "./fin-39-decision-authority-matrix.js";
-import { NotImplementedError } from "../errors.js";
 import { createRng } from "../seed.js";
 
 export const id = "FIN-24";
+
+export const OUTPUT_FILE = "actuals-vs-budget.csv";
 
 export const COLUMNS = [
   "line_id", "account_code", "account_name", "statement_section", "normal_balance", "section_sign",
@@ -262,8 +266,138 @@ export function renderMaterialityYaml(policy) {
   return lines.join("\n") + "\n";
 }
 
+// ------------------------------------------------------------------- FIN-24
+// FIN-37 filled in, reordered, with six columns added. Not an append: FIN-37's
+// explanation_threshold_usd is its eleventh column, so FIN-24's first eight are
+// not a prefix of it. The eight-value tuple is imported row for row.
+
+/**
+ * A percent to 2dp, as the string the file carries. The denominator is asserted
+ * non-zero by the caller: a percent column that ships "NaN" or an empty cell on
+ * a zero base is a column every consumer has to special-case.
+ */
+function pct(numeratorCents, denominatorCents) {
+  return ((numeratorCents / denominatorCents) * 100).toFixed(2);
+}
+
+/**
+ * Build the variance tracker.
+ * @returns {{ rows: object[], lines: object[] }}
+ */
+export function buildActualsVsBudget() {
+  const lines = templateLines();
+  const trialBalance = new Map(buildTrialBalance().rows.map((r) => [r.account_code, r]));
+  const trend = buildActuals24mo().rows;
+  const prior = new Map(
+    trend.filter((r) => r.period === PRIOR_PERIOD).map((r) => [r.line_id, toCents(r.actual_amount)])
+  );
+  const current = new Map(
+    trend.filter((r) => r.period === PERIOD).map((r) => [r.line_id, toCents(r.actual_amount)])
+  );
+
+  const rows = lines.map((line) => {
+    const balance = trialBalance.get(line.account_code);
+    if (!balance) {
+      throw new Error(`${id}: ${line.line_id} names account ${line.account_code}, which FIN-05 does not carry`);
+    }
+    const actualCents = actualAmountCents(balance, line.normal_balance);
+    const budgetCents = toCents(line.budget_amount);
+    if (budgetCents === 0) throw new Error(`${id}: ${line.line_id} carries a zero budget, so variance_pct has no base`);
+    const priorCents = prior.get(line.line_id);
+    if (!Number.isInteger(priorCents) || priorCents === 0) {
+      throw new Error(`${id}: ${line.line_id} has no non-zero ${PRIOR_PERIOD} actual in FIN-33, so flux_pct has no base`);
+    }
+    const varianceCents = actualCents - budgetCents;
+    const fluxCents = actualCents - priorCents;
+
+    const row = { line_id: line.line_id };
+    for (const field of IMPORTED_TEMPLATE_FIELDS) row[field] = line[field];
+    return {
+      ...row,
+      section_sign: String(sectionSign(line.statement_section, line.normal_balance)),
+      period: PERIOD,
+      actual_amount: cents(actualCents),
+      variance_amount: cents(varianceCents),
+      variance_pct: pct(varianceCents, budgetCents),
+      prior_period: PRIOR_PERIOD,
+      prior_period_actual: cents(priorCents),
+      flux_amount: cents(fluxCents),
+      flux_pct: pct(fluxCents, priorCents),
+      // Rule R-CLS17: this file is the input the explain-every-variance task
+      // consumes, not the output it produces. Empty for a structural reason.
+      variance_explanation: "",
+    };
+  });
+
+  assertTracker({ rows, lines, trialBalance, current });
+  return { rows, lines };
+}
+
+/** The plants, asserted before the builder returns. */
+function assertTracker({ rows, lines, trialBalance, current }) {
+  if (rows.length !== 27) throw new Error(`${id}: ${rows.length} rows, expected 27`);
+  for (const [i, row] of rows.entries()) {
+    for (const field of IMPORTED_TEMPLATE_FIELDS) {
+      if (row[field] !== lines[i][field]) {
+        throw new Error(`${id}: row ${i + 1} ${field} was retyped rather than imported`);
+      }
+    }
+    if (row.variance_explanation !== "") {
+      throw new Error(`${id}: ${row.line_id} carries an explanation, which makes this file CLS-17's output`);
+    }
+    // The tracker and the trend describe the same March, to the cent.
+    if (toCents(row.actual_amount) !== current.get(row.line_id)) {
+      throw new Error(`${id}: ${row.line_id} disagrees with FIN-33 about ${PERIOD}`);
+    }
+  }
+
+  // V1: four material budget variances, the set FIN-37 and FIN-05 already
+  // produce and a merged trazomo module already prints by name.
+  const material = rows.filter(
+    (r) => Math.abs(toCents(r.variance_amount)) >= toCents(r.explanation_threshold_usd)
+  );
+  if (material.length !== 4) {
+    throw new Error(`${id}: ${material.length} material budget variances, expected 4 (${material.map((r) => r.line_id).join(", ")})`);
+  }
+
+  // V2 and V3: three material flux lines, exactly one of which is also budget
+  // material, so the two rules disagree on five.
+  const flux = rows.filter(
+    (r) => Math.abs(toCents(r.flux_amount)) >= fluxThresholdCents(toCents(r.prior_period_actual))
+  );
+  if (flux.length !== 3) {
+    throw new Error(`${id}: ${flux.length} material flux lines, expected 3 (${flux.map((r) => r.line_id).join(", ")})`);
+  }
+  const both = flux.filter((r) => material.includes(r));
+  if (both.length !== 1) {
+    throw new Error(`${id}: ${both.length} lines breach both rules, expected 1`);
+  }
+
+  // V4: one material line unfavorable in the other direction, on a debit-normal
+  // line. The qualifier the rule names is materiality; the test asserts the 10
+  // and the 12 the bytes give without it.
+  const otherDirection = material.filter((r) => toCents(r.variance_amount) < 0 && r.normal_balance === "debit");
+  if (otherDirection.length !== 1) {
+    throw new Error(`${id}: ${otherDirection.length} material lines are unfavorable in the other direction, expected 1`);
+  }
+
+  // R-SIGN convention 2: the contra line is the only one running against its
+  // own section, and the three subtotals roll to the retained-earnings plug.
+  const contra = rows.filter((r) => r.section_sign === "-1");
+  if (contra.length !== 1) {
+    throw new Error(`${id}: ${contra.length} rows carry section_sign -1, expected 1`);
+  }
+  const subtotals = sectionSubtotalsCents(rows.map((r) => ({ ...r, actual_cents: toCents(r.actual_amount) })));
+  const net = subtotals.revenue - subtotals.cost_of_revenue - subtotals.operating_expense;
+  const plug = trialBalance.get("3200");
+  if (cents(-net) !== plug.period_debit) {
+    throw new Error(`${id}: the sections roll to ${cents(-net)}, not account 3200's ${plug.period_debit}`);
+  }
+}
+
 // ---------------------------------------------------------------- generate
 
 export function generate() {
-  throw new NotImplementedError(id, "D5a wave 1 (plan Task 6) owns this build; FIN-26 has landed, FIN-24 is next");
+  const { rows } = buildActualsVsBudget();
+  return [{ path: OUTPUT_FILE, content: toCsv(COLUMNS, rows) }];
 }

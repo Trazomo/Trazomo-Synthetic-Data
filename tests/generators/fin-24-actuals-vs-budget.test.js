@@ -1,10 +1,12 @@
 // FIN-26 materiality-thresholds and FIN-24 actuals-vs-budget: the wave's red
 // tests.
 //
-// SKELETON, shipped by D5a foundations. Every test carrying `{ todo: WAVE }`
-// fails today on purpose: the generator is not registered, so generateArtifact
-// throws NOT_IMPLEMENTED. The wave deletes the marker in the same commit as the
-// bytes.
+// Built by D5a wave 1. Every plant is re-derived here from the emitted bytes by
+// its own stated rule, never by naming the row that carries it and never by
+// importing the predicate the generator applied: a test that imports the rule
+// it is checking cannot disagree with the generator. The sign rule, the section
+// subtotal, the budget threshold and the flux threshold are all spelled out in
+// this file's own arithmetic.
 //
 // This is the highest-stakes file in the slice. FIN-24's four figures are
 // already printed by name in merged trazomo content, so a generator that
@@ -32,11 +34,9 @@ import {
   BUDGET_VARIANCE_RULE, COLUMNS, IMPORTED_TEMPLATE_FIELDS, MATERIALITY_FILE, PERIOD,
   PRIOR_PERIOD, SUPPORTING_DETAIL_COLUMNS,
 } from "../../datagen/src/generators/fin-24-actuals-vs-budget.js";
-import { actualAmountCents, sectionSign, sectionSubtotalsCents } from "../../datagen/src/generators/finance-statement.js";
+import { actualAmountCents } from "../../datagen/src/generators/finance-statement.js";
 import { cents, toCents } from "../../datagen/src/money.js";
 import { createRng } from "../../datagen/src/seed.js";
-
-const WAVE = "D5a wave 1 (plan Task 6) builds FIN-26, FIN-24 and FIN-25 and deletes this marker";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
@@ -141,7 +141,7 @@ test("FIN-24 T-M6: the checklist file carries CLS-17 as not_started, which is a 
 
 // ------------------------------------------------------------ red until built
 
-test("FIN-24: 27 rows whose imported tuple equals the FIN-37 template row for row", { todo: WAVE }, () => {
+test("FIN-24: 27 rows whose imported tuple equals the FIN-37 template row for row", () => {
   const rows = tracker();
   assert.equal(rows.length, 27);
   const template = templateLines();
@@ -156,18 +156,51 @@ test("FIN-24: 27 rows whose imported tuple equals the FIN-37 template row for ro
   }
 });
 
-test("FIN-24 T-M3: every actual recomputes from FIN-05 in this test's own arithmetic", { todo: WAVE }, () => {
-  const tb = new Map(buildTrialBalance().rows.map((r) => [r.account_code, r]));
-  for (const row of tracker()) {
-    assert.equal(
-      row.actual_amount,
-      cents(actualAmountCents(tb.get(row.account_code), row.normal_balance)),
-      `${row.line_id} does not equal FIN-05's March movement`
-    );
+test("FIN-24 T-M3: every actual recomputes from the shipped FIN-05 bytes in this test's own arithmetic", () => {
+  // The highest-stakes assertion in the slice, and the reason it is written out
+  // longhand. actualAmountCents() is the rule the GENERATOR applies, so calling
+  // it here would make this test agree with the generator by construction. The
+  // sign rule is therefore spelled out below, over the committed FIN-05 CSV
+  // rather than over its builder: period_debit less period_credit on a
+  // debit-normal line, the reverse on a credit-normal one. A generator that
+  // used ending_balance, or folded the section sign into the line, would
+  // produce a plausible file and fail here.
+  const tb = new Map(shipped("finance/gl-trial-balance", "gl-trial-balance.csv").map((r) => [r.account_code, r]));
+  const rows = tracker();
+  for (const row of rows) {
+    const source = tb.get(row.account_code);
+    assert.ok(source, `${row.line_id} names account ${row.account_code}, which FIN-05 does not carry`);
+    const debit = toCents(source.period_debit);
+    const credit = toCents(source.period_credit);
+    const movement = row.normal_balance === "debit" ? debit - credit : credit - debit;
+    assert.equal(row.actual_amount, cents(movement), `${row.line_id} does not equal FIN-05's March movement`);
+    // The mistake the plan names: ending_balance is a year-to-date figure, and
+    // on every line of this tracker it is a different number from the movement.
+    assert.notEqual(row.actual_amount, source.ending_balance, `${row.line_id}: the actual reads as a year-to-date balance`);
   }
+
+  // The four material figures, recomputed the same way, are the four a merged
+  // trazomo module already prints by name (finance-google-workspace lesson 02).
+  // They are the reason this file cannot be regenerated casually.
+  const material = rows
+    .filter((r) => Math.abs(toCents(r.variance_amount)) >= toCents(r.explanation_threshold_usd))
+    .map((r) => {
+      const source = tb.get(r.account_code);
+      const debit = toCents(source.period_debit);
+      const credit = toCents(source.period_credit);
+      const movement = r.normal_balance === "debit" ? debit - credit : credit - debit;
+      const variance = movement - toCents(r.budget_amount);
+      return [r.line_id, cents(variance), ((variance / toCents(r.budget_amount)) * 100).toFixed(2)];
+    });
+  assert.deepEqual(material, [
+    ["BVA-04", "23710.01", "5.44"],
+    ["BVA-09", "17518.43", "5.74"],
+    ["BVA-13", "-17134.55", "-5.86"],
+    ["BVA-19", "47043.50", "7.11"],
+  ]);
 });
 
-test("FIN-24 T-M4: prior_period_actual is FIN-33's 2026-02 column for the same line_id", { todo: WAVE }, () => {
+test("FIN-24 T-M4: prior_period_actual is FIN-33's 2026-02 column for the same line_id", () => {
   const trend = csvTable(
     fileByPath(generateArtifact(specs.byId.get("FIN-33"), canon), "actuals-24mo.csv").content
   ).rows;
@@ -183,19 +216,33 @@ test("FIN-24 T-M4: prior_period_actual is FIN-33's 2026-02 column for the same l
   }
 });
 
-test("FIN-24 T-M5: variance and flux are the arithmetic their own columns state", { todo: WAVE }, () => {
+test("FIN-24 T-M5: variance and flux are the arithmetic their own columns state", () => {
   for (const row of tracker()) {
     const variance = toCents(row.actual_amount) - toCents(row.budget_amount);
     assert.equal(row.variance_amount, cents(variance), `${row.line_id} variance amount`);
     assert.equal(row.variance_pct, ((variance / toCents(row.budget_amount)) * 100).toFixed(2), `${row.line_id} variance percent`);
     const flux = toCents(row.actual_amount) - toCents(row.prior_period_actual);
     assert.equal(row.flux_amount, cents(flux), `${row.line_id} flux amount`);
+    assert.equal(row.flux_pct, ((flux / toCents(row.prior_period_actual)) * 100).toFixed(2), `${row.line_id} flux percent`);
   }
-  // TODO(wave): decide and assert what flux_pct does when the prior period is
-  // zero. A division nobody thought about is how a percent column ships "NaN".
+  // The zero-base question the skeleton left open, settled rather than skipped:
+  // both percent columns divide, so both denominators are asserted non-zero on
+  // every row and the builder refuses to emit a row where either is zero. That
+  // is why no cell here can ship "NaN" or an empty percent, and it is a claim
+  // about the whole column rather than about the 27 rows that exist today.
+  for (const row of tracker()) {
+    assert.notEqual(toCents(row.budget_amount), 0, `${row.line_id} has a zero budget, so variance_pct has no base`);
+    assert.notEqual(toCents(row.prior_period_actual), 0, `${row.line_id} has a zero prior period, so flux_pct has no base`);
+    for (const col of ["variance_pct", "flux_pct"]) {
+      assert.match(row[col], /^-?\d+\.\d{2}$/, `${row.line_id} ${col} is not a 2dp number`);
+    }
+  }
 });
 
-test("FIN-24 T-M6: the explanation column is empty on all 27 rows and section_sign is -1 on exactly one", { todo: WAVE }, () => {
+test("FIN-24 T-M6: the explanation column is empty on all 27 rows and section_sign is -1 on exactly one", () => {
+  // The natural direction of each statement section, written out here rather
+  // than imported, so this file can disagree with the generator about the sign.
+  const NATURAL = { revenue: "credit", cost_of_revenue: "debit", operating_expense: "debit" };
   const rows = tracker();
   for (const row of rows) assert.equal(row.variance_explanation, "", `${row.line_id} carries an explanation`);
   const contra = rows.filter((r) => r.section_sign === "-1");
@@ -203,30 +250,91 @@ test("FIN-24 T-M6: the explanation column is empty on all 27 rows and section_si
   for (const row of rows) {
     assert.equal(
       row.section_sign,
-      String(sectionSign(row.statement_section, row.normal_balance)),
+      row.normal_balance === NATURAL[row.statement_section] ? "1" : "-1",
       `${row.line_id} carries a section_sign the rule does not produce`
     );
   }
+  // Rule R-CLS17, the other half: the checklist FILE carries CLS-17 as
+  // not_started. That is all this file may say. Whether the variance work was
+  // performed is settled elsewhere, by merged content that says it was.
+  const cls17 = shipped("finance/close-checklist", "close-checklist.csv").find((r) => r.task_id === "CLS-17");
+  assert.equal(cls17.status, "not_started");
 });
 
-test("FIN-24 T-M7: the three section subtotals roll up to account 3200's own period movement", { todo: WAVE }, () => {
-  const subtotals = sectionSubtotalsCents(
-    tracker().map((r) => ({ ...r, actual_cents: toCents(r.actual_amount) }))
-  );
+test("FIN-24 T-M7: the three section subtotals roll up to account 3200's own period movement", () => {
+  // One pass over the file with no external table, which is what shipping
+  // section_sign as a column buys. Summed here rather than by the generator's
+  // own subtotal helper, so the two can disagree.
+  const subtotals = { revenue: 0, cost_of_revenue: 0, operating_expense: 0 };
+  for (const row of tracker()) {
+    subtotals[row.statement_section] += toCents(row.actual_amount) * Number(row.section_sign);
+  }
   assert.equal(cents(subtotals.revenue), "4154683.80");
   assert.equal(cents(subtotals.cost_of_revenue), "794782.15");
   assert.equal(cents(subtotals.operating_expense), "5127949.43");
+
+  // Skipping section_sign returns 4245474.82 for revenue, a gap of exactly
+  // twice the contra line. Asserted so the shortcut fails loudly.
+  let unsigned = 0;
+  for (const row of tracker()) {
+    if (row.statement_section === "revenue") unsigned += toCents(row.actual_amount);
+  }
+  assert.notEqual(cents(unsigned), cents(subtotals.revenue));
+  const contra = tracker().find((r) => r.section_sign === "-1");
+  assert.equal(unsigned - subtotals.revenue, 2 * toCents(contra.actual_amount));
+
   const net = subtotals.revenue - subtotals.cost_of_revenue - subtotals.operating_expense;
-  const tb = new Map(buildTrialBalance().rows.map((r) => [r.account_code, r]));
+  const tb = new Map(shipped("finance/gl-trial-balance", "gl-trial-balance.csv").map((r) => [r.account_code, r]));
   assert.equal(cents(-net), tb.get("3200").period_debit);
 });
 
-test("FIN-24 V2 and V3: three flux breaches, one overlap with the budget rule, five lines in disagreement", { todo: WAVE }, () => {
+test("FIN-24 V2 and V3: three flux breaches, one overlap with the budget rule, five lines in disagreement", () => {
+  // The flux threshold is recomputed here from the three numbers the EMITTED
+  // FIN-26 config publishes, in this file's own arithmetic. Nothing is imported
+  // from the generator that placed the plant.
+  const rule = policy().flux_rule;
+  const unit = Math.round(Number(/nearest (\d+)/.exec(rule.rounding)[1]) * 100);
+  const floor = toCents(rule.floor_usd);
+  const fluxThreshold = (priorCents) =>
+    Math.max(floor, Math.ceil((Math.abs(priorCents) * rule.pct_of_prior_period) / unit) * unit);
+
   const rows = tracker();
-  assert.ok(rows.length > 0);
-  // TODO(wave): recompute the flux threshold from the emitted FIN-26 config in
-  // this test's own arithmetic, assert the 3, the overlap of 1 and the
-  // symmetric difference of 5, and assert the qualifier-free count of 27.
+  const fluxBreach = rows.filter(
+    (r) => Math.abs(toCents(r.flux_amount)) >= fluxThreshold(toCents(r.prior_period_actual))
+  ).map((r) => r.line_id);
+  const budgetBreach = rows.filter(
+    (r) => Math.abs(toCents(r.variance_amount)) >= toCents(r.explanation_threshold_usd)
+  ).map((r) => r.line_id);
+
+  // V2, both cardinalities: 3 under the rule, all 27 with no threshold at all.
+  assert.equal(fluxBreach.length, 3, `flux breaches: ${fluxBreach.join(", ")}`);
+  assert.equal(rows.filter((r) => toCents(r.flux_amount) !== 0).length, 27, "a line with no flux has nothing to threshold");
+
+  // V3, both cardinalities: the two rules agree on exactly one line and
+  // disagree on five. A reader who assumes they agree finds 0 disagreements,
+  // which is the qualifier-free reading the plan names.
+  const both = fluxBreach.filter((l) => budgetBreach.includes(l));
+  assert.equal(both.length, 1, `lines breaching both rules: ${both.join(", ")}`);
+  const disagree = [...new Set([...fluxBreach, ...budgetBreach])].filter((l) => !both.includes(l));
+  assert.equal(disagree.length, 5, `lines breaching exactly one rule: ${disagree.join(", ")}`);
+  assert.notDeepEqual([...fluxBreach].sort(), [...budgetBreach].sort(), "the two rules cannot be assumed to agree");
+
+  // The account set FIN-25 covers falls out of this and out of nothing else:
+  // the four budget-material lines plus the two that breach only the flux rule.
+  const accountFor = new Map(rows.map((r) => [r.line_id, r.account_code]));
+  const investigated = [...budgetBreach, ...fluxBreach.filter((l) => !both.includes(l))].map((l) => accountFor.get(l));
+  assert.equal(new Set(investigated).size, 6);
+});
+
+test("FIN-24: the committed bytes are the generated bytes, row for row", () => {
+  // The byte guard `validate` runs, restated as a test so a hand edit to the
+  // committed tracker fails the suite naming the line_id it landed on.
+  const generated = tracker();
+  const committed = shipped("finance/actuals-vs-budget", OUTPUT_FILE);
+  assert.equal(committed.length, generated.length);
+  for (const [i, row] of generated.entries()) {
+    assert.deepEqual(committed[i], row, `actuals-vs-budget.csv row ${row.line_id} was edited by hand`);
+  }
 });
 
 test("FIN-26: the emitted config publishes the documented key list, in the documented order", () => {
