@@ -277,6 +277,19 @@ FIN-17 dates it. `closeDayDate()` in `datagen/src/dates.js` is the only place
 that rule is implemented, over `addBusinessDays()`; nothing recomputes it by
 adding calendar days, which would put D+4 on the Sunday.
 
+The 24-month reporting window ends at 2026-03-31 and is the same series for
+FIN-31, FIN-32 and FIN-33; `monthEnds()` in `datagen/src/dates.js` is the only
+place it is computed. Nothing recomputes the series locally, and nothing
+shortens it: a trend of a different length is a different trend, and three
+files that disagree about which months they cover cannot be joined.
+
+FIN-05 is the pre-close trial balance at 2026-03-31 and does not reflect the
+FIN-09 batch. A variance artifact reconciles to FIN-05's period columns, never
+to FIN-09. Do not write that the batch is "unposted": FIN-17 carries `CLS-15`
+("Post the close journal batch") as `complete` at 2026-04-03, so "unposted" is
+refutable from the pack in one grep. The accurate wording is "not reflected in
+FIN-05".
+
 FIN-20 is the first generator that reads the repository at build time: it parses
 the ten CORE-05 document-control blocks out of `artifacts/CORE-05/*.md` to build
 `policy-index.csv`, sorted by `document_id`, so a version bump or a review date
