@@ -22,7 +22,7 @@
 #     document spells out "Defend Trade Secrets Act", the fix is a one-word
 #     spec edit, not an allowlist entry.
 #
-# Reviewed 2026-08-09 against data-pack v1.0.1.
+# Reviewed 2026-08-22 against data-pack v1.5.0.
 
 version: 1
 
@@ -52,3 +52,25 @@ allowed:
       annual uplift at section 5.4). The document also never writes the acronym
       "SaaS", though it is a SaaS agreement throughout. Revisit when the FIN
       track lands and the pointer can become a real cross-reference.
+
+  - artifact: FIN-28
+    feature: "paired with FIN-17's open checklist item (drafting-over-unclosed-item guardrail)"
+    reason: >-
+      Unconfirmable by construction. The feature describes the document from
+      outside: it records that FIN-28's deferred revenue footnote is the one
+      whose March successor cannot be written, and the heuristic wants
+      "paired", "open", "item", "drafting-over-unclosed-item" and "guardrail"
+      in the prose to confirm it. Every one of those words would name that
+      footnote on the document's own face, which would make the February set an
+      answer key rather than the exemplar module 24 drafts the March set from.
+      The pairing is present and derivable without the document saying it, out
+      of FIN-17's category and status bytes: the `revenue` category holds
+      exactly one task, CLS-14, and it is `not_started` at the 2026-04-06
+      as-of, while the `accruals` category the other two declaring footnotes
+      name is `complete` throughout, so exactly one of the five footnotes is
+      blocked. That derivation is executed rather than asserted in
+      tests/artifacts/fin-28-footnotes.test.js, which reads the declared
+      categories out of the document's own headings, joins them to the
+      generated checklist and pins the selection at one instance beside the
+      qualifier-free three. No rewording of the spec can make this checkable
+      from the prose, so this entry is expected to be permanent.

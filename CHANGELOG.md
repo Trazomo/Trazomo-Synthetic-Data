@@ -186,18 +186,27 @@ then FIN-28.
   restatement of FIN-40's banner. No money amount, no percentage, and no date
   inside the current reporting period (T-R5).
 
-Gates at the D5b head: `npm test` 520 tests, 520 pass, 0 fail, 0 todo (the
+Gates at the D5b head: `npm test` 522 tests, 522 pass, 0 fail, 0 todo (the
 eight D5b todo markers are deleted in the same commit as the prose that
 satisfies them, which the screen itself enforces in both directions);
 `npm run validate` 60 checked, 0 failed, exit 0; `validate --all` 137 checked,
-25 failed, 2 allowlisted, every remaining failure a `MISSING` drafted artifact
+25 failed, 3 allowlisted, every remaining failure a `MISSING` drafted artifact
 and zero structured FAIL; `MANIFEST.json` 44 datasets and 16 drafted artifact
-sets, `universe_version` still 1.5.0; the roster screen over all three
-documents finds no person name; em-dash grep over the three documents and this
-file empty. FIN-28 reports `WARN` on one planted feature, the pairing with
-FIN-17's open checklist item: the document cannot state it without becoming an
-answer key, so the keyword heuristic cannot confirm it and the WARN is the
-correct outcome rather than a defect.
+sets, `universe_version` still 1.5.0; the real-name screen over all three
+documents finds no person name and no unaccounted capitalized phrase; em-dash
+grep over the three documents and this file empty.
+
+The third allowlist entry is FIN-28's pairing with FIN-17's open checklist
+item. The document cannot state it without becoming an answer key, so the
+keyword heuristic can never confirm it from the prose;
+`datagen/validate-allowlist.yaml` records that with its reason, and
+`tests/artifacts/fin-28-footnotes.test.js` derives the pairing by execution
+from FIN-17's category and status bytes instead. Two screens hold the drafted
+documents to the pack rather than to a list: FIN-21's 24 task rows are compared
+field by field against `buildCloseChecklistTemplate()`, and every capitalized
+phrase in the three documents has to be the protagonist, an active CORE-04 role
+title, a FIN-22 account name read out of the generated chart of accounts, or
+listed document furniture.
 
 ## 1.4.1
 

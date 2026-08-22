@@ -138,7 +138,13 @@ test("FIN-28 T-U1: every money amount equals a FIN-33 2026-02 actual or a stated
   for (const amount of amounts) {
     assert.ok(february.has(amount), `${amount} is in no FIN-33 February row`);
   }
-  // TODO(D5b): a footnote may also state a FIN-05 derived balance (a deferred
-  // revenue total, an accrued liability total). Widen the accepted set to those
-  // recomputed from FIN-05 here, and never by adding the figure to a list.
+  // The accepted set stays FIN-33's February column alone, ruled 2026-08-22.
+  // The spec allows "or a stated FIN-05 derived balance", but FIN-05 is the
+  // pre-close trial balance at 2026-03-31 and this is the February set: a
+  // FIN-05 balance stated here would be a March figure in a February footnote,
+  // which is a worse defect than the missing one. February has no balance
+  // source in the pack, so FIN-28 states no balance-sheet figure at all and
+  // describes the deferred revenue, accrued and prepaid balances in words. A
+  // later artifact that does need a balance widens this by recomputing it from
+  // FIN-05 here, never by adding the figure to a list.
 });
