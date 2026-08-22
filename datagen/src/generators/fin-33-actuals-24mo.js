@@ -1,7 +1,7 @@
-// FIN-33 actuals-24mo: the 24-month profit-and-loss trend module 30 forecasts
-// from. FIN-34 drivers is emitted by this same builder and lands in the next
-// commit (the FIN-15 over FIN-16 pattern), so the driver set and the trend it
-// applies to can never disagree about which line_ids exist.
+// FIN-33 actuals-24mo and FIN-34 drivers: the 24-month profit-and-loss trend
+// module 30 forecasts from, and the driver set it forecasts with. One builder
+// emits both (the FIN-15 over FIN-16 pattern), so the driver set and the trend
+// it applies to can never disagree about which line_ids exist.
 //
 // FIN-33 is on the critical path: FIN-24 reads its 2026-02 column as the prior
 // period, FIN-25's account set is not knowable without its flux plant, and
@@ -51,6 +51,7 @@ import { actualAmountCents } from "./finance-statement.js";
 import { buildBudgetVsActualTemplate } from "./fin-37-budget-vs-actual-template.js";
 import { buildTrialBalance } from "./fin-05-gl-trial-balance.js";
 import { buildCloseBatch } from "./fin-09-je-batch.js";
+import { buildRoster } from "./core-04-people-roster.js";
 
 export const id = "FIN-33";
 
@@ -82,6 +83,17 @@ export const HORIZON_MONTHS = 18;
  * not an accounting identity.
  */
 export const COST_PER_HEAD_ACCOUNTS = ["6000", "6010", "6020", "5020"];
+
+/**
+ * The FIN-31 metric ids a FIN-34 driver may apply to. FIN-31 is built after
+ * FIN-33 in the DAG, so its bytes do not exist when this runs; the test checks
+ * every id below against the FIN-31 spec entry, so a renamed metric fails here
+ * rather than shipping a driver that applies to nothing.
+ */
+export const FIN_31_METRIC_IDS = [
+  "ar_subledger_balance", "deferred_revenue_current", "deferred_revenue_noncurrent",
+  "ar_customer_count", "new_arr", "churned_arr", "headcount",
+];
 
 // ------------------------------------------------------------- the flux rule
 // FIN-26 publishes this rule as policy and FIN-24 reports against it, but
@@ -337,12 +349,204 @@ function assertPlants({ lines, trialBalance, periods, seriesByLine, rows }) {
   }
 }
 
+// ------------------------------------------------------------------ drivers
+
+/** Fully loaded monthly cost per head, in integer cents, and its inputs. */
+function costPerHead(trialBalance, lines) {
+  const byAccount = new Map(lines.map((line) => [line.account_code, line]));
+  let totalCents = 0;
+  for (const account of COST_PER_HEAD_ACCOUNTS) {
+    const line = byAccount.get(account);
+    if (!line) throw new Error(`${id}: account ${account} is not a FIN-37 profit-and-loss line`);
+    totalCents += marchMovementCents(trialBalance.get(account), line);
+  }
+  // The FIN-31 headcount rule, which is forced rather than chosen: CORE-04
+  // carries no termination date, so an active row that had started by the
+  // period end is the only countable head.
+  const headcount = buildRoster(createRng("CORE-04", "roster")).filter(
+    (r) => r.employment_status === "active" && r.start_date <= CLOSE_PERIOD_END
+  ).length;
+  if (headcount <= 0) throw new Error(`${id}: CORE-04 carries no active heads at ${CLOSE_PERIOD_END}`);
+  return { totalCents, headcount, perHeadCents: Math.round(totalCents / headcount) };
+}
+
+function buildDrivers(trialBalance, lines) {
+  const lineIds = new Set(lines.map((l) => l.line_id));
+  const idFor = (accountCode) => {
+    const line = lines.find((l) => l.account_code === accountCode);
+    if (!line) throw new Error(`${id}: account ${accountCode} is not on the FIN-37 spine`);
+    return line.line_id;
+  };
+  const perHead = costPerHead(trialBalance, lines);
+
+  const drivers = [
+    {
+      driver_id: "hiring",
+      applies_to: COST_PER_HEAD_ACCOUNTS.map(idFor).sort(),
+      unit: "net hires per month",
+      base: 8,
+      upside: 14,
+      downside: -3,
+      derivation: {
+        metric: "fully_loaded_monthly_cost_per_head",
+        value_usd: cents(perHead.perHeadCents),
+        formula: "the March 2026 movement on accounts "
+          + `${COST_PER_HEAD_ACCOUNTS.join(", ")} divided by the active headcount, rounded to the cent`,
+        source_artifacts: ["FIN-05", "CORE-04"],
+        source_accounts: [...COST_PER_HEAD_ACCOUNTS],
+        source_period: "2026-03",
+        headcount: perHead.headcount,
+        judgment: "5020 Customer Support Salaries is a cost-of-revenue account, so this blends "
+          + "cost of revenue into people cost. That is a judgment and not an accounting identity: "
+          + "a plan that wants operating-expense people cost alone drops 5020 and recomputes.",
+      },
+    },
+    {
+      driver_id: "price_change",
+      applies_to: ["4000", "4010", "4020"].map(idFor),
+      unit: "percent change to list price at renewal",
+      base: 3,
+      upside: 6,
+      downside: 1,
+    },
+    {
+      driver_id: "churn",
+      applies_to: ["4000", "4010", "4020"].map(idFor),
+      unit: "percent of opening recurring revenue lost per month",
+      base: 1.1,
+      upside: 0.7,
+      downside: 1.9,
+    },
+    {
+      driver_id: "collection_delay",
+      applies_to: ["ar_subledger_balance"],
+      unit: "days added to days sales outstanding",
+      base: 3,
+      upside: 1,
+      downside: 8,
+    },
+    {
+      driver_id: "contract_win_loss",
+      applies_to: [idFor("4000"), idFor("4100"), "new_arr"],
+      unit: "net new logos per month",
+      base: 4,
+      upside: 7,
+      downside: 1,
+    },
+  ];
+
+  assertDrivers(drivers, lineIds);
+  return {
+    base_period: "2026-03",
+    horizon_months: HORIZON_MONTHS,
+    source_artifacts: ["FIN-33", "FIN-31", "FIN-32"],
+    scenarios: [...SCENARIOS],
+    drivers,
+  };
+}
+
+function assertDrivers(drivers, lineIds) {
+  const seen = drivers.map((d) => d.driver_id);
+  if (seen.length !== DRIVER_IDS.length || DRIVER_IDS.some((d, i) => seen[i] !== d)) {
+    throw new Error(`${id}: FIN-34 carries ${seen.join(", ")}, expected ${DRIVER_IDS.join(", ")}`);
+  }
+  const metrics = new Set(FIN_31_METRIC_IDS);
+  for (const driver of drivers) {
+    if (driver.applies_to.length === 0) throw new Error(`${id}: driver ${driver.driver_id} applies to nothing`);
+    for (const target of driver.applies_to) {
+      if (!lineIds.has(target) && !metrics.has(target)) {
+        throw new Error(`${id}: driver ${driver.driver_id} applies to "${target}", which is neither a FIN-33 line_id nor a FIN-31 metric_id`);
+      }
+    }
+    for (const scenario of SCENARIOS) {
+      if (typeof driver[scenario] !== "number") {
+        throw new Error(`${id}: driver ${driver.driver_id} carries no ${scenario} value`);
+      }
+    }
+    if (driver.base === driver.upside && driver.base === driver.downside) {
+      throw new Error(`${id}: driver ${driver.driver_id} carries no band, so the scenario set has nothing to move`);
+    }
+  }
+
+  // V23: exactly one band crosses zero. All five carry a band, so the band is
+  // not the qualifier that selects.
+  const crossesZero = drivers.filter((d) => Math.sign(d.upside) * Math.sign(d.downside) < 0);
+  if (crossesZero.length !== 1 || crossesZero[0].driver_id !== "hiring") {
+    throw new Error(`${id}: ${crossesZero.length} driver bands cross zero, expected 1 (hiring)`);
+  }
+  if (drivers.some((d) => d.upside === 0 || d.downside === 0)) {
+    throw new Error(`${id}: a scenario value of zero has no sign, so the band-crossing rule stops being decidable`);
+  }
+
+  // V24: exactly one driver moves cash without moving margin. Two drivers name
+  // a FIN-31 metric at all, which is the count a reader gets who reads contract
+  // win and loss as cash only.
+  const namesMetric = drivers.filter((d) => d.applies_to.some((t) => metrics.has(t)));
+  const cashOnly = namesMetric.filter((d) => !d.applies_to.some((t) => lineIds.has(t)));
+  if (cashOnly.length !== 1 || cashOnly[0].driver_id !== "collection_delay") {
+    throw new Error(`${id}: ${cashOnly.length} drivers move cash without moving margin, expected 1 (collection_delay)`);
+  }
+  if (namesMetric.length !== 2) {
+    throw new Error(`${id}: ${namesMetric.length} drivers name a FIN-31 metric, expected 2`);
+  }
+}
+
+// ------------------------------------------------------------ yaml rendering
+
+function yamlList(values) {
+  return `[${values.map((v) => (typeof v === "number" ? String(v) : `"${v}"`)).join(", ")}]`;
+}
+
+/** FIN-34's bytes. Hand rendered, the FIN-14 precedent, so the comments survive. */
+export function renderDriversYaml(config) {
+  const lines = [
+    "# FIN-34 drivers: the scenario input set for the driver-based plan.",
+    "#",
+    "# Inputs only. Base, upside and downside cash, margin and the months of",
+    "# cover they imply are the consuming module's deterministic engine, which",
+    "# is what \"math never done by the model\" means: this file carries no",
+    "# computed output for a model to copy.",
+    "#",
+    "# Every applies_to resolves in a shipped file: a FIN-33 line_id or a FIN-31",
+    "# metric_id. Generated, not hand maintained:",
+    "# datagen/src/generators/fin-33-actuals-24mo.js.",
+    `base_period: "${config.base_period}"`,
+    `horizon_months: ${config.horizon_months}`,
+    `source_artifacts: ${yamlList(config.source_artifacts)}`,
+    `scenarios: ${yamlList(config.scenarios)}`,
+    "",
+    "# Five drivers. Each carries a band, so a scenario table that shows only",
+    "# magnitudes loses the direction on the one band that changes sign.",
+    "drivers:",
+  ];
+  for (const driver of config.drivers) {
+    lines.push(`  - driver_id: ${driver.driver_id}`);
+    lines.push(`    applies_to: ${yamlList(driver.applies_to)}`);
+    lines.push(`    unit: "${driver.unit}"`);
+    for (const scenario of SCENARIOS) lines.push(`    ${scenario}: ${driver[scenario]}`);
+    if (driver.derivation) {
+      const d = driver.derivation;
+      lines.push("    # CORE-04 carries no salary, so cost per head is derived rather than read.");
+      lines.push("    derivation:");
+      lines.push(`      metric: ${d.metric}`);
+      lines.push(`      value_usd: "${d.value_usd}"`);
+      lines.push(`      formula: "${d.formula}"`);
+      lines.push(`      source_artifacts: ${yamlList(d.source_artifacts)}`);
+      lines.push(`      source_accounts: ${yamlList(d.source_accounts)}`);
+      lines.push(`      source_period: "${d.source_period}"`);
+      lines.push(`      headcount: ${d.headcount}`);
+      lines.push(`      judgment: "${d.judgment}"`);
+    }
+  }
+  return lines.join("\n") + "\n";
+}
+
 // ------------------------------------------------------------------ builder
 
 /**
- * Build the trend. Pure: no I/O, no Date.now(),
+ * Build the trend and the driver set together. Pure: no I/O, no Date.now(),
  * every draw from createRng("FIN-33", stream).
- * @returns {{ rows: object[], lines: object[], periods: string[] }}
+ * @returns {{ rows: object[], lines: object[], periods: string[], drivers: object }}
  */
 export function buildActuals24mo() {
   const lines = buildBudgetVsActualTemplate((stream) => createRng("FIN-37", stream));
@@ -371,7 +575,8 @@ export function buildActuals24mo() {
   }
 
   assertPlants({ lines, trialBalance, periods, seriesByLine, rows });
-  return { rows, lines, periods };
+  const drivers = buildDrivers(trialBalance, lines);
+  return { rows, lines, periods, drivers };
 }
 
 // ---------------------------------------------------------------- generate

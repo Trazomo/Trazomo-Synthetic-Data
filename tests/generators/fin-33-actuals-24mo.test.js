@@ -15,6 +15,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { join } from "node:path";
 import { readFileSync } from "node:fs";
+import yaml from "js-yaml";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
@@ -275,20 +276,105 @@ test("FIN-33 V25: exactly one line has a peak that repeats at 12-month spacing",
 });
 
 // --------------------------------------------------------------- FIN-34
-// FIN-34 is emitted by the same builder and lands in the next commit, so its
-// tests stay marked `todo` here: `node --test` runs a todo test and reports its
-// failure without counting it.
 
-const WAVE = "the FIN-34 commit deletes this marker";
-
-test("FIN-34: five drivers, three scenarios, and every applies_to resolving in a shipped file", { todo: WAVE }, () => {
+function driversConfig() {
   const files = generateArtifact(specs.byId.get("FIN-34"), canon);
-  const yamlText = fileByPath(files, "drivers.yaml").content;
-  for (const driver of DRIVER_IDS) assert.ok(yamlText.includes(driver), `drivers.yaml does not carry ${driver}`);
-  for (const scenario of SCENARIOS) assert.ok(yamlText.includes(scenario), `drivers.yaml does not carry ${scenario}`);
+  return { text: fileByPath(files, "drivers.yaml").content, parsed: yaml.load(fileByPath(files, "drivers.yaml").content) };
+}
+
+test("FIN-34: five drivers, three scenarios, and every applies_to resolving in a shipped file", () => {
+  const { text, parsed } = driversConfig();
+  for (const driver of DRIVER_IDS) assert.ok(text.includes(driver), `drivers.yaml does not carry ${driver}`);
+  for (const scenario of SCENARIOS) assert.ok(text.includes(scenario), `drivers.yaml does not carry ${scenario}`);
+
+  // The key list the spec pins, in the order it pins it.
+  assert.deepEqual(Object.keys(parsed), ["base_period", "horizon_months", "source_artifacts", "scenarios", "drivers"]);
+  assert.equal(parsed.base_period, "2026-03");
+  assert.equal(parsed.horizon_months, 18);
+  assert.deepEqual(parsed.scenarios, ["base", "upside", "downside"]);
+  assert.deepEqual(parsed.drivers.map((d) => d.driver_id), DRIVER_IDS);
+  for (const driver of parsed.drivers) {
+    assert.deepEqual(Object.keys(driver).slice(0, 6), ["driver_id", "applies_to", "unit", "base", "upside", "downside"]);
+  }
+
+  // T-T5: every applies_to resolves to a FIN-33 line_id from the generated
+  // bytes, or to a FIN-31 metric_id the FIN-31 spec names. FIN-31 is built
+  // after FIN-33 in the DAG, so its spec entry is the only shipped statement of
+  // its metric ids at this point; a renamed metric fails here.
+  const lineIds = new Set(trend().map((r) => r.line_id));
+  const fin31 = specs.byId.get("FIN-31").planted_features.join(" ");
+  for (const driver of parsed.drivers) {
+    assert.ok(driver.applies_to.length > 0, `${driver.driver_id} applies to nothing`);
+    for (const target of driver.applies_to) {
+      if (lineIds.has(target)) continue;
+      assert.match(fin31, new RegExp(`\\b${target}\\b`), `${driver.driver_id} applies to "${target}", which is neither a FIN-33 line_id nor a FIN-31 metric_id`);
+    }
+  }
 });
 
-test("FIN-33 and FIN-34 V19: no emitted file names the absent metric", { todo: WAVE }, () => {
+test("FIN-34 V23 and V24: one band crosses zero, one driver moves cash without moving margin", () => {
+  const { parsed } = driversConfig();
+  const lineIds = new Set(trend().map((r) => r.line_id));
+  // A metric is a metric because the FIN-31 spec names it, not because it
+  // failed to be a line_id. A driver pointing at a target no shipped file
+  // carries moves nothing, so it must not count toward either cardinality.
+  const fin31 = specs.byId.get("FIN-31").planted_features.join(" ");
+  const isMetric = (t) => !lineIds.has(t) && new RegExp(`\\b${t}\\b`).test(fin31);
+  const namesLine = (d) => d.applies_to.some((t) => lineIds.has(t));
+  const namesMetric = (d) => d.applies_to.some(isMetric);
+
+  for (const driver of parsed.drivers) {
+    for (const target of driver.applies_to) {
+      assert.ok(lineIds.has(target) || isMetric(target), `${driver.driver_id} applies to "${target}", which moves nothing`);
+    }
+  }
+
+  // V23, both cardinalities: 1 band changes sign, 5 carry a band at all.
+  const crossesZero = parsed.drivers.filter((d) => Math.sign(d.upside) * Math.sign(d.downside) < 0);
+  const banded = parsed.drivers.filter((d) => !(d.base === d.upside && d.base === d.downside));
+  assert.equal(crossesZero.length, 1, `driver bands that cross zero: ${crossesZero.map((d) => d.driver_id).join(", ")}`);
+  assert.equal(banded.length, 5);
+
+  // V24, both cardinalities: 1 driver names a metric and no line, 2 name a
+  // metric at all, which is the count a reader gets who reads contract win and
+  // loss as cash only.
+  const cashOnly = parsed.drivers.filter((d) => namesMetric(d) && !namesLine(d));
+  const anyMetric = parsed.drivers.filter(namesMetric);
+  assert.equal(cashOnly.length, 1, `drivers moving cash without margin: ${cashOnly.map((d) => d.driver_id).join(", ")}`);
+  assert.equal(anyMetric.length, 2, `drivers naming a metric: ${anyMetric.map((d) => d.driver_id).join(", ")}`);
+});
+
+test("FIN-34 T-T6: the derived cost per head recomputes from FIN-05 and CORE-04", () => {
+  const { parsed } = driversConfig();
+  const derived = parsed.drivers.find((d) => d.derivation);
+  assert.ok(derived, "no driver publishes its derivation");
+  assert.equal(derived.driver_id, "hiring");
+
+  // This file's own arithmetic, over the shipped FIN-05 and CORE-04 bytes.
+  const tb = new Map(shipped("finance/gl-trial-balance", "gl-trial-balance.csv").map((r) => [r.account_code, r]));
+  let totalCents = 0;
+  for (const account of derived.derivation.source_accounts) {
+    const balance = tb.get(String(account));
+    assert.ok(balance, `${account} is not a FIN-05 account`);
+    assert.equal(balance.normal_balance, "debit", `${account} is not a cost account`);
+    totalCents += toCents(balance.period_debit) - toCents(balance.period_credit);
+  }
+  const roster = shipped("core/people-roster", "people-roster.csv");
+  const heads = roster.filter((r) => r.employment_status === "active" && r.start_date <= CLOSE_PERIOD_END).length;
+  assert.equal(heads, derived.derivation.headcount);
+  assert.equal(cents(Math.round(totalCents / heads)), derived.derivation.value_usd);
+
+  // The judgment the spec requires the file to state plainly: one of the four
+  // accounts is cost of revenue rather than operating expense.
+  const blended = derived.derivation.source_accounts.map(String)
+    .filter((a) => shipped("finance/chart-of-accounts", "chart-of-accounts.csv")
+      .find((r) => r.account_code === a)?.subtype === "cost_of_revenue");
+  assert.equal(blended.length, 1);
+  assert.match(derived.derivation.judgment, /cost of revenue/);
+  assert.match(derived.derivation.judgment, new RegExp(blended[0]));
+});
+
+test("FIN-33 and FIN-34 V19: no emitted file names the absent metric", () => {
   const emitted = [
     ...generateArtifact(specs.byId.get("FIN-33"), canon),
     ...generateArtifact(specs.byId.get("FIN-34"), canon),
