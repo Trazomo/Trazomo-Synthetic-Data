@@ -20,13 +20,15 @@ import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
 import { csvTable, fileByPath } from "../helpers/csv-table.js";
+import { moneyAmounts, moneyMatches } from "../helpers/money-shape.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
 const canon = loadCanonCompanies(join(REPO_ROOT, "canon", "companies.md"));
 
-/** The five footnotes, and the FIN-17 category each declares. The design target
- *  D5b authors against, and the fallback while the document does not exist. */
+/** The five footnotes, and the FIN-17 category each declares, in the order the
+ *  plan fixes. Asserted against what the document's own headings say; never
+ *  substituted for them. */
 const FOOTNOTE_CATEGORIES = ["revenue", "accruals", "accruals", "", ""];
 
 const DOCUMENT_PATH = join(REPO_ROOT, "artifacts", "FIN-28", "prior-period-footnotes.md");
@@ -45,17 +47,16 @@ const headingLines = (text) => text.split("\n").filter((l) => /^#{2,3}\s/.test(l
 
 /**
  * The FIN-17 category each footnote declares, read out of the document's own
- * headings once the document exists and falling back to the design constant
- * until D5b authors it. Counting the constant on its own is a tautology, so the
- * contrast below reads the file the moment there is a file to read.
+ * headings. Nothing falls back to the design constant any more: D5b authored
+ * the document, so a reading that could not see the file would be a tautology
+ * dressed as a check.
  *
  * Membership, never enumeration: a heading declares a category when it names
  * one of FIN-17's own `category` values, so the join key is the checklist's
- * vocabulary rather than a list this test holds. D5b therefore has to write the
- * category word itself into the heading ("accruals", not "accrued").
+ * vocabulary rather than a list this test holds. The document therefore has to
+ * write the category word itself into the heading ("accruals", not "accrued").
  */
 function declaredCategories() {
-  if (!existsSync(DOCUMENT_PATH)) return FOOTNOTE_CATEGORIES;
   const categories = [...new Set(closeTasks().map((r) => r.category))].filter(Boolean);
   return headingLines(readFileSync(DOCUMENT_PATH, "utf8")).map(
     (line) => categories.find((c) => new RegExp(`\\b${c}\\b`, "i").test(line)) ?? ""
@@ -82,15 +83,11 @@ test("FIN-28 V26: the category populations that hold the roll-forward plant at o
   // carries none, which is what buys the cardinality.
   assert.equal(inCategory("payables").filter((r) => r.status !== "complete").length, 1);
   // Three of the five footnotes declare a category at all: the qualifier-free
-  // count a module block has to state beside the 1. Read out of the document's
-  // own headings once the document exists, and out of the design constant until
-  // then, which is the only reading available while FIN-28 is a D5b todo.
+  // count a module block has to state beside the 1, read out of the document's
+  // own headings.
   const declared = declaredCategories();
   assert.equal(declared.length, 5, "the footnote count is a design constraint, not a range");
   assert.equal(declared.filter(Boolean).length, 3, `declared categories: ${declared.join(", ")}`);
-  if (existsSync(DOCUMENT_PATH)) {
-    assert.deepEqual(declared, FOOTNOTE_CATEGORIES, "a heading no longer declares the category the plan fixes");
-  }
 });
 
 test("FIN-28: the spec carries the pairing the document must not state outright", () => {
@@ -116,7 +113,7 @@ test("FIN-28: exactly five footnotes, three of which declare a FIN-17 category",
 });
 
 test("FIN-28 V26: exactly one footnote declares a category holding a task that is not complete", () => {
-  const text = document();
+  document();
   const tasks = closeTasks();
   const openCategories = new Set(tasks.filter((r) => r.status !== "complete").map((r) => r.category));
   // Derived from the document's own headings, so a heading edit fails here.
@@ -124,7 +121,6 @@ test("FIN-28 V26: exactly one footnote declares a category holding a task that i
   assert.equal(declared.length, 3, "the qualifier-free count: the footnotes that declare a category at all");
   const blocked = declared.filter((category) => openCategories.has(category));
   assert.deepEqual(blocked, ["revenue"]);
-  assert.ok(text.length > 0);
 });
 
 test("FIN-28 T-U1: every money amount equals a FIN-33 2026-02 actual or a stated FIN-05 balance", () => {
@@ -133,10 +129,16 @@ test("FIN-28 T-U1: every money amount equals a FIN-33 2026-02 actual or a stated
     fileByPath(generateArtifact(specs.byId.get("FIN-33"), canon), "actuals-24mo.csv").content
   ).rows.filter((r) => r.period === "2026-02");
   const february = new Set(trend.map((r) => r.actual_amount));
-  const amounts = [...text.matchAll(/\$([\d,]+\.\d{2})/g)].map((m) => m[1].replace(/,/g, ""));
+  // The same shape the drafted screen uses to prove FIN-21 and FIN-30 state no
+  // figure at all, so the two screens cannot drift. The currency symbol is
+  // optional on purpose: a screen keyed on a leading "$" never compares a bare
+  // "2,130,335.46", which is a figure that ships unsourced rather than a
+  // figure that is absent.
+  const written = moneyMatches(text);
+  const amounts = moneyAmounts(text);
   assert.ok(amounts.length > 0, "a disclosure exemplar with no figures teaches the shape and not the discipline");
-  for (const amount of amounts) {
-    assert.ok(february.has(amount), `${amount} is in no FIN-33 February row`);
+  for (const [i, amount] of amounts.entries()) {
+    assert.ok(february.has(amount), `${written[i]} is in no FIN-33 February row`);
   }
   // The accepted set stays FIN-33's February column alone, ruled 2026-08-22.
   // The spec allows "or a stated FIN-05 derived balance", but FIN-05 is the

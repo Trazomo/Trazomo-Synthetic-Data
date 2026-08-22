@@ -186,7 +186,7 @@ then FIN-28.
   restatement of FIN-40's banner. No money amount, no percentage, and no date
   inside the current reporting period (T-R5).
 
-Gates at the D5b head: `npm test` 522 tests, 522 pass, 0 fail, 0 todo (the
+Gates at the D5b head: `npm test` 528 tests, 528 pass, 0 fail, 0 todo (the
 eight D5b todo markers are deleted in the same commit as the prose that
 satisfies them, which the screen itself enforces in both directions);
 `npm run validate` 60 checked, 0 failed, exit 0; `validate --all` 137 checked,
@@ -206,7 +206,10 @@ documents to the pack rather than to a list: FIN-21's 24 task rows are compared
 field by field against `buildCloseChecklistTemplate()`, and every capitalized
 phrase in the three documents has to be the protagonist, an active CORE-04 role
 title, a FIN-22 account name read out of the generated chart of accounts, or
-listed document furniture.
+listed document furniture. Both screens carry a positive control, so a
+regression that returned nothing could not green the documents silently, and
+the money shape the two screens share treats the currency symbol as optional:
+a bare `2,130,335.46` is compared to FIN-33 like any other figure.
 
 ## 1.4.1
 

@@ -16,11 +16,15 @@
 // sentence begins rather than about what a name is:
 //
 //   * a candidate is screened as written first, and only then with its first
-//     word dropped, and only when the match itself began a sentence. A
-//     capitalized word that opens a sentence, a table cell, a heading or a
-//     bullet is ordinary English, which is the same reason the word screen
-//     skips it. Without this, "The Controller raises it" reports the phrase
-//     "The Controller".
+//     word dropped, and only when the match itself began a sentence AND that
+//     first word is itself accounted for. A capitalized word that opens a
+//     sentence, a table cell, a heading or a bullet is ordinary English, which
+//     is the same reason the word screen skips it. Without the drop, "The
+//     Controller raises it" reports the phrase "The Controller"; without the
+//     condition on the dropped word, the first token of any table cell is
+//     unscreened and "| Harriet Bank |" walks straight through. So the article
+//     has to be listed furniture for the drop to happen at all, and an
+//     unaccounted opener fails as the whole phrase it was written as.
 //   * a candidate that runs across a sentence boundary is split at it, so
 //     "Atticus Dundee Inc. It" is screened as the protagonist and a dropped
 //     one-word remainder rather than as an unknown phrase.
@@ -92,8 +96,17 @@ export function unscreenedPhrases(doc, allowed) {
     for (const raw of match[0].split(/(?<=\.)\s+/)) {
       const part = raw.trim();
       if (!isPhrase(part) || ok(part)) continue;
-      const opened = startsSentence(doc, match.index);
-      const dropped = opened ? part.replace(/^[A-Z][a-zA-Z]*[ ,]+/, "") : part;
+      // The opener concession, and its limit. A candidate that begins a
+      // sentence, cell, heading or bullet may shed its first word, because that
+      // word is ordinary English rather than part of a name. It may shed it
+      // only when the word is itself accounted for: a first token nobody has
+      // listed is exactly where an invented name hides, and dropping it
+      // unconditionally would let every table cell open with one.
+      const first = part.match(/^[A-Z][a-zA-Z]*/)[0];
+      const shed = startsSentence(doc, match.index) && allowed.words.has(bare(first));
+      if (!shed) { found.add(part); continue; }
+      const dropped = part.replace(/^[A-Z][a-zA-Z]*[ ,]+/, "");
+      // A one-word remainder is the word screen's business, not this one's.
       if (!isPhrase(dropped) || ok(dropped)) continue;
       found.add(dropped);
     }

@@ -54,11 +54,12 @@ Accrued liabilities are obligations for goods and services received, and for
 employee compensation earned, that are unbilled or unpaid at period end. They
 are recorded in four accounts: Accrued Liabilities (2010), Accrued Payroll
 (2020), Accrued Bonus (2030) and Accrued Commissions (2040). Each accrual is
-measured against the charge recorded in the expense accounts it supports, and
-is relieved as the underlying amount is invoiced or paid.
+measured against the charge recorded in the accounts it supports, and is
+relieved as the underlying amount is invoiced or paid.
 
-The expense recognized in February 2026 in the accounts these accruals support
-was:
+The payroll, bonus and commission accruals (2020, 2030 and 2040) are measured
+against the compensation accounts they support. The expense recognized in
+those compensation accounts in February 2026 was:
 
 | Account | Description | February 2026 |
 |---|---|---|
@@ -66,6 +67,11 @@ was:
 | 6010 | Payroll Taxes | $253,790.71 |
 | 6020 | Employee Benefits | $283,065.12 |
 | 6030 | Contractors and Consultants | $125,483.97 |
+
+Accrued Liabilities (2010) is the accrual for goods and services received and
+not yet invoiced, and it is not in the table above. It is measured from the
+receipt records rather than from a single expense account, because the charge
+it relieves lands in whichever account consumed the goods or the service.
 
 The accrued balances in accounts 2010, 2020, 2030 and 2040 at 2026-02-28 are
 carried on the statement of financial position. No accrual in this footnote
@@ -109,8 +115,8 @@ the period.
 
 ## 5. Subsequent events (no close checklist category)
 
-Events after 2026-02-28 and through the date this set was issued were evaluated
-against two questions: whether the event gives evidence about a condition that
+Events after 2026-02-28 and through the approval recorded at the head of this
+set were evaluated against two questions: whether the event gives evidence about a condition that
 existed at period end, in which case the February amounts are adjusted, or
 whether it concerns a condition that arose afterwards, in which case it is
 disclosed and not adjusted.
@@ -119,8 +125,8 @@ No event of either kind was identified. No February amount was adjusted, and no
 non-adjusting event required disclosure.
 
 This footnote reports no close checklist balance and declares no category. It
-is prepared from the review performed after period end and closes when the set
-is issued.
+is prepared from the review performed after period end and closes at that same
+approval.
 
 **Basis of preparation.** Every money amount this document states equals the
 actual February amount recorded in the account named beside it, to the cent,

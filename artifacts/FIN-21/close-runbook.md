@@ -50,7 +50,8 @@ after period end, with weekends skipped: D+1 is 2026-04-01 and D+5 is
 Two consequences follow, and both are worth stating because both are missed:
 
 1. A close day is never computed by adding calendar days to period end. Adding
-   calendar days would put D+4 on the Sunday, which is not a close day at all.
+   calendar days would put D+4 on the Saturday, which is not a close day at
+   all.
 2. The template carries the relative day, D+1 through D+5. Only the checklist
    for a given period carries the dated deadline. If a dated deadline and a
    relative day disagree, the relative day is the rule and the date is the
@@ -146,14 +147,17 @@ reviewable after the fact. A working paper that a reviewer cannot follow is not
 evidence, it is a note. Evidence for a close task has to show all of the
 following.
 
-1. **What it supports.** The identifier of the close task it is evidence for.
-   Evidence that supports no task is evidence for nothing.
+1. **What it supports.** The identifier of the close task it is evidence for,
+   or of the control it tests. Evidence that names neither is evidence for
+   nothing.
 2. **Which period it covers.** The period, stated once and at the top. Evidence
    with no period cannot be filed and cannot be reused.
 3. **What it is.** A title that names the work, not the file it arrived in.
 4. **What it was built from.** The source it cites: the system export, the
    statement, the schedule or the policy document it was prepared against, and
-   the reference within that source. A figure with no source is the finding the
+   the reference within that source where the source has one. A source cited
+   whole, rather than at a section or a line inside it, carries no further
+   reference and needs none. A figure with no source at all is the finding the
    close exists to prevent.
 5. **Who prepared it and who reviewed it.** Two roles, and never the same
    holder for both on one item.

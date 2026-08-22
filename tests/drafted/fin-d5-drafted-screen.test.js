@@ -27,6 +27,7 @@ import { generateArtifact } from "../../datagen/src/engine.js";
 import { buildCloseChecklistTemplate } from "../../datagen/src/generators/fin-36-close-checklist-template.js";
 import { csvTable, fileByPath } from "../helpers/csv-table.js";
 import { allowedFrom, unscreenedPhrases, unscreenedWords } from "../helpers/capitalized-screen.js";
+import { moneyMatches } from "../helpers/money-shape.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
@@ -59,8 +60,6 @@ const SCREEN_FILES = [
   join(REPO_ROOT, "tests", "artifacts", "fin-28-footnotes.test.js"),
 ];
 
-/** Anything that parses as a money amount: 1,234.56 / $1,234 / 1234.56. */
-const MONEY = /\$?\d{1,3}(,\d{3})+(\.\d{2})?|\$\s?\d+(\.\d{2})?|\b\d+\.\d{2}\b/g;
 
 const PROTAGONIST = "Atticus Dundee Inc.";
 
@@ -100,19 +99,31 @@ const FURNITURE_WORDS = [
   "Close", "Runbook", "Disclosure", "Footnotes", "Period", "Ended",
   "Board", "Deck", "Outline", "Quarterly", "Review",
   // The CORE-05 document-control block's field labels, which FIN-21 carries in
-  // the CORE-05 shape so the policy register can index it the same way.
-  "Document", "Control", "Field", "Value", "ID", "Version", "Status", "Owner",
-  "Approver", "Effective", "Date", "Last", "Reviewed", "Next", "Due",
-  "Supersedes", "Superseded", "By", "None", "Active",
+  // the CORE-05 shape so the policy register can index it the same way. Only
+  // the labels that form a two-word phrase are here ("Document Control",
+  // "Document ID", "Effective Date", "Last Reviewed", "Next Review Due",
+  // "Superseded By"). A label that stands alone in its own table cell is an
+  // opener the word screen already skips, so listing it would list nothing:
+  // "Field", "Value", "Version", "Status", "Owner", "Approver", "Supersedes",
+  // "None" and "Active" were dropped after a sweep showed the documents screen
+  // clean without them.
+  "Document", "Control", "ID", "Effective", "Date", "Last", "Reviewed",
+  "Next", "Due", "Superseded", "By",
   // Calendar and close-day vocabulary. "D" is the close-day prefix (D+1 to
   // D+5) and "Q" the quarter prefix; the weekday names are in the close-day
-  // rule as datagen/README.md states it, and the month is FIN-28's period.
-  "D", "Q", "Monday", "Sunday", "February",
+  // rule and in the consequence it rules out, and the month is FIN-28's period.
+  "D", "Q", "Monday", "Saturday", "February",
   // The entity by its shorthand, the way a policy or a footnote refers to it.
   "Company", "Company's",
   // The board as a body. "Board of Directors" is not a CORE-04 role title, so
   // no active employee holds it and the roster cannot supply it.
   "Directors",
+  // Openers a phrase is allowed to shed. These earn their place through
+  // unscreenedPhrases(): a candidate that begins a sentence or a table cell may
+  // drop its first word only when that word is listed here, so this is the
+  // list that decides "The Controller" is an article and a title while
+  // "Harriet Bank" is two thirds of a name.
+  "The", "No", "End",
 ];
 
 // --------------------------------------------------------- green before bytes
@@ -159,18 +170,27 @@ test("the todo markers and the drafted documents cannot both be on disk", () => 
 
 /**
  * The runbook's task rows, read back out of its own per-close-day tables:
- * `| CLS-01 | task | owner role | reviewer role | depends on | evidence |`.
- * Parsing the shipped document rather than trusting it is the whole point; a
- * row the parser cannot see is a row the comparison below reports as missing.
+ * `| CLS-01 | task | owner role | reviewer role | depends on | evidence |`,
+ * each under a `### Close day D+n` heading. Parsing the shipped document rather
+ * than trusting it is the whole point; a row the parser cannot see is a row the
+ * comparison below reports as missing.
+ *
+ * `close_day` comes off the heading a row sits under rather than out of the row
+ * itself, because that is the claim the runbook actually makes: a task in the
+ * wrong table is scheduled on the wrong day however correct its own cells are.
  */
 function runbookTasks(text) {
-  return text
-    .split("\n")
-    .filter((line) => /^\|\s*CLS-\d/.test(line))
-    .map((line) => line.split("|").slice(1, -1).map((cell) => cell.trim()))
-    .map(([task_id, task, owner_role, reviewer_role, depends_on, evidence_required]) => ({
-      task_id, task, owner_role, reviewer_role, depends_on, evidence_required,
-    }));
+  const rows = [];
+  let closeDay = "";
+  for (const line of text.split("\n")) {
+    const heading = line.match(/^###\s+Close day\s+(D\+\d)\s*$/);
+    if (heading) { closeDay = heading[1]; continue; }
+    if (!/^\|\s*CLS-\d/.test(line)) continue;
+    const [task_id, task, owner_role, reviewer_role, depends_on, evidence_required] =
+      line.split("|").slice(1, -1).map((cell) => cell.trim());
+    rows.push({ task_id, close_day: closeDay, task, owner_role, reviewer_role, depends_on, evidence_required });
+  }
+  return rows;
 }
 
 test("FIN-21 T-Q5: the runbook's task list is the FIN-36 template's, task for task", () => {
@@ -185,6 +205,7 @@ test("FIN-21 T-Q5: the runbook's task list is the FIN-36 template's, task for ta
   for (const [i, task] of template.entries()) {
     const row = rows[i];
     assert.equal(row.task_id, task.task_id, `runbook row ${i + 1} is ${row.task_id}, the template has ${task.task_id}`);
+    assert.equal(row.close_day, task.close_day, `${task.task_id}: sits under the wrong close day heading`);
     assert.equal(row.task, task.task, `${task.task_id}: task text differs from the template`);
     assert.equal(row.owner_role, task.owner_role, `${task.task_id}: owner role differs from the template`);
     assert.equal(row.reviewer_role, task.reviewer_role, `${task.task_id}: reviewer role differs from the template`);
@@ -203,7 +224,7 @@ test("FIN-21 T-Q5: the runbook's task list is the FIN-36 template's, task for ta
 
 test("FIN-21 T-Q5: the runbook carries no money amount, and states the close-day rule verbatim", () => {
   const text = document("FIN-21");
-  assert.deepEqual(text.match(MONEY) ?? [], [], "the runbook states a figure, which widens the freeze review");
+  assert.deepEqual(moneyMatches(text), [], "the runbook states a figure, which widens the freeze review");
   for (const date of ["2026-04-01", "2026-04-06", "2026-04-07"]) {
     assert.ok(text.includes(date), `the close-day rule does not name ${date}`);
   }
@@ -212,7 +233,7 @@ test("FIN-21 T-Q5: the runbook carries no money amount, and states the close-day
 
 test("FIN-30 T-R5: the outline carries no money amount and no percentage", () => {
   const text = document("FIN-30");
-  assert.deepEqual(text.match(MONEY) ?? [], [], "the outline states a figure; every figure belongs in FIN-29");
+  assert.deepEqual(moneyMatches(text), [], "the outline states a figure; every figure belongs in FIN-29");
   assert.deepEqual(text.match(/\d+(\.\d+)?\s?%/g) ?? [], [], "the outline states a percentage");
 });
 
