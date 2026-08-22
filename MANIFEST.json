@@ -482,6 +482,49 @@
             }
         },
         {
+            "id": "FIN-24",
+            "name": "actuals-vs-budget",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/actuals-vs-budget",
+            "files": [
+                "actuals-vs-budget.csv"
+            ],
+            "row_counts": {
+                "actuals-vs-budget.csv": 27
+            }
+        },
+        {
+            "id": "FIN-25",
+            "name": "supporting-je-detail",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/supporting-je-detail",
+            "files": [
+                "supporting-je-detail.csv"
+            ],
+            "row_counts": {
+                "supporting-je-detail.csv": 128
+            }
+        },
+        {
+            "id": "FIN-26",
+            "name": "materiality-thresholds",
+            "track": "finance",
+            "type": "config",
+            "format": "yaml",
+            "generation": "deterministic",
+            "path": "datasets/finance/materiality-thresholds",
+            "files": [
+                "materiality-thresholds.yaml"
+            ],
+            "row_counts": {}
+        },
+        {
             "id": "FIN-33",
             "name": "actuals-24mo",
             "track": "finance",
