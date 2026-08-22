@@ -41,21 +41,40 @@
 //      consumer has to show. The scope of that rule is the emitted datasets and
 //      never the repository: specs/artifact-specs.yaml carries the word in
 //      FIN-31's and FIN-34's own planted_features.
-//   P2 (V20, V21). Every input both readings need is emitted and no reading
-//      is: the deferred revenue that stands against total cash is here, the
-//      net loss is FIN-05's, and the cash and its own month-over-month change
-//      are FIN-32's.
+//   P2 (V20, V21, V22). Every input both readings need is emitted and no
+//      reading is: total cash and the two denominators (the net cash change
+//      FIN-32's own two pinned month-ends produce, and the net loss FIN-05
+//      carries), the deferred revenue that stands against cash, and the account
+//      choice inside the first method, which is four cash accounts against the
+//      one operating account the pack ships a bank statement for.
+//   P3. One cash account has a bank feed, three are held at the bank, and one
+//      is cash on hand with no bank at all. Bank equals book on the three with
+//      no feed and the file says so in a column rather than in a comment (plan
+//      U5), because inventing three more bank feeds would invent three more
+//      reconciliations nothing teaches.
+//   P4. Exactly one month-end in the operating account's series carries a zero
+//      reconciling difference, and it is 2026-02-28, which is the canon anchor
+//      that the February reconciliation closed with no carry-forward items.
+//
+// Every masked account number in FIN-32 is read out of FIN-01 rather than
+// typed: the operating account's out of its statement summary, the payroll and
+// money-market accounts' out of the transfer descriptions FIN-01's bank feed
+// already carries. The FIN-20 precedent, one artifact reading another at build
+// time, so a reroll of FIN-01 moves this file instead of leaving it stale.
 import { toCsv } from "../csv.js";
 import { CLOSE_PERIOD_END, monthEnds, TREND_MONTHS } from "../dates.js";
 import { cents, toCents } from "../money.js";
 import { createRng } from "../seed.js";
 import { buildRoster } from "./core-04-people-roster.js";
+import { buildCashReconciliation } from "./fin-01-cash-recon.js";
 import { buildArAging } from "./fin-04-ar-aging.js";
 import { buildTrialBalance } from "./fin-05-gl-trial-balance.js";
 
 export const id = "FIN-31";
 
 export const OUTPUT_FILE = "kpi-source-data.csv";
+
+export const BANK_BALANCES_FILE = "bank-balances.csv";
 
 export const COLUMNS = [
   "metric_id", "metric_name", "period_end", "value", "unit",
@@ -145,6 +164,20 @@ const ARR_CLOSING_BAND_CENTS = Object.freeze({
 
 /** Where the customer count has to open, so the series is a trend and not a flat line. */
 const CUSTOMER_OPENING_BAND = Object.freeze({ min: 8, max: 14 });
+
+/** Monthly drift and noise for the four cash accounts, the same shape. */
+const CASH_TRENDS = Object.freeze({
+  "1010": { growth: { min: 0.004, max: 0.016 }, noise: 0.055 },
+  "1020": { growth: { min: 0.002, max: 0.014 }, noise: 0.045 },
+  "1030": { growth: { min: 0.006, max: 0.018 }, noise: 0.012 },
+  "1050": { growth: { min: -0.004, max: 0.012 }, noise: 0.060 },
+});
+
+/** No cash account may fall below this on a free month. */
+const CASH_FLOOR_CENTS = 50000;
+
+/** The operating account's reconciling item on a free month, in cents. */
+const RECONCILING_ITEM_BAND_CENTS = Object.freeze({ min: 1800000, max: 9200000 });
 
 // ---------------------------------------------------------------- internals
 
@@ -288,6 +321,83 @@ function computationNote(metricId, periodEnd, { arGapCents }) {
   }
 }
 
+// -------------------------------------------------------------- FIN-32 rows
+
+/** The masked account numbers FIN-01 already carries, read rather than typed. */
+function maskedAccountNumbers(cashRecon) {
+  const masks = new Map([[RECONCILED_CASH_ACCOUNT, cashRecon.summary.account.number_masked]]);
+  const patterns = [
+    ["1020", /TRANSFER TO PAYROLL ACCT (XXXX-\d{4})/],
+    ["1030", /TRANSFER FROM MONEY MARKET (XXXX-\d{4})/],
+  ];
+  for (const [accountCode, pattern] of patterns) {
+    const found = new Set();
+    for (const row of cashRecon.bank) {
+      const match = pattern.exec(row.description);
+      if (match) found.add(match[1]);
+    }
+    if (found.size !== 1) {
+      throw new Error(
+        `${id}: FIN-01's bank feed names ${found.size} masked numbers for account ${accountCode}, expected 1. `
+        + "FIN-32 reads them out of FIN-01 rather than typing them, so a reroll of the feed lands here."
+      );
+    }
+    masks.set(accountCode, [...found][0]);
+  }
+  if (new Set(masks.values()).size !== masks.size) {
+    throw new Error(`${id}: two cash accounts share a masked number`);
+  }
+  return masks;
+}
+
+/** The book balance of every cash account at every month end, in cents. */
+function buildCashSeries({ periodEnds, cashAccounts }) {
+  const closeIndex = periodEnds.length - 1;
+  const februaryIndex = periodEnds.indexOf(NO_CARRY_FORWARD_PERIOD_END);
+  const series = new Map();
+  for (const account of cashAccounts) {
+    const trend = CASH_TRENDS[account.account_code];
+    if (!trend) throw new Error(`${id}: FIN-05 carries a cash account ${account.account_code} with no trend`);
+    series.set(account.account_code, trendSeries({
+      count: periodEnds.length,
+      pinned: new Map([
+        [februaryIndex, toCents(account.beginning_balance)],
+        [closeIndex, toCents(account.ending_balance)],
+      ]),
+      anchorIndex: februaryIndex,
+      growth: trend.growth,
+      noise: trend.noise,
+      rng: createRng(id, `cash:${account.account_code}`),
+      floor: CASH_FLOOR_CENTS,
+    }));
+  }
+  return series;
+}
+
+/**
+ * The operating account's reconciling difference at each month end: zero at the
+ * February anchor, FIN-01's own difference at the close, and a seeded
+ * outstanding-item balance on every other month. The three accounts with no
+ * bank feed carry zero at every date and say so in a column rather than in a
+ * comment (plan U5).
+ */
+function buildReconcilingDifferences({ periodEnds, bookSeries, bankEndingCents }) {
+  const rng = createRng(id, "reconciling-items");
+  const differences = new Map();
+  for (const [accountCode, book] of bookSeries) {
+    if (accountCode !== RECONCILED_CASH_ACCOUNT) {
+      differences.set(accountCode, periodEnds.map(() => 0));
+      continue;
+    }
+    differences.set(accountCode, periodEnds.map((periodEnd, t) => {
+      if (periodEnd === NO_CARRY_FORWARD_PERIOD_END) return 0;
+      if (periodEnd === CLOSE_PERIOD_END) return bankEndingCents - book[t];
+      return rng.int(RECONCILING_ITEM_BAND_CENTS.min, RECONCILING_ITEM_BAND_CENTS.max);
+    }));
+  }
+  return differences;
+}
+
 // ---------------------------------------------------------------- the plants
 
 function assertKpiPlants({ periodEnds, series, arSummary, trialBalance, roster }) {
@@ -367,18 +477,78 @@ function assertKpiPlants({ periodEnds, series, arSummary, trialBalance, roster }
   }
 }
 
+function assertCashPlants({ periodEnds, cashAccounts, bookSeries, differences, cashRecon, masks }) {
+  const close = periodEnds.length - 1;
+  const february = close - 1;
+  for (const account of cashAccounts) {
+    const book = bookSeries.get(account.account_code);
+    const difference = differences.get(account.account_code);
+    if (book.length !== periodEnds.length || difference.length !== periodEnds.length) {
+      throw new Error(`${id}: account ${account.account_code} does not carry all ${periodEnds.length} months`);
+    }
+    if (book[february] !== toCents(account.beginning_balance)) {
+      throw new Error(`${id}: account ${account.account_code} at February is not FIN-05's beginning balance`);
+    }
+    if (book[close] !== toCents(account.ending_balance)) {
+      throw new Error(`${id}: account ${account.account_code} at the close is not FIN-05's ending balance`);
+    }
+    if (book.some((v) => v < CASH_FLOOR_CENTS)) {
+      throw new Error(`${id}: account ${account.account_code} falls below the cash floor`);
+    }
+    if (account.account_code !== RECONCILED_CASH_ACCOUNT && difference.some((d) => d !== 0)) {
+      throw new Error(`${id}: account ${account.account_code} has no bank feed, so it cannot carry a difference`);
+    }
+  }
+
+  // The one account with a feed: FIN-01 pins both of its bank-side ends, the
+  // close at its statement's ending balance and February at its opening one,
+  // which is the same figure FIN-05 carries as the book beginning balance.
+  const operating = bookSeries.get(RECONCILED_CASH_ACCOUNT);
+  const operatingDifference = differences.get(RECONCILED_CASH_ACCOUNT);
+  if (operating[close] + operatingDifference[close] !== toCents(cashRecon.summary.ending_balance)) {
+    throw new Error(`${id}: the operating account does not close at FIN-01's bank-side ending balance`);
+  }
+  if (operating[february] + operatingDifference[february] !== toCents(cashRecon.summary.opening_balance)) {
+    throw new Error(`${id}: the operating account's February bank balance is not FIN-01's opening balance`);
+  }
+
+  // P4: exactly one zero difference in the operating series, at the canon anchor.
+  const zeroes = periodEnds.filter((_, t) => operatingDifference[t] === 0);
+  if (zeroes.length !== 1 || zeroes[0] !== NO_CARRY_FORWARD_PERIOD_END) {
+    throw new Error(
+      `${id}: ${zeroes.length} month-ends close with no carry-forward items (${zeroes.join(", ")}), `
+      + `expected 1 (${NO_CARRY_FORWARD_PERIOD_END})`
+    );
+  }
+
+  // P3: one feed, three held at the bank, one cash on hand.
+  const held = cashAccounts.filter((a) => a.account_name.endsWith(` - ${cashRecon.summary.bank.name}`));
+  if (held.length !== 3 || !held.some((a) => a.account_code === RECONCILED_CASH_ACCOUNT)) {
+    throw new Error(`${id}: ${held.length} cash accounts are held at ${cashRecon.summary.bank.name}, expected 3`);
+  }
+  if (masks.size !== held.length || held.some((a) => !masks.has(a.account_code))) {
+    throw new Error(`${id}: ${masks.size} masked numbers for ${held.length} accounts held at the bank`);
+  }
+  if (cashRecon.summary.account.gl_account !== RECONCILED_CASH_ACCOUNT) {
+    throw new Error(`${id}: FIN-01's statement is not the account ${RECONCILED_CASH_ACCOUNT} statement`);
+  }
+}
+
 // ------------------------------------------------------------------ builder
 
 /**
- * Build the KPI input set. Pure: no I/O, no Date.now(), every draw from
+ * Build both files together. Pure: no I/O, no Date.now(), every draw from
  * createRng("FIN-31", stream).
- * @returns {{ kpiRows: object[], periodEnds: string[] }}
+ * @returns {{ kpiRows: object[], bankRows: object[], periodEnds: string[] }}
  */
 export function buildKpiSources() {
   const periodEnds = monthEnds(TREND_MONTHS, CLOSE_PERIOD_END);
-  const trialBalance = new Map(buildTrialBalance().rows.map((r) => [r.account_code, r]));
+  const trialBalanceRows = buildTrialBalance().rows;
+  const trialBalance = new Map(trialBalanceRows.map((r) => [r.account_code, r]));
+  const cashAccounts = trialBalanceRows.filter((r) => r.subtype === "cash");
   const { summary: arSummary } = buildArAging();
   const roster = buildRoster(createRng("CORE-04", "roster"));
+  const cashRecon = buildCashReconciliation();
 
   const arGapCents = toCents(arSummary.subledger_total)
     - toCents(trialBalance.get(AR_CONTROL_ACCOUNT).ending_balance);
@@ -407,10 +577,45 @@ export function buildKpiSources() {
       });
     });
   }
+  const masks = maskedAccountNumbers(cashRecon);
+  const bookSeries = buildCashSeries({ periodEnds, cashAccounts });
+  const differences = buildReconcilingDifferences({
+    periodEnds,
+    bookSeries,
+    bankEndingCents: toCents(cashRecon.summary.ending_balance),
+  });
+  assertCashPlants({ periodEnds, cashAccounts, bookSeries, differences, cashRecon, masks });
+
+  const bankRows = [];
+  for (const account of cashAccounts) {
+    const book = bookSeries.get(account.account_code);
+    const difference = differences.get(account.account_code);
+    const heldAtBank = masks.has(account.account_code);
+    periodEnds.forEach((periodEnd, t) => {
+      const pinned = periodEnd === NO_CARRY_FORWARD_PERIOD_END || periodEnd === CLOSE_PERIOD_END;
+      const feed = pinned && account.account_code === RECONCILED_CASH_ACCOUNT;
+      bankRows.push({
+        account_code: account.account_code,
+        account_name: account.account_name,
+        bank_canon_id: heldAtBank ? cashRecon.summary.bank.canon_id : "",
+        bank_name: heldAtBank ? cashRecon.summary.bank.name : "",
+        account_number_masked: heldAtBank ? masks.get(account.account_code) : "",
+        period_end: periodEnd,
+        book_balance: cents(book[t]),
+        bank_balance: cents(book[t] + difference[t]),
+        reconciling_difference: cents(difference[t]),
+        source_artifact: feed ? "FIN-05 and FIN-01" : (pinned ? "FIN-05" : ""),
+      });
+    });
+  }
+
   if (kpiRows.length !== METRIC_IDS.length * periodEnds.length) {
     throw new Error(`${id}: ${kpiRows.length} KPI rows, expected ${METRIC_IDS.length * periodEnds.length}`);
   }
-  return { kpiRows, periodEnds };
+  if (bankRows.length !== cashAccounts.length * periodEnds.length) {
+    throw new Error(`${id}: ${bankRows.length} bank rows, expected ${cashAccounts.length * periodEnds.length}`);
+  }
+  return { kpiRows, bankRows, periodEnds };
 }
 
 /** V19: the method the pack supports two readings of is named in no emitted file. */

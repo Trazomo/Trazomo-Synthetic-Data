@@ -22,6 +22,7 @@ import { readFileSync } from "node:fs";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
+import { hasGenerator } from "../../datagen/src/generators/index.js";
 import { csvTable, fileByPath } from "../helpers/csv-table.js";
 import { buildTrialBalance } from "../../datagen/src/generators/fin-05-gl-trial-balance.js";
 import {
@@ -29,8 +30,6 @@ import {
 } from "../../datagen/src/generators/fin-31-kpi-source-data.js";
 import { cents, toCents } from "../../datagen/src/money.js";
 import { CLOSE_PERIOD_END, monthEnds, TREND_MONTHS } from "../../datagen/src/dates.js";
-
-const WAVE = "D5a wave 1 (plan Task 7) builds FIN-31 and FIN-32 after FIN-33 and deletes this marker";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
@@ -61,7 +60,7 @@ function bankRows() {
   return table.rows;
 }
 
-// --------------------------------------------------------- green before bytes
+// ------------------------------------------------- the contract, before bytes
 
 test("FIN-31 and FIN-32: the generators' column lists and the specs agree, and both plot one series", () => {
   assert.deepEqual(COLUMNS, specs.byId.get("FIN-31").columns);
@@ -131,7 +130,7 @@ test("FIN-32 T-S3 and T-S4: both ends of the close, and the one account with a b
   assert.ok(!checks.cols.includes("gl_account"));
 });
 
-// ------------------------------------------------------------ red until built
+// ----------------------------------------------------------------- the bytes
 
 test("FIN-31: 168 rows, seven inputs by the shared 24 month-ends", () => {
   const rows = kpiRows();
@@ -267,20 +266,72 @@ test("FIN-31: every source_artifact names a shipped id, and every source_referen
   );
 });
 
-test("FIN-32: 96 rows, and every book balance tied to FIN-05 at both ends of the close", { todo: WAVE }, () => {
+test("FIN-32 T-S3: 96 rows, and every book balance tied to FIN-05's committed bytes at both ends of the close", () => {
   const rows = bankRows();
   assert.equal(rows.length, 96);
-  const tb = new Map(cashAccounts().map((a) => [a.account_code, a]));
-  for (const row of rows.filter((r) => r.period_end === "2026-02-28")) {
-    assert.equal(row.book_balance, tb.get(row.account_code).beginning_balance, `${row.account_code} at 2026-02-28`);
+  const tb = new Map(
+    shippedCsv("finance/gl-trial-balance", "gl-trial-balance.csv").rows
+      .filter((r) => r.subtype === "cash").map((r) => [r.account_code, r])
+  );
+  assert.equal(tb.size, 4, "FIN-05 no longer carries four cash accounts, so 96 is the wrong row count");
+  for (const [accountCode, balance] of tb) {
+    const series = rows.filter((r) => r.account_code === accountCode);
+    assert.equal(series.length, 24, `${accountCode} is not a full series`);
+    assert.deepEqual(series.map((r) => r.period_end), PERIOD_ENDS, `${accountCode} is not in month order`);
+    assert.equal(new Set(series.map((r) => r.account_name)).size, 1);
+    assert.equal(series[0].account_name, balance.account_name, `${accountCode} does not carry FIN-05's own name`);
+    const at = (periodEnd) => series.find((r) => r.period_end === periodEnd);
+    assert.equal(at("2026-02-28").book_balance, balance.beginning_balance, `${accountCode} at 2026-02-28`);
+    assert.equal(at(CLOSE_PERIOD_END).book_balance, balance.ending_balance, `${accountCode} at ${CLOSE_PERIOD_END}`);
+    for (const row of series) {
+      assert.match(row.book_balance, /^\d+\.\d{2}$/, `${accountCode} at ${row.period_end} is not a positive 2dp amount`);
+    }
   }
-  for (const row of rows.filter((r) => r.period_end === "2026-03-31")) {
-    assert.equal(row.book_balance, tb.get(row.account_code).ending_balance, `${row.account_code} at 2026-03-31`);
-  }
+  // Both ends pinned is the qualified count; with the qualifier dropped, the
+  // other 22 months of each series are free and are constrained by continuity
+  // alone, which is 88 of the 96 rows.
+  assert.equal(rows.filter((r) => r.source_artifact !== "").length, 8);
+  assert.equal(rows.filter((r) => r.source_artifact === "").length, 88);
 });
 
-test("FIN-32 T-S5: reconciling_difference is the subtraction its own columns state, on all 96 rows", { todo: WAVE }, () => {
-  for (const row of bankRows()) {
+test("FIN-32 T-S4: the one account with a bank feed, and the two ends FIN-01 pins", () => {
+  const summary = shippedJson("finance/bank-transactions", "bank-statement-summary.json");
+  assert.equal(summary.account.gl_account, RECONCILED_CASH_ACCOUNT, "FIN-01 is no longer the 1010 statement");
+  const series = bankRows().filter((r) => r.account_code === RECONCILED_CASH_ACCOUNT);
+  const at = (periodEnd) => series.find((r) => r.period_end === periodEnd);
+
+  assert.equal(at(CLOSE_PERIOD_END).bank_balance, summary.ending_balance, "1010 at the close is not FIN-01's ending balance");
+  assert.equal(at("2026-02-28").bank_balance, summary.opening_balance, "1010 at February is not FIN-01's opening balance");
+  assert.equal(at("2026-02-28").reconciling_difference, "0.00", "the February reconciliation carries an item");
+  assert.equal(
+    at(CLOSE_PERIOD_END).reconciling_difference,
+    cents(toCents(summary.ending_balance) - toCents(at(CLOSE_PERIOD_END).book_balance))
+  );
+
+  // Not a two-item reconciliation: FIN-03's twelve outstanding checks come to
+  // less than the difference and FIN-03 carries no account attribution at all,
+  // so the remainder is FIN-01's other reconciling items.
+  const checks = shippedCsv("finance/outstanding-checks", "outstanding-checks.csv");
+  assert.equal(checks.rows.length, 12);
+  assert.ok(!checks.cols.includes("gl_account"));
+  const checkTotal = checks.rows.reduce((sum, r) => sum + toCents(r.amount), 0);
+  assert.ok(
+    checkTotal < toCents(at(CLOSE_PERIOD_END).reconciling_difference),
+    `the outstanding checks (${cents(checkTotal)}) now explain the whole difference`
+  );
+
+  // Exactly one month-end in the series closes with no carry-forward items, and
+  // it is the one the canon timeline names. With the qualifier dropped, all 24
+  // month-ends carry a difference column at all.
+  const clean = series.filter((r) => r.reconciling_difference === "0.00");
+  assert.equal(clean.length, 1, `month-ends with no carry-forward items: ${clean.map((r) => r.period_end).join(", ")}`);
+  assert.equal(clean[0].period_end, "2026-02-28");
+  assert.equal(series.length, 24);
+});
+
+test("FIN-32 T-S5: reconciling_difference is the subtraction its own columns state, on all 96 rows", () => {
+  const rows = bankRows();
+  for (const row of rows) {
     assert.equal(
       row.reconciling_difference,
       cents(toCents(row.bank_balance) - toCents(row.book_balance)),
@@ -288,18 +339,129 @@ test("FIN-32 T-S5: reconciling_difference is the subtraction its own columns sta
     );
     if (row.account_code !== RECONCILED_CASH_ACCOUNT) {
       assert.equal(row.reconciling_difference, "0.00", `${row.account_code} has no bank feed, so it cannot carry a difference`);
+      assert.equal(row.bank_balance, row.book_balance, `${row.account_code} at ${row.period_end}`);
     }
   }
-  const march1010 = bankRows().find((r) => r.account_code === RECONCILED_CASH_ACCOUNT && r.period_end === "2026-03-31");
+  const march1010 = rows.find((r) => r.account_code === RECONCILED_CASH_ACCOUNT && r.period_end === CLOSE_PERIOD_END);
   assert.equal(march1010.bank_balance, "2806284.46");
   assert.equal(march1010.reconciling_difference, "65925.37");
 });
 
-test("FIN-31 and FIN-32 T-S6 and V19: no emitted file names the absent metric", { todo: WAVE }, () => {
-  const emitted = [
-    ...generateArtifact(specs.byId.get("FIN-31"), canon),
-    ...generateArtifact(specs.byId.get("FIN-32"), canon),
+test("FIN-32 P3: one account with a feed, three held at the bank, four cash accounts", () => {
+  const rows = bankRows();
+  const summary = shippedJson("finance/bank-transactions", "bank-statement-summary.json");
+  const byAccount = new Map();
+  for (const row of rows) byAccount.set(row.account_code, row);
+
+  // Both cardinalities, three deep: the pack ships a statement for 1 account,
+  // 3 are held at the canon bank, and FIN-05 carries 4 accounts with subtype
+  // cash. Dropping the feed qualifier gives 3; dropping the bank qualifier too
+  // gives 4, which is the count a reader takes without asking.
+  const withFeed = [...byAccount.values()].filter((r) => r.account_code === summary.account.gl_account);
+  const heldAtBank = [...byAccount.values()].filter((r) => r.bank_canon_id !== "");
+  assert.equal(withFeed.length, 1);
+  assert.equal(heldAtBank.length, 3, `held at a bank: ${heldAtBank.map((r) => r.account_code).join(", ")}`);
+  assert.equal(byAccount.size, 4);
+
+  // The three that are held at a bank name the canon bank and nothing else, and
+  // their masked numbers are FIN-01's own rather than three new inventions.
+  const feed = shippedCsv("finance/bank-transactions", "bank-transactions.csv").rows;
+  const maskedIn = (pattern) => {
+    const found = new Set();
+    for (const row of feed) {
+      const match = pattern.exec(row.description);
+      if (match) found.add(match[1]);
+    }
+    assert.equal(found.size, 1, `FIN-01's feed names ${found.size} masked numbers for ${pattern}`);
+    return [...found][0];
+  };
+  assert.equal(byAccount.get("1010").account_number_masked, summary.account.number_masked);
+  assert.equal(byAccount.get("1020").account_number_masked, maskedIn(/TRANSFER TO PAYROLL ACCT (XXXX-\d{4})/));
+  assert.equal(byAccount.get("1030").account_number_masked, maskedIn(/TRANSFER FROM MONEY MARKET (XXXX-\d{4})/));
+  assert.equal(new Set(heldAtBank.map((r) => r.account_number_masked)).size, 3);
+  for (const row of heldAtBank) {
+    assert.equal(row.bank_canon_id, summary.bank.canon_id, `${row.account_code} names a different bank`);
+    assert.equal(row.bank_name, summary.bank.name);
+    assert.ok(canon.has(row.bank_canon_id), `${row.bank_canon_id} is not a canon company`);
+  }
+  // The fourth is cash on hand: no bank, no masked number, and it says so by
+  // leaving the columns empty rather than by inventing a fourth bank feed.
+  const onHand = [...byAccount.values()].filter((r) => r.bank_canon_id === "");
+  assert.equal(onHand.length, 1);
+  assert.equal(onHand[0].bank_name, "");
+  assert.equal(onHand[0].account_number_masked, "");
+});
+
+test("FIN-31 and FIN-32 V20, V21 and V22: every input both readings need is emitted, and no reading is", () => {
+  const kpi = kpiRows();
+  const bank = bankRows();
+  const at = (rows, key, value) => rows.filter((r) => r[key] === value);
+  const totalCash = (periodEnd) =>
+    at(bank, "period_end", periodEnd).reduce((sum, r) => sum + toCents(r.book_balance), 0);
+
+  // V22, both cardinalities: the numerator has two defensible readings, all
+  // four cash accounts against the one account the pack ships a statement for.
+  // Drop the qualifier and take FIN-05's subtype at face value and there is 1.
+  const allFour = totalCash(CLOSE_PERIOD_END);
+  const operatingAlone = toCents(
+    bank.find((r) => r.account_code === RECONCILED_CASH_ACCOUNT && r.period_end === CLOSE_PERIOD_END).book_balance
+  );
+  assert.equal(new Set([allFour, operatingAlone]).size, 2, "the account choice no longer changes the answer");
+  const cashSubtypes = new Set(
+    shippedCsv("finance/gl-trial-balance", "gl-trial-balance.csv").rows
+      .filter((r) => r.subtype === "cash").map((r) => r.subtype)
+  );
+  assert.equal(cashSubtypes.size, 1, "subtype alone gives one answer, which is the reading that skips the question");
+  assert.equal(cents(allFour), "30632542.04");
+
+  // V20, both cardinalities: two denominators the pack supports, and no file
+  // declaring which. One of the two is computable from FIN-32 alone, which is
+  // the count a reader gets who assumes the term is defined.
+  const netCashChange = totalCash("2026-02-28") - allFour;
+  const netLoss = toCents(
+    shippedCsv("finance/gl-trial-balance", "gl-trial-balance.csv").rows
+      .find((r) => r.account_code === "3200").period_debit
+  );
+  const denominators = [
+    { name: "net cash change", cents: netCashChange, fromCashAlone: true },
+    { name: "net loss", cents: netLoss, fromCashAlone: false },
   ];
+  assert.equal(denominators.length, 2);
+  assert.equal(denominators.filter((d) => d.fromCashAlone).length, 1);
+  for (const denominator of denominators) assert.ok(denominator.cents > 0, `${denominator.name} is not a positive burn`);
+  assert.equal(cents(netCashChange), "921297.54");
+  assert.equal(cents(netLoss), "1768047.78");
+  // Two denominators against one numerator is two different answers, and the
+  // gap between them is not a rounding difference.
+  const months = denominators.map((d) => Math.round((allFour / d.cents) * 10) / 10);
+  assert.equal(new Set(months).size, 2, "the two methods no longer disagree");
+  assert.ok(Math.abs(months[0] - months[1]) > 1, `the two methods differ by ${Math.abs(months[0] - months[1])} months`);
+
+  // V21, both cardinalities: exactly one FIN-31 caption stands against cash and
+  // makes a third reading, and a reader who never opens the balance sheet finds
+  // none, because FIN-32 carries no liability at all.
+  const tb = new Map(shippedCsv("finance/gl-trial-balance", "gl-trial-balance.csv").rows.map((r) => [r.account_code, r]));
+  const liabilityBacked = at(kpi, "period_end", CLOSE_PERIOD_END).filter((row) => {
+    if (row.source_artifact !== "FIN-05") return false;
+    const account = tb.get(row.source_reference.split(" ")[2]);
+    return account?.type === "liability";
+  });
+  assert.equal(liabilityBacked.length, 2, "the two deferred revenue components");
+  const captions = new Set(liabilityBacked.map((r) => r.metric_id.replace(/_(current|noncurrent)$/, "")));
+  assert.equal(captions.size, 1, `captions standing against cash: ${[...captions].join(", ")}`);
+  const deferred = liabilityBacked.reduce((sum, r) => sum + toCents(r.value), 0);
+  assert.equal(cents(deferred), "22294735.52");
+  assert.ok(deferred < allFour, "the caveat only bites while cash stands above the contract liability");
+  assert.equal(
+    bank.filter((r) => Object.keys(r).some((c) => /liabilit|deferred/.test(c))).length, 0,
+    "FIN-32 now carries a liability, so the third reading no longer needs the balance sheet"
+  );
+});
+
+test("FIN-31 and FIN-32 T-S6 and V19: no emitted file names the absent metric", () => {
+  const built = ["FIN-29", "FIN-31", "FIN-32", "FIN-33", "FIN-34"].filter((specId) => hasGenerator(specId));
+  assert.ok(built.includes("FIN-31") && built.includes("FIN-32"), "this wave's own ids are not registered");
+  const emitted = built.flatMap((specId) => generateArtifact(specs.byId.get(specId), canon));
   for (const file of emitted) {
     assert.ok(
       !new RegExp(ABSENT_BY_DESIGN, "i").test(file.content),
@@ -307,5 +469,9 @@ test("FIN-31 and FIN-32 T-S6 and V19: no emitted file names the absent metric", 
     );
   }
   // The scope is the emitted datasets and never the repository: FIN-31's own
-  // spec planted_features carry the word, and so does FIN-34's.
+  // spec planted_features carry the word, and so does FIN-34's. Both
+  // cardinalities: 0 emitted files name it, and the catalog names it twice,
+  // which is why a repository-wide assertion would fail on D5's own work.
+  const catalog = readFileSync(join(REPO_ROOT, "specs", "artifact-specs.yaml"), "utf8");
+  assert.equal(catalog.match(new RegExp(ABSENT_BY_DESIGN, "gi")).length, 2);
 });
