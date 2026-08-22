@@ -1,5 +1,162 @@
 # Changelog
 
+## 1.5.0
+
+**Tags at merge of the D5b PR (`feat/fin-clusters34-d5b-drafted`), stacked on
+this D5a PR (`feat/fin-clusters34-d5a-datasets`).** The tag is cut by the
+release controller after merge, not on a branch, and it covers both PRs.
+Consumers pinned to `v1.4.0` or `v1.4.1` are unaffected until they move the
+pin; trazomo's cluster 3 and 4 finance modules (22, 23, 24, 25, 29, 30) will
+pin `v1.5.0`. Fallback, stated here so the content lanes do not have to
+discover it: if the D5b freeze review slips, D5a merges alone and `v1.5.0` is
+cut on the datasets; modules 23, 29 and 30 brief at `v1.5.0` and modules 22,
+24 and 25 wait for `v1.6.0`.
+
+D5a ships ten datasets and configs, no new drafted prose. Every prose artifact
+it reads (CORE-05 through FIN-20's shipped index, FIN-40's excerpt) is read and
+never edited, so no freeze review gates this PR. The plan is
+`docs/plans/2026-08-22-finance-clusters34-d5-data-plan.md` on trazomo main
+(#189), with Salvador's ten Section 9.1 rulings all approved as recommended
+on 2026-08-22. Build order was the plan's DAG, one implementer at a time, each
+artifact verified by execution (plants and tie-outs re-derived from committed
+bytes, never from typed constants) and by a one-byte mutation receipt naming
+the row, before the next started.
+
+Two rules, stated once in the plan and now recorded in `datagen/README.md`:
+
+- **R-SIGN.** Per-line `actual_amount` uses the normal-balance convention
+  (`period_debit` less `period_credit` on a debit-normal line, the reverse on
+  a credit-normal line); statement subtotals apply `section_sign`, which FIN-24
+  ships as a column so a subtotal is one pass over the file with no external
+  table. Summing revenue unsigned gives `4245474.82`, wrong by exactly twice
+  BVA-06; the right figure is `4154683.80`.
+- **R-CLS17.** A D5 artifact may state that the checklist file shows `CLS-17`
+  as `not_started` and that FIN-24's explanation column is empty (byte facts).
+  It may not state that the variance work has not been done; merged module 9
+  already told a learner it has. FIN-24 is the input CLS-17 consumes, not the
+  output it produces.
+
+- **FIN-33 actuals-24mo**: 648-row 24-month profit-and-loss trend CSV, the 27
+  FIN-37 lines by 24 month-ends from `2024-04-30` to `2026-03-31`. Two
+  reconciliations hold by construction across all 27 lines and the generator
+  asserts both: `2026-03` equals FIN-05's period movement under R-SIGN, and
+  `2026-01` plus `2026-02` equals FIN-05's `beginning_balance` (balances are
+  positive in the account's own direction; the direction lives in which of
+  `ending_debit`/`ending_credit` is populated, so nothing "flips"). Three
+  material flux lines (BVA-11/6000, BVA-19/6200, BVA-20/6300) against four
+  material budget lines (BVA-04, BVA-09, BVA-13, BVA-19); the rules disagree on
+  five lines and agree on exactly one, BVA-19. One seasonal line (BVA-21/6310,
+  peaks in September both years). The flux rule lives here as `FLUX_RULE` and
+  `fluxThresholdCents()` and FIN-26 imports it rather than retyping it.
+- **FIN-34 drivers**: the driver set and its bands as YAML, emitted by FIN-33's
+  builder so the two cannot disagree. One band crosses zero (`hiring`); one
+  driver moves cash and no margin line (`collection_delay`, naming FIN-31's
+  `ar_subledger_balance`); `applies_to` is a mixed list of FIN-33 line ids and
+  FIN-31 metric ids. Cost per head `5818.32` recomputes from FIN-05 and
+  CORE-04's 582 active heads.
+- **FIN-26 materiality-thresholds**: the budget and flux materiality policy as
+  YAML, writing down the rule FIN-37's 27 thresholds already obey (T-M1: zero
+  mismatches against the shipped template) and the flux rule FIN-33 was built
+  to (three breaches, 27 lines move). `related_decision_id` resolves to
+  FIN-39's DA-01.
+- **FIN-24 actuals-vs-budget**: the 27-line filled variance tracker on the
+  FIN-37 spine with `section_sign` shipped as a column. Its four material
+  variances and the derivation rule were already printed in merged trazomo
+  content (`finance-google-workspace` lesson 02): BVA-04 `23710.01` / 5.44%,
+  BVA-09 `17518.43` / 5.74%, BVA-13 `-17134.55` / -5.86%, BVA-19 `47043.50` /
+  7.11% on `708443.50` against `661400.00`; the test recomputes each from
+  FIN-05 in its own arithmetic and pins all four. `variance_explanation` is
+  empty on every row (R-CLS17). **FIN-24 is a downstream consumer of FIN-05's
+  period columns, FIN-33's February column and FIN-37.**
+- **FIN-25 supporting-je-detail**: 128 posted lines across 96 entries and 29
+  counterparties on six accounts (4100, 5020, 6000, 6020, 6200, 6300), each
+  account's debits and credits reconciling to FIN-05's period columns to the
+  cent, proven arithmetically not to be FIN-09's. Plants: one timing
+  variance (6020, FIN-09 accrual lines), one true overspend (6200), one reclass
+  (co-106, modal on 6020 with two stray lines on 6000; the plan's parenthetical
+  placed it on 5020, which the bytes cannot satisfy alongside V6's
+  qualifier-free count of 2), one blocked revenue line (4100, CLS-14 not
+  complete). Owns the `GL-202603-NNNN` entry block and the
+  `AP-/AR-/PAYREG-/JV-202603-NNNN` source-document blocks, which are
+  self-contained by ruling (2026-08-22): they do not join FIN-13's March bills,
+  FIN-07 or FIN-09, and module 23's trace stops at the cited id. **FIN-25 is a
+  downstream consumer of FIN-05's period columns; a FIN-05 regeneration breaks
+  its per-account sums, which is the correct failure.**
+- **FIN-31 kpi-source-data**: 168 rows exactly, seven non-ledger inputs by 24
+  month-ends (`ar_subledger_balance`, `deferred_revenue_current`,
+  `deferred_revenue_noncurrent`, `ar_customer_count`, `new_arr`,
+  `churned_arr`, `headcount`). Pinned at both ends of the close, not only at
+  `2026-03-31`: 30 of 168 rows carry a `source_artifact` (24 headcount rows
+  from CORE-04's rule, four deferred-revenue rows from FIN-05's beginning and
+  ending balances on 2300 and 2310, two FIN-04 rows). The `2026-03-31`
+  subledger row names the `17446.72` difference against control account 1100
+  rather than hiding it (U17). No file emitted by FIN-29, FIN-31, FIN-32,
+  FIN-33 or FIN-34 contains the string `runway`; the test auto-enrols every
+  registered generator in that set.
+- **FIN-32 bank-balances**: 96 rows, four cash accounts by 24 month-ends, book
+  and bank side by side with `reconciling_difference == bank - book` on every
+  row. Book ties to FIN-05 at both ends of the close; 1010's bank balance ties
+  to FIN-01 at both ends (`3482915.22` opening, `2806284.46` closing, difference
+  `65925.37` at `2026-03-31`, `0.00` at `2026-02-28`). 1050 Petty Cash carries
+  no bank, no masked number and no `bank_canon_id`: FIN-05 names it plainly
+  while the other three end in `- Anchor Point Bank`. Masked account numbers
+  for 1020 and 1030 are parsed out of FIN-01's shipped feed (`XXXX-4425`,
+  `XXXX-4433`), not invented.
+- **FIN-27 approved-je-summary**: 31 rows, one per FIN-09 entry, totals
+  `1319977.89`. Exactly one entry in the population a supporting document is
+  expected for carries none (`JE-202603-C031`); the naive read returns three,
+  because the two internal schedule blanks (`C025`, `C027`) are the v1.4.1 rule
+  rather than a finding, and the test asserts both numbers. Eleven approvals
+  fall on the weekend of `2026-04-04`/`05`; one preparer, one approver, never
+  the same person; `JE-202603-C030` posts to inactive account 6125 and
+  `distinct_accounts` says so. **FIN-27 is the only cluster 3/4 artifact whose
+  ROWS derive from FIN-09's bytes** (and from FIN-22 `active` and CORE-04).
+  Three others read the batch without carrying a row of it: FIN-29 reads it for
+  one `basis` string and throws if FIN-09 stops debiting account 6020, and
+  FIN-24 and FIN-33 read it only to assert the disjointness their plants rest
+  on. A FIN-09 regeneration therefore reaches four cluster 3/4 generators.
+- **FIN-23 audit-evidence-index**: 32 rows, 19 reusing FIN-18's binder
+  references and 13 derived from FIN-17's complete tasks. One citation lands
+  on a superseded CORE-05 document (`EV-2026Q1-030`, ADI-FIN-001, CLS-12); one
+  identical-title pair `period` cannot separate (CLS-02 and CLS-03, both
+  `2026-03`); one row indexed and not filed (`EV-2026Q1-032`); one passed
+  control the index is silent about (`CTL-006`, among seven controls with no
+  row). The contrast count for the empty-`source_reference` misread is **9**,
+  not the 13 the plan and spec first said (three complete tasks carry an
+  `account_code` and the constructed CLS-12 row carries a citation); the spec
+  is corrected and the test asserts the decomposition. No row exists for
+  CLS-17 because the checklist file does not report it complete (a file
+  statement, per R-CLS17). **FIN-23 is downstream of FIN-18, FIN-17 and FIN-20,
+  and through FIN-20 of the CORE-05 prose parsed at build time.**
+- **FIN-29 approved-metrics-pack**: 12 metrics as JSON, every value recomputed
+  from frozen bytes and every `basis` naming its sign convention; the two
+  board-reported headlines round to FIN-40's 12.2 and 5.2 million and the
+  classification banner is read out of the excerpt verbatim. Subtotals
+  `revenue 4154683.80`, `cost_of_revenue 794782.15`, `operating_expense
+  5127949.43` roll to account 3200's `1768047.78`; gross margin `80.87`
+  (81.28 under a naive sum). One metric names a FIN-09 balance FIN-05 does not
+  reflect (`operating_expense_march`, with its posting-timing explanation and
+  CLS-16 `in_progress` read off FIN-17, U11). DA-20 is `prohibited` for
+  `ai_autonomy_level`. Emits no `runway`. **FIN-29 is downstream of FIN-05,
+  FIN-04, FIN-24 (so FIN-33 and FIN-37), FIN-09 and FIN-17, and reads
+  `artifacts/FIN-40/mnpi-flagged-draft.md` at build time**, the second
+  generator after FIN-20 to read the repository.
+
+Foundations shipped with the datasets: `monthEnds()` in `datagen/src/dates.js`
+as the only place the 24-month window is computed; seven canon timeline rows;
+spec entries for all thirteen D5 ids (the ten above plus the three D5b drafted
+documents FIN-21, FIN-28 and FIN-30, which stay `MISSING` until D5b).
+
+Gates at the D5a head: `npm test` 520 tests, 512 pass, 0 fail, 8 todo (the
+eight are the D5b markers); `npm run validate` 57 checked, 0 failed;
+`validate --all` 137 checked, 28 failed, every failure a `MISSING` drafted
+artifact and zero structured FAIL (the plan's U9 predicted 21; the prediction
+assumed SKIP counted as a failure, and it never did); `generate` for all ten
+run twice, byte identical; `MANIFEST.json` 44 datasets and 13 drafted
+artifact sets; real-name screen over every name-like column of the new
+datasets finds nothing outside the v1.4.1 universe; em-dash grep over every
+changed file empty.
+
 ## 1.4.1
 
 **Version `1.4.1`, ratified by Salvador 2026-08-20 (C024 keeps `BILL-2026-0118`).**

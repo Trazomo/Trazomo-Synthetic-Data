@@ -1,0 +1,60 @@
+# FIN-26 materiality-thresholds: the rule that decides which variance gets
+# an explanation, and who hears about it when it is large.
+#
+# Nothing here is invented. The budget rule is the rule the frozen FIN-37
+# tracker already obeys on all 27 of its lines, written down so a program
+# can run it: recomputing explanation_threshold_usd from the three numbers
+# below reproduces every shipped value with zero mismatches, and the builder
+# refuses to emit if it ever stops doing so. The flux rule is the one figure
+# no frozen file pins, so it is stated here rather than left in a generator.
+# Generated, not hand maintained:
+# datagen/src/generators/fin-24-actuals-vs-budget.js.
+policy_owner_role: "Controller"
+effective_period:
+  start: "2026-01-01"
+  end: "2026-12-31"
+source_artifact: FIN-37
+currency: USD
+
+# Against the budget: 5 percent of the budgeted line, floored, rounded up.
+# The floor is what keeps a small line from being explained at 40.00, and
+# the percentage is what keeps a large line from being explained at 10,000.
+budget_variance_rule:
+  pct_of_budget: 0.05
+  floor_usd: "10000.00"
+  rounding: "ceiling to the nearest 1000"
+  combine: "the greater of the floor and the rounded percentage"
+
+# Against the prior period: the same shape, a different base. A line can
+# breach one rule and not the other, and that is the point. A reader who
+# runs only the budget rule never sees the line that jumped inside its own
+# budget, and a reader who runs only the flux rule never sees the line that
+# has been quietly over budget all quarter.
+flux_rule:
+  pct_of_prior_period: 0.1
+  floor_usd: "10000.00"
+  rounding: "ceiling to the nearest 1000"
+  combine: "the greater of the floor and the rounded percentage"
+
+explanation_required_when: "absolute variance is at or above the line threshold"
+
+# Conditions that require an explanation whatever the amount. A threshold
+# policy with no qualitative override lets a sign change through at 9,000.
+qualitative_overrides:
+  - override_id: QO-01
+    condition: "the line changes sign against the prior period"
+  - override_id: QO-02
+    condition: "the line's supporting close task is not complete"
+  - override_id: QO-03
+    condition: "the line touches deferred revenue"
+
+# An amount and a role, never a person: a roster edit must not silently
+# move who hears about a large variance.
+escalation:
+  at_or_above_usd: "100000.00"
+  to_role: "Director, Finance"
+
+# DA-01 in the shipped FIN-39 decision authority matrix: draft a variance
+# narrative for a budget line. The threshold policy and the authority the
+# narrative is drafted under stay one system.
+related_decision_id: DA-01

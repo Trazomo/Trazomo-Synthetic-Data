@@ -1,6 +1,6 @@
 {
     "manifest_version": 1,
-    "universe_version": "1.4.1",
+    "universe_version": "1.5.0",
     "canon": {
         "companies": "canon/companies.md",
         "people": "canon/people.md",
@@ -480,6 +480,150 @@
             "row_counts": {
                 "chart-of-accounts.csv": 65
             }
+        },
+        {
+            "id": "FIN-23",
+            "name": "audit-evidence-index",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/audit-evidence-index",
+            "files": [
+                "audit-evidence-index.csv"
+            ],
+            "row_counts": {
+                "audit-evidence-index.csv": 32
+            }
+        },
+        {
+            "id": "FIN-24",
+            "name": "actuals-vs-budget",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/actuals-vs-budget",
+            "files": [
+                "actuals-vs-budget.csv"
+            ],
+            "row_counts": {
+                "actuals-vs-budget.csv": 27
+            }
+        },
+        {
+            "id": "FIN-25",
+            "name": "supporting-je-detail",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/supporting-je-detail",
+            "files": [
+                "supporting-je-detail.csv"
+            ],
+            "row_counts": {
+                "supporting-je-detail.csv": 128
+            }
+        },
+        {
+            "id": "FIN-26",
+            "name": "materiality-thresholds",
+            "track": "finance",
+            "type": "config",
+            "format": "yaml",
+            "generation": "deterministic",
+            "path": "datasets/finance/materiality-thresholds",
+            "files": [
+                "materiality-thresholds.yaml"
+            ],
+            "row_counts": {}
+        },
+        {
+            "id": "FIN-27",
+            "name": "approved-je-summary",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/approved-je-summary",
+            "files": [
+                "approved-je-summary.csv"
+            ],
+            "row_counts": {
+                "approved-je-summary.csv": 31
+            }
+        },
+        {
+            "id": "FIN-29",
+            "name": "approved-metrics-pack",
+            "track": "finance",
+            "type": "dataset",
+            "format": "json",
+            "generation": "deterministic",
+            "path": "datasets/finance/approved-metrics-pack",
+            "files": [
+                "approved-metrics-pack.json"
+            ],
+            "row_counts": {}
+        },
+        {
+            "id": "FIN-31",
+            "name": "kpi-source-data",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/kpi-source-data",
+            "files": [
+                "kpi-source-data.csv"
+            ],
+            "row_counts": {
+                "kpi-source-data.csv": 168
+            }
+        },
+        {
+            "id": "FIN-32",
+            "name": "bank-balances",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/bank-balances",
+            "files": [
+                "bank-balances.csv"
+            ],
+            "row_counts": {
+                "bank-balances.csv": 96
+            }
+        },
+        {
+            "id": "FIN-33",
+            "name": "actuals-24mo",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/actuals-24mo",
+            "files": [
+                "actuals-24mo.csv"
+            ],
+            "row_counts": {
+                "actuals-24mo.csv": 648
+            }
+        },
+        {
+            "id": "FIN-34",
+            "name": "drivers",
+            "track": "finance",
+            "type": "config",
+            "format": "yaml",
+            "generation": "deterministic",
+            "path": "datasets/finance/drivers",
+            "files": [
+                "drivers.yaml"
+            ],
+            "row_counts": {}
         },
         {
             "id": "FIN-35",

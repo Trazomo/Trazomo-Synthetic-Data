@@ -91,10 +91,81 @@ test("each cluster 2 row was inserted in date order against the rows either side
   }
 });
 
+// Cluster 3 and 4 (D5). Seven rows, appended in date order into the same table.
+// Two of them sit on dates an existing row already carries (2026-04-06 and
+// 2026-04-07), which is why the check below is over the whole matching set
+// rather than over the first row that starts with the date.
+const D5_ROWS = [
+  { date: "2024-04-30 to 2026-03-31", cites: "datasets/finance/actuals-24mo" },
+  { date: "2025-10-01 to 2025-12-31", cites: "artifacts/FIN-30" },
+  { date: "2026-02-01 to 2026-02-28", cites: "artifacts/FIN-28" },
+  { date: "2026-03-31", cites: "datasets/finance/materiality-thresholds" },
+  { date: "2026-04-06", cites: "datasets/finance/actuals-vs-budget" },
+  { date: "2026-04-06", cites: "datasets/finance/approved-metrics-pack" },
+  { date: "2026-04-07", cites: "datasets/finance/audit-evidence-index" },
+];
+
+test("canon/timeline.md carries the cluster 3 and 4 dated events, each citing its source", () => {
+  const now = current();
+  for (const { date, cites } of D5_ROWS) {
+    const matching = now.filter((l) => l.startsWith(`| ${date} |`));
+    assert.ok(matching.length > 0, `no dated event row starting "| ${date} |"`);
+    assert.ok(
+      matching.some((l) => l.includes(cites)),
+      `no "| ${date} |" row cites ${cites}`
+    );
+  }
+});
+
+test("each cluster 3 and 4 row was inserted in date order against the rows either side of it", () => {
+  const firstDate = (line) => /^\| (\d{4}-\d{2}-\d{2})/.exec(line)?.[1];
+  const dated = current().filter((l) => /^\| \d{4}-\d{2}-\d{2}/.test(l));
+  for (const { date, cites } of D5_ROWS) {
+    const at = dated.findIndex((l) => l.startsWith(`| ${date} |`) && l.includes(cites));
+    assert.notEqual(at, -1, `no "| ${date} |" row citing ${cites}`);
+    const self = firstDate(dated[at]);
+    if (at > 0) assert.ok(firstDate(dated[at - 1]) <= self, `${cites} sorts above the row before it`);
+    if (at < dated.length - 1) assert.ok(self <= firstDate(dated[at + 1]), `${cites} sorts below the row after it`);
+  }
+});
+
+test("the 2026-04-06 variance row states a file fact and never adjudicates whether CLS-17 ran", () => {
+  // Rule R-CLS17. Merged trazomo content (finance-google-workspace lesson 02)
+  // already tells a reader CLS-17 ran at this same as-of, so a canon row that
+  // said the variance work had not been done would write a contradiction into
+  // the file six module briefs copy from.
+  const row = current().find((l) => l.startsWith("| 2026-04-06 |") && l.includes("actuals-vs-budget"));
+  assert.ok(row, "the variance pack row is gone");
+  assert.match(row, /carries CLS-17 as not started/, "the row no longer states the checklist file fact");
+  assert.ok(!/has not (run|started)/.test(row), "the row asserts a world state rather than a file fact");
+  assert.ok(!/unposted/.test(row), 'the row says "unposted", which FIN-17 refutes in one grep');
+});
+
 test("datagen/README.md states the close_day rule the cluster 2 datasets date against", () => {
   const readme = readFileSync(join(REPO_ROOT, "datagen", "README.md"), "utf8");
   assert.match(readme, /`close_day` is the business day of the close/);
   for (const date of ["2026-04-01", "2026-04-07", "2026-04-06"]) {
     assert.ok(readme.includes(date), `the close_day line does not name ${date}`);
   }
+});
+
+test("datagen/README.md states the two cluster 3 and 4 conventions the D5 generators share", () => {
+  const readme = readFileSync(join(REPO_ROOT, "datagen", "README.md"), "utf8");
+  assert.match(
+    readme,
+    /The 24-month reporting window ends at 2026-03-31[\s\S]{0,200}`monthEnds\(\)` in `datagen\/src\/dates\.js` is the only\nplace it is computed/,
+    "the README does not name monthEnds() as the single home of the 24-month series"
+  );
+  for (const id of ["FIN-31", "FIN-32", "FIN-33"]) {
+    assert.ok(readme.includes(id), `the 24-month window line does not name ${id}`);
+  }
+  assert.match(
+    readme,
+    /FIN-05 is the pre-close trial balance at 2026-03-31 and does not reflect the\nFIN-09 batch\. A variance artifact reconciles to FIN-05's period columns, never\nto FIN-09\./,
+    "the README does not state which file a variance artifact reconciles to"
+  );
+  // The wording matters as much as the rule: "unposted" is refutable from
+  // FIN-17's own CLS-15 row, and a README line is what six module briefs copy.
+  assert.match(readme, /Do not write that the batch is "unposted"/);
+  assert.match(readme, /not reflected in\nFIN-05/);
 });

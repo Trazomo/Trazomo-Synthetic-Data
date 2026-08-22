@@ -772,7 +772,13 @@ artifacts:
     format: markdown
     generation: drafted-frozen
     canon_entities: [co-002]
-    planted_features: []
+    planted_features:
+      - "the 24 close tasks are FIN-36's own spine, imported from buildCloseChecklistTemplate() at build time rather than retyped, so the runbook and the template cannot drift: every task appears by task_id with its owner role, reviewer role, dependency and evidence expectation"
+      - "the close-day rule is stated as datagen/README.md states it: a close day is a business day counted from the first business day after period end, D+1 is 2026-04-01 and D+5 is 2026-04-07, and D+4 is Monday 2026-04-06 because the weekend is skipped"
+      - "a document-control block in the CORE-05 shape, carrying document_id ADI-FIN-003, a version, an owner title, an effective date and a review date, so the register that indexes CORE-05 can index this procedure the same way"
+      - "roles only: owners, reviewers and the escalation path are named by role title, and no person name appears anywhere in the document"
+      - "a section stating what a close task's evidence must show, which is the expectation FIN-23's index is built against"
+      - "no money amount appears anywhere in the document, and no date other than the close-day rule and the document-control block, which is what keeps the freeze review small"
     consuming_modules: [finance-knowledge-base]
     source_plan: finance-implementation-plan
 
@@ -795,7 +801,15 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
-    planted_features: []
+    period: { start: "2026-01-01", end: "2026-04-07" }
+    columns: [evidence_id, binder_reference, period, evidence_type, title, source_artifact, source_reference, supports_close_task, supports_control_id, prepared_by_employee_id, reviewed_by_employee_id, prepared_date, retention_class, storage_location]
+    planted_features:
+      - "32 rows exactly and every one of the fourteen columns derived rather than drawn: 19 rows reuse FIN-18's non-empty evidence_reference values verbatim, EVB-2026Q1-001 through EVB-2026Q1-019, and 13 rows are one per FIN-17 task whose status is complete, continuing the same binder series from EVB-2026Q1-020"
+      - "1 row citing a superseded controlled document: exactly one row's source_artifact is CORE-05 and its source_reference is a document_id the shipped FIN-20 policy-index.csv marks Superseded. Two documents in that index are superseded, and exactly one FIN-23 row cites CORE-05 at all"
+      - "1 identical-title pair that period cannot separate: exactly one pair of rows shares a title, and both carry period 2026-03, so the facet that separates the rest of the file fails on this pair and supports_close_task is the key that does. It is the file's only title collision, because the 19 reused titles are all distinct and no title collides across the two populations"
+      - "1 row indexed but not filed: exactly one row carries a non-empty binder_reference with an empty storage_location. A rule that tests an empty source_reference instead returns 9, because source_reference is empty on every derived row whose task carries no account_code: 13 derived rows less the 3 whose task carries one and less the 1 that carries the controlled-document citation"
+      - "1 control the index is silent about: exactly one FIN-18 control_id whose test_result is pass carries no FIN-23 row at all, and it is FIN-18's own shipped empty-evidence control. Seven control_ids carry no row, that one plus the six whose test_result is not_tested, so the finding is a set difference rather than a row predicate"
+      - "period is derived from FIN-18's last_tested_date on the reused rows, 2026-01 on 2, 2026-02 on 4 and 2026-03 on 13, and is 2026-03 on all 13 derived rows; retention_class is sox_7yr on the 8 reused rows FIN-18 marks key_control and standard_3yr on the other 24; every employee id is an active CORE-04 row and the preparer is never the reviewer"
     consuming_modules: [finance-knowledge-base]
     source_plan: finance-implementation-plan
 
@@ -805,8 +819,15 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [line_id, account_code, account_name, statement_section, normal_balance, section_sign, owner_role, budget_amount, explanation_threshold_usd, period, actual_amount, variance_amount, variance_pct, prior_period, prior_period_actual, flux_amount, flux_pct, variance_explanation]
     planted_features:
-      - 2-3 material variances with distinct traceable root causes (one timing, one true overspend, one reclass)
+      - "27 rows exactly, one per FIN-37 line: the (line_id, account_code, account_name, statement_section, normal_balance, owner_role, budget_amount, explanation_threshold_usd) tuple is imported from buildBudgetVsActualTemplate() row for row rather than retyped, so a template regeneration that moves a budget lands here instead of quietly moving four figures a shipped module already prints"
+      - "4 material budget variances: exactly four rows carry an absolute variance_amount at or above their own explanation_threshold_usd. Dropping the threshold altogether returns all 27; a flat 10000.00 floor in place of the per-line threshold returns 9"
+      - "3 material flux variances against the prior period: exactly three rows carry an absolute flux_amount at or above the FIN-26 flux threshold, and exactly one of those is also a material budget variance, so the two rules disagree on five lines. Dropping the threshold returns all 27"
+      - "1 material line unfavorable in the other direction: exactly one material row carries a negative variance_amount on a debit-normal line. Dropping materiality and keeping debit-normal returns 10; dropping both returns 12"
+      - "actual_amount uses the per-line normal-balance convention, FIN-05's period_debit less period_credit on a debit-normal line and the reverse on a credit-normal line, so the contra-revenue line carries a positive magnitude; section_sign is shipped as its own column, 1 where a line's normal_balance matches its section's natural direction and -1 where it does not, and it is -1 on exactly one row, so a section subtotal is one pass over this file with no external table"
+      - "variance_explanation is empty on all 27 rows, because this file is the input the explain-every-variance close task consumes rather than the output it produces, and the FIN-17 file carries that task as not_started. There is no root_cause column and no supporting_entry_ids column: the root cause is derivable from FIN-25 by rule and the join is account_code"
     consuming_modules: [finance-flux-variance-investigation]
     source_plan: finance-implementation-plan
 
@@ -815,8 +836,16 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
-    planted_features: []
+    canon_entities: [co-002, co-101, co-102, co-103, co-105, co-106, co-107, co-119, co-140+]
+    period: { start: "2026-03-01", end: "2026-03-31" }
+    columns: [line_id, entry_id, posting_date, gl_account, account_name, description, counterparty, counterparty_canon_id, cost_center, debit, credit, currency, entry_source, service_period_start, service_period_end, source_document]
+    planted_features:
+      - "128 rows across exactly six gl_accounts, the four FIN-24 material budget lines plus the two lines that breach only the flux rule, so the account set is decided by FIN-24 and FIN-26 rather than chosen here; entry_id is GL-202603-NNNN and is textually disjoint from FIN-09's JE-202603-CNNN block and from FIN-02's je_id block; entry_source is ap_subledger, ar_subledger, payroll_interface or manual"
+      - "per gl_account, sum(debit) equals FIN-05's period_debit and sum(credit) equals FIN-05's period_credit to the cent. This file is complete for the accounts it covers and silent about the rest, and it reconciles to FIN-05 rather than to the FIN-09 batch FIN-05 does not reflect; every gl_account is an active FIN-22 code and every counterparty is one of the screened names the pack already ships source_document is self-contained by ruling (2026-08-22, review S2): the AP-, AR-, PAYREG- and JV-202603-NNNN ids resolve only within this file and do not join FIN-13 March bills, FIN-07 or FIN-09; module 23 traces to the cited id and stops, and its brief says so. A later tag may re-seed the AP lines from FIN-13 without breaking the per-account tie"
+      - "1 timing root cause: exactly one covered account is favorable against budget and also carries FIN-09 accrual lines that reverse the sign once the batch is reflected. Two of the four determinable accounts carry any FIN-09 line at all, 6020 over five accrual lines and 6200 over six, and the other two carry none"
+      - "1 true overspend: exactly one material unfavorable account has no line whose service_period_start falls after 2026-03-31 and no counterparty whose lines split across two accounts. Without the service-period qualifier the rule returns 2"
+      - "1 reclass: exactly one counterparty_canon_id has lines on two gl_accounts and a strict modal account, and the modal account is the other one. Four counterparties appear on more than one account without the modal qualifier, and three of those four split exactly two lines and two, so only one has a strict mode at all"
+      - "1 line the policy does not decide: exactly one material line sits in the revenue section and its supporting FIN-17 close task is not complete, so the call is held for a person and the file says why by joining rather than by labelling. The checklist qualifier is explanatory rather than selective, because dropping it still returns 1; dropping materiality as well returns 6, which is every revenue line on the tracker"
     consuming_modules: [finance-flux-variance-investigation]
     source_plan: finance-implementation-plan
 
@@ -826,7 +855,13 @@ artifacts:
     format: yaml
     generation: deterministic
     canon_entities: [co-002]
-    planted_features: []
+    period: { start: "2026-01-01", end: "2026-12-31" }
+    planted_features:
+      - "documented key list, in this fixed order (a YAML policy carries keys, not a header row): policy_owner_role, effective_period (start, end), source_artifact, currency, budget_variance_rule (pct_of_budget, floor_usd, rounding, combine), flux_rule (pct_of_prior_period, floor_usd, rounding, combine), explanation_required_when, qualitative_overrides, escalation (at_or_above_usd, to_role), related_decision_id"
+      - "the budget rule is not an invention: recomputing explanation_threshold_usd from pct_of_budget 0.05, floor_usd 10000.00 and ceiling rounding to the nearest 1000 reproduces all 27 shipped FIN-37 values with zero mismatches, so a FIN-37 regeneration that moves a budget fails here rather than in a module"
+      - "the flux rule is the one figure no frozen file pins: 10 percent of the prior period with the same 10000.00 floor and the same ceiling rounding as the budget rule, set so that exactly three FIN-24 lines breach it and exactly one of those also breaches the budget rule"
+      - "qualitative_overrides is a named list of conditions requiring an explanation whatever the amount: a sign change, a line whose supporting close task is not complete, and a line touching deferred revenue"
+      - "escalation names an amount and a role rather than a person, and related_decision_id is DA-01, a control_id in the shipped FIN-39 matrix, so the threshold policy and the authority a variance narrative is drafted under stay one system"
     consuming_modules: [finance-flux-variance-investigation]
     source_plan: finance-implementation-plan
 
@@ -836,7 +871,15 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
-    planted_features: []
+    period: { start: "2026-03-01", end: "2026-04-07" }
+    columns: [entry_id, posting_date, approved_date, entry_type, line_count, entry_total, currency, prepared_by_employee_id, approved_by_employee_id, distinct_accounts, source_document_count, supports_close_task, memo_disclosure_class]
+    planted_features:
+      - "31 rows exactly, one per FIN-09 entry_id and derived rather than drawn: the (entry_id, entry_total, line_count) tuples recompute from the shipped FIN-09 bytes, entry_total is the sum of that entry's debits, and the 31 totals sum to the batch total 1319977.89"
+      - "1 entry with no supporting document: exactly one entry carries source_document_count 0 together with an entry_type that is neither depreciation nor amortization. Without that population qualifier the count is 3, because the two internal-schedule entries cite nothing by the shipped rule and are not findings. Any statement of the count has to state the population"
+      - "11 of 31 entries approved outside a business day: exactly eleven carry an approved_date of 2026-04-04 or 2026-04-05, the weekend inside the close window. The count is asserted rather than excluded by assumption, because a reader who takes the window for business days and never tests the weekday finds 0"
+      - "1 preparer and 1 approver: the distinct prepared_by_employee_id set and the distinct approved_by_employee_id set each hold exactly one active CORE-04 Finance employee, and the two are never the same person, so the self-approval count is 0 and the control that tests it comes back clean"
+      - "memo_disclosure_class is routine, judgemental or unsupported and is assigned by rule over FIN-09's own columns rather than by hand; supports_close_task is CLS-15 on every row, the task that posts the close journal batch"
+      - "distinct_accounts counts active FIN-22 codes on every entry except the one posting to the inactive account 6125, which is FIN-09's own shipped plant and survives the roll-up rather than being tidied out of it"
     consuming_modules: [finance-close-memo-disclosures]
     source_plan: finance-implementation-plan
 
@@ -846,8 +889,14 @@ artifacts:
     format: markdown
     generation: drafted-frozen
     canon_entities: [co-002]
+    period: { start: "2026-02-01", end: "2026-02-28" }
     planted_features:
       - paired with FIN-17's open checklist item (drafting-over-unclosed-item guardrail)
+      - "exactly five footnotes: revenue recognition and deferred revenue, accrued liabilities, prepaid expenses and amortization, commitments and contingencies, and subsequent events. There is no trade-payables footnote, which is what holds the roll-forward plant below at one instance"
+      - "each footnote declares in its own heading the FIN-17 category whose balance it reports, which is the join key. It is a category rather than an account code because the deferred revenue roll-forward task carries no account_code, so an account-keyed rule cannot reach the one task the pairing exists to select"
+      - "1 footnote that cannot be rolled forward: exactly one footnote declares a FIN-17 category holding a task that is not complete at the 2026-04-06 as-of, the revenue category whose only task is not_started. Three of the five footnotes declare a category at all, so dropping the status qualifier selects three and the other two are never selected either way"
+      - "every money amount the document states equals a FIN-33 2026-02 actual_amount or a stated FIN-05 derived balance to the cent, so the exemplar cannot quietly contradict the trend the same pack ships"
+      - "roles by title only, no person name anywhere, and no em dash"
     consuming_modules: [finance-close-memo-disclosures]
     source_plan: finance-implementation-plan
 
@@ -857,8 +906,14 @@ artifacts:
     format: json
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-01-01", end: "2026-03-31" }
     planted_features:
-      - 1 metric that looks concerning but has a documented benign explanation (narrative-honesty test)
+      - "documented key list, in this fixed order (a JSON pack carries keys, not a header row): generated_from_spec, entity (canon_id, name), period (label, start, end), approval (approved_by_role, reviewed_by_role, approved_date, source_close_task, source_close_task_status_at_as_of, source_artifact), classification, related_decision_id, and metrics, each metric carrying metric_id, name, value, unit, basis, source_artifact, source_reference and disclosure_class"
+      - "12 metrics exactly, every value recomputed from frozen bytes at build time, and every basis string naming the sign convention its own value uses. A section subtotal applies section_sign so the contra-revenue line subtracts, which is the difference between the March net revenue of 4154683.80 and the 4245474.82 a naive sum of FIN-24's actual_amount returns, a gap of 90791.02"
+      - "the two headline figures agree with a frozen drafted document: net revenue 12218645.67 and net loss 5243082.89 for the quarter round to the approximately 12.2 million and approximately 5.2 million the FIN-40 excerpt already publishes, at FIN-40's own stated rounding to the nearest hundred thousand"
+      - "1 metric that looks concerning and is not: exactly one metric's basis names a FIN-09 balance FIN-05 does not reflect, the employee benefits line running 5.86 percent under budget, which turns unfavorable once the five accrual lines debiting 94279.18 to that account are reflected. Eleven of the twelve metrics have a direction a narrative could spin, and only this one carries a documented posting-timing explanation"
+      - "0 free figures: every metric_id carries a value the pack already fixes, so a narrative that computes its own figure has no source_reference to cite, which is the failure this artifact exists to make visible"
+      - "approval names CLS-16 as the source close task and carries source_close_task_status_at_as_of in_progress beside it, because that task is not complete at the 2026-04-06 as-of and the file states the tension rather than hiding it; classification is the FIN-40 banner string verbatim and related_decision_id is DA-20, whose shipped FIN-39 ai_autonomy_level is prohibited"
     consuming_modules: [finance-board-narratives]
     source_plan: finance-implementation-plan
 
@@ -868,7 +923,13 @@ artifacts:
     format: markdown
     generation: drafted-frozen
     canon_entities: [co-002]
-    planted_features: []
+    period: { start: "2025-10-01", end: "2025-12-31" }
+    planted_features:
+      - "the standing Q4 2025 board agenda as an outline and nothing else: section headings in the order the meeting takes them, the figure slots named and left empty, the distribution list, and the classification convention the pack already uses"
+      - "the figure slots are named and empty on purpose, so every number a narrative states has to come from the approved metrics pack with the source_reference that pack carries"
+      - "the distribution list and every owner are role titles from the CORE-04 ladder, and no person name appears anywhere in the document"
+      - "it does not duplicate FIN-40, which stays the classification and handling artifact: the outline points at the classification convention rather than restating the banner"
+      - "no money amount and no percentage appear anywhere in the document, and no date inside the current reporting period, which is what makes this the smallest freeze review in the slice"
     consuming_modules: [finance-board-narratives]
     source_plan: finance-implementation-plan
 
@@ -878,8 +939,15 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2024-04-30", end: "2026-03-31" }
+    columns: [metric_id, metric_name, period_end, value, unit, source_artifact, source_reference, computation_note]
     planted_features:
-      - 1 KPI with two plausible computation methods (runway; assumption must be shown)
+      - "168 rows exactly: seven inputs by the 24 month-ends from 2024-04-30 through 2026-03-31, the same series FIN-32 and FIN-33 carry, computed only by monthEnds() in datagen/src/dates.js"
+      - "the seven inputs are the ones no other artifact carries, so the three FP&A files do not overlap: ar_subledger_balance, deferred_revenue_current, deferred_revenue_noncurrent, ar_customer_count, new_arr, churned_arr and headcount. FIN-33 is the profit-and-loss trend and FIN-32 is cash"
+      - "5 of the 7 are pinned at 2026-03-31 by frozen bytes: ar_subledger_balance 3438041.42 and ar_customer_count 19 from FIN-04, deferred_revenue_current 20031018.96 and deferred_revenue_noncurrent 2263716.56 from FIN-05, and headcount 582 from CORE-04"
+      - "the headcount rule is forced rather than chosen: CORE-04 carries no termination date, so headcount counts roster rows with employment_status active and start_date on or before the period_end, the 18 departed rows are excluded at every date, and the series is monotonically non-decreasing from 413 at 2024-04-30 to 582 at 2026-03-31. A consuming module that wants attrition has to say the pack does not carry it"
+      - "1 KPI with two plausible computation methods (runway; assumption must be shown): total cash over net cash change, or total cash over net loss, and no file in the pack declares which. A third reading sits beside them, because total cash 30632542.04 stands against deferred revenue 22294735.52, and a second fork sits inside the first method, because all four cash accounts is not the operating account alone"
+      - "no file this spec emits contains that method name, so neither value is written down and the assumption has to be stated by whoever computes it; computation_note states the 17446.72 difference between FIN-04's subledger total and FIN-05's control account 1100 rather than hiding it, which is what makes days sales outstanding single-method"
     consuming_modules: [finance-fpa-kpi-dashboards]
     source_plan: finance-implementation-plan
 
@@ -889,7 +957,14 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002, co-104]
-    planted_features: []
+    period: { start: "2024-04-30", end: "2026-03-31" }
+    columns: [account_code, account_name, bank_canon_id, bank_name, account_number_masked, period_end, book_balance, bank_balance, reconciling_difference, source_artifact]
+    planted_features:
+      - "96 rows exactly: the four FIN-05 cash accounts by the same 24 month-ends FIN-31 and FIN-33 carry, computed only by monthEnds() in datagen/src/dates.js"
+      - "both ends of the close are pinned: at 2026-02-28 every account's book_balance equals FIN-05's beginning_balance and at 2026-03-31 every account's book_balance equals FIN-05's ending_balance, so the trend and the trial balance cannot disagree at either end. The other 22 months are free and are constrained only by continuity"
+      - "1 account with a bank feed: account 1010 at 2026-03-31 carries book 2740359.09 against FIN-01's statement ending balance 2806284.46, a reconciling_difference of 65925.37, and at 2026-02-28 book equals bank at 3482915.22, which is the canon anchor that the February reconciliation closed with no carry-forward items"
+      - "3 accounts with no bank feed: 1020, 1030 and 1050 carry a bank_balance equal to their book_balance and a reconciling_difference of 0.00 at every date, and the file says so in a column rather than in a comment, because the pack ships a statement and outstanding checks for 1010 only. reconciling_difference equals bank_balance less book_balance on all 96 rows"
+      - "the 1010 difference is not a two-item reconciliation: FIN-03's twelve outstanding checks total 57212.36, less than the 65925.37 difference, and FIN-03 carries no gl_account column at all, so the account attribution is FIN-01's rather than FIN-03's"
     consuming_modules: [finance-fpa-kpi-dashboards]
     source_plan: finance-implementation-plan
 
@@ -899,8 +974,16 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
-    planted_features: []
-    consuming_modules: [finance-driver-scenario-planning]
+    period: { start: "2024-04-01", end: "2026-03-31" }
+    columns: [line_id, account_code, account_name, statement_section, normal_balance, period, actual_amount, currency]
+    planted_features:
+      - "648 rows exactly: the 27 FIN-37 lines by the 24 months 2024-04 through 2026-03, whose month-ends come only from monthEnds() in datagen/src/dates.js. The line spine is imported from buildBudgetVsActualTemplate() row for row, so this file and FIN-24 share one definition of the profit-and-loss lines"
+      - "every 2026-03 actual_amount equals FIN-05's period movement for that account to the cent, under the same per-line normal-balance convention FIN-24 uses, and therefore equals FIN-24's actual_amount for the same line_id"
+      - "per account, 2026-01 plus 2026-02 equals FIN-05's beginning_balance to the cent, because the fiscal year is the calendar year, and 2026-01 plus 2026-02 plus 2026-03 equals FIN-05's ending_balance in that account's own normal-balance direction. Both are asserted, so a regression in one fails in one place rather than being inferred from the other"
+      - "3 lines breach the FIN-26 flux rule against February and exactly 1 of those also breaches the budget rule, so the two materiality rules disagree on five lines in total. The other 21 months are free and are constrained only by continuity and by that construction"
+      - "1 seasonal line: exactly one line_id, BVA-21 on account 6310, carries a month at or above 1.5 times the mean of its two neighbouring months in two months that sit exactly twelve apart, so a trailing-three-month run rate over-forecasts it. Drop the spike qualifier and keep only the annual repeat and 10 lines have their biggest month in the same month of both years; drop that too and all 27 lines have month-to-month movement, which is why the spike is the qualifier that selects"
+      - "the two flux-only accounts carry no FIN-09 line, which is what holds the FIN-25 timing plant at one instance and its qualifier-free count at two"
+    consuming_modules: [finance-driver-scenario-planning, finance-flux-variance-investigation, finance-close-memo-disclosures, finance-fpa-kpi-dashboards]
     source_plan: finance-implementation-plan + exemplar-repo-selection (driver-scenario-planner)
 
   - id: FIN-34
@@ -910,8 +993,12 @@ artifacts:
     generation: deterministic
     canon_entities: [co-002]
     planted_features:
-      - hiring, price change, churn, collection delay, contract win/loss drivers
-      - deterministic engine computes base/upside/downside cash, margin, runway; math never done by the model
+      - "documented key list, in this fixed order (a YAML config carries keys, not a header row): base_period, horizon_months, source_artifacts, scenarios, and drivers, each driver carrying driver_id, applies_to, unit, base, upside and downside, plus an optional derivation, which is present on hiring only"
+      - hiring, price change, churn, collection delay, contract win/loss drivers, five in total, each applying to a FIN-33 line_id list or a FIN-31 metric_id so that every applies_to resolves in a shipped file
+      - "1 driver whose band crosses zero: exactly one driver's downside and upside carry opposite signs, so a scenario table showing magnitudes alone loses the direction. All five carry a band, so the band is not the qualifier that selects"
+      - "1 driver that moves cash without moving margin: collection delay applies to a FIN-31 metric_id and touches no line_id. A reader who misreads contract win/loss as cash-only finds 2"
+      - "cost per head is derived, because CORE-04 carries no salary: March accounts 6000, 6010, 6020 and 5020 over the 582 active heads, published with its formula in a derivation key that says plainly that it blends a cost-of-revenue account into people cost, which is a judgment and not an accounting identity"
+      - "deterministic engine computes base/upside/downside cash, margin, runway; math never done by the model, so this file carries no computed scenario output and the engine belongs to the consuming module. The hiring derivation's value_usd is computed at build time, which is a published input rather than a scenario result"
     consuming_modules: [finance-driver-scenario-planning]
     source_plan: finance-implementation-plan + exemplar-repo-selection (driver-scenario-planner)
 

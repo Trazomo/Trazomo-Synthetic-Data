@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   addBusinessDays, addDays, CLOSE_PERIOD_END, closeDayDate, diffDays, isWeekend,
-  rollForwardPastWeekend, weekday,
+  monthEnds, rollForwardPastWeekend, TREND_MONTHS, weekday,
 } from "../../datagen/src/dates.js";
 
 test("addDays is reversible and handles month/year boundaries", () => {
@@ -83,5 +83,62 @@ test("no close day falls on a weekend, and D+4 is the Monday rather than the Sun
 test("closeDayDate refuses anything that is not a D+n label", () => {
   for (const bad of ["D+0", "D4", "D+", "", "d+4", "D+4 ", "D+four", 4, null, undefined]) {
     assert.throws(() => closeDayDate(bad), /close day/i, `closeDayDate(${JSON.stringify(bad)}) should throw`);
+  }
+});
+
+// -------------------------------------------------------------- month ends
+// The cluster 3 and 4 FP&A datasets (FIN-31 kpi-source-data, FIN-32
+// bank-balances, FIN-33 actuals-24mo) all plot the same 24-month window ending
+// at the close period end. Three files that disagree about which months they
+// cover cannot be joined, so the series is computed here and nowhere else.
+
+test("monthEnds returns the 24-month FP&A window ending at the close period end", () => {
+  assert.equal(TREND_MONTHS, 24, "the FP&A trend is 24 months (canon/timeline.md, 2024-04-30 to 2026-03-31)");
+  const window = monthEnds(TREND_MONTHS, CLOSE_PERIOD_END);
+  assert.equal(window.length, 24, "the window is 23 or 25 months, which is an off-by-one in the walk");
+  assert.equal(window[0], "2024-04-30", "the window does not open at 2024-04-30");
+  assert.equal(window[window.length - 1], "2026-03-31", "the window does not close at the close period end");
+  assert.equal(new Set(window).size, 24, "the window repeats a month end");
+});
+
+test("every date monthEnds returns is a real month end, in strictly ascending order", () => {
+  for (const date of monthEnds(TREND_MONTHS, CLOSE_PERIOD_END)) {
+    assert.match(date, /^\d{4}-\d{2}-\d{2}$/, `${date} is not an ISO date`);
+    assert.equal(addDays(date, 1).slice(-2), "01", `${date} is not the last day of its month`);
+  }
+  const window = monthEnds(TREND_MONTHS, CLOSE_PERIOD_END);
+  for (let i = 1; i < window.length; i += 1) {
+    assert.ok(window[i] > window[i - 1], `${window[i]} does not follow ${window[i - 1]}`);
+    assert.equal(
+      window[i].slice(0, 7),
+      addDays(window[i - 1], 1).slice(0, 7),
+      `the window skips a month between ${window[i - 1]} and ${window[i]}`
+    );
+  }
+});
+
+test("monthEnds handles the short months inside the window without a leap-year fudge", () => {
+  const window = monthEnds(TREND_MONTHS, CLOSE_PERIOD_END);
+  assert.ok(window.includes("2025-02-28"), "February 2025 is missing or wrong");
+  assert.ok(window.includes("2026-02-28"), "February 2026 is missing or wrong (2026 is not a leap year)");
+  assert.ok(window.includes("2024-06-30") && window.includes("2024-11-30"), "a 30-day month came out wrong");
+  assert.ok(window.includes("2024-12-31") && window.includes("2025-12-31"), "a year boundary came out wrong");
+  // 2024 is a leap year, and the one 29th in range is outside the 24-month
+  // window, so a walk that hard-codes 28 for February passes by luck here.
+  assert.deepEqual(monthEnds(3, "2024-04-30"), ["2024-02-29", "2024-03-31", "2024-04-30"]);
+});
+
+test("monthEnds is a pure walk backwards: any count, any month end", () => {
+  assert.deepEqual(monthEnds(1, "2026-03-31"), ["2026-03-31"]);
+  assert.deepEqual(monthEnds(2, "2026-01-31"), ["2025-12-31", "2026-01-31"]);
+  assert.deepEqual(monthEnds(13, "2026-03-31")[0], "2025-03-31");
+});
+
+test("monthEnds refuses a through-date that is not a month end, and a count below 1", () => {
+  for (const bad of ["2026-03-30", "2026-03-01", "2026-02-29"]) {
+    assert.throws(() => monthEnds(24, bad), /month end/i, `monthEnds(24, ${JSON.stringify(bad)}) should throw`);
+  }
+  for (const bad of [0, -1, 1.5, "24", null, undefined]) {
+    assert.throws(() => monthEnds(bad, CLOSE_PERIOD_END), /count/i, `monthEnds(${JSON.stringify(bad)}) should throw`);
   }
 });

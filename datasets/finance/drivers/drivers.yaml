@@ -1,0 +1,58 @@
+# FIN-34 drivers: the scenario input set for the driver-based plan.
+#
+# Inputs only. Base, upside and downside cash, margin and the months of
+# cover they imply are the consuming module's deterministic engine, which
+# is what "math never done by the model" means: this file carries no
+# computed output for a model to copy.
+#
+# Every applies_to resolves in a shipped file: a FIN-33 line_id or a FIN-31
+# metric_id. Generated, not hand maintained:
+# datagen/src/generators/fin-33-actuals-24mo.js.
+base_period: "2026-03"
+horizon_months: 18
+source_artifacts: ["FIN-33", "FIN-31", "FIN-32"]
+scenarios: ["base", "upside", "downside"]
+
+# Five drivers. Each carries a band, so a scenario table that shows only
+# magnitudes loses the direction on the one band that changes sign.
+drivers:
+  - driver_id: hiring
+    applies_to: ["BVA-09", "BVA-11", "BVA-12", "BVA-13"]
+    unit: "net hires per month"
+    base: 8
+    upside: 14
+    downside: -3
+    # CORE-04 carries no salary, so cost per head is derived rather than read.
+    derivation:
+      metric: fully_loaded_monthly_cost_per_head
+      value_usd: "5818.32"
+      formula: "the March 2026 movement on accounts 6000, 6010, 6020, 5020 divided by the active headcount, rounded to the cent"
+      source_artifacts: ["FIN-05", "CORE-04"]
+      source_accounts: ["6000", "6010", "6020", "5020"]
+      source_period: "2026-03"
+      headcount: 582
+      judgment: "5020 Customer Support Salaries is a cost-of-revenue account, so this blends cost of revenue into people cost. That is a judgment and not an accounting identity: a plan that wants operating-expense people cost alone drops 5020 and recomputes."
+  - driver_id: price_change
+    applies_to: ["BVA-01", "BVA-02", "BVA-03"]
+    unit: "percent change to list price at renewal"
+    base: 3
+    upside: 6
+    downside: 1
+  - driver_id: churn
+    applies_to: ["BVA-01", "BVA-02", "BVA-03"]
+    unit: "percent of opening recurring revenue lost per month"
+    base: 1.1
+    upside: 0.7
+    downside: 1.9
+  - driver_id: collection_delay
+    applies_to: ["ar_subledger_balance"]
+    unit: "days added to days sales outstanding"
+    base: 3
+    upside: 1
+    downside: 8
+  - driver_id: contract_win_loss
+    applies_to: ["BVA-01", "BVA-04", "new_arr"]
+    unit: "net new logos per month"
+    base: 4
+    upside: 7
+    downside: 1
