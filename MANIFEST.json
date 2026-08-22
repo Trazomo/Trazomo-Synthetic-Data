@@ -1,6 +1,6 @@
 {
     "manifest_version": 1,
-    "universe_version": "1.4.1",
+    "universe_version": "1.5.0",
     "canon": {
         "companies": "canon/companies.md",
         "people": "canon/people.md",

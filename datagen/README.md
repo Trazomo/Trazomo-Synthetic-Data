@@ -245,6 +245,16 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | FIN-19 | user-access-role-assignments | dataset | 45 entitlement grants across the 29 Finance employees who hold a finance_system_role CSV, derived from CORE-04 by the published mapping below (one user can both prepare and release) |
 | FIN-20 | regulatory-updates-feed | dataset | 14-record regulatory feed JSONL + 10-row policy-index.csv parsed out of the CORE-05 document-control blocks at build time |
 | FIN-22 | chart-of-accounts | dataset | 65-account chart CSV (cash account 1010) |
+| FIN-23 | audit-evidence-index | dataset | 32-row evidence index CSV, 19 rows reusing FIN-18's binder references and 13 derived from FIN-17's complete tasks (one citation on a superseded CORE-05 document, one identical-title pair period cannot separate, one row indexed and not filed, one passed control the index is silent about) |
+| FIN-24 | actuals-vs-budget | dataset | 27-line filled variance tracker CSV on the FIN-37 spine, `section_sign` shipped as a column (four material budget variances, three flux breaches, five lines where the two rules disagree) |
+| FIN-25 | supporting-je-detail | dataset | 128-line posted detail CSV across six accounts, reconciled to FIN-05's period columns, from FIN-24's builder |
+| FIN-26 | materiality-thresholds | config | the budget and flux materiality policy as YAML, writing down the rule FIN-37's 27 thresholds already obey, from FIN-24's builder |
+| FIN-27 | approved-je-summary | dataset | 31-row entry roll-up of the FIN-09 close batch CSV (one entry with no support inside the population one is expected for, eleven approved on the weekend, one posting to the inactive account) |
+| FIN-29 | approved-metrics-pack | dataset | 12-metric approved figure set JSON, every value recomputed from frozen bytes and every basis naming its sign convention (two figures FIN-40 already publishes, one metric with a documented posting-timing explanation); reads FIN-40's excerpt at build time |
+| FIN-31 | kpi-source-data | dataset | 168-row non-ledger KPI inputs CSV, seven inputs by 24 month-ends, pinned to FIN-04, FIN-05 and CORE-04 at both ends of the close |
+| FIN-32 | bank-balances | dataset | 96-row month-end cash CSV by account and by side, from FIN-31's builder, book tied to FIN-05 and 1010's bank tied to FIN-01 at both ends of the close |
+| FIN-33 | actuals-24mo | dataset | 648-row 24-month profit-and-loss trend CSV, 27 FIN-37 lines by 24 months, reconciled to FIN-05 on both constraints |
+| FIN-34 | drivers | config | the driver set and its bands as YAML, from FIN-33's builder |
 | FIN-35 | inbound-requests-queue | dataset | 38 untriaged requests CSV at 2026-04-06, resolving to FIN-07 invoices, FIN-13 reports, screened vendor masters and the CORE-02 outside-counsel invoice |
 | FIN-36 | close-checklist-template | template | 24-task month-end close checklist CSV, relative close days, learner columns empty |
 | FIN-37 | budget-vs-actual-template | template | 27-line variance tracker CSV, one line per active FIN-22 profit-and-loss account, actuals empty |
@@ -290,7 +300,21 @@ to FIN-09. Do not write that the batch is "unposted": FIN-17 carries `CLS-15`
 refutable from the pack in one grep. The accurate wording is "not reflected in
 FIN-05".
 
-FIN-20 is the first generator that reads the repository at build time: it parses
+Two rules from the D5 plan govern every cluster 3 and 4 artifact and every
+consumer of them. **R-SIGN**: a per-line `actual_amount` uses the
+normal-balance convention (`period_debit` less `period_credit` on a
+debit-normal line, the reverse on a credit-normal line), and a statement
+subtotal is `sum(actual_amount * section_sign)`, where `section_sign` is `1`
+when the line's `normal_balance` matches its section's natural direction
+(revenue credit, cost of revenue debit, operating expense debit) and `-1` when
+it does not. FIN-24 ships `section_sign` as a column so no consumer needs the
+table; BVA-06 is the only `-1` on the tracker. **R-CLS17**: an artifact or a
+module may state that the checklist file shows `CLS-17` as `not_started` and
+that FIN-24's `variance_explanation` is empty, both byte facts; it may not
+state that the variance work has not been done, because merged module 9 says
+it has. FIN-24 is the input CLS-17 consumes, not the output it produces.
+
+FIN-20 is the first of two generators that read the repository at build time (FIN-29 is the second, reading `artifacts/FIN-40/mnpi-flagged-draft.md` with the same `REPO_ROOT` pattern, so the same `--root` caveat applies): it parses
 the ten CORE-05 document-control blocks out of `artifacts/CORE-05/*.md` to build
 `policy-index.csv`, sorted by `document_id`, so a version bump or a review date
 in the shipped markdown moves the register instead of leaving it stale. Two
