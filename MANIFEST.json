@@ -482,6 +482,21 @@
             }
         },
         {
+            "id": "FIN-23",
+            "name": "audit-evidence-index",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/audit-evidence-index",
+            "files": [
+                "audit-evidence-index.csv"
+            ],
+            "row_counts": {
+                "audit-evidence-index.csv": 32
+            }
+        },
+        {
             "id": "FIN-24",
             "name": "actuals-vs-budget",
             "track": "finance",
@@ -521,6 +536,34 @@
             "path": "datasets/finance/materiality-thresholds",
             "files": [
                 "materiality-thresholds.yaml"
+            ],
+            "row_counts": {}
+        },
+        {
+            "id": "FIN-27",
+            "name": "approved-je-summary",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/approved-je-summary",
+            "files": [
+                "approved-je-summary.csv"
+            ],
+            "row_counts": {
+                "approved-je-summary.csv": 31
+            }
+        },
+        {
+            "id": "FIN-29",
+            "name": "approved-metrics-pack",
+            "track": "finance",
+            "type": "dataset",
+            "format": "json",
+            "generation": "deterministic",
+            "path": "datasets/finance/approved-metrics-pack",
+            "files": [
+                "approved-metrics-pack.json"
             ],
             "row_counts": {}
         },
