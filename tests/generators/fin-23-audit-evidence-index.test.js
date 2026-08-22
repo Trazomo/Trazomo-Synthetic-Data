@@ -23,8 +23,7 @@ import { generateArtifact } from "../../datagen/src/engine.js";
 import { csvTable, fileByPath } from "../helpers/csv-table.js";
 import { financeRoster } from "../../datagen/src/generators/finance-roles.js";
 import {
-  BINDER_ROOT, COLUMNS, EVIDENCE_TYPES, RETENTION_CLASSES, SUPERSEDED_CITATION,
-  TASK_EVIDENCE_ARTIFACT, UNFILED_EVIDENCE,
+  COLUMNS, EVIDENCE_TYPES, RETENTION_CLASSES,
 } from "../../datagen/src/generators/fin-23-audit-evidence-index.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
@@ -46,6 +45,48 @@ const closeTasks = () => csvTable(
 const policyIndex = () => csvTable(
   fileByPath(generateArtifact(specs.byId.get("FIN-20"), canon), "policy-index.csv").content
 ).rows;
+
+// The four facts below were imported from the generator until the D5a fix wave.
+// Importing them made every assertion over them constant == constant: mutating
+// BINDER_ROOT to "binder/MUTATED", or swapping the CLS-01 and CLS-03 artifact
+// targets, both regenerated green. They are pinned here instead, and the two
+// task ids are read out of the committed close-checklist by the task's own
+// text, so a renumbered or reworded checklist fails here rather than agreeing
+// with the builder.
+
+/** The binder root every storage_location hangs off. */
+const BINDER_ROOT = "binder/2026Q1";
+
+/**
+ * Close task to the artifact its evidence lives in, pinned per key. Every
+ * pairing is readable off the task's own evidence_required text in the
+ * committed checklist: CLS-01 wants "bank statement export for every account"
+ * (FIN-01), CLS-03 closes the receivables subledger (FIN-04), CLS-15 posts the
+ * journal batch (FIN-09).
+ */
+const TASK_ARTIFACT = {
+  "CLS-01": "FIN-01", "CLS-02": "FIN-07", "CLS-03": "FIN-04", "CLS-04": "FIN-01",
+  "CLS-05": "FIN-01", "CLS-06": "FIN-04", "CLS-07": "FIN-04", "CLS-08": "FIN-07",
+  "CLS-10": "FIN-02", "CLS-11": "FIN-10", "CLS-12": "FIN-11", "CLS-13": "CORE-04",
+  "CLS-15": "FIN-09",
+};
+
+/** The controlled document the constructed citation lands on. */
+const SUPERSEDED_ARTIFACT = "CORE-05";
+const SUPERSEDED_DOCUMENT = "ADI-FIN-001";
+
+/** A task_id joined out of the committed close-checklist by its own task text. */
+function taskIdByTask(text) {
+  const matches = shipped("finance/close-checklist", "close-checklist.csv").filter((r) => r.task === text);
+  assert.equal(matches.length, 1, `the committed close-checklist no longer carries exactly one "${text}"`);
+  return matches[0].task_id;
+}
+
+/** The task whose evidence is indexed and not yet filed (V15). */
+const unfiledTaskId = () => taskIdByTask("Post the close journal batch");
+
+/** The task whose row cites a superseded controlled document (V13). */
+const supersededTaskId = () => taskIdByTask("Update the prepaid amortization schedules");
 
 function index() {
   const table = csvTable(fileByPath(generateArtifact(specs.byId.get("FIN-23"), canon), OUTPUT_FILE).content);
@@ -73,8 +114,8 @@ test("FIN-23: the 32 rows are derived, and both populations are the size the fro
 
 test("FIN-23: the task-to-artifact map covers every complete task exactly once and invents no id", () => {
   const complete = closeTasks().filter((r) => r.status === "complete").map((r) => r.task_id).sort();
-  assert.deepEqual(Object.keys(TASK_EVIDENCE_ARTIFACT).sort(), complete, "the map and the complete tasks disagree");
-  for (const artifactId of new Set(Object.values(TASK_EVIDENCE_ARTIFACT))) {
+  assert.deepEqual(Object.keys(TASK_ARTIFACT).sort(), complete, "the map and the complete tasks disagree");
+  for (const artifactId of new Set(Object.values(TASK_ARTIFACT))) {
     assert.ok(specs.byId.has(artifactId), `${artifactId} is not a spec id`);
   }
   // CORE-05 enters this file only through the superseded citation below, which
@@ -88,8 +129,8 @@ test("FIN-23 V13: the cited document is one the shipped policy index marks Super
   const superseded = policyIndex().filter((r) => r.status === "Superseded");
   assert.equal(superseded.length, 2, "the qualifier-free count over the index");
   assert.ok(
-    superseded.some((r) => r.document_id === SUPERSEDED_CITATION.source_reference),
-    `${SUPERSEDED_CITATION.source_reference} is no longer superseded, so the plant would land on a current document`
+    superseded.some((r) => r.document_id === SUPERSEDED_DOCUMENT),
+    `${SUPERSEDED_DOCUMENT} is no longer superseded, so the plant would land on a current document`
   );
 });
 
@@ -151,16 +192,19 @@ test("FIN-23 T-Q2: the 13 derived rows reproduce FIN-17's complete-task set exac
     assert.equal(row.prepared_date, task.completed_date);
     assert.equal(row.prepared_by_employee_id, task.owner_employee_id);
     assert.equal(row.reviewed_by_employee_id, task.reviewer_employee_id);
-    if (row.supports_close_task === SUPERSEDED_CITATION.task_id) {
+    if (row.supports_close_task === supersededTaskId()) {
       // The one constructed row (V13). Its source_reference is the controlled
       // document it cites, not the task's account_code, which is empty. Every
       // other derived row carries the account_code rule.
-      assert.equal(row.source_artifact, SUPERSEDED_CITATION.source_artifact);
-      assert.equal(row.source_reference, SUPERSEDED_CITATION.source_reference);
+      assert.equal(row.source_artifact, SUPERSEDED_ARTIFACT);
+      assert.equal(row.source_reference, SUPERSEDED_DOCUMENT);
       assert.equal(task.account_code, "", "the constructed row's task now carries an account code of its own");
     } else {
       assert.equal(row.source_reference, task.account_code);
-      assert.equal(row.source_artifact, TASK_EVIDENCE_ARTIFACT[row.supports_close_task]);
+      assert.equal(
+        row.source_artifact, TASK_ARTIFACT[row.supports_close_task],
+        `${row.evidence_id}: ${row.supports_close_task} now points at ${row.source_artifact}`
+      );
     }
     assert.equal(row.evidence_type, task.account_code === "" ? "close_task" : "reconciliation");
     assert.equal(row.period, "2026-03");
@@ -189,7 +233,7 @@ test("FIN-23 V13 and V15: one superseded citation, one row indexed but not filed
 
   const unfiled = rows.filter((r) => r.binder_reference !== "" && r.storage_location === "");
   assert.equal(unfiled.length, 1);
-  assert.equal(unfiled[0].supports_close_task, UNFILED_EVIDENCE.task_id);
+  assert.equal(unfiled[0].supports_close_task, unfiledTaskId());
   assert.equal(rows.filter((r) => r.binder_reference === "").length, 0, "every row carries a binder locator");
 
   // The qualifier-free contrast: a rule that tests an empty source_reference
@@ -256,14 +300,20 @@ test("FIN-23: storage_location and retention_class follow the two published rule
   for (const row of index()) {
     if (row.supports_control_id !== "") {
       const control = byControl.get(row.supports_control_id);
-      assert.equal(row.storage_location, `${BINDER_ROOT}/${control.process}/`);
+      assert.equal(
+        row.storage_location, `${BINDER_ROOT}/${control.process}/`,
+        `${row.evidence_id}: storage_location left the binder root`
+      );
       assert.equal(row.retention_class, control.key_control === "true" ? "sox_7yr" : "standard_3yr");
-    } else if (row.supports_close_task === UNFILED_EVIDENCE.task_id) {
+    } else if (row.supports_close_task === unfiledTaskId()) {
       assert.equal(row.storage_location, "", "the one indexed and unfiled row was filed");
       assert.equal(row.retention_class, "standard_3yr");
     } else {
       const task = byTask.get(row.supports_close_task);
-      assert.equal(row.storage_location, `${BINDER_ROOT}/close/${task.category}/`);
+      assert.equal(
+        row.storage_location, `${BINDER_ROOT}/close/${task.category}/`,
+        `${row.evidence_id}: storage_location left the binder root`
+      );
       assert.equal(row.retention_class, "standard_3yr");
     }
     if (row.retention_class === "sox_7yr") sox += 1;

@@ -45,6 +45,17 @@ const OUTPUT_FILE = "actuals-vs-budget.csv";
 
 const templateLines = () => buildBudgetVsActualTemplate((stream) => createRng("FIN-37", stream));
 
+/**
+ * The eight-value tuple FIN-24 imports from the FIN-37 template, written out
+ * here rather than looped from the generator's own list. Looping the imported
+ * list made the tuple check constant == constant: dropping owner_role from it
+ * shipped owner_role empty on all 27 rows and the suite stayed green.
+ */
+const TEMPLATE_FIELDS = [
+  "line_id", "account_code", "account_name", "statement_section", "normal_balance",
+  "owner_role", "budget_amount", "explanation_threshold_usd",
+];
+
 /** A shipped dataset's own committed bytes, read off disk rather than rebuilt. */
 const shippedText = (name, file) => readFileSync(join(REPO_ROOT, "datasets", ...name.split("/"), file), "utf8");
 const shipped = (name, file) => csvTable(shippedText(name, file)).rows;
@@ -74,6 +85,10 @@ function thresholdCents(budgetCents) {
 test("FIN-24 and FIN-25: the generators' column lists and the specs agree before a byte exists", () => {
   assert.deepEqual(COLUMNS, specs.byId.get("FIN-24").columns);
   assert.deepEqual(SUPPORTING_DETAIL_COLUMNS, specs.byId.get("FIN-25").columns);
+  assert.deepEqual(
+    IMPORTED_TEMPLATE_FIELDS, TEMPLATE_FIELDS,
+    "the imported tuple changed shape, so the tuple check would stop covering a column"
+  );
   assert.equal(PERIOD, "2026-03");
   assert.equal(PRIOR_PERIOD, "2026-02");
 });
@@ -146,8 +161,10 @@ test("FIN-24: 27 rows whose imported tuple equals the FIN-37 template row for ro
   assert.equal(rows.length, 27);
   const template = templateLines();
   for (const [i, row] of rows.entries()) {
-    for (const field of IMPORTED_TEMPLATE_FIELDS) {
+    for (const field of TEMPLATE_FIELDS) {
       assert.equal(row[field], template[i][field], `row ${i + 1}: ${field} was retyped rather than imported`);
+      assert.notEqual(row[field], "", `${row.line_id}: ${field} is empty, so the tuple lost a column`);
+      assert.notEqual(row[field], undefined, `${row.line_id}: ${field} is absent from the emitted row`);
     }
   }
   for (const row of rows) {
@@ -388,9 +405,10 @@ test("FIN-26 T-M1 from the emitted bytes: the published rule reproduces all 27 F
   );
   assert.deepEqual(mismatches.map((l) => l.line_id), [], "the emitted rule no longer reproduces FIN-37");
   assert.equal(templateLines().length, 27);
-  // The floor does real work: without it, nine of the 27 lines would carry a
-  // threshold under 10,000.00, which is the number the flat-floor reading in V1
-  // is measured against.
+  // The floor does real work: without it, fifteen of the 27 lines would carry a
+  // threshold under 10,000.00. That is not V1's flat-floor contrast, which is
+  // nine: nine lines are MATERIAL under a flat 10,000.00 floor, fifteen are the
+  // lines whose percentage threshold the floor lifts.
   const belowFloor = templateLines().filter(
     (l) => Math.ceil((toCents(l.budget_amount) * rule.pct_of_budget) / unit) * unit < floor
   );
