@@ -21,6 +21,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import yaml from "js-yaml";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
@@ -28,8 +29,8 @@ import { csvTable, fileByPath } from "../helpers/csv-table.js";
 import { buildBudgetVsActualTemplate } from "../../datagen/src/generators/fin-37-budget-vs-actual-template.js";
 import { buildTrialBalance } from "../../datagen/src/generators/fin-05-gl-trial-balance.js";
 import {
-  BUDGET_VARIANCE_RULE, COLUMNS, IMPORTED_TEMPLATE_FIELDS, PERIOD, PRIOR_PERIOD,
-  SUPPORTING_DETAIL_COLUMNS,
+  BUDGET_VARIANCE_RULE, COLUMNS, IMPORTED_TEMPLATE_FIELDS, MATERIALITY_FILE, PERIOD,
+  PRIOR_PERIOD, SUPPORTING_DETAIL_COLUMNS,
 } from "../../datagen/src/generators/fin-24-actuals-vs-budget.js";
 import { actualAmountCents, sectionSign, sectionSubtotalsCents } from "../../datagen/src/generators/finance-statement.js";
 import { cents, toCents } from "../../datagen/src/money.js";
@@ -43,6 +44,17 @@ const canon = loadCanonCompanies(join(REPO_ROOT, "canon", "companies.md"));
 const OUTPUT_FILE = "actuals-vs-budget.csv";
 
 const templateLines = () => buildBudgetVsActualTemplate((stream) => createRng("FIN-37", stream));
+
+/** A shipped dataset's own committed bytes, read off disk rather than rebuilt. */
+const shippedText = (name, file) => readFileSync(join(REPO_ROOT, "datasets", ...name.split("/"), file), "utf8");
+const shipped = (name, file) => csvTable(shippedText(name, file)).rows;
+
+/** The emitted FIN-26 config, parsed. */
+function policy() {
+  return yaml.load(
+    fileByPath(generateArtifact(specs.byId.get("FIN-26"), canon), MATERIALITY_FILE).content
+  );
+}
 
 function tracker() {
   const table = csvTable(fileByPath(generateArtifact(specs.byId.get("FIN-24"), canon), OUTPUT_FILE).content);
@@ -217,15 +229,119 @@ test("FIN-24 V2 and V3: three flux breaches, one overlap with the budget rule, f
   // symmetric difference of 5, and assert the qualifier-free count of 27.
 });
 
-test("FIN-26: the emitted config carries the documented key list and the DA-01 pointer", { todo: WAVE }, () => {
+test("FIN-26: the emitted config publishes the documented key list, in the documented order", () => {
   const yamlText = fileByPath(
-    generateArtifact(specs.byId.get("FIN-26"), canon), "materiality-thresholds.yaml"
+    generateArtifact(specs.byId.get("FIN-26"), canon), MATERIALITY_FILE
   ).content;
   for (const key of ["policy_owner_role", "budget_variance_rule", "flux_rule", "qualitative_overrides", "escalation", "related_decision_id"]) {
     assert.match(yamlText, new RegExp(`^${key}:`, "m"), `materiality-thresholds.yaml has no ${key}`);
   }
-  assert.match(yamlText, /DA-01/);
-  // TODO(wave): assert DA-01 resolves to a control_id in the shipped FIN-39
-  // matrix, and recompute all 27 FIN-37 thresholds from the emitted config
-  // rather than from the constant this file imports.
+
+  // A YAML policy carries keys rather than a header row, so this is FIN-26's
+  // spec.columns: the list its spec documents, in the order it documents it,
+  // read back off the parsed bytes. The list is taken from the spec text rather
+  // than retyped, so a spec edit and a config edit have to move together.
+  const documented = specs.byId.get("FIN-26").planted_features.find((f) => f.includes("documented key list"));
+  assert.ok(documented, "FIN-26's spec no longer documents a key list");
+  const config = yaml.load(yamlText);
+  for (const key of Object.keys(config)) {
+    assert.ok(documented.includes(key), `the config carries ${key}, which its spec does not document`);
+  }
+  assert.deepEqual(Object.keys(config), [
+    "policy_owner_role", "effective_period", "source_artifact", "currency",
+    "budget_variance_rule", "flux_rule", "explanation_required_when",
+    "qualitative_overrides", "escalation", "related_decision_id",
+  ]);
+  assert.deepEqual(Object.keys(config.effective_period), ["start", "end"]);
+  assert.deepEqual(Object.keys(config.budget_variance_rule), ["pct_of_budget", "floor_usd", "rounding", "combine"]);
+  assert.deepEqual(Object.keys(config.flux_rule), ["pct_of_prior_period", "floor_usd", "rounding", "combine"]);
+  assert.deepEqual(Object.keys(config.escalation), ["at_or_above_usd", "to_role"]);
+
+  // effective_period is the spec's own period, so a window nobody states cannot
+  // ship, and the three qualitative overrides are named rather than counted.
+  assert.deepEqual(config.effective_period, specs.byId.get("FIN-26").period);
+  assert.equal(config.source_artifact, "FIN-37");
+  assert.deepEqual(config.qualitative_overrides.map((o) => o.override_id), ["QO-01", "QO-02", "QO-03"]);
+});
+
+test("FIN-26 T-M1 from the emitted bytes: the published rule reproduces all 27 FIN-37 thresholds", () => {
+  // The other half of T-M1. The green test above recomputes from the constant
+  // this file imports; this one recomputes from the three numbers the EMITTED
+  // config publishes, parsed back out of its own bytes, so a config that ships
+  // a rule the pack does not obey fails here rather than in a module.
+  const rule = policy().budget_variance_rule;
+  const unit = Math.round(Number(/nearest (\d+)/.exec(rule.rounding)[1]) * 100);
+  const floor = toCents(rule.floor_usd);
+  const fromConfig = (budgetCents) =>
+    Math.max(floor, Math.ceil((budgetCents * rule.pct_of_budget) / unit) * unit);
+
+  const mismatches = templateLines().filter(
+    (l) => fromConfig(toCents(l.budget_amount)) !== toCents(l.explanation_threshold_usd)
+  );
+  assert.deepEqual(mismatches.map((l) => l.line_id), [], "the emitted rule no longer reproduces FIN-37");
+  assert.equal(templateLines().length, 27);
+  // The floor does real work: without it, nine of the 27 lines would carry a
+  // threshold under 10,000.00, which is the number the flat-floor reading in V1
+  // is measured against.
+  const belowFloor = templateLines().filter(
+    (l) => Math.ceil((toCents(l.budget_amount) * rule.pct_of_budget) / unit) * unit < floor
+  );
+  assert.equal(belowFloor.length, 15, "the set of lines the floor rescues moved");
+});
+
+test("FIN-26: the flux rule the config publishes is the rule FIN-33's plant was built against", () => {
+  // FIN-26 imports the flux rule from FIN-33 rather than retyping it, because
+  // FIN-33 had to construct the plant before FIN-26 existed. This asserts the
+  // two agree from the two sets of BYTES, not from the shared constant: the
+  // rule the config publishes, applied to the shipped trend, returns the three
+  // breaches the trend was built to carry.
+  const rule = policy().flux_rule;
+  const unit = Math.round(Number(/nearest (\d+)/.exec(rule.rounding)[1]) * 100);
+  const floor = toCents(rule.floor_usd);
+  const threshold = (priorCents) =>
+    Math.max(floor, Math.ceil((Math.abs(priorCents) * rule.pct_of_prior_period) / unit) * unit);
+
+  const trend = shipped("finance/actuals-24mo", "actuals-24mo.csv");
+  const february = new Map(trend.filter((r) => r.period === PRIOR_PERIOD).map((r) => [r.line_id, toCents(r.actual_amount)]));
+  const march = new Map(trend.filter((r) => r.period === PERIOD).map((r) => [r.line_id, toCents(r.actual_amount)]));
+  assert.equal(february.size, 27);
+  const breaches = [...march.keys()].filter((lineId) => {
+    const prior = february.get(lineId);
+    return Math.abs(march.get(lineId) - prior) >= threshold(prior);
+  });
+  assert.equal(breaches.length, 3, `flux breaches under the published rule: ${breaches.join(", ")}`);
+  // Both cardinalities: every line has a flux at all, so the threshold is the
+  // qualifier that selects and the movement is not.
+  assert.equal([...march.keys()].filter((l) => march.get(l) !== february.get(l)).length, 27);
+});
+
+test("FIN-26: related_decision_id resolves to a control_id in the shipped FIN-39 matrix", () => {
+  const config = policy();
+  const matrix = shipped("finance/decision-authority-matrix-template", "decision-authority-matrix-template.csv");
+  const decision = matrix.find((r) => r.control_id === config.related_decision_id);
+  assert.ok(decision, `${config.related_decision_id} is not a control_id in FIN-39`);
+  assert.match(decision.decision, /variance narrative/, "DA-01 no longer covers drafting a variance narrative");
+
+  // The escalation names an amount and a role, never a person, and the role is
+  // one an active CORE-04 employee actually holds.
+  assert.equal(config.escalation.at_or_above_usd, "100000.00");
+  const roster = shipped("core/people-roster", "people-roster.csv");
+  for (const role of [config.policy_owner_role, config.escalation.to_role]) {
+    assert.ok(
+      roster.some((r) => r.role_title === role && r.employment_status === "active"),
+      `no active CORE-04 employee holds "${role}"`
+    );
+  }
+  assert.ok(!/EMP-\d/.test(JSON.stringify(config)), "the policy names a person");
+});
+
+test("FIN-26: the committed bytes are the generated bytes, line for line", () => {
+  // The byte guard `validate` runs, restated as a test so a hand edit to the
+  // committed config fails the suite naming the key it landed on.
+  const generated = fileByPath(generateArtifact(specs.byId.get("FIN-26"), canon), MATERIALITY_FILE).content.split("\n");
+  const committed = shippedText("finance/materiality-thresholds", MATERIALITY_FILE).split("\n");
+  for (const [i, line] of generated.entries()) {
+    assert.equal(committed[i], line, `materiality-thresholds.yaml line ${i + 1} was edited by hand`);
+  }
+  assert.equal(committed.length, generated.length);
 });
