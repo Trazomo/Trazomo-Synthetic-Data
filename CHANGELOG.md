@@ -77,7 +77,9 @@ Two rules, stated once in the plan and now recorded in `datagen/README.md`:
   placed it on 5020, which the bytes cannot satisfy alongside V6's
   qualifier-free count of 2), one blocked revenue line (4100, CLS-14 not
   complete). Owns the `GL-202603-NNNN` entry block and the
-  `AP-/AR-/PAYREG-/JV-202603-NNNN` source-document blocks. **FIN-25 is a
+  `AP-/AR-/PAYREG-/JV-202603-NNNN` source-document blocks, which are
+  self-contained by ruling (2026-08-22): they do not join FIN-13's March bills,
+  FIN-07 or FIN-09, and module 23's trace stops at the cited id. **FIN-25 is a
   downstream consumer of FIN-05's period columns; a FIN-05 regeneration breaks
   its per-account sums, which is the correct failure.**
 - **FIN-31 kpi-source-data**: 168 rows exactly, seven non-ledger inputs by 24
