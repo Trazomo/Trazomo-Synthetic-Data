@@ -1,0 +1,33 @@
+evidence_id,binder_reference,period,evidence_type,title,source_artifact,source_reference,supports_close_task,supports_control_id,prepared_by_employee_id,reviewed_by_employee_id,prepared_date,retention_class,storage_location
+EV-2026Q1-001,EVB-2026Q1-001,2026-02,control_test,Customer credit limit review before order release,FIN-04,CTL-001,,CTL-001,EMP-0463,EMP-0472,2026-02-10,standard_3yr,binder/2026Q1/order_to_cash/
+EV-2026Q1-002,EVB-2026Q1-002,2026-03,control_test,Billing to the approved price list,FIN-04,CTL-002,,CTL-002,EMP-0464,EMP-0474,2026-03-11,standard_3yr,binder/2026Q1/order_to_cash/
+EV-2026Q1-003,EVB-2026Q1-003,2026-03,control_test,Cash application within two business days,FIN-02,CTL-003,,CTL-003,EMP-0465,EMP-0479,2026-03-12,standard_3yr,binder/2026Q1/order_to_cash/
+EV-2026Q1-004,EVB-2026Q1-004,2026-01,control_test,Approval of receivable write offs,FIN-04,CTL-004,,CTL-004,EMP-0466,EMP-0470,2026-01-14,sox_7yr,binder/2026Q1/order_to_cash/
+EV-2026Q1-005,EVB-2026Q1-005,2026-03,control_test,Aging agreed to the control account,FIN-05,CTL-005,,CTL-005,EMP-0467,EMP-0484,2026-03-13,standard_3yr,binder/2026Q1/order_to_cash/
+EV-2026Q1-006,EVB-2026Q1-006,2026-03,control_test,Three way match before payment,FIN-07,CTL-007,,CTL-007,EMP-0469,EMP-0482,2026-03-10,standard_3yr,binder/2026Q1/procure_to_pay/
+EV-2026Q1-007,EVB-2026Q1-007,2026-01,control_test,Vendor master change applied by a second person,FIN-06,CTL-008,,CTL-008,EMP-0463,EMP-0473,2026-01-20,sox_7yr,binder/2026Q1/procure_to_pay/
+EV-2026Q1-008,EVB-2026Q1-008,2026-03,control_test,Duplicate invoice number blocked at entry,FIN-07,CTL-009,,CTL-009,EMP-0464,EMP-0485,2026-03-16,standard_3yr,binder/2026Q1/procure_to_pay/
+EV-2026Q1-009,EVB-2026Q1-009,2026-02,control_test,Call back on a vendor bank detail change,FIN-11,CTL-011,,CTL-011,EMP-0466,EMP-0481,2026-02-12,sox_7yr,binder/2026Q1/procure_to_pay/
+EV-2026Q1-010,EVB-2026Q1-010,2026-03,control_test,Preparer and approver of an entry are different people,FIN-09,CTL-012,,CTL-012,EMP-0467,EMP-0470,2026-03-17,sox_7yr,binder/2026Q1/close/
+EV-2026Q1-011,EVB-2026Q1-011,2026-03,control_test,Supporting evidence attached to every entry,FIN-09,CTL-013,,CTL-013,EMP-0468,EMP-0476,2026-03-18,sox_7yr,binder/2026Q1/close/
+EV-2026Q1-012,EVB-2026Q1-012,2026-03,control_test,Balance sheet reconciliations prepared and reviewed,FIN-05,CTL-014,,CTL-014,EMP-0469,EMP-0477,2026-03-19,standard_3yr,binder/2026Q1/close/
+EV-2026Q1-013,EVB-2026Q1-013,2026-03,control_test,Bank reconciliation within three business days of period end,FIN-01,CTL-015,,CTL-015,EMP-0463,EMP-0486,2026-03-20,standard_3yr,binder/2026Q1/close/
+EV-2026Q1-014,EVB-2026Q1-014,2026-03,control_test,Period locked once the close is approved,FIN-05,CTL-016,,CTL-016,EMP-0464,EMP-0473,2026-03-23,sox_7yr,binder/2026Q1/close/
+EV-2026Q1-015,EVB-2026Q1-015,2026-02,control_test,Approval before finance system access is granted,CORE-04,CTL-019,,CTL-019,EMP-0467,EMP-0470,2026-02-18,standard_3yr,binder/2026Q1/access/
+EV-2026Q1-016,EVB-2026Q1-016,2026-02,control_test,Posting access restricted to named administrators,FIN-19,CTL-020,,CTL-020,EMP-0468,EMP-0473,2026-02-19,standard_3yr,binder/2026Q1/access/
+EV-2026Q1-017,EVB-2026Q1-017,2026-03,control_test,Dual approval before a payment run is released,FIN-08,CTL-022,,CTL-022,EMP-0463,EMP-0481,2026-03-24,sox_7yr,binder/2026Q1/treasury/
+EV-2026Q1-018,EVB-2026Q1-018,2026-03,control_test,Payment only to bank details held on the vendor master,FIN-08,CTL-023,,CTL-023,EMP-0464,EMP-0487,2026-03-25,sox_7yr,binder/2026Q1/treasury/
+EV-2026Q1-019,EVB-2026Q1-019,2026-03,control_test,Weekly cash position reporting,FIN-02,CTL-026,,CTL-026,EMP-0467,EMP-0483,2026-03-26,standard_3yr,binder/2026Q1/treasury/
+EV-2026Q1-020,EVB-2026Q1-020,2026-03,close_task,bank statement export for every account,FIN-01,,CLS-01,,EMP-0471,EMP-0470,2026-04-02,standard_3yr,binder/2026Q1/close/cash/
+EV-2026Q1-021,EVB-2026Q1-021,2026-03,close_task,subledger close confirmation,FIN-07,,CLS-02,,EMP-0475,EMP-0465,2026-04-02,standard_3yr,binder/2026Q1/close/payables/
+EV-2026Q1-022,EVB-2026Q1-022,2026-03,close_task,subledger close confirmation,FIN-04,,CLS-03,,EMP-0472,EMP-0466,2026-04-01,standard_3yr,binder/2026Q1/close/receivables/
+EV-2026Q1-023,EVB-2026Q1-023,2026-03,reconciliation,reconciliation working paper showing the adjusted balances,FIN-01,1010,CLS-04,,EMP-0476,EMP-0473,2026-04-02,standard_3yr,binder/2026Q1/close/cash/
+EV-2026Q1-024,EVB-2026Q1-024,2026-03,close_task,outstanding check listing agreed to the ledger,FIN-01,,CLS-05,,EMP-0477,EMP-0481,2026-04-02,standard_3yr,binder/2026Q1/close/cash/
+EV-2026Q1-025,EVB-2026Q1-025,2026-03,reconciliation,aging report with the control account tie,FIN-04,1100,CLS-06,,EMP-0474,EMP-0467,2026-04-03,standard_3yr,binder/2026Q1/close/receivables/
+EV-2026Q1-026,EVB-2026Q1-026,2026-03,close_task,credit memo and unapplied cash listing,FIN-04,,CLS-07,,EMP-0479,EMP-0470,2026-04-03,standard_3yr,binder/2026Q1/close/receivables/
+EV-2026Q1-027,EVB-2026Q1-027,2026-03,close_task,three way match exception report,FIN-07,,CLS-08,,EMP-0482,EMP-0468,2026-04-02,standard_3yr,binder/2026Q1/close/payables/
+EV-2026Q1-028,EVB-2026Q1-028,2026-03,reconciliation,payroll register reconciliation,FIN-02,1020,CLS-10,,EMP-0486,EMP-0469,2026-04-02,standard_3yr,binder/2026Q1/close/payroll/
+EV-2026Q1-029,EVB-2026Q1-029,2026-03,close_task,accrual roll forward schedule,FIN-10,,CLS-11,,EMP-0493,EMP-0481,2026-04-03,standard_3yr,binder/2026Q1/close/accruals/
+EV-2026Q1-030,EVB-2026Q1-030,2026-03,close_task,prepaid schedule with the monthly amortization,CORE-05,ADI-FIN-001,CLS-12,,EMP-0471,EMP-0465,2026-04-03,standard_3yr,binder/2026Q1/close/accruals/
+EV-2026Q1-031,EVB-2026Q1-031,2026-03,close_task,payroll accrual schedule,CORE-04,,CLS-13,,EMP-0476,EMP-0470,2026-04-03,standard_3yr,binder/2026Q1/close/payroll/
+EV-2026Q1-032,EVB-2026Q1-032,2026-03,close_task,journal batch with support attached to every entry,FIN-09,,CLS-15,,EMP-0486,EMP-0473,2026-04-03,standard_3yr,

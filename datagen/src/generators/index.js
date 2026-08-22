@@ -3,8 +3,8 @@
 // under generators/, import it here, and add it to REGISTRY. See
 // datagen/README.md for the full spec-authoring walkthrough.
 //
-// Two cluster 3 and 4 modules exist under generators/ as skeletons and are
-// deliberately absent from the two lists below: FIN-23 and FIN-29.
+// One cluster 3 and 4 module exists under generators/ as a skeleton and is
+// deliberately absent from the two lists below: FIN-29.
 // Registering an id
 // whose generator throws would enrol it in the determinism sweep and turn
 // `validate`'s honest SKIP NOT_IMPLEMENTED into a failure, so each id is
@@ -34,6 +34,7 @@ import * as fin18 from "./fin-18-control-matrix.js";
 import * as fin19 from "./fin-19-access-assignments.js";
 import * as fin20 from "./fin-20-regulatory-feed.js";
 import * as fin22 from "./fin-22-chart-of-accounts.js";
+import * as fin23 from "./fin-23-audit-evidence-index.js";
 import * as fin24 from "./fin-24-actuals-vs-budget.js";
 import * as fin25 from "./fin-25-supporting-je-detail.js";
 import * as fin26 from "./fin-26-materiality-thresholds.js";
@@ -65,7 +66,7 @@ export const PROGRAM_GENERATOR_IDS = [
   core02.id, core03.id, core04.id,
   fin01.id, fin02.id, fin03.id, fin04.id, fin05.id,
   fin06.id, fin07.id, fin08.id, fin09.id, fin10.id, fin11.id,
-  fin13.id, fin14.id, fin15.id, fin16.id, fin17.id, fin18.id, fin19.id, fin20.id, fin22.id,
+  fin13.id, fin14.id, fin15.id, fin16.id, fin17.id, fin18.id, fin19.id, fin20.id, fin22.id, fin23.id,
   fin24.id, fin25.id, fin26.id, fin27.id,
   fin31.id, fin32.id, fin33.id, fin34.id, fin35.id,
   fin36.id, fin37.id, fin38.id, fin39.id,
@@ -76,7 +77,7 @@ const REGISTRY = new Map(
   [
     core02, core03, core04,
     fin01, fin02, fin03, fin04, fin05, fin06, fin07, fin08, fin09, fin10, fin11,
-    fin13, fin14, fin15, fin16, fin17, fin18, fin19, fin20, fin22,
+    fin13, fin14, fin15, fin16, fin17, fin18, fin19, fin20, fin22, fin23,
     fin24, fin25, fin26, fin27,
     fin31, fin32, fin33, fin34, fin35,
     fin36, fin37, fin38, fin39,
