@@ -1,8 +1,9 @@
-// FIN-27 approved-je-summary: the wave's red tests.
+// FIN-27 approved-je-summary: the wave's tests.
 //
-// SKELETON, shipped by D5a foundations. `{ todo: WAVE }` marks a test that
-// fails today because the generator is not registered; the wave deletes the
-// marker in the same commit as the bytes.
+// Built by D5a wave D. Every plant is re-derived here from the emitted bytes by
+// its own stated rule, and the disclosure rule is spelled out in this file's
+// own code rather than imported: a test that imports the predicate it is
+// checking cannot disagree with the generator.
 //
 // The mutation this file has to catch: a roll-up that drops the entry posting
 // to the inactive account, which would delete FIN-09's own shipped plant from
@@ -11,6 +12,7 @@
 // FIN-27 is the only cluster 3 and 4 artifact that reconciles to FIN-09.
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
@@ -24,12 +26,14 @@ import {
 import { cents, toCents } from "../../datagen/src/money.js";
 import { isWeekend } from "../../datagen/src/dates.js";
 
-const WAVE = "D5a wave 2 (plan Task 8) builds FIN-27 and deletes this marker";
-
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
 const canon = loadCanonCompanies(join(REPO_ROOT, "canon", "companies.md"));
 const OUTPUT_FILE = "approved-je-summary.csv";
+
+/** A shipped dataset's own committed bytes, read off disk rather than rebuilt. */
+const shippedText = (name, file) => readFileSync(join(REPO_ROOT, "datasets", ...name.split("/"), file), "utf8");
+const shipped = (name, file) => csvTable(shippedText(name, file)).rows;
 
 const batchLines = () => csvTable(
   fileByPath(generateArtifact(specs.byId.get("FIN-09"), canon), "journal-entries-batch.csv").content
@@ -104,7 +108,7 @@ test("FIN-27 T-P2: the batch total the summary has to reproduce", () => {
 
 // ------------------------------------------------------------ red until built
 
-test("FIN-27 T-P1: 31 rows whose totals and line counts recompute from FIN-09", { todo: WAVE }, () => {
+test("FIN-27 T-P1: 31 rows whose totals and line counts recompute from FIN-09", () => {
   const rows = summary();
   const expected = new Map(batchEntries().map((e) => [e.entry_id, e]));
   assert.equal(rows.length, 31);
@@ -115,12 +119,13 @@ test("FIN-27 T-P1: 31 rows whose totals and line counts recompute from FIN-09", 
     assert.equal(row.entry_total, cents(entry.debit_cents), `${row.entry_id} total`);
     assert.equal(row.posting_date, entry.posting_date);
     assert.equal(row.approved_date, entry.approved_date);
+    assert.equal(row.entry_type, entry.entry_type);
     assert.equal(row.supports_close_task, SUPPORTS_CLOSE_TASK);
   }
   assert.equal(cents(rows.reduce((sum, r) => sum + toCents(r.entry_total), 0)), "1319977.89");
 });
 
-test("FIN-27 T-P3: preparer and approver are active Finance employees and are never the same person", { todo: WAVE }, () => {
+test("FIN-27 T-P3: preparer and approver are active Finance employees and are never the same person", () => {
   const roster = new Map(financeRoster().map((r) => [r.employee_id, r]));
   for (const row of summary()) {
     for (const field of ["prepared_by_employee_id", "approved_by_employee_id"]) {
@@ -133,28 +138,100 @@ test("FIN-27 T-P3: preparer and approver are active Finance employees and are ne
   }
 });
 
-test("FIN-27 T-P5: distinct_accounts counts active chart codes, except the one entry FIN-09 plants on the inactive one", { todo: WAVE }, () => {
+test("FIN-27 T-P5: distinct_accounts counts active chart codes, except the one entry FIN-09 plants on the inactive one", () => {
   const chart = new Map(buildChartOfAccounts().map((a) => [a.account_code, a]));
   const expected = new Map(batchEntries().map((e) => [e.entry_id, e]));
+  const rows = summary();
   const inactive = [];
-  for (const row of summary()) {
+  for (const row of rows) {
     const entry = expected.get(row.entry_id);
     assert.equal(row.distinct_accounts, String(entry.accounts.size), `${row.entry_id} distinct account count`);
+    assert.equal(row.source_document_count, String(entry.documents.size), `${row.entry_id} source document count`);
     for (const account of entry.accounts) {
       assert.ok(chart.has(account), `${row.entry_id} posts to ${account}, which is not on the chart`);
       if (chart.get(account).active !== "true") inactive.push(row.entry_id);
     }
   }
   assert.equal(new Set(inactive).size, 1, "FIN-09's inactive-account plant did not survive the roll-up");
+
+  // V9's two numbers, this time off the EMITTED bytes rather than off FIN-09,
+  // because the emitted file is what a module reads. The population qualifier
+  // is the whole plant: without it the count is 3 and it looks right.
+  const noDocuments = rows.filter((r) => r.source_document_count === "0");
+  assert.equal(noDocuments.length, 3, "the qualifier-free count over the emitted summary");
+  const findings = noDocuments.filter((r) => !INTERNAL_SCHEDULE_TYPES.includes(r.entry_type));
+  assert.equal(findings.length, 1, "the count under the population a supporting document is expected for");
+  assert.deepEqual(
+    noDocuments.filter((r) => INTERNAL_SCHEDULE_TYPES.includes(r.entry_type)).map((r) => r.entry_type).sort(),
+    ["amortization", "depreciation"],
+    "the two entries the population excludes are the internal schedules, one of each type"
+  );
 });
 
-test("FIN-27: memo_disclosure_class is assigned by rule over FIN-09's own columns", { todo: WAVE }, () => {
+test("FIN-27: memo_disclosure_class is assigned by rule over FIN-09's own columns", () => {
   const rows = summary();
+  // The rule, restated here in this file's own code rather than imported, so a
+  // class assigned by hand in the generator fails naming the entry it landed
+  // on. Ordered: an entry the memo cannot support is a finding whatever its
+  // type, then an entry whose amount is the company's own estimate or
+  // allocation, then the mechanical remainder.
+  const ESTIMATE = ["accrual", "depreciation", "amortization", "allocation"];
+  const classFor = (row) => {
+    if (row.source_document_count === "0" && !INTERNAL_SCHEDULE_TYPES.includes(row.entry_type)) return "unsupported";
+    if (ESTIMATE.includes(row.entry_type)) return "judgemental";
+    return "routine";
+  };
+  const counts = { routine: 0, judgemental: 0, unsupported: 0 };
   for (const row of rows) {
     assert.ok(DISCLOSURE_CLASSES.includes(row.memo_disclosure_class), `${row.entry_id}: ${row.memo_disclosure_class}`);
+    assert.equal(row.memo_disclosure_class, classFor(row), `${row.entry_id} carries a class the rule does not give it`);
+    counts[row.memo_disclosure_class] += 1;
   }
-  // TODO(wave): state the rule in the test and re-derive every class from
-  // FIN-09's columns, so a hand-assigned class fails here. Assert the count in
-  // each class, and assert that the unsupported class holds exactly the one
-  // V9 finding rather than all three no-document entries.
+  assert.deepEqual(counts, { routine: 5, judgemental: 25, unsupported: 1 });
+
+  // The unsupported class holds the one V9 finding and NOT the two internal
+  // schedules, which cite nothing by the v1.4.1 rule and are not findings.
+  const unsupported = rows.filter((r) => r.memo_disclosure_class === "unsupported");
+  assert.equal(unsupported.length, 1);
+  assert.equal(unsupported[0].source_document_count, "0");
+  assert.ok(!INTERNAL_SCHEDULE_TYPES.includes(unsupported[0].entry_type));
+  const internalBlanks = rows.filter(
+    (r) => r.source_document_count === "0" && INTERNAL_SCHEDULE_TYPES.includes(r.entry_type)
+  );
+  assert.equal(internalBlanks.length, 2);
+  for (const row of internalBlanks) {
+    assert.equal(row.memo_disclosure_class, "judgemental", `${row.entry_id} is classed as a finding by the rule`);
+  }
+});
+
+test("FIN-27: the entry id block is FIN-09's own, and it cannot collide with the block FIN-25 mints", () => {
+  const rows = summary();
+  const summaryIds = new Set(rows.map((r) => r.entry_id));
+  assert.equal(summaryIds.size, 31);
+  for (const id of summaryIds) assert.match(id, /^JE-202603-C\d{3}$/, `${id} is outside FIN-09's entry block`);
+  const detail = new Set(shipped("finance/supporting-je-detail", "supporting-je-detail.csv").map((r) => r.entry_id));
+  const collisions = [...summaryIds].filter((id) => detail.has(id));
+  assert.deepEqual(collisions, [], "the roll-up and the supporting detail share an entry id");
+  assert.ok(detail.size > 0, "FIN-25 shipped no entry ids, so this guard proves nothing");
+});
+
+test("FIN-27: every row carries the close task the batch posts under, and one currency", () => {
+  const rows = summary();
+  assert.deepEqual([...new Set(rows.map((r) => r.supports_close_task))], [SUPPORTS_CLOSE_TASK]);
+  assert.deepEqual([...new Set(rows.map((r) => r.currency))], ["USD"]);
+  // Rule R-CLS17: this file states the checklist FILE fact it is entitled to
+  // (CLS-15 is the task that posts the batch) and says nothing at all about
+  // whether any other close task ran.
+  assert.ok(!JSON.stringify(rows).includes("CLS-17"), "the summary makes an assertion about CLS-17");
+});
+
+test("FIN-27: the committed bytes are the generated bytes, row for row", () => {
+  // The byte guard `validate` runs, restated as a test so a hand edit to the
+  // committed summary fails the suite naming the entry_id it landed on.
+  const generated = summary();
+  const committed = shipped("finance/approved-je-summary", OUTPUT_FILE);
+  assert.equal(committed.length, generated.length);
+  for (const [i, row] of generated.entries()) {
+    assert.deepEqual(committed[i], row, `approved-je-summary.csv row ${row.entry_id} was edited by hand`);
+  }
 });

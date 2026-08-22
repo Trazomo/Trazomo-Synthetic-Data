@@ -3,8 +3,8 @@
 // under generators/, import it here, and add it to REGISTRY. See
 // datagen/README.md for the full spec-authoring walkthrough.
 //
-// Three cluster 3 and 4 modules exist under generators/ as skeletons and are
-// deliberately absent from the two lists below: FIN-23, FIN-27 and FIN-29.
+// Two cluster 3 and 4 modules exist under generators/ as skeletons and are
+// deliberately absent from the two lists below: FIN-23 and FIN-29.
 // Registering an id
 // whose generator throws would enrol it in the determinism sweep and turn
 // `validate`'s honest SKIP NOT_IMPLEMENTED into a failure, so each id is
@@ -37,6 +37,7 @@ import * as fin22 from "./fin-22-chart-of-accounts.js";
 import * as fin24 from "./fin-24-actuals-vs-budget.js";
 import * as fin25 from "./fin-25-supporting-je-detail.js";
 import * as fin26 from "./fin-26-materiality-thresholds.js";
+import * as fin27 from "./fin-27-approved-je-summary.js";
 import * as fin31 from "./fin-31-kpi-source-data.js";
 import * as fin32 from "./fin-32-bank-balances.js";
 import * as fin33 from "./fin-33-actuals-24mo.js";
@@ -65,7 +66,7 @@ export const PROGRAM_GENERATOR_IDS = [
   fin01.id, fin02.id, fin03.id, fin04.id, fin05.id,
   fin06.id, fin07.id, fin08.id, fin09.id, fin10.id, fin11.id,
   fin13.id, fin14.id, fin15.id, fin16.id, fin17.id, fin18.id, fin19.id, fin20.id, fin22.id,
-  fin24.id, fin25.id, fin26.id,
+  fin24.id, fin25.id, fin26.id, fin27.id,
   fin31.id, fin32.id, fin33.id, fin34.id, fin35.id,
   fin36.id, fin37.id, fin38.id, fin39.id,
   lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
@@ -76,7 +77,7 @@ const REGISTRY = new Map(
     core02, core03, core04,
     fin01, fin02, fin03, fin04, fin05, fin06, fin07, fin08, fin09, fin10, fin11,
     fin13, fin14, fin15, fin16, fin17, fin18, fin19, fin20, fin22,
-    fin24, fin25, fin26,
+    fin24, fin25, fin26, fin27,
     fin31, fin32, fin33, fin34, fin35,
     fin36, fin37, fin38, fin39,
     lgl07, lgl11, lgl18, lgl20, lgl21, lgl22, test01,
