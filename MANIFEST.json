@@ -482,6 +482,34 @@
             }
         },
         {
+            "id": "FIN-33",
+            "name": "actuals-24mo",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/actuals-24mo",
+            "files": [
+                "actuals-24mo.csv"
+            ],
+            "row_counts": {
+                "actuals-24mo.csv": 648
+            }
+        },
+        {
+            "id": "FIN-34",
+            "name": "drivers",
+            "track": "finance",
+            "type": "config",
+            "format": "yaml",
+            "generation": "deterministic",
+            "path": "datasets/finance/drivers",
+            "files": [
+                "drivers.yaml"
+            ],
+            "row_counts": {}
+        },
+        {
             "id": "FIN-35",
             "name": "inbound-requests-queue",
             "track": "finance",
