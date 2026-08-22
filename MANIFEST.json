@@ -525,6 +525,36 @@
             "row_counts": {}
         },
         {
+            "id": "FIN-31",
+            "name": "kpi-source-data",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/kpi-source-data",
+            "files": [
+                "kpi-source-data.csv"
+            ],
+            "row_counts": {
+                "kpi-source-data.csv": 168
+            }
+        },
+        {
+            "id": "FIN-32",
+            "name": "bank-balances",
+            "track": "finance",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/finance/bank-balances",
+            "files": [
+                "bank-balances.csv"
+            ],
+            "row_counts": {
+                "bank-balances.csv": 96
+            }
+        },
+        {
             "id": "FIN-33",
             "name": "actuals-24mo",
             "track": "finance",
