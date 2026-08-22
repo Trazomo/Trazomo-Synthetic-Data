@@ -3,9 +3,9 @@
 // under generators/, import it here, and add it to REGISTRY. See
 // datagen/README.md for the full spec-authoring walkthrough.
 //
-// Ten cluster 3 and 4 modules exist under generators/ as skeletons and are
+// Nine cluster 3 and 4 modules exist under generators/ as skeletons and are
 // deliberately absent from the two lists below: FIN-23, FIN-24, FIN-25,
-// FIN-26, FIN-27, FIN-29, FIN-31, FIN-32, FIN-33 and FIN-34. Registering an id
+// FIN-26, FIN-27, FIN-29, FIN-31, FIN-32 and FIN-34. Registering an id
 // whose generator throws would enrol it in the determinism sweep and turn
 // `validate`'s honest SKIP NOT_IMPLEMENTED into a failure, so each id is
 // registered by the wave that builds it, in the same commit as its bytes.
@@ -34,6 +34,7 @@ import * as fin18 from "./fin-18-control-matrix.js";
 import * as fin19 from "./fin-19-access-assignments.js";
 import * as fin20 from "./fin-20-regulatory-feed.js";
 import * as fin22 from "./fin-22-chart-of-accounts.js";
+import * as fin33 from "./fin-33-actuals-24mo.js";
 import * as fin35 from "./fin-35-inbound-queue.js";
 import * as fin36 from "./fin-36-close-checklist-template.js";
 import * as fin37 from "./fin-37-budget-vs-actual-template.js";
@@ -57,7 +58,8 @@ export const PROGRAM_GENERATOR_IDS = [
   core02.id, core03.id, core04.id,
   fin01.id, fin02.id, fin03.id, fin04.id, fin05.id,
   fin06.id, fin07.id, fin08.id, fin09.id, fin10.id, fin11.id,
-  fin13.id, fin14.id, fin15.id, fin16.id, fin17.id, fin18.id, fin19.id, fin20.id, fin22.id, fin35.id,
+  fin13.id, fin14.id, fin15.id, fin16.id, fin17.id, fin18.id, fin19.id, fin20.id, fin22.id,
+  fin33.id, fin35.id,
   fin36.id, fin37.id, fin38.id, fin39.id,
   lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
 ];
@@ -66,7 +68,8 @@ const REGISTRY = new Map(
   [
     core02, core03, core04,
     fin01, fin02, fin03, fin04, fin05, fin06, fin07, fin08, fin09, fin10, fin11,
-    fin13, fin14, fin15, fin16, fin17, fin18, fin19, fin20, fin22, fin35,
+    fin13, fin14, fin15, fin16, fin17, fin18, fin19, fin20, fin22,
+    fin33, fin35,
     fin36, fin37, fin38, fin39,
     lgl07, lgl11, lgl18, lgl20, lgl21, lgl22, test01,
   ].map((mod) => [mod.id, mod])

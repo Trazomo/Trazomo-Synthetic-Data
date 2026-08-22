@@ -1,45 +1,67 @@
-// FIN-33 actuals-24mo and FIN-34 drivers: SKELETON, not yet built.
+// FIN-33 actuals-24mo: the 24-month profit-and-loss trend module 30 forecasts
+// from. FIN-34 drivers is emitted by this same builder and lands in the next
+// commit (the FIN-15 over FIN-16 pattern), so the driver set and the trend it
+// applies to can never disagree about which line_ids exist.
 //
-// Foundations (D5a step 1) ships the contract and nothing else: the id, the
-// column list the spec pins, and the constants a wave must not retype. The
-// build belongs to the FIN-33 wave (plan Task 5), and FIN-33 is on the
-// critical path: four of the six cluster 3 and 4 modules pin it, FIN-24 reads
-// its 2026-02 column, FIN-25's account set is not knowable without it, and
+// FIN-33 is on the critical path: FIN-24 reads its 2026-02 column as the prior
+// period, FIN-25's account set is not knowable without its flux plant, and
 // FIN-28's every figure ties to it.
 //
-// Until the wave lands:
-//   * this module is deliberately NOT in index.js REGISTRY, so `validate`
-//     reports FIN-33 as SKIP NOT_IMPLEMENTED rather than failing, and the
-//     determinism sweep does not enrol an id with no bytes;
-//   * generate() throws, naming the wave that owns it;
-//   * tests/generators/fin-33-actuals-24mo.test.js carries the red assertions,
-//     marked `todo` so `npm test` stays at zero failures while still printing
-//     what is not built.
+// Nothing here invents a profit-and-loss line. The 27-row spine is imported
+// from buildBudgetVsActualTemplate() row for row, and the last three months are
+// read out of the frozen FIN-05 trial balance:
 //
-// To turn it green: implement buildActuals24mo(), delete the throw, import
-// this module in index.js and add both ids to REGISTRY and
-// PROGRAM_GENERATOR_IDS, then drop the `{ todo: ... }` option from every test
-// in the file above.
+//   1. every 2026-03 actual is FIN-05's period movement for that account under
+//      rule R-SIGN convention 1 (actualAmountCents in finance-statement.js), so
+//      it equals FIN-24's actual_amount for the same line_id to the cent;
+//   2. per account, 2026-01 plus 2026-02 is FIN-05's beginning_balance, because
+//      the fiscal year is the calendar year (canon/timeline.md), so a
+//      profit-and-loss beginning balance at 2026-03-01 is exactly January plus
+//      February; and all three months together are FIN-05's ending_balance in
+//      the account's own normal-balance direction.
 //
-// The two constraints that make this artifact hard, both asserted by the
-// builder before it returns (the FIN-38 "the builder refuses to emit"
-// precedent) and re-derived independently in the test:
-//   1. every 2026-03 actual equals FIN-05's period movement for that account,
-//      under rule R-SIGN convention 1 (actualAmountCents in
-//      generators/finance-statement.js), and therefore equals FIN-24's actual;
-//   2. per account, 2026-01 plus 2026-02 equals FIN-05's beginning_balance,
-//      because the fiscal year is the calendar year (canon/timeline.md), and
-//      2026-01 plus 2026-02 plus 2026-03 equals ending_balance in the
-//      account's own direction.
-// The other 21 months are free, and a reroll of them must break neither.
-import { NotImplementedError } from "../errors.js";
+// Both constraints hold for all 27 accounts simultaneously, both are asserted
+// before the builder returns (the FIN-38 "the builder refuses to emit"
+// precedent), and a reroll of the free 21 months touches neither: the split
+// between January and February moves, their sum does not.
+//
+// Planted features (spec FIN-33), each derivable by a rule over the data and
+// never by a label:
+//   P1. exactly 3 lines breach the FIN-26 flux rule against February, and
+//       exactly 1 of those also breaches the budget rule. The two rules
+//       therefore disagree on 5 lines, which is what module 23 exists to teach.
+//   P2. the two flux-only accounts carry no FIN-09 line. That is what holds
+//       FIN-25's timing plant at one instance and its qualifier-free count at
+//       two, and it is asserted here against FIN-09's own builder rather than
+//       left as a comment.
+//   P3. exactly one line carries a peak that repeats at 12-month spacing, so a
+//       trailing-three-month run rate over-forecasts it. All 27 lines move
+//       month to month, which is why the repeat is the qualifier that selects
+//       and the movement is not.
+//
+// Every breach in this file is constructed. The builder proves that by
+// asserting first that no line breaches the flux rule when February is simply
+// half the January-plus-February total: the plant is a choice of February, not
+// an accident of FIN-05.
+import { toCsv } from "../csv.js";
+import { CLOSE_PERIOD_END, monthEnds, TREND_MONTHS } from "../dates.js";
+import { cents, toCents } from "../money.js";
+import { createRng } from "../seed.js";
+import { actualAmountCents } from "./finance-statement.js";
+import { buildBudgetVsActualTemplate } from "./fin-37-budget-vs-actual-template.js";
+import { buildTrialBalance } from "./fin-05-gl-trial-balance.js";
+import { buildCloseBatch } from "./fin-09-je-batch.js";
 
 export const id = "FIN-33";
+
+export const OUTPUT_FILE = "actuals-24mo.csv";
 
 export const COLUMNS = [
   "line_id", "account_code", "account_name", "statement_section", "normal_balance",
   "period", "actual_amount", "currency",
 ];
+
+export const CURRENCY = "USD";
 
 export const DRIVERS_FILE = "drivers.yaml";
 
@@ -61,6 +83,300 @@ export const HORIZON_MONTHS = 18;
  */
 export const COST_PER_HEAD_ACCOUNTS = ["6000", "6010", "6020", "5020"];
 
+// ------------------------------------------------------------- the flux rule
+// FIN-26 publishes this rule as policy and FIN-24 reports against it, but
+// FIN-33 has to construct the plant that makes it interesting, and FIN-33 is
+// built first. The rule therefore lives here, once, and FIN-26 imports it
+// rather than retyping the three numbers. Same shape as FIN-37's budget
+// threshold: a percentage, floored, rounded up to the nearest thousand.
+
+/** Plan U8. 10 percent of the prior period, floored at 10,000, rounded up to 1,000. */
+export const FLUX_RULE = Object.freeze({
+  pct_of_prior_period: 0.1,
+  floor_usd: 10000,
+  rounding_to_usd: 1000,
+});
+
+/**
+ * The flux threshold for one line, in integer cents, from its prior-period
+ * actual in integer cents.
+ * @param {number} priorPeriodCents
+ * @returns {number}
+ */
+export function fluxThresholdCents(priorPeriodCents) {
+  if (!Number.isInteger(priorPeriodCents)) {
+    throw new Error(`${id}: fluxThresholdCents expects integer cents, got ${JSON.stringify(priorPeriodCents)}`);
+  }
+  const roundingUnit = FLUX_RULE.rounding_to_usd * 100;
+  const pct = Math.abs(priorPeriodCents) * FLUX_RULE.pct_of_prior_period;
+  return Math.max(FLUX_RULE.floor_usd * 100, Math.ceil(pct / roundingUnit) * roundingUnit);
+}
+
+// --------------------------------------------------------------- the plants
+
+/**
+ * The line that breaches both rules. 6200 Software Subscriptions is the pack's
+ * true overspend: unfavorable against its own budget by 47,043.50 and up again
+ * on February, so a reader who runs either rule alone still finds it.
+ */
+export const FLUX_AND_BUDGET_ACCOUNT = "6200";
+
+/**
+ * The two lines that breach the flux rule and no other. Neither carries a
+ * FIN-09 line, which is what holds FIN-25's timing plant at one instance
+ * (asserted below against FIN-09's own builder).
+ *
+ * 6000 Salaries and Wages is the teaching case: it carries the largest absolute
+ * budget variance on the tracker and is still immaterial, because its threshold
+ * scales with its budget. 6300 Marketing Programs moves the other way, so the
+ * flux set is not three lines that all rose.
+ */
+export const FLUX_ONLY_ACCOUNTS = Object.freeze({ "6000": -1, "6300": 1 });
+
+/** Events and Conferences: the annual user conference is the repeating peak. */
+export const SEASONAL_ACCOUNT = "6310";
+
+/** The month the seasonal peak lands in, so the repeat is exactly 12 apart. */
+export const SEASONAL_PEAK_MONTH = "09";
+
+/** How far above trend the peak sits. */
+export const SEASONAL_PEAK_MULTIPLIER = 2.2;
+
+/**
+ * A month is a peak when it sits at or above this multiple of the mean of its
+ * two neighbours. Well clear of the largest ratio the January and February
+ * construction produces, which the builder asserts.
+ */
+export const PEAK_RATIO = 1.5;
+
+/** How much clear of its own threshold a constructed flux breach has to sit. */
+const FLUX_PLANT_MARGIN = 1.03;
+
+/** How far an ordinary line's February may sit from the January-February mean. */
+const ORDINARY_FEBRUARY_SWING = 0.025;
+
+/** Monthly growth band for the free months, drawn per line. */
+const GROWTH_BAND = { min: 0.003, max: 0.018 };
+
+/** Month-to-month noise on the free months, drawn per line per month. */
+const MONTH_NOISE = 0.035;
+
+/**
+ * The January and February mean sits at this position on the month index, so a
+ * free month's trend level is the mean discounted back from it.
+ */
+const ANCHOR_INDEX = 21.5;
+
+// ---------------------------------------------------------------- internals
+
+function marchMovementCents(trialBalanceRow, line) {
+  return actualAmountCents(trialBalanceRow, line.normal_balance);
+}
+
+/**
+ * February for a planted line: walk away from the January-February mean, in the
+ * direction the plant needs, until the flux clears its own threshold with
+ * margin. Monotone in both terms, so the walk terminates; the step is seeded so
+ * the landing figure is not a round number a reader could spot as a plant.
+ */
+function solvePlantFebruary(marchCents, anchorCents, direction, rngLine) {
+  const step = Math.max(100, Math.round(anchorCents * (0.002 + rngLine.float() * 0.002)));
+  let february = Math.round(anchorCents * (1 + direction * (0.001 + rngLine.float() * 0.003)));
+  for (let walked = 0; walked < 500; walked += 1) {
+    const flux = marchCents - february;
+    if (Math.abs(flux) >= Math.round(fluxThresholdCents(february) * FLUX_PLANT_MARGIN)) return february;
+    february += direction * step;
+  }
+  throw new Error(`${id}: could not place a February that breaches the flux rule from ${cents(Math.round(anchorCents))}`);
+}
+
+/**
+ * February for an ordinary line: a seeded swing off the January-February mean,
+ * pulled back toward the mean if it happens to breach. No line breaches at the
+ * mean itself (asserted in assertPlants), so the pull-back terminates.
+ */
+function solveOrdinaryFebruary(marchCents, anchorCents, rngLine) {
+  let february = Math.round(anchorCents * (1 + (rngLine.float() * 2 - 1) * ORDINARY_FEBRUARY_SWING));
+  for (let pulled = 0; pulled < 60; pulled += 1) {
+    if (Math.abs(marchCents - february) < fluxThresholdCents(february)) return february;
+    february = Math.round(february + (anchorCents - february) * 0.25);
+  }
+  throw new Error(`${id}: could not place a February that stays inside the flux rule from ${cents(Math.round(anchorCents))}`);
+}
+
+/** The 24 monthly amounts for one line, oldest first, in integer cents. */
+function buildLineSeries(line, trialBalanceRow, periods) {
+  const rngLine = createRng(id, `trend:${line.line_id}`);
+  const marchCents = marchMovementCents(trialBalanceRow, line);
+  const janFebCents = toCents(trialBalanceRow.beginning_balance);
+  const anchorCents = janFebCents / 2;
+  if (!(anchorCents > 0)) {
+    throw new Error(`${id}: ${line.line_id} has no prior-quarter activity to build a trend from`);
+  }
+
+  const growth = GROWTH_BAND.min + rngLine.float() * (GROWTH_BAND.max - GROWTH_BAND.min);
+  const seasonal = line.account_code === SEASONAL_ACCOUNT;
+
+  const values = [];
+  for (let t = 0; t < periods.length - 3; t += 1) {
+    const trend = anchorCents * Math.pow(1 + growth, t - ANCHOR_INDEX);
+    const noise = 1 + (rngLine.float() * 2 - 1) * MONTH_NOISE;
+    const peak = seasonal && periods[t].endsWith(`-${SEASONAL_PEAK_MONTH}`) ? SEASONAL_PEAK_MULTIPLIER : 1;
+    const value = Math.round(trend * noise * peak);
+    if (value <= 0) throw new Error(`${id}: ${line.line_id} ${periods[t]} came out at ${value} cents`);
+    values.push(value);
+  }
+
+  const direction = line.account_code === FLUX_AND_BUDGET_ACCOUNT
+    ? -1
+    : FLUX_ONLY_ACCOUNTS[line.account_code];
+  const february = direction === undefined
+    ? solveOrdinaryFebruary(marchCents, anchorCents, rngLine)
+    : solvePlantFebruary(marchCents, anchorCents, direction, rngLine);
+  const january = janFebCents - february;
+  if (january <= 0 || january < anchorCents * 0.25 || january > anchorCents * 2) {
+    throw new Error(`${id}: ${line.line_id} January lands at ${cents(january)} against a mean of ${cents(Math.round(anchorCents))}`);
+  }
+  values.push(january, february, marchCents);
+  if (values.length !== periods.length) {
+    throw new Error(`${id}: ${line.line_id} produced ${values.length} months, expected ${periods.length}`);
+  }
+  return values;
+}
+
+/** The interior months of a series that sit at or above PEAK_RATIO of their neighbours. */
+function peakIndexes(values) {
+  const peaks = [];
+  for (let t = 1; t < values.length - 1; t += 1) {
+    const neighbours = (values[t - 1] + values[t + 1]) / 2;
+    if (neighbours > 0 && values[t] / neighbours >= PEAK_RATIO) peaks.push(t);
+  }
+  return peaks;
+}
+
+/** True when some pair of peaks sits exactly 12 months apart. */
+function hasRepeatingAnnualPeak(values) {
+  const peaks = peakIndexes(values);
+  return peaks.some((a) => peaks.includes(a + 12));
+}
+
+// ----------------------------------------------------------------- the plants
+
+function assertPlants({ lines, trialBalance, periods, seriesByLine, rows }) {
+  if (rows.length !== lines.length * periods.length) {
+    throw new Error(`${id}: ${rows.length} rows, expected ${lines.length * periods.length}`);
+  }
+
+  const budgetMaterial = new Set();
+  const fluxBreaches = new Set();
+  for (const line of lines) {
+    const balance = trialBalance.get(line.account_code);
+    const values = seriesByLine.get(line.line_id);
+    const [january, february, march] = values.slice(-3);
+
+    // Reconciliation rule 1, and the FIN-24 leg of it: the same movement under
+    // the same convention.
+    if (march !== marchMovementCents(balance, line)) {
+      throw new Error(`${id}: ${line.line_id} March does not equal FIN-05's period movement`);
+    }
+    // Reconciliation rule 2, and its ending-balance twin. Both are asserted, so
+    // a regression in one fails in one place rather than being inferred.
+    if (january + february !== toCents(balance.beginning_balance)) {
+      throw new Error(`${id}: ${line.line_id} January plus February is not FIN-05's beginning balance`);
+    }
+    if (january + february + march !== toCents(balance.ending_balance)) {
+      throw new Error(`${id}: ${line.line_id} the quarter does not close at FIN-05's ending balance`);
+    }
+
+    // Every breach in this file is constructed: none is there at the mean.
+    const mean = Math.round(toCents(balance.beginning_balance) / 2);
+    if (Math.abs(march - mean) >= fluxThresholdCents(mean)) {
+      throw new Error(`${id}: ${line.line_id} breaches the flux rule at the January-February mean, so its plant is not a construction`);
+    }
+
+    if (Math.abs(march - february) >= fluxThresholdCents(february)) fluxBreaches.add(line.account_code);
+    if (Math.abs(march - toCents(line.budget_amount)) >= toCents(line.explanation_threshold_usd)) {
+      budgetMaterial.add(line.account_code);
+    }
+
+    const peaks = peakIndexes(values);
+    if (line.account_code !== SEASONAL_ACCOUNT && peaks.length > 0) {
+      throw new Error(`${id}: ${line.line_id} carries an unplanted peak at ${periods[peaks[0]]}`);
+    }
+    if (!values.some((v, i) => i > 0 && v !== values[i - 1])) {
+      throw new Error(`${id}: ${line.line_id} does not move month to month`);
+    }
+  }
+
+  // P1: three flux breaches, one of which is also budget material.
+  const expectedFlux = new Set([FLUX_AND_BUDGET_ACCOUNT, ...Object.keys(FLUX_ONLY_ACCOUNTS)]);
+  if (fluxBreaches.size !== expectedFlux.size || [...expectedFlux].some((a) => !fluxBreaches.has(a))) {
+    throw new Error(`${id}: flux breaches are ${[...fluxBreaches].join(", ")}, expected ${[...expectedFlux].join(", ")}`);
+  }
+  const both = [...fluxBreaches].filter((a) => budgetMaterial.has(a));
+  if (both.length !== 1 || both[0] !== FLUX_AND_BUDGET_ACCOUNT) {
+    throw new Error(`${id}: ${both.length} lines breach both rules, expected 1 (${FLUX_AND_BUDGET_ACCOUNT})`);
+  }
+  if (budgetMaterial.size !== 4) {
+    throw new Error(`${id}: ${budgetMaterial.size} budget-material lines, expected the 4 FIN-37 and FIN-05 already produce`);
+  }
+
+  // P2: the two flux-only accounts carry no FIN-09 line, checked against
+  // FIN-09's own builder rather than against a list written down here.
+  const batchAccounts = new Set(buildCloseBatch().lines.map((l) => l.gl_account));
+  for (const account of Object.keys(FLUX_ONLY_ACCOUNTS)) {
+    if (batchAccounts.has(account)) {
+      throw new Error(`${id}: flux-only account ${account} carries a FIN-09 line, which moves FIN-25's timing plant`);
+    }
+  }
+
+  // P3: one repeating annual peak, and only one.
+  const seasonal = lines.filter((line) => hasRepeatingAnnualPeak(seriesByLine.get(line.line_id)));
+  if (seasonal.length !== 1 || seasonal[0].account_code !== SEASONAL_ACCOUNT) {
+    throw new Error(`${id}: ${seasonal.length} lines carry a repeating annual peak, expected 1 (${SEASONAL_ACCOUNT})`);
+  }
+}
+
+// ------------------------------------------------------------------ builder
+
+/**
+ * Build the trend. Pure: no I/O, no Date.now(),
+ * every draw from createRng("FIN-33", stream).
+ * @returns {{ rows: object[], lines: object[], periods: string[] }}
+ */
+export function buildActuals24mo() {
+  const lines = buildBudgetVsActualTemplate((stream) => createRng("FIN-37", stream));
+  const trialBalance = new Map(buildTrialBalance().rows.map((r) => [r.account_code, r]));
+  const periods = monthEnds(TREND_MONTHS, CLOSE_PERIOD_END).map((d) => d.slice(0, 7));
+
+  const seriesByLine = new Map();
+  const rows = [];
+  for (const line of lines) {
+    const balance = trialBalance.get(line.account_code);
+    if (!balance) throw new Error(`${id}: ${line.line_id} names account ${line.account_code}, which FIN-05 does not carry`);
+    const values = buildLineSeries(line, balance, periods);
+    seriesByLine.set(line.line_id, values);
+    periods.forEach((period, t) => {
+      rows.push({
+        line_id: line.line_id,
+        account_code: line.account_code,
+        account_name: line.account_name,
+        statement_section: line.statement_section,
+        normal_balance: line.normal_balance,
+        period,
+        actual_amount: cents(values[t]),
+        currency: CURRENCY,
+      });
+    });
+  }
+
+  assertPlants({ lines, trialBalance, periods, seriesByLine, rows });
+  return { rows, lines, periods };
+}
+
+// ---------------------------------------------------------------- generate
+
 export function generate() {
-  throw new NotImplementedError(id, "D5a wave A (plan Task 5) owns this build; the skeleton ships the contract only");
+  const { rows } = buildActuals24mo();
+  return [{ path: OUTPUT_FILE, content: toCsv(COLUMNS, rows) }];
 }

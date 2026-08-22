@@ -1,0 +1,649 @@
+line_id,account_code,account_name,statement_section,normal_balance,period,actual_amount,currency
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2024-04,1823815.88,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2024-05,1756558.71,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2024-06,1773627.49,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2024-07,1776689.53,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2024-08,1796142.61,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2024-09,1829391.09,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2024-10,1863143.69,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2024-11,1907974.76,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2024-12,1875782.12,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2025-01,1983640.69,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2025-02,1943518.95,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2025-03,2035482.63,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2025-04,2034758.13,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2025-05,1959617.18,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2025-06,2047382.64,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2025-07,2047437.65,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2025-08,2114683.03,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2025-09,2106886.12,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2025-10,2119002.59,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2025-11,2181299.18,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2025-12,2074129.82,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2026-01,2196748.05,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2026-02,2130335.46,USD
+BVA-01,4000,Subscription Revenue - Enterprise,revenue,credit,2026-03,2232152.13,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2024-04,787762.55,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2024-05,764119.52,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2024-06,816892.31,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2024-07,832050.00,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2024-08,817922.05,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2024-09,832363.81,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2024-10,833274.20,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2024-11,848064.71,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2024-12,861292.51,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2025-01,890140.38,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2025-02,903413.11,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2025-03,925452.87,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2025-04,902280.77,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2025-05,935311.55,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2025-06,934700.52,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2025-07,930846.11,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2025-08,979697.36,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2025-09,984729.58,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2025-10,957457.13,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2025-11,987492.41,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2025-12,1003893.74,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2026-01,1038555.98,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2026-02,1024315.22,USD
+BVA-02,4010,Subscription Revenue - Mid-Market,revenue,credit,2026-03,1089456.80,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2024-04,242898.41,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2024-05,246393.76,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2024-06,248167.45,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2024-07,252713.29,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2024-08,250318.35,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2024-09,257608.58,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2024-10,258288.05,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2024-11,265257.24,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2024-12,283252.48,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2025-01,283175.30,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2025-02,282220.79,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2025-03,277307.67,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2025-04,298464.80,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2025-05,301516.34,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2025-06,299009.58,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2025-07,297340.02,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2025-08,318467.27,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2025-09,305981.72,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2025-10,312080.15,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2025-11,332900.01,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2025-12,324431.00,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2026-01,331101.87,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2026-02,337252.17,USD
+BVA-03,4020,Subscription Revenue - Small Team,revenue,credit,2026-03,324787.26,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2024-04,308998.44,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2024-05,324585.07,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2024-06,327628.76,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2024-07,342000.62,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2024-08,334028.45,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2024-09,346357.50,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2024-10,348965.55,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2024-11,368664.57,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2024-12,351894.34,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2025-01,375718.42,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2025-02,388406.46,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2025-03,394445.10,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2025-04,395281.21,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2025-05,390660.92,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2025-06,414126.56,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2025-07,412708.52,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2025-08,413886.09,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2025-09,431049.44,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2025-10,423346.80,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2025-11,432783.86,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2025-12,454742.12,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2026-01,441369.79,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2026-02,461715.87,USD
+BVA-04,4100,Professional Services Revenue,revenue,credit,2026-03,459910.01,USD
+BVA-05,4200,Interest Income,revenue,credit,2024-04,74033.67,USD
+BVA-05,4200,Interest Income,revenue,credit,2024-05,75931.10,USD
+BVA-05,4200,Interest Income,revenue,credit,2024-06,72838.12,USD
+BVA-05,4200,Interest Income,revenue,credit,2024-07,74887.60,USD
+BVA-05,4200,Interest Income,revenue,credit,2024-08,78988.24,USD
+BVA-05,4200,Interest Income,revenue,credit,2024-09,79094.94,USD
+BVA-05,4200,Interest Income,revenue,credit,2024-10,80421.53,USD
+BVA-05,4200,Interest Income,revenue,credit,2024-11,80129.35,USD
+BVA-05,4200,Interest Income,revenue,credit,2024-12,82977.47,USD
+BVA-05,4200,Interest Income,revenue,credit,2025-01,81050.86,USD
+BVA-05,4200,Interest Income,revenue,credit,2025-02,81225.73,USD
+BVA-05,4200,Interest Income,revenue,credit,2025-03,83473.57,USD
+BVA-05,4200,Interest Income,revenue,credit,2025-04,83396.78,USD
+BVA-05,4200,Interest Income,revenue,credit,2025-05,89703.79,USD
+BVA-05,4200,Interest Income,revenue,credit,2025-06,90293.93,USD
+BVA-05,4200,Interest Income,revenue,credit,2025-07,88970.18,USD
+BVA-05,4200,Interest Income,revenue,credit,2025-08,88075.45,USD
+BVA-05,4200,Interest Income,revenue,credit,2025-09,90653.30,USD
+BVA-05,4200,Interest Income,revenue,credit,2025-10,91807.66,USD
+BVA-05,4200,Interest Income,revenue,credit,2025-11,94007.71,USD
+BVA-05,4200,Interest Income,revenue,credit,2025-12,97627.19,USD
+BVA-05,4200,Interest Income,revenue,credit,2026-01,97623.22,USD
+BVA-05,4200,Interest Income,revenue,credit,2026-02,97978.14,USD
+BVA-05,4200,Interest Income,revenue,credit,2026-03,93773.11,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2024-04,44097.98,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2024-05,44522.39,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2024-06,43270.64,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2024-07,44807.52,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2024-08,42968.28,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2024-09,44969.27,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2024-10,43000.78,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2024-11,45606.38,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2024-12,42909.24,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2025-01,43024.78,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2025-02,45797.61,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2025-03,46104.72,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2025-04,45812.06,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2025-05,44306.97,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2025-06,45041.41,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2025-07,45460.51,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2025-08,46348.55,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2025-09,45774.65,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2025-10,47046.35,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2025-11,45935.29,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2025-12,46475.45,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2026-01,45575.64,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2026-02,47458.26,USD
+BVA-06,4900,Sales Discounts and Credits,revenue,debit,2026-03,45395.51,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2024-04,286534.14,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2024-05,295512.03,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2024-06,281681.14,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2024-07,285337.57,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2024-08,294676.17,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2024-09,304259.40,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2024-10,296677.99,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2024-11,300081.10,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2024-12,294986.29,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2025-01,311926.77,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2025-02,301012.55,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2025-03,302569.25,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2025-04,314300.00,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2025-05,305505.23,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2025-06,313365.44,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2025-07,320707.10,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2025-08,318474.93,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2025-09,333953.86,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2025-10,330232.70,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2025-11,336817.03,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2025-12,340024.04,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2026-01,335744.01,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2026-02,331392.69,USD
+BVA-07,5000,Hosting and Infrastructure,cost_of_revenue,debit,2026-03,346047.16,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2024-04,60241.58,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2024-05,59307.15,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2024-06,62249.07,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2024-07,62719.90,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2024-08,60328.00,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2024-09,64929.09,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2024-10,62731.25,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2024-11,62969.23,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2024-12,63189.73,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2025-01,68395.24,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2025-02,66049.74,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2025-03,69419.90,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2025-04,68501.38,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2025-05,69493.96,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2025-06,72478.40,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2025-07,73330.95,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2025-08,73136.22,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2025-09,75306.20,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2025-10,76447.08,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2025-11,74481.01,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2025-12,77231.91,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2026-01,78190.19,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2026-02,76608.78,USD
+BVA-08,5010,Third-Party Software in Product,cost_of_revenue,debit,2026-03,75958.62,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2024-04,238168.77,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2024-05,239690.84,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2024-06,244896.88,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2024-07,245749.71,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2024-08,251870.64,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2024-09,250724.73,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2024-10,266487.62,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2024-11,269279.97,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2024-12,275040.95,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2025-01,277607.34,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2025-02,269044.64,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2025-03,282948.39,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2025-04,286030.76,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2025-05,274909.63,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2025-06,291520.43,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2025-07,288831.62,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2025-08,292126.18,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2025-09,299474.32,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2025-10,311511.79,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2025-11,295964.03,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2025-12,305369.16,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2026-01,307180.39,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2026-02,320729.47,USD
+BVA-09,5020,Customer Support Salaries,cost_of_revenue,debit,2026-03,322718.43,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2024-04,41661.69,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2024-05,41896.34,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2024-06,42590.42,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2024-07,41650.39,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2024-08,44844.88,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2024-09,42964.30,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2024-10,43680.14,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2024-11,44494.89,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2024-12,44239.36,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2025-01,47200.07,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2025-02,45592.26,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2025-03,46188.30,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2025-04,48660.33,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2025-05,48742.53,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2025-06,48708.92,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2025-07,48887.65,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2025-08,48636.58,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2025-09,51194.68,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2025-10,50584.90,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2025-11,51917.18,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2025-12,51676.30,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2026-01,52592.41,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2026-02,51855.93,USD
+BVA-10,5100,Payment Processing Fees,cost_of_revenue,debit,2026-03,50057.94,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2024-04,1895684.84,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2024-05,1813747.09,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2024-06,1862362.09,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2024-07,1947316.67,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2024-08,2005469.38,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2024-09,2018453.18,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2024-10,2039502.86,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2024-11,2065961.13,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2024-12,2037737.48,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2025-01,2010672.20,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2025-02,2035947.69,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2025-03,2096366.39,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2025-04,2087288.09,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2025-05,2135047.08,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2025-06,2136453.86,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2025-07,2177158.66,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2025-08,2203691.62,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2025-09,2240413.29,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2025-10,2382230.28,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2025-11,2345410.00,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2025-12,2343961.62,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2026-01,2564986.27,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2026-02,2290002.83,USD
+BVA-11,6000,Salaries and Wages,operating_expense,debit,2026-03,2529406.57,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2024-04,180559.97,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2024-05,183626.61,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2024-06,182251.39,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2024-07,188198.64,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2024-08,186752.06,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2024-09,193088.85,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2024-10,199416.66,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2024-11,195426.99,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2024-12,197297.08,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2025-01,204801.21,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2025-02,208818.70,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2025-03,213642.22,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2025-04,221200.06,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2025-05,218555.56,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2025-06,228829.47,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2025-07,217254.06,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2025-08,232970.43,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2025-09,229185.17,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2025-10,241464.96,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2025-11,235570.06,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2025-12,235912.08,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2026-01,243783.69,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2026-02,253790.71,USD
+BVA-12,6010,Payroll Taxes,operating_expense,debit,2026-03,258773.91,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2024-04,255135.14,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2024-05,244042.43,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2024-06,248170.73,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2024-07,248045.04,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2024-08,246455.40,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2024-09,251293.78,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2024-10,253709.55,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2024-11,259415.00,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2024-12,252968.35,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2025-01,268046.72,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2025-02,257659.77,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2025-03,271960.88,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2025-04,260100.10,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2025-05,261549.22,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2025-06,274825.62,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2025-07,276876.05,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2025-08,265470.98,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2025-09,269744.32,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2025-10,279429.63,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2025-11,274511.62,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2025-12,271309.40,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2026-01,281019.45,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2026-02,283065.12,USD
+BVA-13,6020,Employee Benefits,operating_expense,debit,2026-03,275365.45,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2024-04,87626.40,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2024-05,88731.85,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2024-06,90275.64,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2024-07,91588.60,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2024-08,96735.12,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2024-09,97720.50,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2024-10,100747.89,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2024-11,99437.44,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2024-12,102649.50,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2025-01,104290.36,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2025-02,105437.80,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2025-03,109084.28,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2025-04,105578.50,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2025-05,107808.23,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2025-06,113167.10,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2025-07,117110.73,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2025-08,118563.94,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2025-09,118686.07,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2025-10,121217.62,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2025-11,121094.07,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2025-12,123314.00,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2026-01,129448.10,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2026-02,125483.97,USD
+BVA-14,6030,Contractors and Consultants,operating_expense,debit,2026-03,129731.71,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2024-04,32057.03,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2024-05,33866.86,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2024-06,33132.86,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2024-07,32898.80,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2024-08,33321.24,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2024-09,35864.96,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2024-10,35272.23,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2024-11,35124.85,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2024-12,36837.65,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2025-01,38345.07,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2025-02,39643.92,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2025-03,39673.55,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2025-04,40793.06,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2025-05,39755.44,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2025-06,41636.30,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2025-07,43169.73,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2025-08,42946.60,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2025-09,42858.71,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2025-10,43899.83,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2025-11,43723.80,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2025-12,44024.98,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2026-01,45577.21,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2026-02,47910.91,USD
+BVA-15,6040,Recruiting,operating_expense,debit,2026-03,45739.96,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2024-04,247004.93,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2024-05,245981.37,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2024-06,262555.22,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2024-07,254588.52,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2024-08,265713.27,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2024-09,261808.36,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2024-10,274909.85,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2024-11,275854.64,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2024-12,266913.50,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2025-01,273258.25,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2025-02,279486.74,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2025-03,281411.36,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2025-04,282823.69,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2025-05,294293.83,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2025-06,294551.50,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2025-07,300468.63,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2025-08,303161.59,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2025-09,288551.62,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2025-10,295308.50,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2025-11,300753.80,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2025-12,309747.67,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2026-01,309756.19,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2026-02,314118.63,USD
+BVA-16,6100,Rent and Facilities,operating_expense,debit,2026-03,307964.68,USD
+BVA-17,6110,Utilities,operating_expense,debit,2024-04,93066.08,USD
+BVA-17,6110,Utilities,operating_expense,debit,2024-05,91980.28,USD
+BVA-17,6110,Utilities,operating_expense,debit,2024-06,94291.69,USD
+BVA-17,6110,Utilities,operating_expense,debit,2024-07,93056.51,USD
+BVA-17,6110,Utilities,operating_expense,debit,2024-08,91032.33,USD
+BVA-17,6110,Utilities,operating_expense,debit,2024-09,89748.90,USD
+BVA-17,6110,Utilities,operating_expense,debit,2024-10,95725.93,USD
+BVA-17,6110,Utilities,operating_expense,debit,2024-11,92443.21,USD
+BVA-17,6110,Utilities,operating_expense,debit,2024-12,91755.01,USD
+BVA-17,6110,Utilities,operating_expense,debit,2025-01,91386.02,USD
+BVA-17,6110,Utilities,operating_expense,debit,2025-02,92110.83,USD
+BVA-17,6110,Utilities,operating_expense,debit,2025-03,94873.75,USD
+BVA-17,6110,Utilities,operating_expense,debit,2025-04,94203.27,USD
+BVA-17,6110,Utilities,operating_expense,debit,2025-05,93509.07,USD
+BVA-17,6110,Utilities,operating_expense,debit,2025-06,95350.82,USD
+BVA-17,6110,Utilities,operating_expense,debit,2025-07,96681.00,USD
+BVA-17,6110,Utilities,operating_expense,debit,2025-08,98004.79,USD
+BVA-17,6110,Utilities,operating_expense,debit,2025-09,96158.02,USD
+BVA-17,6110,Utilities,operating_expense,debit,2025-10,97594.03,USD
+BVA-17,6110,Utilities,operating_expense,debit,2025-11,96862.91,USD
+BVA-17,6110,Utilities,operating_expense,debit,2025-12,95294.64,USD
+BVA-17,6110,Utilities,operating_expense,debit,2026-01,97679.92,USD
+BVA-17,6110,Utilities,operating_expense,debit,2026-02,98795.35,USD
+BVA-17,6110,Utilities,operating_expense,debit,2026-03,101090.05,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2024-04,32669.26,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2024-05,32549.90,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2024-06,33911.25,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2024-07,33340.47,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2024-08,35784.78,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2024-09,34370.71,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2024-10,36379.28,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2024-11,36061.28,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2024-12,36982.51,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2025-01,37728.69,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2025-02,39823.00,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2025-03,38155.64,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2025-04,40689.53,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2025-05,41676.83,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2025-06,39861.56,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2025-07,41755.19,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2025-08,41628.07,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2025-09,42379.94,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2025-10,44670.12,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2025-11,44506.32,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2025-12,45472.28,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2026-01,47474.65,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2026-02,45472.91,USD
+BVA-18,6120,Office Expense,operating_expense,debit,2026-03,46277.01,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2024-04,561874.88,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2024-05,541104.99,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2024-06,546034.17,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2024-07,560597.34,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2024-08,576108.63,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2024-09,569657.46,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2024-10,590604.47,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2024-11,581933.36,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2024-12,606774.23,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2025-01,623227.71,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2025-02,591642.26,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2025-03,619242.33,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2025-04,640762.57,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2025-05,629798.52,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2025-06,619982.08,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2025-07,635154.67,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2025-08,667177.58,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2025-09,638873.97,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2025-10,685232.37,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2025-11,683182.21,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2025-12,685330.49,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2026-01,740190.30,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2026-02,639150.86,USD
+BVA-19,6200,Software Subscriptions,operating_expense,debit,2026-03,708443.50,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2024-04,93673.36,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2024-05,94611.57,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2024-06,98851.31,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2024-07,97346.86,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2024-08,103618.93,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2024-09,100516.34,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2024-10,104564.88,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2024-11,110587.19,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2024-12,111650.26,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2025-01,111741.82,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2025-02,112417.06,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2025-03,117351.18,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2025-04,119714.06,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2025-05,122085.11,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2025-06,125143.15,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2025-07,123498.69,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2025-08,129029.79,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2025-09,127715.09,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2025-10,131652.64,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2025-11,134383.61,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2025-12,137201.04,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2026-01,122006.21,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2026-02,153963.57,USD
+BVA-20,6300,Marketing Programs,operating_expense,debit,2026-03,137442.45,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2024-04,13762.84,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2024-05,14085.35,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2024-06,14399.74,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2024-07,13895.57,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2024-08,14198.37,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2024-09,32620.16,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2024-10,14657.87,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2024-11,15222.89,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2024-12,15614.97,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2025-01,15905.45,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2025-02,15808.04,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2025-03,15839.32,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2025-04,16823.61,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2025-05,16575.95,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2025-06,17184.09,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2025-07,16794.99,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2025-08,17744.20,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2025-09,39000.03,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2025-10,18342.28,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2025-11,17974.65,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2025-12,18036.05,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2026-01,18764.98,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2026-02,18939.90,USD
+BVA-21,6310,Events and Conferences,operating_expense,debit,2026-03,18397.34,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2024-04,42630.32,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2024-05,40541.21,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2024-06,41966.44,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2024-07,44132.08,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2024-08,43828.97,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2024-09,43292.62,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2024-10,44202.69,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2024-11,46975.17,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2024-12,45189.09,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2025-01,47897.55,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2025-02,47930.24,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2025-03,49961.70,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2025-04,49687.45,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2025-05,51323.99,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2025-06,51798.39,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2025-07,51348.85,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2025-08,51870.56,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2025-09,54503.73,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2025-10,55178.13,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2025-11,55349.04,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2025-12,55704.52,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2026-01,57427.16,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2026-02,56810.06,USD
+BVA-22,6400,Travel and Entertainment,operating_expense,debit,2026-03,56214.98,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2024-04,43032.66,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2024-05,41567.58,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2024-06,42803.91,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2024-07,42329.52,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2024-08,45358.35,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2024-09,45941.78,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2024-10,46150.54,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2024-11,46563.44,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2024-12,46446.78,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2025-01,48231.73,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2025-02,47021.45,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2025-03,46871.45,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2025-04,48714.59,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2025-05,50518.63,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2025-06,48644.69,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2025-07,51544.71,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2025-08,51658.96,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2025-09,53007.07,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2025-10,52331.14,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2025-11,54321.84,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2025-12,53960.02,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2026-01,53011.62,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2026-02,55718.96,USD
+BVA-23,6500,Professional Fees - Legal,operating_expense,debit,2026-03,52492.42,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2024-04,29106.48,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2024-05,30891.58,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2024-06,31098.19,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2024-07,31032.22,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2024-08,32780.85,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2024-09,32033.67,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2024-10,32577.54,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2024-11,33615.99,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2024-12,33967.79,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2025-01,34610.23,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2025-02,35033.28,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2025-03,35214.56,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2025-04,35821.31,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2025-05,36901.64,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2025-06,37254.54,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2025-07,37704.03,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2025-08,39137.66,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2025-09,40152.09,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2025-10,41491.45,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2025-11,42571.15,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2025-12,43217.14,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2026-01,43426.67,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2026-02,43694.93,USD
+BVA-24,6510,Professional Fees - Accounting and Audit,operating_expense,debit,2026-03,46236.93,USD
+BVA-25,6600,Insurance,operating_expense,debit,2024-04,39460.70,USD
+BVA-25,6600,Insurance,operating_expense,debit,2024-05,38623.81,USD
+BVA-25,6600,Insurance,operating_expense,debit,2024-06,38480.12,USD
+BVA-25,6600,Insurance,operating_expense,debit,2024-07,39252.24,USD
+BVA-25,6600,Insurance,operating_expense,debit,2024-08,42118.43,USD
+BVA-25,6600,Insurance,operating_expense,debit,2024-09,39851.32,USD
+BVA-25,6600,Insurance,operating_expense,debit,2024-10,42630.12,USD
+BVA-25,6600,Insurance,operating_expense,debit,2024-11,42117.95,USD
+BVA-25,6600,Insurance,operating_expense,debit,2024-12,43225.15,USD
+BVA-25,6600,Insurance,operating_expense,debit,2025-01,44573.26,USD
+BVA-25,6600,Insurance,operating_expense,debit,2025-02,42358.42,USD
+BVA-25,6600,Insurance,operating_expense,debit,2025-03,45552.73,USD
+BVA-25,6600,Insurance,operating_expense,debit,2025-04,45870.97,USD
+BVA-25,6600,Insurance,operating_expense,debit,2025-05,46393.61,USD
+BVA-25,6600,Insurance,operating_expense,debit,2025-06,44082.06,USD
+BVA-25,6600,Insurance,operating_expense,debit,2025-07,46846.18,USD
+BVA-25,6600,Insurance,operating_expense,debit,2025-08,45739.49,USD
+BVA-25,6600,Insurance,operating_expense,debit,2025-09,46825.61,USD
+BVA-25,6600,Insurance,operating_expense,debit,2025-10,48309.38,USD
+BVA-25,6600,Insurance,operating_expense,debit,2025-11,46834.06,USD
+BVA-25,6600,Insurance,operating_expense,debit,2025-12,48649.50,USD
+BVA-25,6600,Insurance,operating_expense,debit,2026-01,50033.01,USD
+BVA-25,6600,Insurance,operating_expense,debit,2026-02,49199.81,USD
+BVA-25,6600,Insurance,operating_expense,debit,2026-03,48283.22,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2024-04,310.00,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2024-05,312.72,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2024-06,323.65,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2024-07,318.76,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2024-08,328.46,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2024-09,324.36,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2024-10,322.43,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2024-11,338.66,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2024-12,332.02,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2025-01,332.47,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2025-02,328.86,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2025-03,333.41,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2025-04,344.50,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2025-05,348.36,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2025-06,356.70,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2025-07,362.67,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2025-08,366.02,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2025-09,362.05,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2025-10,362.03,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2025-11,360.12,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2025-12,386.13,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2026-01,382.55,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2026-02,378.69,USD
+BVA-26,6700,Bank Fees and Service Charges,operating_expense,debit,2026-03,365.60,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2024-04,270877.33,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2024-05,291349.69,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2024-06,287949.58,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2024-07,299169.30,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2024-08,288215.74,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2024-09,297406.69,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2024-10,289045.71,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2024-11,303524.91,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2024-12,295215.97,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2025-01,297873.26,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2025-02,306781.19,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2025-03,307393.08,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2025-04,311518.42,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2025-05,317976.54,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2025-06,332984.41,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2025-07,318151.41,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2025-08,338987.60,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2025-09,329545.03,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2025-10,338303.51,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2025-11,335606.55,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2025-12,339310.03,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2026-01,358072.01,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2026-02,345165.91,USD
+BVA-27,6800,Depreciation and Amortization,operating_expense,debit,2026-03,365723.65,USD
