@@ -107,8 +107,12 @@ Two rules, stated once in the plan and now recorded in `datagen/README.md`:
   rather than a finding, and the test asserts both numbers. Eleven approvals
   fall on the weekend of `2026-04-04`/`05`; one preparer, one approver, never
   the same person; `JE-202603-C030` posts to inactive account 6125 and
-  `distinct_accounts` says so. **FIN-27 is the only cluster 3/4 artifact
-  downstream of FIN-09's bytes** (and of FIN-22 `active` and CORE-04).
+  `distinct_accounts` says so. **FIN-27 is the only cluster 3/4 artifact whose
+  ROWS derive from FIN-09's bytes** (and from FIN-22 `active` and CORE-04).
+  Three others read the batch without carrying a row of it: FIN-29 reads it for
+  one `basis` string and throws if FIN-09 stops debiting account 6020, and
+  FIN-24 and FIN-33 read it only to assert the disjointness their plants rest
+  on. A FIN-09 regeneration therefore reaches four cluster 3/4 generators.
 - **FIN-23 audit-evidence-index**: 32 rows, 19 reusing FIN-18's binder
   references and 13 derived from FIN-17's complete tasks. One citation lands
   on a superseded CORE-05 document (`EV-2026Q1-030`, ADI-FIN-001, CLS-12); one
@@ -141,7 +145,7 @@ as the only place the 24-month window is computed; seven canon timeline rows;
 spec entries for all thirteen D5 ids (the ten above plus the three D5b drafted
 documents FIN-21, FIN-28 and FIN-30, which stay `MISSING` until D5b).
 
-Gates at the D5a head: `npm test` 517 tests, 509 pass, 0 fail, 8 todo (the
+Gates at the D5a head: `npm test` 520 tests, 512 pass, 0 fail, 8 todo (the
 eight are the D5b markers); `npm run validate` 57 checked, 0 failed;
 `validate --all` 137 checked, 28 failed, every failure a `MISSING` drafted
 artifact and zero structured FAIL (the plan's U9 predicted 21; the prediction

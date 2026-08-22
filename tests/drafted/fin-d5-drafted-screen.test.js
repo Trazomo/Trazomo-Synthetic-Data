@@ -17,7 +17,7 @@
 // turn "not authored yet" into a file-level error rather than a todo.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
@@ -40,6 +40,24 @@ function document(id) {
   return readFileSync(path, "utf8");
 }
 
+/** Every .md under a directory, recursively. An absent directory yields none. */
+function markdownUnder(dir) {
+  if (!existsSync(dir)) return [];
+  const found = [];
+  for (const entry of readdirSync(dir)) {
+    const path = join(dir, entry);
+    if (statSync(path).isDirectory()) found.push(...markdownUnder(path));
+    else if (entry.endsWith(".md")) found.push(path);
+  }
+  return found.sort();
+}
+
+/** The two D5 screen files whose todo markers gate the three documents. */
+const SCREEN_FILES = [
+  join(REPO_ROOT, "tests", "drafted", "fin-d5-drafted-screen.test.js"),
+  join(REPO_ROOT, "tests", "artifacts", "fin-28-footnotes.test.js"),
+];
+
 /** Anything that parses as a money amount: 1,234.56 / $1,234 / 1234.56. */
 const MONEY = /\$?\d{1,3}(,\d{3})+(\.\d{2})?|\$\s?\d+(\.\d{2})?|\b\d+\.\d{2}\b/g;
 
@@ -56,6 +74,31 @@ test("the D5 freeze gate is exactly three drafted documents, each with a spec th
     assert.equal(spec.columns, undefined);
     assert.ok(spec.planted_features.length > 0, `${id} states no planted features for validate to check`);
   }
+});
+
+test("the todo markers and the drafted documents cannot both be on disk", () => {
+  // D5b authors the prose and deletes the markers in the same commit. This is
+  // what makes "in the same commit" enforceable rather than a convention: while
+  // a todo marker survives in either D5 screen, none of the three documents may
+  // exist, so prose that lands without un-todoing the screens fails the suite
+  // instead of shipping unscreened. Once the markers are gone the guard
+  // inverts and all three documents have to be there.
+  const pattern = /\{\s*todo:\s*WAVE\s*\}/g;
+  const markers = SCREEN_FILES.reduce(
+    (count, path) => count + (readFileSync(path, "utf8").match(pattern) ?? []).length, 0
+  );
+  const authored = DRAFTED_IDS.flatMap((id) => markdownUnder(join(REPO_ROOT, "artifacts", id)));
+  if (markers > 0) {
+    assert.deepEqual(
+      authored, [],
+      `${markers} todo markers remain, so the screens would skip: ${authored.join(", ")}`
+    );
+    return;
+  }
+  assert.equal(
+    authored.length, DRAFTED_IDS.length,
+    `the markers are gone, so all three documents must be on disk: ${authored.join(", ")}`
+  );
 });
 
 // ------------------------------------------------------------ red until built

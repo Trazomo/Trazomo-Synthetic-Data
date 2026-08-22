@@ -314,7 +314,9 @@ that FIN-24's `variance_explanation` is empty, both byte facts; it may not
 state that the variance work has not been done, because merged module 9 says
 it has. FIN-24 is the input CLS-17 consumes, not the output it produces.
 
-FIN-20 is the first of two generators that read the repository at build time (FIN-29 is the second, reading `artifacts/FIN-40/mnpi-flagged-draft.md` with the same `REPO_ROOT` pattern, so the same `--root` caveat applies): it parses
+FIN-20 is the first of two generators that read the repository at build time
+(FIN-29 is the second, reading `artifacts/FIN-40/mnpi-flagged-draft.md` with
+the same `REPO_ROOT` pattern, so the same `--root` caveat applies): it parses
 the ten CORE-05 document-control blocks out of `artifacts/CORE-05/*.md` to build
 `policy-index.csv`, sorted by `document_id`, so a version bump or a review date
 in the shipped markdown moves the register instead of leaving it stale. Two

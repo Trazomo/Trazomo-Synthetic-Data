@@ -836,7 +836,7 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002, co-101, co-102, co-103, co-105, co-106, co-107, co-109, co-119, co-140+]
+    canon_entities: [co-002, co-101, co-102, co-103, co-105, co-106, co-107, co-119, co-140+]
     period: { start: "2026-03-01", end: "2026-03-31" }
     columns: [line_id, entry_id, posting_date, gl_account, account_name, description, counterparty, counterparty_canon_id, cost_center, debit, credit, currency, entry_source, service_period_start, service_period_end, source_document]
     planted_features:
@@ -844,7 +844,7 @@ artifacts:
       - "per gl_account, sum(debit) equals FIN-05's period_debit and sum(credit) equals FIN-05's period_credit to the cent. This file is complete for the accounts it covers and silent about the rest, and it reconciles to FIN-05 rather than to the FIN-09 batch FIN-05 does not reflect; every gl_account is an active FIN-22 code and every counterparty is one of the screened names the pack already ships"
       - "1 timing root cause: exactly one covered account is favorable against budget and also carries FIN-09 accrual lines that reverse the sign once the batch is reflected. Two of the four determinable accounts carry any FIN-09 line at all, 6020 over five accrual lines and 6200 over six, and the other two carry none"
       - "1 true overspend: exactly one material unfavorable account has no line whose service_period_start falls after 2026-03-31 and no counterparty whose lines split across two accounts. Without the service-period qualifier the rule returns 2"
-      - "1 reclass: exactly one counterparty_canon_id has lines on two gl_accounts where the modal account for that counterparty is the other one. Four counterparties appear on more than one account without the modal qualifier"
+      - "1 reclass: exactly one counterparty_canon_id has lines on two gl_accounts and a strict modal account, and the modal account is the other one. Four counterparties appear on more than one account without the modal qualifier, and three of those four split exactly two lines and two, so only one has a strict mode at all"
       - "1 line the policy does not decide: exactly one material line sits in the revenue section and its supporting FIN-17 close task is not complete, so the call is held for a person and the file says why by joining rather than by labelling. The checklist qualifier is explanatory rather than selective, because dropping it still returns 1; dropping materiality as well returns 6, which is every revenue line on the tracker"
     consuming_modules: [finance-flux-variance-investigation]
     source_plan: finance-implementation-plan
@@ -981,7 +981,7 @@ artifacts:
       - "every 2026-03 actual_amount equals FIN-05's period movement for that account to the cent, under the same per-line normal-balance convention FIN-24 uses, and therefore equals FIN-24's actual_amount for the same line_id"
       - "per account, 2026-01 plus 2026-02 equals FIN-05's beginning_balance to the cent, because the fiscal year is the calendar year, and 2026-01 plus 2026-02 plus 2026-03 equals FIN-05's ending_balance in that account's own normal-balance direction. Both are asserted, so a regression in one fails in one place rather than being inferred from the other"
       - "3 lines breach the FIN-26 flux rule against February and exactly 1 of those also breaches the budget rule, so the two materiality rules disagree on five lines in total. The other 21 months are free and are constrained only by continuity and by that construction"
-      - "1 seasonal line: exactly one line_id carries a peak that repeats at 12-month spacing, so a trailing-three-month run rate over-forecasts it. All 27 lines have month-to-month movement, which is why the repeat is the qualifier that selects and the movement is not"
+      - "1 seasonal line: exactly one line_id, BVA-21 on account 6310, carries a month at or above 1.5 times the mean of its two neighbouring months in two months that sit exactly twelve apart, so a trailing-three-month run rate over-forecasts it. Drop the spike qualifier and keep only the annual repeat and 10 lines have their biggest month in the same month of both years; drop that too and all 27 lines have month-to-month movement, which is why the spike is the qualifier that selects"
       - "the two flux-only accounts carry no FIN-09 line, which is what holds the FIN-25 timing plant at one instance and its qualifier-free count at two"
     consuming_modules: [finance-driver-scenario-planning, finance-flux-variance-investigation, finance-close-memo-disclosures, finance-fpa-kpi-dashboards]
     source_plan: finance-implementation-plan + exemplar-repo-selection (driver-scenario-planner)
@@ -993,12 +993,12 @@ artifacts:
     generation: deterministic
     canon_entities: [co-002]
     planted_features:
-      - "documented key list, in this fixed order (a YAML config carries keys, not a header row): base_period, horizon_months, source_artifacts, scenarios, and drivers, each driver carrying driver_id, applies_to, unit, base, upside and downside"
+      - "documented key list, in this fixed order (a YAML config carries keys, not a header row): base_period, horizon_months, source_artifacts, scenarios, and drivers, each driver carrying driver_id, applies_to, unit, base, upside and downside, plus an optional derivation, which is present on hiring only"
       - hiring, price change, churn, collection delay, contract win/loss drivers, five in total, each applying to a FIN-33 line_id list or a FIN-31 metric_id so that every applies_to resolves in a shipped file
       - "1 driver whose band crosses zero: exactly one driver's downside and upside carry opposite signs, so a scenario table showing magnitudes alone loses the direction. All five carry a band, so the band is not the qualifier that selects"
       - "1 driver that moves cash without moving margin: collection delay applies to a FIN-31 metric_id and touches no line_id. A reader who misreads contract win/loss as cash-only finds 2"
       - "cost per head is derived, because CORE-04 carries no salary: March accounts 6000, 6010, 6020 and 5020 over the 582 active heads, published with its formula in a derivation key that says plainly that it blends a cost-of-revenue account into people cost, which is a judgment and not an accounting identity"
-      - deterministic engine computes base/upside/downside cash, margin, runway; math never done by the model, so this file carries no computed output and the engine belongs to the consuming module
+      - "deterministic engine computes base/upside/downside cash, margin, runway; math never done by the model, so this file carries no computed scenario output and the engine belongs to the consuming module. The hiring derivation's value_usd is computed at build time, which is a published input rather than a scenario result"
     consuming_modules: [finance-driver-scenario-planning]
     source_plan: finance-implementation-plan + exemplar-repo-selection (driver-scenario-planner)
 

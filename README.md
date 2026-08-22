@@ -13,7 +13,7 @@ The shared synthetic-data universe for [Trazomo](https://www.trazomo.com) exempl
 
 ## Status
 
-Legal slice frozen at v1.0.2; the finance cash reconciliation slice (FIN-01, FIN-02, FIN-03, FIN-22) ships in v1.1.0, the finance reconciliation-cluster datasets (FIN-04 through FIN-11) in v1.2.0, the Track B templates, reliability drill and board-pack excerpt (FIN-36 through FIN-40) in v1.3.0, and the cluster 2 payables, collections and controls datasets (FIN-13 through FIN-20 and FIN-35) in v1.4.0; v1.4.1 fixes the FIN-09 internal-schedule citations (issue #14) with no other byte changed; the cluster 3 and 4 variance, knowledge, reporting and FP&A datasets (FIN-23 through FIN-27, FIN-29, FIN-31 through FIN-34) ship in v1.5.0 with the three drafted documents FIN-21, FIN-28 and FIN-30. Lessons and demo videos pin to tagged releases.
+Legal slice frozen at v1.0.2; the finance cash reconciliation slice (FIN-01, FIN-02, FIN-03, FIN-22) ships in v1.1.0, the finance reconciliation-cluster datasets (FIN-04 through FIN-11) in v1.2.0, the Track B templates, reliability drill and board-pack excerpt (FIN-36 through FIN-40) in v1.3.0, and the cluster 2 payables, collections and controls datasets (FIN-13 through FIN-20 and FIN-35) in v1.4.0; v1.4.1 fixes the FIN-09 internal-schedule citations (issue #14) with no other byte changed; v1.5.0 adds the ten cluster 3 and 4 variance, knowledge, reporting and FP&A datasets (FIN-23 through FIN-27, FIN-29, FIN-31 through FIN-34), and the three drafted documents FIN-21, FIN-28 and FIN-30 ship in v1.5.0 if the D5b freeze review lands with it, in v1.6.0 otherwise. Lessons and demo videos pin to tagged releases.
 
 ## Using it
 

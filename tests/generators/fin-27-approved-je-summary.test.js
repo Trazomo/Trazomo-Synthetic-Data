@@ -67,7 +67,15 @@ function summary() {
 
 test("FIN-27: the generator's column list and the spec agree before a byte exists", () => {
   assert.deepEqual(COLUMNS, specs.byId.get("FIN-27").columns);
+  // The task id is joined to the committed close-checklist by the task's own
+  // text, so a renumbered checklist fails here rather than leaving every row
+  // pointing at a task that no longer posts the batch.
   assert.equal(SUPPORTS_CLOSE_TASK, "CLS-15");
+  const posting = shipped("finance/close-checklist", "close-checklist.csv")
+    .filter((r) => r.task === "Post the close journal batch");
+  assert.equal(posting.length, 1, "the committed checklist no longer carries exactly one batch-posting task");
+  assert.equal(posting[0].task_id, SUPPORTS_CLOSE_TASK, "the batch-posting task was renumbered");
+  assert.equal(posting[0].status, "complete", "the batch is no longer reported as posted");
   assert.deepEqual(DISCLOSURE_CLASSES, ["routine", "judgemental", "unsupported"]);
 });
 
@@ -94,11 +102,18 @@ test("FIN-27 V9: the no-support finding is 1 under its population and 3 without 
 
 test("FIN-27 V11 and V12: one preparer, one approver, and zero self-approvals", () => {
   const lines = batchLines();
-  assert.deepEqual([...new Set(lines.map((l) => l.prepared_by))].length, 1);
-  assert.deepEqual([...new Set(lines.map((l) => l.approved_by))].length, 1);
+  const preparers = new Set(lines.map((l) => l.prepared_by));
+  const approvers = new Set(lines.map((l) => l.approved_by));
+  assert.equal(preparers.size, 1, `preparers on the batch: ${[...preparers].join(", ")}`);
+  assert.equal(approvers.size, 1, `approvers on the batch: ${[...approvers].join(", ")}`);
   assert.equal(lines.filter((l) => l.prepared_by === l.approved_by).length, 0);
   // A control that passes is still a control that was run, which is the point
-  // of shipping the zero rather than leaving the column out.
+  // of shipping the zero rather than leaving the column out. The zero is
+  // reported beside the size of the population it was measured over, so a zero
+  // that came from an empty batch cannot pass for a clean control.
+  assert.equal(batchEntries().length, 31, "the population the zero was measured over");
+  assert.equal(lines.length, 78, "the line population behind the 31 entries");
+  assert.ok(preparers.size > 0 && approvers.size > 0, "an empty batch would report the same zero");
 });
 
 test("FIN-27 T-P2: the batch total the summary has to reproduce", () => {

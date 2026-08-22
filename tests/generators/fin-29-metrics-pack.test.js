@@ -79,9 +79,19 @@ test("FIN-29 T-R2 and T-R3: the frozen FIN-40 excerpt already publishes the two 
   assert.equal(tb.get("3200").ending_balance, "-5243082.89", "the quarter's net loss moved");
   assert.equal(tb.get("3200").ending_debit, "5243082.89", "the magnitude the metrics pack publishes");
   assert.equal(tb.get("3200").ending_credit, "");
-  // Rounded to the nearest hundred thousand, as FIN-40 itself states.
-  assert.equal((5243082.89 / 1e6).toFixed(1), "5.2");
-  assert.equal((12218645.67 / 1e6).toFixed(1), "12.2");
+  // T-R2. Rounded to the nearest hundred thousand, as FIN-40 itself states,
+  // and rounded from the values the PACK emits rather than from two literals
+  // that would agree with the excerpt no matter what the pack shipped.
+  const emitted = new Map(pack().metrics.map((m) => [m.metric_id, m.value]));
+  const inMillions = (metricId) => {
+    const value = emitted.get(metricId);
+    assert.ok(value, `${metricId} is no longer a metric in the pack`);
+    return (Number(value) / 1e6).toFixed(1);
+  };
+  assert.equal(inMillions("net_loss_q1"), "5.2", "the emitted net loss no longer rounds to FIN-40's figure");
+  assert.equal(inMillions("revenue_net_q1"), "12.2", "the emitted revenue no longer rounds to FIN-40's figure");
+  assert.equal(emitted.get("net_loss_q1"), "5243082.89");
+  assert.equal(emitted.get("revenue_net_q1"), "12218645.67");
   // T-R3. The classification is FIN-40's own banner string, read out of the
   // excerpt rather than retyped, and it is the same string the excerpt shows at
   // its head and in its Classification line.
@@ -90,13 +100,17 @@ test("FIN-29 T-R2 and T-R3: the frozen FIN-40 excerpt already publishes the two 
   assert.ok(excerpt.startsWith(`**${banner}**`), "the excerpt's head banner and its Classification line disagree");
 });
 
-test("FIN-29 T-R4: the related decision is a FIN-39 control whose autonomy level is prohibited", () => {
-  const matrix = csvTable(
-    fileByPath(generateArtifact(specs.byId.get("FIN-39"), canon), "decision-authority-matrix-template.csv").content
-  ).rows;
-  const row = matrix.find((r) => r.control_id === RELATED_DECISION_ID);
-  assert.ok(row, `${RELATED_DECISION_ID} is not a control_id in the shipped matrix`);
-  assert.equal(row.ai_autonomy_level, "prohibited");
+test("FIN-29 T-R4: the related decision is DA-20, and DA-20 is prohibited in FIN-39's committed bytes", () => {
+  // The id is pinned to a local literal rather than read out of the generator,
+  // so a generator that repoints the pack at a permitted control fails here
+  // instead of agreeing with itself. The row is then read off FIN-39's
+  // committed CSV, not off a regeneration of it.
+  assert.equal(RELATED_DECISION_ID, "DA-20", "the pack now cites a different decision-authority control");
+  const matrix = shipped("finance/decision-authority-matrix-template", "decision-authority-matrix-template.csv");
+  const row = matrix.find((r) => r.control_id === "DA-20");
+  assert.ok(row, "DA-20 is not a control_id in the committed matrix");
+  assert.equal(row.ai_autonomy_level, "prohibited", "DA-20 is no longer prohibited, so the pack cites a weaker control");
+  assert.equal(pack().related_decision_id, "DA-20");
 });
 
 test("FIN-29: the three March subtotals it publishes are recomputable from frozen bytes today", () => {
