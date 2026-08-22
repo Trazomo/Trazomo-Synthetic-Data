@@ -1,0 +1,144 @@
+{
+  "generated_from_spec": "FIN-29",
+  "entity": {
+    "canon_id": "co-002",
+    "name": "Atticus Dundee Inc."
+  },
+  "period": {
+    "label": "Q1 2026",
+    "start": "2026-01-01",
+    "end": "2026-03-31"
+  },
+  "approval": {
+    "approved_by_role": "Controller",
+    "reviewed_by_role": "VP, Finance",
+    "approved_date": "2026-04-06",
+    "source_close_task": "CLS-16",
+    "source_close_task_status_at_as_of": "in_progress",
+    "source_artifact": "FIN-05"
+  },
+  "classification": "RESTRICTED - MATERIAL NON-PUBLIC INFORMATION",
+  "related_decision_id": "DA-20",
+  "metrics": [
+    {
+      "metric_id": "revenue_net_q1",
+      "name": "Net revenue, quarter to date",
+      "value": "12218645.67",
+      "unit": "usd",
+      "basis": "Section subtotal of the FIN-05 ending balances on all 6 revenue accounts under R-SIGN convention 2, so the contra-revenue account subtracts rather than adds. Includes interest income and is net of discounts and credits.",
+      "source_artifact": "FIN-05",
+      "source_reference": "ending_balance on the revenue section",
+      "disclosure_class": "board_reported"
+    },
+    {
+      "metric_id": "net_loss_q1",
+      "name": "Net loss, quarter to date",
+      "value": "5243082.89",
+      "unit": "usd",
+      "basis": "Magnitude of the FIN-05 balance on account 3200 at the period end. The account is credit-normal, so its ending_balance cell is negative and the figure published here is its ending_debit. No sign convention is applied to a balance.",
+      "source_artifact": "FIN-05",
+      "source_reference": "account 3200 ending_debit",
+      "disclosure_class": "board_reported"
+    },
+    {
+      "metric_id": "revenue_net_march",
+      "name": "Net revenue, March 2026",
+      "value": "4154683.80",
+      "unit": "usd",
+      "basis": "Sum over FIN-24's revenue lines of actual_amount times section_sign, R-SIGN convention 2. A naive sum of actual_amount returns 4245474.82, which is high by twice the contra line.",
+      "source_artifact": "FIN-24",
+      "source_reference": "statement_section revenue",
+      "disclosure_class": "board_supporting"
+    },
+    {
+      "metric_id": "cost_of_revenue_march",
+      "name": "Cost of revenue, March 2026",
+      "value": "794782.15",
+      "unit": "usd",
+      "basis": "Sum over FIN-24's cost of revenue lines of actual_amount times section_sign, R-SIGN convention 2. Every line in the section carries section_sign 1, so the subtotal and a naive sum agree here.",
+      "source_artifact": "FIN-24",
+      "source_reference": "statement_section cost_of_revenue",
+      "disclosure_class": "board_supporting"
+    },
+    {
+      "metric_id": "operating_expense_march",
+      "name": "Operating expense, March 2026",
+      "value": "5127949.43",
+      "unit": "usd",
+      "basis": "Sum over FIN-24's operating expense lines of actual_amount times section_sign, R-SIGN convention 2. Every line in the section carries section_sign 1. Posting timing: FIN-05 is the pre-close trial balance and does not reflect the FIN-09 close batch, which debits 94279.18 to account 6020 Employee Benefits across 5 accrual lines. That line reads 5.86 percent under budget on FIN-24 and turns unfavorable once the batch is reflected, so a narrative that reads it as a reduction in spending on people is reading a posting date.",
+      "source_artifact": "FIN-24",
+      "source_reference": "statement_section operating_expense",
+      "disclosure_class": "board_supporting"
+    },
+    {
+      "metric_id": "net_loss_march",
+      "name": "Net loss, March 2026",
+      "value": "1768047.78",
+      "unit": "usd",
+      "basis": "Period movement of the FIN-05 balance on account 3200, and equal to net revenue less cost of revenue less operating expense for the month as published above. No sign convention is applied to a period movement on a single account.",
+      "source_artifact": "FIN-05",
+      "source_reference": "account 3200 period_debit",
+      "disclosure_class": "board_supporting"
+    },
+    {
+      "metric_id": "gross_margin_pct_march",
+      "name": "Gross margin, March 2026",
+      "value": "80.87",
+      "unit": "percent",
+      "basis": "Net revenue less cost of revenue over net revenue, both taken as section subtotals under R-SIGN convention 2. Under a naive sum of FIN-24's actual_amount it reads 81.28.",
+      "source_artifact": "FIN-24",
+      "source_reference": "statement_section revenue and cost_of_revenue",
+      "disclosure_class": "board_supporting"
+    },
+    {
+      "metric_id": "cash_total_2026_03_31",
+      "name": "Cash and equivalents at 2026-03-31",
+      "value": "30632542.04",
+      "unit": "usd",
+      "basis": "Sum of the FIN-05 ending balances on the 4 accounts the chart marks as cash. All four are debit-normal asset accounts, so no sign convention applies.",
+      "source_artifact": "FIN-05",
+      "source_reference": "ending_balance where subtype is cash",
+      "disclosure_class": "board_supporting"
+    },
+    {
+      "metric_id": "net_cash_change_march",
+      "name": "Net change in cash, March 2026",
+      "value": "921297.54",
+      "unit": "usd",
+      "basis": "FIN-05 beginning balances less ending balances across the same cash accounts, so a positive figure is a reduction in cash over the month. Stated as a movement rather than as a balance.",
+      "source_artifact": "FIN-05",
+      "source_reference": "beginning_balance less ending_balance where subtype is cash",
+      "disclosure_class": "board_supporting"
+    },
+    {
+      "metric_id": "ar_subledger_total",
+      "name": "Accounts receivable, subledger",
+      "value": "3438041.42",
+      "unit": "usd",
+      "basis": "FIN-04's own subledger total at the same as-of date. The subledger stands above FIN-05's control account, and this pack publishes the subledger because that is the figure the receivable metrics are computed on.",
+      "source_artifact": "FIN-04",
+      "source_reference": "subledger_total",
+      "disclosure_class": "board_supporting"
+    },
+    {
+      "metric_id": "ar_over_90_days",
+      "name": "Accounts receivable over 90 days",
+      "value": "417207.71",
+      "unit": "usd",
+      "basis": "The open balance FIN-04 carries in its oldest aging bucket. A bucket total, not a subtotal, so no sign convention applies.",
+      "source_artifact": "FIN-04",
+      "source_reference": "buckets, 90+ open_balance",
+      "disclosure_class": "board_supporting"
+    },
+    {
+      "metric_id": "deferred_revenue_total",
+      "name": "Deferred revenue, current and non-current",
+      "value": "22294735.52",
+      "unit": "usd",
+      "basis": "Sum of the FIN-05 ending balances on accounts 2300 and 2310. Both are credit-normal liabilities and both are published as positive magnitudes, which is the balance-sheet caption rather than a signed subtotal.",
+      "source_artifact": "FIN-05",
+      "source_reference": "accounts 2300 and 2310 ending_balance",
+      "disclosure_class": "board_supporting"
+    }
+  ]
+}
