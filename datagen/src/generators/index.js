@@ -2,6 +2,15 @@
 // new generator: implement `export function generate(ctx)` in a new module
 // under generators/, import it here, and add it to REGISTRY. See
 // datagen/README.md for the full spec-authoring walkthrough.
+//
+// Ten cluster 3 and 4 modules exist under generators/ as skeletons and are
+// deliberately absent from the two lists below: FIN-23, FIN-24, FIN-25,
+// FIN-26, FIN-27, FIN-29, FIN-31, FIN-32, FIN-33 and FIN-34. Registering an id
+// whose generator throws would enrol it in the determinism sweep and turn
+// `validate`'s honest SKIP NOT_IMPLEMENTED into a failure, so each id is
+// registered by the wave that builds it, in the same commit as its bytes.
+// finance-statement.js is a shared helper rather than a generator and is never
+// registered, the same as finance-roles.js.
 import * as core02 from "./core-02-invoice.js";
 import * as core03 from "./core-03-crm-seed.js";
 import * as core04 from "./core-04-people-roster.js";

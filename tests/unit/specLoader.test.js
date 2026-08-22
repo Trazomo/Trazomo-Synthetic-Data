@@ -328,7 +328,7 @@ test("loadSpecs: every cluster 3 and 4 spec carries the fields its generator or 
       assert.equal(typeof feature, "string", `${id} has a planted feature that is not a string (quote the colon)`);
       assert.ok(feature.trim() !== "", `${id} has an empty planted feature`);
       assert.ok(!/learner/i.test(feature), `${id} describes what a learner does, which no file can contain: ${feature}`);
-      assert.ok(!feature.includes("—"), `${id} planted feature carries an em dash`);
+      assert.ok(!feature.includes("\u2014"), `${id} planted feature carries an em dash`);
     }
   }
   for (const id of [...CLUSTER_34_CSV, ...CLUSTER_34_KEYED]) {

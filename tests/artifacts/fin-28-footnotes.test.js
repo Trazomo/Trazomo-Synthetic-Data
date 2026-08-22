@@ -1,0 +1,116 @@
+// FIN-28 prior-period-footnotes: the tie-out that stops the drafting exemplar
+// from quietly contradicting the trend the same pack ships.
+//
+// SKELETON, shipped by D5a foundations. `{ todo: WAVE }` marks a test that
+// fails today because the document does not exist; the D5b branch that authors
+// it deletes the marker in the same commit as the prose.
+//
+// The mutation this file has to catch: a figure typed rather than derived,
+// which is exactly how a prose artifact drifts from the pack. FIN-28 is built
+// after FIN-33 for this reason, and every money amount it states has to be a
+// FIN-33 2026-02 actual or a stated FIN-05 balance.
+//
+// The structural screens (no person name, no em dash) live in
+// tests/drafted/fin-d5-drafted-screen.test.js beside FIN-21's and FIN-30's.
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { loadSpecs } from "../../datagen/src/specLoader.js";
+import { loadCanonCompanies } from "../../datagen/src/canon.js";
+import { generateArtifact } from "../../datagen/src/engine.js";
+import { csvTable, fileByPath } from "../helpers/csv-table.js";
+
+const WAVE = "D5b (plan Task 13) authors FIN-28 after FIN-33 and deletes this marker";
+
+const REPO_ROOT = join(import.meta.dirname, "..", "..");
+const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+const canon = loadCanonCompanies(join(REPO_ROOT, "canon", "companies.md"));
+
+/** The five footnotes, and the FIN-17 category each declares. */
+const FOOTNOTE_CATEGORIES = ["revenue", "accruals", "accruals", "", ""];
+
+function document() {
+  const path = join(REPO_ROOT, "artifacts", "FIN-28", "prior-period-footnotes.md");
+  assert.ok(existsSync(path), `FIN-28 is not authored yet: ${path} does not exist`);
+  return readFileSync(path, "utf8");
+}
+
+const closeTasks = () => csvTable(
+  fileByPath(generateArtifact(specs.byId.get("FIN-17"), canon), "close-checklist.csv").content
+).rows;
+
+// --------------------------------------------------------- green before bytes
+
+test("FIN-28 V26: the category populations that hold the roll-forward plant at one instance", () => {
+  const tasks = closeTasks();
+  const inCategory = (category) => tasks.filter((r) => r.category === category);
+  // The revenue category holds exactly one task and it is not complete, which
+  // is what selects footnote 1 and nothing else.
+  const revenue = inCategory("revenue");
+  assert.equal(revenue.length, 1);
+  assert.notEqual(revenue[0].status, "complete");
+  assert.equal(revenue[0].account_code, "", "a category key is forced: the task carries no account code");
+  // The accruals category is entirely complete, so the two footnotes that
+  // declare it are never selected.
+  assert.equal(inCategory("accruals").length, 3);
+  assert.deepEqual([...new Set(inCategory("accruals").map((r) => r.status))], ["complete"]);
+  // Plan U20: the payables category holds a task that is not complete, so a
+  // trade-payables footnote would make this a two-instance plant. FIN-28
+  // carries none, which is what buys the cardinality.
+  assert.equal(inCategory("payables").filter((r) => r.status !== "complete").length, 1);
+  // Three of the five footnotes declare a category at all: the qualifier-free
+  // count a module block has to state beside the 1.
+  assert.equal(FOOTNOTE_CATEGORIES.filter(Boolean).length, 3);
+});
+
+test("FIN-28: the spec carries the pairing the document must not state outright", () => {
+  const features = specs.byId.get("FIN-28").planted_features;
+  assert.ok(
+    features.some((f) => f.includes("drafting-over-unclosed-item guardrail")),
+    "the shipped pairing feature was reworded, which stales any allowlist entry quoting it"
+  );
+  assert.ok(
+    features.some((f) => f.includes("five footnotes")),
+    "the footnote count is no longer a stated design constraint, and V26's cardinality rests on it"
+  );
+});
+
+// ------------------------------------------------------------ red until built
+
+test("FIN-28: exactly five footnotes, three of which declare a FIN-17 category", { todo: WAVE }, () => {
+  const text = document();
+  const headings = text.split("\n").filter((l) => /^#{2,3}\s/.test(l));
+  assert.equal(headings.length, 5, "the footnote count is a design constraint, not a range");
+  // TODO(D5b): parse the declared category out of each heading and assert the
+  // three that carry one, in the order the plan fixes: revenue, accruals,
+  // accruals, none, none. There is no trade-payables footnote.
+});
+
+test("FIN-28 V26: exactly one footnote declares a category holding a task that is not complete", { todo: WAVE }, () => {
+  const text = document();
+  const tasks = closeTasks();
+  const openCategories = new Set(tasks.filter((r) => r.status !== "complete").map((r) => r.category));
+  const declared = FOOTNOTE_CATEGORIES.filter(Boolean);
+  const blocked = declared.filter((category) => openCategories.has(category));
+  assert.deepEqual(blocked, ["revenue"]);
+  assert.ok(text.length > 0);
+  // TODO(D5b): re-derive `declared` from the document's own headings rather
+  // than from the constant above, so a heading edit fails here.
+});
+
+test("FIN-28 T-U1: every money amount equals a FIN-33 2026-02 actual or a stated FIN-05 balance", { todo: WAVE }, () => {
+  const text = document();
+  const trend = csvTable(
+    fileByPath(generateArtifact(specs.byId.get("FIN-33"), canon), "actuals-24mo.csv").content
+  ).rows.filter((r) => r.period === "2026-02");
+  const february = new Set(trend.map((r) => r.actual_amount));
+  const amounts = [...text.matchAll(/\$([\d,]+\.\d{2})/g)].map((m) => m[1].replace(/,/g, ""));
+  assert.ok(amounts.length > 0, "a disclosure exemplar with no figures teaches the shape and not the discipline");
+  for (const amount of amounts) {
+    assert.ok(february.has(amount), `${amount} is in no FIN-33 February row`);
+  }
+  // TODO(D5b): a footnote may also state a FIN-05 derived balance (a deferred
+  // revenue total, an accrued liability total). Widen the accepted set to those
+  // recomputed from FIN-05 here, and never by adding the figure to a list.
+});
