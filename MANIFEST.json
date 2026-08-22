@@ -932,6 +932,48 @@
             ]
         },
         {
+            "id": "FIN-21",
+            "name": "close-runbook",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/FIN-21",
+            "source_files": [
+                "close-runbook.md"
+            ],
+            "build_files": [
+                "close-runbook.docx"
+            ]
+        },
+        {
+            "id": "FIN-28",
+            "name": "prior-period-footnotes",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/FIN-28",
+            "source_files": [
+                "prior-period-footnotes.md"
+            ],
+            "build_files": [
+                "prior-period-footnotes.docx"
+            ]
+        },
+        {
+            "id": "FIN-30",
+            "name": "prior-board-deck-outline",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/FIN-30",
+            "source_files": [
+                "prior-board-deck-outline.md"
+            ],
+            "build_files": [
+                "prior-board-deck-outline.docx"
+            ]
+        },
+        {
             "id": "FIN-40",
             "name": "mnpi-flagged-draft",
             "type": "document",

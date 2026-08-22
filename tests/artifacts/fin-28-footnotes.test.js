@@ -1,9 +1,9 @@
 // FIN-28 prior-period-footnotes: the tie-out that stops the drafting exemplar
 // from quietly contradicting the trend the same pack ships.
 //
-// SKELETON, shipped by D5a foundations. `{ todo: WAVE }` marks a test that
-// fails today because the document does not exist; the D5b branch that authors
-// it deletes the marker in the same commit as the prose.
+// Shipped as a skeleton by D5a foundations: the tests below the divider were
+// marked todo while the document did not exist. D5b authored FIN-28 after
+// FIN-33 and deleted the markers in the same commit as the prose.
 //
 // The mutation this file has to catch: a figure typed rather than derived,
 // which is exactly how a prose artifact drifts from the pack. FIN-28 is built
@@ -20,8 +20,6 @@ import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
 import { csvTable, fileByPath } from "../helpers/csv-table.js";
-
-const WAVE = "D5b (plan Task 13) authors FIN-28 after FIN-33 and deletes this marker";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
@@ -107,9 +105,9 @@ test("FIN-28: the spec carries the pairing the document must not state outright"
   );
 });
 
-// ------------------------------------------------------------ red until built
+// ------------------------------------------------------------- the document
 
-test("FIN-28: exactly five footnotes, three of which declare a FIN-17 category", { todo: WAVE }, () => {
+test("FIN-28: exactly five footnotes, three of which declare a FIN-17 category", () => {
   const headings = headingLines(document());
   assert.equal(headings.length, 5, "the footnote count is a design constraint, not a range");
   // The order the plan fixes: revenue, accruals, accruals, none, none. There is
@@ -117,7 +115,7 @@ test("FIN-28: exactly five footnotes, three of which declare a FIN-17 category",
   assert.deepEqual(declaredCategories(), FOOTNOTE_CATEGORIES);
 });
 
-test("FIN-28 V26: exactly one footnote declares a category holding a task that is not complete", { todo: WAVE }, () => {
+test("FIN-28 V26: exactly one footnote declares a category holding a task that is not complete", () => {
   const text = document();
   const tasks = closeTasks();
   const openCategories = new Set(tasks.filter((r) => r.status !== "complete").map((r) => r.category));
@@ -129,7 +127,7 @@ test("FIN-28 V26: exactly one footnote declares a category holding a task that i
   assert.ok(text.length > 0);
 });
 
-test("FIN-28 T-U1: every money amount equals a FIN-33 2026-02 actual or a stated FIN-05 balance", { todo: WAVE }, () => {
+test("FIN-28 T-U1: every money amount equals a FIN-33 2026-02 actual or a stated FIN-05 balance", () => {
   const text = document();
   const trend = csvTable(
     fileByPath(generateArtifact(specs.byId.get("FIN-33"), canon), "actuals-24mo.csv").content

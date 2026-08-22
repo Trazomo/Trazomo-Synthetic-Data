@@ -157,6 +157,48 @@ artifact sets; real-name screen over every name-like column of the new
 datasets finds nothing outside the v1.4.1 universe; em-dash grep over every
 changed file empty.
 
+D5b adds the three drafted documents and no dataset. All three are Salvador's
+freeze-gate items, reviewed in ascending order of surface: FIN-30, then FIN-21,
+then FIN-28.
+
+- **FIN-21 close-runbook**: the one procedure document in the finance pack, and
+  the corpus module 22 retrieves over beside CORE-05. Document control in the
+  CORE-05 shape (`ADI-FIN-003`), the close-day rule as `datagen/README.md`
+  states it, the 24 close tasks by `task_id` with owner role, reviewer role,
+  dependency and evidence expectation, the escalation path by role title, and a
+  section on what a close task's evidence must show. The task tables are
+  rendered from `buildCloseChecklistTemplate()` rather than retyped, so the
+  runbook and FIN-36 cannot drift (T-Q5). No money amount appears anywhere in
+  it, and no date other than the close-day rule and the document-control block.
+- **FIN-28 prior-period-footnotes**: the February 2026 disclosure footnote set
+  module 24 drafts the March set from. Exactly five footnotes, three of which
+  declare in their own heading the FIN-17 `category` whose balance they report
+  (`revenue`, `accruals`, `accruals`), and no trade-payables footnote, which is
+  what holds the roll-forward pairing at one instance. Every money amount it
+  states is a FIN-33 `2026-02` `actual_amount` to the cent: all thirteen were
+  substituted into the draft from the generated column rather than typed
+  (T-U1). Balance-sheet balances are described and never restated, because
+  FIN-05 is a March trial balance and this is a February set.
+- **FIN-30 prior-board-deck-outline**: the standing Q4 2025 agenda as an
+  outline and nothing else. Section headings in the order the meeting takes
+  them, the figure slots named and left empty, the distribution list by role
+  title, and a pointer at the classification convention rather than a
+  restatement of FIN-40's banner. No money amount, no percentage, and no date
+  inside the current reporting period (T-R5).
+
+Gates at the D5b head: `npm test` 520 tests, 520 pass, 0 fail, 0 todo (the
+eight D5b todo markers are deleted in the same commit as the prose that
+satisfies them, which the screen itself enforces in both directions);
+`npm run validate` 60 checked, 0 failed, exit 0; `validate --all` 137 checked,
+25 failed, 2 allowlisted, every remaining failure a `MISSING` drafted artifact
+and zero structured FAIL; `MANIFEST.json` 44 datasets and 16 drafted artifact
+sets, `universe_version` still 1.5.0; the roster screen over all three
+documents finds no person name; em-dash grep over the three documents and this
+file empty. FIN-28 reports `WARN` on one planted feature, the pairing with
+FIN-17's open checklist item: the document cannot state it without becoming an
+answer key, so the keyword heuristic cannot confirm it and the WARN is the
+correct outcome rather than a defect.
+
 ## 1.4.1
 
 **Version `1.4.1`, ratified by Salvador 2026-08-20 (C024 keeps `BILL-2026-0118`).**

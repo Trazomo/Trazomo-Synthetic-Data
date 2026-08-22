@@ -2,9 +2,10 @@
 // prior-board-deck-outline: the structural screen over the three drafted
 // documents of the cluster 3 and 4 slice.
 //
-// SKELETON, shipped by D5a foundations. `{ todo: WAVE }` marks a test that
-// fails today because the document does not exist; the D5b branch that authors
-// them deletes the marker in the same commit as the prose.
+// Shipped as a skeleton by D5a foundations: every test below the divider was
+// marked todo while the three documents did not exist. D5b authored them and
+// deleted the markers in the same commit as the prose, which is the invariant
+// the second test below enforces in both directions.
 //
 // These three are the only freeze-gate items in the slice, which is the reason
 // each is kept minimal: FIN-30 is an outline with no figures, FIN-21 is a
@@ -24,8 +25,6 @@ import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
 import { buildCloseChecklistTemplate } from "../../datagen/src/generators/fin-36-close-checklist-template.js";
 import { csvTable, fileByPath } from "../helpers/csv-table.js";
-
-const WAVE = "D5b (plan Task 13) authors FIN-21, FIN-28 and FIN-30 and deletes this marker";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
@@ -101,9 +100,9 @@ test("the todo markers and the drafted documents cannot both be on disk", () => 
   );
 });
 
-// ------------------------------------------------------------ red until built
+// ------------------------------------------------------- the three documents
 
-test("FIN-21 T-Q5: the runbook's task list is the FIN-36 template's, task for task", { todo: WAVE }, () => {
+test("FIN-21 T-Q5: the runbook's task list is the FIN-36 template's, task for task", () => {
   const text = document("FIN-21");
   const template = buildCloseChecklistTemplate();
   assert.equal(template.length, 24);
@@ -115,7 +114,7 @@ test("FIN-21 T-Q5: the runbook's task list is the FIN-36 template's, task for ta
   // template rather than being retyped.
 });
 
-test("FIN-21 T-Q5: the runbook carries no money amount, and states the close-day rule verbatim", { todo: WAVE }, () => {
+test("FIN-21 T-Q5: the runbook carries no money amount, and states the close-day rule verbatim", () => {
   const text = document("FIN-21");
   assert.deepEqual(text.match(MONEY) ?? [], [], "the runbook states a figure, which widens the freeze review");
   for (const date of ["2026-04-01", "2026-04-06", "2026-04-07"]) {
@@ -124,13 +123,13 @@ test("FIN-21 T-Q5: the runbook carries no money amount, and states the close-day
   assert.ok(text.includes("ADI-FIN-003"), "the document-control block carries no document_id");
 });
 
-test("FIN-30 T-R5: the outline carries no money amount and no percentage", { todo: WAVE }, () => {
+test("FIN-30 T-R5: the outline carries no money amount and no percentage", () => {
   const text = document("FIN-30");
   assert.deepEqual(text.match(MONEY) ?? [], [], "the outline states a figure; every figure belongs in FIN-29");
   assert.deepEqual(text.match(/\d+(\.\d+)?\s?%/g) ?? [], [], "the outline states a percentage");
 });
 
-test("T-U2 and T-R5: no person name in any of the three, roles by title only", { todo: WAVE }, () => {
+test("T-U2 and T-R5: no person name in any of the three, roles by title only", () => {
   const roster = csvTable(
     fileByPath(generateArtifact(specs.byId.get("CORE-04"), canon), "people-roster.csv").content
   ).rows;
@@ -147,7 +146,7 @@ test("T-U2 and T-R5: no person name in any of the three, roles by title only", {
   // roster is exactly the one a screen keyed on the roster cannot see.
 });
 
-test("T-U3: none of the three carries an em dash", { todo: WAVE }, () => {
+test("T-U3: none of the three carries an em dash", () => {
   for (const id of DRAFTED_IDS) {
     assert.ok(!document(id).includes("\u2014"), `${id} carries an em dash`);
   }
