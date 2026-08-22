@@ -97,3 +97,43 @@ export function closeDayDate(closeDay) {
   }
   return addBusinessDays(CLOSE_PERIOD_END, Number(match[1]));
 }
+
+// -------------------------------------------------------------- month ends
+// The FP&A datasets plot a trend, and a trend is only joinable if every file
+// agrees about which months it covers. FIN-31 (kpi-source-data), FIN-32
+// (bank-balances) and FIN-33 (actuals-24mo) all read the series below; none of
+// them recomputes it locally, and a fourth consumer should not either.
+
+/** Months in the FP&A reporting window (canon/timeline.md, 2024-04-30 to 2026-03-31). */
+export const TREND_MONTHS = 24;
+
+/** Is this ISO date the last day of its own month? */
+function isMonthEnd(isoDate) {
+  return addDays(isoDate, 1).endsWith("-01");
+}
+
+/**
+ * The `count` consecutive month-end ISO dates ending at `throughIso`, oldest
+ * first. `monthEnds(24, CLOSE_PERIOD_END)` is the FP&A window: 2024-04-30
+ * through 2026-03-31.
+ *
+ * Walks backwards from the through-date by stepping to the day before the
+ * first of the current month, so month lengths and leap years fall out of the
+ * calendar rather than out of a table. `throughIso` must already be a month
+ * end: a series that quietly rolled 2026-03-30 forward would put every one of
+ * its 24 rows on a date no month actually ends.
+ */
+export function monthEnds(count, throughIso) {
+  if (!Number.isInteger(count) || count < 1) {
+    throw new Error(`monthEnds: count must be a whole number of months at or above 1, got ${JSON.stringify(count)}`);
+  }
+  if (typeof throughIso !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(throughIso) || !isMonthEnd(throughIso)) {
+    throw new Error(`monthEnds: the through date must be a month end in YYYY-MM-DD, got ${JSON.stringify(throughIso)}`);
+  }
+  const out = [throughIso];
+  while (out.length < count) {
+    const firstOfMonth = `${out[0].slice(0, 7)}-01`;
+    out.unshift(addDays(firstOfMonth, -1));
+  }
+  return out;
+}
