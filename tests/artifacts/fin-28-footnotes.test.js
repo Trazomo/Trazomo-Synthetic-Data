@@ -1,9 +1,9 @@
 // FIN-28 prior-period-footnotes: the tie-out that stops the drafting exemplar
 // from quietly contradicting the trend the same pack ships.
 //
-// SKELETON, shipped by D5a foundations. `{ todo: WAVE }` marks a test that
-// fails today because the document does not exist; the D5b branch that authors
-// it deletes the marker in the same commit as the prose.
+// Shipped as a skeleton by D5a foundations: the tests below the divider were
+// marked todo while the document did not exist. D5b authored FIN-28 after
+// FIN-33 and deleted the markers in the same commit as the prose.
 //
 // The mutation this file has to catch: a figure typed rather than derived,
 // which is exactly how a prose artifact drifts from the pack. FIN-28 is built
@@ -20,15 +20,15 @@ import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
 import { csvTable, fileByPath } from "../helpers/csv-table.js";
-
-const WAVE = "D5b (plan Task 13) authors FIN-28 after FIN-33 and deletes this marker";
+import { moneyAmounts, moneyMatches } from "../helpers/money-shape.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
 const canon = loadCanonCompanies(join(REPO_ROOT, "canon", "companies.md"));
 
-/** The five footnotes, and the FIN-17 category each declares. The design target
- *  D5b authors against, and the fallback while the document does not exist. */
+/** The five footnotes, and the FIN-17 category each declares, in the order the
+ *  plan fixes. Asserted against what the document's own headings say; never
+ *  substituted for them. */
 const FOOTNOTE_CATEGORIES = ["revenue", "accruals", "accruals", "", ""];
 
 const DOCUMENT_PATH = join(REPO_ROOT, "artifacts", "FIN-28", "prior-period-footnotes.md");
@@ -47,17 +47,16 @@ const headingLines = (text) => text.split("\n").filter((l) => /^#{2,3}\s/.test(l
 
 /**
  * The FIN-17 category each footnote declares, read out of the document's own
- * headings once the document exists and falling back to the design constant
- * until D5b authors it. Counting the constant on its own is a tautology, so the
- * contrast below reads the file the moment there is a file to read.
+ * headings. Nothing falls back to the design constant any more: D5b authored
+ * the document, so a reading that could not see the file would be a tautology
+ * dressed as a check.
  *
  * Membership, never enumeration: a heading declares a category when it names
  * one of FIN-17's own `category` values, so the join key is the checklist's
- * vocabulary rather than a list this test holds. D5b therefore has to write the
- * category word itself into the heading ("accruals", not "accrued").
+ * vocabulary rather than a list this test holds. The document therefore has to
+ * write the category word itself into the heading ("accruals", not "accrued").
  */
 function declaredCategories() {
-  if (!existsSync(DOCUMENT_PATH)) return FOOTNOTE_CATEGORIES;
   const categories = [...new Set(closeTasks().map((r) => r.category))].filter(Boolean);
   return headingLines(readFileSync(DOCUMENT_PATH, "utf8")).map(
     (line) => categories.find((c) => new RegExp(`\\b${c}\\b`, "i").test(line)) ?? ""
@@ -84,15 +83,11 @@ test("FIN-28 V26: the category populations that hold the roll-forward plant at o
   // carries none, which is what buys the cardinality.
   assert.equal(inCategory("payables").filter((r) => r.status !== "complete").length, 1);
   // Three of the five footnotes declare a category at all: the qualifier-free
-  // count a module block has to state beside the 1. Read out of the document's
-  // own headings once the document exists, and out of the design constant until
-  // then, which is the only reading available while FIN-28 is a D5b todo.
+  // count a module block has to state beside the 1, read out of the document's
+  // own headings.
   const declared = declaredCategories();
   assert.equal(declared.length, 5, "the footnote count is a design constraint, not a range");
   assert.equal(declared.filter(Boolean).length, 3, `declared categories: ${declared.join(", ")}`);
-  if (existsSync(DOCUMENT_PATH)) {
-    assert.deepEqual(declared, FOOTNOTE_CATEGORIES, "a heading no longer declares the category the plan fixes");
-  }
 });
 
 test("FIN-28: the spec carries the pairing the document must not state outright", () => {
@@ -107,9 +102,9 @@ test("FIN-28: the spec carries the pairing the document must not state outright"
   );
 });
 
-// ------------------------------------------------------------ red until built
+// ------------------------------------------------------------- the document
 
-test("FIN-28: exactly five footnotes, three of which declare a FIN-17 category", { todo: WAVE }, () => {
+test("FIN-28: exactly five footnotes, three of which declare a FIN-17 category", () => {
   const headings = headingLines(document());
   assert.equal(headings.length, 5, "the footnote count is a design constraint, not a range");
   // The order the plan fixes: revenue, accruals, accruals, none, none. There is
@@ -117,8 +112,8 @@ test("FIN-28: exactly five footnotes, three of which declare a FIN-17 category",
   assert.deepEqual(declaredCategories(), FOOTNOTE_CATEGORIES);
 });
 
-test("FIN-28 V26: exactly one footnote declares a category holding a task that is not complete", { todo: WAVE }, () => {
-  const text = document();
+test("FIN-28 V26: exactly one footnote declares a category holding a task that is not complete", () => {
+  document();
   const tasks = closeTasks();
   const openCategories = new Set(tasks.filter((r) => r.status !== "complete").map((r) => r.category));
   // Derived from the document's own headings, so a heading edit fails here.
@@ -126,21 +121,32 @@ test("FIN-28 V26: exactly one footnote declares a category holding a task that i
   assert.equal(declared.length, 3, "the qualifier-free count: the footnotes that declare a category at all");
   const blocked = declared.filter((category) => openCategories.has(category));
   assert.deepEqual(blocked, ["revenue"]);
-  assert.ok(text.length > 0);
 });
 
-test("FIN-28 T-U1: every money amount equals a FIN-33 2026-02 actual or a stated FIN-05 balance", { todo: WAVE }, () => {
+test("FIN-28 T-U1: every money amount equals a FIN-33 2026-02 actual or a stated FIN-05 balance", () => {
   const text = document();
   const trend = csvTable(
     fileByPath(generateArtifact(specs.byId.get("FIN-33"), canon), "actuals-24mo.csv").content
   ).rows.filter((r) => r.period === "2026-02");
   const february = new Set(trend.map((r) => r.actual_amount));
-  const amounts = [...text.matchAll(/\$([\d,]+\.\d{2})/g)].map((m) => m[1].replace(/,/g, ""));
+  // The same shape the drafted screen uses to prove FIN-21 and FIN-30 state no
+  // figure at all, so the two screens cannot drift. The currency symbol is
+  // optional on purpose: a screen keyed on a leading "$" never compares a bare
+  // "2,130,335.46", which is a figure that ships unsourced rather than a
+  // figure that is absent.
+  const written = moneyMatches(text);
+  const amounts = moneyAmounts(text);
   assert.ok(amounts.length > 0, "a disclosure exemplar with no figures teaches the shape and not the discipline");
-  for (const amount of amounts) {
-    assert.ok(february.has(amount), `${amount} is in no FIN-33 February row`);
+  for (const [i, amount] of amounts.entries()) {
+    assert.ok(february.has(amount), `${written[i]} is in no FIN-33 February row`);
   }
-  // TODO(D5b): a footnote may also state a FIN-05 derived balance (a deferred
-  // revenue total, an accrued liability total). Widen the accepted set to those
-  // recomputed from FIN-05 here, and never by adding the figure to a list.
+  // The accepted set stays FIN-33's February column alone, ruled 2026-08-22.
+  // The spec allows "or a stated FIN-05 derived balance", but FIN-05 is the
+  // pre-close trial balance at 2026-03-31 and this is the February set: a
+  // FIN-05 balance stated here would be a March figure in a February footnote,
+  // which is a worse defect than the missing one. February has no balance
+  // source in the pack, so FIN-28 states no balance-sheet figure at all and
+  // describes the deferred revenue, accrued and prepaid balances in words. A
+  // later artifact that does need a balance widens this by recomputing it from
+  // FIN-05 here, never by adding the figure to a list.
 });

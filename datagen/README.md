@@ -285,7 +285,7 @@ day after period end, weekends skipped: D+1 is 2026-04-01 and D+5 is
 2026-04-07, so D+4 is Monday 2026-04-06. FIN-36 carries the relative `D+n`;
 FIN-17 dates it. `closeDayDate()` in `datagen/src/dates.js` is the only place
 that rule is implemented, over `addBusinessDays()`; nothing recomputes it by
-adding calendar days, which would put D+4 on the Sunday.
+adding calendar days, which would put D+4 on the Saturday.
 
 The 24-month reporting window ends at 2026-03-31 and is the same series for
 FIN-31, FIN-32 and FIN-33; `monthEnds()` in `datagen/src/dates.js` is the only
