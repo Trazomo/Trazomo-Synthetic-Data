@@ -1,0 +1,13 @@
+submission_id,submitted_at,first_name,last_name,email,company_name,industry,employee_count,form_source,pages_viewed,marketing_consent
+sub-0001,2026-03-02,Avery,Okafor,avery.okafor@marlowfengroup.example,Marlowfen Group,,340,contact-us,11,true
+sub-0002,2026-03-03,Emerson,Delacroix,emerson.delacroix@bracklewoodllc.example,Bracklewood LLC,Agriculture,60,pricing-page,12,true
+sub-0003,2026-03-04,Skyler,Alvarez,skyler.alvarez@quarrystoneanalytics.example,Quarrystone Analytics,Software,480,pricing-page,11,false
+sub-0004,2026-03-04,Jordan,Nakamura,jordan.nakamura@ellerbyholdings.example,Ellerby Holdings,Education,220,pricing-page,12,true
+sub-0005,2026-03-05,Sage,Okafor,sage.okafor@mistvalesystems.example,Mistvale Systems,Logistics,260,demo-request,12,true
+sub-0006,2026-03-05,Emerson,Petrov,emerson.petrov@bellhollowholdings.example,Bellhollow Holdings,Retail,,pricing-page,8,true
+sub-0007,2026-03-08,Rowan,Okafor,rowan.okafor@pinegarthpartners.example,Pinegarth Partners,Hospitality,300,contact-us,1,true
+sub-0008,2026-03-09,Blair,Delacroix,blair.delacroix@lodestarlogistics.example,Lodestar Logistics,Logistics,310,demo-request,3,true
+sub-0009,2026-03-09,Riley,Singh,riley.singh@harrowgategroup.example,Harrowgate Group,Healthcare,140,contact-us,1,true
+sub-0010,2026-03-09,Blair,Nakamura,blair.nakamura@quillhavenpartners.example,Quillhaven Partners,Financial Services,85,demo-request,4,true
+sub-0011,2026-03-10,Casey,Coburn,casey.coburn@coldfurrowinc.example,Coldfurrow Inc.,Manufacturing,12,contact-us,12,true
+sub-0012,2026-03-11,Jordan,Yun,jordan.yun@rookswoodsystems.example,Rookswood Systems,Software,60,demo-request,10,true

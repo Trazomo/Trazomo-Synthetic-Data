@@ -82,16 +82,21 @@ artifacts:
       - several opportunities with a blank next-step field
       - stage-history log for conversion-rate math
       - lead batch with a rep at SLA-breach risk (queue-depth fixture)
+      - inbound lead-form submission view (12 submissions, March 2026, mixed ICP fit under the published firmographic rule; clear-fit, clear-non-fit and ambiguous all non-empty)
+      - one submission whose email local part matches an existing contact while the domain differs; no submission email byte-equal to a contact email
+      - one submission with marketing_consent false
+      - one submission whose company name resolves byte-equal to an existing target account (the enrichment join)
     consuming_modules:
       - crm-integration
       - revenue-inbound-context-router
       - revenue-crm-hygiene-sentinel
       - revenue-lead-scoring-and-routing
-      - revenue-champion-move-reconnect
-      - revenue-closed-lost-reactivator
+      - revenue-signal-plays
       - revenue-win-loss-pattern-analysis
       - revenue-play-attribution-console
       - revenue-pipeline-forecasting-reporting
+      - revenue-deck-and-proposal-builder
+      - revenue-campaign-briefing-system
     source_plan: legal-coverage-matrix (A19) + revenue-implementation-plan (artifacts A, G)
 
   - id: CORE-04
@@ -1422,6 +1427,7 @@ artifacts:
     canon_entities: [co-002]
     planted_features:
       - Salesforce-shaped and HubSpot-shaped object samples, teaching scale, not eval-critical
+      - "records join CORE-03 by canon account id: same account names, same opportunity amounts, byte-consistent across both shapes"
     consuming_modules: [revenue-crm-ops]
     source_plan: revenue-implementation-plan (artifact I)
 

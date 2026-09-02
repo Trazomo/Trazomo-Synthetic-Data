@@ -6,7 +6,8 @@
     "contacts": 67,
     "opportunities": 36,
     "stage_history": 86,
-    "leads": 47
+    "leads": 47,
+    "lead_form_submissions": 12
   },
   "accounts": [
     {
@@ -2597,6 +2598,164 @@
       "sla_due_date": "2026-03-18",
       "status": "working",
       "sla_breached": "false"
+    }
+  ],
+  "lead_form_submissions": [
+    {
+      "submission_id": "sub-0001",
+      "submitted_at": "2026-03-02",
+      "first_name": "Avery",
+      "last_name": "Okafor",
+      "email": "avery.okafor@marlowfengroup.example",
+      "company_name": "Marlowfen Group",
+      "industry": "",
+      "employee_count": 340,
+      "form_source": "contact-us",
+      "pages_viewed": 11,
+      "marketing_consent": "true"
+    },
+    {
+      "submission_id": "sub-0002",
+      "submitted_at": "2026-03-03",
+      "first_name": "Emerson",
+      "last_name": "Delacroix",
+      "email": "emerson.delacroix@bracklewoodllc.example",
+      "company_name": "Bracklewood LLC",
+      "industry": "Agriculture",
+      "employee_count": 60,
+      "form_source": "pricing-page",
+      "pages_viewed": 12,
+      "marketing_consent": "true"
+    },
+    {
+      "submission_id": "sub-0003",
+      "submitted_at": "2026-03-04",
+      "first_name": "Skyler",
+      "last_name": "Alvarez",
+      "email": "skyler.alvarez@quarrystoneanalytics.example",
+      "company_name": "Quarrystone Analytics",
+      "industry": "Software",
+      "employee_count": 480,
+      "form_source": "pricing-page",
+      "pages_viewed": 11,
+      "marketing_consent": "false"
+    },
+    {
+      "submission_id": "sub-0004",
+      "submitted_at": "2026-03-04",
+      "first_name": "Jordan",
+      "last_name": "Nakamura",
+      "email": "jordan.nakamura@ellerbyholdings.example",
+      "company_name": "Ellerby Holdings",
+      "industry": "Education",
+      "employee_count": 220,
+      "form_source": "pricing-page",
+      "pages_viewed": 12,
+      "marketing_consent": "true"
+    },
+    {
+      "submission_id": "sub-0005",
+      "submitted_at": "2026-03-05",
+      "first_name": "Sage",
+      "last_name": "Okafor",
+      "email": "sage.okafor@mistvalesystems.example",
+      "company_name": "Mistvale Systems",
+      "industry": "Logistics",
+      "employee_count": 260,
+      "form_source": "demo-request",
+      "pages_viewed": 12,
+      "marketing_consent": "true"
+    },
+    {
+      "submission_id": "sub-0006",
+      "submitted_at": "2026-03-05",
+      "first_name": "Emerson",
+      "last_name": "Petrov",
+      "email": "emerson.petrov@bellhollowholdings.example",
+      "company_name": "Bellhollow Holdings",
+      "industry": "Retail",
+      "employee_count": "",
+      "form_source": "pricing-page",
+      "pages_viewed": 8,
+      "marketing_consent": "true"
+    },
+    {
+      "submission_id": "sub-0007",
+      "submitted_at": "2026-03-08",
+      "first_name": "Rowan",
+      "last_name": "Okafor",
+      "email": "rowan.okafor@pinegarthpartners.example",
+      "company_name": "Pinegarth Partners",
+      "industry": "Hospitality",
+      "employee_count": 300,
+      "form_source": "contact-us",
+      "pages_viewed": 1,
+      "marketing_consent": "true"
+    },
+    {
+      "submission_id": "sub-0008",
+      "submitted_at": "2026-03-09",
+      "first_name": "Blair",
+      "last_name": "Delacroix",
+      "email": "blair.delacroix@lodestarlogistics.example",
+      "company_name": "Lodestar Logistics",
+      "industry": "Logistics",
+      "employee_count": 310,
+      "form_source": "demo-request",
+      "pages_viewed": 3,
+      "marketing_consent": "true"
+    },
+    {
+      "submission_id": "sub-0009",
+      "submitted_at": "2026-03-09",
+      "first_name": "Riley",
+      "last_name": "Singh",
+      "email": "riley.singh@harrowgategroup.example",
+      "company_name": "Harrowgate Group",
+      "industry": "Healthcare",
+      "employee_count": 140,
+      "form_source": "contact-us",
+      "pages_viewed": 1,
+      "marketing_consent": "true"
+    },
+    {
+      "submission_id": "sub-0010",
+      "submitted_at": "2026-03-09",
+      "first_name": "Blair",
+      "last_name": "Nakamura",
+      "email": "blair.nakamura@quillhavenpartners.example",
+      "company_name": "Quillhaven Partners",
+      "industry": "Financial Services",
+      "employee_count": 85,
+      "form_source": "demo-request",
+      "pages_viewed": 4,
+      "marketing_consent": "true"
+    },
+    {
+      "submission_id": "sub-0011",
+      "submitted_at": "2026-03-10",
+      "first_name": "Casey",
+      "last_name": "Coburn",
+      "email": "casey.coburn@coldfurrowinc.example",
+      "company_name": "Coldfurrow Inc.",
+      "industry": "Manufacturing",
+      "employee_count": 12,
+      "form_source": "contact-us",
+      "pages_viewed": 12,
+      "marketing_consent": "true"
+    },
+    {
+      "submission_id": "sub-0012",
+      "submitted_at": "2026-03-11",
+      "first_name": "Jordan",
+      "last_name": "Yun",
+      "email": "jordan.yun@rookswoodsystems.example",
+      "company_name": "Rookswood Systems",
+      "industry": "Software",
+      "employee_count": 60,
+      "form_source": "demo-request",
+      "pages_viewed": 10,
+      "marketing_consent": "true"
     }
   ]
 }
