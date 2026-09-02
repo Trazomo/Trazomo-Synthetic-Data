@@ -79,7 +79,8 @@ const LEAD_FORM_MAX_PAGES_VIEWED = 12;
  *     not in ICP_INDUSTRIES.
  *  2. clear-fit: not clear-non-fit, AND employee_count present and >= 100, AND
  *     industry present and in ICP_INDUSTRIES.
- *  3. ambiguous: everything else (25..99, a blank industry, or a blank count).
+ *  3. ambiguous: everything else (an ICP industry with a count of 25 to 99, or
+ *     a blank industry, or a blank employee_count).
  *
  * Total and deterministic: every submission lands in exactly one class.
  */

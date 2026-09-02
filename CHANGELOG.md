@@ -36,7 +36,7 @@ U1 to U6) ride to Salvador's freeze review.
   the generator, and regression asserts on the frozen plants) and
   `tests/generators/rev-07-object-model.test.js` (join contract against
   CORE-03's committed bytes). REV-07 joins the determinism sweep. Suite: 547
-  tests, up from 529. Five mutation receipts recorded in the PR body, each
+  tests, up from 528. Five mutation receipts recorded in the PR body, each
   failing its named guard before revert.
 
 ## 1.5.0
