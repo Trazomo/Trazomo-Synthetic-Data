@@ -35,6 +35,7 @@
                 "accounts.csv",
                 "contacts.csv",
                 "crm-seed.json",
+                "lead_form_submissions.csv",
                 "leads.csv",
                 "opportunities.csv",
                 "stage_history.csv"
@@ -42,6 +43,7 @@
             "row_counts": {
                 "accounts.csv": 36,
                 "contacts.csv": 67,
+                "lead_form_submissions.csv": 12,
                 "leads.csv": 47,
                 "opportunities.csv": 36,
                 "stage_history.csv": 86
@@ -699,6 +701,20 @@
             "row_counts": {
                 "decision-authority-matrix-template.csv": 20
             }
+        },
+        {
+            "id": "REV-07",
+            "name": "crm-object-model-seed",
+            "track": "revenue",
+            "type": "dataset",
+            "format": "json",
+            "generation": "deterministic",
+            "path": "datasets/revenue/crm-object-model-seed",
+            "files": [
+                "hubspot-objects.json",
+                "salesforce-objects.json"
+            ],
+            "row_counts": {}
         }
     ],
     "specs": "specs/artifact-specs.yaml",
