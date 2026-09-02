@@ -9,9 +9,10 @@ until they move the pin; trazomo's revenue cluster 1 modules (8, 11, 12, 15,
 29) will pin this tag. The plan is
 `docs/plans/2026-08-29-path-programs/revenue/data-plans/cluster-1.md` on
 trazomo (lane branch `data/revenue-cluster-1`), executing
-`implementation-plan-v2.md` section 3.1 under the resolved rulings R-CORE03
-(2026-08-31) and R6 (2026-09-01). The plan's section 9 defaults (U-T5,
-U1 to U6) ride to Salvador's freeze review.
+`implementation-plan-v2.md` section 3.1 under the resolved ruling R-CORE03
+(2026-08-31); R6 gates later clusters and no new artifact id ships here.
+The plan's section 9 defaults (U-T5, U1 to U6) ride to Salvador's freeze
+review.
 
 - **CORE-03 crm-seed-dataset (additive edit under R-CORE03)**: new
   `lead_form_submissions.csv`, the inbound lead-form submission view (12 rows,

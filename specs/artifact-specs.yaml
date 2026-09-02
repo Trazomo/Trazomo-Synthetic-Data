@@ -82,7 +82,7 @@ artifacts:
       - several opportunities with a blank next-step field
       - stage-history log for conversion-rate math
       - lead batch with a rep at SLA-breach risk (queue-depth fixture)
-      - "inbound lead-form submission view (12 submissions, March 2026, mixed ICP fit under the published firmographic rule: clear-non-fit is a headcount under 25 or an industry outside the eight account industries, clear-fit is a headcount of 100 or more in an ICP industry, ambiguous is everything else; all three classes non-empty)"
+      - "inbound lead-form submission view (12 submissions, March 2026, mixed ICP fit under the published firmographic rule: clear-non-fit is a headcount under 25 or a stated industry outside the eight account industries, clear-fit is a stated headcount of 100 or more in one of those eight industries, ambiguous is everything else (including any blank field); all three classes non-empty)"
       - one submission whose email local part matches an existing contact while the domain differs; no submission email byte-equal to a contact email
       - one submission with marketing_consent false
       - one submission whose company name resolves byte-equal to an existing target account (the enrichment join)
