@@ -13,7 +13,7 @@
 
 ## Why this role exists
 
-The mid market book has grown past what the current owners can cover at the touch level the segment was sold on, and the first signal has been slower response on onboarding rather than any churn. This seat takes a slice of that book with a brief to hold the onboarding window tight and to bring the renewal conversation forward. The start date is still open while the group settles which accounts move, and the search runs in parallel with that work.
+The mid market book has grown past what the current owners can cover at the touch level the segment was sold on, and the first signal has been slower response on onboarding rather than any churn. This seat takes a slice of that book with a brief to hold the onboarding window tight and to bring the renewal conversation forward. The group is still settling which accounts move into this book, and the search runs in parallel with that work.
 
 ## Requirements
 
