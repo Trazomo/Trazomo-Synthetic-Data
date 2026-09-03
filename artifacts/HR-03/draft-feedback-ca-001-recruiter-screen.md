@@ -18,4 +18,4 @@ Advance to the hiring manager conversation. The written communication signal is 
 3. She described a deprecation that broke on a weekend because a consumer had automation nobody on their side remembered building, and she answered with what she changed rather than with whose fault it was.
 4. She now checks live traffic before removing a field instead of relying on the announcement window, which is a behavior change rather than a stated lesson.
 5. She rewrote her change note template sitting beside an analyst from a consuming operations group, after that group told her the first versions were unreadable to them.
-6. She said without prompting that the move would be wrong for her if the sequencing in the brief turns out to be nominal, and asked that the question be put to the hiring manager rather than answered by her.
+6. She said that the move would be wrong for her if the sequencing in the brief turns out to be nominal, and accepted my offer to put the question to the hiring manager rather than answer it herself.

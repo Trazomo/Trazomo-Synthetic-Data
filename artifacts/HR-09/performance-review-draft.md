@@ -10,7 +10,7 @@ This review covers 1 October 2025 to 31 March 2026, the last completed half year
 
 ## What went well
 
-The onboarding buddy program went live on 14 October 2025 and has run since without needing our attention. The new hire welcome pack was rebuilt rather than patched, and it is now the document a People Manager is pointed to first. The exit interview summary template landed in December 2025 with the question of who reads a summary settled inside the template rather than left alongside it. The interview scheduling handbook is in use and has already been extended by one of its own readers, which is the outcome we wanted from it. The people data hygiene sweep closed a duplicate class nobody had identified and produced a written account of how the duplicates were created.
+The onboarding buddy program went live on 14 October 2025 and has run since without needing our attention. The new hire welcome pack was rebuilt rather than patched, and it is now the document a People Manager is pointed to first. The exit interview summary template settled the question of who reads a summary inside the template rather than left alongside it. The interview scheduling handbook is in use and has already been extended by one of its own readers, which is the outcome we wanted from it. The people data hygiene sweep closed a duplicate class nobody had identified and produced a written account of how the duplicates were created.
 
 ## Where to improve
 
@@ -18,4 +18,4 @@ The benefits enrollment guide missed its agreed due date and was republished on 
 
 ## Goals for the next period
 
-Agree a written intake path for requests that arrive outside the weekly rhythm, and pilot it during April 2026. Publish the manager onboarding checklist refresh and hold a short walkthrough for each People Manager who will use it. Take the leave request tracker cleanup through to a documented steady state, including the group of items nobody can now reconstruct. Ask me for a mid period conversation at the end of January so that a written review is not the first time either of us sees the whole picture.
+Agree a written intake path for requests that arrive outside the weekly rhythm, and pilot it during April 2026. Publish the manager onboarding checklist refresh and hold a short walkthrough for each People Manager who will use it. Take the leave request tracker cleanup through to a documented steady state, including the group of items nobody can now reconstruct. Ask me for a mid period conversation at the end of June so that a written review is not the first time either of us sees the whole picture.

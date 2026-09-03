@@ -17,7 +17,7 @@ Two territories have been covered on an interim basis since the fall and the int
 
 ## Requirements
 
-This brief is written from the intake conversation and is deliberately kept in the hiring manager's own words, because the calibration session works better from raw notes than from a tidied list. He wants people who can hold a room with a buyer who is more senior than they are, and who do not need a specialist alongside them for a first technical conversation. He would like the recent graduate energy the team had two years ago, even where the experience on paper is deeper than that, and he has asked that we look for a native English speaker on the basis that every account in these two territories sits in one market. He wants evidence of a full cycle owned alone, a reference who will speak to how the person behaved when a quarter went badly, and somebody who writes a short account plan without being chased for it. He is relaxed about industry background and firm about the writing.
+He wants people who can hold a room with a buyer who is more senior than they are, and who do not need a specialist alongside them for a first technical conversation. He would like the recent graduate energy the team had two years ago, even where the experience on paper is deeper than that, and he has asked that we look for a native English speaker on the basis that every account in these two territories sits in one market. He wants evidence of a full cycle owned alone, a reference who will speak to how the person behaved when a quarter went badly, and somebody who writes a short account plan without being chased for it. He is relaxed about industry background and firm about the writing.
 
 ## Nice to have
 

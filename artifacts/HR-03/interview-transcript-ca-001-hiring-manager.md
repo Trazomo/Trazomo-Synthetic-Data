@@ -18,7 +18,7 @@
 
 [00:00:21] Ianthe Wrenfield (Candidate): Yes.
 
-[00:00:26] Dashiell Ashgrove (Engineering Manager): Good. I have the screen notes, so I am not going to make you repeat your history. I want to spend the hour on how you decide things.
+[00:00:26] Dashiell Ashgrove (Engineering Manager): Good. I have the screen notes, so I am not going to make you repeat your history. I want to spend this session on how you decide things.
 
 [00:00:52] Ianthe Wrenfield (Candidate): That suits me.
 

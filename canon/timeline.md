@@ -30,7 +30,7 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-01-05 to 2026-03-26 | FIN-06 purchase orders raised; goods and services received through 2026-03-31 | `datasets/finance/purchase-orders`, `datasets/finance/open-pos` |
 | 2026-01-07 | Prior quarterly review of the finance system access list; the next review is a close task | `datasets/finance/user-access-role-assignments` |
 | 2026-01-12 | CORE-01 MSA Effective Date, the date the agreement is entered into (co-002 with co-101) | artifacts/CORE-01 |
-| 2026-01-12 to 2026-03-20 | co-002 role requisitions raised across the quarter and stated open at 2026-04-03; the interview loops on one of them run 2026-03-09 to 2026-03-20 inside the same window | `artifacts/HR-01`, `artifacts/HR-03` |
+| 2026-01-12 to 2026-03-20 | co-002 role requisitions raised across the quarter and stated open at 2026-04-03; the interview loops on one of them run inside 2026-03-09 to 2026-03-20 inside the same window | `artifacts/HR-01`, `artifacts/HR-03` |
 | 2026-01-15 to 2026-03-30 | FIN-20 regulatory and policy updates published; effective dates run 2026-04-01 to 2027-01-01 | `datasets/finance/regulatory-updates-feed` |
 | 2026-02-01 | CORE-01 Subscription Start Date; the initial subscription term runs twelve months to 2027-01-31 | artifacts/CORE-01 |
 | 2026-02-01 | co-101 CORE-01 subscription invoiced in advance, $450,000, service 2026-02-01 to 2027-01-31, amortized $37,500 a month from February | `artifacts/CORE-01` section 5.2, `datasets/finance/vendor-bills` |

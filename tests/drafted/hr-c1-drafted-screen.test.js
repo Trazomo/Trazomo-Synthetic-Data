@@ -229,6 +229,12 @@ const transcriptNames = () => sourceNames("HR-03", (n) => n.startsWith("intervie
 const feedbackNames = () => sourceNames("HR-03", (n) => n.startsWith("draft-feedback-") && n.endsWith(".md"));
 const pairedTranscript = (feedbackName) => feedbackName.replace("draft-feedback-", "interview-transcript-");
 
+// Every draft feedback file follows the same metadata order every time: the
+// candidate, the requisition, the date, the interviewer and the source
+// transcript. Pinned as a key set so a file that grows or drops a line fails
+// here rather than shipping unseen.
+const FEEDBACK_METADATA_KEYS = ["Candidate ID", "Candidate name", "Requisition ID", "Date", "Interviewer", "Source transcript"];
+
 /** The numbered claim sentences of a feedback file's evidence section. */
 function claimSentences(text, label) {
   const evidence = sections(text).get("Evidence");
@@ -351,6 +357,7 @@ test("HR-01: the register's key order, its closed lists and its eight requisitio
     "the register's top-level key order has drifted from the documented one"
   );
   assert.match(reg.as_of, ISO_DATE, "as_of is not an ISO date");
+  assert.equal(reg.as_of, "2026-04-03", "as_of has drifted from the frozen register date");
 
   const spec = specs.byId.get("HR-01");
   assert.ok(reg.as_of <= spec.period.end && reg.as_of >= spec.period.start, "as_of sits outside the spec period");
@@ -719,6 +726,7 @@ test("HR-03: each feedback file sits in its band and carries four to seven numbe
       `${name}: the claim sentences are not numbered from 1 in order`
     );
     const meta = metadata(text);
+    assert.deepEqual([...meta.keys()], FEEDBACK_METADATA_KEYS, `${name}: the metadata key set has drifted from the uniform order`);
     assert.equal(meta.get("Source transcript"), pairedTranscript(name), `${name}: the source transcript line does not name its own pair`);
     const transcriptMeta = metadata(readSource("HR-03", pairedTranscript(name)));
     for (const key of ["Candidate ID", "Candidate name", "Requisition ID", "Date", "Interviewer"]) {
@@ -961,7 +969,7 @@ test("none of the three sets carries an em dash, a money amount or a percentage"
   }
   sources.push(["HR-01/role-requisition-register.json", readSource("HR-01", "role-requisition-register.json")]);
   for (const [label, text] of sources) {
-    assert.ok(!text.includes("—"), `${label} carries an em dash`);
+    assert.ok(!text.includes("\u2014"), `${label} carries an em dash`);
     assert.deepEqual(moneyMatches(text), [], `${label} states a figure, and this cluster carries no money`);
     assert.deepEqual(text.match(/\d+(\.\d+)?\s?%/g) ?? [], [], `${label} states a percentage`);
   }

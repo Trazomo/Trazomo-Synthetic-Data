@@ -9,7 +9,7 @@
 
 ## Recommendation
 
-Advance to the hiring manager conversation, with one flag. The collaboration evidence is good and the motivation is coherent. The gap is design writing: he has reviewed design documents and written few, and he said so himself before I asked. That is a real gap for this team and it should be tested rather than assumed away.
+Advance to the hiring manager conversation, with one flag. The collaboration evidence is good and the motivation is coherent. The gap is design writing: he has reviewed design documents and written few, and he said so plainly when I raised it. That is a real gap for this team and it should be tested rather than assumed away.
 
 ## Evidence
 
