@@ -9,7 +9,7 @@
 
 ## Recommendation
 
-Advance to the working session, leaning positive. The judgment is sound and the honesty about the gap is worth as much as the strengths. What I could not settle in an hour is whether he has designed at the level this seat needs or has verified other people's designs very well, and that is exactly what the working session is for.
+Advance to the working session, leaning positive. The judgment is sound and the honesty about the gap is worth as much as the strengths. What I could not settle in one conversation is whether he has designed at the level this seat needs or has verified other people's designs very well, and that is exactly what the working session is for.
 
 ## Evidence
 
