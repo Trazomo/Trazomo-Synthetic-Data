@@ -25,7 +25,7 @@ is `docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-1.md`.
   validation exercise for the learner. No compensation figure anywhere.
 - **HR-03 interview-transcript-corpus**: two candidates on one open
   requisition, three panel conversations each. Six transcripts of 43 to 53 cues
-  under one cue grammar with monotonic timestamps, dated 2026-03-09 to
+  under one cue grammar with monotonic timestamps, dated inside 2026-03-09 to
   2026-03-20, and six paired draft-feedback files of six or seven numbered
   claim sentences apiece. The anchor rule reads a closed technology vocabulary
   the spec ships, so the screen and a later module apply the same predicate to
@@ -50,7 +50,9 @@ is `docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-1.md`.
   cardinalities, document inventories, id blocks and the four closed lists
   verbatim. HR-03's frozen example named a real programming language; the
   enriched entry states the rule over a closed vocabulary of generic technology
-  terms instead, because no C1 artifact names a vendor or a product.
+  terms instead, because no C1 artifact names a vendor or a product. The HR-09
+  entry's frozen exemplar phrase was replaced by a different phrase from the
+  same published closed list.
 - **Canon**: two dated events on `canon/timeline.md`, in date order with the
   rest of the table. No new canon entity and no `canon/companies.md` edit;
   co-002 is the only company any of the three sets names.

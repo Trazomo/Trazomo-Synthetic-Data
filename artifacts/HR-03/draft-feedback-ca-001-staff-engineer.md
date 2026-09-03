@@ -5,7 +5,6 @@
 - Requisition ID: RQN-2026-0105
 - Date: 2026-03-13
 - Interviewer: Gideon Loxley (Staff Engineer)
-- Format: design working session
 - Source transcript: interview-transcript-ca-001-staff-engineer.md
 
 ## Recommendation
