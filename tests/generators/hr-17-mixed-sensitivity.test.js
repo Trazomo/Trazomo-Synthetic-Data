@@ -274,7 +274,7 @@ test("HR-17: no statute, no money and no work location appears anywhere in the f
   const text = content();
   assert.ok(!/\$/.test(text), "no money amount appears in this record set");
   assert.ok(!/\bGDPR\b|\bArticle\s+\d|\bU\.S\.C\b|\bCFR\b/i.test(text), "no statutory citation appears in this record set");
-  assert.ok(!text.includes("—"), "no em dash appears in this record set");
+  assert.ok(!text.includes("\u2014"), "no em dash appears in this record set");
   for (const column of spec.columns) {
     assert.ok(
       !/salary|compensation|pay_band|work_location|office/i.test(column),

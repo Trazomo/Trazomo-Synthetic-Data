@@ -339,7 +339,7 @@ test("HR-18: the bundle header states what the files hold and counts them honest
 test("HR-18: no money, no compensation figure and no work location exists anywhere in the bundle", () => {
   for (const file of files()) {
     assert.ok(!/\$/.test(file.content), `${file.path} carries a money amount`);
-    assert.ok(!file.content.includes("—"), `${file.path} carries an em dash`);
+    assert.ok(!file.content.includes("\u2014"), `${file.path} carries an em dash`);
   }
   for (const columns of Object.values(spec.files)) {
     for (const column of columns) {
