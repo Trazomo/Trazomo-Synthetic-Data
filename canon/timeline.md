@@ -38,7 +38,10 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-03-01 to 2026-03-31 | FIN-01 statement period; FIN-02 posting period; FIN-03 checks issued and outstanding at period end | datasets/finance |
 | 2026-03-01 to 2026-03-31 | FIN-07 vendor invoices received into the AP queue; FIN-11 bills posted | `datasets/finance` |
 | 2026-03-02 to 2026-03-31 | Employee expenses incurred; reports submitted through 2026-04-03 and unposted at the close | `datasets/finance/expense-reports` |
+| 2026-03-10 | co-002 cross-functional delivery sync, recorded under the AI-notetaker consent banner; the OPS-01 transcript | `artifacts/OPS-01` |
+| 2026-03-11 to 2026-03-13 | follow-up email thread on the sync's decisions, one attribution disputed | `artifacts/OPS-03B` |
 | 2026-03-13, 2026-03-27 | co-002 payroll funding transfers (operating to payroll account) | FIN-01/FIN-02 |
+| 2026-03-13, 2026-03-27 | biweekly Operations team retros; the earlier one is the prior-retro summary OPS-02 embeds, the later is the OPS-02 transcript | `artifacts/OPS-02` |
 | 2026-03-23 to 2026-04-06 | Inbound finance requests received into the intake queue, untriaged | `datasets/finance/inbound-requests-queue` |
 | 2026-03-24 | annual insurance premium invoiced by co-105 and posted as a prepaid, policy period 2026-04-01 to 2027-03-31 | `datasets/finance/vendor-bills` |
 | 2026-03-31 | FIN-04 aging as-of date; FIN-05 pre-close trial balance; FIN-09 close batch posting date; FIN-10 open-PO cut-off | `datasets/finance` |
