@@ -1349,10 +1349,24 @@ artifacts:
     format: csv + json
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-03-02", end: "2026-04-03" }
+    files:
+      hris-roster.csv: [hris_person_id, employee_id, full_name, work_email, department, role_title, level, manager_employee_id, hire_date, employment_status, employment_type, fte, record_status, last_updated]
+      hris-requisitions.csv: [requisition_id, requisition_title, department, level, status, openings, opened_date, target_start_date, owner_employee_id, hiring_manager_employee_id, recruiter_employee_id, employment_type]
+      hris-case-queue.csv: [case_id, opened_date, case_type, subject_employee_id, assignee_employee_id, required_permission_tier, status, due_date]
+      hris-permission-tiers.csv: [role_title, granted_permission_tier, description]
     planted_features:
-      - unified roster + requisitions + case queue + permission tiers view (derives from CORE-04 and HR-01)
+      - "hris-roster.csv is 582 rows, one per active CORE-04 row in employee_id order, and employment_status reads active on every one of them because the export carries only live records. That constancy is the point: the export is eighteen people short of the 600-row roster and says nothing about it, so the gap is found by joining back rather than by reading a status column"
+      - "hris_person_id runs PER-100001 upward in employee_id order and is the system's own surrogate key, unrelated to employee_id, so joining the export back to the roster is a mapping problem rather than a lookup. employment_type, fte, record_status and last_updated are seeded draws: fte is 1.0 on most rows with a minority at 0.8 or 0.6, employment_type is part_time exactly where fte is below 1.0, record_status is active, and last_updated is an ISO date on or before 2026-04-03 and never before that row's own hire_date"
+      - "hris-requisitions.csv is 8 rows read out of the frozen artifacts/HR-01/role-requisition-register.json at build time rather than retyped, and reproduces the register tuple on every shared field. The generator throws unless the register still holds exactly 8 requisitions each carrying the documented key set, naming the count or the missing and unexpected keys, so a later amendment to the library breaks generation rather than shipping an export that quietly disagrees with it"
+      - "hris-permission-tiers.csv is 6 rows, one per distinct active People-department role_title, printed byte-equal to CORE-04 including the comma in Director, People and VP, People. The granted tiers are the published table: People Operations Specialist and Recruiter at 1, HR Business Partner at 2, People Manager at 3, Director, People and VP, People at 4"
+      - "required_permission_tier comes from case_type by the second published table: address_change, benefits_enrollment_question, payslip_reissue and onboarding_task_chase at 1; leave_request_logging, performance_documentation and manager_coaching_request at 2; grievance_intake and investigation_note at 3; compensation_change_request and termination_processing at 4. The two tables together are the only inputs to the over-tier rule"
+      - "hris-case-queue.csv is 24 rows running HRC-2026-0001 upward in opened_date order, opened on business days in 2026-03-02 to 2026-04-03 with a due_date after the opened_date and a status of open or in_progress. Every assignee_employee_id is one of the 28 active People rows, every subject_employee_id is an active CORE-04 row, and no case is assigned to its own subject"
+      - "1 over-tier assignment: exactly one case whose required_permission_tier exceeds the granted_permission_tier its assignee's role_title carries in hris-permission-tiers.csv, and every other case sits at or inside its assignee's tier. 6 cases sit at tier 3 or 4, which is the population a mis-assignment could occur in; a rule that instead counted tier 1 assignees returns the whole specialist and recruiter caseload"
+      - "hris-export.json is the bundle header, carrying export_id, source_system, schema_version, as_of, source_artifacts, files, counts and permission_tier_scale. source_system is named as the company's own system rather than by a vendor or product name, source_artifacts is CORE-04 and HR-01, and counts restates each file's row count so a consumer can tell a truncated download from a short file"
+      - "no money amount, no compensation figure, no pay band and no work location column exists anywhere in the bundle. A compensation change request is a case type in a queue, not a number, and the case id block HRC- is textually disjoint from every other id block in the pack"
     consuming_modules: [hr-hris-ops]
-    source_plan: hr-people-implementation-plan
+    source_plan: hr-people-implementation-plan + people-hr cluster 1 data plan (2.5)
 
   # ----------------------------------------------------------------- REV (revenue path)
   - id: REV-01

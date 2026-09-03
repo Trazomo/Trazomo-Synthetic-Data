@@ -1,0 +1,9 @@
+requisition_id,requisition_title,department,level,status,openings,opened_date,target_start_date,owner_employee_id,hiring_manager_employee_id,recruiter_employee_id,employment_type
+RQN-2026-0101,Site Reliability Engineer,Engineering,IC,filled,1,2026-01-12,2026-03-16,EMP-0505,EMP-0014,EMP-0508,full_time
+RQN-2026-0102,Enterprise Account Executive,Sales,IC,open,2,2026-01-20,2026-04-13,EMP-0515,EMP-0248,EMP-0517,full_time
+RQN-2026-0103,Product Analyst,Product,IC,open,1,2026-01-27,2026-04-06,EMP-0520,EMP-0196,EMP-0523,full_time
+RQN-2026-0104,Customer Success Manager,Customer Success,IC,open,1,2026-02-05,,EMP-0519,EMP-0395,EMP-0523,full_time
+RQN-2026-0105,Senior Software Engineer,Engineering,IC,open,1,2026-02-17,2026-05-04,EMP-0507,EMP-0017,EMP-0512,full_time
+RQN-2026-0106,Operations Analyst,Operations,IC,open,1,2026-03-03,2026-04-27,EMP-0524,EMP-0574,EMP-0517,full_time
+RQN-2026-0107,Demand Generation Specialist,Marketing,IC,open,1,2026-03-12,2026-05-11,EMP-0525,EMP-0351,EMP-0508,full_time
+RQN-2026-0108,Support Engineer,Customer Success,IC,on_hold,1,2026-03-20,2026-06-01,EMP-0526,EMP-0396,EMP-0512,full_time
