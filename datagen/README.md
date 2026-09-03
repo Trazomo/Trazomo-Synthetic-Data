@@ -223,7 +223,7 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | Spec | Name | Type | Output |
 |---|---|---|---|
 | CORE-02 | outside-counsel-invoice | invoice | genuine LEDES 1998B pipe-delimited file + JSON summary |
-| CORE-03 | crm-seed-dataset | dataset | accounts/contacts/opportunities/stage-history/leads CSVs + JSON bundle |
+| CORE-03 | crm-seed-dataset | dataset | accounts/contacts/opportunities/stage-history/leads/lead-form-submissions CSVs + JSON bundle |
 | CORE-04 | people-roster | dataset | 600-row employee CSV (shared by CORE-03's owners and LGL-07/LGL-22's attorneys) |
 | FIN-01 | bank-transactions | dataset | March 2026 bank feed CSV + statement summary JSON (planted duplicate deposit, unrecorded fee, transposed amount, deposit in transit) |
 | FIN-02 | gl-cash-ledger | dataset | cash GL ledger CSV, from FIN-01's builder |
@@ -266,6 +266,7 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | LGL-20 | legal-ops-budget-roi-dataset | dataset | spend/allocation/ROI/dashboard CSVs |
 | LGL-21 | self-service-portal-program-dataset | dataset | demand-log/SLA CSVs + JSON (FAQ + ROI) |
 | LGL-22 | matter-portfolio-dashboard-dataset | dataset | matter-state + capacity-model CSVs |
+| REV-07 | crm-object-model-seed | dataset | Salesforce-shaped and HubSpot-shaped object samples for three CORE-03 accounts, derived from CORE-03 at build time (same names, ids and amounts) |
 
 **Not implemented yet**: every other `generation: deterministic` spec (the
 remaining FIN, HR, REV, OPS, SMB, and the remaining LGL corpus/config

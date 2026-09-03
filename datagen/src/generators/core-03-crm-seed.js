@@ -1,10 +1,18 @@
 // CORE-03 crm-seed-dataset: accounts, contacts, opportunities, stage
-// history, and a lead batch, sharing canon IDs with co-102/103/121/122/124/125
-// and a co-140+ generator-produced population (per canon/companies.md's ID
-// conventions table). Owners are drawn from CORE-04's Sales roster so
-// cross-track joins (roster <-> CRM) actually resolve.
+// history, a lead batch, and the inbound lead-form submission view, sharing
+// canon IDs with co-102/103/121/122/124/125 and a co-140+ generator-produced
+// population (per canon/companies.md's ID conventions table). Owners are drawn
+// from CORE-04's Sales roster so cross-track joins (roster <-> CRM) actually
+// resolve.
+//
+// The lead-form view was added by revenue cluster 1 as a pure ADDITION: it
+// draws only from its own `lead_form*` streams, after every existing stream has
+// finished, so accounts.csv, contacts.csv, opportunities.csv, stage_history.csv
+// and leads.csv regenerate byte-identically. Never move a draw into or out of
+// the four original streams (`accounts`, `contacts`, `opportunities`, `leads`);
+// reordering them rerolls five committed files.
 import { toCsv } from "../csv.js";
-import { ANCHOR_DATE, addDays } from "../dates.js";
+import { ANCHOR_DATE, addDays, toEpochDay } from "../dates.js";
 import { createRng } from "../seed.js";
 import { buildRoster } from "./core-04-people-roster.js";
 
@@ -35,8 +43,87 @@ const OPP_STAGES = ["Prospecting", "Qualification", "Proposal", "Negotiation", "
 const CONSENT_STATUSES = ["opted_in", "opted_out", "unknown"];
 const LEAD_STATUSES = ["new", "working", "qualified", "disqualified"];
 
+// The two name pools every contact is drawn from. Hoisted out of buildContact()
+// so the lead-form view can draw submitter names from the same populations
+// rather than inventing a parallel one; the draw order inside buildContact is
+// unchanged, so contacts.csv is byte-identical.
+const CONTACT_FIRST_NAMES = ["Jordan", "Casey", "Morgan", "Riley", "Avery", "Skyler", "Rowan", "Emerson", "Blair", "Sage"];
+const CONTACT_LAST_NAMES = ["Whitfield", "Coburn", "Delacroix", "Marsten", "Yun", "Okafor", "Alvarez", "Petrov", "Nakamura", "Singh"];
+
 const GENERATED_ACCOUNT_COUNT = 30;
 const CO_ID_START = 140;
+
+// ------------------------------------------------------- lead-form submissions
+// The inbound lead-form view modules 11 and 15 read. Its clock is CORE-03's own
+// seed clock (ANCHOR_DATE, 2026-03-16): nothing in this file may be dated after
+// the day the dataset calls "today".
+
+const LEAD_FORM_COLUMNS = [
+  "submission_id", "submitted_at", "first_name", "last_name", "email",
+  "company_name", "industry", "employee_count", "form_source", "pages_viewed",
+  "marketing_consent",
+];
+
+const LEAD_FORM_COUNT = 12;
+const LEAD_FORM_WINDOW_START = "2026-03-02";
+const LEAD_FORM_WINDOW_END = ANCHOR_DATE; // 2026-03-16, the seed clock
+const LEAD_FORM_SOURCES = ["contact-us", "pricing-page", "demo-request"];
+const LEAD_FORM_MAX_PAGES_VIEWED = 12;
+
+/**
+ * The published firmographic rule (the "ICP rule"), stated once here and cited
+ * verbatim by every consuming module brief. ICP_INDUSTRIES is exactly the eight
+ * industries accounts.csv already uses.
+ *
+ *  1. clear-non-fit: employee_count present and < 25, OR industry present and
+ *     not in ICP_INDUSTRIES.
+ *  2. clear-fit: not clear-non-fit, AND employee_count present and >= 100, AND
+ *     industry present and in ICP_INDUSTRIES.
+ *  3. ambiguous: everything else (an ICP industry with a count of 25 to 99, or
+ *     a blank industry, or a blank employee_count).
+ *
+ * Total and deterministic: every submission lands in exactly one class.
+ */
+const ICP_INDUSTRIES = INDUSTRIES;
+const ICP_MIN_EMPLOYEES = 25;
+const ICP_FIT_EMPLOYEES = 100;
+
+function classifyIcp(row) {
+  const count = row.employee_count === "" ? null : Number(row.employee_count);
+  const industry = row.industry === "" ? null : row.industry;
+  if ((count !== null && count < ICP_MIN_EMPLOYEES) || (industry !== null && !ICP_INDUSTRIES.includes(industry))) {
+    return "clear-non-fit";
+  }
+  if (count !== null && count >= ICP_FIT_EMPLOYEES && industry !== null && ICP_INDUSTRIES.includes(industry)) {
+    return "clear-fit";
+  }
+  return "ambiguous";
+}
+
+/**
+ * The fixed design table: firmographics and consent per submission, in design
+ * order. Names, dates and pages_viewed are drawn from the `lead_form*` streams
+ * and are not in this table; the file is then ordered by submitted_at, so the
+ * design order is not the file order and this table is not an answer key.
+ *
+ * `plant` marks the row a selection rule must land on so the generator can
+ * check its own work at build time (below). Design classes: 5 clear-fit,
+ * 3 clear-non-fit, 4 ambiguous.
+ */
+const LEAD_FORM_DESIGN = [
+  { company_name: "Mistvale Systems", industry: "Logistics", employee_count: 260, form_source: "demo-request", marketing_consent: "true" },
+  { company_name: "Quarrystone Analytics", industry: "Software", employee_count: 480, form_source: "pricing-page", marketing_consent: "false", plant: "consent" },
+  { company_name: "Lodestar Logistics", industry: "Logistics", employee_count: 310, form_source: "demo-request", marketing_consent: "true", plant: "enrichment" },
+  { company_name: "Harrowgate Group", industry: "Healthcare", employee_count: 140, form_source: "contact-us", marketing_consent: "true" },
+  { company_name: "Ellerby Holdings", industry: "Education", employee_count: 220, form_source: "pricing-page", marketing_consent: "true" },
+  { company_name: "Pinegarth Partners", industry: "Hospitality", employee_count: 300, form_source: "contact-us", marketing_consent: "true" },
+  { company_name: "Bracklewood LLC", industry: "Agriculture", employee_count: 60, form_source: "pricing-page", marketing_consent: "true" },
+  { company_name: "Coldfurrow Inc.", industry: "Manufacturing", employee_count: 12, form_source: "contact-us", marketing_consent: "true" },
+  { company_name: "Rookswood Systems", industry: "Software", employee_count: 60, form_source: "demo-request", marketing_consent: "true" },
+  { company_name: "Marlowfen Group", industry: "", employee_count: 340, form_source: "contact-us", marketing_consent: "true" },
+  { company_name: "Bellhollow Holdings", industry: "Retail", employee_count: "", form_source: "pricing-page", marketing_consent: "true", plant: "partial_email" },
+  { company_name: "Quillhaven Partners", industry: "Financial Services", employee_count: 85, form_source: "demo-request", marketing_consent: "true" },
+];
 
 export function generate({ rng }) {
   const roster = buildRoster(createRng("CORE-04", "roster"));
@@ -191,6 +278,18 @@ export function generate({ rng }) {
     leads.push(makeLead(overloadedRep));
   }
 
+  // ---- inbound lead-form submissions ----------------------------------
+  // Additive only. Every draw below comes from a `lead_form*` stream that no
+  // other block touches, so the five files above are untouched by construction.
+  const leadFormSubmissions = buildLeadFormSubmissions({
+    accounts,
+    contacts,
+    nameRng: rng("lead_form_names"),
+    dateRng: rng("lead_form_dates"),
+    behaviorRng: rng("lead_form_behavior"),
+    matchRng: rng("lead_form_partial_match"),
+  });
+
   const accountColumns = [
     "account_id", "name", "industry", "industry_source_crm", "industry_source_marketing",
     "segment", "status", "owner_employee_id", "owner_name", "last_activity_date",
@@ -216,12 +315,14 @@ export function generate({ rng }) {
       opportunities: opportunities.length,
       stage_history: stageHistory.length,
       leads: leads.length,
+      lead_form_submissions: leadFormSubmissions.length,
     },
     accounts,
     contacts,
     opportunities,
     stage_history: stageHistory,
     leads,
+    lead_form_submissions: leadFormSubmissions,
   };
 
   return [
@@ -230,8 +331,172 @@ export function generate({ rng }) {
     { path: "opportunities.csv", content: toCsv(oppColumns, opportunities) },
     { path: "stage_history.csv", content: toCsv(stageHistoryColumns, stageHistory) },
     { path: "leads.csv", content: toCsv(leadColumns, leads) },
+    { path: "lead_form_submissions.csv", content: toCsv(LEAD_FORM_COLUMNS, leadFormSubmissions) },
     { path: "crm-seed.json", content: JSON.stringify(bundle, null, 2) + "\n" },
   ];
+}
+
+/**
+ * The inbound lead-form view. Firmographics come from the fixed design table;
+ * submitter names, submission dates and pages_viewed come from the four
+ * `lead_form*` streams. Ordered by submitted_at (ties by design order), then
+ * numbered sub-0001..sub-00NN in that file order.
+ *
+ * Four selection rules have to land, and the generator checks its own work
+ * rather than trusting the table (see assertLeadFormPlants): one local-part-only
+ * email match, one consent-false row, a non-empty partition into all three ICP
+ * classes, and one company name that resolves byte-equal to a target account.
+ */
+function buildLeadFormSubmissions({ accounts, contacts, nameRng, dateRng, behaviorRng, matchRng }) {
+  const contactLocalParts = new Set(contacts.map((c) => emailLocalPart(c.email)));
+  const contactEmails = new Set(contacts.map((c) => c.email));
+
+  // C1-P6's donor: one existing contact whose email local part this view
+  // deliberately reuses under a different domain. Picked from the contacts whose
+  // own domain differs from the planted row's, so the two emails can never come
+  // out byte-equal.
+  const partialRow = LEAD_FORM_DESIGN.find((d) => d.plant === "partial_email");
+  const partialDomain = emailDomainFor(partialRow.company_name);
+  const donorPool = contacts.filter((c) => emailDomain(c.email) !== partialDomain);
+  if (donorPool.length === 0) {
+    throw new Error("CORE-03 lead-form: no contact is available to donate a local part under a different domain");
+  }
+  const donor = matchRng.pick(donorPool);
+
+  const usedLocalParts = new Set();
+  const rows = LEAD_FORM_DESIGN.map((design, designIndex) => {
+    let first;
+    let last;
+    if (design.plant === "partial_email") {
+      first = donor.first_name;
+      last = donor.last_name;
+    } else {
+      // Redraw until the implied local part collides with no contact and no
+      // earlier submission. 48 of the pool's 100 combinations are already spent
+      // by contacts.csv, so this terminates quickly and deterministically.
+      let local;
+      do {
+        first = nameRng.pick(CONTACT_FIRST_NAMES);
+        last = nameRng.pick(CONTACT_LAST_NAMES);
+        local = localPartFor(first, last);
+      } while (contactLocalParts.has(local) || usedLocalParts.has(local));
+      usedLocalParts.add(local);
+    }
+    return {
+      designIndex,
+      submitted_at: addDays(LEAD_FORM_WINDOW_START, dateRng.int(0, diffLeadFormWindowDays())),
+      first_name: first,
+      last_name: last,
+      email: `${localPartFor(first, last)}@${emailDomainFor(design.company_name)}`,
+      company_name: design.company_name,
+      industry: design.industry,
+      employee_count: design.employee_count,
+      form_source: design.form_source,
+      pages_viewed: behaviorRng.int(1, LEAD_FORM_MAX_PAGES_VIEWED),
+      marketing_consent: design.marketing_consent,
+      plant: design.plant ?? "",
+    };
+  });
+
+  rows.sort((a, b) => (a.submitted_at < b.submitted_at ? -1 : a.submitted_at > b.submitted_at ? 1 : a.designIndex - b.designIndex));
+
+  const submissions = rows.map((row, index) => ({
+    submission_id: `sub-${String(index + 1).padStart(4, "0")}`,
+    submitted_at: row.submitted_at,
+    first_name: row.first_name,
+    last_name: row.last_name,
+    email: row.email,
+    company_name: row.company_name,
+    industry: row.industry,
+    employee_count: row.employee_count,
+    form_source: row.form_source,
+    pages_viewed: row.pages_viewed,
+    marketing_consent: row.marketing_consent,
+  }));
+
+  assertLeadFormPlants({
+    submissions,
+    plantBySubmissionId: new Map(rows.map((row, index) => [`sub-${String(index + 1).padStart(4, "0")}`, row.plant])),
+    accounts,
+    contactLocalParts,
+    contactEmails,
+  });
+  return submissions;
+}
+
+/**
+ * The build-time guard. A view whose plants have drifted is worse than no view:
+ * a module brief would cite a cardinality the bytes no longer carry. So the
+ * generator refuses to emit a file that does not satisfy every rule section 2.1
+ * of the cluster-1 data plan states.
+ */
+function assertLeadFormPlants({ submissions, plantBySubmissionId, accounts, contactLocalParts, contactEmails }) {
+  const fail = (message) => {
+    throw new Error(`CORE-03 lead-form view: ${message}`);
+  };
+  if (submissions.length !== LEAD_FORM_COUNT) fail(`expected ${LEAD_FORM_COUNT} submissions, built ${submissions.length}`);
+
+  for (const row of submissions) {
+    if (row.submitted_at < LEAD_FORM_WINDOW_START || row.submitted_at > LEAD_FORM_WINDOW_END) {
+      fail(`${row.submission_id} is dated ${row.submitted_at}, outside [${LEAD_FORM_WINDOW_START}, ${LEAD_FORM_WINDOW_END}]`);
+    }
+    if (!LEAD_FORM_SOURCES.includes(row.form_source)) fail(`${row.submission_id} carries form_source ${row.form_source}`);
+  }
+
+  // C1-P7: one consent-false row, and it is clear-fit.
+  const consentFalse = submissions.filter((r) => r.marketing_consent === "false");
+  if (consentFalse.length !== 1) fail(`expected exactly one marketing_consent false row, found ${consentFalse.length}`);
+  if (classifyIcp(consentFalse[0]) !== "clear-fit") fail("the consent-false row does not classify clear-fit");
+
+  // C1-P6: one local-part-only match, zero byte-equal matches.
+  const byteEqual = submissions.filter((r) => contactEmails.has(r.email));
+  if (byteEqual.length !== 0) fail(`${byteEqual.length} submission emails are byte-equal to a contact email`);
+  const localMatches = submissions.filter((r) => contactLocalParts.has(emailLocalPart(r.email)));
+  if (localMatches.length !== 1) fail(`expected exactly one local-part-only email match, found ${localMatches.length}`);
+  if (classifyIcp(localMatches[0]) !== "ambiguous") fail("the local-part-match row does not classify ambiguous");
+
+  // C1-P8: the partition is total and all three classes are non-empty.
+  const classes = { "clear-fit": 0, "clear-non-fit": 0, ambiguous: 0 };
+  for (const row of submissions) classes[classifyIcp(row)] += 1;
+  for (const [name, count] of Object.entries(classes)) {
+    if (count === 0) fail(`the ${name} class is empty`);
+  }
+
+  // C1-P9: one company name resolves byte-equal to a target account, clear-fit,
+  // and no other submission's company name matches an account name at all.
+  const accountNames = new Map(accounts.map((a) => [a.name, a]));
+  const lowerAccountNames = new Set(accounts.map((a) => a.name.toLowerCase()));
+  const resolving = submissions.filter((r) => accountNames.has(r.company_name));
+  if (resolving.length !== 1) fail(`expected exactly one submission resolving to an account, found ${resolving.length}`);
+  if (accountNames.get(resolving[0].company_name).status !== "target") fail("the resolving submission's account is not a target account");
+  if (classifyIcp(resolving[0]) !== "clear-fit") fail("the resolving submission does not classify clear-fit");
+  const looseMatches = submissions.filter((r) => r !== resolving[0] && lowerAccountNames.has(r.company_name.toLowerCase()));
+  if (looseMatches.length !== 0) fail(`${looseMatches.length} other submissions match an account name case-insensitively`);
+
+  // The three plants are three different rows.
+  const planted = [...plantBySubmissionId.entries()].filter(([, plant]) => plant !== "");
+  if (new Set(planted.map(([submissionId]) => submissionId)).size !== 3) fail("the three plants no longer sit on three distinct rows");
+}
+
+function diffLeadFormWindowDays() {
+  return toEpochDay(LEAD_FORM_WINDOW_END) - toEpochDay(LEAD_FORM_WINDOW_START);
+}
+
+function localPartFor(first, last) {
+  return `${first.toLowerCase()}.${last.toLowerCase()}`;
+}
+
+function emailLocalPart(email) {
+  return email.slice(0, email.indexOf("@"));
+}
+
+function emailDomain(email) {
+  return email.slice(email.indexOf("@") + 1);
+}
+
+/** The one email-domain convention this dataset has: the company name, lowercased and stripped. */
+function emailDomainFor(companyName) {
+  return `${companyName.toLowerCase().replace(/[^a-z0-9]+/g, "")}.example`;
 }
 
 function diffPastDue(slaDueIso) {
@@ -254,8 +519,8 @@ function buildAccount({ accountId, name, industry, segment, status, owner, rng }
 }
 
 function buildContact(account, index, rng) {
-  const first = rng.pick(["Jordan", "Casey", "Morgan", "Riley", "Avery", "Skyler", "Rowan", "Emerson", "Blair", "Sage"]);
-  const last = rng.pick(["Whitfield", "Coburn", "Delacroix", "Marsten", "Yun", "Okafor", "Alvarez", "Petrov", "Nakamura", "Singh"]);
+  const first = rng.pick(CONTACT_FIRST_NAMES);
+  const last = rng.pick(CONTACT_LAST_NAMES);
   const consent = rng.pick(CONSENT_STATUSES);
   return {
     contact_id: `ct-${account.account_id}-${String(index + 1).padStart(2, "0")}`,
@@ -263,7 +528,7 @@ function buildContact(account, index, rng) {
     first_name: first,
     last_name: last,
     title: rng.pick(["VP Operations", "Director of Procurement", "IT Manager", "Head of Finance", "Project Lead"]),
-    email: `${first.toLowerCase()}.${last.toLowerCase()}@${account.name.toLowerCase().replace(/[^a-z0-9]+/g, "")}.example`,
+    email: `${localPartFor(first, last)}@${emailDomainFor(account.name)}`,
     consent_status: consent,
     suppressed: consent === "opted_out" ? "true" : "false",
   };
