@@ -171,7 +171,11 @@ const normalizeFinding = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim
 
 /** The OPS-02 metadata block: the `- Facilitator: First Last (Role Title)` line and the `- Attendees:` list beneath it. */
 function retroMetadata(text) {
-  const facilitator = text.match(/^- Facilitator: (.+?) \(([^()]+)\)$/m);
+  // Scoped to the header block, the way the retro-date arm is: the prior-retro
+  // summary carries its own - Facilitator: line, and an unanchored match could
+  // silently drift to validating that one instead (re-review N1).
+  const head = text.split("## Prior retro summary")[0];
+  const facilitator = head.match(/^- Facilitator: (.+?) \(([^()]+)\)$/m);
   assert.ok(facilitator, "OPS-02 metadata carries no - Facilitator: line");
   const attendeesBlock = between(text, "- Attendees:", "\n\n");
   const attendees = [];
