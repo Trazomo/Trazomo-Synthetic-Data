@@ -1,5 +1,87 @@
 # Changelog
 
+## 1.8.0
+
+**Allocated in merge order (expected `v1.8.0`); renumber at tag time if the
+order changes.**
+
+People and HR cluster 1, the drafted half: three drafted-frozen artifact sets,
+the structural screen over them, two canon timeline rows and the HR-block spec
+pins. No generator and no `datasets/hr/` yet; that directory is born in the
+stacked deterministic PR, which reads the frozen HR-01 register at build time
+and therefore could not land first. CORE-04 is read and never edited. The plan
+is `docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-1.md`.
+
+- **HR-01 role-requisition-library**: `role-requisition-register.json` plus
+  eight intake briefs. Eight requisitions stated at 2026-04-03, six open, one
+  on hold and one filled, running `RQN-2026-0101` upward, raised across
+  2026-01-12 to 2026-03-20 with no two on the same day. The register carries
+  the exclusion-phrase list as twelve `{phrase, class}` objects across the four
+  classes and a twelve-entry competency library running `CMP-01` upward; each
+  brief is 350 to 550 words in six fixed sections and prints its panel by role
+  title only. Owners, hiring managers and recruiters resolve to CORE-04 by
+  published field rules, and the briefs print no owner, because a document that
+  named a departed owner beside a live requisition would be doing the
+  validation exercise for the learner. No compensation figure anywhere.
+- **HR-03 interview-transcript-corpus**: two candidates on one open
+  requisition, three panel conversations each. Six transcripts of 43 to 53 cues
+  under one cue grammar with monotonic timestamps, dated 2026-03-09 to
+  2026-03-20, and six paired draft-feedback files of six or seven numbered
+  claim sentences apiece. The anchor rule reads a closed technology vocabulary
+  the spec ships, so the screen and a later module apply the same predicate to
+  the same bytes. The two candidate ids and names are reserved in the PR body
+  for `canon/people.md` to seat at cluster 2.
+- **HR-09 manager-notes-and-review-draft-pair**: one People-department manager
+  and one of that manager's own active reports, selected by rule rather than by
+  id. Twelve dated entries of 95 to 106 words across 2025-10-01 to 2026-03-31,
+  and a seventeen-sentence review draft in four sections. Four closed lists
+  ship in the spec entry, which is what moves both review selections out of
+  review-certified and into machine-recomputed.
+- **The screen**, `tests/drafted/hr-c1-drafted-screen.test.js`: sixteen tests
+  covering HR-C1-T7 to T10. Every selection is recomputed from the spec's own
+  closed lists against the committed bytes, in the screen's own code, at both
+  its qualified and its qualifier-free cardinality; the CORE-04 roster is
+  generated in-test; every printed name and role title is joined to a live
+  roster row with a byte-equal `role_title`; and the register is parsed here
+  because `validate` reads only markdown and a JSON-side drift would otherwise
+  ship unseen.
+- **Spec pins** (HR block only): HR-01, HR-03 and HR-09 move from their coarse
+  form to the FIN-style one, gaining `period`, selection rules with both
+  cardinalities, document inventories, id blocks and the four closed lists
+  verbatim. HR-03's frozen example named a real programming language; the
+  enriched entry states the rule over a closed vocabulary of generic technology
+  terms instead, because no C1 artifact names a vendor or a product.
+- **Canon**: two dated events on `canon/timeline.md`, in date order with the
+  rest of the table. No new canon entity and no `canon/companies.md` edit;
+  co-002 is the only company any of the three sets names.
+- **Allowlist**: nineteen planted features warned on the first `validate` run.
+  Twelve were vocabulary drift between spec narration and the documents' own
+  words and were fixed by rewording the spec rather than by silencing it. The
+  seven that survive are recorded in `datagen/validate-allowlist.yaml` with
+  LGL-02-class reasons: three of them describe a plant a document cannot
+  announce about itself, three describe an absence a keyword count cannot see,
+  and one would mean the corpus had failed if it were ever confirmed, because
+  ten of the exclusion list's twelve phrases must appear nowhere in the briefs.
+
+Gates at this branch head: `npm test` 580 tests, 580 pass, 0 fail, up from the
+564 at `v1.7.0`. `validate --manifest` 67 checked, 0 failed, 14 allowlisted, up
+from 64 checked and 7 allowlisted. `validate --all` 137 checked, 19 failed,
+down from 22, which is the three directories that are no longer missing.
+`MANIFEST.json` regenerated to 45 datasets and 22 drafted artifact sets, with
+`universe_version` deliberately left at 1.5.0.
+
+What is verified where. Structure, every cardinality and every roster join are
+tested in this PR. The drafting quality of the transcripts and the "every other
+evaluative sentence paraphrases a cue that exists" leg are certified by the
+adversarial review and the freeze review, because paraphrase is not mechanical.
+Which requisition, which claim sentence and which review sentence satisfies
+which rule stays in private training content keyed to the data-pack version.
+
+**HR-01, HR-03 and HR-09 freeze at merge.** Any later wording change is an
+amendment with its own review, and the stacked deterministic PR reads the
+frozen register at build time, so an amendment breaks generation rather than
+shipping a silently different export.
+
 ## 1.7.0
 
 **Allocated in merge order after #18 (expected `v1.6.0`); renumber at tag time
