@@ -67,7 +67,7 @@ Consent notice: This meeting is recorded. Recording, transcription, and biometri
 
 [00:12:37] Lyric Quennell (Program Manager): And readiness is the thing we can actually observe.
 
-[00:13:05] Oleander Underhill (VP, Operations): Then the sequence goes by region readiness, not by account size. That is the call, and the reason on the record is that readiness is the constraint and volume is not.
+[00:13:05] Oleander Underhill (VP, Operations): Then the sequence goes by region readiness, not by account size. That is my call, and the reason on the record is that readiness is the constraint and volume is not.
 
 [00:13:29] Oleander Underhill (VP, Operations): If a region is ready it goes early. If it is not, it waits, whatever is sitting in it.
 
@@ -129,7 +129,7 @@ Consent notice: This meeting is recorded. Recording, transcription, and biometri
 
 [00:29:16] Faro Fenmore (Operations Manager): Which is how we ended up with more than one readiness checklist.
 
-[00:29:43] Verity Blackwood (Senior Product Manager): It is exactly how. So the template stays in one shared place and teams link to it instead of copying it. That is product's call, and the reason is that the copies drifted last time and support could not tell which version a customer had been shown.
+[00:29:43] Verity Blackwood (Senior Product Manager): It is exactly how. So the template stays in one shared place and teams link to it instead of copying it. That one is my call, and the reason is that the copies drifted last time and support could not tell which version a customer had been shown.
 
 [00:30:30] Lyric Quennell (Program Manager): Teams will copy it anyway the first time somebody wants a small change.
 
