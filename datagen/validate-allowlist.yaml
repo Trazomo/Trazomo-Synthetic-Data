@@ -121,7 +121,14 @@ allowed:
       feature is present and checkable by reading OPS-01 and OPS-03B side by
       side: of the three decision topics the thread revisits, two name the same
       decider the transcript does, byte for byte, and one names a different
-      active roster person. Expected to be permanent.
+      active roster person. A reworded spec line that drops the spec id --
+      "disagrees with the delivery sync transcript on who made a decision" --
+      would clear the heuristic's keyword threshold (measured at 0.67 against
+      the shipped bytes, versus 0.40 for the line as written), but that pass
+      would be a false green: the heuristic would only be counting "delivery
+      sync" against the thread's own subject line, not confirming the plant,
+      because it still cannot see a cross-document disagreement. That is why
+      this entry stays instead of the reword. Expected to be permanent.
 
   - artifact: OPS-03B
     feature: "a passage urging a decision no meeting supports, ratified by no reply"

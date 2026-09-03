@@ -41,7 +41,7 @@
 
 [00:03:19] Isolde Ashgrove (Operations Analyst): It is still true. I was handed a copy last week with a step nobody else had.
 
-[00:04:06] Faro Fenmore (Operations Manager): There is a rebuild in flight out of the delivery sync, so the shape of it changes shortly, but today it is unchanged.
+[00:04:06] Faro Fenmore (Operations Manager): The rebuilt version went out before the sync on March 17, and the old copies are still in circulation, so today teams still disagree about which one is current.
 
 [00:04:35] Baxter Norwich (Operations Manager): Then it goes on this list as well.
 

@@ -20,7 +20,7 @@ To: Faro Fenmore <faro.fenmore.emp-0574@co002.example>, Saskia Yarrow <saskia.ya
 Date: 2026-03-11
 Subject: Re: Delivery sync follow-up, 2026-03-10
 
-Adding the template answer, since it came up straight after the sequencing question and people keep asking me about it separately.
+Adding the template answer, since it came up later in the same sync and people keep asking me about it separately.
 
 The onboarding checklist template stays in one shared place and teams link to it rather than keeping their own copy. Verity Blackwood made that call, and the reason on the record was that the copies drifted last time and support could not tell which version a customer had been shown.
 
@@ -44,7 +44,7 @@ To: Faro Fenmore <faro.fenmore.emp-0574@co002.example>, Lyric Quennell <lyric.qu
 Date: 2026-03-12
 Subject: Re: Delivery sync follow-up, 2026-03-10
 
-On staging, no, and the reason is the reason the hold exists at all. Two moving parts at once make a failure impossible to attribute, and the last migration is the example everybody in the room reached for.
+On staging, no, and the reason is the reason the hold exists at all. Two moving parts at once make a failure impossible to attribute, and if something breaks while both are moving, nobody can say which one broke it.
 
 I am walking the legacy fields against the new form and the gaps go out by March 13. There are two shapes of gap to expect: fields with nowhere to land in the new form, and fields where the new form is stricter than the old one. The second shape is the one that bites at migration time, because the record moves and then fails validation.
 

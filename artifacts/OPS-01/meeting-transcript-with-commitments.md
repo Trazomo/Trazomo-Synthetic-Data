@@ -147,7 +147,7 @@ Consent notice: This meeting is recorded. Recording, transcription, and biometri
 
 [00:33:53] Oleander Underhill (VP, Operations): Support handoff. Where is that?
 
-[00:34:36] Lyric Quennell (Program Manager): Cassian Thistlewood has the support handoff notes. Cassian told me last week that the rewrite would be done by March 18, in time for the first cohort.
+[00:34:36] Lyric Quennell (Program Manager): Cassian Thistlewood has the support handoff notes and is rewriting them. Cassian told me last week that the rewrite would be finished by March 18, in time for the first cohort.
 
 [00:35:06] Oleander Underhill (VP, Operations): Is that the version support actually reads, or another one?
 
