@@ -1,5 +1,74 @@
 # Changelog
 
+## 1.7.0
+
+**Allocated in merge order after #18 (expected `v1.6.0`); renumber at tag time
+if the order changes.**
+
+Operations cluster 1, the path's capture spine: three drafted-frozen artifacts,
+the structural screen over them, three canon timeline rows and the OPS-block
+spec pins. No generator, and no `datasets/operations/` (that directory is born
+at cluster 2, with the path's first deterministic artifact). CORE-04 is read and
+never edited. The plan is
+`docs/plans/2026-08-29-path-programs/operations/data-plans/cluster-1.md`.
+
+- **OPS-01 meeting-transcript-with-commitments**: an 84-cue delivery sync of
+  2026-03-10 on the customer onboarding revamp, seven active CORE-04 speakers
+  across Operations, Product and Engineering, each printed role title byte-equal
+  to the roster's `role_title` (comma included, `VP, Operations`). This file
+  defines the normative consent banner for the universe: recording,
+  transcription and biometric identification named as three separate acts,
+  biometric identification disabled, and the standing right to have a remark
+  struck. Cluster F's OPS-16 invite template must carry the same bytes, and the
+  cross-artifact identity test lands there; the byte-pin lands here.
+- **OPS-02 retro-transcript-with-recurring-finding**: the 2026-03-27 team retro
+  with the 2026-03-13 summary quoted inside it, both inside the operations
+  anchor month. Five prior findings with exactly one still unresolved; a
+  facilitator read-back of exactly six findings, each with its own owner line
+  and exactly one of them blank. The recurrence is mechanical rather than
+  marked, so the screen recomputes it: one read-back row equals one prior row
+  once both are lowercased and stripped of punctuation, that prior row is the
+  unresolved one, and it is not the row with no owner. No consent banner here;
+  the facilitator captured the notes by hand.
+- **OPS-03B follow-up-email-thread**: six messages 2026-03-11 to 2026-03-13,
+  four active participants, three of them speakers at the sync, addresses
+  byte-equal to the roster's own `email` column. The bodies revisit three of the
+  transcript's decision topics; two name the same decider the transcript does
+  and one does not, and the thread never notices.
+- **The screen**, `tests/drafted/ops-c1-drafted-screen.test.js`: cue grammar
+  full-parse, monotonic timestamps, roster joins on every name, role title,
+  owner and address, the banner byte-pin, the date windows, the read-back
+  cardinalities and the recurrence pair. It follows the finance D5 screen except
+  in one respect: the D5 documents passed the real-name screen by naming nobody,
+  which a transcript cannot do, so names here are allowed exactly when they
+  resolve to an active roster row and the screen becomes a parse-and-join.
+- **Spec pins** (OPS block only): OPS-01 gains the consent-banner line and two
+  injection-aside lines, OPS-02's "findings with no owner" is pinned to exactly
+  one and gains its aside line, OPS-03B gains the unsupported-decision-passage
+  line. The asides are in the spec because four of the path's failure evals are
+  Given a line inside a C1 source; without them stage A would have to invent
+  unvendored input for graded work.
+- **Canon**: three dated events on `canon/timeline.md`, in date order with the
+  rest of the table. No new canon entity and no `canon/companies.md` edit;
+  co-002 is the only company any of the three names.
+
+What is verified where. Structure is tested in this PR. The linguistic
+cardinalities (exactly four commitments, the one with no stated owner, the
+attribution trap, the impersonal follow-up, the three shared topics and the
+single conflict) are certified by the adversarial review and the freeze review,
+because a data-repo test that recomputed them would publish the answer key as
+code. Which row satisfies which rule stays in private training content keyed to
+the tag, as it does everywhere else in this pack.
+
+Four allowlist entries were added, and only after the run produced them: the
+OPS-01 attribution-trap and implied-follow-up lines and both OPS-03B lines. All
+four are the LGL-02 class, a feature the document could not state without
+destroying the exercise, and two of them describe an absence (nothing captures
+the follow-up, nothing replies to the passage) that a keyword count cannot see.
+
+**These three documents freeze at merge.** Any later wording change is an
+amendment with its own review.
+
 ## 1.5.0
 
 **Tags at merge of the D5b PR (`feat/fin-clusters34-d5b-drafted`), stacked on
