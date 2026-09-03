@@ -1,0 +1,211 @@
+{
+  "library_id": "role-requisition-library-2026-04-03",
+  "as_of": "2026-04-03",
+  "source_artifact": "CORE-04",
+  "exclusion_phrase_list": [
+    { "phrase": "recent graduate", "class": "age" },
+    { "phrase": "digital native", "class": "age" },
+    { "phrase": "young and dynamic", "class": "age" },
+    { "phrase": "native English speaker", "class": "national_origin" },
+    { "phrase": "unaccented English", "class": "national_origin" },
+    { "phrase": "no accent", "class": "national_origin" },
+    { "phrase": "able-bodied", "class": "disability" },
+    { "phrase": "no health restrictions", "class": "disability" },
+    { "phrase": "must be able to lift", "class": "disability" },
+    { "phrase": "no family commitments", "class": "family_status" },
+    { "phrase": "no childcare constraints", "class": "family_status" },
+    { "phrase": "no dependents at home", "class": "family_status" }
+  ],
+  "competency_library": [
+    {
+      "competency_id": "CMP-01",
+      "name": "Structured problem solving",
+      "definition": "Breaks an unfamiliar problem into parts, states the assumptions being made, and works to an answer that can be defended to someone who was not in the room."
+    },
+    {
+      "competency_id": "CMP-02",
+      "name": "Technical depth",
+      "definition": "Explains how something they built actually works, including the parts that did not work first time, without retreating into vocabulary."
+    },
+    {
+      "competency_id": "CMP-03",
+      "name": "System design judgment",
+      "definition": "Chooses between designs by naming the constraint each one is paying for, and can say what would have to change for the other choice to win."
+    },
+    {
+      "competency_id": "CMP-04",
+      "name": "Written communication",
+      "definition": "Writes so that a reader outside the immediate team can act on the text without a follow up conversation."
+    },
+    {
+      "competency_id": "CMP-05",
+      "name": "Collaboration across teams",
+      "definition": "Moves work forward with people who do not report to them and who hold different priorities, without escalating as a first step."
+    },
+    {
+      "competency_id": "CMP-06",
+      "name": "Customer empathy",
+      "definition": "Describes the person on the other side of the product in their own terms rather than in internal terms, and lets that description change the work."
+    },
+    {
+      "competency_id": "CMP-07",
+      "name": "Ownership and follow through",
+      "definition": "Carries a piece of work past the interesting part to the point where someone else can rely on it unattended."
+    },
+    {
+      "competency_id": "CMP-08",
+      "name": "Data literacy",
+      "definition": "Reads a table or a chart for what it does not say as well as for what it does, and states the limits of the reading."
+    },
+    {
+      "competency_id": "CMP-09",
+      "name": "Coaching and feedback",
+      "definition": "Gives specific, timely feedback that names behavior and effect rather than character, and receives it the same way."
+    },
+    {
+      "competency_id": "CMP-10",
+      "name": "Prioritization under constraint",
+      "definition": "Says what will not be done, and why, when there is more demand than capacity, and revisits that choice when the constraint moves."
+    },
+    {
+      "competency_id": "CMP-11",
+      "name": "Commercial judgment",
+      "definition": "Connects a piece of work to the account, the renewal or the pipeline it serves, and can say what would make the connection false."
+    },
+    {
+      "competency_id": "CMP-12",
+      "name": "Operational rigor",
+      "definition": "Builds the checks, handovers and records that let a process survive the absence of the person who designed it."
+    }
+  ],
+  "requisitions": [
+    {
+      "requisition_id": "RQN-2026-0101",
+      "requisition_title": "Site Reliability Engineer",
+      "department": "Engineering",
+      "level": "IC",
+      "status": "filled",
+      "openings": 1,
+      "opened_date": "2026-01-12",
+      "target_start_date": "2026-03-16",
+      "owner_employee_id": "EMP-0505",
+      "hiring_manager_employee_id": "EMP-0014",
+      "recruiter_employee_id": "EMP-0508",
+      "employment_type": "full_time",
+      "competencies": ["CMP-02", "CMP-03", "CMP-07", "CMP-12"],
+      "brief_file": "intake-brief-rqn-2026-0101.md"
+    },
+    {
+      "requisition_id": "RQN-2026-0102",
+      "requisition_title": "Enterprise Account Executive",
+      "department": "Sales",
+      "level": "IC",
+      "status": "open",
+      "openings": 2,
+      "opened_date": "2026-01-20",
+      "target_start_date": "2026-04-13",
+      "owner_employee_id": "EMP-0515",
+      "hiring_manager_employee_id": "EMP-0248",
+      "recruiter_employee_id": "EMP-0517",
+      "employment_type": "full_time",
+      "competencies": ["CMP-01", "CMP-05", "CMP-06", "CMP-10", "CMP-11"],
+      "brief_file": "intake-brief-rqn-2026-0102.md"
+    },
+    {
+      "requisition_id": "RQN-2026-0103",
+      "requisition_title": "Product Analyst",
+      "department": "Product",
+      "level": "IC",
+      "status": "open",
+      "openings": 1,
+      "opened_date": "2026-01-27",
+      "target_start_date": "2026-04-06",
+      "owner_employee_id": "EMP-0520",
+      "hiring_manager_employee_id": "EMP-0196",
+      "recruiter_employee_id": "EMP-0523",
+      "employment_type": "full_time",
+      "competencies": ["CMP-01", "CMP-04", "CMP-08", "CMP-10"],
+      "brief_file": "intake-brief-rqn-2026-0103.md"
+    },
+    {
+      "requisition_id": "RQN-2026-0104",
+      "requisition_title": "Customer Success Manager",
+      "department": "Customer Success",
+      "level": "IC",
+      "status": "open",
+      "openings": 1,
+      "opened_date": "2026-02-05",
+      "target_start_date": "",
+      "owner_employee_id": "EMP-0519",
+      "hiring_manager_employee_id": "EMP-0395",
+      "recruiter_employee_id": "EMP-0523",
+      "employment_type": "full_time",
+      "competencies": ["CMP-05", "CMP-06", "CMP-07", "CMP-11"],
+      "brief_file": "intake-brief-rqn-2026-0104.md"
+    },
+    {
+      "requisition_id": "RQN-2026-0105",
+      "requisition_title": "Senior Software Engineer",
+      "department": "Engineering",
+      "level": "IC",
+      "status": "open",
+      "openings": 1,
+      "opened_date": "2026-02-17",
+      "target_start_date": "2026-05-04",
+      "owner_employee_id": "EMP-0507",
+      "hiring_manager_employee_id": "EMP-0017",
+      "recruiter_employee_id": "EMP-0512",
+      "employment_type": "full_time",
+      "competencies": ["CMP-01", "CMP-02", "CMP-03", "CMP-04", "CMP-05"],
+      "brief_file": "intake-brief-rqn-2026-0105.md"
+    },
+    {
+      "requisition_id": "RQN-2026-0106",
+      "requisition_title": "Operations Analyst",
+      "department": "Operations",
+      "level": "IC",
+      "status": "open",
+      "openings": 1,
+      "opened_date": "2026-03-03",
+      "target_start_date": "2026-04-27",
+      "owner_employee_id": "EMP-0524",
+      "hiring_manager_employee_id": "EMP-0574",
+      "recruiter_employee_id": "EMP-0517",
+      "employment_type": "full_time",
+      "competencies": ["CMP-01", "CMP-08", "CMP-10", "CMP-12"],
+      "brief_file": "intake-brief-rqn-2026-0106.md"
+    },
+    {
+      "requisition_id": "RQN-2026-0107",
+      "requisition_title": "Demand Generation Specialist",
+      "department": "Marketing",
+      "level": "IC",
+      "status": "open",
+      "openings": 1,
+      "opened_date": "2026-03-12",
+      "target_start_date": "2026-05-11",
+      "owner_employee_id": "EMP-0525",
+      "hiring_manager_employee_id": "EMP-0351",
+      "recruiter_employee_id": "EMP-0508",
+      "employment_type": "full_time",
+      "competencies": ["CMP-04", "CMP-06", "CMP-08", "CMP-11"],
+      "brief_file": "intake-brief-rqn-2026-0107.md"
+    },
+    {
+      "requisition_id": "RQN-2026-0108",
+      "requisition_title": "Support Engineer",
+      "department": "Customer Success",
+      "level": "IC",
+      "status": "on_hold",
+      "openings": 1,
+      "opened_date": "2026-03-20",
+      "target_start_date": "2026-06-01",
+      "owner_employee_id": "EMP-0526",
+      "hiring_manager_employee_id": "EMP-0396",
+      "recruiter_employee_id": "EMP-0512",
+      "employment_type": "full_time",
+      "competencies": ["CMP-02", "CMP-06", "CMP-07", "CMP-09"],
+      "brief_file": "intake-brief-rqn-2026-0108.md"
+    }
+  ]
+}
