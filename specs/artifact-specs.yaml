@@ -1328,11 +1328,20 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-04-03", end: "2026-04-03" }
+    columns: [record_id, employee_id, full_name, work_email, department, role_title, manager_employee_id, hire_date, date_of_birth, home_city, emergency_contact_name, emergency_contact_phone, health_accommodation_note, occupational_health_status, trade_union_membership, criminal_record_check_status, immigration_status, sensitivity_tier, lawful_basis, extracted_on]
     planted_features:
-      - records deliberately mixing ordinary PII and GDPR special-category fields (health note, visa status)
-      - companion draft "AI in employment decisions" disclosure clause
+      - "40 records drawn from the active CORE-04 roster and stratified by department: every department carrying at least 20 active rows contributes at least 2 records and none contributes more than 8, EMP-0001 and EMP-0002 are excluded, and record_id runs MSD-2026-0001 upward in employee_id order. extracted_on is 2026-04-03 on every row, which is the whole of the artifact's period; hire_date and date_of_birth are properties of the person rather than of the extract"
+      - "employee_id, full_name, work_email, department, role_title, manager_employee_id and hire_date are carried through from CORE-04 rather than retyped: the generator builds the roster in process from the CORE-04 seed the way the finance access list does, so a roster change lands here instead of being outvoted by a stale copy, and every carried column is byte-equal to the roster's own"
+      - "special_category_fields is the closed list health_accommodation_note, occupational_health_status, trade_union_membership. restricted_fields is the closed list date_of_birth, criminal_record_check_status, immigration_status. Every other column is ordinary. These two lists are the only inputs to the tier rule, and both ship here so the reading is mechanical rather than a matter of taste"
+      - "sensitivity_tier is the first matching clause: special_category if any special_category_fields value is non-empty, else restricted if any restricted_fields value is non-empty, else ordinary. The rule is total, so every record lands in exactly one tier and any reader holding the two lists recomputes all 40 in their own arithmetic"
+      - "lawful_basis follows the declared sensitivity_tier through a one to one map: special_category to explicit_consent, restricted to legal_obligation, ordinary to contract. A tier that disagrees with the fields therefore carries a basis that disagrees with them too, which is the second leg of the one mislabeled record"
+      - "1 mislabeled record: exactly one record carries at least one non-empty special_category_fields value while its sensitivity_tier reads ordinary. 12 records carry a special category value at all and 20 records read ordinary, so neither number alone finds the row. Every other record's sensitivity_tier equals the value the rule computes from its own populated fields"
+      - "design counts across the 40 records: 12 carry at least one special category field, 9 carry a restricted field and no special category field, and 19 carry neither, so the three populations are uneven in the way a real extract is rather than split evenly for the sake of it"
+      - "the criminal record check and the immigration status sit in restricted rather than in special_category, which is the classification argument this record set exists to carry: a field can be sensitive without being a special category. No statutory citation appears anywhere in the file, and no money, pay band or work location column exists"
+      - "date_of_birth, home_city, the two emergency contact columns, the three special category columns and the three restricted columns are seeded draws rather than roster values, each from its own stream: a populated date_of_birth is consistent with its own hire_date at an adult working age, every emergency contact phone is a well formed North American number inside the 555 block reserved for fiction, every emergency contact name collides with no roster name, and every home city is an invented town that collides with no canon company name"
     consuming_modules: [hr-operational-controls, hr-helpdesk-intake-router]
-    source_plan: hr-people-implementation-plan
+    source_plan: hr-people-implementation-plan + people-hr cluster 1 data plan (2.4)
 
   - id: HR-18
     name: hris-export

@@ -48,6 +48,7 @@ import * as fin36 from "./fin-36-close-checklist-template.js";
 import * as fin37 from "./fin-37-budget-vs-actual-template.js";
 import * as fin38 from "./fin-38-reliability-drill.js";
 import * as fin39 from "./fin-39-decision-authority-matrix.js";
+import * as hr17 from "./hr-17-mixed-sensitivity.js";
 import * as lgl07 from "./lgl-07-intake.js";
 import * as lgl11 from "./lgl-11-litigation.js";
 import * as lgl18 from "./lgl-18-rfp-panel.js";
@@ -71,6 +72,7 @@ export const PROGRAM_GENERATOR_IDS = [
   fin24.id, fin25.id, fin26.id, fin27.id, fin29.id,
   fin31.id, fin32.id, fin33.id, fin34.id, fin35.id,
   fin36.id, fin37.id, fin38.id, fin39.id,
+  hr17.id,
   lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
   rev07.id,
 ];
@@ -83,6 +85,7 @@ const REGISTRY = new Map(
     fin24, fin25, fin26, fin27, fin29,
     fin31, fin32, fin33, fin34, fin35,
     fin36, fin37, fin38, fin39,
+    hr17,
     lgl07, lgl11, lgl18, lgl20, lgl21, lgl22,
     rev07, test01,
   ].map((mod) => [mod.id, mod])

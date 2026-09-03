@@ -703,6 +703,21 @@
             }
         },
         {
+            "id": "HR-17",
+            "name": "mixed-sensitivity-employee-dataset",
+            "track": "hr",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/hr/mixed-sensitivity-employee-dataset",
+            "files": [
+                "mixed-sensitivity-employee-dataset.csv"
+            ],
+            "row_counts": {
+                "mixed-sensitivity-employee-dataset.csv": 40
+            }
+        },
+        {
             "id": "REV-07",
             "name": "crm-object-model-seed",
             "track": "revenue",
