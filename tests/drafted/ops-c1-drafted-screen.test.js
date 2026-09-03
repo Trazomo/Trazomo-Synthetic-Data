@@ -169,6 +169,20 @@ function readBackFindings(text) {
 /** Lowercase, drop punctuation, collapse whitespace. The C2-P2 rule, and nothing more. */
 const normalizeFinding = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 
+/** The OPS-02 metadata block: the `- Facilitator: First Last (Role Title)` line and the `- Attendees:` list beneath it. */
+function retroMetadata(text) {
+  const facilitator = text.match(/^- Facilitator: (.+?) \(([^()]+)\)$/m);
+  assert.ok(facilitator, "OPS-02 metadata carries no - Facilitator: line");
+  const attendeesBlock = between(text, "- Attendees:", "\n\n");
+  const attendees = [];
+  for (const line of attendeesBlock.split("\n")) {
+    const m = line.match(/^\s+- (.+?) \(([^()]+)\)$/);
+    if (!m) continue;
+    attendees.push({ name: m[1], role: m[2] });
+  }
+  return { facilitator: { name: facilitator[1], role: facilitator[2] }, attendees };
+}
+
 // ------------------------------------------------------------ OPS-03B blocks
 
 const ADDRESS = /^(.+?) <([^<>]+)>$/;
@@ -330,6 +344,26 @@ test("OPS-02: every named owner and every speaker resolves to an active roster r
   for (let i = 1; i < parsed.length; i += 1) {
     assert.ok(parsed[i].seconds >= parsed[i - 1].seconds, `OPS-02 line ${parsed[i].line}: timestamp runs backwards`);
   }
+});
+
+test("OPS-02: the metadata attendee list carries 5 to 6 entries, each an active roster row", () => {
+  const { attendees } = retroMetadata(document("OPS-02"));
+  assert.ok(
+    attendees.length >= 5 && attendees.length <= 6,
+    `OPS-02 metadata lists ${attendees.length} attendees, outside the 5 to 6 band`
+  );
+  for (const attendee of attendees) {
+    resolveActive(attendee.name, attendee.role, "OPS-02 metadata attendee list");
+  }
+});
+
+test("OPS-02: the metadata facilitator resolves to an active roster row holding Operations Manager or Program Manager", () => {
+  const { facilitator } = retroMetadata(document("OPS-02"));
+  resolveActive(facilitator.name, facilitator.role, "OPS-02 metadata facilitator");
+  assert.ok(
+    ["Operations Manager", "Program Manager"].includes(facilitator.role),
+    `OPS-02 facilitator "${facilitator.name}" holds "${facilitator.role}", expected Operations Manager or Program Manager`
+  );
 });
 
 test("OPS-02: exactly one read-back finding recurs from the prior summary's unresolved row", () => {
