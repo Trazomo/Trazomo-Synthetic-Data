@@ -1,0 +1,184 @@
+{
+  "companies": [
+    {
+      "id": "hs-company-co-102",
+      "properties": {
+        "name": "Amberfield Logistics",
+        "domain": "amberfieldlogistics.example",
+        "industry": "LOGISTICS",
+        "lifecyclestage": "customer"
+      },
+      "associations": {
+        "contacts": [
+          "hs-contact-ct-co-102-01"
+        ],
+        "deals": [
+          "hs-deal-opp-co-102-01"
+        ]
+      }
+    },
+    {
+      "id": "hs-company-co-103",
+      "properties": {
+        "name": "Fernwell Retail Group",
+        "domain": "fernwellretailgroup.example",
+        "industry": "RETAIL",
+        "lifecyclestage": "customer"
+      },
+      "associations": {
+        "contacts": [
+          "hs-contact-ct-co-103-01",
+          "hs-contact-ct-co-103-02"
+        ],
+        "deals": [
+          "hs-deal-opp-co-103-01"
+        ]
+      }
+    },
+    {
+      "id": "hs-company-co-122",
+      "properties": {
+        "name": "Lodestar Logistics",
+        "domain": "lodestarlogistics.example",
+        "industry": "LOGISTICS",
+        "lifecyclestage": "opportunity"
+      },
+      "associations": {
+        "contacts": [
+          "hs-contact-ct-co-122-01",
+          "hs-contact-ct-co-122-02"
+        ],
+        "deals": [
+          "hs-deal-opp-co-122-01"
+        ]
+      }
+    }
+  ],
+  "contacts": [
+    {
+      "id": "hs-contact-ct-co-102-01",
+      "properties": {
+        "email": "casey.whitfield@amberfieldlogistics.example",
+        "firstname": "Casey",
+        "lastname": "Whitfield",
+        "jobtitle": "Head of Finance"
+      },
+      "associations": {
+        "companies": [
+          "hs-company-co-102"
+        ]
+      }
+    },
+    {
+      "id": "hs-contact-ct-co-103-01",
+      "properties": {
+        "email": "morgan.alvarez@fernwellretailgroup.example",
+        "firstname": "Morgan",
+        "lastname": "Alvarez",
+        "jobtitle": "Project Lead"
+      },
+      "associations": {
+        "companies": [
+          "hs-company-co-103"
+        ]
+      }
+    },
+    {
+      "id": "hs-contact-ct-co-103-02",
+      "properties": {
+        "email": "riley.coburn@fernwellretailgroup.example",
+        "firstname": "Riley",
+        "lastname": "Coburn",
+        "jobtitle": "VP Operations"
+      },
+      "associations": {
+        "companies": [
+          "hs-company-co-103"
+        ]
+      }
+    },
+    {
+      "id": "hs-contact-ct-co-122-01",
+      "properties": {
+        "email": "emerson.petrov@lodestarlogistics.example",
+        "firstname": "Emerson",
+        "lastname": "Petrov",
+        "jobtitle": "IT Manager"
+      },
+      "associations": {
+        "companies": [
+          "hs-company-co-122"
+        ]
+      }
+    },
+    {
+      "id": "hs-contact-ct-co-122-02",
+      "properties": {
+        "email": "blair.petrov@lodestarlogistics.example",
+        "firstname": "Blair",
+        "lastname": "Petrov",
+        "jobtitle": "Head of Finance"
+      },
+      "associations": {
+        "companies": [
+          "hs-company-co-122"
+        ]
+      }
+    }
+  ],
+  "deals": [
+    {
+      "id": "hs-deal-opp-co-102-01",
+      "properties": {
+        "dealname": "Enterprise Renewal FY27",
+        "dealstage": "contractsent",
+        "amount": "480000",
+        "closedate": ""
+      },
+      "associations": {
+        "companies": [
+          "hs-company-co-102"
+        ],
+        "contacts": [
+          "hs-contact-ct-co-102-01"
+        ]
+      }
+    },
+    {
+      "id": "hs-deal-opp-co-103-01",
+      "properties": {
+        "dealname": "Fernwell Retail Group - New Business",
+        "dealstage": "contractsent",
+        "amount": "18311",
+        "closedate": ""
+      },
+      "associations": {
+        "companies": [
+          "hs-company-co-103"
+        ],
+        "contacts": [
+          "hs-contact-ct-co-103-01",
+          "hs-contact-ct-co-103-02"
+        ]
+      }
+    },
+    {
+      "id": "hs-deal-opp-co-122-01",
+      "properties": {
+        "dealname": "Lodestar Logistics - New Business",
+        "dealstage": "qualifiedtobuy",
+        "amount": "72092",
+        "closedate": ""
+      },
+      "associations": {
+        "companies": [
+          "hs-company-co-122"
+        ],
+        "contacts": [
+          "hs-contact-ct-co-122-01",
+          "hs-contact-ct-co-122-02"
+        ]
+      }
+    }
+  ]
+}

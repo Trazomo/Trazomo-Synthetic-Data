@@ -69,6 +69,46 @@ the follow-up, nothing replies to the passage) that a keyword count cannot see.
 **These three documents freeze at merge.** Any later wording change is an
 amendment with its own review.
 
+## 1.6.0
+
+**Expected tag at merge of the revenue cluster 1 PR (`data/revenue-cluster-1`);
+the integrator allocates the tag in merge order after Salvador's freeze review,
+never on this branch.** Consumers pinned to `v1.5.0` or earlier are unaffected
+until they move the pin; trazomo's revenue cluster 1 modules (8, 11, 12, 15,
+29) will pin this tag. The plan is
+`docs/plans/2026-08-29-path-programs/revenue/data-plans/cluster-1.md` on
+trazomo (lane branch `data/revenue-cluster-1`), executing
+`implementation-plan-v2.md` section 3.1 under the resolved ruling R-CORE03
+(2026-08-31); R6 gates later clusters and no new artifact id ships here.
+The plan's section 9 defaults (U-T5, U1 to U6) ride to Salvador's freeze
+review.
+
+- **CORE-03 crm-seed-dataset (additive edit under R-CORE03)**: new
+  `lead_form_submissions.csv`, the inbound lead-form submission view (12 rows,
+  March 2026, dated inside the 2026-03-16 seed clock; mixed ICP fit under the
+  published firmographic rule with clear-fit, clear-non-fit and ambiguous all
+  non-empty; one local-part-only email match with zero byte-equal emails; one
+  `marketing_consent` false row; one company resolving byte-equal to a target
+  account). `crm-seed.json` gains the array and a sixth counts entry. **The
+  five existing CSVs are byte-identical to `v1.5.0`** (all draws come from new
+  `lead_form*` rng streams; receipt in the PR body). Spec `consuming_modules`:
+  the two pre-merge play slugs collapse to `revenue-signal-plays`;
+  `revenue-deck-and-proposal-builder` and `revenue-campaign-briefing-system`
+  added.
+- **REV-07 crm-object-model-seed (new)**: `salesforce-objects.json` and
+  `hubspot-objects.json`, Salesforce-shaped and HubSpot-shaped object samples
+  for co-102, co-103 and co-122, derived at build time from CORE-03's own rows
+  so names, canon ids and amounts join byte-consistently (nothing retyped).
+  Teaching scale, not eval-critical; the join contract is the only assertable
+  fact.
+- Tests: `tests/generators/core-03-lead-form.test.js` (header pin, the T1 to
+  T10 tie-outs of the plan with the ICP rule re-implemented independently of
+  the generator, and regression asserts on the frozen plants) and
+  `tests/generators/rev-07-object-model.test.js` (join contract against
+  CORE-03's committed bytes). REV-07 joins the determinism sweep. Suite: 547
+  tests, up from 528. Five mutation receipts recorded in the PR body, each
+  failing its named guard before revert.
+
 ## 1.5.0
 
 **Tags at merge of the D5b PR (`feat/fin-clusters34-d5b-drafted`), stacked on

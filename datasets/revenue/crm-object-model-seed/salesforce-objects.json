@@ -1,0 +1,98 @@
+{
+  "objects": {
+    "Account": [
+      {
+        "Id": "001TZ-co-102",
+        "Name": "Amberfield Logistics",
+        "Industry": "Logistics",
+        "Type": "Customer",
+        "OwnerId": "005TZ-EMP-0266"
+      },
+      {
+        "Id": "001TZ-co-103",
+        "Name": "Fernwell Retail Group",
+        "Industry": "Retail",
+        "Type": "Customer",
+        "OwnerId": "005TZ-EMP-0304"
+      },
+      {
+        "Id": "001TZ-co-122",
+        "Name": "Lodestar Logistics",
+        "Industry": "Logistics",
+        "Type": "Prospect",
+        "OwnerId": "005TZ-EMP-0334"
+      }
+    ],
+    "Contact": [
+      {
+        "Id": "003TZ-ct-co-102-01",
+        "AccountId": "001TZ-co-102",
+        "FirstName": "Casey",
+        "LastName": "Whitfield",
+        "Email": "casey.whitfield@amberfieldlogistics.example",
+        "Title": "Head of Finance"
+      },
+      {
+        "Id": "003TZ-ct-co-103-01",
+        "AccountId": "001TZ-co-103",
+        "FirstName": "Morgan",
+        "LastName": "Alvarez",
+        "Email": "morgan.alvarez@fernwellretailgroup.example",
+        "Title": "Project Lead"
+      },
+      {
+        "Id": "003TZ-ct-co-103-02",
+        "AccountId": "001TZ-co-103",
+        "FirstName": "Riley",
+        "LastName": "Coburn",
+        "Email": "riley.coburn@fernwellretailgroup.example",
+        "Title": "VP Operations"
+      },
+      {
+        "Id": "003TZ-ct-co-122-01",
+        "AccountId": "001TZ-co-122",
+        "FirstName": "Emerson",
+        "LastName": "Petrov",
+        "Email": "emerson.petrov@lodestarlogistics.example",
+        "Title": "IT Manager"
+      },
+      {
+        "Id": "003TZ-ct-co-122-02",
+        "AccountId": "001TZ-co-122",
+        "FirstName": "Blair",
+        "LastName": "Petrov",
+        "Email": "blair.petrov@lodestarlogistics.example",
+        "Title": "Head of Finance"
+      }
+    ],
+    "Opportunity": [
+      {
+        "Id": "006TZ-opp-co-102-01",
+        "Name": "Enterprise Renewal FY27",
+        "AccountId": "001TZ-co-102",
+        "StageName": "Negotiation",
+        "Amount": 480000,
+        "CloseDate": "",
+        "OwnerId": "005TZ-EMP-0265"
+      },
+      {
+        "Id": "006TZ-opp-co-103-01",
+        "Name": "Fernwell Retail Group - New Business",
+        "AccountId": "001TZ-co-103",
+        "StageName": "Negotiation",
+        "Amount": 18311,
+        "CloseDate": "",
+        "OwnerId": "005TZ-EMP-0288"
+      },
+      {
+        "Id": "006TZ-opp-co-122-01",
+        "Name": "Lodestar Logistics - New Business",
+        "AccountId": "001TZ-co-122",
+        "StageName": "Qualification",
+        "Amount": 72092,
+        "CloseDate": "",
+        "OwnerId": "005TZ-EMP-0331"
+      }
+    ]
+  }
+}
