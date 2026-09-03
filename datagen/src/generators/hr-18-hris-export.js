@@ -364,10 +364,16 @@ export function buildCaseQueue(roster = coreRoster()) {
   const usedSubjects = new Set();
 
   return drafts.map((draft, index) => {
+    // A queue routes to the tier that owns the work: routine requests sit with
+    // the specialists and the recruiters, employee relations cases sit with the
+    // managers. Anything looser would put a VP on an address change, and would
+    // leave "the tier 1 caseload" too small to be a population at all.
     const granted = (person) => GRANTED_TIER_BY_ROLE[person.role_title];
+    const owning = people.filter((p) => granted(p) === draft.required_permission_tier);
+    const within = people.filter((p) => granted(p) >= draft.required_permission_tier);
     const pool = index === overTierIndex
       ? people.filter((p) => granted(p) < draft.required_permission_tier)
-      : people.filter((p) => granted(p) >= draft.required_permission_tier);
+      : (owning.length > 0 ? owning : within);
     if (pool.length === 0) {
       throw new Error(`${id}: no active People row can take a tier ${draft.required_permission_tier} case`);
     }
