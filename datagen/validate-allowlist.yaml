@@ -22,7 +22,9 @@
 #     document spells out "Defend Trade Secrets Act", the fix is a one-word
 #     spec edit, not an allowlist entry.
 #
-# Reviewed 2026-08-22 against data-pack v1.5.0.
+# Reviewed 2026-08-22 against data-pack v1.5.0. The four operations cluster 1
+# entries were added 2026-09-02 against the same rules, each one confirmed to
+# WARN on its own run before it was written down.
 
 version: 1
 
@@ -74,3 +76,71 @@ allowed:
       generated checklist and pins the selection at one instance beside the
       qualifier-free three. No rewording of the spec can make this checkable
       from the prose, so this entry is expected to be permanent.
+
+  - artifact: OPS-01
+    feature: "1 attribution trap (speaker describing someone else's commitment)"
+    reason: >-
+      Unconfirmable by construction, the LGL-02 class. The trap works only while
+      the turn reads as an ordinary report of somebody else's undertaking, so
+      every word the heuristic wants ("attribution", "trap", "speaker
+      describing", "someone else's") would be the transcript naming its own
+      plant and handing module 12 its answer. The structure is present and
+      checkable by reading: one turn reports a third party's undertaking with a
+      due signal, the third party is an active CORE-04 row, and that person is
+      not one of the seven speakers, so naive last-speaker attribution assigns
+      the reporter rather than the committer. What a test can prove without
+      publishing the key is proved:
+      tests/drafted/ops-c1-drafted-screen.test.js pins the speaker set at seven
+      and joins every printed name and role title to a live roster row, so a
+      committer who was in the room, or who is not on the roster at all, fails
+      the suite. Which turn it is stays in the private label set keyed to the
+      data-pack tag. No rewording of the spec can make this checkable from the
+      prose, so this entry is expected to be permanent.
+
+  - artifact: OPS-01
+    feature: "1 implied follow-up never captured as a task"
+    reason: >-
+      Unconfirmable by construction, and self-defeating if it were not. The
+      whole plant is that nothing in the room captures this action: a transcript
+      that said "never captured as a task" would have captured it, and module
+      13's exercise (raise it as a candidate open loop, marked unconfirmed,
+      rather than as a tracked task with an invented owner) would have nothing
+      left to do. The feature is present and checkable by reading: one turn
+      states a needed action impersonally, with no first-person committer, and
+      no turn anywhere later accepts it. That absence is exactly what a keyword
+      count cannot see. Expected to be permanent.
+
+  - artifact: OPS-03B
+    feature: "disagrees with OPS-01 on who made a decision"
+    reason: >-
+      Two reasons, both structural. "OPS-01" is a spec id, and no email in the
+      universe would carry one, so that token can never match. "disagrees" is
+      the word the thread must not contain: the conflicting attribution is
+      asserted plainly in a body sentence and never flagged, because a thread
+      that flagged it would be doing module 14's work for the learner. The
+      feature is present and checkable by reading OPS-01 and OPS-03B side by
+      side: of the three decision topics the thread revisits, two name the same
+      decider the transcript does, byte for byte, and one names a different
+      active roster person. A reworded spec line that drops the spec id --
+      "disagrees with the delivery sync transcript on who made a decision" --
+      would clear the heuristic's keyword threshold (measured at 0.67 against
+      the shipped bytes, versus 0.40 for the line as written), but that pass
+      would be a false green: the heuristic would only be counting "delivery
+      sync" against the thread's own subject line, not confirming the plant,
+      because it still cannot see a cross-document disagreement. That is why
+      this entry stays instead of the reword. Expected to be permanent.
+
+  - artifact: OPS-03B
+    feature: "a passage urging a decision no meeting supports, ratified by no reply"
+    reason: >-
+      Describes the passage from outside, and half of what it describes is an
+      absence. "passage", "urging", "supports" and "ratified" are the vocabulary
+      of a reader looking at the thread, not of anyone writing in it. "reply"
+      fails because the plant IS the missing reply: the passage is left
+      unanswered on purpose, which is what makes it the Given for the
+      decision-log failure eval. "meeting" fails because the thread and the
+      transcript both call it the sync, and renaming it in the spec would trade
+      one unmatched token for a less accurate line. The feature is present and
+      checkable by reading: one passage urges that a decision be recorded, it
+      lands on none of the three topics the transcript decided, and no later
+      message takes it up. Expected to be permanent.

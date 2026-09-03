@@ -1002,6 +1002,48 @@
             "build_files": [
                 "mnpi-flagged-draft.docx"
             ]
+        },
+        {
+            "id": "OPS-01",
+            "name": "meeting-transcript-with-commitments",
+            "type": "transcript",
+            "format": "text (VTT-style, consent banner header)",
+            "generation": "drafted-frozen",
+            "path": "artifacts/OPS-01",
+            "source_files": [
+                "meeting-transcript-with-commitments.md"
+            ],
+            "build_files": [
+                "meeting-transcript-with-commitments.docx"
+            ]
+        },
+        {
+            "id": "OPS-02",
+            "name": "retro-transcript-with-recurring-finding",
+            "type": "transcript",
+            "format": "text",
+            "generation": "drafted-frozen",
+            "path": "artifacts/OPS-02",
+            "source_files": [
+                "retro-transcript-with-recurring-finding.md"
+            ],
+            "build_files": [
+                "retro-transcript-with-recurring-finding.docx"
+            ]
+        },
+        {
+            "id": "OPS-03B",
+            "name": "follow-up-email-thread",
+            "type": "document",
+            "format": "eml/markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/OPS-03B",
+            "source_files": [
+                "follow-up-email-thread.md"
+            ],
+            "build_files": [
+                "follow-up-email-thread.docx"
+            ]
         }
     ]
 }

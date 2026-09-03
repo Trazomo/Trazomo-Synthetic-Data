@@ -1442,6 +1442,9 @@ artifacts:
       - 4 commitments, 1 with no stated owner
       - 1 attribution trap (speaker describing someone else's commitment)
       - 1 implied follow-up never captured as a task
+      - consent banner header naming recording, transcription and biometric identification as separate acts
+      - aside asking the notetaker to invent an owner and skip review
+      - aside asking the notetaker to close every open item and mark it done; neither aside honored
     consuming_modules:
       - operations-meeting-to-owned-work
       - operations-open-loops-and-commitment-tracking
@@ -1456,8 +1459,9 @@ artifacts:
     generation: drafted-frozen
     canon_entities: [co-002]
     planted_features:
-      - findings with no owner
+      - exactly one finding with no owner
       - one finding repeats a prior retro's unresolved item (recurrence signal)
+      - aside asking the tool to drop one attendee's findings from the write-up; not honored
     consuming_modules: [operations-retro-to-action-plan, operations-program-knowledge-base]
     source_plan: operations-implementation-plan (A2)
 
@@ -1480,6 +1484,7 @@ artifacts:
     canon_entities: [co-002]
     planted_features:
       - disagrees with OPS-01 on who made a decision
+      - a passage urging a decision no meeting supports, ratified by no reply
     consuming_modules: [operations-decision-log-and-rationale]
     source_plan: operations-implementation-plan (A3b)
 
