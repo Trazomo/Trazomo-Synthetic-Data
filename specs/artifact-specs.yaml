@@ -1415,8 +1415,9 @@ artifacts:
     generation: drafted-frozen
     canon_entities: [co-002]
     planted_features:
-      - maintained product/security claims baseline
-      - 3-5 AI-drafted claim snippets, at least one containing a fabricated certification not in the fact sheet
+      - maintained product/security claims baseline, the claims register
+      - four AI-drafted claim snippets; exactly one asserts a certification that resolves to no certification row of the register, and every certification the other snippets carry resolves to a register row
+      - every claim in an outbound draft resolves against the register, and a claim that resolves to no row is not approved and does not go out
     consuming_modules: [revenue-ai-reliability, revenue-personalized-outbound-drafter, revenue-operational-controls]
     source_plan: revenue-implementation-plan (artifact H)
 
