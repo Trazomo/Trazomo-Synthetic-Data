@@ -281,7 +281,7 @@ export function generate({ rng }) {
     as_of: ANCHOR_DATE,
     compliance_window_business_days: COMPLIANCE_WINDOW_BUSINESS_DAYS,
     compliance_window_convention:
-      "Business days are Monday to Friday with no holiday calendar. The window runs from the opt-out date to the date the opt-out is honored, and co-002 applies it in every jurisdiction.",
+      "Business days are Monday to Friday with no holiday calendar. The window runs from the opt-out date to the date the opt-out is honored, and co-002 applies it in every jurisdiction. The count is the business days strictly after the opt-out date up to and including the day it was honored, so an opt-out honored on the tenth business day is inside the window and one honored on the eleventh is not.",
     consent_states: CONSENT_STATES,
     derivation_rule: DERIVATION_RULE,
     account_level_do_not_contact: ACCOUNT_LEVEL_DO_NOT_CONTACT,

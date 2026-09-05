@@ -25,10 +25,10 @@
 //      adding "SOC 2" beside "SOC 2 Type II", or "Cyber Essentials Plus" beside
 //      "Cyber Essentials", fails by name rather than silently double-counting.
 //
-// Consumers: REV-06's structural screen today, REV-11's `policy-rules.json` and
-// its scenario test in wave two (data plan 2.2 and 2.3). REV-11 embeds its own
-// copy of this vocabulary in `policy-rules.json` as fixture data; this module is
-// where the test side reads it, so the two stay comparable.
+// Consumers: REV-06's structural screen and REV-11's `policy-rules.json` and
+// scenario test (data plan 2.2 and 2.3). REV-11 embeds its own copy of this
+// vocabulary in `policy-rules.json` as fixture data; this module is where the
+// test side reads it, so the two stay comparable.
 
 /**
  * The recognized-certifications vocabulary, exact document strings.
@@ -38,14 +38,19 @@
  *   SOC 2 Type II, ISO/IEC 27001, ISO/IEC 27017, Cyber Essentials
  *
  * Real schemes co-002 does not hold. One of them is asserted by exactly one
- * REV-06 snippet and resolves to no register row; the rest appear in neither
- * REV-06 file and are the pool a later wave draws REV-11's blocked claim from:
+ * REV-06 snippet and resolves to no register row; one is the scheme REV-11's
+ * blocked scenario names by design; the rest appear in neither REV-06 file
+ * nor REV-11's fixtures:
  *   FedRAMP Authorized, PCI DSS Level 1 Service Provider, HITRUST CSF,
  *   ISO/IEC 27018, ISO 9001
  *
- * Which of the five is which is not recorded here, and not anywhere in the
- * repository: that is the answer key, and answer keys live only in the private
- * training content keyed to the data-pack version.
+ * The vocabulary lists recognized schemes; the register alone says what is
+ * held. REV-11's blocked scenario naming one non-held scheme is ground
+ * truth, not a leak, since REV-11's own data files state it directly. Which
+ * certification the REV-06 snippets assert without a register row is
+ * recorded nowhere in this repository: that is the answer key, and answer
+ * keys live only in the private training content keyed to the data-pack
+ * version.
  */
 export const REV_C2_CERT_VOCABULARY = [
   "SOC 2 Type II",

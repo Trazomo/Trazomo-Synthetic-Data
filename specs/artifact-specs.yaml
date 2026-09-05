@@ -1462,7 +1462,7 @@ artifacts:
     planted_features:
       - maintained product/security claims baseline, the claims register
       - four AI-drafted claim snippets; exactly one asserts a certification that resolves to no certification row of the register, and every certification the other snippets carry resolves to a register row
-      - every claim in an outbound draft resolves against the register, and a claim that resolves to no row is not approved and does not go out
+      - every claim in an outbound draft resolves against the register, and a claim that resolves to no row is not approved and does not go out, with certification claims read by membership in the pinned recognized-certifications vocabulary
     consuming_modules: [revenue-ai-reliability, revenue-personalized-outbound-drafter, revenue-operational-controls]
     source_plan: revenue-implementation-plan (artifact H)
 
@@ -1489,7 +1489,7 @@ artifacts:
       - "resolution contract: every target_contact_id resolves to a REV-01 consent-suppression-master row carrying the consent state the scenario states, and every certification the approved claim scenario asserts resolves to a certification row of the REV-06 claims register"
       - the blocked claim scenario asserts a certification that is in the recognized-certifications vocabulary, resolves to no certification row of the REV-06 register, and differs from the unregistered certification the REV-06 snippets assert
     consuming_modules: [revenue-operational-controls]
-    source_plan: revenue research-refresh section 3.2 (R6)
+    source_plan: revenue-implementation-plan-v2 (ruling R6; research-refresh section 3.2)
 
   # ----------------------------------------------------------------- OPS (operations path)
   - id: OPS-01

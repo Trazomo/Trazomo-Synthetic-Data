@@ -346,3 +346,23 @@ test("REV-C2-T8: the master's state set is the policy's seven states, each non-e
     assert.ok(["corporate", "individual"].includes(row.subscriber_type), `${row.contact_id} subscriber_type is ${row.subscriber_type}`);
   }
 });
+
+test("REV-C2-T8a: design constraints the generator cannot self-certify", () => {
+  const { master } = rev01();
+  const closedLostId = closedLostAccountId();
+
+  // The plan pins the closed-lost account's jurisdiction to US. Guarded only
+  // inside the generator's own assertDesignTable until now.
+  const closedLostRows = master.filter((r) => r.account_id === closedLostId);
+  assert.ok(closedLostRows.length > 0, "the closed-lost account has no rows in the master");
+  for (const row of closedLostRows) {
+    assert.equal(row.jurisdiction, "US", `${row.contact_id} sits on the closed-lost account but carries jurisdiction ${row.jurisdiction}`);
+  }
+
+  // C2-P6a's other half: at least one EU account must carry a confirmed
+  // consent, alongside the pending opt-in T8 already checks.
+  assert.ok(
+    master.some((r) => r.jurisdiction === "EU" && r.consent_status === "gdpr_consent_confirmed"),
+    "no EU account carries a confirmed consent"
+  );
+});
