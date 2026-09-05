@@ -104,6 +104,26 @@ test("loadSpecs throws on malformed columns or period", () => {
   }
 });
 
+test("loadSpecs throws on a malformed files declaration", () => {
+  const dir = mkdtempSync(join(tmpdir(), "datagen-spec-test-"));
+  const base = "artifacts:\n  - id: BAD-04\n    name: n\n    type: dataset\n    format: csv\n    generation: deterministic\n    canon_entities: []\n    planted_features: []\n    consuming_modules: []\n";
+  const cases = [
+    "    files: []\n",
+    "    files: {}\n",
+    "    files:\n      a.csv: []\n",
+    "    files:\n      a.csv: [x, x]\n",
+  ];
+  try {
+    for (const [i, extra] of cases.entries()) {
+      const badPath = join(dir, `bad-files-${i}.yaml`);
+      writeFileSync(badPath, base + extra);
+      assert.throws(() => loadSpecs(badPath), SpecValidationError, `case ${i} should throw: ${extra.trim()}`);
+    }
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("loadSpecs: the FIN-01 variant declaration carries a name, a file under variants/, a parent and a rule", () => {
   const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
   const variants = byId.get("FIN-01").variants;
