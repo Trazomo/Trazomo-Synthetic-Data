@@ -45,6 +45,7 @@ do-not-contact state as T4-prime).
   blocked claim is a vocabulary certification absent from both REV-06 files
   and distinct from the snippet's unregistered one, recomputed from the
   committed bytes by the test rather than hardcoded.
+
 ## 1.8.0
 
 **Allocated in merge order (expected `v1.8.0`); renumber at tag time if the

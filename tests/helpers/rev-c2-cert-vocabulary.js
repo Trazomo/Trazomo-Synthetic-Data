@@ -40,7 +40,8 @@
  * Real schemes co-002 does not hold. One of them is asserted by exactly one
  * REV-06 snippet and resolves to no register row; one is the scheme REV-11's
  * blocked scenario names by design; the rest appear in neither REV-06 file
- * nor REV-11's fixtures:
+ * nor REV-11's scenarios (they ride along only in policy-rules.json's copy
+ * of this vocabulary):
  *   FedRAMP Authorized, PCI DSS Level 1 Service Provider, HITRUST CSF,
  *   ISO/IEC 27018, ISO 9001
  *
