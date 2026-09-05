@@ -209,6 +209,25 @@ test("the sponsor is an active senior Operations row, printed with the roster's 
   );
 });
 
+test("the team and stakeholders section pairs every person to an active roster row, the vendor person to CORE-01 Exhibit B.2", () => {
+  const block = between(document(), "## Team and stakeholders", "## Assumptions and dependencies");
+  const pairs = [...block.matchAll(/^- (.+?) \(([^()]+)\),/gm)].map((m) => ({ name: m[1], role: m[2] }));
+  assert.ok(
+    pairs.length >= 5 && pairs.length <= 7,
+    `the team and stakeholders section lists ${pairs.length} people, expected 5 to 7`
+  );
+  for (const person of pairs) {
+    if (person.name === VENDOR_PERSON.name) {
+      assert.equal(
+        person.role, VENDOR_PERSON.title,
+        `OPS-03 gives ${person.name} the title "${person.role}" where CORE-01 Exhibit B.2 says "${VENDOR_PERSON.title}"`
+      );
+      continue;
+    }
+    resolveActive(person.name, person.role, "OPS-03 team and stakeholders");
+  }
+});
+
 // --------------------------------------------------------------- milestones
 
 test("the milestone table carries exactly six rows, M1 to M6 in order", () => {
