@@ -786,6 +786,43 @@
                 "scenarios.json"
             ],
             "row_counts": {}
+        },
+        {
+            "id": "OPS-04",
+            "name": "intake-request-batch",
+            "track": "operations",
+            "type": "dataset",
+            "format": "csv + eml + yaml",
+            "generation": "deterministic",
+            "path": "datasets/operations/intake-request-batch",
+            "files": [
+                "intake-requests.csv",
+                "intake-rubric.yaml",
+                "messages/REQ-2026-103.eml",
+                "messages/REQ-2026-104.eml",
+                "messages/REQ-2026-108.eml",
+                "messages/REQ-2026-113.eml",
+                "messages/REQ-2026-114.eml",
+                "messages/REQ-2026-117.eml"
+            ],
+            "row_counts": {
+                "intake-requests.csv": 18
+            }
+        },
+        {
+            "id": "OPS-05",
+            "name": "backlog-export-with-quality-gaps",
+            "track": "operations",
+            "type": "dataset",
+            "format": "csv/json",
+            "generation": "deterministic",
+            "path": "datasets/operations/backlog-export-with-quality-gaps",
+            "files": [
+                "backlog-export.csv"
+            ],
+            "row_counts": {
+                "backlog-export.csv": 28
+            }
         }
     ],
     "specs": "specs/artifact-specs.yaml",
@@ -1197,6 +1234,20 @@
             ],
             "build_files": [
                 "retro-transcript-with-recurring-finding.docx"
+            ]
+        },
+        {
+            "id": "OPS-03",
+            "name": "project-brief-with-missing-dependency",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/OPS-03",
+            "source_files": [
+                "project-brief-with-missing-dependency.md"
+            ],
+            "build_files": [
+                "project-brief-with-missing-dependency.docx"
             ]
         },
         {
