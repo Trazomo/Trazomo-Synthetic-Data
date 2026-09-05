@@ -703,6 +703,26 @@
             }
         },
         {
+            "id": "REV-01",
+            "name": "consent-suppression-master",
+            "track": "revenue",
+            "type": "dataset",
+            "format": "csv + json",
+            "generation": "deterministic",
+            "path": "datasets/revenue/consent-suppression-master",
+            "files": [
+                "consent-policy.json",
+                "consent-suppression-master.csv",
+                "export-marketing-platform.csv",
+                "export-outreach-tool.csv"
+            ],
+            "row_counts": {
+                "consent-suppression-master.csv": 67,
+                "export-marketing-platform.csv": 67,
+                "export-outreach-tool.csv": 67
+            }
+        },
+        {
             "id": "REV-07",
             "name": "crm-object-model-seed",
             "track": "revenue",
@@ -713,6 +733,20 @@
             "files": [
                 "hubspot-objects.json",
                 "salesforce-objects.json"
+            ],
+            "row_counts": {}
+        },
+        {
+            "id": "REV-11",
+            "name": "policy-as-code-scenarios",
+            "track": "revenue",
+            "type": "fixture",
+            "format": "json",
+            "generation": "deterministic",
+            "path": "datasets/revenue/policy-as-code-scenarios",
+            "files": [
+                "policy-rules.json",
+                "scenarios.json"
             ],
             "row_counts": {}
         }
@@ -1001,6 +1035,22 @@
             ],
             "build_files": [
                 "mnpi-flagged-draft.docx"
+            ]
+        },
+        {
+            "id": "REV-06",
+            "name": "product-security-fact-sheet",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/REV-06",
+            "source_files": [
+                "claim-snippets.md",
+                "product-security-fact-sheet.md"
+            ],
+            "build_files": [
+                "claim-snippets.docx",
+                "product-security-fact-sheet.docx"
             ]
         },
         {
