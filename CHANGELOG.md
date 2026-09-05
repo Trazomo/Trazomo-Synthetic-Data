@@ -1,5 +1,46 @@
 # Changelog
 
+## 1.10.0
+
+Revenue cluster 2, consent, claims and controls: two deterministic artifacts,
+one drafted-frozen document with its freeze review, and no shared-tier edit
+(CORE-03 is read in memory and never touched; this PR changes no byte under
+`datasets/core/` or `canon/`). The plan is
+`docs/plans/2026-08-29-path-programs/revenue/data-plans/cluster-2.md` on
+trazomo (lane branch `data/revenue-cluster-2`), executing
+`implementation-plan-v2.md` section 3.2 under the resolved ruling R6 (the
+REV-11 id). The plan's section 9 defaults (U-T4 first, then U1 to U10) ride
+to Salvador's freeze review; U-T4 corrects plan-v2's REV-C2-T4 against the
+bytes (three population accounts are already wholly suppressed through
+individual opt-outs, so the plant is scoped to the account-level
+do-not-contact state as T4-prime).
+
+- **REV-01 consent-suppression-master**: a 67-row master CSV bijective with
+  CORE-03's contacts (join columns derived by invoking the CORE-03 generator,
+  never retyped), refining the CRM's coarse consent trio into seven
+  legal-basis states over per-account jurisdiction and subscriber type;
+  `consent-policy.json` carrying the state table, the send permissions and
+  the 10-business-day honor window; exactly one opt-out honored past that
+  window; two downstream tool exports with exactly one contact carrying
+  conflicting suppressed values (the stale export shows false); the
+  account-level do-not-contact state on every contact of the closed-lost
+  account and no other. Spec entry enriched and its two pre-merge play slugs
+  renamed to `revenue-signal-plays`.
+- **REV-06 product-security-fact-sheet**: drafted-frozen pair for co-002, a
+  19-row claims register (five categories, four certification rows, role-only
+  maintained-by line, last reviewed inside March 2026, no financial figure)
+  and four AI-drafted outbound claim snippets, exactly one asserting a
+  certification with no register row. Resolution is mechanical: substring
+  membership in the pinned `tests/helpers/rev-c2-cert-vocabulary.js` against
+  the register's certification rows. Structural screen in `tests/drafted/`.
+- **REV-11 policy-as-code-scenarios**: the R6-approved new id; a seven-rule
+  pre-send policy (claim, discount and consent families, discount threshold
+  15 percent) and five ground-truth scenarios spanning the three outcomes
+  and three subjects, targets selected by rule from REV-01's rows; the
+  blocked claim is a vocabulary certification absent from both REV-06 files
+  and distinct from the snippet's unregistered one, recomputed from the
+  committed bytes by the test rather than hardcoded.
+
 ## 1.9.0
 
 Operations cluster 2, planning and intake: the path's first two deterministic

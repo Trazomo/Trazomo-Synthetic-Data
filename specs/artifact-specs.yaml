@@ -1373,17 +1373,18 @@ artifacts:
   - id: REV-01
     name: consent-suppression-master
     type: dataset
-    format: csv
+    format: csv + json
     generation: deterministic
     canon_entities: [co-002, co-140+]
     planted_features:
-      - every legal-basis state (GDPR opt-in pending, PECR corporate-subscriber, CAN-SPAM opt-out honored vs one overdue past the compliance window)
-      - one contact in two downstream tool exports with conflicting suppression flags (single-source-of-truth propagation test)
+      - seven legal-basis states, each carrying at least one contact, derived from CORE-03's coarse consent trio by jurisdiction and subscriber type (opted_out to optout_honored; opted_in to gdpr_consent_confirmed in EU or UK and to us_express_consent in US; unknown to gdpr_opt_in_pending in EU, to pecr_consent_required for the UK individual subscriber, to pecr_corporate_subscriber for a UK corporate subscriber, and to canspam_default_permitted in US)
+      - exactly one opt-out honored past the 10-business-day compliance window, with every other honored opt-out inside it
+      - exactly one contact carried in both downstream tool exports with conflicting suppressed values, the stale export showing false where the master says suppressed (single-source-of-truth propagation test)
+      - account-level do_not_contact true on every contact of the closed-lost account under one shared effective date, and on no contact of any other account
     consuming_modules:
       - revenue-personalized-outbound-drafter
       - revenue-consent-suppression-systems
-      - revenue-website-intent-play
-      - revenue-closed-lost-reactivator
+      - revenue-signal-plays
       - revenue-operational-controls
     source_plan: revenue-implementation-plan (artifact B)
 
@@ -1459,8 +1460,9 @@ artifacts:
     generation: drafted-frozen
     canon_entities: [co-002]
     planted_features:
-      - maintained product/security claims baseline
-      - 3-5 AI-drafted claim snippets, at least one containing a fabricated certification not in the fact sheet
+      - maintained product/security claims baseline, the claims register
+      - four AI-drafted claim snippets; exactly one asserts a certification that resolves to no certification row of the register, and every certification the other snippets carry resolves to a register row
+      - every claim in an outbound draft resolves against the register, and a claim that resolves to no row is not approved and does not go out, with certification claims read by membership in the pinned recognized-certifications vocabulary
     consuming_modules: [revenue-ai-reliability, revenue-personalized-outbound-drafter, revenue-operational-controls]
     source_plan: revenue-implementation-plan (artifact H)
 
@@ -1475,6 +1477,19 @@ artifacts:
       - "records join CORE-03 by canon account id: same account names, same opportunity amounts, byte-consistent across both shapes"
     consuming_modules: [revenue-crm-ops]
     source_plan: revenue-implementation-plan (artifact I)
+
+  - id: REV-11
+    name: policy-as-code-scenarios
+    type: fixture
+    format: json
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - five pre-send scenarios covering all three outcomes (approved twice, blocked twice, approved_with_warning once) across all three subjects (claim language twice, discount language once, consent state twice)
+      - "resolution contract: every target_contact_id resolves to a REV-01 consent-suppression-master row carrying the consent state the scenario states, and every certification the approved claim scenario asserts resolves to a certification row of the REV-06 claims register"
+      - the blocked claim scenario asserts a certification that is in the recognized-certifications vocabulary, resolves to no certification row of the REV-06 register, and differs from the unregistered certification the REV-06 snippets assert
+    consuming_modules: [revenue-operational-controls]
+    source_plan: revenue-implementation-plan-v2 (ruling R6; research-refresh section 3.2)
 
   # ----------------------------------------------------------------- OPS (operations path)
   - id: OPS-01

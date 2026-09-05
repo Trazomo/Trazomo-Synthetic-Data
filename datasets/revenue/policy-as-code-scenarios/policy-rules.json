@@ -1,0 +1,89 @@
+{
+  "generated_from_spec": "REV-11",
+  "policy_version": "1.0",
+  "as_of": "2026-03-16",
+  "scope": "Every outbound message drafted for a contact, checked before it is sent. A rule that fires blocks the send, holds it for approval, or clears it.",
+  "outcomes": [
+    {
+      "outcome": "approved",
+      "meaning": "The draft may be sent as written."
+    },
+    {
+      "outcome": "approved_with_warning",
+      "meaning": "The draft may be sent once the warning it carries is cleared by the person or the approval the warning names."
+    },
+    {
+      "outcome": "blocked",
+      "meaning": "The draft may not be sent, and editing the tone will not clear it."
+    }
+  ],
+  "sources": {
+    "certification_register": "artifacts/REV-06/product-security-fact-sheet.md",
+    "consent_states": "datasets/revenue/consent-suppression-master/consent-policy.json",
+    "contact_consent_state": "datasets/revenue/consent-suppression-master/consent-suppression-master.csv"
+  },
+  "discount_threshold_percent": 15,
+  "rules": [
+    {
+      "rule_id": "PR-01",
+      "subject": "claim_language",
+      "condition": "Every certification the draft asserts appears in a certification row of the claims register.",
+      "outcome": "approved",
+      "rationale": "The register is the maintained baseline for product and security claims, and a claim that resolves to a row may go out as written."
+    },
+    {
+      "rule_id": "PR-02",
+      "subject": "claim_language",
+      "condition": "The draft asserts a certification that appears in no certification row of the claims register.",
+      "outcome": "blocked",
+      "rationale": "An unresolvable certification claim is not approved for outbound use, whether it is untrue or merely unevidenced. The send stops until the register carries the row."
+    },
+    {
+      "rule_id": "PR-03",
+      "subject": "discount_language",
+      "condition": "The draft offers a discount of 15 percent or more and no revenue-leadership approval is recorded for it.",
+      "outcome": "approved_with_warning",
+      "rationale": "The wording itself is sound, so the draft is not blocked. It is held for recorded revenue-leadership approval before it goes out, and the warning says so."
+    },
+    {
+      "rule_id": "PR-04",
+      "subject": "discount_language",
+      "condition": "The draft offers a discount below 15 percent, or one of 15 percent or more that already carries recorded revenue-leadership approval.",
+      "outcome": "approved",
+      "rationale": "A discount inside the standing authority, or one an approver has already recorded, needs no further sign-off."
+    },
+    {
+      "rule_id": "PR-05",
+      "subject": "consent_state",
+      "condition": "The target contact's consent state carries send_permitted yes in the consent policy.",
+      "outcome": "approved",
+      "rationale": "A lawful basis to send is recorded for the contact, so the consent check adds no condition."
+    },
+    {
+      "rule_id": "PR-06",
+      "subject": "consent_state",
+      "condition": "The target contact's consent state carries send_permitted no in the consent policy.",
+      "outcome": "blocked",
+      "rationale": "No basis for sending to this contact is recorded, and no wording of the draft supplies one."
+    },
+    {
+      "rule_id": "PR-07",
+      "subject": "consent_state",
+      "condition": "The target contact's consent state carries send_permitted conditions in the consent policy.",
+      "outcome": "approved_with_warning",
+      "rationale": "The send is permitted once the condition the state carries is met, so the check approves the draft and names that condition in the warning."
+    }
+  ],
+  "recognized_certifications": [
+    "SOC 2 Type II",
+    "ISO/IEC 27001",
+    "ISO/IEC 27017",
+    "ISO/IEC 27018",
+    "ISO 9001",
+    "Cyber Essentials",
+    "FedRAMP Authorized",
+    "PCI DSS Level 1 Service Provider",
+    "HITRUST CSF"
+  ],
+  "recognized_certifications_note": "A draft asserts certification C when the exact string C above appears in it. The assertion resolves when C also appears in a certification row of the REV-06 claims register, and nothing else counts as holding a certification. This list is a superset of that register: it carries schemes the company does not hold, so membership here marks nothing."
+}

@@ -7,10 +7,10 @@ import { loadSpecs, SpecValidationError, trackDir, trackPrefix } from "../../dat
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 
-test("loadSpecs parses the real specs/artifact-specs.yaml: 137 artifacts, no duplicate ids", () => {
+test("loadSpecs parses the real specs/artifact-specs.yaml: 138 artifacts, no duplicate ids", () => {
   const { artifacts, byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
-  assert.equal(artifacts.length, 137);
-  assert.equal(byId.size, 137);
+  assert.equal(artifacts.length, 138);
+  assert.equal(byId.size, 138);
   assert.ok(byId.has("CORE-01"));
   assert.ok(byId.has("LGL-07"));
 });
