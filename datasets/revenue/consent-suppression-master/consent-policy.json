@@ -1,0 +1,103 @@
+{
+  "generated_from_spec": "REV-01",
+  "policy_version": "1.0",
+  "as_of": "2026-03-16",
+  "compliance_window_business_days": 10,
+  "compliance_window_convention": "Business days are Monday to Friday with no holiday calendar. The window runs from the opt-out date to the date the opt-out is honored, and co-002 applies it in every jurisdiction.",
+  "consent_states": [
+    {
+      "state": "optout_honored",
+      "regime": "all regimes",
+      "jurisdictions": [
+        "US",
+        "UK",
+        "EU"
+      ],
+      "send_permitted": "no",
+      "description": "The contact asked to stop and the request has been honored; suppression is universal once honored, whatever the regime."
+    },
+    {
+      "state": "gdpr_consent_confirmed",
+      "regime": "GDPR",
+      "jurisdictions": [
+        "EU",
+        "UK"
+      ],
+      "send_permitted": "yes",
+      "description": "Affirmative consent is recorded for a contact in a GDPR jurisdiction."
+    },
+    {
+      "state": "us_express_consent",
+      "regime": "CAN-SPAM",
+      "jurisdictions": [
+        "US"
+      ],
+      "send_permitted": "yes",
+      "description": "Affirmative consent is recorded for a US contact."
+    },
+    {
+      "state": "gdpr_opt_in_pending",
+      "regime": "GDPR",
+      "jurisdictions": [
+        "EU"
+      ],
+      "send_permitted": "no",
+      "description": "No consent is recorded for an EU contact, so there is no lawful basis to send marketing yet."
+    },
+    {
+      "state": "pecr_consent_required",
+      "regime": "PECR",
+      "jurisdictions": [
+        "UK"
+      ],
+      "send_permitted": "no",
+      "description": "No consent is recorded for a UK individual subscriber, who is on the consent branch of PECR regulation 22."
+    },
+    {
+      "state": "pecr_corporate_subscriber",
+      "regime": "PECR",
+      "jurisdictions": [
+        "UK"
+      ],
+      "send_permitted": "conditions",
+      "description": "No consent is recorded for a UK corporate subscriber; send only after screening confirms the subscriber is corporate and no objection is on file."
+    },
+    {
+      "state": "canspam_default_permitted",
+      "regime": "CAN-SPAM",
+      "jurisdictions": [
+        "US"
+      ],
+      "send_permitted": "conditions",
+      "description": "No consent is recorded for a US contact; the opt-out regime permits the send subject to identification, a physical address and a working opt-out honored inside the window."
+    }
+  ],
+  "derivation_rule": {
+    "inputs": [
+      "the contact's CORE-03 coarse consent state (opted_in, opted_out, unknown)",
+      "jurisdiction",
+      "subscriber_type"
+    ],
+    "evaluation": "Clauses evaluate in order. The map is total: every contact matches exactly one clause, and the coarse opted_out set maps one to one onto optout_honored.",
+    "clauses": [
+      "coarse opted_out resolves to optout_honored",
+      "coarse opted_in with jurisdiction EU or UK resolves to gdpr_consent_confirmed",
+      "coarse opted_in with jurisdiction US resolves to us_express_consent",
+      "coarse unknown with jurisdiction EU resolves to gdpr_opt_in_pending",
+      "coarse unknown with jurisdiction UK and subscriber_type individual resolves to pecr_consent_required",
+      "coarse unknown with jurisdiction UK and subscriber_type corporate resolves to pecr_corporate_subscriber",
+      "coarse unknown with jurisdiction US resolves to canspam_default_permitted"
+    ]
+  },
+  "account_level_do_not_contact": "A do-not-contact decision is recorded on the account, not on a contact: it applies to every contact of that account from its effective date and suppresses them whatever their consent state. An account where every contact happens to have opted out is not a do-not-contact account.",
+  "export_targets": [
+    {
+      "target": "outreach-tool",
+      "file": "export-outreach-tool.csv"
+    },
+    {
+      "target": "marketing-platform",
+      "file": "export-marketing-platform.csv"
+    }
+  ]
+}

@@ -54,6 +54,7 @@ import * as lgl18 from "./lgl-18-rfp-panel.js";
 import * as lgl20 from "./lgl-20-budget-roi.js";
 import * as lgl21 from "./lgl-21-self-service-portal.js";
 import * as lgl22 from "./lgl-22-matter-portfolio.js";
+import * as rev01 from "./rev-01-consent-suppression.js";
 import * as rev07 from "./rev-07-object-model.js";
 import * as test01 from "./test-01-fixture.js";
 import { NotImplementedError } from "../errors.js";
@@ -72,7 +73,7 @@ export const PROGRAM_GENERATOR_IDS = [
   fin31.id, fin32.id, fin33.id, fin34.id, fin35.id,
   fin36.id, fin37.id, fin38.id, fin39.id,
   lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
-  rev07.id,
+  rev01.id, rev07.id,
 ];
 
 const REGISTRY = new Map(
@@ -84,7 +85,7 @@ const REGISTRY = new Map(
     fin31, fin32, fin33, fin34, fin35,
     fin36, fin37, fin38, fin39,
     lgl07, lgl11, lgl18, lgl20, lgl21, lgl22,
-    rev07, test01,
+    rev01, rev07, test01,
   ].map((mod) => [mod.id, mod])
 );
 

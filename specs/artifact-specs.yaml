@@ -1328,17 +1328,18 @@ artifacts:
   - id: REV-01
     name: consent-suppression-master
     type: dataset
-    format: csv
+    format: csv + json
     generation: deterministic
     canon_entities: [co-002, co-140+]
     planted_features:
-      - every legal-basis state (GDPR opt-in pending, PECR corporate-subscriber, CAN-SPAM opt-out honored vs one overdue past the compliance window)
-      - one contact in two downstream tool exports with conflicting suppression flags (single-source-of-truth propagation test)
+      - seven legal-basis states, each carrying at least one contact, derived from CORE-03's coarse consent trio by jurisdiction and subscriber type (opted_out to optout_honored; opted_in to gdpr_consent_confirmed in EU or UK and to us_express_consent in US; unknown to gdpr_opt_in_pending in EU, to pecr_consent_required for the UK individual subscriber, to pecr_corporate_subscriber for a UK corporate subscriber, and to canspam_default_permitted in US)
+      - exactly one opt-out honored past the 10-business-day compliance window, with every other honored opt-out inside it
+      - exactly one contact carried in both downstream tool exports with conflicting suppressed values, the stale export showing false where the master says suppressed (single-source-of-truth propagation test)
+      - account-level do_not_contact true on every contact of the closed-lost account under one shared effective date, and on no contact of any other account
     consuming_modules:
       - revenue-personalized-outbound-drafter
       - revenue-consent-suppression-systems
-      - revenue-website-intent-play
-      - revenue-closed-lost-reactivator
+      - revenue-signal-plays
       - revenue-operational-controls
     source_plan: revenue-implementation-plan (artifact B)
 
