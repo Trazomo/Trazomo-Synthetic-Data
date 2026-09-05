@@ -1,0 +1,25 @@
+# Operations intake rubric, published with the batch it is applied to.
+# The intake router is built against these bytes, and a request's priority
+# is whatever the rules below make it out of the request's own fields.
+rubric_id: operations-intake-rubric
+effective_date: "2026-03-16"
+intake_mailbox: operations-intake@co002.example
+business_days:
+  weekends: skipped
+  window: "a requested_due_date is within n business days of received_date when it falls on or before the date reached by walking n business days forward from received_date, weekends skipped"
+  empty_due_date: "a request with no requested_due_date is within no window"
+priority_rules:
+  - order: 1
+    priority: urgent
+    when: "blocks_work is yes, or requested_due_date is within 5 business days of received_date"
+  - order: 2
+    priority: high
+    when: "impact_scope is department or company, or requested_due_date is within 15 business days of received_date"
+  - order: 3
+    priority: normal
+    when: "no earlier rule matched"
+routing:
+  new_project: delivery intake
+  change_request: change board
+  report_request: reporting
+  access_request: access administration
