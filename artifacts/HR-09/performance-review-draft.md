@@ -10,7 +10,7 @@ This review covers 1 October 2025 to 31 March 2026, the last completed half year
 
 ## What went well
 
-The onboarding buddy program went live on 14 October 2025 and has run since without needing our attention. The new hire welcome pack was rebuilt rather than patched, and it is now the document a People Manager is pointed to first. The exit interview summary template settled the question of who reads a summary inside the template rather than left alongside it. The interview scheduling handbook is in use and has already been extended by one of its own readers, which is the outcome we wanted from it. The people data hygiene sweep closed a duplicate class nobody had identified and produced a written account of how the duplicates were created.
+The onboarding buddy program went live on 14 October 2025 and has run since without needing our attention. The new hire welcome pack was rebuilt rather than patched, and it is now the document a People Manager is pointed to first. The exit interview summary template settled the question of who reads a summary inside the template rather than alongside it. The interview scheduling handbook is in use and has already been extended by one of its own readers, which is the outcome we wanted from it. The people data hygiene sweep closed a duplicate class nobody had identified and produced a written account of how the duplicates were created.
 
 ## Where to improve
 
