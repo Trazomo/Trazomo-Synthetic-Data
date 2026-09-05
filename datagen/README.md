@@ -269,12 +269,14 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | REV-01 | consent-suppression-master | dataset | 67-row consent master CSV bijective with CORE-03's contacts (seven legal-basis states, the 10-business-day window, the do-not-contact account), a policy JSON, and two tool exports carrying one conflicting suppressed value |
 | REV-07 | crm-object-model-seed | dataset | Salesforce-shaped and HubSpot-shaped object samples for three CORE-03 accounts, derived from CORE-03 at build time (same names, ids and amounts) |
 | REV-11 | policy-as-code-scenarios | fixture | seven-rule pre-send policy JSON plus five ground-truth scenarios spanning three outcomes and three subjects, targets resolved from REV-01 at build time |
+| HR-17 | mixed-sensitivity-employee-dataset | dataset | 40-row employee sensitivity extract CSV stratified by department, tier and lawful basis computed rather than declared from two published field classes (one record whose declared tier its own fields do not compute) |
+| HR-18 | hris-export | dataset | 5-file HRIS bundle (582-row roster, 8-row requisitions, 24-row case queue, 6-row permission tiers, JSON header) derived from CORE-04 and the frozen HR-01 register at build time (one case above its assignee's granted tier) |
 
 **Not implemented yet**: every other `generation: deterministic` spec (the
-remaining FIN, HR, REV, OPS, SMB, and the remaining LGL corpus/config
-bundles LGL-13, LGL-14, LGL-16 -- these are multi-file bundles with folder
-trees and hash-chain fixtures that are a meaningfully larger lift than the
-CSV/JSON work above). Calling `generate <ID>` on any of these raises a
+remaining FIN, REV, OPS, SMB, and the remaining HR, plus the remaining LGL
+corpus/config bundles LGL-13, LGL-14, LGL-16 -- these are multi-file bundles
+with folder trees and hash-chain fixtures that are a meaningfully larger lift
+than the CSV/JSON work above). Calling `generate <ID>` on any of these raises a
 `NotImplementedError` naming the spec id; `generate --all-structured`
 reports them as `STUB` and keeps going.
 
@@ -317,9 +319,11 @@ that FIN-24's `variance_explanation` is empty, both byte facts; it may not
 state that the variance work has not been done, because merged module 9 says
 it has. FIN-24 is the input CLS-17 consumes, not the output it produces.
 
-FIN-20 is the first of two generators that read the repository at build time
+FIN-20 is the first of three generators that read the repository at build time
 (FIN-29 is the second, reading `artifacts/FIN-40/mnpi-flagged-draft.md` with
-the same `REPO_ROOT` pattern, so the same `--root` caveat applies): it parses
+the same `REPO_ROOT` pattern, so the same `--root` caveat applies; HR-18 is the
+third, reading `artifacts/HR-01/role-requisition-register.json` with the
+identical `REPO_ROOT` pattern and the same `--root` caveat): it parses
 the ten CORE-05 document-control blocks out of `artifacts/CORE-05/*.md` to build
 `policy-index.csv`, sorted by `document_id`, so a version bump or a review date
 in the shipped markdown moves the register instead of leaving it stale. Two
@@ -365,8 +369,9 @@ Adding a new artifact to the program:
    `SMB-`) and check `canon/companies.md` for entity ids before inventing a
    new company -- reuse an existing one if the relationship already fits.
    Structured specs may also carry `columns` (the CSV header, in order;
-   tests pin generator output to it) and `period` (`{ start, end }` as
-   quoted ISO dates).
+   tests pin generator output to it), `files` (the same, keyed by filename,
+   for a multi-file bundle instead of a single CSV) and `period` (`{ start,
+   end }` as quoted ISO dates).
 2a. **If `generation: deterministic`**: add
    `datagen/src/generators/<id-lowercase>-<short-name>.js` exporting
    `id` (must equal the spec's `id`) and

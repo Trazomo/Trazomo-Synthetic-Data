@@ -1,0 +1,52 @@
+{
+  "export_id": "HRIS-EXPORT-2026-04-03",
+  "source_system": "co-002 HRIS",
+  "schema_version": "1.0",
+  "as_of": "2026-04-03",
+  "source_artifacts": [
+    "CORE-04",
+    "HR-01"
+  ],
+  "files": [
+    {
+      "file": "hris-roster.csv",
+      "contents": "one row per live person record, keyed by hris_person_id"
+    },
+    {
+      "file": "hris-requisitions.csv",
+      "contents": "the open, on hold and filled requisitions the library holds"
+    },
+    {
+      "file": "hris-case-queue.csv",
+      "contents": "employee lifecycle cases in flight inside the system"
+    },
+    {
+      "file": "hris-permission-tiers.csv",
+      "contents": "what each People role title is granted"
+    }
+  ],
+  "counts": {
+    "roster_rows": 582,
+    "requisitions": 8,
+    "cases": 24,
+    "permission_tiers": 6
+  },
+  "permission_tier_scale": [
+    {
+      "tier": 1,
+      "description": "Read and update ordinary employee records and routine service requests."
+    },
+    {
+      "tier": 2,
+      "description": "Tier 1, plus leave records, performance documentation and manager support cases."
+    },
+    {
+      "tier": 3,
+      "description": "Tier 2, plus employee relations cases and the notes attached to them."
+    },
+    {
+      "tier": 4,
+      "description": "Tier 3, plus lifecycle changes that alter the employment record itself."
+    }
+  ]
+}

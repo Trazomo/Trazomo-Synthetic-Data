@@ -2,13 +2,15 @@
 
 ## 1.9.0
 
-**Allocated in merge order after #22 (expected `v1.8.0`); renumber at tag time
-if the order changes.**
+**Allocated in merge order; expected `v1.9.0` if this merges next after
+`v1.8.0` (people and HR cluster 1). The operations cluster 2 PR is still open
+and unnumbered until its own merge. Renumber at tag time if the order
+changes.**
 
 Revenue cluster 2, consent, claims and controls: two deterministic artifacts,
 one drafted-frozen document with its freeze review, and no shared-tier edit
-(CORE-03 is read in memory and never touched; `datasets/core/` and `canon/`
-are byte-identical to v1.7.0). The plan is
+(CORE-03 is read in memory and never touched; this PR changes no byte under
+`datasets/core/` or `canon/`). The plan is
 `docs/plans/2026-08-29-path-programs/revenue/data-plans/cluster-2.md` on
 trazomo (lane branch `data/revenue-cluster-2`), executing
 `implementation-plan-v2.md` section 3.2 under the resolved ruling R6 (the
@@ -43,6 +45,138 @@ do-not-contact state as T4-prime).
   blocked claim is a vocabulary certification absent from both REV-06 files
   and distinct from the snippet's unregistered one, recomputed from the
   committed bytes by the test rather than hardcoded.
+## 1.8.0
+
+**Allocated in merge order (expected `v1.8.0`); renumber at tag time if the
+order changes.**
+
+People and HR cluster 1, in two stacked halves: three drafted-frozen artifact
+sets with the structural screen over them, two canon timeline rows and the
+HR-block spec pins, then the two deterministic generators that read them.
+`datasets/hr/` is born here. The deterministic half could not land first,
+because its export reads the frozen HR-01 register at build time. CORE-04 is
+read and never edited. The plan is
+`docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-1.md`.
+
+- **HR-01 role-requisition-library**: `role-requisition-register.json` plus
+  eight intake briefs. Eight requisitions stated at 2026-04-03, six open, one
+  on hold and one filled, running `RQN-2026-0101` upward, raised across
+  2026-01-12 to 2026-03-20 with no two on the same day. The register carries
+  the exclusion-phrase list as twelve `{phrase, class}` objects across the four
+  classes and a twelve-entry competency library running `CMP-01` upward; each
+  brief is 350 to 550 words in six fixed sections and prints its panel by role
+  title only. Owners, hiring managers and recruiters resolve to CORE-04 by
+  published field rules, and the briefs print no owner, because a document that
+  named a departed owner beside a live requisition would be doing the
+  validation exercise for the learner. No compensation figure anywhere.
+- **HR-03 interview-transcript-corpus**: two candidates on one open
+  requisition, three panel conversations each. Six transcripts of 43 to 53 cues
+  under one cue grammar with monotonic timestamps, dated inside 2026-03-09 to
+  2026-03-20, and six paired draft-feedback files of six or seven numbered
+  claim sentences apiece. The anchor rule reads a closed technology vocabulary
+  the spec ships, so the screen and a later module apply the same predicate to
+  the same bytes. The two candidate ids and names are reserved in the PR body
+  for `canon/people.md` to seat at cluster 2.
+- **HR-09 manager-notes-and-review-draft-pair**: one People-department manager
+  and one of that manager's own active reports, selected by rule rather than by
+  id. Twelve dated entries of 95 to 106 words across 2025-10-01 to 2026-03-31,
+  and a seventeen-sentence review draft in four sections. Four closed lists
+  ship in the spec entry, which is what moves both review selections out of
+  review-certified and into machine-recomputed.
+- **The screen**, `tests/drafted/hr-c1-drafted-screen.test.js`: sixteen tests
+  covering HR-C1-T7 to T10. Every selection is recomputed from the spec's own
+  closed lists against the committed bytes, in the screen's own code, at both
+  its qualified and its qualifier-free cardinality; the CORE-04 roster is
+  generated in-test; every printed name and role title is joined to a live
+  roster row with a byte-equal `role_title`; and the register is parsed here
+  because `validate` reads only markdown and a JSON-side drift would otherwise
+  ship unseen.
+- **Spec pins** (HR block only): HR-01, HR-03 and HR-09 move from their coarse
+  form to the FIN-style one, gaining `period`, selection rules with both
+  cardinalities, document inventories, id blocks and the four closed lists
+  verbatim. HR-03's frozen example named a real programming language; the
+  enriched entry states the rule over a closed vocabulary of generic technology
+  terms instead, because no C1 artifact names a vendor or a product. The HR-09
+  entry's frozen exemplar phrase was replaced by a different phrase from the
+  same published closed list.
+- **Canon**: two dated events on `canon/timeline.md`, in date order with the
+  rest of the table. No new canon entity and no `canon/companies.md` edit;
+  co-002 is the only company any of the three sets names.
+- **Allowlist**: nineteen planted features warned on the first `validate` run.
+  Twelve were vocabulary drift between spec narration and the documents' own
+  words and were fixed by rewording the spec rather than by silencing it. The
+  seven that survive are recorded in `datagen/validate-allowlist.yaml` with
+  LGL-02-class reasons: three of them describe a plant a document cannot
+  announce about itself, three describe an absence a keyword count cannot see,
+  and one would mean the corpus had failed if it were ever confirmed, because
+  ten of the exclusion list's twelve phrases must appear nowhere in the briefs.
+- **HR-17 mixed-sensitivity-employee-dataset**, the first `datasets/hr/` entry:
+  forty records drawn from the active roster and stratified by department, so
+  every department carrying at least twenty active rows contributes at least
+  two and none contributes more than eight. The seven identifying columns are
+  carried through from CORE-04 in process rather than retyped. Sensitivity is
+  computed rather than declared: two published field classes, a total
+  first-match tier rule, and a lawful basis that follows the tier the row
+  declares, so a tier that disagrees with its own fields carries a basis that
+  disagrees with them as well. Twelve records carry a special category value,
+  nine carry a restricted field and nothing above it, nineteen carry neither,
+  and twenty read ordinary. The criminal record check and the immigration
+  status sit in `restricted` and not in `special_category`, which is the
+  distinction the record set exists to carry; no statutory citation appears in
+  the file.
+- **HR-18 hris-export**: five files, and nothing in them typed twice. The 582
+  roster rows are the active CORE-04 rows in `employee_id` order under the
+  system's own `PER-` surrogate key, with `employment_status` reading active on
+  every one because the export carries only live records. The eight requisition
+  rows are read out of the frozen `artifacts/HR-01/role-requisition-register.json`
+  at build time, the FIN-20 idiom, and the read throws unless the register still
+  holds exactly eight requisitions each carrying the documented key set, naming
+  the count or the missing and unexpected keys. Permissions are a two-table
+  computation over `role_title` and `case_type` rather than a flag, both tables
+  ship in the spec, and the twenty-four case queue routes each case to the tier
+  that owns it. Six cases sit at tier 3 or 4. No money, pay band or work
+  location column exists anywhere in the bundle.
+- **The generator guards**, `tests/generators/hr-17-mixed-sensitivity.test.js`
+  and `tests/generators/hr-18-hris-export.test.js`: twenty-two tests covering
+  HR-C1-T1 to T6. Headers are pinned to the spec's own column lists, the tier
+  rule is reimplemented in the test rather than imported, both generators'
+  published tables and lists are carried as the tests' own literal copies and
+  asserted equal to the generators' exports, and the requisition tuples are
+  compared against the
+  committed register bytes read off disk rather than against the generator's
+  reader. Both plants are asserted at their qualified and their qualifier-free
+  cardinality.
+- **Spec pins**, second half (HR block only): HR-17 and HR-18 move to the
+  FIN-style form, gaining the column lists (per file, for the four-table
+  bundle), the field classes, the tier rule and the lawful-basis map, the two
+  permission tables, both plants as selection rules with both cardinality
+  numbers, and the derivation statements. HR-17 loses two lines of its frozen
+  entry under the plan's U1: the companion disclosure clause, which a
+  deterministic dataset directory cannot hold and which is module content
+  rather than data, and the gloss that classed immigration status as a special
+  category.
+
+Gates at this branch head: `npm test` 604 tests, 604 pass, 0 fail, up from the
+564 at `v1.7.0` and the 580 at the drafted half. `validate --manifest` 69
+checked, 0 failed, 14 allowlisted, up from 64 checked and 7 allowlisted.
+`validate --all` 137 checked, 19 failed, down from 22, which is the three
+directories that are no longer missing; the two deterministic HR ids move from
+`SKIP NOT_IMPLEMENTED` to `PASS` and so change no count. `MANIFEST.json`
+regenerated to 47 datasets and 22 drafted artifact sets, with
+`universe_version` deliberately left at 1.5.0. No existing dataset file moved:
+the only bytes added under `datasets/` are the two new HR directories.
+
+What is verified where. Structure, every cardinality and every roster join are
+tested in this PR. The drafting quality of the transcripts and the "every other
+evaluative sentence paraphrases a cue that exists" leg are certified by the
+adversarial review and the freeze review, because paraphrase is not mechanical.
+Which requisition, which claim sentence and which review sentence satisfies
+which rule stays in private training content keyed to the data-pack version.
+
+**HR-01, HR-03 and HR-09 freeze at merge.** Any later wording change is an
+amendment with its own review, and the stacked deterministic PR reads the
+frozen register at build time, so an amendment breaks generation rather than
+shipping a silently different export.
 
 ## 1.7.0
 
