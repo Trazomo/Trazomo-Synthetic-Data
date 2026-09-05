@@ -233,7 +233,7 @@ const REQUESTS = [
     request_type: "access_request",
     requester: { type: "vendor" },
     subject: "Test tenant network access for the implementation team",
-    description: "The implementation team needs network access to the test tenant so the integration readiness work can start on schedule. Test tenant credentials and network access are listed among the customer dependencies in the agreement.",
+    description: "The implementation team needs network access to the test tenant so the configuration work can start on schedule. Test tenant credentials and network access are listed among the customer dependencies in the agreement.",
     impact_scope: "department",
     requested_due_date: "2026-03-27",
     blocks_work: "yes",
@@ -410,6 +410,8 @@ function pickCustomerRequesters(rng, seed) {
     if (seenAccounts.has(contact.account_id)) continue;
     const account = accountsById.get(contact.account_id);
     if (!account) continue;
+    if (account.status !== "customer") continue;
+    if (account.duplicate_of_account_id) continue;
     seenAccounts.add(contact.account_id);
     picked.push({
       name: `${contact.first_name} ${contact.last_name}`,
@@ -553,9 +555,9 @@ function emlFor({ from, date, subject, body }) {
 
 function rubricYaml() {
   return [
-    "# Operations intake rubric, published with the batch it is applied to.",
-    "# The intake router is built against these bytes, and a request's priority",
-    "# is whatever the rules below make it out of the request's own fields.",
+    "# Operations intake rubric. Applies to every request in this batch.",
+    "# The intake router follows these rules, and a request's priority is",
+    "# whatever they make it out of the request's own fields.",
     "rubric_id: operations-intake-rubric",
     'effective_date: "2026-03-16"',
     `intake_mailbox: ${INTAKE_MAILBOX}`,

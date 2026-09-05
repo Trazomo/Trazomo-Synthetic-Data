@@ -1,6 +1,6 @@
-# Operations intake rubric, published with the batch it is applied to.
-# The intake router is built against these bytes, and a request's priority
-# is whatever the rules below make it out of the request's own fields.
+# Operations intake rubric. Applies to every request in this batch.
+# The intake router follows these rules, and a request's priority is
+# whatever they make it out of the request's own fields.
 rubric_id: operations-intake-rubric
 effective_date: "2026-03-16"
 intake_mailbox: operations-intake@co002.example
