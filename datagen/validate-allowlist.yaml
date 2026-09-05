@@ -24,7 +24,9 @@
 #
 # Reviewed 2026-08-22 against data-pack v1.5.0. The four operations cluster 1
 # entries were added 2026-09-02 against the same rules, each one confirmed to
-# WARN on its own run before it was written down.
+# WARN on its own run before it was written down. The two OPS-03 entries were
+# added 2026-09-04 on the same footing: `validate OPS-03` was run against the
+# authored brief first, and both features WARNed before either entry existed.
 
 version: 1
 
@@ -109,6 +111,51 @@ allowed:
       states a needed action impersonally, with no first-person committer, and
       no turn anywhere later accepts it. That absence is exactly what a keyword
       count cannot see. Expected to be permanent.
+
+  - artifact: OPS-03
+    feature: "omits a dependency resolvable only via CORE-01 (the co-101 vendor contract gating a milestone)"
+    reason: >-
+      Unconfirmable by construction, the LGL-02 class, and here the strongest
+      case of it: the feature is an absence. A keyword count reads what the
+      document says, and this plant is defined by what it does not say. The
+      words the heuristic wants are all a reader's words rather than an
+      author's. "omits" and "resolvable" would be the brief describing its own
+      gap. "CORE-01" is a spec id no internal brief would ever carry. "gating"
+      is the one verb the brief must not use, because module 15's exercise is
+      to notice that one milestone commences work the contract does not yet
+      permit and to go to the agreement to find out why; a brief that said
+      "gating" would have done that for the learner. The feature is present and
+      checkable by reading the brief against CORE-01: one milestone begins
+      production configuration and cutover readiness work, its stated
+      predecessors are all satisfied in-brief, and the contract makes that
+      commencement conditional on a Customer-issued certificate the brief never
+      mentions and that cannot exist at universe now. What a test can prove
+      without publishing the key is proved:
+      tests/drafted/ops-c2-drafted-screen.test.js runs the absence list over
+      every byte, so any drift toward naming the gate fails the suite, and runs
+      the presence list too, so the retrieval hook to the contract cannot be
+      lost either. Which milestone it is stays in the private label set keyed to
+      the data-pack tag. No rewording of the spec can make this checkable from
+      the prose, so this entry is expected to be permanent.
+
+  - artifact: OPS-03
+    feature: "a passage instructing the planner to treat an unsigned change order as executed, ratified by nothing"
+    reason: >-
+      Describes the passage from outside, the OPS-03B precedent almost word for
+      word, and half of what it describes is again an absence. "passage",
+      "instructing" and "ratified" are the vocabulary of a reader looking at the
+      brief, not of a program manager writing one. "planner" fails because the
+      brief addresses whoever builds the plan in the second person rather than
+      by that noun. "unsigned" is the word the plant cannot contain: the brief
+      says the change order is with the vendor for signature and then tells the
+      reader to build on it anyway, and a brief that labelled its own instrument
+      unsigned-but-treat-it-as-executed would be flagging the thing module 15's
+      failure eval asks the learner to refuse. The feature is present and
+      checkable by reading: one bullet in the assumptions states that a change
+      order for additional training services awaits signature and directs that
+      its dates be locked into the plan, no other line in the file mentions that
+      change order, and no milestone depends on it, so nothing in the document
+      ratifies the instruction or acts on it. Expected to be permanent.
 
   - artifact: OPS-03B
     feature: "disagrees with OPS-01 on who made a decision"
