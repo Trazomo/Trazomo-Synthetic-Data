@@ -324,6 +324,8 @@ test("HR-18: the case queue is twenty-four live cases, opened in its window and 
     [...rows.map((r) => r.opened_date)].sort(),
     "the queue runs in opened_date order, which is what case_id is assigned from"
   );
+  assert.equal(spec.period.start, CASE_WINDOW_START, "spec.period.start has drifted from the case queue window");
+  assert.equal(spec.period.end, AS_OF, "spec.period.end has drifted from the queue's as-of day");
   const worked = new Set(rows.map((r) => r.assignee_employee_id));
   assert.ok(worked.size >= 5, "a queue carried by one or two people is not a caseload");
 });
