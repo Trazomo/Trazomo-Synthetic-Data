@@ -24,9 +24,13 @@
 #
 # Reviewed 2026-08-22 against data-pack v1.5.0. The four operations cluster 1
 # entries were added 2026-09-02 against the same rules, each one confirmed to
-# WARN on its own run before it was written down. The two OPS-03 entries were
-# added 2026-09-04 on the same footing: `validate OPS-03` was run against the
-# authored brief first, and both features WARNed before either entry existed.
+# WARN on its own run before it was written down. The seven people-hr cluster 1
+# entries were added 2026-09-03 the same way: nineteen features warned on the
+# first run, twelve of those were vocabulary drift and were fixed by rewording
+# the spec rather than by silencing it, and only the seven below survived as
+# genuinely unconfirmable. The two OPS-03 entries were added 2026-09-04 on the
+# same footing: `validate OPS-03` was run against the authored brief first, and
+# both features WARNed before either entry existed.
 
 version: 1
 
@@ -191,3 +195,105 @@ allowed:
       checkable by reading: one passage urges that a decision be recorded, it
       lands on none of the three topics the transcript decided, and no later
       message takes it up. Expected to be permanent.
+
+  - artifact: HR-01
+    feature: "1 brief carrying exclusion phrases: exactly one brief whose requirements text contains at least one exclusion_phrase_list phrase of class age and at least one of class national_origin, and every other brief contains no phrase from the list at all, so the count is 1 whether or not the second class is named in the rule"
+    reason: >-
+      Unconfirmable by construction, the LGL-02 class. The exercise is finding
+      the two phrases and rewriting the brief before the role is posted, so a
+      brief that carried the words "exclusion", "phrase", "class", "age" or
+      "national origin" anywhere on its face would hand the calibrator its
+      answer and there would be nothing left to calibrate. The two phrases
+      themselves are present and were verified by applying the register's own
+      closed list to the eight shipped briefs: exactly one brief matches, it
+      matches one phrase of class age and one of class national_origin, and the
+      other seven match nothing at all. That derivation is executed rather than
+      asserted in tests/drafted/hr-c1-drafted-screen.test.js, which reads the
+      list out of the spec and recomputes both cardinalities. No rewording can
+      make this checkable from the prose, so this entry is expected to be
+      permanent.
+
+  - artifact: HR-01
+    feature: "1 stale owner: exactly one requisition whose status is open and whose owner_employee_id resolves to a CORE-04 row whose employment_status is not active. Dropping the open qualifier gives 2, because the filled requisition also carries a non-active owner, which is ordinary hygiene rather than a finding"
+    reason: >-
+      Two reasons, both structural. The rule resolves entirely inside
+      role-requisition-register.json, and the keyword heuristic reads only the
+      markdown sources under artifacts/HR-01/, so no wording of this line can
+      ever match: owner_employee_id and employment_status are JSON keys that no
+      intake brief would print, and the briefs deliberately do not print an
+      owner at all, because a document that named a departed owner beside a
+      live requisition would be doing the validation exercise for the learner.
+      The plant is present and recomputed against CORE-04 in
+      tests/drafted/hr-c1-drafted-screen.test.js at 1 with the open qualifier
+      and 2 without it. Expected to be permanent.
+
+  - artifact: HR-01
+    feature: "1 absent required field: exactly one requisition whose target_start_date is empty in the register and whose brief carries the target start date metadata line with no value, while every other requisition carries a resolvable date after its own opened date. The three plants sit on three different requisitions"
+    reason: >-
+      The plant is an absence, and an absence is exactly what a keyword count
+      cannot see. The whole feature is that one brief's target start date line
+      has nothing after the colon; a brief that said "absent", "empty" or "no
+      value" would have filled the field with an explanation and the edge eval
+      it exists for would have no Given left. The structure is present and
+      checked in tests/drafted/hr-c1-drafted-screen.test.js, which parses every
+      brief's metadata block, counts the empty target start date lines at one,
+      confirms every other one resolves to a date after its own raised date,
+      and pins the three plant requisitions as distinct. Expected to be
+      permanent.
+
+  - artifact: HR-01
+    feature: "exclusion_phrase_list is the closed rule set a calibrator runs against rather than a hint: twelve objects of phrase and class across the classes age, national_origin, disability and family_status, three phrases in each. age: recent graduate, digital native, young and dynamic. national_origin: native English speaker, unaccented English, no accent. disability: able-bodied, no health restrictions, must be able to lift. family_status: no family commitments, no childcare constraints, no dependents at home"
+    reason: >-
+      Confirming this feature would mean the corpus had failed. It is the
+      FIN-14 case: a policy list is the rule set a validator runs against, not
+      a description of the documents, and by construction ten of its twelve
+      phrases must appear nowhere in the eight shipped briefs. A heuristic that
+      matched "able-bodied", "no childcare constraints" and "must be able to
+      lift" would be reporting that the requisition library is saturated with
+      exclusionary language rather than that the list was drafted. The list
+      lives in role-requisition-register.json, which the heuristic does not
+      read, and it is loaded from the spec and applied to the briefs by
+      tests/drafted/hr-c1-drafted-screen.test.js. Expected to be permanent.
+
+  - artifact: HR-03
+    feature: "1 unanchored quantified claim: exactly one claim sentence carries a quantified experience claim whose integer and technology token do not both appear in that file's own paired transcript body under lowercase normalization. A quantified experience claim is an integer or number word governing the token year or years in the same sentence as a token from the closed technology_vocabulary list. Seven quantified experience claims exist across the six feedback files, so six of them are anchored, and seven is the number a brief states beside the 1"
+    reason: >-
+      Unconfirmable by construction, and self-defeating if it were not. The
+      claim has to read as an ordinary line of interview feedback, so every
+      word the heuristic wants ("unanchored", "quantified", "integer",
+      "normalization", "anchored") would be the feedback file flagging its own
+      unsupported sentence, which is precisely the work the reliability module
+      asks the learner to do. The rule is mechanical and is recomputed rather
+      than asserted: tests/drafted/hr-c1-drafted-screen.test.js reads
+      technology_vocabulary out of this spec entry, extracts every quantified
+      experience claim from the six feedback files, joins each one to its own
+      paired transcript body, and pins the unanchored count at 1 against the
+      stated population. Which sentence it is stays in the private label set
+      keyed to the data-pack tag. Expected to be permanent.
+
+  - artifact: HR-09
+    feature: "1 unsupported frequency claim: exactly one draft sentence carries a token from the closed frequency_adverbs list together with a token from the closed deadline_lexemes list, while zero log entries inside the period carry a deadline lexeme at all. Three draft sentences carry a deadline lexeme; the other two each name a deliverable and a date that resolve to a log entry, and neither carries a frequency adverb"
+    reason: >-
+      Half of what this feature describes is an absence: no log entry anywhere
+      in the period carries a deadline lexeme, which is what makes the draft
+      sentence unsupported, and a keyword count cannot see a missing entry. The
+      other half is a plant the document must not announce, since a review
+      draft that labelled its own unsupported sentence would leave the review
+      assistant nothing to catch. Both halves are recomputed from the closed
+      lists this spec ships, in the screen's own code, at exactly 1 sentence
+      against a stated population of 3 and exactly 0 log entries. Expected to
+      be permanent.
+
+  - artifact: HR-09
+    feature: "1 unsupported character claim: exactly one draft sentence carries a phrase from the closed character_claim_phrases list while carrying no date and no deliverable name the log holds. Two sentences carry a character phrase; the other names both a date and a deliverable, so it is supported. The two plants are different sentences of different classes, so one revision cannot close both"
+    reason: >-
+      Unconfirmable by construction, the LGL-02 class. The sentence works only
+      while it reads as an ordinary and slightly lazy line in a manager's
+      draft; the vocabulary the heuristic wants ("unsupported", "character
+      claim", "plants", "revision") is the vocabulary of a reader reviewing the
+      draft rather than of the manager writing it. The character phrase itself
+      is present, and the selection is recomputed in
+      tests/drafted/hr-c1-drafted-screen.test.js from the character_claim_phrases
+      and log_deliverables lists this spec ships, pinned at 1 against a stated
+      population of 2 and asserted to sit on a different sentence from the
+      frequency plant. Expected to be permanent.

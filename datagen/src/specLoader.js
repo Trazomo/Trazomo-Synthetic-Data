@@ -96,6 +96,26 @@ function validateArtifact(artifact, index, specPath) {
       );
     }
   }
+  // Optional `files` (added with the HR HRIS-export slice, 2026-09): the header
+  // row of each file in a multi-file bundle, keyed by filename, for a generator
+  // whose spec entry describes more than one CSV instead of a single `columns:`
+  // list. Same shape requirement as `columns`, applied once per file.
+  if ("files" in artifact) {
+    const files = artifact.files;
+    const ok = files && typeof files === "object" && !Array.isArray(files)
+      && Object.keys(files).length > 0
+      && Object.entries(files).every(([name, cols]) =>
+        typeof name === "string" && name.trim() !== ""
+        && Array.isArray(cols) && cols.length > 0
+        && cols.every((c) => typeof c === "string" && c.trim() !== "")
+        && new Set(cols).size === cols.length
+      );
+    if (!ok) {
+      throw new SpecValidationError(
+        `${specPath}: ${artifact.id}.files must be a plain object keyed by filename, each value a non-empty list of unique, non-empty strings`
+      );
+    }
+  }
   // Optional `variants` (added 2026-08-18): trimmed slices of this artifact's own
   // output, emitted by the same generator under `variants/`, each derived from a
   // sibling file by a predicate over that file's columns. The `rule` is the whole

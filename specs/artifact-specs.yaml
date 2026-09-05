@@ -1121,12 +1121,20 @@ artifacts:
     format: json + markdown
     generation: drafted-frozen
     canon_entities: [co-002]
+    period: { start: "2026-01-12", end: "2026-04-03" }
     planted_features:
-      - structured intake briefs per open role
-      - one brief whose draft output yields two biased/exclusionary phrases ("recent graduate", "native English speaker") to be flagged before posting
-      - one requisition with an inconsistent status/owner pairing (hris-ops validation exercise)
+      - "eight requisitions stated at an as-of of 2026-04-03, six of them open, one on hold and one filled, running RQN-2026-0101 upward in file order, each carrying an intake brief of 350 to 550 words in six fixed sections: the metadata list, why this role exists, requirements, nice to have, competencies and the interview loop"
+      - "the requirements section of every brief is continuous prose of 120 to 200 words rather than a tidy criteria list, because reading unstructured requirements is the exercise the calibrator is built on, and each brief names its interview loop by role title with no panel member named as a person"
+      - "1 brief carrying exclusion phrases: exactly one brief whose requirements text contains at least one exclusion_phrase_list phrase of class age and at least one of class national_origin, and every other brief contains no phrase from the list at all, so the count is 1 whether or not the second class is named in the rule"
+      - "1 stale owner: exactly one requisition whose status is open and whose owner_employee_id resolves to a CORE-04 row whose employment_status is not active. Dropping the open qualifier gives 2, because the filled requisition also carries a non-active owner, which is ordinary hygiene rather than a finding"
+      - "1 absent required field: exactly one requisition whose target_start_date is empty in the register and whose brief carries the target start date metadata line with no value, while every other requisition carries a resolvable date after its own opened date. The three plants sit on three different requisitions"
+      - "exclusion_phrase_list is the closed rule set a calibrator runs against rather than a hint: twelve objects of phrase and class across the classes age, national_origin, disability and family_status, three phrases in each. age: recent graduate, digital native, young and dynamic. national_origin: native English speaker, unaccented English, no accent. disability: able-bodied, no health restrictions, must be able to lift. family_status: no family commitments, no childcare constraints, no dependents at home"
+      - "competency_library is twelve objects of competency_id, name and definition running CMP-01 upward, and every requisition names four to six of them, so a question bank can map to a competency the library actually carries rather than to one it invents"
+      - "the register describes each requisition in one fixed order, and the brief prints the same facts as its own metadata: the requisition id, the requisition title, the department, the level, the status, the openings, the date it was raised, the target start date, the hiring manager, the recruiter, the owner, the employment type, the competencies and the brief itself. The library around them carries an as of date and names the roster it draws its people from"
+      - "every owner_employee_id is a People-department row holding Recruiter or HR Business Partner, every hiring_manager_employee_id is an active row in the requisition's own department at level Manager or above and never the owner, and every recruiter_employee_id is an active People row holding Recruiter. Requisitions were opened 2026-01-12 to 2026-03-20 and no two share an opened date"
+      - "no salary and no money amount appears anywhere in the library or in any brief, because an intake conversation here is about the role, the requirements, the competencies and the interview loop rather than about the offer, and every panel member is named by role title"
     consuming_modules: [hr-job-description-calibrator, hr-structured-interview-kit, hr-hris-ops]
-    source_plan: hr-people-implementation-plan
+    source_plan: hr-people-implementation-plan + people-hr cluster 1 data plan (2.1)
 
   - id: HR-02
     name: resume-corpus
@@ -1146,10 +1154,17 @@ artifacts:
     format: text
     generation: drafted-frozen
     canon_entities: [co-002]
+    period: { start: "2026-03-09", end: "2026-03-20" }
     planted_features:
-      - one unsupported claim in summarized feedback ("10 years of Python experience") tracing to nothing in the transcript
+      - "two candidates, ca-001 and ca-002, on one open HR-01 requisition, three panel conversations each: six interview transcripts and six paired draft feedback files. Three interviews on one candidate is what makes a later debrief packet a real assembly rather than a restatement"
+      - "every speaker turn in an interview transcript is one line carrying the time, the name, the role title and what was said, the times never run backwards, and each transcript runs 35 to 55 turns. Above the turns sit the organization, the candidate, the requisition, the date, the interviewer and the competencies assessed, and every conversation is recorded with consent. The format of text is realized as markdown, because validate and build-docx read only markdown sources"
+      - "each draft feedback file runs 250 to 400 words and follows the same order every time: the candidate, the requisition, the date, the interviewer and the source transcript, then a recommendation that says whether to advance, then evidence carrying four to seven numbered claim sentences"
+      - "1 unanchored quantified claim: exactly one claim sentence carries a quantified experience claim whose integer and technology token do not both appear in that file's own paired transcript body under lowercase normalization. A quantified experience claim is an integer or number word governing the token year or years in the same sentence as a token from the closed technology_vocabulary list. Seven quantified experience claims exist across the six feedback files, so six of them are anchored, and seven is the number a brief states beside the 1"
+      - "technology_vocabulary is the closed list the anchor rule reads, with the same standing as the HR-01 exclusion list: distributed systems, relational databases, container orchestration, streaming pipelines, infrastructure as code, test automation, observability tooling, service mesh, batch processing, schema migration"
+      - "every other claim sentence quotes or paraphrases something the candidate actually said in its own paired transcript, which the freeze review certifies rather than the screen, because a paraphrase is not mechanical"
+      - "every interviewer is an active roster row and at least one of them is a Recruiter working in the People department; the two candidate names are the only names in the corpus that no roster row and no canon person carries; and the requisition interviewed is an open one carrying no other planted feature, so no module has to reason about two at once"
     consuming_modules: [hr-interview-notes-to-feedback, hr-candidate-debrief-packet, hr-ai-reliability]
-    source_plan: hr-people-implementation-plan
+    source_plan: hr-people-implementation-plan + people-hr cluster 1 data plan (2.2)
 
   - id: HR-04
     name: interview-scorecards-question-banks
@@ -1213,11 +1228,17 @@ artifacts:
     format: markdown
     generation: drafted-frozen
     canon_entities: [co-002]
+    period: { start: "2025-10-01", end: "2026-03-31" }
     planted_features:
-      - performance-review draft with one claim ("consistently missed deadlines") having no corresponding 1:1 log entry
-      - one vague/unsupported claim ("not a team player") flagged for revision
+      - "one pair, chosen by rule rather than by name: the manager holds People Manager, the report is one of that manager's own people and was in post before the period opened, and both are named with the role each holds at the head of both files. The pair is a People Operations Specialist and the People Manager who runs their one to one sessions, and the period runs 2025-10-01 to 2026-03-31, the last completed half year"
+      - "the running notes the manager kept over the period: twelve sessions, each with its own date, in date order, each note 80 to 150 words, and each naming the work it covers so the review draft can point back at a session rather than at a recollection"
+      - "the performance review draft carries the four sections summary, what went well, where to improve, and goals for the next period, and 14 to 18 sentences in total across them"
+      - "1 unsupported frequency claim: exactly one draft sentence carries a token from the closed frequency_adverbs list together with a token from the closed deadline_lexemes list, while zero log entries inside the period carry a deadline lexeme at all. Three draft sentences carry a deadline lexeme; the other two each name a deliverable and a date that resolve to a log entry, and neither carries a frequency adverb"
+      - "1 unsupported character claim: exactly one draft sentence carries a phrase from the closed character_claim_phrases list while carrying no date and no deliverable name the log holds. Two sentences carry a character phrase; the other names both a date and a deliverable, so it is supported. The two plants are different sentences of different classes, so one revision cannot close both"
+      - "the four closed lists the draft is read against, all shipped here so the reading is mechanical rather than a matter of taste. frequency_adverbs is consistently, repeatedly, routinely, habitually, always, never. deadline_lexemes is deadline, deadlines, due date, due dates, overdue, late, past due, slipped. character_claim_phrases is not a team player, poor attitude, lacks initiative, difficult to work with, not detail oriented. log_deliverables is the twelve named pieces of work the log discusses: onboarding buddy program, new hire welcome pack, benefits enrollment guide, exit interview summary template, manager onboarding checklist, interview scheduling handbook, probation review calendar, internal transfer checklist, people data hygiene sweep, leave request tracker cleanup, onboarding survey refresh, policy acknowledgment tracker"
+      - "no money and no score appears anywhere in either file: the review is written as work agreed and work to agree rather than as a rating, the goals for the next period name the work and the date rather than a number, and the draft makes no promotion recommendation, which is the single thing a review like this one is not for"
     consuming_modules: [hr-review-writing-assistant, hr-ai-reliability]
-    source_plan: hr-people-implementation-plan
+    source_plan: hr-people-implementation-plan + people-hr cluster 1 data plan (2.3)
 
   - id: HR-10
     name: rehearsal-scenario-briefs
@@ -1307,11 +1328,20 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-04-03", end: "2026-04-03" }
+    columns: [record_id, employee_id, full_name, work_email, department, role_title, manager_employee_id, hire_date, date_of_birth, home_city, emergency_contact_name, emergency_contact_phone, health_accommodation_note, occupational_health_status, trade_union_membership, criminal_record_check_status, immigration_status, sensitivity_tier, lawful_basis, extracted_on]
     planted_features:
-      - records deliberately mixing ordinary PII and GDPR special-category fields (health note, visa status)
-      - companion draft "AI in employment decisions" disclosure clause
+      - "40 records drawn from the active CORE-04 roster and stratified by department: every department carrying at least 20 active rows contributes at least 2 records and none contributes more than 8, EMP-0001 and EMP-0002 are excluded, and record_id runs MSD-2026-0001 upward in employee_id order. extracted_on is 2026-04-03 on every row, which is the whole of the artifact's period; hire_date and date_of_birth are properties of the person rather than of the extract"
+      - "employee_id, full_name, work_email, department, role_title, manager_employee_id and hire_date are carried through from CORE-04 rather than retyped: the generator builds the roster in process from the CORE-04 seed the way the finance access list does, so a roster change lands here instead of being outvoted by a stale copy, and every carried column is byte-equal to the roster's own"
+      - "special_category_fields is the closed list health_accommodation_note, occupational_health_status, trade_union_membership. restricted_fields is the closed list date_of_birth, criminal_record_check_status, immigration_status. Every other column is ordinary. These two lists are the only inputs to the tier rule, and both ship here so the reading is mechanical rather than a matter of taste"
+      - "sensitivity_tier is the first matching clause: special_category if any special_category_fields value is non-empty, else restricted if any restricted_fields value is non-empty, else ordinary. The rule is total, so every record lands in exactly one tier and any reader holding the two lists recomputes all 40 in their own arithmetic"
+      - "lawful_basis follows the declared sensitivity_tier through a one to one map: special_category to explicit_consent, restricted to legal_obligation, ordinary to contract. A tier that disagrees with the fields therefore carries a basis that disagrees with them too, which is the second leg of the one mislabeled record"
+      - "1 mislabeled record: exactly one record carries at least one non-empty special_category_fields value while its sensitivity_tier reads ordinary. 12 records carry a special category value at all and 20 records read ordinary, so neither number alone finds the row. Every other record's sensitivity_tier equals the value the rule computes from its own populated fields"
+      - "design counts across the 40 records: 12 carry at least one special category field, 9 carry a restricted field and no special category field, and 19 carry neither, so the three populations are uneven in the way a real extract is rather than split evenly for the sake of it"
+      - "the criminal record check and the immigration status sit in restricted rather than in special_category, which is the classification argument this record set exists to carry: a field can be sensitive without being a special category. No statutory citation appears anywhere in the file, and no money, pay band or work location column exists"
+      - "home_city, the two emergency contact columns, the three special category columns and the three restricted columns are seeded draws rather than roster values, each family from its own stream: a populated date_of_birth is consistent with its own hire_date at an adult working age, every emergency contact phone is a well formed North American number inside the 555 block reserved for fiction, every emergency contact name collides with no roster name, and every home city is an invented town that collides with no canon company name"
     consuming_modules: [hr-operational-controls, hr-helpdesk-intake-router]
-    source_plan: hr-people-implementation-plan
+    source_plan: hr-people-implementation-plan + people-hr cluster 1 data plan (2.4)
 
   - id: HR-18
     name: hris-export
@@ -1319,10 +1349,25 @@ artifacts:
     format: csv + json
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-03-02", end: "2026-04-03" }
+    files:
+      hris-roster.csv: [hris_person_id, employee_id, full_name, work_email, department, role_title, level, manager_employee_id, hire_date, employment_status, employment_type, fte, record_status, last_updated]
+      hris-requisitions.csv: [requisition_id, requisition_title, department, level, status, openings, opened_date, target_start_date, owner_employee_id, hiring_manager_employee_id, recruiter_employee_id, employment_type]
+      hris-case-queue.csv: [case_id, opened_date, case_type, subject_employee_id, assignee_employee_id, required_permission_tier, status, due_date]
+      hris-permission-tiers.csv: [role_title, granted_permission_tier, description]
     planted_features:
-      - unified roster + requisitions + case queue + permission tiers view (derives from CORE-04 and HR-01)
+      - "hris-roster.csv is 582 rows, one per active CORE-04 row in employee_id order, and employment_status reads active on every one of them because the export carries only live records. That constancy is the point: the export is eighteen people short of the 600-row roster and says nothing about it, so the gap is found by joining back rather than by reading a status column"
+      - "hris_person_id runs PER-100001 upward in employee_id order and is the system's own surrogate key, unrelated to employee_id, so joining the export back to the roster is a mapping problem rather than a lookup. employment_type, fte, record_status and last_updated are seeded draws: fte is 1.0 on most rows with a minority at 0.8 or 0.6, employment_type is part_time exactly where fte is below 1.0, record_status is active, and last_updated is an ISO date on or before 2026-04-03 and never before that row's own hire_date"
+      - "hris-requisitions.csv is 8 rows read out of the frozen artifacts/HR-01/role-requisition-register.json at build time rather than retyped, and reproduces the register tuple on every shared field. The generator throws unless the register still holds exactly 8 requisitions each carrying the documented key set, naming the count or the missing and unexpected keys, so a later amendment to the library breaks generation rather than shipping an export that quietly disagrees with it"
+      - "hris-permission-tiers.csv is 6 rows, one per distinct active People-department role_title, printed byte-equal to CORE-04 including the comma in Director, People and VP, People. The granted tiers are the published table: People Operations Specialist and Recruiter at 1, HR Business Partner at 2, People Manager at 3, Director, People and VP, People at 4"
+      - "required_permission_tier comes from case_type by the second published table: address_change, benefits_enrollment_question, payslip_reissue and onboarding_task_chase at 1; leave_request_logging, performance_documentation and manager_coaching_request at 2; grievance_intake and investigation_note at 3; compensation_change_request and termination_processing at 4. The two tables together are the only inputs to the over-tier rule"
+      - "hris-case-queue.csv is 24 rows running HRC-2026-0001 upward in opened_date order, opened on business days in 2026-03-02 to 2026-04-03 with a due_date after the opened_date and a status of open or in_progress. Every assignee_employee_id is one of the 28 active People rows, every subject_employee_id is an active CORE-04 row, and no case is assigned to its own subject"
+      - "1 over-tier assignment: exactly one case whose required_permission_tier exceeds the granted_permission_tier its assignee's role_title carries in hris-permission-tiers.csv. Every other case is routed to the tier that owns it, so its assignee's granted tier equals what its case type requires and routine requests sit with the specialists and recruiters while employee relations cases sit with the managers. 6 cases sit at required tier 3 or 4, which is the senior population the finding sits inside and the number a brief states beside it; a mis-assignment is reachable on any of the 13 cases at required tier 2 or above. A rule that instead counted tier 1 assignees returns the whole specialist and recruiter caseload, 11 cases"
+      - "hris-export.json is the bundle header, carrying export_id, source_system, schema_version, as_of, source_artifacts, files, counts and permission_tier_scale. source_system is named as the company's own system rather than by a vendor or product name, source_artifacts is CORE-04 and HR-01, and counts restates each file's row count so a consumer can tell a truncated download from a short file"
+      - "no money amount, no compensation figure, no pay band and no work location column exists anywhere in the bundle. A compensation change request is a case type in a queue, not a number, and the case id block HRC- is textually disjoint from every other id block in the pack"
+      - "period {2026-03-02, 2026-04-03} is hris-case-queue.csv's own opened_date window and describes that file only; the roster's hire_date and last_updated, the requisitions' opened_date and target_start_date, and the case queue's own due_date all carry dates it does not bound"
     consuming_modules: [hr-hris-ops]
-    source_plan: hr-people-implementation-plan
+    source_plan: hr-people-implementation-plan + people-hr cluster 1 data plan (2.5)
 
   # ----------------------------------------------------------------- REV (revenue path)
   - id: REV-01
