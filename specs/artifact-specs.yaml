@@ -1473,6 +1473,7 @@ artifacts:
     canon_entities: [co-002, co-101]
     planted_features:
       - omits a dependency resolvable only via CORE-01 (the co-101 vendor contract gating a milestone)
+      - a passage instructing the planner to treat an unsigned change order as executed, ratified by nothing
     consuming_modules: [operations-brief-to-project-plan]
     source_plan: operations-implementation-plan (A3)
 
