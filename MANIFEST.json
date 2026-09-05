@@ -1004,6 +1004,87 @@
             ]
         },
         {
+            "id": "HR-01",
+            "name": "role-requisition-library",
+            "type": "dataset",
+            "format": "json + markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/HR-01",
+            "source_files": [
+                "intake-brief-rqn-2026-0101.md",
+                "intake-brief-rqn-2026-0102.md",
+                "intake-brief-rqn-2026-0103.md",
+                "intake-brief-rqn-2026-0104.md",
+                "intake-brief-rqn-2026-0105.md",
+                "intake-brief-rqn-2026-0106.md",
+                "intake-brief-rqn-2026-0107.md",
+                "intake-brief-rqn-2026-0108.md",
+                "role-requisition-register.json"
+            ],
+            "build_files": [
+                "intake-brief-rqn-2026-0101.docx",
+                "intake-brief-rqn-2026-0102.docx",
+                "intake-brief-rqn-2026-0103.docx",
+                "intake-brief-rqn-2026-0104.docx",
+                "intake-brief-rqn-2026-0105.docx",
+                "intake-brief-rqn-2026-0106.docx",
+                "intake-brief-rqn-2026-0107.docx",
+                "intake-brief-rqn-2026-0108.docx"
+            ]
+        },
+        {
+            "id": "HR-03",
+            "name": "interview-transcript-corpus",
+            "type": "corpus",
+            "format": "text",
+            "generation": "drafted-frozen",
+            "path": "artifacts/HR-03",
+            "source_files": [
+                "draft-feedback-ca-001-hiring-manager.md",
+                "draft-feedback-ca-001-recruiter-screen.md",
+                "draft-feedback-ca-001-staff-engineer.md",
+                "draft-feedback-ca-002-hiring-manager.md",
+                "draft-feedback-ca-002-recruiter-screen.md",
+                "draft-feedback-ca-002-staff-engineer.md",
+                "interview-transcript-ca-001-hiring-manager.md",
+                "interview-transcript-ca-001-recruiter-screen.md",
+                "interview-transcript-ca-001-staff-engineer.md",
+                "interview-transcript-ca-002-hiring-manager.md",
+                "interview-transcript-ca-002-recruiter-screen.md",
+                "interview-transcript-ca-002-staff-engineer.md"
+            ],
+            "build_files": [
+                "draft-feedback-ca-001-hiring-manager.docx",
+                "draft-feedback-ca-001-recruiter-screen.docx",
+                "draft-feedback-ca-001-staff-engineer.docx",
+                "draft-feedback-ca-002-hiring-manager.docx",
+                "draft-feedback-ca-002-recruiter-screen.docx",
+                "draft-feedback-ca-002-staff-engineer.docx",
+                "interview-transcript-ca-001-hiring-manager.docx",
+                "interview-transcript-ca-001-recruiter-screen.docx",
+                "interview-transcript-ca-001-staff-engineer.docx",
+                "interview-transcript-ca-002-hiring-manager.docx",
+                "interview-transcript-ca-002-recruiter-screen.docx",
+                "interview-transcript-ca-002-staff-engineer.docx"
+            ]
+        },
+        {
+            "id": "HR-09",
+            "name": "manager-notes-and-review-draft-pair",
+            "type": "corpus",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/HR-09",
+            "source_files": [
+                "one-to-one-log.md",
+                "performance-review-draft.md"
+            ],
+            "build_files": [
+                "one-to-one-log.docx",
+                "performance-review-draft.docx"
+            ]
+        },
+        {
             "id": "OPS-01",
             "name": "meeting-transcript-with-commitments",
             "type": "transcript",
