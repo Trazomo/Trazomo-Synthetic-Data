@@ -308,7 +308,9 @@ test("no canon company beyond the protagonist and the vendor is named", () => {
 
 test("the brief carries no em dash and states no money amount", () => {
   const text = document();
-  assert.ok(!text.includes("—"), `${ID} carries an em dash`);
+  // Escaped rather than typed, the cluster 1 screen's form: a file that hunts
+  // for a character has no business being the one place it appears.
+  assert.ok(!text.includes("\u2014"), `${ID} carries an em dash`);
   // The contract's figures live in CORE-01. A brief that repeated one would
   // widen the freeze review for nothing and give the module a second thing to
   // tie out (cluster 2 data plan, B7).
