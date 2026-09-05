@@ -104,6 +104,8 @@ test("HR-17: forty records, ids running in file order, one extract stamp", () =>
     assert.equal(row.record_id, `MSD-2026-${String(i + 1).padStart(4, "0")}`, "record ids run in file order");
     assert.equal(row.extracted_on, EXTRACTED_ON, "every record carries the same extract stamp");
   });
+  assert.equal(spec.period.start, EXTRACTED_ON, "spec.period.start has drifted from the extract stamp every row carries");
+  assert.equal(spec.period.end, EXTRACTED_ON, "spec.period.end has drifted from the extract stamp every row carries");
   assert.equal(new Set(rows.map((r) => r.employee_id)).size, rows.length, "an employee appears at most once");
   assert.deepEqual(
     rows.map((r) => r.employee_id),

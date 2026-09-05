@@ -45,6 +45,7 @@ const CASE_WINDOW_START = "2026-03-02";
 const CASE_COUNT = 24;
 const REQUISITION_COUNT = 8;
 const SENIOR_TIER_CASES = 6;
+const TIER_ONE_ASSIGNEE_CASELOAD = 11;
 const CASE_STATUSES = new Set(["open", "in_progress"]);
 
 // The first published table, restated: what a People role title is granted.
@@ -265,14 +266,30 @@ test("HR-C1-T4: exactly one case sits above its assignee's granted tier, out of 
     "the over-tier case sits inside the senior population, which is why that is the number stated beside it"
   );
 
+  // Every other case is routed to the tier that owns it: nobody is ever
+  // over-qualified for their own case, and every non-plant case sits exactly
+  // at the tier its case type requires.
+  const grantedExceedsRequired = rows.filter((row) => {
+    const assignee = byEmployeeId.get(row.assignee_employee_id);
+    return grantedFor.get(assignee.role_title) > Number(row.required_permission_tier);
+  });
+  assert.equal(grantedExceedsRequired.length, 0, "no case is worked by somebody more senior than its required tier");
+
+  const exactlyAtTier = rows.filter((row) => {
+    const assignee = byEmployeeId.get(row.assignee_employee_id);
+    return grantedFor.get(assignee.role_title) === Number(row.required_permission_tier);
+  });
+  assert.equal(exactlyAtTier.length, CASE_COUNT - 1, "every other case sits exactly at the tier its case type requires");
+
   // The counterfactual the spec rejects: counting tier 1 assignees instead
   // returns the whole specialist and recruiter caseload rather than a finding.
   const tierOneAssignees = rows.filter(
     (row) => grantedFor.get(byEmployeeId.get(row.assignee_employee_id).role_title) === 1
   );
-  assert.ok(
-    tierOneAssignees.length > SENIOR_TIER_CASES,
-    "a rule counting tier 1 assignees must return a whole caseload, or the qualifier does no work"
+  assert.equal(
+    tierOneAssignees.length,
+    TIER_ONE_ASSIGNEE_CASELOAD,
+    "a rule counting tier 1 assignees returns the whole specialist and recruiter caseload"
   );
 });
 

@@ -346,8 +346,10 @@ export function buildCaseQueue(roster = coreRoster()) {
   );
 
   // The one case whose required tier sits above what its assignee is granted.
-  // It is drawn from the senior population, because a tier 1 case can never be
-  // over tier: every People role is granted at least tier 1.
+  // A mis-assignment is reachable on any case at required tier 2 or above (a
+  // tier 1 case can never be over tier, because every People role is granted
+  // at least tier 1); by design the plant is drawn from the senior population
+  // of cases at required tier 3 or 4, the number a brief states beside it.
   const plantRng = createRng(id, "tier-assignment");
   const seniorIndexes = drafts
     .map((draft, index) => (draft.required_permission_tier >= 3 ? index : -1))

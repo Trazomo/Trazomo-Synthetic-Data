@@ -94,9 +94,10 @@ read and never edited. The plan is
 - **The generator guards**, `tests/generators/hr-17-mixed-sensitivity.test.js`
   and `tests/generators/hr-18-hris-export.test.js`: twenty-two tests covering
   HR-C1-T1 to T6. Headers are pinned to the spec's own column lists, the tier
-  rule is reimplemented in the test rather than imported, the three published
-  tables are carried as the tests' own literal copies and asserted equal to the
-  generators' exports, and the requisition tuples are compared against the
+  rule is reimplemented in the test rather than imported, both generators'
+  published tables and lists are carried as the tests' own literal copies and
+  asserted equal to the generators' exports, and the requisition tuples are
+  compared against the
   committed register bytes read off disk rather than against the generator's
   reader. Both plants are asserted at their qualified and their qualifier-free
   cardinality.
