@@ -1,0 +1,76 @@
+{
+  "generated_from_spec": "REV-11",
+  "as_of": "2026-03-16",
+  "policy_file": "policy-rules.json",
+  "target_selection_rule": "Every target is selected by rule from the REV-01 master in file order, never by a retyped id. The consent-approved scenario takes the first gdpr_consent_confirmed row; the consent-blocked scenario takes the first remaining row whose consent state carries send_permitted no; the two claim scenarios and the discount scenario take the next three remaining rows, in that order, whose consent state carries send_permitted yes. Giving the claim and discount scenarios a send-permitted target keeps each expected outcome a consequence of its own subject.",
+  "scenarios": [
+    {
+      "scenario_id": "SCN-01",
+      "subject": "claim_language",
+      "draft_excerpt": "Taking your security questions in order: we maintain a current SOC 2 Type II report covering security and availability, and the information security management system behind the platform is certified to ISO/IEC 27001. I can share both under a mutual nondisclosure agreement whenever your reviewer is ready.",
+      "target_contact_id": "ct-co-122-01",
+      "target_consent_status": "gdpr_consent_confirmed",
+      "asserted_claims": [
+        "SOC 2 Type II",
+        "ISO/IEC 27001"
+      ],
+      "expected_outcome": "approved",
+      "rule_ids": [
+        "PR-01"
+      ],
+      "rationale": "Both certifications the draft asserts resolve to a certification row of the claims register, and the target's consent state permits the send, so nothing holds the draft back."
+    },
+    {
+      "scenario_id": "SCN-02",
+      "subject": "claim_language",
+      "draft_excerpt": "Your compliance reviewer asked what we hold for healthcare data, and the platform is HITRUST CSF certified, so I can put the certification package in front of the reviewer this week.",
+      "target_contact_id": "ct-co-125-02",
+      "target_consent_status": "us_express_consent",
+      "asserted_claims": [
+        "HITRUST CSF"
+      ],
+      "expected_outcome": "blocked",
+      "rule_ids": [
+        "PR-02"
+      ],
+      "rationale": "The certification the draft asserts is a real scheme the register does not carry, so it resolves to no row and the send is blocked. The target's consent state permits the send, so the claim is the only reason."
+    },
+    {
+      "scenario_id": "SCN-03",
+      "subject": "discount_language",
+      "draft_excerpt": "To get this signed inside the quarter I can take 20 percent off the annual platform subscription for the first year.",
+      "target_contact_id": "ct-co-125-03",
+      "target_consent_status": "us_express_consent",
+      "discount_percent": 20,
+      "expected_outcome": "approved_with_warning",
+      "rule_ids": [
+        "PR-03"
+      ],
+      "rationale": "The discount crosses the threshold and no revenue-leadership approval is recorded for it, so the draft is held for approval rather than blocked. The target's consent state permits the send."
+    },
+    {
+      "scenario_id": "SCN-04",
+      "subject": "consent_state",
+      "draft_excerpt": "Following up on the workflow rollout your team scoped last quarter, and I can set up a short call to walk through what has shipped since.",
+      "target_contact_id": "ct-co-103-02",
+      "target_consent_status": "optout_honored",
+      "expected_outcome": "blocked",
+      "rule_ids": [
+        "PR-06"
+      ],
+      "rationale": "The target's consent state carries send_permitted no, so the send is blocked whatever the draft says. Nothing in the wording is at fault."
+    },
+    {
+      "scenario_id": "SCN-05",
+      "subject": "consent_state",
+      "draft_excerpt": "Sharing the two onboarding guides your team asked for, and I can walk your administrators through the permission model whenever it suits.",
+      "target_contact_id": "ct-co-103-01",
+      "target_consent_status": "gdpr_consent_confirmed",
+      "expected_outcome": "approved",
+      "rule_ids": [
+        "PR-05"
+      ],
+      "rationale": "The target's consent state carries send_permitted yes, and the draft asserts no certification and offers no discount, so the pre-send check approves it."
+    }
+  ]
+}

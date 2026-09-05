@@ -1433,6 +1433,19 @@ artifacts:
     consuming_modules: [revenue-crm-ops]
     source_plan: revenue-implementation-plan (artifact I)
 
+  - id: REV-11
+    name: policy-as-code-scenarios
+    type: fixture
+    format: json
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - five pre-send scenarios covering all three outcomes (approved twice, blocked twice, approved_with_warning once) across all three subjects (claim language twice, discount language once, consent state twice)
+      - "resolution contract: every target_contact_id resolves to a REV-01 consent-suppression-master row carrying the consent state the scenario states, and every certification the approved claim scenario asserts resolves to a certification row of the REV-06 claims register"
+      - the blocked claim scenario asserts a certification that is in the recognized-certifications vocabulary, resolves to no certification row of the REV-06 register, and differs from the unregistered certification the REV-06 snippets assert
+    consuming_modules: [revenue-operational-controls]
+    source_plan: revenue research-refresh section 3.2 (R6)
+
   # ----------------------------------------------------------------- OPS (operations path)
   - id: OPS-01
     name: meeting-transcript-with-commitments
