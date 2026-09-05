@@ -42,8 +42,11 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-03-11 to 2026-03-13 | follow-up email thread on the sync's decisions, one attribution disputed | `artifacts/OPS-03B` |
 | 2026-03-13, 2026-03-27 | co-002 payroll funding transfers (operating to payroll account) | FIN-01/FIN-02 |
 | 2026-03-13, 2026-03-27 | biweekly Operations team retros; the earlier one is the prior-retro summary OPS-02 embeds, the later is the OPS-02 transcript | `artifacts/OPS-02` |
+| 2026-03-16 to 2026-03-31 | operations intake queue receives 18 requests across four channels, untriaged | `datasets/operations/intake-request-batch` |
+| 2026-03-18 | co-002 project brief for the contract operations platform rollout, planning co-002's own side of the Copperline implementation | `artifacts/OPS-03` |
 | 2026-03-23 to 2026-04-06 | Inbound finance requests received into the intake queue, untriaged | `datasets/finance/inbound-requests-queue` |
 | 2026-03-24 | annual insurance premium invoiced by co-105 and posted as a prepaid, policy period 2026-04-01 to 2027-03-31 | `datasets/finance/vendor-bills` |
+| 2026-03-25 | work-tracker backlog export for the reporting migration delivery program | `datasets/operations/backlog-export-with-quality-gaps` |
 | 2026-03-31 | FIN-04 aging as-of date; FIN-05 pre-close trial balance; FIN-09 close batch posting date; FIN-10 open-PO cut-off | `datasets/finance` |
 | 2026-03-31 | Materiality thresholds for the 2026 plan year applied to the March variance pack; four lines over threshold and three over the flux threshold | `datasets/finance/materiality-thresholds`, `datasets/finance/actuals-vs-budget` |
 | 2026-04-01 | the FIN-01 deposit in transit posts at the bank | FIN-01 spec |
