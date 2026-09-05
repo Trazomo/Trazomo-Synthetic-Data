@@ -1,0 +1,7 @@
+role_title,granted_permission_tier,description
+People Operations Specialist,1,Read and update ordinary employee records and routine service requests.
+Recruiter,1,Read and update ordinary employee records and routine service requests.
+HR Business Partner,2,"Tier 1, plus leave records, performance documentation and manager support cases."
+People Manager,3,"Tier 2, plus employee relations cases and the notes attached to them."
+"Director, People",4,"Tier 3, plus lifecycle changes that alter the employment record itself."
+"VP, People",4,"Tier 3, plus lifecycle changes that alter the employment record itself."

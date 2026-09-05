@@ -1328,11 +1328,20 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-04-03", end: "2026-04-03" }
+    columns: [record_id, employee_id, full_name, work_email, department, role_title, manager_employee_id, hire_date, date_of_birth, home_city, emergency_contact_name, emergency_contact_phone, health_accommodation_note, occupational_health_status, trade_union_membership, criminal_record_check_status, immigration_status, sensitivity_tier, lawful_basis, extracted_on]
     planted_features:
-      - records deliberately mixing ordinary PII and GDPR special-category fields (health note, visa status)
-      - companion draft "AI in employment decisions" disclosure clause
+      - "40 records drawn from the active CORE-04 roster and stratified by department: every department carrying at least 20 active rows contributes at least 2 records and none contributes more than 8, EMP-0001 and EMP-0002 are excluded, and record_id runs MSD-2026-0001 upward in employee_id order. extracted_on is 2026-04-03 on every row, which is the whole of the artifact's period; hire_date and date_of_birth are properties of the person rather than of the extract"
+      - "employee_id, full_name, work_email, department, role_title, manager_employee_id and hire_date are carried through from CORE-04 rather than retyped: the generator builds the roster in process from the CORE-04 seed the way the finance access list does, so a roster change lands here instead of being outvoted by a stale copy, and every carried column is byte-equal to the roster's own"
+      - "special_category_fields is the closed list health_accommodation_note, occupational_health_status, trade_union_membership. restricted_fields is the closed list date_of_birth, criminal_record_check_status, immigration_status. Every other column is ordinary. These two lists are the only inputs to the tier rule, and both ship here so the reading is mechanical rather than a matter of taste"
+      - "sensitivity_tier is the first matching clause: special_category if any special_category_fields value is non-empty, else restricted if any restricted_fields value is non-empty, else ordinary. The rule is total, so every record lands in exactly one tier and any reader holding the two lists recomputes all 40 in their own arithmetic"
+      - "lawful_basis follows the declared sensitivity_tier through a one to one map: special_category to explicit_consent, restricted to legal_obligation, ordinary to contract. A tier that disagrees with the fields therefore carries a basis that disagrees with them too, which is the second leg of the one mislabeled record"
+      - "1 mislabeled record: exactly one record carries at least one non-empty special_category_fields value while its sensitivity_tier reads ordinary. 12 records carry a special category value at all and 20 records read ordinary, so neither number alone finds the row. Every other record's sensitivity_tier equals the value the rule computes from its own populated fields"
+      - "design counts across the 40 records: 12 carry at least one special category field, 9 carry a restricted field and no special category field, and 19 carry neither, so the three populations are uneven in the way a real extract is rather than split evenly for the sake of it"
+      - "the criminal record check and the immigration status sit in restricted rather than in special_category, which is the classification argument this record set exists to carry: a field can be sensitive without being a special category. No statutory citation appears anywhere in the file, and no money, pay band or work location column exists"
+      - "home_city, the two emergency contact columns, the three special category columns and the three restricted columns are seeded draws rather than roster values, each family from its own stream: a populated date_of_birth is consistent with its own hire_date at an adult working age, every emergency contact phone is a well formed North American number inside the 555 block reserved for fiction, every emergency contact name collides with no roster name, and every home city is an invented town that collides with no canon company name"
     consuming_modules: [hr-operational-controls, hr-helpdesk-intake-router]
-    source_plan: hr-people-implementation-plan
+    source_plan: hr-people-implementation-plan + people-hr cluster 1 data plan (2.4)
 
   - id: HR-18
     name: hris-export
@@ -1340,10 +1349,25 @@ artifacts:
     format: csv + json
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-03-02", end: "2026-04-03" }
+    files:
+      hris-roster.csv: [hris_person_id, employee_id, full_name, work_email, department, role_title, level, manager_employee_id, hire_date, employment_status, employment_type, fte, record_status, last_updated]
+      hris-requisitions.csv: [requisition_id, requisition_title, department, level, status, openings, opened_date, target_start_date, owner_employee_id, hiring_manager_employee_id, recruiter_employee_id, employment_type]
+      hris-case-queue.csv: [case_id, opened_date, case_type, subject_employee_id, assignee_employee_id, required_permission_tier, status, due_date]
+      hris-permission-tiers.csv: [role_title, granted_permission_tier, description]
     planted_features:
-      - unified roster + requisitions + case queue + permission tiers view (derives from CORE-04 and HR-01)
+      - "hris-roster.csv is 582 rows, one per active CORE-04 row in employee_id order, and employment_status reads active on every one of them because the export carries only live records. That constancy is the point: the export is eighteen people short of the 600-row roster and says nothing about it, so the gap is found by joining back rather than by reading a status column"
+      - "hris_person_id runs PER-100001 upward in employee_id order and is the system's own surrogate key, unrelated to employee_id, so joining the export back to the roster is a mapping problem rather than a lookup. employment_type, fte, record_status and last_updated are seeded draws: fte is 1.0 on most rows with a minority at 0.8 or 0.6, employment_type is part_time exactly where fte is below 1.0, record_status is active, and last_updated is an ISO date on or before 2026-04-03 and never before that row's own hire_date"
+      - "hris-requisitions.csv is 8 rows read out of the frozen artifacts/HR-01/role-requisition-register.json at build time rather than retyped, and reproduces the register tuple on every shared field. The generator throws unless the register still holds exactly 8 requisitions each carrying the documented key set, naming the count or the missing and unexpected keys, so a later amendment to the library breaks generation rather than shipping an export that quietly disagrees with it"
+      - "hris-permission-tiers.csv is 6 rows, one per distinct active People-department role_title, printed byte-equal to CORE-04 including the comma in Director, People and VP, People. The granted tiers are the published table: People Operations Specialist and Recruiter at 1, HR Business Partner at 2, People Manager at 3, Director, People and VP, People at 4"
+      - "required_permission_tier comes from case_type by the second published table: address_change, benefits_enrollment_question, payslip_reissue and onboarding_task_chase at 1; leave_request_logging, performance_documentation and manager_coaching_request at 2; grievance_intake and investigation_note at 3; compensation_change_request and termination_processing at 4. The two tables together are the only inputs to the over-tier rule"
+      - "hris-case-queue.csv is 24 rows running HRC-2026-0001 upward in opened_date order, opened on business days in 2026-03-02 to 2026-04-03 with a due_date after the opened_date and a status of open or in_progress. Every assignee_employee_id is one of the 28 active People rows, every subject_employee_id is an active CORE-04 row, and no case is assigned to its own subject"
+      - "1 over-tier assignment: exactly one case whose required_permission_tier exceeds the granted_permission_tier its assignee's role_title carries in hris-permission-tiers.csv. Every other case is routed to the tier that owns it, so its assignee's granted tier equals what its case type requires and routine requests sit with the specialists and recruiters while employee relations cases sit with the managers. 6 cases sit at required tier 3 or 4, which is the senior population the finding sits inside and the number a brief states beside it; a mis-assignment is reachable on any of the 13 cases at required tier 2 or above. A rule that instead counted tier 1 assignees returns the whole specialist and recruiter caseload, 11 cases"
+      - "hris-export.json is the bundle header, carrying export_id, source_system, schema_version, as_of, source_artifacts, files, counts and permission_tier_scale. source_system is named as the company's own system rather than by a vendor or product name, source_artifacts is CORE-04 and HR-01, and counts restates each file's row count so a consumer can tell a truncated download from a short file"
+      - "no money amount, no compensation figure, no pay band and no work location column exists anywhere in the bundle. A compensation change request is a case type in a queue, not a number, and the case id block HRC- is textually disjoint from every other id block in the pack"
+      - "period {2026-03-02, 2026-04-03} is hris-case-queue.csv's own opened_date window and describes that file only; the roster's hire_date and last_updated, the requisitions' opened_date and target_start_date, and the case queue's own due_date all carry dates it does not bound"
     consuming_modules: [hr-hris-ops]
-    source_plan: hr-people-implementation-plan
+    source_plan: hr-people-implementation-plan + people-hr cluster 1 data plan (2.5)
 
   # ----------------------------------------------------------------- REV (revenue path)
   - id: REV-01

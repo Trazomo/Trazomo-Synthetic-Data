@@ -703,6 +703,43 @@
             }
         },
         {
+            "id": "HR-17",
+            "name": "mixed-sensitivity-employee-dataset",
+            "track": "hr",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/hr/mixed-sensitivity-employee-dataset",
+            "files": [
+                "mixed-sensitivity-employee-dataset.csv"
+            ],
+            "row_counts": {
+                "mixed-sensitivity-employee-dataset.csv": 40
+            }
+        },
+        {
+            "id": "HR-18",
+            "name": "hris-export",
+            "track": "hr",
+            "type": "dataset",
+            "format": "csv + json",
+            "generation": "deterministic",
+            "path": "datasets/hr/hris-export",
+            "files": [
+                "hris-case-queue.csv",
+                "hris-export.json",
+                "hris-permission-tiers.csv",
+                "hris-requisitions.csv",
+                "hris-roster.csv"
+            ],
+            "row_counts": {
+                "hris-case-queue.csv": 24,
+                "hris-permission-tiers.csv": 6,
+                "hris-requisitions.csv": 8,
+                "hris-roster.csv": 582
+            }
+        },
+        {
             "id": "REV-07",
             "name": "crm-object-model-seed",
             "track": "revenue",

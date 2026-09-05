@@ -5,12 +5,13 @@
 **Allocated in merge order (expected `v1.8.0`); renumber at tag time if the
 order changes.**
 
-People and HR cluster 1, the drafted half: three drafted-frozen artifact sets,
-the structural screen over them, two canon timeline rows and the HR-block spec
-pins. No generator and no `datasets/hr/` yet; that directory is born in the
-stacked deterministic PR, which reads the frozen HR-01 register at build time
-and therefore could not land first. CORE-04 is read and never edited. The plan
-is `docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-1.md`.
+People and HR cluster 1, in two stacked halves: three drafted-frozen artifact
+sets with the structural screen over them, two canon timeline rows and the
+HR-block spec pins, then the two deterministic generators that read them.
+`datasets/hr/` is born here. The deterministic half could not land first,
+because its export reads the frozen HR-01 register at build time. CORE-04 is
+read and never edited. The plan is
+`docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-1.md`.
 
 - **HR-01 role-requisition-library**: `role-requisition-register.json` plus
   eight intake briefs. Eight requisitions stated at 2026-04-03, six open, one
@@ -64,13 +65,61 @@ is `docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-1.md`.
   announce about itself, three describe an absence a keyword count cannot see,
   and one would mean the corpus had failed if it were ever confirmed, because
   ten of the exclusion list's twelve phrases must appear nowhere in the briefs.
+- **HR-17 mixed-sensitivity-employee-dataset**, the first `datasets/hr/` entry:
+  forty records drawn from the active roster and stratified by department, so
+  every department carrying at least twenty active rows contributes at least
+  two and none contributes more than eight. The seven identifying columns are
+  carried through from CORE-04 in process rather than retyped. Sensitivity is
+  computed rather than declared: two published field classes, a total
+  first-match tier rule, and a lawful basis that follows the tier the row
+  declares, so a tier that disagrees with its own fields carries a basis that
+  disagrees with them as well. Twelve records carry a special category value,
+  nine carry a restricted field and nothing above it, nineteen carry neither,
+  and twenty read ordinary. The criminal record check and the immigration
+  status sit in `restricted` and not in `special_category`, which is the
+  distinction the record set exists to carry; no statutory citation appears in
+  the file.
+- **HR-18 hris-export**: five files, and nothing in them typed twice. The 582
+  roster rows are the active CORE-04 rows in `employee_id` order under the
+  system's own `PER-` surrogate key, with `employment_status` reading active on
+  every one because the export carries only live records. The eight requisition
+  rows are read out of the frozen `artifacts/HR-01/role-requisition-register.json`
+  at build time, the FIN-20 idiom, and the read throws unless the register still
+  holds exactly eight requisitions each carrying the documented key set, naming
+  the count or the missing and unexpected keys. Permissions are a two-table
+  computation over `role_title` and `case_type` rather than a flag, both tables
+  ship in the spec, and the twenty-four case queue routes each case to the tier
+  that owns it. Six cases sit at tier 3 or 4. No money, pay band or work
+  location column exists anywhere in the bundle.
+- **The generator guards**, `tests/generators/hr-17-mixed-sensitivity.test.js`
+  and `tests/generators/hr-18-hris-export.test.js`: twenty-two tests covering
+  HR-C1-T1 to T6. Headers are pinned to the spec's own column lists, the tier
+  rule is reimplemented in the test rather than imported, both generators'
+  published tables and lists are carried as the tests' own literal copies and
+  asserted equal to the generators' exports, and the requisition tuples are
+  compared against the
+  committed register bytes read off disk rather than against the generator's
+  reader. Both plants are asserted at their qualified and their qualifier-free
+  cardinality.
+- **Spec pins**, second half (HR block only): HR-17 and HR-18 move to the
+  FIN-style form, gaining the column lists (per file, for the four-table
+  bundle), the field classes, the tier rule and the lawful-basis map, the two
+  permission tables, both plants as selection rules with both cardinality
+  numbers, and the derivation statements. HR-17 loses two lines of its frozen
+  entry under the plan's U1: the companion disclosure clause, which a
+  deterministic dataset directory cannot hold and which is module content
+  rather than data, and the gloss that classed immigration status as a special
+  category.
 
-Gates at this branch head: `npm test` 580 tests, 580 pass, 0 fail, up from the
-564 at `v1.7.0`. `validate --manifest` 67 checked, 0 failed, 14 allowlisted, up
-from 64 checked and 7 allowlisted. `validate --all` 137 checked, 19 failed,
-down from 22, which is the three directories that are no longer missing.
-`MANIFEST.json` regenerated to 45 datasets and 22 drafted artifact sets, with
-`universe_version` deliberately left at 1.5.0.
+Gates at this branch head: `npm test` 604 tests, 604 pass, 0 fail, up from the
+564 at `v1.7.0` and the 580 at the drafted half. `validate --manifest` 69
+checked, 0 failed, 14 allowlisted, up from 64 checked and 7 allowlisted.
+`validate --all` 137 checked, 19 failed, down from 22, which is the three
+directories that are no longer missing; the two deterministic HR ids move from
+`SKIP NOT_IMPLEMENTED` to `PASS` and so change no count. `MANIFEST.json`
+regenerated to 47 datasets and 22 drafted artifact sets, with
+`universe_version` deliberately left at 1.5.0. No existing dataset file moved:
+the only bytes added under `datasets/` are the two new HR directories.
 
 What is verified where. Structure, every cardinality and every roster join are
 tested in this PR. The drafting quality of the transcripts and the "every other
