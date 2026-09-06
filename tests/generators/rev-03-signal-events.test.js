@@ -389,6 +389,10 @@ test("REV-C3-T4: the re-engagement event postdates the Closed Lost transition an
     plantRow.consent_status, "optout_honored",
     `the re-engagement event's contact carries REV-01 consent_status ${plantRow.consent_status}, an honored opt-out`
   );
+  assert.match(
+    plantRow.dnc_effective_date, /^\d{4}-\d{2}-\d{2}$/,
+    `the re-engagement contact's REV-01 dnc_effective_date is "${plantRow.dnc_effective_date}", not an ISO date (an empty value would pass the comparison below vacuously)`
+  );
   assert.ok(
     plant.observed_at > plantRow.dnc_effective_date,
     `the re-engagement event was observed on ${plant.observed_at}, not after the REV-01 dnc_effective_date ${plantRow.dnc_effective_date}`

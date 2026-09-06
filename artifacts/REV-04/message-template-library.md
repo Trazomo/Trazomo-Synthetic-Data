@@ -24,7 +24,7 @@ A slot is written `{{contact.first_name}}`: two braces, the name of the export t
 
 Every slot names exactly one column of one export, spelled the way that export's header row spells it. A slot that names a column no export carries is not a slot at all, and the draft stops on it rather than guessing at a value or leaving the braces in the text for the recipient to find.
 
-The same rule covers two situations that can look like a filled slot but are not. Where the recipient is a person the export carries no row for at all, such as a signal about a new hire who has no customer relationship management record yet, every slot naming that person stays unfilled. Where the export does carry the row but the named column is blank for it, the slot stays unfilled the same way. Either way the draft stops there and names the missing input for the person reviewing it; no slot is ever filled from a guess.
+The same rule covers two situations that can look like a filled slot but are not. Where the recipient is a person the export carries no row for at all, such as a signal about a new hire who has no customer relationship management record yet, every slot naming that person stays unfilled. Where the export does carry the row but the named column is blank for it, the slot stays unfilled the same way. Either way the rest of the draft is still written and held for a person to read, with the unfilled slot and the missing input named beside it; no slot is ever filled from a guess.
 
 ## Claims
 
@@ -40,7 +40,7 @@ The recipient email verification sidecar, `recipient-email-verification.yaml`, r
 
 Where the status is inferred, the drafter abstains. It records the missing input and stops, rather than writing to an address nobody has confirmed. Consent is a separate question, asked and answered before this one, and a permitted consent state does not make an unverified address usable.
 
-The re_engagement category carries a gate of its own, upstream of both of these: a re-engagement draft is only assembled after the suppression check on the account clears, and an account-level do-not-contact state ends the play before any draft exists.
+Before either of those questions, the suppression check on the account runs, and it governs every category: an account-level do-not-contact state ends the play before any draft is written. The re_engagement category is where that check most often decides the outcome, because an account that went a different way is also the one most likely to carry such a state.
 
 ## The templates
 
