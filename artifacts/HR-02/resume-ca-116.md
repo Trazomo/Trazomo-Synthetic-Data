@@ -1,9 +1,9 @@
-# Meriel Dunwiddie
+# Meriel Corvinthwaite
 
 - Candidate ID: ca-116
 - Requisition ID: RQN-2026-0105
 - Application date: 2026-03-20
-- Contact: meriel.dunwiddie@mailbox.example
+- Contact: meriel.corvinthwaite@mailbox.example
 
 ## Summary
 

@@ -1,9 +1,9 @@
-# Linnea Vellacott
+# Linnea Elverthorpe
 
 - Candidate ID: ca-106
 - Requisition ID: RQN-2026-0105
 - Application date: 2026-03-03
-- Contact: linnea.vellacott@mailbox.example
+- Contact: linnea.elverthorpe@mailbox.example
 
 ## Summary
 

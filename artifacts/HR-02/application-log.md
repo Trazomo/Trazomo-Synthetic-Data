@@ -17,7 +17,7 @@
 | ca-103 | Barnaby Kilbraith | 2026-02-25 | pending screen |
 | ca-104 | Ottoline Farriswood | 2026-02-27 | pending screen |
 | ca-105 | Emrys Tarnbrook | 2026-03-02 | pending screen |
-| ca-106 | Linnea Vellacott | 2026-03-03 | pending screen |
+| ca-106 | Linnea Elverthorpe | 2026-03-03 | pending screen |
 | ca-107 | Thaddeus Ollercombe | 2026-03-05 | pending screen |
 | ca-108 | Clemency Netherby | 2026-03-06 | pending screen |
 | ca-109 | Rasmus Innesford | 2026-03-09 | pending screen |
@@ -27,4 +27,4 @@
 | ca-113 | Osric Lammerling | 2026-03-16 | pending screen |
 | ca-114 | Genevra Sallowmere | 2026-03-17 | pending screen |
 | ca-115 | Caspar Yelverstone | 2026-03-19 | pending screen |
-| ca-116 | Meriel Dunwiddie | 2026-03-20 | pending screen |
+| ca-116 | Meriel Corvinthwaite | 2026-03-20 | pending screen |
