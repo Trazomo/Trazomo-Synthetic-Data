@@ -1141,6 +1141,56 @@
             ]
         },
         {
+            "id": "HR-02",
+            "name": "resume-corpus",
+            "type": "corpus",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/HR-02",
+            "source_files": [
+                "application-log.md",
+                "resume-ca-001.md",
+                "resume-ca-002.md",
+                "resume-ca-101.md",
+                "resume-ca-102.md",
+                "resume-ca-103.md",
+                "resume-ca-104.md",
+                "resume-ca-105.md",
+                "resume-ca-106.md",
+                "resume-ca-107.md",
+                "resume-ca-108.md",
+                "resume-ca-109.md",
+                "resume-ca-110.md",
+                "resume-ca-111.md",
+                "resume-ca-112.md",
+                "resume-ca-113.md",
+                "resume-ca-114.md",
+                "resume-ca-115.md",
+                "resume-ca-116.md"
+            ],
+            "build_files": [
+                "application-log.docx",
+                "resume-ca-001.docx",
+                "resume-ca-002.docx",
+                "resume-ca-101.docx",
+                "resume-ca-102.docx",
+                "resume-ca-103.docx",
+                "resume-ca-104.docx",
+                "resume-ca-105.docx",
+                "resume-ca-106.docx",
+                "resume-ca-107.docx",
+                "resume-ca-108.docx",
+                "resume-ca-109.docx",
+                "resume-ca-110.docx",
+                "resume-ca-111.docx",
+                "resume-ca-112.docx",
+                "resume-ca-113.docx",
+                "resume-ca-114.docx",
+                "resume-ca-115.docx",
+                "resume-ca-116.docx"
+            ]
+        },
+        {
             "id": "HR-03",
             "name": "interview-transcript-corpus",
             "type": "corpus",
@@ -1174,6 +1224,32 @@
                 "interview-transcript-ca-002-hiring-manager.docx",
                 "interview-transcript-ca-002-recruiter-screen.docx",
                 "interview-transcript-ca-002-staff-engineer.docx"
+            ]
+        },
+        {
+            "id": "HR-04",
+            "name": "interview-scorecards-question-banks",
+            "type": "dataset",
+            "format": "json + markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/HR-04",
+            "source_files": [
+                "interview-question-bank.json",
+                "scorecard-ca-001-hiring-manager.md",
+                "scorecard-ca-001-recruiter-screen.md",
+                "scorecard-ca-001-staff-engineer.md",
+                "scorecard-ca-002-hiring-manager.md",
+                "scorecard-ca-002-recruiter-screen.md",
+                "scorecard-ca-002-staff-engineer.md",
+                "screening-rubric.json"
+            ],
+            "build_files": [
+                "scorecard-ca-001-hiring-manager.docx",
+                "scorecard-ca-001-recruiter-screen.docx",
+                "scorecard-ca-001-staff-engineer.docx",
+                "scorecard-ca-002-hiring-manager.docx",
+                "scorecard-ca-002-recruiter-screen.docx",
+                "scorecard-ca-002-staff-engineer.docx"
             ]
         },
         {

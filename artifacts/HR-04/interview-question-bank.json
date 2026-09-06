@@ -1,0 +1,329 @@
+{
+  "bank_id": "interview-question-bank-2026-04-03",
+  "as_of": "2026-04-03",
+  "source_artifact": "HR-01",
+  "competency_source": "role-requisition-register.json",
+  "protected_characteristic_probe_list": [
+    { "phrase": "how long ago you finished studying", "characteristic": "age" },
+    { "phrase": "what year you graduated", "characteristic": "age" },
+    { "phrase": "how close you are to retirement", "characteristic": "age" },
+    { "phrase": "who covers for you at home while you travel", "characteristic": "family_status" },
+    { "phrase": "whether you are planning children", "characteristic": "family_status" },
+    { "phrase": "how you arrange childcare", "characteristic": "family_status" }
+  ],
+  "panel_roles": [
+    {
+      "panel_role": "recruiter-screen",
+      "competency_ids": ["CMP-04", "CMP-05"],
+      "question_ids": ["QST-0011", "QST-0012", "QST-0013", "QST-0014", "QST-0016"]
+    },
+    {
+      "panel_role": "hiring-manager",
+      "competency_ids": ["CMP-01", "CMP-03", "CMP-05"],
+      "question_ids": ["QST-0001", "QST-0003", "QST-0009", "QST-0015"]
+    },
+    {
+      "panel_role": "staff-engineer",
+      "competency_ids": ["CMP-01", "CMP-02", "CMP-03"],
+      "question_ids": ["QST-0002", "QST-0004", "QST-0005", "QST-0006", "QST-0007", "QST-0008", "QST-0010"]
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "QST-0001",
+      "competency_id": "CMP-01",
+      "question_text": "Tell me about a problem you were handed with no obvious starting point. How did you break it up, and which assumptions did you write down before you began?",
+      "follow_up": "Which of those assumptions turned out to be wrong, and how did you find out?",
+      "question_type": "behavioral",
+      "panel_role": "hiring-manager"
+    },
+    {
+      "question_id": "QST-0002",
+      "competency_id": "CMP-01",
+      "question_text": "You are asked for an estimate on work nobody here has done before and the answer is wanted today. Walk me through how you would get to a number you would be willing to defend.",
+      "follow_up": "What would you say out loud about the parts you are least sure of?",
+      "question_type": "situational",
+      "panel_role": "staff-engineer"
+    },
+    {
+      "question_id": "QST-0003",
+      "competency_id": "CMP-01",
+      "question_text": "Describe a decision you had to explain to someone who was not in the room. What did you leave out, and what did you refuse to leave out?",
+      "follow_up": "Did they end up disagreeing with you, and what happened then?",
+      "question_type": "behavioral",
+      "panel_role": "hiring-manager"
+    },
+    {
+      "question_id": "QST-0004",
+      "competency_id": "CMP-02",
+      "question_text": "Pick something you built that is still running. Explain how it actually works, including the part that did not work the first time.",
+      "follow_up": "What would you change about it now, and what would that change cost?",
+      "question_type": "technical",
+      "panel_role": "staff-engineer"
+    },
+    {
+      "question_id": "QST-0005",
+      "competency_id": "CMP-02",
+      "question_text": "Before we get into the systems, help me place your background: tell me how long ago you finished studying and what you have taught yourself since.",
+      "follow_up": "Which of those things do you reach for in an ordinary week?",
+      "question_type": "behavioral",
+      "panel_role": "staff-engineer"
+    },
+    {
+      "question_id": "QST-0006",
+      "competency_id": "CMP-02",
+      "question_text": "Describe a failure you debugged where the first three explanations were all wrong. How did you keep narrowing it down?",
+      "follow_up": "What did you leave behind so the next person finds it faster?",
+      "question_type": "behavioral",
+      "panel_role": "staff-engineer"
+    },
+    {
+      "question_id": "QST-0007",
+      "competency_id": "CMP-02",
+      "question_text": "Tell me about a technology you decided to stop using. What did it do well, and what finally made it not worth keeping?",
+      "follow_up": "How did you move off it without freezing everything else for a quarter?",
+      "question_type": "technical",
+      "panel_role": "staff-engineer"
+    },
+    {
+      "question_id": "QST-0008",
+      "competency_id": "CMP-03",
+      "question_text": "Take a design where you chose between two options. Name the constraint each option was paying for, and say what would have had to change for the other one to win.",
+      "follow_up": "Has that constraint moved since, and did anyone revisit the choice?",
+      "question_type": "technical",
+      "panel_role": "staff-engineer"
+    },
+    {
+      "question_id": "QST-0009",
+      "competency_id": "CMP-03",
+      "question_text": "When you were last studying an unfamiliar system before changing it, what did you read first and what did you deliberately skip?",
+      "follow_up": "What did skipping it cost you later?",
+      "question_type": "situational",
+      "panel_role": "hiring-manager"
+    },
+    {
+      "question_id": "QST-0010",
+      "competency_id": "CMP-03",
+      "question_text": "Describe a design of yours that did not hold up. What did you get wrong about how the work would grow?",
+      "follow_up": "What do you check now before you commit to a shape?",
+      "question_type": "technical",
+      "panel_role": "staff-engineer"
+    },
+    {
+      "question_id": "QST-0011",
+      "competency_id": "CMP-04",
+      "question_text": "Tell me about something you wrote that someone outside your team had to act on. How did you know whether they could?",
+      "follow_up": "What did you change in the next one you wrote?",
+      "question_type": "behavioral",
+      "panel_role": "recruiter-screen"
+    },
+    {
+      "question_id": "QST-0012",
+      "competency_id": "CMP-04",
+      "question_text": "You need to announce a change that breaks work for three other teams. What does that note say, and in what order does it say it?",
+      "follow_up": "How would you check who had actually read it?",
+      "question_type": "situational",
+      "panel_role": "recruiter-screen"
+    },
+    {
+      "question_id": "QST-0013",
+      "competency_id": "CMP-04",
+      "question_text": "Describe a time your writing was misread. What was ambiguous, and did you fix the one document or the template behind it?",
+      "follow_up": "Who read the rewrite before it went out?",
+      "question_type": "behavioral",
+      "panel_role": "recruiter-screen"
+    },
+    {
+      "question_id": "QST-0014",
+      "competency_id": "CMP-05",
+      "question_text": "Tell me about moving work forward with people who did not report to you and held different priorities. What did you try before escalating?",
+      "follow_up": "What did you learn about what those people were measured on?",
+      "question_type": "behavioral",
+      "panel_role": "recruiter-screen"
+    },
+    {
+      "question_id": "QST-0015",
+      "competency_id": "CMP-05",
+      "question_text": "A team you depend on will not commit to a date, and you cannot travel to them or sit in their planning sessions. How do you get the dependency moving?",
+      "follow_up": "When would you decide to stop waiting, and who would you tell?",
+      "question_type": "situational",
+      "panel_role": "hiring-manager"
+    },
+    {
+      "question_id": "QST-0016",
+      "competency_id": "CMP-05",
+      "question_text": "Describe a disagreement with another team that you lost. How did you behave in the month afterwards?",
+      "follow_up": "Did you revisit it later, and on what basis?",
+      "question_type": "behavioral",
+      "panel_role": "recruiter-screen"
+    },
+    {
+      "question_id": "QST-0017",
+      "competency_id": "CMP-06",
+      "question_text": "Tell me about a time you changed a piece of work because of something a customer said. What exactly did they say?",
+      "follow_up": "How did you check that they spoke for more than themselves?",
+      "question_type": "behavioral",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0018",
+      "competency_id": "CMP-06",
+      "question_text": "You are building for people whose circumstances are unlike yours: carers, people with very little time, people supporting children of their own. How do you find out what they actually need?",
+      "follow_up": "How would you know if you had got it wrong?",
+      "question_type": "situational",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0019",
+      "competency_id": "CMP-06",
+      "question_text": "Describe the last time you watched somebody use something you built. What surprised you?",
+      "follow_up": "What did you do about it that week?",
+      "question_type": "behavioral",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0020",
+      "competency_id": "CMP-07",
+      "question_text": "Tell me about something you carried past the interesting part, to the point where someone else could rely on it unattended.",
+      "follow_up": "What was the last unglamorous thing you had to do to get it there?",
+      "question_type": "behavioral",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0021",
+      "competency_id": "CMP-07",
+      "question_text": "Describe something you took from a prototype to a service other people depend on. How did you decide it had graduated out of your own care and into the team's?",
+      "follow_up": "What did you hand over with it?",
+      "question_type": "situational",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0022",
+      "competency_id": "CMP-07",
+      "question_text": "Tell me about a commitment you missed. Who found out first, and how did they find out?",
+      "follow_up": "What changed in the way you commit now?",
+      "question_type": "behavioral",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0023",
+      "competency_id": "CMP-08",
+      "question_text": "Bring me a table or a chart you relied on. What did it not say, and how did you state that limit to the people reading it?",
+      "follow_up": "Did they read it the same way you did?",
+      "question_type": "technical",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0024",
+      "competency_id": "CMP-08",
+      "question_text": "A number you publish every week moves sharply and nobody changed anything. What do you check, and in what order?",
+      "follow_up": "At what point do you tell the readers rather than keep looking?",
+      "question_type": "situational",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0025",
+      "competency_id": "CMP-08",
+      "question_text": "Describe a time you were asked for a measure that could not honestly be produced. What did you give instead?",
+      "follow_up": "How did that land with the person who asked?",
+      "question_type": "behavioral",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0026",
+      "competency_id": "CMP-09",
+      "question_text": "Tell me about feedback that was hard to give. What did you say about the behavior and about its effect?",
+      "follow_up": "What did you do differently the following week?",
+      "question_type": "behavioral",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0027",
+      "competency_id": "CMP-09",
+      "question_text": "Describe feedback you took badly at the time. What did you do with it once you had cooled off?",
+      "follow_up": "Would the person who gave it say you took it well in the end?",
+      "question_type": "behavioral",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0028",
+      "competency_id": "CMP-09",
+      "question_text": "Somebody you mentor keeps solving the wrong problem well. How do you handle the next session with them?",
+      "follow_up": "How would you know it had worked?",
+      "question_type": "situational",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0029",
+      "competency_id": "CMP-10",
+      "question_text": "Tell me about a quarter with more demand than capacity. What did you say would not be done, and who did you say it to?",
+      "follow_up": "How did you revisit that once the constraint moved?",
+      "question_type": "behavioral",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0030",
+      "competency_id": "CMP-10",
+      "question_text": "Two teams need the same week of your time and both have a reason. What do you do before you choose?",
+      "follow_up": "What do you write down once you have chosen?",
+      "question_type": "situational",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0031",
+      "competency_id": "CMP-10",
+      "question_text": "Describe something you cut that you wanted to keep. What made the cut defensible six months later?",
+      "follow_up": "Did anybody ask for it back?",
+      "question_type": "behavioral",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0032",
+      "competency_id": "CMP-11",
+      "question_text": "Tell me about a piece of work you connected to an account, a renewal or a pipeline. What would have made that connection false?",
+      "follow_up": "Did anybody test it, or was it taken on trust?",
+      "question_type": "behavioral",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0033",
+      "competency_id": "CMP-11",
+      "question_text": "You are asked to build something that only one customer will ever use. How do you decide, and what do you ask for first?",
+      "follow_up": "What would you need to see to change your mind?",
+      "question_type": "situational",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0034",
+      "competency_id": "CMP-11",
+      "question_text": "Describe a time the commercial argument for your own work was weaker than you had assumed. What did you do once you knew?",
+      "follow_up": "Who did you tell first, and why that person?",
+      "question_type": "behavioral",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0035",
+      "competency_id": "CMP-12",
+      "question_text": "Tell me about a process that survived your absence. What made it survive?",
+      "follow_up": "What broke the first time you were out of reach?",
+      "question_type": "behavioral",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0036",
+      "competency_id": "CMP-12",
+      "question_text": "You inherit a process with no records and no handover. What do you build first?",
+      "follow_up": "How do you know when it is enough?",
+      "question_type": "situational",
+      "panel_role": ""
+    },
+    {
+      "question_id": "QST-0037",
+      "competency_id": "CMP-12",
+      "question_text": "Describe the checks you put around a piece of work so that a stranger could run it. What did you deliberately leave manual?",
+      "follow_up": "What did that decision cost you?",
+      "question_type": "technical",
+      "panel_role": ""
+    }
+  ]
+}

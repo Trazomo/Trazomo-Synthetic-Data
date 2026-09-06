@@ -50,8 +50,10 @@ than splitting it across two documents that already disagree.
 | pe-101 to pe-199 | co-002 Atticus Dundee Inc. named cast |
 | pe-201 to pe-249 | Named officers and contacts at ecosystem entities (co-101 to co-139) |
 | pe-251 to pe-299 | Non-party individuals: litigation parties, witnesses, experts, mediators, introducers, contractors |
+| ca-001 to ca-049 | Curated named candidates and applicants to co-002 roles. Two seats are proposed at people-hr cluster 2 and held, for the reason recorded under the table. |
 | EMP-NNNN | Generator-produced co-002 employee population, `datasets/core/people-roster/people-roster.csv` (CORE-04). Not curated here. Two rows are promoted into this file because they hold contested seats. |
 | ct-co-NNN-NN | Generator-produced CRM contacts, `datasets/core/crm-seed-dataset/contacts.csv` (CORE-03). Not curated here. |
+| ca-100 and up | Bulk co-002 candidate population, `artifacts/HR-02/` and later applicant fixtures. Not curated here. |
 
 `pe-` rows are invisible to `datagen/src/canon.js#loadCanonCompanies`, which only
 matches a first cell of `co-\d+`. Adding this file changes no generator behaviour.
@@ -59,6 +61,18 @@ matches a first cell of `co-\d+`. Adding this file changes no generator behaviou
 Individuals who exist only inside one artifact and carry no cross-track weight still
 get an ID here when they are named in frozen text, because a learner can see them and
 a future artifact must not accidentally reuse the name.
+
+**The two `ca-001` to `ca-049` seats are proposed and not yet written, deliberately.**
+People-hr cluster 2 confirms the `ca-` block boundaries above and proposes seating the
+two candidates who cross three artifact sets. Writing their names into this file would
+break two frozen things this cluster is not allowed to change: the cluster 1 drafted
+screen asserts that no part of a candidate name appears anywhere in this file, and the
+HR-03 spec entry states that the two candidate names are the only names in that corpus
+no roster row and no canon person carries. Both were true when they were written and
+both stop being true the moment the seats land. The two rows and the one-line screen
+amendment therefore belong to the same change, and that change is the integrator's to
+make, not a path lane's. The proposed rows ride in the cluster 2 pull request body.
+`ca-050` to `ca-099` stays reserved and names nothing, so it gets no row here.
 
 ## co-001 Atticus Dundee LLP (pe-001 to pe-099)
 

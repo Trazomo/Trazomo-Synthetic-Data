@@ -31,6 +31,22 @@
 # genuinely unconfirmable. The two OPS-03 entries were added 2026-09-04 on the
 # same footing: `validate OPS-03` was run against the authored brief first, and
 # both features WARNed before either entry existed.
+#
+# The eleven people-hr cluster 2 entries were added 2026-09-06 on the same
+# footing and after the same discipline: `validate HR-02 HR-04` was run against
+# the authored bytes first, twenty-one features WARNed, ten of those were
+# vocabulary drift and were fixed by rewording the spec until the heuristic
+# confirmed them from the documents' own words, and only the eleven below
+# survived. They fall in three classes the file already holds. Five are
+# JSON-resident: HR-04 ships two JSON files and the drafted heuristic reads only
+# markdown, which is the HR-01 stale-owner case. Four are plants or absences a
+# document cannot announce about itself without handing over the exercise, the
+# LGL-02 case. Two would mean the corpus had failed if they ever matched, the
+# FIN-14 and HR-01 exclusion-list case. Neither cluster 2 artifact is
+# deterministic, so `validate` has no regeneration diff to fall back on; every
+# one of these rules is instead recomputed from the committed bytes in
+# tests/drafted/hr-c2-drafted-screen.test.js, and each reason below names the
+# arm that does it.
 
 version: 1
 
@@ -297,3 +313,183 @@ allowed:
       and log_deliverables lists this spec ships, pinned at 1 against a stated
       population of 2 and asserted to sit on a different sentence from the
       frequency plant. Expected to be permanent.
+
+  - artifact: HR-02
+    feature: "every resume prints its own Candidate ID beside the Requisition ID and a Contact address: ca-001 and ca-002 for the two already interviewed, byte-equal to the frozen interview corpus, and ca-101 to ca-116 for the sixteen still pending, with ca-100 left unissued. No candidate id is an employee id, no candidate name is a roster name or a canon name, no candidate surname is one the roster draws on, and every Contact address sits at one reserved example domain that is not the company's own"
+    reason: >-
+      Structural, the HR-01 stale-owner class. The confirmable half of this
+      line, the candidate id ranges and the metadata labels beside them, is in the
+      resumes and matches. The half that cannot match is the collision rule set, which
+      resolves against datasets/core/people-roster/people-roster.csv and
+      canon/people.md, and the drafted heuristic reads neither: it reads only the
+      markdown under artifacts/HR-02/. "employee id", "roster name", "canon name",
+      "surname" and "reserved example domain" are all statements about other files,
+      and no wording of them can ever appear in a candidate's own resume. The rules
+      hold and are recomputed rather than asserted in
+      tests/drafted/hr-c2-drafted-screen.test.js at HR-C2-T2, which generates CORE-04
+      in process, parses the seated rows out of canon/people.md, and joins all
+      eighteen candidate names and contact domains against both. Expected to be
+      permanent.
+
+  - artifact: HR-02
+    feature: "1 graduation year: exactly one four-digit year token, a nineteen hundreds or two thousands year, exists across all eighteen resume bodies, where a body is the text from the first section heading onward and the metadata block is therefore excluded, and that token sits inside its own resume's education section. Dropping the metadata exclusion returns 18 counted as resumes carrying a year token, never as tokens, because every metadata block carries two year-bearing values, an ISO application date and the requisition id, and a token count would land higher than the resume count. A brief that states the count states the exclusion and the unit with it"
+    reason: >-
+      Unconfirmable by construction, the LGL-02 class. Finding the year and
+      recomputing the score without it is the whole of the bias eval this resume
+      exists for, so a resume carrying the words "graduation year", "four-digit
+      token", "metadata block" or "exclusion" would hand module 15 its answer and
+      there would be nothing left to find. The year itself is present and the rule is
+      mechanical: tests/drafted/hr-c2-drafted-screen.test.js at HR-C2-T3 pins the count at 1
+      across the eighteen resume bodies, asserts the token sits inside its own
+      resume's education section, and pins the qualifier-free count at 18 by dropping
+      the metadata exclusion. Which resume it is stays in the private label set keyed
+      to the data-pack tag. No rewording can make this checkable from the prose, so
+      this entry is expected to be permanent.
+
+  - artifact: HR-02
+    feature: "age_route_lexemes is the closed list the corpus is swept against and returns zero hits on, matched on word boundaries: date of birth, DOB, born, birth year, birthday, years old, age, aged. Total stated experience on every resume sits inside a 4 to 12 year band, so career length gives a floor rather than an age, and the graduation year is the only inference route the corpus leaves open. That no narrative route exists either, no decade, no cohort, no period of national service and no role title that dates its holder, is certified by the freeze review, because a word list cannot see it"
+    reason: >-
+      Confirming this feature would mean the corpus had failed. It is the
+      FIN-14 and HR-01 exclusion-list case exactly: a closed list is the rule set a
+      reviewer sweeps with, not a description of the documents, and by construction
+      all eight lexemes must appear nowhere in the eighteen resumes. A heuristic that
+      matched "date of birth", "years old" or "birthday" would be reporting that the
+      corpus leaks the very inference route it was built to close. The rest of the
+      line is an absence too: no decade, no cohort, no period of national service, no
+      role title that dates its holder. The list is loaded from this spec entry and
+      applied to every resume in tests/drafted/hr-c2-drafted-screen.test.js at
+      HR-C2-T3, which also parses every duration and pins the summed experience of all
+      eighteen inside the stated band. The narrative leg is certified by the freeze
+      review, and the line says so on its face. Expected to be permanent.
+
+  - artifact: HR-02
+    feature: "1 missing required field: exactly one resume lacks one of the six fields the screening rubric names in required_resume_fields, and the field it lacks is one a weighted criterion draws its evidence from, so the resume scores incomplete rather than merely short. Six resumes are missing a section the corpus otherwise carries, because five omit the optional certifications section, so a rule that counts a missing section returns 6 and only the required-field rule returns 1. The two selections sit on different resumes and both of those resumes carry pending screen"
+    reason: >-
+      A plant and an absence, and unconfirmable on both counts. The whole
+      feature is that one resume is missing a section every other resume carries, and
+      a keyword count cannot see a missing section; a resume that said "missing",
+      "incomplete" or "required field" would have filled the gap with an explanation
+      and the edge eval it exists for would have no Given left. The five certifications
+      omissions that make the distractor six are the same kind of absence. The
+      structure is present and recomputed in tests/drafted/hr-c2-drafted-screen.test.js
+      at HR-C2-T4, which reads required_resume_fields out of the HR-04 spec entry,
+      applies all six field rules to all eighteen resumes, pins the selection at 1
+      against a stated distractor of 6, confirms the missing field feeds a weighted
+      criterion, and asserts that the two HR-02 selections sit on different resumes and
+      both carry the pending status. Expected to be permanent.
+
+  - artifact: HR-02
+    feature: "the two resumes for the already-interviewed candidates are drafted against their own frozen transcripts: no duration, technology or role claim contradicts a claim that candidate makes there, and each summed experience is at least as long as the largest single-technology claim the frozen corpus records for that candidate. Which paraphrase answers to which turn is certified by the freeze review rather than by a test, because a paraphrase is not mechanical"
+    reason: >-
+      Structural, and half of it is review-certified rather than mechanical.
+      The rule is a consistency claim between artifacts/HR-02/ and the frozen
+      artifacts/HR-03/ transcripts, and the drafted heuristic reads only the markdown
+      under the artifact directory it is checking, so "transcripts", "contradicts" and
+      "single-technology claim" are words about another set that no resume would carry.
+      The mechanical leg, that each summed experience covers the largest
+      single-technology claim the frozen corpus records, is recomputed beside the band
+      itself in tests/drafted/hr-c2-drafted-screen.test.js at HR-C2-T3, which reads
+      every frozen HR-03 source for each advanced candidate, the paired feedback files included because a quantified claim's sentence lives in a feedback file, extracts the largest integer any
+      sentence pairs with a technology_vocabulary token, and asserts the candidate's
+      own summed experience clears it. The paraphrase leg is certified by the freeze
+      review, which this line states on its own face rather than leaving to a reader.
+      Expected to be permanent.
+
+  - artifact: HR-04
+    feature: "interview-question-bank.json states bank_id, as_of, source_artifact, competency_source, protected_characteristic_probe_list, panel_roles and questions in that order, at an as-of of 2026-04-03 byte-equal to the frozen register's own. questions is 37 objects running QST-0001 upward in file order, each stating question_id, competency_id, question_text, follow_up, question_type and panel_role in that order, three on every competency of the frozen twelve-entry library and one more on a single competency, so all twelve are covered and all 37 map to a competency the library actually carries. panel_roles is exactly three objects of panel_role, competency_ids and question_ids for recruiter-screen, hiring-manager and staff-engineer, whose competency_ids are byte-equal to the competency sets the frozen interview corpus already publishes: recruiter-screen assesses CMP-04 and CMP-05, hiring-manager assesses CMP-01, CMP-03 and CMP-05, staff-engineer assesses CMP-01, CMP-02 and CMP-03. A question carrying a panel role names one of the three and its own competency sits in that role's set, each entry's question_ids is exactly the set of questions carrying it, and a question on a competency no panel here assesses carries an empty panel role"
+    reason: >-
+      Structural, the HR-01 stale-owner class in its strongest form: the
+      rule resolves entirely inside interview-question-bank.json, and the keyword
+      heuristic reads only the markdown sources under artifacts/HR-04/, which are the
+      six scorecards. bank_id, competency_source, question_text, follow_up,
+      question_type and panel_role are JSON keys, and a scorecard would never print
+      one. No wording of this line can ever match, and rewording it to the scorecards'
+      vocabulary would make it describe the wrong file. The structure is asserted
+      rather than trusted in tests/drafted/hr-c2-drafted-screen.test.js, which pins the
+      top-level key order, the per-question key order, the QST-0001 file order, the
+      thirty-seven count, three questions on each of the twelve library competencies
+      with one competency carrying a fourth, and the three panel-role competency sets
+      byte-equal to the frozen HR-03 transcripts (HR-C2-T6 and HR-C2-T7). Expected to
+      be permanent.
+
+  - artifact: HR-04
+    feature: "protected_characteristic_probe_list is the closed rule set a kit review runs against rather than a hint, the exclusion_phrase_list class of object: six objects of phrase and characteristic across the two classes, three phrases in each, all of them implicit probes rather than blunt ones, and the list shares no phrase with the frozen exclusion list. age: how long ago you finished studying, what year you graduated, how close you are to retirement. family_status: who covers for you at home while you travel, whether you are planning children, how you arrange childcare"
+    reason: >-
+      Two reasons, and either alone would be enough. The list lives in
+      interview-question-bank.json, which the heuristic does not read, and confirming
+      it would mean the set had failed: this is a closed rule set a kit review runs
+      against, exactly as HR-01's exclusion_phrase_list is, and a heuristic that
+      matched "how long ago you finished studying" or "how you arrange childcare"
+      against the shipped bytes would be reporting that the interview kit is saturated
+      with protected-characteristic probes rather than that the rule set was drafted.
+      The list is loaded out of this spec entry and compared phrase for phrase with the
+      shipped bank, and asserted disjoint from the frozen HR-01 exclusion list, in
+      tests/drafted/hr-c2-drafted-screen.test.js at HR-C2-T6. Expected to be
+      permanent.
+
+  - artifact: HR-04
+    feature: "1 protected-characteristic probe: exactly one question whose question_text contains a full phrase from protected_characteristic_probe_list, matched adjacently on word boundaries, and it is the extra question on the one competency carrying four rather than three, so removing it leaves that competency covered by three and an approved replacement restores a count rather than repairing a hole. Its own competency_id resolves in the library exactly like the other thirty-six, so a schema check cannot find it without reading a word of it. Four questions carry a probe phrase's head word, which is that phrase's last word, while carrying no listed phrase at all, so the head-word rule returns 4 once the phrase carrier is excluded and 5 counting it, and only the phrase rule returns 1"
+    reason: >-
+      Unconfirmable by construction, and JSON-resident besides. The
+      exercise is reading the bank and finding the one question that probes a protected
+      characteristic from its text, so a bank that carried the words "probe",
+      "protected characteristic", "head word" or "token-level sweep" would be flagging
+      its own question and module 12's bias eval would have nothing left to do. The
+      question also resolves to a competency exactly like the other thirty-six, so a
+      schema check cannot short-circuit the reading either, which is the point of the
+      line. The rule is mechanical and recomputed rather than asserted:
+      tests/drafted/hr-c2-drafted-screen.test.js at HR-C2-T6 applies the spec's own
+      phrase list to all thirty-seven question texts, pins the phrase count at 1 and
+      the head-word-excluding-the-carrier count at 4, and confirms the selection sits
+      on the competency carrying four questions. Which question it is stays in the
+      private label set keyed to the data-pack tag. Expected to be permanent.
+
+  - artifact: HR-04
+    feature: "screening-rubric.json states rubric_id, as_of, source_artifact, requisition_id, required_resume_fields, scoring_scale, criteria, total_possible_score and shortlist_guidance in that order. required_resume_fields is the closed six-item list a screener checks a resume against before scoring it: candidate_id, full_name, contact_email, summary, experience, education. Experience requires at least two entries each carrying a duration, and education requires at least one entry. criteria is five objects running RUB-01 upward, one to one with the five competencies the interviewed requisition names, at weights the five distinct integers 6, 5, 4, 3 and 2 summing to 20, over a scoring scale of 0 to 4 carrying a label at every point, for a total possible score of 80 that recomputes as the weight sum times the scale maximum. evidence_source is one of summary, experience and education, and exactly one criterion draws on education at a weight strictly between the smallest and the largest weight in the set, which is what makes a resume missing that section score incomplete rather than trivially short or fatally empty. shortlist_guidance says the score ranks and a person decides, that a resume missing a required field is scored incomplete with the field named rather than dropped or zeroed, and that no criterion scores a quantified outcome, because this cluster carries no statistics"
+    reason: >-
+      Structural, the same class as this entry's sibling on the question
+      bank: the rule resolves entirely inside screening-rubric.json and the heuristic
+      reads only the six scorecards. required_resume_fields, scoring_scale,
+      evidence_source, total_possible_score and shortlist_guidance are keys of a file
+      the heuristic never opens, and a scorecard prints a Rating and an Evidence cell
+      and nothing at all about weights or required fields. Every clause is recomputed
+      in tests/drafted/hr-c2-drafted-screen.test.js: the key order, the RUB-01 file
+      order, the one-to-one mapping onto the interviewed requisition's five
+      competencies, the five distinct weights, the total recomputed as the weight sum
+      times the scale maximum, the label at every scale point, and the single education
+      criterion at a weight strictly between the smallest and largest (HR-C2-T8), with
+      the required-field list itself read out of this entry and applied to the HR-02
+      corpus at HR-C2-T4. Expected to be permanent.
+
+  - artifact: HR-04
+    feature: "1 unsubmitted scorecard: exactly one of the six carries Status not_submitted, with every Rating and Evidence cell empty and no Submitted date, while its expected competency rows are still present so the gap can be named rather than merely noticed. Every other scorecard carries submitted, a Submitted date on or after its own Interview date, and a rating inside the 0 to 4 scale on every expected row. Four scorecards carry an empty cell somewhere, counting an empty additional observations section as an empty cell, because three submitted scorecards leave that section empty, so a rule that counts empty cells returns 4 and only the status rule returns 1"
+    reason: >-
+      A plant and an absence. The feature is that one expected scorecard was
+      never filled in, and a keyword count cannot see cells that are empty; a scorecard
+      that said "unsubmitted", "gap" or "outstanding" on its own face would be naming
+      the gap the debrief packet eval asks the learner to name, and the eval would have
+      no Given left. The three empty observation sections that make the distractor four
+      are the same kind of absence. The structure is present and recomputed in
+      tests/drafted/hr-c2-drafted-screen.test.js at HR-C2-T9, which reads the status
+      vocabulary out of this spec entry, pins the outstanding count at 1 and the
+      empty-cell count at 4, confirms the outstanding card still carries its expected
+      competency rows, and confirms every other card carries a submitted date on or
+      after its own interview date and a rating on every expected row. Which scorecard
+      it is stays in the private label set keyed to the data-pack tag. Expected to be
+      permanent.
+
+  - artifact: HR-04
+    feature: "no scorecard carries a recommendation, a verdict or a total, because the debrief decision belongs to whoever assembles the packet rather than to the panel form. What a scorecard carries instead is a Rating against the competency and the Evidence beside it, which names what the candidate described, asked, escalated, wrote or would not claim in that interview, and where the conversation stopped short of settling something. No money, no percentage, no work location and no date of birth appears anywhere in the set"
+    reason: >-
+      Confirming this feature would mean the set had failed. Every word the
+      heuristic wants is a word the scorecards must not contain: "recommendation",
+      "verdict" and "total" because the debrief decision belongs to whoever assembles
+      the packet rather than to the panel form, and "money", "percentage", "work
+      location" and "date of birth" because this cluster carries none of them. A match
+      would be reporting that a panel form had decided the exercise. The absences are
+      asserted directly rather than trusted: tests/drafted/hr-c2-drafted-screen.test.js
+      sweeps every scorecard for verdict vocabulary at HR-C2-T10, and runs the money
+      shape, the percentage pattern and the capitalized-name screen over every C2
+      source at HR-C2-T12, which is also what makes an unstated work location
+      mechanical, since a place name would be an unaccounted proper noun. Expected to
+      be permanent.

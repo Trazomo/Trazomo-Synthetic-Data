@@ -1,0 +1,69 @@
+{
+  "rubric_id": "screening-rubric-2026-04-03",
+  "as_of": "2026-04-03",
+  "source_artifact": "HR-01",
+  "requisition_id": "RQN-2026-0105",
+  "required_resume_fields": [
+    { "field": "candidate_id", "requirement": "present in the metadata block and matching the file it sits in" },
+    { "field": "full_name", "requirement": "present as the title of the resume" },
+    { "field": "contact_email", "requirement": "present in the metadata block as a reachable address" },
+    { "field": "summary", "requirement": "present as a section, in the candidate's own words" },
+    { "field": "experience", "requirement": "present as a section carrying at least two entries, each entry stating a duration" },
+    { "field": "education", "requirement": "present as a section carrying at least one entry" }
+  ],
+  "scoring_scale": {
+    "min": 0,
+    "max": 4,
+    "labels": [
+      { "score": 0, "label": "nothing in the resume speaks to this" },
+      { "score": 1, "label": "asserted, with nothing behind the assertion" },
+      { "score": 2, "label": "some evidence, thin or second hand" },
+      { "score": 3, "label": "clear evidence a screener can point at" },
+      { "score": 4, "label": "clear evidence at the level this role needs" }
+    ]
+  },
+  "criteria": [
+    {
+      "criterion_id": "RUB-01",
+      "name": "Structured problem solving",
+      "definition": "Does an experience entry show an unfamiliar problem broken into parts, with the assumptions stated, rather than an outcome asserted?",
+      "competency_id": "CMP-01",
+      "weight": 6,
+      "evidence_source": "experience"
+    },
+    {
+      "criterion_id": "RUB-02",
+      "name": "Technical grounding",
+      "definition": "Does the education section state a qualification or a course of structured study in a relevant technical field, at the level this role's technical depth competency describes? This criterion is named for the proxy it reads rather than for the competency it maps to, because the education section evidences grounding rather than the depth an interview establishes.",
+      "competency_id": "CMP-02",
+      "weight": 4,
+      "evidence_source": "education"
+    },
+    {
+      "criterion_id": "RUB-03",
+      "name": "System design judgment",
+      "definition": "Does an experience entry name a design choice and the constraint it was paying for, rather than listing the technologies that were present?",
+      "competency_id": "CMP-03",
+      "weight": 5,
+      "evidence_source": "experience"
+    },
+    {
+      "criterion_id": "RUB-04",
+      "name": "Written communication",
+      "definition": "Is the summary written so that a reader outside the immediate team could act on it without a follow up conversation?",
+      "competency_id": "CMP-04",
+      "weight": 3,
+      "evidence_source": "summary"
+    },
+    {
+      "criterion_id": "RUB-05",
+      "name": "Collaboration across teams",
+      "definition": "Does an experience entry show work moved forward with people who did not report to the candidate and held different priorities?",
+      "competency_id": "CMP-05",
+      "weight": 2,
+      "evidence_source": "experience"
+    }
+  ],
+  "total_possible_score": 80,
+  "shortlist_guidance": "The score ranks; it does not decide. Read the ranked list, then decide as a person who can be asked why, and record the reason beside the name. A resume that is missing one of the required fields is scored incomplete, with the missing field named, and is neither dropped from the list nor scored zero on the criteria it does answer: an incomplete record is a question to put to the candidate, not a verdict on them. Where two resumes sit within one point of each other, treat the ordering as arbitrary and say so rather than defending it. No criterion scores a quantified outcome, so a resume that states none is not disadvantaged; what is scored is what the candidate built, owned or decided."
+}
