@@ -24,6 +24,8 @@ A slot is written `{{contact.first_name}}`: two braces, the name of the export t
 
 Every slot names exactly one column of one export, spelled the way that export's header row spells it. A slot that names a column no export carries is not a slot at all, and the draft stops on it rather than guessing at a value or leaving the braces in the text for the recipient to find.
 
+The same rule covers two situations that can look like a filled slot but are not. Where the recipient is a person the export carries no row for at all, such as a signal about a new hire who has no customer relationship management record yet, every slot naming that person stays unfilled. Where the export does carry the row but the named column is blank for it, the slot stays unfilled the same way. Either way the draft stops there and names the missing input for the person reviewing it; no slot is ever filled from a guess.
+
 ## Claims
 
 Every certification claim a template asserts is read by membership in the pinned recognized certifications vocabulary, and it resolves to a certification row of the maintained claims register. That is the whole rule, and it is the same rule the pre-send policy check runs.
@@ -37,6 +39,8 @@ No template states a figure from the company's accounts, names a customer, or na
 The recipient email verification sidecar, `recipient-email-verification.yaml`, records for every target-account contact which of the two statuses that contact's address carries: verified, meaning the address was confirmed on the last enrichment run, or inferred, meaning it was constructed from the account's domain pattern and never confirmed.
 
 Where the status is inferred, the drafter abstains. It records the missing input and stops, rather than writing to an address nobody has confirmed. Consent is a separate question, asked and answered before this one, and a permitted consent state does not make an unverified address usable.
+
+The re_engagement category carries a gate of its own, upstream of both of these: a re-engagement draft is only assembled after the suppression check on the account clears, and an account-level do-not-contact state ends the play before any draft exists.
 
 ## The templates
 
@@ -109,9 +113,9 @@ Subject: What has changed since we last spoke
 ```
 Hello {{contact.first_name}},
 
-We spoke last year about {{opportunity.opportunity_name}}, and {{account.name}} went a different way, which was a reasonable call on what the platform did at the time.
+We spoke last year about a rollout at {{account.name}}, and the decision went a different way, which was a reasonable call on what the platform did at the time.
 
-Two of the gaps your team named have closed since. Administrative actions are now written to a tenant audit log retained for twelve months, and single sign-on through SAML 2.0 with user provisioning through SCIM is available on every paid tier rather than only at the top of the range.
+Administrative actions are written to a tenant audit log retained for twelve months, and single sign-on through SAML 2.0 with user provisioning through SCIM is available on every paid tier.
 
 If either one changes the arithmetic, I am glad to walk your team through it. If not, this is the last note you will get from me on it.
 
@@ -131,7 +135,7 @@ Hello {{contact.first_name}},
 
 Somebody at {{account.name}} spent real time on our documentation for permissions and audit logging this week. That may have been you and it may have been a colleague, so I will keep this to what is useful either way.
 
-Permissions inside the product are role based and your administrators hold them, not ours, and administrative actions are written to a tenant audit log retained for twelve months. On our own side, the corporate information technology environment holds a current Cyber Essentials certification, renewed each year, which covers the laptops and identity systems our support engineers work from.
+Permissions inside the product are role based and your administrators hold them, not ours, and administrative actions are written to a tenant audit log retained for twelve months. On our own side, the corporate information technology environment holds a current Cyber Essentials certification, renewed each year.
 
 If the harder version of that question is the one you actually have, reply with a time that works and I will bring an engineer who can answer it.
 
@@ -173,7 +177,7 @@ I look after {{account.industry}} accounts here and I have not written to you be
 
 Atticus Dundee Inc. builds a workflow and collaboration platform that teams use to run shared work: what is in flight, who holds each piece, and what is waiting on somebody else. Teams of your size usually come to us when that picture has spread itself across four tools and nobody trusts any of them enough to run a Monday meeting from it.
 
-If that is familiar, reply with a time and I will show you the version of it closest to a {{account.segment}} team. If it is not, I will not write again.
+If that is familiar, reply with a time and I will show you the version of it closest to a team in the {{account.segment}} band. If it is not, I will not write again.
 
 Best regards,
 {{account.owner_name}}

@@ -121,10 +121,10 @@ function templates() {
     const section = [];
     for (let j = i + 1; j < lines.length && !lines[j].startsWith("#"); j += 1) section.push(lines[j]);
 
-    const categoryLine = section.find((l) => /^category:/i.test(l.trim()));
-    const subjectLine = section.find((l) => /^subject:/i.test(l.trim()));
-    assert.ok(categoryLine, `${m[1]} carries no one-line category field`);
-    assert.ok(subjectLine, `${m[1]} carries no subject: line`);
+    const categoryIdx = section.findIndex((l) => /^category:/i.test(l.trim()));
+    const subjectIdx = section.findIndex((l) => /^subject:/i.test(l.trim()));
+    assert.ok(categoryIdx >= 0, `${m[1]} carries no one-line category field`);
+    assert.ok(subjectIdx >= 0, `${m[1]} carries no subject: line`);
 
     const fenceAt = section.map((l, k) => ({ l: l.trim(), k })).filter(({ l }) => l === "```").map(({ k }) => k);
     assert.equal(fenceAt.length, 2, `${m[1]} carries ${fenceAt.length} code-fence lines, expected exactly 2 around one body`);
@@ -132,16 +132,33 @@ function templates() {
     out.push({
       id: m[1],
       line: i + 1,
-      category: categoryLine.trim().replace(/^category:/i, "").trim(),
-      subject: subjectLine.trim().replace(/^subject:/i, "").trim(),
+      category: section[categoryIdx].trim().replace(/^category:/i, "").trim(),
+      subject: section[subjectIdx].trim().replace(/^subject:/i, "").trim(),
       body: section.slice(fenceAt[0] + 1, fenceAt[1]).join("\n").trim(),
+      // The whole section, heading excluded, plus the indices that mark which
+      // of its lines are accounted for. SF4: the deny list and the
+      // unknown-line trap both need to see every line of the section, not
+      // just the three fields the happy-path parse extracts.
+      raw: section,
+      categoryIdx,
+      subjectIdx,
+      fenceAt,
     });
   }
   return out;
 }
 
-/** Subject and body together: the two surfaces every REV-C3-T6 clause screens. */
+/** Subject and body together: what the slot parse and the claim extraction screen. */
 const surface = (t) => `${t.subject}\n${t.body}`;
+
+/**
+ * The whole section text, heading excluded: what the deny list screens (SF4).
+ * A line outside the category, the subject and the fenced body is invisible
+ * to `surface()`, so a mutation that adds one (an "Automation:" field, an
+ * automation caption after the fence) passed the deny list undetected until
+ * this was added.
+ */
+const wholeSection = (t) => t.raw.join("\n");
 
 // ------------------------------------------------- the certification rule
 
@@ -361,16 +378,34 @@ test("REV-C3-T6: every variable slot parses as {{file.column}} and resolves to a
   }
 });
 
-test("REV-C3-T6: no subject or body carries a send verb or an automation hook", () => {
+test("REV-C3-T6: no line anywhere in a template section carries a send verb or an automation hook", () => {
   for (const t of templates()) {
-    const text = surface(t);
+    const text = wholeSection(t);
     for (const term of DENY_LIST) {
       const hit = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i").exec(text);
       assert.equal(
         hit, null,
-        `${t.id} carries "${hit?.[0]}" in its subject or body; the library is a drafting corpus and carries no send path`
+        `${t.id} carries "${hit?.[0]}" somewhere in its section; the library is a drafting corpus and carries no send path`
       );
     }
+  }
+});
+
+test("REV-C3-T6: a template section carries no line beyond its category line, subject line and fenced body", () => {
+  for (const t of templates()) {
+    const [fenceStart, fenceEnd] = t.fenceAt;
+    t.raw.forEach((l, k) => {
+      const allowed =
+        k === t.categoryIdx ||
+        k === t.subjectIdx ||
+        (k >= fenceStart && k <= fenceEnd) ||
+        l.trim() === "";
+      assert.ok(
+        allowed,
+        `${t.id} carries a line outside its category line, subject line and fenced body: ${JSON.stringify(l)}`
+        + " (an unknown field in a template section is unshippable)"
+      );
+    });
   }
 });
 
@@ -519,6 +554,17 @@ test("REV-C3: the library carries a last-reviewed date inside March 2026", () =>
   );
 });
 
+test("REV-C3: the sidecar carries a last-reviewed date inside March 2026", () => {
+  const line = document(SIDECAR).match(/^last_reviewed:\s*(.+)$/m);
+  assert.ok(line, "the sidecar carries no last_reviewed: line");
+  const found = datesIn(line[1]);
+  assert.equal(found.length, 1, `the sidecar's last_reviewed line carries ${found.length} dates, expected exactly 1`);
+  assert.ok(
+    found[0].iso.startsWith("2026-03-"),
+    `the sidecar was last reviewed ${found[0].written}, outside March 2026`
+  );
+});
+
 // ------------------------------------------------------------ house screens
 
 test("REV-C3: the library states no financial figure and names no customer or competitor", () => {
@@ -528,6 +574,7 @@ test("REV-C3: the library states no financial figure and names no customer or co
   for (const name of DOCUMENTS) {
     const text = document(name);
     assert.ok(!text.includes("—"), `${name} carries an em dash (U+2014)`);
+    assert.ok(!text.includes("–"), `${name} carries an en dash (U+2013)`);
     for (const company of canon.values()) {
       if (company.name === PROTAGONIST) continue;
       assert.ok(!text.includes(company.name), `${name} names canon company "${company.name}"`);

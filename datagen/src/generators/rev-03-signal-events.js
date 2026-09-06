@@ -64,12 +64,17 @@
 //                              competitor (co-121); every feed entry carries an
 //                              explicit decimal weight; no aggregate priority
 //                              field exists anywhere; the summed feed weight
-//                              over target-status accounts tops out at co-146,
-//                              the first target-status account in accounts.csv
-//                              order carrying no other cluster-3 plant, and the
-//                              lead is structural (six entries in the higher
-//                              weight band against at most two anywhere else),
-//                              so the argmax is unique by construction.
+//                              over target-status accounts has a unique
+//                              maximum. resolveDesignTable() reserves one free
+//                              target account (narratively separate from the
+//                              other cluster-3 plants) as the priority
+//                              account and gives it PRIORITY_FEED_ENTRIES
+//                              entries per feed type drawn from the higher
+//                              weight band, while every other account draws
+//                              only from the base band; the lead is therefore
+//                              a count and weight-band gap, not a coin flip,
+//                              so the argmax is unique by construction
+//                              whichever account the design table reserves.
 // -----------------------------------------------------------------------------
 import { ANCHOR_DATE, addDays, diffDays } from "../dates.js";
 import { companyName } from "../canon.js";
@@ -165,9 +170,9 @@ const NOISE_HIRE_PATTERNS = [
 const SOURCE_POOLS = {
   hire: ["Vesperlane Signals", "Ninebark Signal Feed"],
   employer_change: ["Vesperlane Signals", "Ninebark Signal Feed"],
-  engagement: ["Quillhaven Intent", "Marrowgate Data"],
+  engagement: ["Quillhaven Intent", "Quenwick Data"],
   visitor: ["Cindermoor Web Signals", "Quillhaven Intent"],
-  competitor_mention: ["Marrowgate Data", "Bracklewood Analytics"],
+  competitor_mention: ["Quenwick Data", "Bracklewood Analytics"],
   hiring_velocity: ["Bracklewood Analytics", "Vesperlane Signals"],
 };
 

@@ -369,6 +369,31 @@ test("REV-C3-T4: the re-engagement event postdates the Closed Lost transition an
   assert.equal(notOptedOut.length, 1, "the closed-lost account no longer holds exactly one non-opted-out contact");
   assert.equal(plant.contact_id, notOptedOut[0].contact_id, "the re-engagement event sits on the wrong contact");
 
+  // SF6: the designed suppression interplay (0.4, B4), asserted directly
+  // against the frozen REV-01 master rather than through CORE-03's coarser
+  // consent_status column, which only coincidentally agrees at these bytes.
+  const master = csvTable(readFileSync(
+    join(REPO_ROOT, "datasets", "revenue", "consent-suppression-master", "consent-suppression-master.csv"), "utf8"
+  )).rows;
+  const accountRows = master.filter((r) => r.account_id === plant.account_id);
+  assert.ok(accountRows.length > 0, `the closed-lost account ${plant.account_id} carries no REV-01 master rows`);
+  for (const row of accountRows) {
+    assert.equal(
+      row.do_not_contact, "true",
+      `REV-01 row ${row.contact_id} at the closed-lost account carries do_not_contact ${row.do_not_contact}, not true`
+    );
+  }
+  const plantRow = master.find((r) => r.contact_id === plant.contact_id);
+  assert.ok(plantRow, `the re-engagement event's contact ${plant.contact_id} resolves to no REV-01 master row`);
+  assert.notEqual(
+    plantRow.consent_status, "optout_honored",
+    `the re-engagement event's contact carries REV-01 consent_status ${plantRow.consent_status}, an honored opt-out`
+  );
+  assert.ok(
+    plant.observed_at > plantRow.dnc_effective_date,
+    `the re-engagement event was observed on ${plant.observed_at}, not after the REV-01 dnc_effective_date ${plantRow.dnc_effective_date}`
+  );
+
   for (const event of engagements) {
     assert.ok(ENGAGEMENT_CHANNELS.includes(event.channel), `${event.event_id} carries channel ${event.channel}`);
     assert.equal(typeof event.detail, "string");
