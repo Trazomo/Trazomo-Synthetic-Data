@@ -760,6 +760,21 @@
             }
         },
         {
+            "id": "REV-03",
+            "name": "signal-event-logs",
+            "track": "revenue",
+            "type": "log",
+            "format": "jsonl",
+            "generation": "deterministic",
+            "path": "datasets/revenue/signal-event-logs",
+            "files": [
+                "signal-event-logs.jsonl"
+            ],
+            "row_counts": {
+                "signal-event-logs.jsonl": 92
+            }
+        },
+        {
             "id": "REV-07",
             "name": "crm-object-model-seed",
             "track": "revenue",
@@ -1190,6 +1205,21 @@
             "build_files": [
                 "one-to-one-log.docx",
                 "performance-review-draft.docx"
+            ]
+        },
+        {
+            "id": "REV-04",
+            "name": "message-template-library",
+            "type": "template",
+            "format": "markdown + yaml",
+            "generation": "drafted-frozen",
+            "path": "artifacts/REV-04",
+            "source_files": [
+                "message-template-library.md",
+                "recipient-email-verification.yaml"
+            ],
+            "build_files": [
+                "message-template-library.docx"
             ]
         },
         {
