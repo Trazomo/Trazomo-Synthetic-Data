@@ -27,7 +27,9 @@ first as the one item that extends the written plant list.
   institution by sector and scale rather than by name, so the protagonist stays
   the only company the corpus names. Exactly one four-digit year token exists
   across the eighteen bodies, inside its own education section, against eighteen
-  once the metadata exclusion is dropped; exactly one resume is missing a
+  resumes carrying a year token once the metadata exclusion is dropped (the
+  metadata carries the application date and the requisition id, so the unit is
+  resumes, never tokens); exactly one resume is missing a
   required rubric field, against six missing a section the corpus otherwise
   carries; the two sit on different resumes and both are in the pending pool.
   The published `age_route_lexemes` list returns zero hits, and summed
