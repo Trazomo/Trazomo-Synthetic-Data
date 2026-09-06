@@ -13,15 +13,16 @@ Reliability and delivery engineer in a platform group of about nine people. My o
 
 ### Senior Software Engineer, a mid sized business software company, 4 years 1 month
 
-- Own the delivery path for a platform group, which is build, verification and release, including the checks that gate a release.
-- Built and ran the verification harness for the group's ingest rebuild, and owned the question of how anyone would know the new aggregation was right.
+- Own the delivery path for a platform group of about nine people, which is build, verification and release, including the checks that gate a release.
+- Built and ran the verification harness for the group's move of a nightly aggregation onto streaming pipelines, and owned the question of how anyone would know the new one was right.
 - Escalated a silent deduplication the old job had been doing for years as a decision about what the numbers mean rather than as an engineering choice.
 - Ran the harness myself for teams that had not asked for it, reporting only what was actionable, until three of the four asked for control of it.
+- Operate against a containerized estate with a service mesh in front of the internal traffic rather than having built it, and traced a duplicate delivery that looked like a bug in my own consumer to a retry policy at the mesh layer.
 
 ### Site Reliability Engineer, a large payments processor, 3 years 6 months
 
-- Operated a containerized estate with a service mesh in front of the internal traffic, and carried the pager for it.
-- Traced a duplicate delivery problem that looked like a bug in my own consumer to a retry policy set at the mesh layer, and started asking for the change log before debugging anything.
+- Ran the same shape of containerized platform and service mesh from the other side of it, and carried the pager.
+- Built the observability a streaming settlement feed lacked, measuring what a consumer could act on rather than what the stages were doing.
 - Wrote the runbooks the on call rotation still uses.
 
 ### Software Engineer, a small business software company, 2 years 4 months

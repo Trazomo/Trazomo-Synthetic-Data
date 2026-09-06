@@ -7,7 +7,7 @@
 
 ## Summary
 
-Platform engineer who has spent most of a decade on the data paths other teams depend on. My work is usually a migration somebody has been avoiding. I try to be explicit about the constraint a design is paying for, because that is the part people argue about later, and I would rather have the argument in the document.
+Platform engineer, close to nine years on the data paths other teams depend on. My work is usually a migration somebody has been avoiding. I try to be explicit about the constraint a design is paying for, because that is the part people argue about later, and I would rather have the argument in the document.
 
 ## Experience
 
