@@ -105,8 +105,8 @@ const splitList = (text) => text.split(/,\s*/).map((s) => s.trim()).filter(Boole
 
 /** The two values the application log's Screening status may take. */
 function screeningStatusValues() {
-  const feature = featureMatching("HR-02", /^screening_status_values is the closed/);
-  const list = splitList(feature.match(/draws from: ([^.]+)\./)[1]);
+  const feature = featureMatching("HR-02", /^application-log\.md is the recruiter-side record/);
+  const list = splitList(feature.match(/Screening status draws from: ([^.]+)\./)[1]);
   assert.equal(list.length, 2, "the spec sentence did not yield a two-value screening vocabulary");
   return list;
 }
@@ -129,7 +129,7 @@ function experienceBandYears() {
 
 /** The six required resume fields HR-02b is defined against. */
 function requiredResumeFields() {
-  const feature = featureMatching("HR-04", /^required_resume_fields is the closed/);
+  const feature = featureMatching("HR-04", /^screening-rubric\.json states/);
   const list = splitList(feature.match(/before scoring it: ([^.]+)\./)[1]);
   assert.equal(list.length, 6, `required_resume_fields came out of the spec with ${list.length} entries`);
   return list;
@@ -148,8 +148,8 @@ function probePhrases() {
 
 /** The two values a scorecard's Status may take. */
 function scorecardStatusValues() {
-  const feature = featureMatching("HR-04", /^scorecard_status_values is the closed/);
-  const list = splitList(feature.match(/draws from: ([^.]+)(?:\.|$)/)[1]);
+  const feature = featureMatching("HR-04", /^six scorecards, one per frozen interview transcript/);
+  const list = splitList(feature.match(/Status draws from: ([^.]+)(?:\.|$)/)[1]);
   assert.equal(list.length, 2, "the spec sentence did not yield a two-value scorecard vocabulary");
   return list;
 }
