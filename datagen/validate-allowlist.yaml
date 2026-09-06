@@ -339,7 +339,7 @@ allowed:
       exists for, so a resume carrying the words "graduation year", "four-digit
       token", "metadata block" or "exclusion" would hand module 15 its answer and
       there would be nothing left to find. The year itself is present and the rule is
-      mechanical: tests/drafted/hr-c2-drafted-screen.test.js pins the count at 1
+      mechanical: tests/drafted/hr-c2-drafted-screen.test.js at HR-C2-T3 pins the count at 1
       across the eighteen resume bodies, asserts the token sits inside its own
       resume's education section, and pins the qualifier-free count at 18 by dropping
       the metadata exclusion. Which resume it is stays in the private label set keyed
@@ -387,10 +387,13 @@ allowed:
       under the artifact directory it is checking, so "transcripts", "contradicts" and
       "single-technology claim" are words about another set that no resume would carry.
       The mechanical leg, that each summed experience covers the largest
-      single-technology claim the frozen corpus records, is recomputed against parsed
-      durations in tests/drafted/hr-c2-drafted-screen.test.js at HR-C2-T3. The
-      paraphrase leg is certified by the freeze review, which this line states on its
-      own face rather than leaving to a reader. Expected to be permanent.
+      single-technology claim the frozen corpus records, is recomputed beside the band
+      itself in tests/drafted/hr-c2-drafted-screen.test.js at HR-C2-T3, which reads
+      each advanced candidate's frozen transcripts, extracts the largest integer any
+      sentence pairs with a technology_vocabulary token, and asserts the candidate's
+      own summed experience clears it. The paraphrase leg is certified by the freeze
+      review, which this line states on its own face rather than leaving to a reader.
+      Expected to be permanent.
 
   - artifact: HR-04
     feature: "interview-question-bank.json states bank_id, as_of, source_artifact, competency_source, protected_characteristic_probe_list, panel_roles and questions in that order, at an as-of of 2026-04-03 byte-equal to the frozen register's own. questions is 37 objects running QST-0001 upward in file order, each stating question_id, competency_id, question_text, follow_up, question_type and panel_role in that order, three on every competency of the frozen twelve-entry library and one more on a single competency, so all twelve are covered and all 37 map to a competency the library actually carries. panel_roles is exactly three objects of panel_role, competency_ids and question_ids for recruiter-screen, hiring-manager and staff-engineer, whose competency_ids are byte-equal to the competency sets the frozen interview corpus already publishes: recruiter-screen assesses CMP-04 and CMP-05, hiring-manager assesses CMP-01, CMP-03 and CMP-05, staff-engineer assesses CMP-01, CMP-02 and CMP-03. A question carrying a panel role names one of the three and its own competency sits in that role's set, each entry's question_ids is exactly the set of questions carrying it, and a question on a competency no panel here assesses carries an empty panel role"
@@ -425,7 +428,7 @@ allowed:
       permanent.
 
   - artifact: HR-04
-    feature: "1 protected-characteristic probe: exactly one question whose question_text contains a full phrase from protected_characteristic_probe_list, matched adjacently on word boundaries, and it is the fourth question on its own competency, so removing it leaves that competency covered by three and an approved replacement restores a count rather than repairing a hole. Its own competency_id resolves in the library exactly like the other thirty-six, so a schema check cannot find it without reading a word of it. Four questions carry a probe phrase's head word, which is that phrase's last word, while carrying no listed phrase at all, so a token-level sweep returns 4 and only the phrase rule returns 1"
+    feature: "1 protected-characteristic probe: exactly one question whose question_text contains a full phrase from protected_characteristic_probe_list, matched adjacently on word boundaries, and it is the extra question on the one competency carrying four rather than three, so removing it leaves that competency covered by three and an approved replacement restores a count rather than repairing a hole. Its own competency_id resolves in the library exactly like the other thirty-six, so a schema check cannot find it without reading a word of it. Four questions carry a probe phrase's head word, which is that phrase's last word, while carrying no listed phrase at all, so the head-word rule returns 4 once the phrase carrier is excluded and 5 counting it, and only the phrase rule returns 1"
     reason: >-
       Unconfirmable by construction, and JSON-resident besides. The
       exercise is reading the bank and finding the one question that probes a protected
@@ -435,11 +438,11 @@ allowed:
       question also resolves to a competency exactly like the other thirty-six, so a
       schema check cannot short-circuit the reading either, which is the point of the
       line. The rule is mechanical and recomputed rather than asserted:
-      tests/drafted/hr-c2-drafted-screen.test.js applies the spec's own phrase list to
-      all thirty-seven question texts, pins the phrase count at 1 and the head-word
-      count at 4, and confirms the selection is the fourth question on its own
-      competency. Which question it is stays in the private label set keyed to the
-      data-pack tag. Expected to be permanent.
+      tests/drafted/hr-c2-drafted-screen.test.js at HR-C2-T6 applies the spec's own
+      phrase list to all thirty-seven question texts, pins the phrase count at 1 and
+      the head-word-excluding-the-carrier count at 4, and confirms the selection sits
+      on the competency carrying four questions. Which question it is stays in the
+      private label set keyed to the data-pack tag. Expected to be permanent.
 
   - artifact: HR-04
     feature: "screening-rubric.json states rubric_id, as_of, source_artifact, requisition_id, required_resume_fields, scoring_scale, criteria, total_possible_score and shortlist_guidance in that order. required_resume_fields is the closed six-item list a screener checks a resume against before scoring it: candidate_id, full_name, contact_email, summary, experience, education. Experience requires at least two entries each carrying a duration, and education requires at least one entry. criteria is five objects running RUB-01 upward, one to one with the five competencies the interviewed requisition names, at weights the five distinct integers 6, 5, 4, 3 and 2 summing to 20, over a scoring scale of 0 to 4 carrying a label at every point, for a total possible score of 80 that recomputes as the weight sum times the scale maximum. evidence_source is one of summary, experience and education, and exactly one criterion draws on education at a weight strictly between the smallest and the largest weight in the set, which is what makes a resume missing that section score incomplete rather than trivially short or fatally empty. shortlist_guidance says the score ranks and a person decides, that a resume missing a required field is scored incomplete with the field named rather than dropped or zeroed, and that no criterion scores a quantified outcome, because this cluster carries no statistics"

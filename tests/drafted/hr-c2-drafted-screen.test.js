@@ -165,6 +165,14 @@ function exclusionPhrases() {
   return out;
 }
 
+/** The frozen HR-03 anchor rule's closed technology_vocabulary list. */
+function technologyVocabulary() {
+  const feature = featureMatching("HR-03", /^technology_vocabulary is the closed list/);
+  const list = splitList(feature.match(/HR-01 exclusion list: (.+)$/)[1]);
+  assert.equal(list.length, 10, `technology_vocabulary came out of the frozen spec with ${list.length} entries, expected 10`);
+  return list;
+}
+
 const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 /** Word-bounded, adjacent membership: the way validate's own phrase heuristic matches. */
 const carries = (text, token) => new RegExp(`\\b${escapeRegExp(token)}\\b`, "i").test(text);
@@ -221,6 +229,33 @@ const applicationLog = () => readSource("HR-02", "application-log.md");
 const scorecardNames = () => sourceNames("HR-04", (n) => n.startsWith("scorecard-") && n.endsWith(".md"));
 const transcriptNames = () => sourceNames("HR-03", (n) => n.startsWith("interview-transcript-") && n.endsWith(".md"));
 const pairedTranscript = (scorecard) => scorecard.replace("scorecard-", "interview-transcript-");
+
+// One to twelve, the number words a quantified experience claim may use here.
+const CLAIM_NUMBER_WORDS = {
+  one: 1, two: 2, three: 3, four: 4, five: 5, six: 6,
+  seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12,
+};
+const CLAIM_YEAR_PHRASE = new RegExp(
+  `\\b(\\d+|${Object.keys(CLAIM_NUMBER_WORDS).join("|")})\\s+years?\\b`, "gi"
+);
+
+/**
+ * The largest integer any sentence of a frozen transcript pairs with a
+ * technology_vocabulary token, in years, or 0 if no sentence pairs the two.
+ */
+function largestQuantifiedClaimYears(text, vocabulary) {
+  const sentences = text.split(/(?<=[.!?])\s+/);
+  let max = 0;
+  for (const sentence of sentences) {
+    if (!vocabulary.some((tech) => carries(sentence, tech))) continue;
+    for (const m of sentence.matchAll(CLAIM_YEAR_PHRASE)) {
+      const raw = m[1].toLowerCase();
+      const value = CLAIM_NUMBER_WORDS[raw] ?? Number(raw);
+      if (value > max) max = value;
+    }
+  }
+  return max;
+}
 
 /** The competency ids a frozen transcript says were assessed, in its own order. */
 function assessedCompetencies(text, label) {
@@ -421,6 +456,44 @@ test("HR-C2-T3: one graduation year against the qualifier-free eighteen, and no 
     assert.ok(
       months >= minYears * 12 && months <= maxYears * 12,
       `${name}: summed experience is ${Math.floor(months / 12)} years ${months % 12} months, outside the ${minYears} to ${maxYears} year band`
+    );
+  }
+
+  // Review finding 4: the band's floor is a stand-in for the real rule, which is
+  // that each advanced candidate's summed experience also clears the largest
+  // single-technology claim the frozen HR-03 corpus records for that candidate
+  // (a quantified claim's sentence lives in a feedback file and need not be
+  // echoed in its paired transcript, which is exactly what "unanchored" means).
+  // This is recomputed here, against the frozen bytes, rather than merely
+  // asserted in the allowlist.
+  const vocabulary = technologyVocabulary();
+  const byCandidate = new Map();
+  for (const sourceName of markdownNames("HR-03")) {
+    const sourceText = readSource("HR-03", sourceName);
+    const id = metadata(sourceText).get("Candidate ID");
+    if (!byCandidate.has(id)) byCandidate.set(id, []);
+    byCandidate.get(id).push(sourceText);
+  }
+  assert.equal(byCandidate.size, 2, `${byCandidate.size} candidates carry frozen HR-03 sources, expected the advanced pair of 2`);
+
+  for (const [id, candidateSources] of byCandidate) {
+    const resumeText = readSource("HR-02", `resume-${id}.md`);
+    const titleLine = resumeText.match(/^# (.+)$/m);
+    assert.ok(titleLine, `${id}: the resume carries no title line`);
+    const name = titleLine[1].trim();
+
+    const entries = sections(resumeText).get("Experience").split("\n").filter((l) => l.startsWith("### "));
+    let candidateMonths = 0;
+    for (const entry of entries) {
+      const m = entry.match(/, (\d+) years? (\d+) months?$/);
+      assert.ok(m, `${name}: the entry "${entry}" does not end in a duration written as N years M months`);
+      candidateMonths += Number(m[1]) * 12 + Number(m[2]);
+    }
+
+    const largestClaimYears = Math.max(0, ...candidateSources.map((t) => largestQuantifiedClaimYears(t, vocabulary)));
+    assert.ok(
+      candidateMonths >= largestClaimYears * 12,
+      `${name}: summed experience is shorter than the largest single-technology claim the frozen corpus records for this candidate`
     );
   }
 });
@@ -625,12 +698,13 @@ test("HR-C2-T6: one probe question against the qualifier-free four, every questi
     `${headWordOnly.length} questions carry a probe phrase's head word and no listed phrase, expected the stated 4`
   );
 
-  // The probe is the fourth question on its own competency, so removing it leaves
-  // that competency covered and the approved replacement restores a count.
+  // The probe is the extra question on the one competency carrying four rather
+  // than three, so removing it leaves that competency covered and the approved
+  // replacement restores a count.
   const probeQuestion = bank.questions.find((q) => q.question_id === withPhrase[0]);
   assert.equal(
     perCompetency[probeQuestion.competency_id], 4,
-    "the probe question is not the fourth question on its own competency"
+    "the probe question does not sit on the competency that carries four questions"
   );
   assert.ok(library.has(probeQuestion.competency_id), "the probe question's competency does not resolve in the library");
 });
