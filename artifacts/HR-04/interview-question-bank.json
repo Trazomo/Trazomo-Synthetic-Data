@@ -74,7 +74,7 @@
       "competency_id": "CMP-02",
       "question_text": "Describe a failure you debugged where the first three explanations were all wrong. How did you keep narrowing it down?",
       "follow_up": "What did you leave behind so the next person finds it faster?",
-      "question_type": "technical",
+      "question_type": "behavioral",
       "panel_role": "staff-engineer"
     },
     {
