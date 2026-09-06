@@ -37,6 +37,7 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-02-01 to 2026-02-28 | The prior close period whose disclosure footnotes are the drafting exemplar for March | `artifacts/FIN-28` |
 | 2026-02-02 to 2026-04-03 | Collections contacts on the aged receivables, including one promise to pay and one dispute raised | `datasets/finance/collections-contact-log` |
 | 2026-02-15 to 2026-03-14 | CORE-02 outside-counsel billing period; invoice dated 2026-03-20, in the finance inbound queue as pending_classification | datasets/core/outside-counsel-invoice/invoice.json |
+| 2026-02-18 to 2026-04-02 | Applications to one open co-002 engineering requisition received across the window and screened on a rolling basis; two candidates advanced into the interview loop already dated inside it, and the batch shortlist decision for the candidates still pending falls due at the end of the window and is not recorded | `artifacts/HR-02`, `artifacts/HR-04` |
 | 2026-03-01 to 2026-03-31 | FIN-01 statement period; FIN-02 posting period; FIN-03 checks issued and outstanding at period end | datasets/finance |
 | 2026-03-01 to 2026-03-31 | FIN-07 vendor invoices received into the AP queue; FIN-11 bills posted | `datasets/finance` |
 | 2026-03-02 to 2026-03-31 | Employee expenses incurred; reports submitted through 2026-04-03 and unposted at the close | `datasets/finance/expense-reports` |
