@@ -240,7 +240,8 @@ const CLAIM_YEAR_PHRASE = new RegExp(
 );
 
 /**
- * The largest integer any sentence of a frozen transcript pairs with a
+ * The largest integer any sentence of a frozen HR-03 source (feedback files
+ * included: a quantified claim's sentence lives in a feedback file) pairs with a
  * technology_vocabulary token, in years, or 0 if no sentence pairs the two.
  */
 function largestQuantifiedClaimYears(text, vocabulary) {

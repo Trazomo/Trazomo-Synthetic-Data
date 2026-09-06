@@ -389,7 +389,7 @@ allowed:
       The mechanical leg, that each summed experience covers the largest
       single-technology claim the frozen corpus records, is recomputed beside the band
       itself in tests/drafted/hr-c2-drafted-screen.test.js at HR-C2-T3, which reads
-      each advanced candidate's frozen transcripts, extracts the largest integer any
+      every frozen HR-03 source for each advanced candidate, the paired feedback files included because a quantified claim's sentence lives in a feedback file, extracts the largest integer any
       sentence pairs with a technology_vocabulary token, and asserts the candidate's
       own summed experience clears it. The paraphrase leg is certified by the freeze
       review, which this line states on its own face rather than leaving to a reader.
