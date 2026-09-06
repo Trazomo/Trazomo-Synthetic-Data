@@ -1,5 +1,49 @@
 # Changelog
 
+## 1.11.0
+
+**Allocated in merge order; expected `v1.11.0` if this merges next after
+`v1.10.0` (revenue cluster 2). Renumbered at tag time by the integrator if
+another data PR merges first.**
+
+Revenue cluster 3, signals and outbound: one deterministic artifact, one
+drafted-frozen artifact with its freeze review, and no frozen-tier edit
+(this PR changes no byte under `datasets/core/`, `canon/`,
+`datasets/revenue/consent-suppression-master/`,
+`datasets/revenue/policy-as-code-scenarios/` or `artifacts/REV-06/`). The
+plan is `docs/plans/2026-08-29-path-programs/revenue/data-plans/cluster-3.md`
+on trazomo (lane branch `data/revenue-cluster-3`), executing
+`implementation-plan-v2.md` section 3.3. The plan's section 9 defaults
+(U-T3 first, then U1 to U10) ride to Salvador's freeze review; U-T3 corrects
+plan-v2's REV-C3-T3 against the bytes (zero Closed Won opportunities exist
+anywhere at v1.10.0 and the shipped module 29 guard asserts that absence,
+so the champion's won relationship is read as T3-prime: the prior account's
+customer status plus the employer-change event's employment-history payload,
+where canon already locates the old deal).
+
+- **REV-03 signal-event-logs**: a 92-event jsonl log over six event types
+  (hire 12, employer_change 4, engagement 10, visitor 8, competitor_mention
+  28, hiring_velocity 30), every account and contact reference derived by
+  invoking the CORE-03 generator at build time. Plants by rule: exactly one
+  hire satisfying all three trigger clauses and exactly one failing the
+  function clause alone; the champion employer-change event carrying both
+  contact ids under T3-prime; the closed-lost re-engagement event dated
+  after the transition (and therefore after the account's do-not-contact
+  effective date, the designed suppression interplay); one anonymous
+  visitor fuzzy-matching exactly one contact row with ambiguous and
+  unresolvable distractors; explicit decimal weights on every feed entry
+  with a unique target-account priority maximum and no stored priority.
+  Spec entry enriched and its five pre-merge play slugs renamed to
+  `revenue-signal-plays`.
+- **REV-04 message-template-library**: drafted-frozen pair for co-002, a
+  seven-template approved outbound library over five categories (qualified
+  `{{file.column}}` slots resolving to CORE-03 headers, no send verb or
+  automation hook, every asserted certification resolving to a REV-06
+  certification-register row by the pinned recognized-certifications
+  vocabulary) and the 24-row recipient email-verification sidecar covering
+  exactly the target-account contacts, exactly one flagged inferred with a
+  send-permitted consent state. Structural screen in `tests/drafted/`.
+
 ## 1.10.0
 
 Revenue cluster 2, consent, claims and controls: two deterministic artifacts,
