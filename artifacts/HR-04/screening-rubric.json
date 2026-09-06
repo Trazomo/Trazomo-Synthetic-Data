@@ -34,7 +34,7 @@
     {
       "criterion_id": "RUB-02",
       "name": "Technical grounding",
-      "definition": "Does the education section state a qualification or a course of structured study in a relevant technical field, at the level this role's technical depth competency describes?",
+      "definition": "Does the education section state a qualification or a course of structured study in a relevant technical field, at the level this role's technical depth competency describes? This criterion is named for the proxy it reads rather than for the competency it maps to, because the education section evidences grounding rather than the depth an interview establishes.",
       "competency_id": "CMP-02",
       "weight": 4,
       "evidence_source": "education"
