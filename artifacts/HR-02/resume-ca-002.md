@@ -21,7 +21,7 @@ Reliability and delivery engineer in a platform group of about nine people. My o
 
 ### Site Reliability Engineer, a large payments processor, 3 years 6 months
 
-- Ran the same shape of containerized platform and service mesh from the other side of it, and carried the pager.
+- Ran the same containerized platform from the other side of it, and carried the pager.
 - Built the observability a streaming settlement feed lacked, measuring what a consumer could act on rather than what the stages were doing.
 - Wrote the runbooks the on call rotation still uses.
 
