@@ -25,8 +25,8 @@ Amendment A, which supersedes the parts of that plan it names.
   naming its panel by role title only, staffing a program the operations
   artifacts already document, and carrying none of the twelve exclusion
   phrases. The register's `level` enum has no senior grade, so the senior
-  individual contributor leveling is carried in the brief's own prose, which is
-  where the engineering requisition carries "Senior" too.
+  individual contributor leveling is carried in the brief's own prose, while the
+  engineering requisition carries "Senior" in its title.
 - **HR-03 interview-transcript-corpus**: all twelve files re-drafted on the
   amended requisition. Same two candidate ids and names, same six file dates,
   same window, same document shapes: six transcripts of 39 to 52 cues under one
@@ -42,8 +42,8 @@ Amendment A, which supersedes the parts of that plan it names.
   at build time behind a shape pin on the requisition count and key set;
   neither moved, so the pin did not fire and the generator is unchanged. One
   cell moves in `hris-requisitions.csv` and the bundle's other four files are
-  byte-identical, so `MANIFEST.json` still lists 51 datasets and 24 drafted
-  artifact sets.
+  byte-identical, so `MANIFEST.json` still lists 52 datasets and 25 drafted
+  artifact sets, unchanged by this amendment.
 - **Spec pins** (HR-03 entry only): the closed vocabulary the anchor rule reads
   is replaced by ten terms from the domain the corpus now discusses. The
   sentence around the list, every other HR-03 feature and the whole HR-01 entry
@@ -54,10 +54,16 @@ Amendment A, which supersedes the parts of that plan it names.
   screen derives the interviewed requisition from HR-03's own metadata rather
   than pinning an id, so every band, join and cardinality transfers without an
   edit. DOCX rebuilt for both sets with the four outputs carrying the old panel
-  slug removed, and `MANIFEST.json` regenerated. No allowlist entry was added
-  or removed: the re-draft produced no new permanent warning, and the one
-  feature that drifted below the keyword threshold was fixed in the prose
-  rather than silenced, which is what the allowlist's own rules require.
+  slug removed, and `MANIFEST.json` regenerated. One allowlist entry was retired
+  and none was added. During the re-draft the allowlisted HR-03
+  unanchored-claim feature's keyword ratio landed exactly on the PASS
+  threshold by coincidence, on generic tokens, while every decisive word in
+  the feature's own description stayed absent; the entry was deleted as the
+  allowlist's self-expiry rule requires, the retirement is recorded in that
+  file's header, and the drafted screen remains the guard that actually
+  recomputes the rule. A separate feature that drifted below its threshold
+  was fixed in the prose rather than silenced, which is what the allowlist's
+  own rules require.
 
 ## 1.11.0
 
