@@ -1149,31 +1149,31 @@
             "path": "artifacts/HR-03",
             "source_files": [
                 "draft-feedback-ca-001-hiring-manager.md",
+                "draft-feedback-ca-001-program-manager.md",
                 "draft-feedback-ca-001-recruiter-screen.md",
-                "draft-feedback-ca-001-staff-engineer.md",
                 "draft-feedback-ca-002-hiring-manager.md",
+                "draft-feedback-ca-002-program-manager.md",
                 "draft-feedback-ca-002-recruiter-screen.md",
-                "draft-feedback-ca-002-staff-engineer.md",
                 "interview-transcript-ca-001-hiring-manager.md",
+                "interview-transcript-ca-001-program-manager.md",
                 "interview-transcript-ca-001-recruiter-screen.md",
-                "interview-transcript-ca-001-staff-engineer.md",
                 "interview-transcript-ca-002-hiring-manager.md",
-                "interview-transcript-ca-002-recruiter-screen.md",
-                "interview-transcript-ca-002-staff-engineer.md"
+                "interview-transcript-ca-002-program-manager.md",
+                "interview-transcript-ca-002-recruiter-screen.md"
             ],
             "build_files": [
                 "draft-feedback-ca-001-hiring-manager.docx",
+                "draft-feedback-ca-001-program-manager.docx",
                 "draft-feedback-ca-001-recruiter-screen.docx",
-                "draft-feedback-ca-001-staff-engineer.docx",
                 "draft-feedback-ca-002-hiring-manager.docx",
+                "draft-feedback-ca-002-program-manager.docx",
                 "draft-feedback-ca-002-recruiter-screen.docx",
-                "draft-feedback-ca-002-staff-engineer.docx",
                 "interview-transcript-ca-001-hiring-manager.docx",
+                "interview-transcript-ca-001-program-manager.docx",
                 "interview-transcript-ca-001-recruiter-screen.docx",
-                "interview-transcript-ca-001-staff-engineer.docx",
                 "interview-transcript-ca-002-hiring-manager.docx",
-                "interview-transcript-ca-002-recruiter-screen.docx",
-                "interview-transcript-ca-002-staff-engineer.docx"
+                "interview-transcript-ca-002-program-manager.docx",
+                "interview-transcript-ca-002-recruiter-screen.docx"
             ]
         },
         {

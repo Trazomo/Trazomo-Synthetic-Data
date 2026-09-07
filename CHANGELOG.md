@@ -1,5 +1,64 @@
 # Changelog
 
+## 1.11.0
+
+**Allocated in merge order (expected `v1.11.0`); renumber at tag time if the
+order changes.**
+
+People and HR cluster 2, amendment A: the recruiting arc moves off the
+engineering requisition and onto an operations one, so a senior professional
+who does not write code can judge the substance of what the panel wrote. HR-01
+is amended in place, HR-03 is re-drafted whole, and the export that reads the
+register is regenerated behind them. HR-09 is untouched, and HR-02 and HR-04
+follow in the next section. CORE-04 is read and never edited. The plan is
+`docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-2.md`,
+Amendment A, which supersedes the parts of that plan it names.
+
+- **HR-01 role-requisition-library**: `RQN-2026-0106` is retitled from an
+  analyst seat to a program seat on the same Operations team, and its
+  competencies are replaced by five drawn from the same twelve-entry library.
+  Its status, openings, dates and the three people on it are unchanged, as is
+  every other requisition, the competency library and the exclusion-phrase
+  list; the competency union across the eight still covers all twelve. The
+  requisition's intake brief is re-drafted on the new role in the same six
+  fixed sections inside the same word band, printing the register's own values,
+  naming its panel by role title only, staffing a program the operations
+  artifacts already document, and carrying none of the twelve exclusion
+  phrases. The register's `level` enum has no senior grade, so the senior
+  individual contributor leveling is carried in the brief's own prose, which is
+  where the engineering requisition carries "Senior" too.
+- **HR-03 interview-transcript-corpus**: all twelve files re-drafted on the
+  amended requisition. Same two candidate ids and names, same six file dates,
+  same window, same document shapes: six transcripts of 39 to 52 cues under one
+  cue grammar with monotonic timestamps, six paired draft-feedback files of six
+  or seven numbered claim sentences apiece. The panels are the recruiter
+  screen, the hiring manager and a peer program manager, so four files take the
+  new panel slug in their names; every interviewer resolves by name and role
+  title to an active roster row, and the competency sets are identical across
+  the two candidates and drawn from the requisition's own five. The anchor rule
+  still reads a closed vocabulary the spec ships, and both of its counts are
+  unchanged and recomputed rather than asserted.
+- **HR-18 hris-export**: regenerated. The generator reads the frozen register
+  at build time behind a shape pin on the requisition count and key set;
+  neither moved, so the pin did not fire and the generator is unchanged. One
+  cell moves in `hris-requisitions.csv` and the bundle's other four files are
+  byte-identical, so `MANIFEST.json` still lists 51 datasets and 24 drafted
+  artifact sets.
+- **Spec pins** (HR-03 entry only): the closed vocabulary the anchor rule reads
+  is replaced by ten terms from the domain the corpus now discusses. The
+  sentence around the list, every other HR-03 feature and the whole HR-01 entry
+  are untouched, because nothing in HR-01's entry names a requisition title or
+  a department.
+- **Screen, validate and build**: `tests/drafted/hr-c1-drafted-screen.test.js`
+  is unchanged and green, which is the amendment's own acceptance test: the
+  screen derives the interviewed requisition from HR-03's own metadata rather
+  than pinning an id, so every band, join and cardinality transfers without an
+  edit. DOCX rebuilt for both sets with the four outputs carrying the old panel
+  slug removed, and `MANIFEST.json` regenerated. No allowlist entry was added
+  or removed: the re-draft produced no new permanent warning, and the one
+  feature that drifted below the keyword threshold was fixed in the prose
+  rather than silenced, which is what the allowlist's own rules require.
+
 ## 1.10.0
 
 Revenue cluster 2, consent, claims and controls: two deterministic artifacts,
