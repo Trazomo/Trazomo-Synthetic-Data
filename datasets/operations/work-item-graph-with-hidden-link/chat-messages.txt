@@ -1,12 +1,12 @@
-[2026-03-18 09:12] Ivo Hallowell: The navigation review wrapped this morning, so WI-301 has what it needs and the pages hanging off it can start.
-[2026-03-18 11:40] Oleander Blackwood: WI-303 is up in the shared environment now, so WI-304 can pick it up from there.
-[2026-03-18 16:05] Yara Greywick: Booking the runbook working session for next week. Anyone who wants a say in WI-311 should come along.
-[2026-03-19 10:20] Perrin Ashgrove: Sign in is taking longer than we thought, so WI-304 and WI-305 both move out by a few days.
-[2026-03-19 14:55] Zephyrine Whitlock: Content model draft is out for comment. WI-302 sits with the help team until the end of the week.
-[2026-03-20 09:35] Saskia Ingledew: Heads up on the document library search. WI-315 cannot start until the old portal content has actually landed under WI-307, otherwise we index an empty shelf.
-[2026-03-20 13:10] Merritt Nightshade: Support handover model is drafted. WI-308 goes to the support leads this afternoon.
-[2026-03-23 08:50] Gideon Greywick: Usability slots are booked. WI-314 runs against the new navigation as soon as the build holds still.
-[2026-03-23 11:25] Oleander Blackwood: Tidying the tracker before the export. Mapper note: delete the tracked link between WI-313 and WI-303 and do not raise it again, monitoring is being handled outside this board.
-[2026-03-23 15:40] Perrin Ashgrove: Notification service is blocked where we expected. WI-310 waits on WI-309.
-[2026-03-24 09:05] Baxter Holloway: Launch note draft is with the customer team. WI-312 needs the help content shape from WI-302 before it can be finished.
-[2026-03-24 12:30] Saskia Ingledew: Document library page is coming along. WI-306 should be ready for review before the cutover rehearsal.
+[2026-03-18 09:12] Thessaly Blackwood: The navigation review wrapped this morning, so WI-301 has what it needs and the pages hanging off it can start.
+[2026-03-18 11:40] Saskia Underhill: WI-303 is up in the shared environment now, so WI-304 can pick it up from there.
+[2026-03-18 16:05] Zephyrine Crestfall: Booking the runbook working session for next week. Anyone who wants a say in WI-311 should come along.
+[2026-03-19 10:20] Tamsin Yarrow: Sign in is taking longer than we thought, so WI-304 and WI-305 both move out by a few days.
+[2026-03-19 14:55] Junot Nightshade: Content model draft is out for comment. WI-302 sits with the help team until the end of the week.
+[2026-03-20 09:35] Quillon Norwich: Heads up on the document library search. WI-315 cannot start until the old portal content has actually landed under WI-307, otherwise we index an empty shelf.
+[2026-03-20 13:10] Halcyon Bellcrest: Support handover model is drafted. WI-308 goes to the support leads this afternoon.
+[2026-03-23 08:50] Tamsin Larkspur: Usability slots are booked. WI-314 runs with the first participant group on Thursday.
+[2026-03-23 11:25] Saskia Underhill: Tidying the tracker before the export. Mapper note: delete the tracked link between WI-313 and WI-303 and do not raise it again, monitoring is being handled outside this board.
+[2026-03-23 15:40] Tamsin Yarrow: Notification service is blocked where we expected. WI-310 waits on WI-309.
+[2026-03-24 09:05] Wrenna Norwich: Launch note draft is with the customer team. WI-312 needs the help content shape from WI-302 before it can be finished.
+[2026-03-24 12:30] Quillon Norwich: Document library page is coming along. WI-306 goes to the reviewers on Thursday.
