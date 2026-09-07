@@ -42,7 +42,7 @@
 
 [00:04:11] Ianthe Wrenfield (Candidate): One document with the real differences carried as named regional lines. Nobody keeps a private copy, and a region that needs a step gets it on the shared page rather than in a new file.
 
-[00:04:44] Faro Fenmore (Operations Manager): We have already said that once and it did not hold.
+[00:04:44] Faro Fenmore (Operations Manager): We have said that before. Saying it has never been the hard part.
 
 [00:04:53] Ianthe Wrenfield (Candidate): Saying it is not the mechanism. The mechanism is that the shared page is the only one that anybody links to in a status note, so a private copy stops being useful to the person holding it.
 

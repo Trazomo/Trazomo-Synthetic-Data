@@ -40,7 +40,7 @@
 
 [00:04:41] Lyric Norwich (Program Manager): Start with the dependencies, then. We owe three: the names of the acceptance testers, a decision turnaround of a few working days on open design questions, and continued access to the test environment.
 
-[00:05:12] Ianthe Wrenfield (Candidate): Are any of those asked for anywhere earlier in the plan, or are they listed only in that section?
+[00:05:12] Ianthe Wrenfield (Candidate): Are any of those asked for anywhere earlier in the plan, or do they only appear in that section?
 
 [00:05:33] Lyric Norwich (Program Manager): Only in that section.
 
