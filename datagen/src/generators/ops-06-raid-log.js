@@ -85,14 +85,17 @@ const TASK_ID_IN_TEXT = /TASK-\d{3}/;
 // and that goes through named rng streams.
 //
 // `owner` indexes the drawn owner pool. `cadence` is null on the one item that
-// was never put on a schedule.
+// was never put on a schedule. Two Operations-owned items carry
+// `ownerEmployeeId` instead of `owner`: they are pinned onto specific CORE-04
+// rows rather than drawn from the pool, so the log is not entirely a function
+// of the pool draw.
 
 const ITEMS = [
   {
     item_type: "risk",
     title: "Extract window overlaps the month end reporting run",
     description: "The migration extracts and the month end reporting run draw on the same source, and a long extract inside that window would slow both of them. The program watches the overlap and moves the heavier extracts when the source owner asks.",
-    owner: 0,
+    ownerEmployeeId: "EMP-0584",
     likelihood: "medium",
     impact: "medium",
     status: "monitoring",
@@ -118,7 +121,7 @@ const ITEMS = [
     item_type: "risk",
     title: "Two teams read the same weekly figures from different places",
     description: "Two teams read the weekly figures from different places today and the migration only moves one of them. The program is exposed to shipping a view that part of its readership does not trust.",
-    owner: 2,
+    ownerEmployeeId: "EMP-0586",
     likelihood: "high",
     impact: "high",
     status: "open",
@@ -211,7 +214,7 @@ const ITEMS = [
   {
     item_type: "dependency",
     title: "Security review board slot",
-    description: "The new workspace needs a slot on the security review board before it can hold anything beyond the open reports, and the board sets its own agenda.",
+    description: "The new workspace needs a slot on the security review board before it can hold anything beyond the open reports, and board slots are allocated a cycle ahead.",
     owner: 0,
     likelihood: "",
     impact: "",
@@ -223,8 +226,8 @@ const ITEMS = [
   },
   {
     item_type: "issue",
-    title: "Saved links point at the retired workspace",
-    description: "Readers have links saved against the retired workspace, and those links now open an empty page instead of telling the reader where the view has gone.",
+    title: "Saved links will point at the old workspace after cutover",
+    description: "Readers have links saved against the legacy workspace, and at cutover those links will open an empty page instead of telling the reader where the view has gone.",
     owner: 1,
     likelihood: "",
     impact: "",
@@ -302,7 +305,7 @@ const ITEMS = [
   {
     item_type: "assumption",
     title: "The archive location can hold the legacy history",
-    description: "The program assumes the agreed archive location can hold the legacy history at its current size and keep it readable for as long as the program is asked to keep it.",
+    description: "The program assumes the archive location the program is converging on can hold the legacy history at its current size and keep it readable for as long as the program is asked to keep it.",
     owner: 7,
     likelihood: "",
     impact: "",
@@ -367,7 +370,7 @@ const ITEMS = [
   {
     item_type: "dependency",
     title: "Internal audit schedule for the first access review",
-    description: "The first access review of the new workspace has to sit inside the internal audit schedule, and that schedule is set outside the program.",
+    description: "The first access review of the new workspace has to sit inside the internal audit schedule, and the audit team owns that calendar.",
     owner: 3,
     likelihood: "",
     impact: "",
@@ -449,10 +452,11 @@ export function isStale(row) {
  */
 export function buildRaidLog(rng) {
   const { roster, owners } = pickOwners(rng);
+  const rosterById = new Map(roster.map((r) => [r.employee_id, r]));
 
   const rows = ITEMS.map((item, index) => {
-    const owner = owners[item.owner];
-    if (!owner) throw new Error(`${id}: no owner in slot ${item.owner}`);
+    const owner = item.ownerEmployeeId ? rosterById.get(item.ownerEmployeeId) : owners[item.owner];
+    if (!owner) throw new Error(`${id}: no owner in slot ${item.ownerEmployeeId ?? item.owner}`);
     return {
       item_id: `RAID-${ITEM_ID_START + index}`,
       program: PROGRAM,
