@@ -190,8 +190,8 @@ const HANDOFFS = [
     deliverable: "list of shared mailboxes to migrate",
     from: { team: "Operations", slot: 3 },
     to: { team: "IT & Security", slot: 3 },
-    completed: "2026-03-26T15:10:00Z",
-    acknowledged: "2026-03-27T08:40:00Z",
+    completed: "2026-03-24T15:10:00Z",
+    acknowledged: "2026-03-25T08:40:00Z",
     notes: "",
   },
   {
@@ -231,8 +231,8 @@ const HANDOFFS = [
     deliverable: "security questionnaire responses for the platform review",
     from: { team: "IT & Security", slot: 3 },
     to: { team: "Product", slot: 3 },
-    completed: "2026-03-30T16:30:00Z",
-    acknowledged: "2026-03-31T09:35:00Z",
+    completed: "2026-03-27T16:30:00Z",
+    acknowledged: "2026-03-28T09:35:00Z",
     notes: "",
   },
   {
