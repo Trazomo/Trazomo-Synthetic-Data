@@ -1,0 +1,222 @@
+{
+  "program": "customer portal relaunch",
+  "exported_at": "2026-03-24",
+  "nodes": [
+    {
+      "id": "WI-301",
+      "title": "Agree the portal navigation structure",
+      "team": "Product",
+      "owner_employee_id": "EMP-0199",
+      "owner_name": "Baxter Dunmore",
+      "status": "in_progress",
+      "due_date": "2026-03-27"
+    },
+    {
+      "id": "WI-302",
+      "title": "Write the content model for the help pages",
+      "team": "Product",
+      "owner_employee_id": "EMP-0197",
+      "owner_name": "Gideon Greywick",
+      "status": "in_progress",
+      "due_date": "2026-04-03"
+    },
+    {
+      "id": "WI-303",
+      "title": "Stand up the portal build pipeline",
+      "team": "Engineering",
+      "owner_employee_id": "EMP-0126",
+      "owner_name": "Quillon Elderkin",
+      "status": "in_progress",
+      "due_date": "2026-03-30"
+    },
+    {
+      "id": "WI-304",
+      "title": "Build the sign in flow",
+      "team": "Engineering",
+      "owner_employee_id": "EMP-0122",
+      "owner_name": "Merritt Ashby",
+      "status": "in_progress",
+      "due_date": "2026-04-08"
+    },
+    {
+      "id": "WI-305",
+      "title": "Build the account overview page",
+      "team": "Engineering",
+      "owner_employee_id": "EMP-0002",
+      "owner_name": "Marlowe Bellcrest",
+      "status": "todo",
+      "due_date": "2026-04-17"
+    },
+    {
+      "id": "WI-306",
+      "title": "Build the document library page",
+      "team": "Engineering",
+      "owner_employee_id": "EMP-0034",
+      "owner_name": "Wystan Kestenbaum",
+      "status": "in_progress",
+      "due_date": "2026-04-15"
+    },
+    {
+      "id": "WI-307",
+      "title": "Migrate the content from the old portal",
+      "team": "Engineering",
+      "owner_employee_id": "EMP-0126",
+      "owner_name": "Quillon Elderkin",
+      "status": "todo",
+      "due_date": "2026-04-24"
+    },
+    {
+      "id": "WI-308",
+      "title": "Agree the support handover model",
+      "team": "Operations",
+      "owner_employee_id": "EMP-0580",
+      "owner_name": "Isolde Ashgrove",
+      "status": "in_progress",
+      "due_date": "2026-04-10"
+    },
+    {
+      "id": "WI-309",
+      "title": "Design the notification preferences screen",
+      "team": "Product",
+      "owner_employee_id": "EMP-0231",
+      "owner_name": "Nessa Grayling",
+      "status": "in_progress",
+      "due_date": "2026-04-07"
+    },
+    {
+      "id": "WI-310",
+      "title": "Build the notification service",
+      "team": "Engineering",
+      "owner_employee_id": "EMP-0122",
+      "owner_name": "Merritt Ashby",
+      "status": "blocked",
+      "due_date": "2026-04-22"
+    },
+    {
+      "id": "WI-311",
+      "title": "Write the portal launch runbook",
+      "team": "Operations",
+      "owner_employee_id": "EMP-0595",
+      "owner_name": "Perrin Everhart",
+      "status": "todo",
+      "due_date": "2026-05-01"
+    },
+    {
+      "id": "WI-312",
+      "title": "Plan the customer communication for launch",
+      "team": "Operations",
+      "owner_employee_id": "EMP-0599",
+      "owner_name": "Nessa Larkspur",
+      "status": "todo",
+      "due_date": "2026-05-06"
+    },
+    {
+      "id": "WI-313",
+      "title": "Set up the portal monitoring dashboards",
+      "team": "Engineering",
+      "owner_employee_id": "EMP-0002",
+      "owner_name": "Marlowe Bellcrest",
+      "status": "todo",
+      "due_date": ""
+    },
+    {
+      "id": "WI-314",
+      "title": "Run the usability review of the new navigation",
+      "team": "Product",
+      "owner_employee_id": "EMP-0218",
+      "owner_name": "Quenby Underhill",
+      "status": "todo",
+      "due_date": "2026-04-20"
+    },
+    {
+      "id": "WI-315",
+      "title": "Wire the search index for the document library",
+      "team": "Engineering",
+      "owner_employee_id": "EMP-0034",
+      "owner_name": "Wystan Kestenbaum",
+      "status": "todo",
+      "due_date": ""
+    },
+    {
+      "id": "WI-316",
+      "title": "Rehearse the launch cutover",
+      "team": "Operations",
+      "owner_employee_id": "EMP-0597",
+      "owner_name": "Zephyrine Crestfall",
+      "status": "todo",
+      "due_date": "2026-05-13"
+    }
+  ],
+  "edges": [
+    {
+      "from": "WI-302",
+      "to": "WI-301",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-304",
+      "to": "WI-303",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-305",
+      "to": "WI-304",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-305",
+      "to": "WI-301",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-306",
+      "to": "WI-304",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-306",
+      "to": "WI-301",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-307",
+      "to": "WI-306",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-310",
+      "to": "WI-309",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-311",
+      "to": "WI-308",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-312",
+      "to": "WI-302",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-313",
+      "to": "WI-303",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-314",
+      "to": "WI-301",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-315",
+      "to": "WI-306",
+      "type": "depends_on"
+    },
+    {
+      "from": "WI-316",
+      "to": "WI-311",
+      "type": "depends_on"
+    }
+  ]
+}

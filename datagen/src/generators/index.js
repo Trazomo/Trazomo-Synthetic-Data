@@ -82,7 +82,7 @@ export const PROGRAM_GENERATOR_IDS = [
   fin36.id, fin37.id, fin38.id, fin39.id,
   hr17.id, hr18.id,
   lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
-  ops04.id, ops05.id,
+  ops04.id, ops05.id, ops06.id, ops07.id, ops13.id,
   rev01.id, rev07.id, rev11.id,
 ];
 
