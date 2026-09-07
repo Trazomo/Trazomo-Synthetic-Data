@@ -159,7 +159,7 @@ const HANDOFFS = [
     to: { team: "Engineering", slot: 2 },
     completed: "2026-03-25T10:15:00Z",
     acknowledged: "2026-03-25T15:30:00Z",
-    notes: "A second pass follows once the field definitions settle.",
+    notes: "A second pass follows once the remaining record attributes are confirmed.",
   },
   {
     deliverable: "network diagram for the test tenant",
@@ -241,7 +241,7 @@ const HANDOFFS = [
     to: { team: PROVIDER_TEAM },
     completed: "",
     acknowledged: "",
-    notes: "Held until the field definitions settle.",
+    notes: "Held until the remaining record attributes are confirmed.",
   },
   {
     deliverable: "cutover runbook draft for the pilot group",
