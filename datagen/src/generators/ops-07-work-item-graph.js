@@ -79,14 +79,14 @@ const NODES = [
   { title: "Build the account overview page", team: "Engineering", owner: 2, status: "todo", due_date: "2026-04-17" },
   { title: "Build the document library page", team: "Engineering", owner: 3, status: "in_progress", due_date: "2026-04-15" },
   { title: "Migrate the content from the old portal", team: "Engineering", owner: 0, status: "todo", due_date: "2026-04-24" },
-  { title: "Agree the support handover model", team: "Operations", owner: 0, status: "in_progress", due_date: "2026-04-10" },
+  { title: "Agree the support handover model", team: "Operations", owner: 0, status: "in_progress", due_date: "" },
   { title: "Design the notification preferences screen", team: "Product", owner: 2, status: "in_progress", due_date: "2026-04-07" },
   { title: "Build the notification service", team: "Engineering", owner: 1, status: "blocked", due_date: "2026-04-22" },
   { title: "Write the portal launch runbook", team: "Operations", owner: 1, status: "todo", due_date: "2026-05-01" },
-  { title: "Plan the customer communication for launch", team: "Operations", owner: 2, status: "todo", due_date: "2026-05-06" },
-  { title: "Set up the portal monitoring dashboards", team: "Engineering", owner: 2, status: "todo", due_date: "" },
+  { title: "Plan the customer communication for launch", team: "Operations", owner: 2, status: "todo", due_date: "" },
+  { title: "Set up the portal monitoring dashboards", team: "Engineering", owner: 2, status: "todo", due_date: "2026-04-29" },
   { title: "Run the usability review of the new navigation", team: "Product", owner: 3, status: "todo", due_date: "2026-04-20" },
-  { title: "Wire the search index for the document library", team: "Engineering", owner: 3, status: "todo", due_date: "" },
+  { title: "Wire the search index for the document library", team: "Engineering", owner: 3, status: "todo", due_date: "2026-05-04" },
   { title: "Rehearse the launch cutover", team: "Operations", owner: 3, status: "todo", due_date: "2026-05-13" },
 ];
 
@@ -186,7 +186,7 @@ export function pickPeople(rng) {
   const speakers = {};
   for (const team of TEAMS) {
     const eligible = roster
-      .filter((r) => r.department === team && r.employment_status === "active" && r.level !== "Executive")
+      .filter((r) => r.department === team && r.employment_status === "active" && r.level !== "VP" && r.level !== "Executive")
       .sort((a, b) => (a.employee_id < b.employee_id ? -1 : 1));
     if (eligible.length < OWNERS_PER_TEAM || eligible.length < SPEAKERS_PER_TEAM) {
       throw new Error(`${id}: ${team} has only ${eligible.length} active people, and the program needs more than that`);
