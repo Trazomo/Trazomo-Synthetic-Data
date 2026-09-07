@@ -1,0 +1,321 @@
+{
+  "artifact_id": "REV-02",
+  "name": "account-fact-packets",
+  "description": "The structured source of record for every fact stated in the REV-02 packets. A packet may state a fact only if that fact carries a row here, and every figure a packet states byte-matches this file's value for the row it cites.",
+  "anchor_date": "2026-03-16",
+  "freshness_rule": "a fact is stale iff anchor_date 2026-03-16 minus collection_date exceeds 90 days, strictly; a fact collected exactly 2025-12-16 is fresh",
+  "freshness_window_start": "2025-12-16",
+  "categories": [
+    "firmographic",
+    "hiring",
+    "technology",
+    "pricing_page_snapshot",
+    "news"
+  ],
+  "fact_id_format": "F-NN, zero-padded, sequential in file order",
+  "row_keys": [
+    "fact_id",
+    "subject",
+    "attribute",
+    "value",
+    "collection_date",
+    "source",
+    "category"
+  ],
+  "packets": [
+    {
+      "file": "packet-lodestar-logistics.md",
+      "subject": "co-122",
+      "subject_name": "Lodestar Logistics",
+      "compiled_as_of": "2026-03-16",
+      "fact_ids": ["F-01", "F-02", "F-03", "F-04", "F-05", "F-06", "F-07", "F-08", "F-09"]
+    },
+    {
+      "file": "packet-thornfield-health.md",
+      "subject": "co-125",
+      "subject_name": "Thornfield Health",
+      "compiled_as_of": "2026-03-13",
+      "fact_ids": ["F-10", "F-11", "F-12", "F-13", "F-14", "F-15", "F-16", "F-17", "F-18"]
+    },
+    {
+      "file": "battlecard-aphelion-systems.md",
+      "subject": "co-121",
+      "subject_name": "Aphelion Systems",
+      "compiled_as_of": "2026-03-11",
+      "fact_ids": ["F-19", "F-20", "F-21", "F-22", "F-23", "F-24", "F-25", "F-26", "F-27", "F-28", "F-29", "F-30"]
+    }
+  ],
+  "sources_note": "Every source named below is a research desk, signal feed, trade register, trade publication or public web page inside this universe. None is a real organisation.",
+  "facts": [
+    {
+      "fact_id": "F-01",
+      "subject": "co-122",
+      "attribute": "headquarters_location",
+      "value": "Manchester, United Kingdom",
+      "collection_date": "2026-01-08",
+      "source": "Marchmont Trade Register",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-02",
+      "subject": "co-122",
+      "attribute": "workforce_size",
+      "value": "2,400",
+      "collection_date": "2025-12-16",
+      "source": "Halloway Research Desk",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-03",
+      "subject": "co-122",
+      "attribute": "depot_count",
+      "value": 34,
+      "collection_date": "2026-02-04",
+      "source": "Pennerow Freight Review",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-04",
+      "subject": "co-122",
+      "attribute": "fleet_size",
+      "value": 610,
+      "collection_date": "2026-01-22",
+      "source": "Marchmont Trade Register",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-05",
+      "subject": "co-122",
+      "attribute": "information_technology_leadership_appointment",
+      "value": "Director of Information Technology appointed, start date 2026-02-16",
+      "collection_date": "2026-03-16",
+      "source": "Vesperlane Signals",
+      "category": "hiring"
+    },
+    {
+      "fact_id": "F-06",
+      "subject": "co-122",
+      "attribute": "open_operations_technology_roles",
+      "value": 11,
+      "collection_date": "2026-03-04",
+      "source": "Ninebark Signal Feed",
+      "category": "hiring"
+    },
+    {
+      "fact_id": "F-07",
+      "subject": "co-122",
+      "attribute": "warehouse_management_platform",
+      "value": "in-house warehouse management system, no third-party platform of record",
+      "collection_date": "2026-02-11",
+      "source": "Bracklewood Analytics",
+      "category": "technology"
+    },
+    {
+      "fact_id": "F-08",
+      "subject": "co-122",
+      "attribute": "depot_collaboration_tooling",
+      "value": "three separate task and messaging tools in use across depots",
+      "collection_date": "2026-01-29",
+      "source": "Quenwick Data",
+      "category": "technology"
+    },
+    {
+      "fact_id": "F-09",
+      "subject": "co-122",
+      "attribute": "network_expansion_announcement",
+      "value": "second northern distribution hub announced, opening planned for the second half of 2026",
+      "collection_date": "2026-03-06",
+      "source": "Pennerow Freight Review",
+      "category": "news"
+    },
+    {
+      "fact_id": "F-10",
+      "subject": "co-125",
+      "attribute": "headquarters_location",
+      "value": "Columbus, Ohio, United States",
+      "collection_date": "2026-01-13",
+      "source": "Halloway Research Desk",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-11",
+      "subject": "co-125",
+      "attribute": "care_site_count",
+      "value": 23,
+      "collection_date": "2026-02-06",
+      "source": "Quenwick Data",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-12",
+      "subject": "co-125",
+      "attribute": "clinical_staff_count",
+      "value": "1,850",
+      "collection_date": "2026-01-27",
+      "source": "Halloway Research Desk",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-13",
+      "subject": "co-125",
+      "attribute": "electronic_records_platform",
+      "value": "one supplier-provided electronic records platform in use across every site",
+      "collection_date": "2025-11-20",
+      "source": "Thistledown Research",
+      "category": "technology"
+    },
+    {
+      "fact_id": "F-14",
+      "subject": "co-125",
+      "attribute": "procurement_model",
+      "value": "regional procurement, each region contracts separately",
+      "collection_date": "2026-02-17",
+      "source": "Corrance Market Desk",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-15",
+      "subject": "co-125",
+      "attribute": "clinical_systems_leadership_appointment",
+      "value": "Head of Clinical Systems appointed, start date 2026-01-12",
+      "collection_date": "2026-01-30",
+      "source": "Vesperlane Signals",
+      "category": "hiring"
+    },
+    {
+      "fact_id": "F-16",
+      "subject": "co-125",
+      "attribute": "open_clinical_systems_roles",
+      "value": 6,
+      "collection_date": "2026-03-02",
+      "source": "Ninebark Signal Feed",
+      "category": "hiring"
+    },
+    {
+      "fact_id": "F-17",
+      "subject": "co-125",
+      "attribute": "scheduling_tooling",
+      "value": "site scheduling kept in spreadsheets at most sites",
+      "collection_date": "2026-02-25",
+      "source": "Bracklewood Analytics",
+      "category": "technology"
+    },
+    {
+      "fact_id": "F-18",
+      "subject": "co-125",
+      "attribute": "service_expansion_announcement",
+      "value": "two further outpatient sites announced for 2026",
+      "collection_date": "2026-03-09",
+      "source": "Ashvern Health Briefing",
+      "category": "news"
+    },
+    {
+      "fact_id": "F-19",
+      "subject": "co-121",
+      "attribute": "employee_count",
+      "value": 480,
+      "collection_date": "2026-01-15",
+      "source": "Corrance Market Desk",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-20",
+      "subject": "co-121",
+      "attribute": "employee_count",
+      "value": 620,
+      "collection_date": "2026-02-20",
+      "source": "Halloway Research Desk",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-21",
+      "subject": "co-121",
+      "attribute": "headquarters_location",
+      "value": "Boston, Massachusetts, United States",
+      "collection_date": "2026-01-20",
+      "source": "Marchmont Trade Register",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-22",
+      "subject": "co-121",
+      "attribute": "founding_year",
+      "value": 2014,
+      "collection_date": "2026-01-20",
+      "source": "Marchmont Trade Register",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-23",
+      "subject": "co-121",
+      "attribute": "engineering_office_locations",
+      "value": "engineering offices in Boston and Warsaw",
+      "collection_date": "2026-02-03",
+      "source": "Corrance Market Desk",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-24",
+      "subject": "co-121",
+      "attribute": "product_scope",
+      "value": "one workflow and collaboration product sold to business customers, with a free tier",
+      "collection_date": "2026-02-03",
+      "source": "Wraycombe Intent",
+      "category": "firmographic"
+    },
+    {
+      "fact_id": "F-25",
+      "subject": "co-121",
+      "attribute": "published_pricing_page_per_seat_monthly",
+      "value": "Team $19.00, Standard $32.00, Scale $57.00, per seat per month; headline per-seat price $32.00",
+      "collection_date": "2026-03-02",
+      "source": "Aphelion Systems published pricing page",
+      "category": "pricing_page_snapshot"
+    },
+    {
+      "fact_id": "F-26",
+      "subject": "co-121",
+      "attribute": "open_engineering_roles",
+      "value": 27,
+      "collection_date": "2026-02-27",
+      "source": "Ninebark Signal Feed",
+      "category": "hiring"
+    },
+    {
+      "fact_id": "F-27",
+      "subject": "co-121",
+      "attribute": "sales_leadership_appointment",
+      "value": "Vice President of Sales appointed, start date 2026-01-05",
+      "collection_date": "2026-01-19",
+      "source": "Vesperlane Signals",
+      "category": "hiring"
+    },
+    {
+      "fact_id": "F-28",
+      "subject": "co-121",
+      "attribute": "published_connector_count",
+      "value": 41,
+      "collection_date": "2026-02-13",
+      "source": "Wraycombe Intent",
+      "category": "technology"
+    },
+    {
+      "fact_id": "F-29",
+      "subject": "co-121",
+      "attribute": "mobile_application_availability",
+      "value": "native mobile applications published for both major mobile platforms",
+      "collection_date": "2026-01-26",
+      "source": "Bracklewood Analytics",
+      "category": "technology"
+    },
+    {
+      "fact_id": "F-30",
+      "subject": "co-121",
+      "attribute": "office_expansion_announcement",
+      "value": "London office opened, announced 2026-02-10",
+      "collection_date": "2026-02-18",
+      "source": "Corrance Market Desk",
+      "category": "news"
+    }
+  ]
+}
