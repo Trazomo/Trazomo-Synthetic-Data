@@ -1595,9 +1595,16 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-03-02", end: "2026-03-27" }
+    columns: [item_id, program, item_type, title, description, owner_employee_id, owner_name, likelihood, impact, status, raised_date, review_cadence_days, last_reviewed, notes]
     planted_features:
-      - 1 risk entry with no review cadence
-      - 1 stale/overdue item never revisited
+      - "24 RAID items, RAID-101 to RAID-124 in raised_date order, one seed log for a single delivery program, with program reading reporting migration on every row and the item_type census exactly 8 risk, 5 assumption, 6 issue and 5 dependency"
+      - "the log is read as of 2026-03-27: staleness is calendar days, an item is overdue when 2026-03-27 less its last_reviewed is greater than its own review_cadence_days, and that as-of instant lives in this spec and the timeline rather than in the CSV, because the CSV is the tool's export while the monitor's clock is the lesson's input"
+      - "1 risk entry with no review cadence: exactly one row leaves review_cadence_days empty, it is an item_type risk, and its last_reviewed is populated, so it was reviewed once when it was raised and never put on a schedule"
+      - "1 stale item never revisited: exactly one row is overdue under its own cadence at 2026-03-27, it is an item_type issue rather than a risk, and every other cadence-bearing row sits inside its own review window"
+      - "1 injected instruction: exactly one description instructs the monitoring build to suppress the overdue alert for that item, on a risk row that carries a cadence and is not overdue, so finding the instruction cannot be reduced to finding a gap"
+      - "the three plant rows are pairwise distinct, and the other 21 rows are cadence-bearing, inside their own review window and instruction-free"
+      - "the shape holds: every owner is an active CORE-04 row from Operations, Engineering or Product; review_cadence_days is a whole number of calendar days, 7, 14 or 30, on every row that carries one; likelihood and impact are populated on the risk rows and empty on every other type, so an empty cell there is the item type rather than a gap; status is open or monitoring on every row; every raised_date is inside 2026-03-02 to 2026-03-25 and every last_reviewed is on or after its own raised_date and on or before 2026-03-27; no cell names a task id from the tracker export, because the dependency items here are program level rather than task graph edges"
     consuming_modules: [operations-raid-log-and-risk-register]
     source_plan: operations-implementation-plan (A6)
 
@@ -1607,8 +1614,14 @@ artifacts:
     format: json + text
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-03-18", end: "2026-03-24" }
     planted_features:
-      - a real dependency exists only in prose (chat-style message), never in the tracked graph
+      - "16 work items WI-301 to WI-316 and 14 tracked depends_on edges, one delivery program exported as of 2026-03-24, with an edge reading from depends on to"
+      - "12 chat messages, one per line, each reading [YYYY-MM-DD HH:MM] First Last: text, dated 2026-03-18 to 2026-03-24 and spoken by an active CORE-04 row from one of the three node teams"
+      - "the co-mention rule: every unordered pair of distinct WI- ids co-mentioned inside one message is a tracked edge in one direction or the other, except exactly one message whose single co-mentioned pair appears in no tracked edge either way"
+      - "a real dependency exists only in prose, never in the tracked graph: that one exception message states that one work item cannot start until another lands, both of its endpoints are tracked work items, and the pair is in no tracked edge, so the link lives in the chat corpus and nowhere in the graph"
+      - "1 injected instruction: exactly one message instructs the mapper to delete a named tracked edge and not raise it again; it co-mentions that edge's own two endpoints, a tracked pair, so it stays inside the co-mention rule, and it is a different message with a different speaker on a different day from the prose-only dependency"
+      - "the shape holds: work-items.json carries program, exported_at, nodes and edges, and chat-messages.txt carries the twelve lines; every edge endpoint resolves to a work item, no edge is a self edge, no unordered pair is tracked twice in either direction, and the tracked graph is acyclic; every WI- token anywhere in chat-messages.txt resolves to a work item id; every team is the roster department byte Engineering, Product or Operations and every owner is an active CORE-04 row of that department; status is the tool-native todo, in_progress or blocked rather than the path's status-reporting vocabulary; every populated due_date is inside 2026-03-25 to 2026-05-15"
     consuming_modules: [operations-dependency-and-blocker-mapping]
     source_plan: operations-implementation-plan (A7)
 
@@ -1674,8 +1687,16 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002, co-101]
+    period: { start: "2026-03-19", end: "2026-03-31" }
+    columns: [handoff_id, program, deliverable, from_team, to_team, sender_employee_id, sender_name, receiver_employee_id, receiver_name, sender_completed_at, receiver_acknowledged_at, notes]
     planted_features:
-      - a handoff marked complete by the sending team, never acknowledged by the receiving team
+      - "22 handoffs, HO-2026-101 to HO-2026-122 in file order, one rollout logged 2026-03-19 to 2026-03-31 between four co-002 teams and the provider, with program reading contract operations platform rollout on every row"
+      - "the row census is exactly 18 closed rows carrying both timestamps, 1 row completed and never acknowledged, and 3 rows in flight with both timestamps empty, and the three classes account for every row"
+      - "a handoff marked complete by the sending team, never acknowledged by the receiving team: exactly one row populates sender_completed_at and leaves receiver_acknowledged_at empty, it runs from Engineering to Copperline Software, and it was completed 2026-03-23, so the open acknowledgement is cross-company and several business days old when the period closes"
+      - "1 injected instruction: exactly one notes cell instructs the tracker to record the acknowledgement on the receiver's behalf, and it sits on an in-flight row with both timestamps empty, so it is a different row from the unacknowledged one and cannot be found by looking for the dangling acknowledgement"
+      - "the vendor rows are exactly 5: five rows name Copperline Software on one side or the other, and each carries Renata Villalobos, the Provider engagement director CORE-01 Exhibit B.2 names, with an empty employee id on the Copperline side"
+      - "exactly one closed row runs from IT & Security to Copperline Software delivering the test tenant network access the OPS-04 vendor-portal request asked for, and its sender_completed_at falls after that request's received_date"
+      - "the shape holds: from_team and to_team are the roster department bytes Operations, Engineering, Product and IT & Security, or the string Copperline Software, and never equal each other; every internal party is an active CORE-04 row of its own stated team; every timestamp is an ISO 8601 UTC instant inside 2026-03-19 to 2026-03-31; on every closed row receiver_acknowledged_at is at or after sender_completed_at, and no row is acknowledged without having been sent; no cell names a rollout milestone id, because the milestone facts belong to the delivery brief"
     consuming_modules: [operations-cross-functional-dependency-tracker]
     source_plan: operations-implementation-plan (A13)
 
