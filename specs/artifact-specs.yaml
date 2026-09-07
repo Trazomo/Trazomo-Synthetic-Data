@@ -1443,7 +1443,7 @@ artifacts:
     type: corpus
     format: markdown
     generation: drafted-frozen
-    canon_entities: [co-002, co-102, co-103, co-124, co-140+]
+    canon_entities: [co-002, co-102, co-103, co-121, co-124, co-140+]
     planted_features:
       - "C4-P4 contradictory framing pair: exactly one attribute slug of the pinned vocabulary is carried by exactly two call-note records with opposite direction values, positive on one record and negative on the other, and no third record anywhere carries that slug. The two records sit on two different deals, neither of them a member of the opposite-outcome pair, and each note keeps the buyer's own framing verbatim rather than summarized, so the corpus carries no resolution of the disagreement and no later note correcting either reading. Every other slug of the vocabulary holds one direction across the whole corpus"
       - "C4-P5-prime opposite-outcome pair: exactly one pair of registry deals with opposite outcomes matches on segment and on band, where band(amount) = floor(amount / 50000), bands $50,000.00 wide and counted from zero. The lost member is the one deal that closed inside the CORE-03 export window and byte-joins opp-co-124-01 in opportunities.csv on opportunity_id, amount 27161, close_date 2026-03-12 and segment Mid-Market. The won member has no opportunity row at all, because zero Closed Won rows exist in the export, and its outcome is witnessed instead by its accounts.csv status customer plus a close_date preceding 2025-07-20. Both members carry at least one call note, and nothing in the corpus states which pair matches, resolves the disagreement between them or averages them"

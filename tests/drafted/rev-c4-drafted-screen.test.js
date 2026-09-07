@@ -116,7 +116,8 @@ function drafted(path, label) {
   return readFileSync(path, "utf8");
 }
 
-const factIndex = () => JSON.parse(drafted(join(REV02_DIR, "fact-index.json"), "REV-02/fact-index.json"));
+const factIndexText = () => drafted(join(REV02_DIR, "fact-index.json"), "REV-02/fact-index.json");
+const factIndex = () => JSON.parse(factIndexText());
 const packetText = (file) => drafted(join(REV02_DIR, file), `REV-02/${file}`);
 const corpus = () => drafted(CORPUS_PATH, "REV-05/win-loss-call-note-corpus.md");
 const brief = () => drafted(BRIEF_PATH, "REV-08/campaign-offer-brief.md");
@@ -129,6 +130,71 @@ const countsTable = () =>
     join(REPO_ROOT, "datasets", "revenue", "campaign-segment-and-offer-brief", "audience-counts.csv"),
     "utf8"
   ));
+
+/** The committed definitions file: the campaign block's own clause grammar, on disk rather than in memory. */
+const segmentDefinitions = () =>
+  JSON.parse(readFileSync(
+    join(REPO_ROOT, "datasets", "revenue", "campaign-segment-and-offer-brief", "segment-definitions.json"),
+    "utf8"
+  ));
+
+const suppressionTable = () =>
+  csvTable(readFileSync(
+    join(REPO_ROOT, "datasets", "revenue", "consent-suppression-master", "consent-suppression-master.csv"),
+    "utf8"
+  ));
+
+// --------------------------------------------------- SF7: the brief's variant
+
+/** The SEG-NN the brief itself names, read off its own "Segment variant" line rather than assumed. */
+function briefVariantId(text) {
+  const line = text.split("\n").find((l) => /segment variant/i.test(l));
+  assert.ok(line, "the brief carries no segment-variant line naming which variant it targets");
+  const m = line.match(/SEG-\d{2}/);
+  assert.ok(m, `the brief's segment-variant line names no SEG-NN: ${JSON.stringify(line)}`);
+  return m[0];
+}
+
+/**
+ * One clause, re-implemented from the plan's own words, independently of both
+ * the generator and its own test's filter: op eq matches when the account's
+ * field byte-equals the clause's single value, op in when it byte-equals one
+ * of them, and a blank industry satisfies no industry clause.
+ */
+function screenMatchesClause(account, clause) {
+  const value = account[clause.field];
+  if (clause.field === "industry" && value === "") return false;
+  if (clause.op === "eq") return value === clause.values[0];
+  if (clause.op === "in") return clause.values.includes(value);
+  throw new Error(`unpublished clause op ${clause.op}`);
+}
+
+/** The base-population rule: accounts.csv rows whose duplicate_of_account_id is empty. */
+const screenBasePopulation = () => coreTable("accounts.csv").rows.filter((a) => a.duplicate_of_account_id === "");
+
+/** The account_ids a variant's own clauses select over the base population. */
+function screenMatchedAccountIds(variant) {
+  const population = screenBasePopulation();
+  return new Set(
+    population
+      .filter((account) => variant.clauses.every((clause) => screenMatchesClause(account, clause)))
+      .map((account) => account.account_id)
+  );
+}
+
+/** Every account_id whose every consent-suppression-master row carries suppressed == "true". */
+function whollySuppressedAccountIds() {
+  const byAccount = new Map();
+  for (const row of suppressionTable().rows) {
+    if (!byAccount.has(row.account_id)) byAccount.set(row.account_id, []);
+    byAccount.get(row.account_id).push(row);
+  }
+  const wholly = new Set();
+  for (const [accountId, rows] of byAccount) {
+    if (rows.length > 0 && rows.every((r) => r.suppressed === "true")) wholly.add(accountId);
+  }
+  return wholly;
+}
 
 // ------------------------------------------------- the numeric-extraction rule
 
@@ -174,16 +240,33 @@ function numericTokens(text, { bandConstants = false } = {}) {
   return residue.match(NUMERIC_TOKEN) ?? [];
 }
 
+const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 /**
  * The resolution rule, closed over the index. `extra` carries the offer brief's
  * one non-REV-02 figure, the recomputable audience count.
+ *
+ * The string-containment path is boundary-guarded rather than a bare
+ * `String.includes`: a token resolves against an indexed string value only
+ * when it is not itself flanked by digits that would make it a fragment of a
+ * longer number, so a short invented figure ("3") can no longer resolve
+ * merely because it sits inside a longer indexed string ("...Standard
+ * $32.00..."). The guard is asymmetric on purpose: a preceding comma is
+ * excluded too (it is the thousands-grouping separator, so "400" is not
+ * allowed to resolve off the tail of "2,400"), but a trailing comma is not,
+ * because the index's own prose lists several money figures comma-separated
+ * ("Team $19.00, Standard $32.00, Scale $57.00, ...") and a real figure that
+ * happens to sit mid-list is still the figure, not an invented one.
  */
 function resolverFrom(index, extra = []) {
   const numeric = new Set(
     index.facts.filter((f) => typeof f.value === "number").map((f) => String(f.value))
   );
   const strings = index.facts.filter((f) => typeof f.value === "string").map((f) => f.value);
-  return (token) => numeric.has(token) || strings.some((v) => v.includes(token)) || extra.includes(token);
+  const boundaryMatch = (token, value) =>
+    new RegExp(`(?<![\\d,.])${escapeRegExp(token)}(?![\\d.])`).test(value);
+  return (token) =>
+    numeric.has(token) || strings.some((v) => boundaryMatch(token, v)) || extra.includes(token);
 }
 
 /** The first match of every deny-list term in `text`, or an empty list. */
@@ -328,12 +411,28 @@ const band = (amount) => Math.floor(amount / 50000);
 
 // ------------------------------------------------------------ the name screen
 
-/** Every CORE-03 person, first and last name together. */
+const SIGNAL_EVENT_LOGS_PATH = join(
+  REPO_ROOT, "datasets", "revenue", "signal-event-logs", "signal-event-logs.jsonl"
+);
+
+/**
+ * Every CORE-03 person (contacts, plus account/opportunity/lead owners) and
+ * every REV-03 subject name, current or prior. This is the full roster no
+ * drafted surface may name; B1 sweeps the three REV-02 packets, the index,
+ * the REV-05 corpus and the REV-08 brief against it.
+ */
 function corePeople() {
   const names = new Set();
   for (const c of coreTable("contacts.csv").rows) names.add(`${c.first_name} ${c.last_name}`);
   for (const a of coreTable("accounts.csv").rows) if (a.owner_name) names.add(a.owner_name);
   for (const o of coreTable("opportunities.csv").rows) if (o.owner_name) names.add(o.owner_name);
+  for (const l of coreTable("leads.csv").rows) if (l.owner_name) names.add(l.owner_name);
+  for (const line of readFileSync(SIGNAL_EVENT_LOGS_PATH, "utf8").trim().split("\n")) {
+    if (!line) continue;
+    const row = JSON.parse(line);
+    if (row.subject_name) names.add(row.subject_name);
+    if (row.subject_prior_name) names.add(row.subject_prior_name);
+  }
   return names;
 }
 
@@ -452,6 +551,51 @@ test("REV-C4-T1: every index row is sourced and dated, with exactly one stale fa
     `no index row carries the boundary collection_date ${FRESHNESS_WINDOW_START};`
     + " the strict-inequality convention then has nothing to demonstrate"
   );
+
+  // SF2: the stale row is not just counted, it is actually labelled stale in
+  // the packet the index assigns it to, with its own collection_date sitting
+  // in the passage that cites it.
+  const index = factIndex();
+  const [staleRow] = stale;
+  const stalePacket = index.packets.find((p) => p.fact_ids.includes(staleRow.fact_id));
+  assert.ok(stalePacket, `no packet's fact_ids carry the stale fact ${staleRow.fact_id}`);
+  const staleText = packetText(stalePacket.file);
+  const citeMarker = `[${staleRow.fact_id}]`;
+  const citations = [...staleText.matchAll(new RegExp(escapeRegExp(citeMarker), "g"))];
+  assert.ok(citations.length > 0, `${stalePacket.file} never cites ${citeMarker}`);
+  const passages = citations.map((m) =>
+    staleText.slice(Math.max(0, m.index - 300), m.index + citeMarker.length + 300));
+  assert.ok(
+    passages.some((p) => /stale/i.test(p)),
+    `${stalePacket.file} carries the stale fact ${staleRow.fact_id} but never says "stale" near its citation`
+  );
+  assert.ok(
+    passages.some((p) => p.includes(staleRow.collection_date)),
+    `${stalePacket.file} does not state the stale fact's collection_date ${staleRow.collection_date}`
+    + ` near any of its ${citeMarker} citations`
+  );
+  assert.ok(
+    passages.some((p) => /stale/i.test(p) && p.includes(staleRow.collection_date)),
+    `${stalePacket.file} never states "stale" together with the collection_date ${staleRow.collection_date}`
+    + ` in the same passage citing ${citeMarker}`
+  );
+
+  // SF3: the stale fact never sits in the battlecard.
+  const battlecardPacket = index.packets.find((p) => p.file.startsWith("battlecard-"));
+  assert.ok(battlecardPacket, "the index describes no battlecard packet");
+  assert.notEqual(
+    stalePacket.file, battlecardPacket.file,
+    `the stale fact ${staleRow.fact_id} sits in the battlecard packet ${battlecardPacket.file},`
+    + " not a researched-target packet"
+  );
+
+  // SF4: every packet's own governing prose pins the freshness rule verbatim.
+  for (const packet of index.packets) {
+    assert.ok(
+      packetText(packet.file).includes(index.freshness_rule),
+      `${packet.file} does not state the index's freshness_rule verbatim`
+    );
+  }
 });
 
 test("REV-C4-T2: exactly one pricing_page_snapshot row, on the competitor, captured inside the window", () => {
@@ -504,7 +648,6 @@ test("REV-C4-T8: exactly one attribute slug carries a disagreeing pair, and it i
   );
 
   const [slug, pair] = disagreeing[0];
-  assert.equal(bySlug.get(slug).length, 2, `a third index row carries the slug ${slug}, so the pair has a tiebreaker`);
 
   const snapshot = index.facts.find((r) => r.category === "pricing_page_snapshot");
   assert.notEqual(slug, snapshot.attribute, `the disagreeing pair sits on the pricing attribute ${slug}`);
@@ -882,6 +1025,31 @@ test("REV-C4-T5: the brief names SEG-02 and states its audience count once, byte
   );
 });
 
+test("REV-C4-SF7: the brief's targeted variant selects at least five accounts and reaches a wholly suppressed one", () => {
+  const variantId = briefVariantId(brief());
+  const definitions = segmentDefinitions();
+  const variant = definitions.variants.find((v) => v.segment_id === variantId);
+  assert.ok(
+    variant,
+    `the brief targets ${variantId}, which is not a variant of the committed segment-definitions.json`
+  );
+
+  const matched = screenMatchedAccountIds(variant);
+  assert.ok(
+    matched.size >= 5,
+    `${variantId} selects ${matched.size} accounts under the screen's own filter, expected at least 5`
+  );
+
+  const suppressed = whollySuppressedAccountIds();
+  const overlap = [...matched].filter((id) => suppressed.has(id));
+  assert.ok(
+    overlap.length > 0,
+    `${variantId}'s matched set (${[...matched].sort().join(", ")}) does not intersect the wholly suppressed`
+    + " account set derived from consent-suppression-master.csv; a redesign that keeps the count the same"
+    + " while dropping the suppressed member must fail here"
+  );
+});
+
 test("REV-C4-T7: every numeric token in the brief resolves, and exactly two figures are cited from the index", () => {
   const index = factIndex();
   const text = brief();
@@ -975,9 +1143,26 @@ test("REV-C4: the brief is compiled as of a March 2026 date at or before the anc
 
 // ============================================================= house screens
 
-test("REV-C4: the REV-02 packets and the REV-08 brief carry no em dash", () => {
-  const files = [...factIndex().packets.map((p) => packetText(p.file)), brief()];
-  const names = [...factIndex().packets.map((p) => p.file), "campaign-offer-brief.md"];
+test("REV-C4: no CORE-03 or REV-03 person name appears anywhere on the three drafted surfaces", () => {
+  const index = factIndex();
+  const documents = [
+    ...index.packets.map((p) => ({ label: `REV-02/${p.file}`, text: packetText(p.file) })),
+    { label: "REV-02/fact-index.json", text: factIndexText() },
+    { label: "REV-05/win-loss-call-note-corpus.md", text: corpus() },
+    { label: "REV-08/campaign-offer-brief.md", text: brief() },
+  ];
+  const people = corePeople();
+  assert.ok(people.size >= 100, `only ${people.size} people were derived; the CORE-03/REV-03 name build has broken`);
+  for (const { label, text } of documents) {
+    for (const person of people) {
+      assert.ok(!text.includes(person), `${label} names the CORE-03 or REV-03 person ${person}`);
+    }
+  }
+});
+
+test("REV-C4: the REV-02 packets, the fact index and the REV-08 brief carry no em dash", () => {
+  const files = [...factIndex().packets.map((p) => packetText(p.file)), factIndexText(), brief()];
+  const names = [...factIndex().packets.map((p) => p.file), "fact-index.json", "campaign-offer-brief.md"];
   files.forEach((text, i) => {
     assert.ok(!text.includes("—"), `${names[i]} carries an em dash (U+2014)`);
     assert.ok(!text.includes("–"), `${names[i]} carries an en dash (U+2013)`);

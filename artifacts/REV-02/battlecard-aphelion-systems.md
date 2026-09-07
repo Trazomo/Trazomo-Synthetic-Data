@@ -20,7 +20,7 @@ Every figure printed below byte-matches the `value` of the row it cites. Where a
 
 Facts are grouped by the index category they carry. The category enum, stated verbatim in the index's governing metadata, is `firmographic`, `hiring`, `technology`, `pricing_page_snapshot` and `news`. This is the only file in the artifact that carries a `pricing_page_snapshot` row, it carries exactly one, and that row is unique corpus-wide.
 
-Aphelion Systems is a competitor, not a customer and not a prospect. It has no record in the seller's customer relationship management export, which is correct: nothing here comes from that export, and nothing here is people data.
+Aphelion Systems is a competitor, not a customer and not a prospect. It has no account or opportunity record of its own in the seller's customer relationship management export; where the export names it at all, it names it as a competitor on someone else's opportunity. Nothing here comes from that export, and nothing here is people data.
 
 ## Freshness
 

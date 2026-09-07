@@ -56,7 +56,7 @@ The offer is a scoped paid pilot of the seller's workflow and coordination produ
 
 The positioning rests on what the segment has in common. These are Mid-Market accounts the seller does not yet serve, and the pilot is offered as the cheapest honest way for such an account to find out whether coordinated work changes anything for it, rather than as a commitment it has to argue for internally first.
 
-The competitor these accounts most often shortlist is Aphelion Systems (co-121). Two research facts govern how this campaign talks about that competitor, and both resolve to the research index of record.
+The named competitor in this segment's deals is Aphelion Systems (co-121). Two research facts govern how this campaign talks about that competitor, and both resolve to the research index of record.
 
 The first is published price. Aphelion Systems publishes a headline per-seat price of $32.00 per seat per month on its public pricing page, captured 2026-03-02 [F-25]. That is list pricing on a published page. It is not a quote, it is not an offer anyone received, and it says nothing about what any account actually pays, so this campaign uses it only to describe what a buyer sees when the buyer looks the competitor up.
 
