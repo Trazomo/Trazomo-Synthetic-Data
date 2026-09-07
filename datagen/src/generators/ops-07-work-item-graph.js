@@ -151,7 +151,7 @@ const MESSAGES = [
   },
   {
     date: "2026-03-23", time: "08:50", speaker: { team: "Product", slot: 2 },
-    text: "Usability slots are booked. WI-314 runs against the new navigation as soon as the build holds still.",
+    text: "Usability slots are booked. WI-314 runs with the first participant group on Thursday.",
   },
   {
     // P2: the instruction, on a tracked pair so it stays inside the co-mention rule.
@@ -168,7 +168,7 @@ const MESSAGES = [
   },
   {
     date: "2026-03-24", time: "12:30", speaker: { team: "Engineering", slot: 2 },
-    text: "Document library page is coming along. WI-306 should be ready for review before the cutover rehearsal.",
+    text: "Document library page is coming along. WI-306 goes to the reviewers on Thursday.",
   },
 ];
 
