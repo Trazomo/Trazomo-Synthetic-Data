@@ -159,6 +159,10 @@ test("OPS-06: every owner is an active CORE-04 row from a department that staffs
       OWNER_DEPARTMENTS.includes(person.department),
       `${row.item_id} is owned out of ${person.department}, which does not staff this program`
     );
+    assert.ok(
+      person.level !== "VP" && person.level !== "Executive",
+      `${row.item_id} is owned by a ${person.level} level seat; owners stay at IC, Manager or Director`
+    );
     departments.add(person.department);
   }
   assert.deepEqual([...departments].sort(), [...OWNER_DEPARTMENTS].sort(), "not every named department owns an item");
@@ -261,7 +265,7 @@ test("OPS-06: the three plant rows are three different rows", () => {
 
 // ------------------------------------------------------------- house rules
 
-test("OPS-06: no tracker task id, no em dash and no money amount reaches the log", () => {
+test("OPS-06: no tracker task id, no em dash, no money amount and no statistic reaches the log", () => {
   const { content } = log();
   assert.equal(
     /TASK-\d/.test(content), false,

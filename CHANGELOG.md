@@ -29,9 +29,9 @@ of this one merge first; renumber at tag time in merge order.
   operations platform rollout between four co-002 departments and Copperline
   Software (Renata Villalobos, the CORE-01 Exhibit B.2 bytes); exactly 18
   closed, 1 completed and never acknowledged, 3 in flight, one of those
-  carrying the acknowledge-on-behalf instruction; one closed row delivers
-  the test tenant network access the OPS-04 vendor request asked for, date
-  guarded through the OPS-04 builder.
+  carrying the acknowledge-on-behalf instruction. A proposed cross-artifact
+  texture join with OPS-04 was removed at adversarial review (it contradicted
+  the frozen untriaged-queue fact); no C3 byte references any OPS-04 row.
 - **R3 catalog edits, spec text only**: OPS-15's consumer moves to
   `operations-work-management-startup` with the API-response-shaped format
   note; OPS-16's format line names the vendor-evaluation checklist sample

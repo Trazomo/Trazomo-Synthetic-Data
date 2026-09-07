@@ -167,6 +167,10 @@ test("OPS-07: every owner is an active CORE-04 row of the team its item sits on"
       `${node.id} calls its owner someone the roster does not`
     );
     assert.equal(person.department, node.team, `${node.id} sits on ${node.team} and its owner works in ${person.department}`);
+    assert.ok(
+      person.level !== "VP" && person.level !== "Executive",
+      `${node.id} is owned by a ${person.level} level seat; owners stay at IC, Manager or Director`
+    );
   }
 });
 
@@ -262,7 +266,7 @@ test("OPS-07 P2: exactly one message tells the mapper to delete an edge, and tha
   const instructed = messages.filter((m) => tellsTheMapperToDelete(m.text));
   assert.equal(
     instructed.length, 1,
-    `${instructed.length} messages instruct the mapper to delete an edge, expected 1`
+    `${instructed.length} messages instruct the mapper to delete an edge, expected 1: ${instructed.map((m) => `${m.date} ${m.speaker}`).join("; ")}`
   );
   const named = pairsIn(instructed[0].text);
   assert.equal(named.length, 1, "the delete instruction does not name exactly one pair of work items");
@@ -285,7 +289,7 @@ test("OPS-07: the two plant messages are different messages, speakers and days",
 
 // ------------------------------------------------------------- house rules
 
-test("OPS-07: no em dash and no money amount reaches either file", () => {
+test("OPS-07: no em dash, no money amount and no statistic reaches either file", () => {
   const files = generateArtifact(spec, canon);
   for (const file of files) {
     assert.equal(file.content.includes("—"), false, `an em dash reached ${file.path}`);

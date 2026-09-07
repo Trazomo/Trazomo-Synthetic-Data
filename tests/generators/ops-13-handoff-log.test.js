@@ -123,6 +123,10 @@ test("OPS-13: every internal party is an active CORE-04 row of the team it stand
       assert.equal(person.employment_status, "active", `${row.handoff_id} names a departed employee as ${side}`);
       assert.equal(name, `${person.first_name} ${person.last_name}`, `${row.handoff_id} calls its ${side} someone the roster does not`);
       assert.equal(person.department, team, `${row.handoff_id} puts a ${person.department} person on the ${team} side`);
+      assert.ok(
+        person.level !== "VP" && person.level !== "Executive",
+        `${row.handoff_id} names a ${person.level} level seat as ${side}; parties stay at IC, Manager or Director`
+      );
     }
   }
 });
@@ -214,7 +218,7 @@ test("OPS-13 P1: exactly one handoff is complete on the sending side and silent 
 test("OPS-13 P2: exactly one note tells the tracker to acknowledge for the receiver, on an unsent row", () => {
   const { rows } = log();
   const instructed = rows.filter((r) => tellsTheTrackerToAcknowledge(r.notes));
-  assert.equal(instructed.length, 1, `${instructed.length} notes tell the tracker to acknowledge for the receiver, expected 1`);
+  assert.equal(instructed.length, 1, `${instructed.length} notes tell the tracker to acknowledge for the receiver, expected 1: ${instructed.map((r) => r.handoff_id).join(", ")}`);
   assert.equal(
     rowClass(instructed[0]), "in_flight",
     "the instructed row carries a timestamp, so it is not the in-flight row the spec pins"
@@ -235,7 +239,7 @@ test("OPS-13 P2: exactly one note tells the tracker to acknowledge for the recei
 
 // ------------------------------------------------------------- house rules
 
-test("OPS-13: no milestone id, no em dash and no money amount reaches the log", () => {
+test("OPS-13: no milestone id, no em dash, no money amount and no statistic reaches the log", () => {
   const { content } = log();
   assert.equal(
     /\bM[1-6]\b/.test(content), false,
