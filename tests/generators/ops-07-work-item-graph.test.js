@@ -100,9 +100,12 @@ function findCycle(nodeIds, edges) {
   return cycle;
 }
 
-/** This file's own reading of the delete-an-edge instruction. */
+/** This file's own reading of the delete-an-edge instruction, broadened past a single verb and noun. */
 function tellsTheMapperToDelete(text) {
-  return /\bdelete\b/i.test(text) && /\b(link|edge|dependenc(y|ies))\b/i.test(text);
+  return (
+    /\b(delete|drop|remove|unlink|take out|do not raise)\b/i.test(text)
+    && /\b(link|edge|dependenc(y|ies)|relationship)\b/i.test(text)
+  );
 }
 
 function corpus() {
@@ -197,8 +200,13 @@ test("OPS-07: twelve chat messages, in the window, from active roster rows on th
     assert.ok(message.date <= EXPORTED_AT, `message ${index + 1} was sent after the graph was exported`);
     const candidates = rosterByName.get(message.speaker) ?? [];
     assert.ok(candidates.length > 0, `message ${index + 1} was sent by ${message.speaker}, who is not on the roster`);
+    const active = candidates.filter((p) => p.employment_status === "active");
+    assert.equal(
+      active.length, 1,
+      `message ${index + 1} was sent by ${message.speaker}, who resolves to ${active.length} active roster rows, not exactly 1`
+    );
     assert.ok(
-      candidates.some((p) => p.employment_status === "active" && TEAMS.includes(p.department)),
+      TEAMS.includes(active[0].department),
       `message ${index + 1} was sent by ${message.speaker}, who is not an active row on one of the three teams`
     );
   }
@@ -282,6 +290,7 @@ test("OPS-07: no em dash and no money amount reaches either file", () => {
   for (const file of files) {
     assert.equal(file.content.includes("—"), false, `an em dash reached ${file.path}`);
     assert.equal(/[$£€]\s?\d/.test(file.content), false, `a money amount reached ${file.path}`);
+    assert.equal(/\d+\s?%|\bpercent\b|\baverage\b|\bmedian\b/i.test(file.content), false, `a statistic reached ${file.path}`);
   }
 });
 

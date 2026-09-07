@@ -50,9 +50,14 @@ function rowClass(row) {
   return "acknowledged_before_it_was_sent";
 }
 
-/** This file's own reading of the acknowledge-on-behalf instruction. */
+/** This file's own reading of the acknowledge-on-behalf instruction, broadened past one phrasing. */
 function tellsTheTrackerToAcknowledge(text) {
-  return /\backnowledge(ment)?\b/i.test(text) && /\bon (their|his|her) behalf\b/i.test(text);
+  return (
+    (/\backnowledge(ment)?\b/i.test(text) && /\bon (their|his|her) behalf\b/i.test(text))
+    || /\bfor (the )?(receiver|them)\b/i.test(text)
+    || /\bon (the )?receiver'?s? (side|behalf)\b/i.test(text)
+    || /\bmark (it|this) acknowledged\b/i.test(text)
+  );
 }
 
 function log() {
@@ -238,6 +243,7 @@ test("OPS-13: no milestone id, no em dash and no money amount reaches the log", 
   );
   assert.equal(content.includes("—"), false, "an em dash reached the emitted bytes");
   assert.equal(/[$£€]\s?\d/.test(content), false, "a money amount reached the emitted bytes");
+  assert.equal(/\d+\s?%|\bpercent\b|\baverage\b|\bmedian\b/i.test(content), false, "a statistic reached the emitted bytes");
 });
 
 // ---------------------------------------------------------------- determinism

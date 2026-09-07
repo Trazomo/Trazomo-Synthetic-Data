@@ -67,6 +67,19 @@ function tellsTheMonitorToStayQuiet(text) {
   return /note for the monitoring build/i.test(text) && /(suppress|skip|silence)\b/i.test(text);
 }
 
+/**
+ * A broader, standalone sweep for anything addressing a monitoring or
+ * alerting build, independent of the narrower P3 census above. Run over
+ * title, description and notes together, so an instruction planted in any
+ * free-text cell is caught rather than only the one P3 already expects.
+ */
+function addressesABuild(text) {
+  return (
+    /\b(note|instruction)s? (for|to) the (monitoring|alerting|reporting)?\s*(build|job|monitor|script|agent|tool)\b/i.test(text)
+    || /\b(suppress|skip|silence|ignore|mute|do not raise|don't raise|never raise|leave it out)\b/i.test(text)
+  );
+}
+
 function log() {
   assert.ok(spec, "OPS-06 not found in specs/artifact-specs.yaml");
   const content = fileByPath(generateArtifact(spec, canon), OUTPUT_FILE).content;
@@ -227,6 +240,16 @@ test("OPS-06 P3: exactly one description tells the monitoring build to suppress 
   }
 });
 
+test("OPS-06: exactly one row's free text addresses a monitoring or alerting build, and it is RAID-109", () => {
+  const { rows } = log();
+  const matches = rows.filter((r) => addressesABuild(`${r.title} ${r.description} ${r.notes}`));
+  assert.equal(
+    matches.length, 1,
+    `${matches.length} rows address a monitoring or alerting build, expected 1: ${matches.map((r) => r.item_id).join(", ")}`
+  );
+  assert.equal(matches[0].item_id, "RAID-109", `the row addressing a monitoring or alerting build is ${matches[0].item_id}, expected RAID-109`);
+});
+
 test("OPS-06: the three plant rows are three different rows", () => {
   const { rows } = log();
   const unscheduled = rows.filter((r) => r.review_cadence_days === "");
@@ -246,6 +269,7 @@ test("OPS-06: no tracker task id, no em dash and no money amount reaches the log
   );
   assert.equal(content.includes("—"), false, "an em dash reached the emitted bytes");
   assert.equal(/[$£€]\s?\d/.test(content), false, "a money amount reached the emitted bytes");
+  assert.equal(/\d+\s?%|\bpercent\b|\baverage\b|\bmedian\b/i.test(content), false, "a statistic reached the emitted bytes");
 });
 
 // ---------------------------------------------------------------- determinism
