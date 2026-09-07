@@ -262,9 +262,14 @@ function resolverFrom(index, extra = []) {
   const numeric = new Set(
     index.facts.filter((f) => typeof f.value === "number").map((f) => String(f.value))
   );
-  const strings = index.facts.filter((f) => typeof f.value === "string").map((f) => f.value);
+  // R1: ISO dates inside indexed values are not resolvable figures, and a
+  // token may not resolve off the head of a comma-grouped number ("12" in
+  // "12,000") -- only a genuine list comma may follow.
+  const strings = index.facts
+    .filter((f) => typeof f.value === "string")
+    .map((f) => f.value.replace(/\d{4}-\d{2}-\d{2}/g, " "));
   const boundaryMatch = (token, value) =>
-    new RegExp(`(?<![\\d,.])${escapeRegExp(token)}(?![\\d.])`).test(value);
+    new RegExp(`(?<![\\d,.])${escapeRegExp(token)}(?![\\d.]|,\\d{3})`).test(value);
   return (token) =>
     numeric.has(token) || strings.some((v) => boundaryMatch(token, v)) || extra.includes(token);
 }
@@ -427,6 +432,9 @@ function corePeople() {
   for (const a of coreTable("accounts.csv").rows) if (a.owner_name) names.add(a.owner_name);
   for (const o of coreTable("opportunities.csv").rows) if (o.owner_name) names.add(o.owner_name);
   for (const l of coreTable("leads.csv").rows) if (l.owner_name) names.add(l.owner_name);
+  for (const sub of coreTable("lead_form_submissions.csv").rows) {
+    if (sub.first_name && sub.last_name) names.add(`${sub.first_name} ${sub.last_name}`);
+  }
   for (const line of readFileSync(SIGNAL_EVENT_LOGS_PATH, "utf8").trim().split("\n")) {
     if (!line) continue;
     const row = JSON.parse(line);
@@ -590,6 +598,14 @@ test("REV-C4-T1: every index row is sourced and dated, with exactly one stale fa
   );
 
   // SF4: every packet's own governing prose pins the freshness rule verbatim.
+  // R4: and the rule itself must actually state the convention, so blanking it
+  // cannot make the verbatim check vacuously true.
+  for (const piece of ["2026-03-16", "2025-12-16", "90 days", "strictly"]) {
+    assert.ok(
+      index.freshness_rule.includes(piece),
+      `the index freshness_rule does not state "${piece}"`
+    );
+  }
   for (const packet of index.packets) {
     assert.ok(
       packetText(packet.file).includes(index.freshness_rule),
@@ -1152,7 +1168,7 @@ test("REV-C4: no CORE-03 or REV-03 person name appears anywhere on the three dra
     { label: "REV-08/campaign-offer-brief.md", text: brief() },
   ];
   const people = corePeople();
-  assert.ok(people.size >= 100, `only ${people.size} people were derived; the CORE-03/REV-03 name build has broken`);
+  assert.ok(people.size >= 130, `only ${people.size} people were derived; the CORE-03/REV-03 name build has broken`);
   for (const { label, text } of documents) {
     for (const person of people) {
       assert.ok(!text.includes(person), `${label} names the CORE-03 or REV-03 person ${person}`);
