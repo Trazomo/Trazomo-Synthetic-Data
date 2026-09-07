@@ -1714,23 +1714,38 @@ artifacts:
   - id: OPS-15
     name: work-management-platform-export
     type: dataset
-    format: json (Notion/Asana-style dump)
+    format: "json: a Notion data source query response plus an Asana task list, API-response-shaped rather than a UI export, because only the API surfaces have published schemas"
     generation: deterministic
     canon_entities: [co-002]
     planted_features:
       - tasks table with owner/state/source/definition-of-done fields, some incomplete
-    consuming_modules: [operations-work-management-platform]
+    consuming_modules: [operations-work-management-startup]
     source_plan: operations-implementation-plan (A15)
 
   - id: OPS-16
     name: meeting-consent-notice-and-invite-templates
     type: template
-    format: ics + markdown
+    format: "ics + markdown: the invite and consent notice templates, plus a vendor-evaluation checklist sample whose first two questions are retention and model training, and a consent flow naming recording, transcribing and biometric identification as three separate acts"
     generation: deterministic
     canon_entities: [co-002]
     planted_features: []
     consuming_modules: [operations-operational-controls]
     source_plan: operations-implementation-plan (A16)
+
+  - id: OPS-17
+    name: work-management-export-planner-smartsheet
+    type: dataset
+    format: "json: a Planner Graph task list plus a Smartsheet Get Sheet response, API-response-shaped rather than a UI export, because only the API surfaces have published schemas"
+    generation: deterministic
+    canon_entities: [co-002]
+    planted_features:
+      - "the planted gap is structural rather than a missing value: neither payload has anywhere to put a definition of done, because Planner carries no local custom fields and the sheet's columns list has no definition-of-done column, so the correct engineering answer is a documented convention plus a checker rather than a field to fill in"
+      - "percentComplete is an integer and no status string is carried anywhere, so a reader has to state the mapping from that integer to the three buckets rather than read a status off the payload"
+      - "Planner assignments are keyed by GUID with no display name, and a task's description sits behind a separate details call, represented here by its absence"
+      - "Smartsheet cells are keyed by numeric columnId with no column name in the row payload, and at least one cell's value and displayValue differ, so a reader has to choose between the two deliberately"
+      - "the tie-outs hold: every Smartsheet columnId in a cell resolves to an entry in the sheet's columns list; every Planner assignment GUID either resolves to the users payload or is unresolvable under a stated rule; and the two payloads describe the same underlying task set, so the normalizer's common-record count is fixed and recomputable"
+    consuming_modules: [operations-work-management-platform]
+    source_plan: operations-implementation-plan-v2 (R3, section 3.7)
 
   # ----------------------------------------------------------------- SMB (small-business path)
   - id: SMB-01
