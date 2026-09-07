@@ -59,6 +59,7 @@ import * as lgl22 from "./lgl-22-matter-portfolio.js";
 import * as ops04 from "./ops-04-intake-batch.js";
 import * as ops05 from "./ops-05-backlog-export.js";
 import * as ops06 from "./ops-06-raid-log.js";
+import * as ops07 from "./ops-07-work-item-graph.js";
 import * as rev01 from "./rev-01-consent-suppression.js";
 import * as rev07 from "./rev-07-object-model.js";
 import * as rev11 from "./rev-11-policy-scenarios.js";
@@ -94,7 +95,7 @@ const REGISTRY = new Map(
     fin36, fin37, fin38, fin39,
     hr17, hr18,
     lgl07, lgl11, lgl18, lgl20, lgl21, lgl22,
-    ops04, ops05, ops06,
+    ops04, ops05, ops06, ops07,
     rev01, rev07, rev11, test01,
   ].map((mod) => [mod.id, mod])
 );
