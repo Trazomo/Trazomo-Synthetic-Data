@@ -823,6 +823,50 @@
             "row_counts": {
                 "backlog-export.csv": 28
             }
+        },
+        {
+            "id": "OPS-06",
+            "name": "raid-log-seed",
+            "track": "operations",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/operations/raid-log-seed",
+            "files": [
+                "raid-log.csv"
+            ],
+            "row_counts": {
+                "raid-log.csv": 24
+            }
+        },
+        {
+            "id": "OPS-07",
+            "name": "work-item-graph-with-hidden-link",
+            "track": "operations",
+            "type": "corpus",
+            "format": "json + text",
+            "generation": "deterministic",
+            "path": "datasets/operations/work-item-graph-with-hidden-link",
+            "files": [
+                "chat-messages.txt",
+                "work-items.json"
+            ],
+            "row_counts": {}
+        },
+        {
+            "id": "OPS-13",
+            "name": "cross-functional-handoff-log",
+            "track": "operations",
+            "type": "log",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/operations/cross-functional-handoff-log",
+            "files": [
+                "handoff-log.csv"
+            ],
+            "row_counts": {
+                "handoff-log.csv": 22
+            }
         }
     ],
     "specs": "specs/artifact-specs.yaml",
