@@ -1,0 +1,98 @@
+# Recipient email verification, the enrichment sidecar for the approved
+# message template library.
+#
+# Population: every contact of an account whose customer relationship
+# management status is `target`. The population is derived from the export,
+# never typed: a contact_id or an address that does not byte-match its row in
+# the export is a defect, not an update.
+#
+# email_status is what the last enrichment run could say about the address:
+#
+#   verified  the address was confirmed against the provider on that run.
+#   inferred  the address was constructed from the account domain pattern and
+#             never confirmed, so the drafter abstains and records the missing
+#             input rather than writing to it.
+#
+# Consent is a separate question with its own source of truth. A permitted
+# consent state does not make an inferred address usable, and this file says
+# nothing about consent.
+
+artifact: REV-04
+entity: Atticus Dundee Inc.
+approved_by: VP, Marketing
+last_reviewed: 2026-03-13
+population: contacts of accounts whose customer relationship management status is target
+source_export: datasets/core/crm-seed-dataset/contacts.csv
+recipients:
+  - contact_id: ct-co-122-01
+    email: emerson.petrov@lodestarlogistics.example
+    email_status: verified
+  - contact_id: ct-co-122-02
+    email: blair.petrov@lodestarlogistics.example
+    email_status: verified
+  - contact_id: ct-co-125-01
+    email: casey.delacroix@thornfieldhealth.example
+    email_status: verified
+  - contact_id: ct-co-125-02
+    email: rowan.nakamura@thornfieldhealth.example
+    email_status: verified
+  - contact_id: ct-co-125-03
+    email: skyler.petrov@thornfieldhealth.example
+    email_status: verified
+  - contact_id: ct-co-141-01
+    email: emerson.singh@northfieldholdings.example
+    email_status: verified
+  - contact_id: ct-co-146-01
+    email: blair.whitfield@meridianvalegroup.example
+    email_status: verified
+  - contact_id: ct-co-146-02
+    email: sage.marsten@meridianvalegroup.example
+    email_status: verified
+  - contact_id: ct-co-146-03
+    email: emerson.alvarez@meridianvalegroup.example
+    email_status: verified
+  - contact_id: ct-co-148-01
+    email: emerson.marsten@cobblefieldpartners.example
+    email_status: inferred
+  - contact_id: ct-co-148-02
+    email: morgan.okafor@cobblefieldpartners.example
+    email_status: verified
+  - contact_id: ct-co-152-01
+    email: emerson.yun@larchmontholdings.example
+    email_status: verified
+  - contact_id: ct-co-152-02
+    email: sage.delacroix@larchmontholdings.example
+    email_status: verified
+  - contact_id: ct-co-156-01
+    email: blair.petrov@brightfengroup.example
+    email_status: verified
+  - contact_id: ct-co-157-01
+    email: sage.yun@cragmooranalytics.example
+    email_status: verified
+  - contact_id: ct-co-157-02
+    email: casey.yun@cragmooranalytics.example
+    email_status: verified
+  - contact_id: ct-co-158-01
+    email: avery.yun@duskfieldanalytics.example
+    email_status: verified
+  - contact_id: ct-co-159-01
+    email: sage.nakamura@ferngrovesystems.example
+    email_status: verified
+  - contact_id: ct-co-159-02
+    email: rowan.nakamura@ferngrovesystems.example
+    email_status: verified
+  - contact_id: ct-co-162-01
+    email: jordan.coburn@ironbrookpartners.example
+    email_status: verified
+  - contact_id: ct-co-163-01
+    email: jordan.singh@junewoodllc.example
+    email_status: verified
+  - contact_id: ct-co-168-01
+    email: rowan.delacroix@amberlinesystems.example
+    email_status: verified
+  - contact_id: ct-co-168-02
+    email: jordan.coburn@amberlinesystems.example
+    email_status: verified
+  - contact_id: ct-co-169-01
+    email: sage.marsten@foxgloveholdings.example
+    email_status: verified
