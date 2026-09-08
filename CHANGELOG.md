@@ -1,9 +1,9 @@
 # Changelog
 
-## 1.13.0
+## 1.15.0
 
-**Allocated in merge order (expected `v1.13.0`); renumber at tag time if the
-order changes.**
+**Allocated in merge order (expected `v1.15.0`, after revenue cluster 4 took
+`v1.14.0`); renumber at tag time if the order changes.**
 
 People and HR cluster 2, recruiting intake and screening, re-cut. The two
 drafted-frozen sets this section describes were first drafted against the
@@ -11,8 +11,8 @@ engineering requisition and are re-cut here onto the operations requisition
 amendment A moved the recruiting arc to, so a senior professional who does not
 write code can judge the substance of what the panel wrote. One freeze review,
 no generator, no registry entry, and no byte changed under `datasets/` by this
-section: the one dataset cell the amendment moves belongs to the previous
-section. HR-01, HR-03 and CORE-04 are read and never edited. The plan is
+section: the one dataset cell the amendment moves belongs to Amendment A's
+own section, 1.13.0 below. HR-01, HR-03 and CORE-04 are read and never edited. The plan is
 `docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-2.md` with its
 Amendment A, which supersedes the parts of the main plan it names. The section 9
 defaults (U1 to U10) and the amendment's AU4 to AU6 ride to Salvador's freeze
@@ -101,10 +101,65 @@ review, HR-04b first as the one item that extends the written plant list.
   because writing those names into canon breaks the cluster 1 screen's canon-name
   assertion and falsifies a frozen HR-03 spec sentence, neither of which this
   cluster may change.
-## 1.12.0
+## 1.14.0
 
-**Allocated in merge order (expected `v1.12.0`, after revenue cluster 3's
-expected `v1.11.0`); renumber at tag time if the order changes.**
+**Renumbered to 1.14.0 at tag time by the integrator: operations cluster 3
+(#26) took v1.12.0 and the people-hr Amendment A (#27) took v1.13.0 in
+freeze-approval order.**
+
+Revenue cluster 4, research, positioning and campaigns: two drafted-frozen
+corpora, one new id (REV-08, ruling R6) carrying a deterministic segment
+filter plus a drafted offer brief, and no frozen-tier edit (this PR changes
+no byte under `datasets/core/`, `canon/`,
+`datasets/revenue/consent-suppression-master/`,
+`datasets/revenue/policy-as-code-scenarios/`,
+`datasets/revenue/signal-event-logs/`,
+`datasets/revenue/crm-object-model-seed/`, `artifacts/REV-04/` or
+`artifacts/REV-06/`). The plan is
+`docs/plans/2026-08-29-path-programs/revenue/data-plans/cluster-4.md` on
+trazomo (lane branch `data/revenue-cluster-4`), executing
+`implementation-plan-v2.md` section 3.4. The plan's section 9 defaults
+(U-C4-T4 first, then U1 to U10) ride to Salvador's freeze review; U-C4-T4
+corrects plan-v2's C4-P5 and REV-C4-T4 against the bytes (zero Closed Won
+opportunities exist anywhere at v1.11.0 and the shipped module 29 guard
+asserts that absence, so the opposite-outcome pair lives in REV-05's own
+deal registry: the lost member byte-joins the single Closed Lost
+opportunity and the won member is witnessed by its account's customer
+status plus a close date preceding the CORE-03 export window).
+
+- **REV-02 account-fact-packets** (drafted-frozen): three research packets
+  (two researched targets, one competitor battlecard) plus a 30-row
+  `fact-index.json`, every fact stamped with a collection date and source
+  (T1), exactly one stale fact under the strict 90-day rule with a
+  fresh-by-convention boundary fact beside it, exactly one public
+  pricing-page snapshot for the competitor (T2), and exactly one
+  disagreeing same-attribute fact pair with different sources and dates
+  (C4-P8, T8, added by the plan for the intelligence-hub edge eval).
+- **REV-05 win-loss-call-note-corpus** (drafted-frozen): an eight-deal
+  registry (five won, three lost) with outcome witnesses (won at
+  customer-status accounts, lost at closed_lost- or target-status
+  accounts), the export-window close-date rule, the pinned
+  floor(amount/50000) band function, and eleven call-note records with
+  structured attribute readouts; exactly one attribute slug carries both
+  directions on exactly two records (C4-P4, T3), and exactly one
+  cross-outcome pair matches on segment and band (P5-prime, T4-prime, T9).
+- **REV-08 campaign-segment-and-offer-brief** (new id, deterministic plus
+  drafted): `segment-definitions.json` with five variants over a pinned
+  clause grammar and no typed count anywhere (C4-P6), `audience-counts.csv`
+  computed from the CORE-03 generator's in-memory output (T5), exactly one
+  honest-empty variant (C4-P7, T6), and the drafted offer brief whose
+  count byte-equals the counts file and whose other figures resolve to
+  REV-02 indexed values (T7), carrying the mandatory pre-suppression
+  screen line.
+- Tests: `tests/generators/rev-08-campaign-segments.test.js` (independent
+  filter recomputation) and `tests/drafted/rev-c4-drafted-screen.test.js`
+  (the three-surface screen); the spec-loader artifact count moves 138 to
+  139 with the REV-08 entry.
+
+## 1.13.0
+
+**Renumbered to 1.13.0 at tag time by the integrator: operations cluster 3
+(#26) took v1.12.0 in freeze-approval order.**
 
 People and HR cluster 2, amendment A: the recruiting arc moves off the
 engineering requisition and onto an operations one, so a senior professional
@@ -165,6 +220,49 @@ Amendment A, which supersedes the parts of that plan it names.
   recomputes the rule. A separate feature that drifted below its threshold
   was fixed in the prose rather than silenced, which is what the allowlist's
   own rules require.
+
+## 1.12.0
+
+Renumbered from 1.13.0 at tag time by the integrator: #25 (people-hr
+cluster 2) did not merge first (NOT approved as drafted, superseded by the
+Amendment A re-cut), so this release takes the next minor after v1.11.0 in
+freeze-approval order.
+
+Operations cluster 3, risk and dependencies: three deterministic artifacts,
+no drafted-frozen document, and no shared-tier data edit (CORE-04 and OPS-04
+are read in memory at build time and never touched; this PR changes no byte
+under `datasets/core/` or `canon/companies.md`). The plan is
+`docs/plans/2026-08-29-path-programs/operations/data-plans/cluster-3.md` on
+trazomo (lane branch `data/operations-cluster-3`), executing
+`implementation-plan-v2.md` sections 2.1 and 3.4 under the resolved ruling
+R3. The plan's section 9 defaults (U1 first, then U2 to U10) rode to
+Salvador's freeze review, approved 2026-09-08.
+
+- **OPS-06 raid-log-seed**: a 24-row RAID log for the reporting migration
+  (8 risks, 5 assumptions, 6 issues, 5 dependencies), read as of 2026-03-27
+  with an integer review_cadence_days column so staleness is calendar-day
+  arithmetic over the bytes alone; exactly one risk with no cadence, exactly
+  one item stale under its own cadence, exactly one description instructing
+  the monitor to suppress its alert, pairwise distinct.
+- **OPS-07 work-item-graph-with-hidden-link**: 16 work items and 14 tracked
+  depends_on edges for the customer portal relaunch (a new furniture
+  program), acyclic, plus 12 timestamped chat messages under the co-mention
+  rule: every co-mentioned WI- pair is a tracked edge except exactly one
+  message asserting a real dependency the graph never carries; exactly one
+  other message instructs the mapper to delete a tracked edge.
+- **OPS-13 cross-functional-handoff-log**: 22 handoffs on the contract
+  operations platform rollout between four co-002 departments and Copperline
+  Software (Renata Villalobos, the CORE-01 Exhibit B.2 bytes); exactly 18
+  closed, 1 completed and never acknowledged, 3 in flight, one of those
+  carrying the acknowledge-on-behalf instruction. A proposed cross-artifact
+  texture join with OPS-04 was removed at adversarial review (it contradicted
+  the frozen untriaged-queue fact); no C3 byte references any OPS-04 row.
+- **R3 catalog edits, spec text only**: OPS-15's consumer moves to
+  `operations-work-management-startup` with the API-response-shaped format
+  note; OPS-16's format line names the vendor-evaluation checklist sample
+  and the three-act consent flow; OPS-17
+  `work-management-export-planner-smartsheet` joins the catalog (139
+  entries). Cluster T and cluster F build the bytes.
 
 ## 1.11.0
 
