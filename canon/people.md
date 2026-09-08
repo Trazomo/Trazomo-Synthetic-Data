@@ -50,7 +50,7 @@ than splitting it across two documents that already disagree.
 | pe-101 to pe-199 | co-002 Atticus Dundee Inc. named cast |
 | pe-201 to pe-249 | Named officers and contacts at ecosystem entities (co-101 to co-139) |
 | pe-251 to pe-299 | Non-party individuals: litigation parties, witnesses, experts, mediators, introducers, contractors |
-| ca-001 to ca-049 | Curated named candidates and applicants to co-002 roles. Two seats are proposed at people-hr cluster 2 and held, for the reason recorded under the table. |
+| ca-001 to ca-049 | Curated named candidates and applicants to co-002 roles. Two seats are seated at people-hr cluster 2, for the reason recorded under the table. |
 | EMP-NNNN | Generator-produced co-002 employee population, `datasets/core/people-roster/people-roster.csv` (CORE-04). Not curated here. Two rows are promoted into this file because they hold contested seats. |
 | ct-co-NNN-NN | Generator-produced CRM contacts, `datasets/core/crm-seed-dataset/contacts.csv` (CORE-03). Not curated here. |
 | ca-100 and up | Bulk co-002 candidate population, `artifacts/HR-02/` and later applicant fixtures. Not curated here. |
@@ -62,7 +62,7 @@ Individuals who exist only inside one artifact and carry no cross-track weight s
 get an ID here when they are named in frozen text, because a learner can see them and
 a future artifact must not accidentally reuse the name.
 
-**The two `ca-001` to `ca-049` seats are proposed and not yet written, deliberately.**
+**The two `ca-001` to `ca-049` seats are written, seated by the integrator on the 2026-09-08 R8 freeze approval; the reasoning below is kept as the record of why this was an integrator change.**
 People-hr cluster 2 confirms the `ca-` block boundaries above and proposes seating the
 two candidates who cross three artifact sets. Writing their names into this file would
 break two frozen things this cluster is not allowed to change: the cluster 1 drafted
@@ -211,6 +211,17 @@ treatment chronology lists them as treating and evaluating clinicians on their o
 and lists Marbury Regional Medical Center and Sheffield Falls Physical Therapy as
 separate facility rows, without tying either physician to either facility. Canon follows
 the artifact and does not invent an employer for them.
+
+## Candidates to co-002 roles (ca-001 to ca-049)
+
+Seated at people-hr cluster 2 on Salvador's R8 freeze approval (2026-09-08). Full
+names appear in HR-02 (resume and application log) and HR-03 (transcripts and
+feedback drafts); HR-04's six scorecards carry the candidates by id.
+
+| ID | Name | Role / title (as the artifact states it) | Appears in (grep-verified) | Status |
+|---|---|---|---|---|
+| ca-001 | Ianthe Wrenfield | Candidate for the open co-002 Program Manager requisition (Operations); interviewed by three panels | HR-02, HR-03, HR-04 | CANONICAL (seated at people-hr cluster 2) |
+| ca-002 | Amias Kettleborne | Candidate for the same requisition; interviewed by the same three panels | HR-02, HR-03, HR-04 | CANONICAL (seated at people-hr cluster 2) |
 
 ## Renames applied 2026-08-09 (real-person collisions)
 

@@ -705,7 +705,7 @@ test("HR-03: every cue parses, timestamps never run backwards, and the bands hol
         !roster().some((r) => r.first_name === part || r.last_name === part),
         `the candidate name "${name}" reuses the roster name part "${part}"`
       );
-      assert.ok(!canonText.includes(part), `the candidate name "${name}" reuses the canon name part "${part}"`);
+      assert.ok(!canonText.replace(/^\| ca-\d{3} \|.*$/gm, "").includes(part), `the candidate name "${name}" reuses the canon name part "${part}" outside the seated ca- rows`);
     }
   }
 });
