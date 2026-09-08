@@ -789,6 +789,22 @@
             "row_counts": {}
         },
         {
+            "id": "REV-08",
+            "name": "campaign-segment-and-offer-brief",
+            "track": "revenue",
+            "type": "fixture",
+            "format": "json + csv + markdown",
+            "generation": "deterministic",
+            "path": "datasets/revenue/campaign-segment-and-offer-brief",
+            "files": [
+                "audience-counts.csv",
+                "segment-definitions.json"
+            ],
+            "row_counts": {
+                "audience-counts.csv": 5
+            }
+        },
+        {
             "id": "REV-11",
             "name": "policy-as-code-scenarios",
             "track": "revenue",
@@ -1252,6 +1268,25 @@
             ]
         },
         {
+            "id": "REV-02",
+            "name": "account-fact-packets",
+            "type": "corpus",
+            "format": "json + markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/REV-02",
+            "source_files": [
+                "battlecard-aphelion-systems.md",
+                "fact-index.json",
+                "packet-lodestar-logistics.md",
+                "packet-thornfield-health.md"
+            ],
+            "build_files": [
+                "battlecard-aphelion-systems.docx",
+                "packet-lodestar-logistics.docx",
+                "packet-thornfield-health.docx"
+            ]
+        },
+        {
             "id": "REV-04",
             "name": "message-template-library",
             "type": "template",
@@ -1264,6 +1299,20 @@
             ],
             "build_files": [
                 "message-template-library.docx"
+            ]
+        },
+        {
+            "id": "REV-05",
+            "name": "win-loss-call-note-corpus",
+            "type": "corpus",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/REV-05",
+            "source_files": [
+                "win-loss-call-note-corpus.md"
+            ],
+            "build_files": [
+                "win-loss-call-note-corpus.docx"
             ]
         },
         {

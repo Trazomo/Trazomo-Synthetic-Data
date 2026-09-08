@@ -1,0 +1,121 @@
+{
+  "generated_from_spec": "REV-08",
+  "as_of": "2026-03-16",
+  "base_population": "accounts.csv rows whose duplicate_of_account_id is empty",
+  "blank_industry_rule": "a blank industry satisfies no industry clause",
+  "clause_grammar": {
+    "fields": [
+      "status",
+      "segment",
+      "industry"
+    ],
+    "ops": [
+      "eq",
+      "in"
+    ],
+    "match_rule": "An account matches a variant when every one of its clauses matches. A clause with op eq matches when the account's field byte-equals the clause's single value; a clause with op in matches when the account's field byte-equals one of the clause's values. Clauses combine with and, and no variant carries or."
+  },
+  "variants": [
+    {
+      "segment_id": "SEG-01",
+      "name": "All open target accounts",
+      "clauses": [
+        {
+          "field": "status",
+          "op": "eq",
+          "values": [
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "segment_id": "SEG-02",
+      "name": "Mid-Market target accounts",
+      "clauses": [
+        {
+          "field": "status",
+          "op": "eq",
+          "values": [
+            "target"
+          ]
+        },
+        {
+          "field": "segment",
+          "op": "eq",
+          "values": [
+            "Mid-Market"
+          ]
+        }
+      ]
+    },
+    {
+      "segment_id": "SEG-03",
+      "name": "Enterprise target accounts",
+      "clauses": [
+        {
+          "field": "status",
+          "op": "eq",
+          "values": [
+            "target"
+          ]
+        },
+        {
+          "field": "segment",
+          "op": "eq",
+          "values": [
+            "Enterprise"
+          ]
+        }
+      ]
+    },
+    {
+      "segment_id": "SEG-04",
+      "name": "Mid-Market and SMB healthcare target accounts",
+      "clauses": [
+        {
+          "field": "status",
+          "op": "eq",
+          "values": [
+            "target"
+          ]
+        },
+        {
+          "field": "industry",
+          "op": "eq",
+          "values": [
+            "Healthcare"
+          ]
+        },
+        {
+          "field": "segment",
+          "op": "in",
+          "values": [
+            "Mid-Market",
+            "SMB"
+          ]
+        }
+      ]
+    },
+    {
+      "segment_id": "SEG-05",
+      "name": "Logistics customer expansion accounts",
+      "clauses": [
+        {
+          "field": "status",
+          "op": "eq",
+          "values": [
+            "customer"
+          ]
+        },
+        {
+          "field": "industry",
+          "op": "eq",
+          "values": [
+            "Logistics"
+          ]
+        }
+      ]
+    }
+  ]
+}

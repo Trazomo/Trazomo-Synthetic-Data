@@ -1393,10 +1393,13 @@ artifacts:
     type: corpus
     format: json + markdown
     generation: drafted-frozen
-    canon_entities: [co-121, co-122, co-124, co-125, co-140+]
+    canon_entities: [co-002, co-121, co-122, co-125]
     planted_features:
-      - every fact stamped with collection date and source
-      - at least one fact deliberately stale (collected >90 days ago)
+      - "C4-P2 universal stamping: every row of fact-index.json carries a non-empty collection_date (ISO) and a non-empty source, so the count of rows missing either is zero; every packet fact line carries its [F-NN] reference and every figure the prose states byte-matches that row's indexed value"
+      - "C4-P1 stale fact and the boundary convention: a fact is stale iff anchor_date 2026-03-16 minus collection_date exceeds 90 days, strictly, so stale means collection_date < 2025-12-16. Exactly one fact corpus-wide is stale, it sits in a researched-target packet and never in the battlecard, and it is labelled stale where it is stated. At least one fact carries collection_date exactly 2025-12-16 and is fresh by the strict inequality; each packet's own governing prose states the rule and the boundary convention verbatim"
+      - "C4-P3 pricing snapshot: exactly one fact corpus-wide carries category pricing_page_snapshot, its subject is the canon competitor, and its collection_date is the capture date and sits inside the freshness window [2025-12-16, 2026-03-16]. The battlecard reproduces the captured pricing page as a distinct quoted block carrying its own capture-date line and source line, and the block's headline per-seat price is the indexed value"
+      - "C4-P8 disagreeing competitor pair: exactly one attribute slug appears on exactly two index rows sharing the competitor as subject, with different source values, different collection_date values and non-equal values, and no third row anywhere carries that slug. The slug is not a pricing attribute, so the snapshot stays the unique pricing witness. The battlecard presents both rows with their dates and their sources and explicitly resolves neither"
+      - "fact-index.json states its governing metadata before the rows: the freshness rule verbatim and the category enum [firmographic, hiring, technology, pricing_page_snapshot, news]. 30 facts, fact_id F-NN zero-padded and sequential, split 9 / 9 / 12 across two researched-target packets and the battlecard; every subject is a canon company id, and no [F-NN] cited in a packet resolves to a different subject"
     consuming_modules:
       - revenue-account-research-brief
       - revenue-competitive-intelligence-hub
@@ -1440,14 +1443,17 @@ artifacts:
     type: corpus
     format: markdown
     generation: drafted-frozen
-    canon_entities: [co-002, co-102, co-103, co-140+]
+    canon_entities: [co-002, co-102, co-103, co-121, co-124, co-140+]
     planted_features:
-      - contradictory customer-language framing across two records (forces synthesis, not copy-paste)
-      - one pair of similar deals with opposite outcomes
+      - "C4-P4 contradictory framing pair: exactly one attribute slug of the pinned vocabulary is carried by exactly two call-note records with opposite direction values, positive on one record and negative on the other, and no third record anywhere carries that slug. The two records sit on two different deals, neither of them a member of the opposite-outcome pair, and each note keeps the buyer's own framing verbatim rather than summarized, so the corpus carries no resolution of the disagreement and no later note correcting either reading. Every other slug of the vocabulary holds one direction across the whole corpus"
+      - "C4-P5-prime opposite-outcome pair: exactly one pair of registry deals with opposite outcomes matches on segment and on band, where band(amount) = floor(amount / 50000), bands $50,000.00 wide and counted from zero. The lost member is the one deal that closed inside the CORE-03 export window and byte-joins opp-co-124-01 in opportunities.csv on opportunity_id, amount 27161, close_date 2026-03-12 and segment Mid-Market. The won member has no opportunity row at all, because zero Closed Won rows exist in the export, and its outcome is witnessed instead by its accounts.csv status customer plus a close_date preceding 2025-07-20. Both members carry at least one call note, and nothing in the corpus states which pair matches, resolves the disagreement between them or averages them"
+      - "Registry coherence: eight deals, deal_id deal-NN and sequential, five won and three lost. Every account_id resolves in accounts.csv and every segment byte-equals that account's accounts.csv segment. Every won deal sits at a customer-status account and every lost deal sits at a closed_lost or target account, so the status column is the outcome witness. Exactly one row carries an opportunity_id, the one deal that closed inside the export window; every other close_date precedes 2025-07-20 because the won deals closed before the window opened"
+      - "Readout structure and dates: eleven call-note records, id WL-NN and sequential, each resolving to a registry deal_id and each carrying one to three readouts on the line attribute: <slug> / direction: <positive|negative> / note: \"<the buyer's framing>\", with the seven-slug vocabulary and the two direction values pinned in the corpus's own governing prose. Participants are recorded by role only on both sides, the seller-side role carrying account id co-002 and the buyer-side role carrying no name. Every call_date is at or before 2026-03-16, at or before its deal's close_date, and strictly before the Closed Lost transition of 2026-03-12 at the closed-lost account; the corpus is compiled as of 2026-03-15"
     consuming_modules:
       - revenue-positioning-messaging-systems
       - revenue-competitive-intelligence-hub
       - revenue-win-loss-pattern-analysis
+      - revenue-deck-and-proposal-builder
     source_plan: revenue-implementation-plan (artifact F)
 
   - id: REV-06
@@ -1474,6 +1480,20 @@ artifacts:
       - "records join CORE-03 by canon account id: same account names, same opportunity amounts, byte-consistent across both shapes"
     consuming_modules: [revenue-crm-ops]
     source_plan: revenue-implementation-plan (artifact I)
+
+  - id: REV-08
+    name: campaign-segment-and-offer-brief
+    type: fixture
+    format: json + csv + markdown
+    generation: deterministic
+    canon_entities: [co-002, co-121, co-140+]
+    planted_features:
+      - "five segment variants SEG-01 to SEG-05 over a pinned clause grammar (field in {status, segment, industry}, op in {eq, in}); the base population excludes accounts.csv rows carrying a non-empty duplicate_of_account_id, and a blank industry satisfies no industry clause; both rules stated in the definitions file's own governing metadata"
+      - "no count field exists anywhere in segment-definitions.json; audience-counts.csv is computed at build time by running each variant over the CORE-03 generator's in-memory account output, never retyped"
+      - "exactly one variant's audience count is zero (the honest-empty edge); every other variant's count is non-zero"
+      - "the drafted-frozen offer brief under artifacts/REV-08/ targets one variant by segment_id, states its audience count once byte-equal to the counts file, derives every other figure from a REV-02 indexed value, carries the mandatory pre-suppression screen line, and is screened by tests/drafted/ (outside validate's deterministic branch by design)"
+    consuming_modules: [revenue-campaign-briefing-system]
+    source_plan: revenue-implementation-plan-v2 (ruling R6; research-refresh section 3.2)
 
   - id: REV-11
     name: policy-as-code-scenarios
