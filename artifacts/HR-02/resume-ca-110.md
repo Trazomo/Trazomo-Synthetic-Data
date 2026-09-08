@@ -15,7 +15,7 @@ Program manager on reporting and data operations. The last few years have been t
 
 - Hold the plan for the reporting an analytics product runs on, including the change route the consuming teams follow.
 - Moved a definition change across a live report over a full cycle, choosing to run both versions in parallel rather than cut over in one step.
-- Named the two report requests that would sit unmet for the quarter and recorded the reason for each.
+- Named the two report requests that would sit unmet for the quarter and told each requester why.
 - Own the relationship with the three teams that read this reporting, including who gets asked first when their numbers disagree.
 - Cover the reporting surface for the analytics product end to end, from the raw feed through to what a consuming team actually reads.
 
