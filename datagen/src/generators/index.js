@@ -58,6 +58,9 @@ import * as lgl21 from "./lgl-21-self-service-portal.js";
 import * as lgl22 from "./lgl-22-matter-portfolio.js";
 import * as ops04 from "./ops-04-intake-batch.js";
 import * as ops05 from "./ops-05-backlog-export.js";
+import * as ops06 from "./ops-06-raid-log.js";
+import * as ops07 from "./ops-07-work-item-graph.js";
+import * as ops13 from "./ops-13-handoff-log.js";
 import * as rev01 from "./rev-01-consent-suppression.js";
 import * as rev03 from "./rev-03-signal-events.js";
 import * as rev07 from "./rev-07-object-model.js";
@@ -80,7 +83,7 @@ export const PROGRAM_GENERATOR_IDS = [
   fin36.id, fin37.id, fin38.id, fin39.id,
   hr17.id, hr18.id,
   lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
-  ops04.id, ops05.id,
+  ops04.id, ops05.id, ops06.id, ops07.id, ops13.id,
   rev01.id, rev03.id, rev07.id, rev11.id,
 ];
 
@@ -94,7 +97,7 @@ const REGISTRY = new Map(
     fin36, fin37, fin38, fin39,
     hr17, hr18,
     lgl07, lgl11, lgl18, lgl20, lgl21, lgl22,
-    ops04, ops05,
+    ops04, ops05, ops06, ops07, ops13,
     rev01, rev03, rev07, rev11, test01,
   ].map((mod) => [mod.id, mod])
 );
