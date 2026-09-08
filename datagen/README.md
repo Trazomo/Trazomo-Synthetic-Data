@@ -267,6 +267,7 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | LGL-21 | self-service-portal-program-dataset | dataset | demand-log/SLA CSVs + JSON (FAQ + ROI) |
 | LGL-22 | matter-portfolio-dashboard-dataset | dataset | matter-state + capacity-model CSVs |
 | REV-01 | consent-suppression-master | dataset | 67-row consent master CSV bijective with CORE-03's contacts (seven legal-basis states, the 10-business-day window, the do-not-contact account), a policy JSON, and two tool exports carrying one conflicting suppressed value |
+| REV-03 | signal-event-logs | dataset | 92-event jsonl signal log over six event types, accounts and contacts derived from CORE-03 at build time (the trigger-rule hire pair, the T3-prime champion move, the post-loss re-engagement, the fuzzy-match visitor trio, weighted feeds with a unique target argmax) |
 | REV-07 | crm-object-model-seed | dataset | Salesforce-shaped and HubSpot-shaped object samples for three CORE-03 accounts, derived from CORE-03 at build time (same names, ids and amounts) |
 | REV-11 | policy-as-code-scenarios | fixture | seven-rule pre-send policy JSON plus five ground-truth scenarios spanning three outcomes and three subjects, targets resolved from REV-01 at build time |
 | HR-17 | mixed-sensitivity-employee-dataset | dataset | 40-row employee sensitivity extract CSV stratified by department, tier and lawful basis computed rather than declared from two published field classes (one record whose declared tier its own fields do not compute) |

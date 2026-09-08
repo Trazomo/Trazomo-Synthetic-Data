@@ -760,6 +760,21 @@
             }
         },
         {
+            "id": "REV-03",
+            "name": "signal-event-logs",
+            "track": "revenue",
+            "type": "log",
+            "format": "jsonl",
+            "generation": "deterministic",
+            "path": "datasets/revenue/signal-event-logs",
+            "files": [
+                "signal-event-logs.jsonl"
+            ],
+            "row_counts": {
+                "signal-event-logs.jsonl": 92
+            }
+        },
+        {
             "id": "REV-07",
             "name": "crm-object-model-seed",
             "track": "revenue",
@@ -1199,31 +1214,31 @@
             "path": "artifacts/HR-03",
             "source_files": [
                 "draft-feedback-ca-001-hiring-manager.md",
+                "draft-feedback-ca-001-program-manager.md",
                 "draft-feedback-ca-001-recruiter-screen.md",
-                "draft-feedback-ca-001-staff-engineer.md",
                 "draft-feedback-ca-002-hiring-manager.md",
+                "draft-feedback-ca-002-program-manager.md",
                 "draft-feedback-ca-002-recruiter-screen.md",
-                "draft-feedback-ca-002-staff-engineer.md",
                 "interview-transcript-ca-001-hiring-manager.md",
+                "interview-transcript-ca-001-program-manager.md",
                 "interview-transcript-ca-001-recruiter-screen.md",
-                "interview-transcript-ca-001-staff-engineer.md",
                 "interview-transcript-ca-002-hiring-manager.md",
-                "interview-transcript-ca-002-recruiter-screen.md",
-                "interview-transcript-ca-002-staff-engineer.md"
+                "interview-transcript-ca-002-program-manager.md",
+                "interview-transcript-ca-002-recruiter-screen.md"
             ],
             "build_files": [
                 "draft-feedback-ca-001-hiring-manager.docx",
+                "draft-feedback-ca-001-program-manager.docx",
                 "draft-feedback-ca-001-recruiter-screen.docx",
-                "draft-feedback-ca-001-staff-engineer.docx",
                 "draft-feedback-ca-002-hiring-manager.docx",
+                "draft-feedback-ca-002-program-manager.docx",
                 "draft-feedback-ca-002-recruiter-screen.docx",
-                "draft-feedback-ca-002-staff-engineer.docx",
                 "interview-transcript-ca-001-hiring-manager.docx",
+                "interview-transcript-ca-001-program-manager.docx",
                 "interview-transcript-ca-001-recruiter-screen.docx",
-                "interview-transcript-ca-001-staff-engineer.docx",
                 "interview-transcript-ca-002-hiring-manager.docx",
-                "interview-transcript-ca-002-recruiter-screen.docx",
-                "interview-transcript-ca-002-staff-engineer.docx"
+                "interview-transcript-ca-002-program-manager.docx",
+                "interview-transcript-ca-002-recruiter-screen.docx"
             ]
         },
         {
@@ -1266,6 +1281,21 @@
             "build_files": [
                 "one-to-one-log.docx",
                 "performance-review-draft.docx"
+            ]
+        },
+        {
+            "id": "REV-04",
+            "name": "message-template-library",
+            "type": "template",
+            "format": "markdown + yaml",
+            "generation": "drafted-frozen",
+            "path": "artifacts/REV-04",
+            "source_files": [
+                "message-template-library.md",
+                "recipient-email-verification.yaml"
+            ],
+            "build_files": [
+                "message-template-library.docx"
             ]
         },
         {

@@ -2,20 +2,20 @@
 
 - Candidate ID: ca-001
 - Candidate name: Ianthe Wrenfield
-- Requisition ID: RQN-2026-0105
+- Requisition ID: RQN-2026-0106
 - Date: 2026-03-09
-- Interviewer: Lior Fenmore (Recruiter)
+- Interviewer: Sable Underhill (Recruiter)
 - Source transcript: interview-transcript-ca-001-recruiter-screen.md
 
 ## Recommendation
 
-Advance to the hiring manager conversation. The written communication signal is stronger than a screen usually surfaces, and the collaboration evidence is specific rather than claimed. One open question belongs to us rather than to the candidate: she has asked how the backlog is actually sequenced, and she should get a straight answer before we move further.
+Advance to the hiring manager conversation. The collaboration signal is stronger than a screen usually surfaces, and the customer evidence is specific rather than claimed. One open question belongs to us rather than to the candidate: she has asked who owns the sequence and what happens when a region says it is ready and is not, and she should get a straight answer before we move further.
 
 ## Evidence
 
-1. Ianthe described four years of distributed systems work on an ingest and enrichment path that five downstream teams read from, two of them outside engineering.
-2. She keeps change notes in one place, each carrying the before, the after, a date and what breaks if a consumer does nothing, which is close to the practice this team already follows.
-3. She described a deprecation that broke on a weekend because a consumer had automation nobody on their side remembered building, and she answered with what she changed rather than with whose fault it was.
-4. She now checks live traffic before removing a field instead of relying on the announcement window, which is a behavior change rather than a stated lesson.
-5. She rewrote her change note template sitting beside an analyst from a consuming operations group, after that group told her the first versions were unreadable to them.
-6. She said that the move would be wrong for her if the sequencing in the brief turns out to be nominal, and accepted my offer to put the question to the hiring manager rather than answer it herself.
+1. Ianthe described four years of process mapping and rollout work across regions whose procedures had drifted apart, each defensible on the day it was written and disagreeing about what finished means.
+2. She reconciled those versions into one document carrying the real regional differences as named lines rather than as separate copies, and said the regions accepted it once each could see its own line on the shared page.
+3. Asked how she works with people who do not report to her, she said she asks first what each person is already measured on, because a week spent on her program is a week somebody has to explain to their own manager.
+4. She named a team that had been burned by an earlier program, and described running two cycles where she asked for less than she needed and delivered exactly what she promised before that team came to her.
+5. Before her last rollout she sat in on support calls for a fortnight and then wrote the work as what the customer experienced, being asked the same question twice and then waiting, rather than as the migration they had been calling it internally, which settled an ordering argument in an afternoon.
+6. She said the move would be wrong for her if the plan turned out to be somebody else's to hold, and accepted my offer to put that question to the hiring manager rather than answer it herself.
