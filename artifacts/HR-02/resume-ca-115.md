@@ -17,7 +17,6 @@ Program manager on shared operations. I have spent ten years on processes other 
 - Collapsed two procedures that had drifted apart, running both in step until a month end disagreement nobody had noticed was understood, then moving teams smallest first with a way back at each step.
 - Named the constraint each candidate approach was paying for in the note, and recorded what would have to change for the rejected one to win.
 - Run the plan review for the group and give written feedback on every note that comes to it.
-- Said which of the three regions would be left to the following year, in the plan and before the year began.
 
 ### Operations Analyst, a mid sized analytics services company, 3 years 2 months
 

@@ -20,9 +20,9 @@ Operations analyst, four years in, most of it on internal services for a plannin
 
 ### Onboarding Specialist, a small business services company, 1 year 8 months
 
+- Two of the requested reports would not be built that quarter, decided early and said so before starting the rest.
 - Took new customers through their first month and the reporting behind it.
 - Took the small out of hours rota for that work and wrote up what broke each time, which is how the monthly reporting stopped being a surprise.
-- Told the team lead which of the two requested reports would not be built that quarter.
 
 ## Education
 

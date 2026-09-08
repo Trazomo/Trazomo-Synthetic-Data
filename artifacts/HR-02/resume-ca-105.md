@@ -17,7 +17,6 @@ Program manager on settlement and reconciliation work, where being wrong is expe
 - Rebuilt the matching step after writing down which of two candidate approaches paid for speed and which paid for being able to show the working, and recorded what would have to change for the other to win.
 - Agreed with a finance group who did not report to me what an unmatched item means before anything was built for it, and wrote that definition where both sides could argue with it.
 - Keep the escalation management route for the queue current, with a named person against each step and a date it was last checked.
-- Said which two of the four planned improvements would not be attempted before the year end, in the plan rather than in a conversation.
 
 ### Operations Analyst, a mid sized banking services company, 3 years 7 months
 

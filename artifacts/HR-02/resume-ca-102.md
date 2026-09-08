@@ -21,7 +21,6 @@ Operations analyst moving into program work. I have spent most of my time close 
 ### Onboarding Specialist, a small business services company, 2 years 7 months
 
 - Worked on claim intake and the queue behind it, and wrote the first structured record the team had of what arrived and when.
-- Told the group which two report requests would not be met that quarter, and put the reason in the same note.
 - Wrote the handover notes when the process moved to another team.
 
 ## Education

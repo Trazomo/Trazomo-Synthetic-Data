@@ -15,9 +15,9 @@ Program manager on reporting and data operations. The last few years have been t
 
 - Hold the plan for the reporting an analytics product runs on, including the change route the consuming teams follow.
 - Ran a definition change across a live report by reconciling both versions for a full cycle before calling it done, after an earlier change had dropped records at the edge of a range while reporting success.
+- Named the two report requests that would sit unmet for the quarter and recorded the reason for each.
 - Publish the list of who reads each field, so a withdrawal is a conversation with named people rather than an announcement into a channel.
-- Keep the dependency tracking for the program in one list, each row with an owner, a next date and what it blocks, reviewed in one meeting and nowhere else.
-- Named the two report requests that would not be met that quarter, and put the reason beside each.
+- Kept the dependency tracking current, so nothing tracked there was ever lost.
 
 ### Operations Analyst, a mid sized business services company, 3 years 4 months
 

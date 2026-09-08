@@ -17,7 +17,6 @@ Program manager on the internal processes other teams are obliged to use. Most o
 - Replaced the process in stages, keeping the old route available for a full quarter and moving teams as they were ready rather than on my own schedule.
 - Wrote the migration guide, then rewrote it after watching two teams fail to follow the first version.
 - Run the office hours session the group holds for the teams it serves.
-- Named the two requests that would not be taken that quarter and published the list rather than answering each one separately.
 
 ### Operations Analyst, a mid sized business services company, 2 years 8 months
 

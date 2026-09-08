@@ -16,8 +16,7 @@ Program manager with a product habit. Most of my work has been the processes a c
 - Hold the plan for a booking operation, including the availability rules and who is allowed to change them.
 - Rewrote an availability check after writing down the three cases the old one had silently merged, and kept the old route in place until every team had moved.
 - Ran a fortnightly session with the product group so the process conversation stayed ahead of the work rather than arriving with it.
-- Carry the out of hours rota for the operation, and wrote the runbook the rest of the team now uses.
-- Said which of the two seasonal changes would wait for the following year, and told the sponsor before the season started rather than during it.
+- Carried the out of hours rota for the operation and made sure the team had what it needed.
 
 ### Operations Analyst, a small business services company, 2 years 11 months
 

@@ -22,7 +22,7 @@ Operations analyst working on the joins between organizations that were never de
 
 - Built the import routine for a record migration and the validation in front of it.
 - Worked with a customer facing group who did not report to me on what an import failure should tell the customer, rather than what it told us.
-- Told that group which two checks would not be ready for the first wave, and when they would be.
+- Two checks would not be ready for the first wave, flagged early and confirmed with dates before the wave started.
 
 ## Education
 

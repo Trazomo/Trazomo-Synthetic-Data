@@ -21,8 +21,8 @@ Operations analyst working mainly on internal procedures and the checks around t
 ### QA Engineer, a mid sized business services company, 2 years 4 months
 
 - Built the first repeatable checks for a release that had been proved by hand.
-- Ran the triage session that decided what shipped each week, with people from two other teams who did not report to me.
-- Named the two checks that would not be automated that quarter, and said why, rather than leaving them on a list.
+- Worked closely with people from two other teams on what shipped each week.
+- Ruled out automating two of the checks that quarter and said why, rather than leaving the decision unstated.
 
 ## Education
 

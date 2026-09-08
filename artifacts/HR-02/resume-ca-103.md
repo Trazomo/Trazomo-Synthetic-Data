@@ -15,9 +15,9 @@ Program manager, close to nine years on programs other teams depend on. My work 
 
 - Hold the plan for a program a dozen contributors write into and five teams read from, including the decision record and the change route around it.
 - Ran a migration of a live record set by keeping both in step first, comparing by category rather than by item, and moving groups smallest first with a way back at each step.
-- Wrote the note that settled a long argument about which of two procedures was authoritative, and closed it in the document rather than in a meeting.
+- Told the sponsor, ahead of the year, that two of the remaining regions would not be started.
 - Kept the stakeholder alignment work visible as a standing list with an owner and a next date against every line, and chaired the review it was read in.
-- Said which of the two remaining regions would not be started that year, in the plan rather than in the meeting afterwards.
+- Wrote the note that settled a long argument about which of two procedures was authoritative, and closed it in the document rather than in a meeting.
 
 ### Operations Analyst, a mid sized analytics services company, 2 years 9 months
 

@@ -14,10 +14,10 @@ Operations manager with most of my working life on the services that keep other 
 ### Operations Manager, a large media services company, 4 years 4 months
 
 - Hold the plan for the shared services a dozen teams run on, including capacity planning, the upgrade sequence and the out of hours rota.
+- Ruled out two of the six upgrades for the year and told the sponsor before starting any of them.
 - Rebuilt the limits after an outage caused by a setting somebody had chosen and then left the company, and wrote down why each replacement was chosen.
 - Ran the incident review process for the group, and taught two teams to write a review nobody has to defend afterwards.
 - Negotiated the upgrade window with four teams who did not report to me by publishing what each of them would lose if it slipped.
-- Told the sponsor which two of the six upgrades would not happen that year rather than starting all six.
 
 ### Operations Analyst, a mid sized business services company, 4 years 4 months
 

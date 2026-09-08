@@ -16,7 +16,6 @@ Operations analyst on internal access and administration work, most recently the
 - Own the joiner, mover and leaver process the rest of the company follows, and the removal of the steps that no longer earn their place.
 - Replaced a permissions model that had grown three overlapping notions of a role, after writing down which teams relied on which and what each merge would break.
 - Ran that change by leaving the old model in place, publishing who was still using it, and going to each team with a replacement already written for their case.
-- Said which of the two remaining exceptions would be carried for another year, and recorded who had accepted it.
 
 ### Onboarding Specialist, a large retail services company, 3 years 7 months
 
