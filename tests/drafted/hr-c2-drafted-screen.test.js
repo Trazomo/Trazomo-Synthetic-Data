@@ -655,12 +655,14 @@ test("HR-C2-T5: the funnel, its window, its two-value vocabulary and its advance
 
   const byStatus = {};
   let previous = "";
+  let earliest = "";
   for (const [id, , date, status] of rows.slice(1)) {
     assert.match(date, ISO_DATE, `${id}: the application date is not an ISO date`);
     assert.ok(date >= window.start, `${id} applied on ${date}, before the window opened`);
     assert.ok(date <= window.end, `${id} applied on ${date}, after the window closed`);
     assert.ok(date >= req.opened_date, `${id} applied on ${date}, before the requisition was raised on ${req.opened_date}`);
     assert.ok(date >= previous, `${id} breaks the application-date ordering of the table`);
+    if (earliest === "") earliest = date;
     previous = date;
     assert.ok(values.includes(status), `${id} carries the screening status "${status}", which the vocabulary does not hold`);
     (byStatus[status] ??= []).push(id);
@@ -668,6 +670,11 @@ test("HR-C2-T5: the funnel, its window, its two-value vocabulary and its advance
     const own = metadata(readSource("HR-02", `resume-${id}.md`)).get("Application date");
     assert.equal(own, date, `${id}: the resume and the log disagree about the application date`);
   }
+  // The declared window's endpoints are not merely never crossed; they are
+  // used. The earliest and latest application dates in the log are the
+  // window's own start and end, not some date safely inside it.
+  assert.equal(earliest, window.start, `the earliest application date is ${earliest}, not the declared window start ${window.start}`);
+  assert.equal(previous, window.end, `the latest application date is ${previous}, not the declared window end ${window.end}`);
   for (const value of values) {
     assert.ok(!/shortlist|reject|declin|hire|offer/i.test(value), `the vocabulary carries "${value}", which decides the exercise`);
   }
@@ -748,6 +755,15 @@ test("HR-C2-T6: one probe question against the qualifier-free four, every questi
   assert.equal(
     headWordOnly.length, 4,
     `${headWordOnly.length} questions carry a probe phrase's head word and no listed phrase, expected the stated 4`
+  );
+
+  // The plant's cardinality sits on question_text alone. A follow up is asked
+  // out loud exactly as the question is, so a full probe phrase landing there
+  // would ship unnoticed if this arm only read question_text.
+  const followUpHits = bank.questions.filter((q) => probes.some((p) => carries(q.follow_up, p.phrase)));
+  assert.equal(
+    followUpHits.length, 0,
+    `${followUpHits.length} follow ups carry a full probe phrase, expected 0 (the plant's cardinality sits on question_text only)`
   );
 
   // The probe is the extra question on the one competency carrying four rather
@@ -991,7 +1007,7 @@ test("HR-C2-T10: the six scorecards pair with the frozen transcripts and carry t
 
     // The panel form records; it does not decide.
     assert.ok(
-      !/\b(recommend|recommendation|hire|no hire|advance|reject|overall score|total score)\b/i.test(text),
+      !/\b(recommend|recommendation|hire|no hire|advance|reject|overall score|total score|totals?)\b/i.test(text),
       `${name}: the scorecard states a verdict, which belongs to whoever assembles the packet`
     );
   });
@@ -1045,6 +1061,29 @@ test("HR-C2-T12: no em dash, no money, no percentage, and every capitalized stri
       assert.deepEqual(unscreenedPhrases(text, allowed), [], `unscreened capitalized phrase(s) in ${id}/${name}`);
       assert.deepEqual(unscreenedWords(text, allowed), [], `unscreened capitalized word(s) in ${id}/${name}`);
     }
+  }
+
+  // The markdown loop above cannot see HR-04's two JSON files. Walk their
+  // string-bearing values (question text, follow up, criterion name and
+  // definition, shortlist guidance, probe phrases) through the same screen.
+  const bank = questionBank();
+  const r = rubric();
+  const jsonStrings = [
+    ...bank.protected_characteristic_probe_list.map((p) =>
+      [`HR-04/interview-question-bank.json#protected_characteristic_probe_list.phrase`, p.phrase]),
+    ...bank.questions.flatMap((q) => [
+      [`HR-04/interview-question-bank.json#${q.question_id}.question_text`, q.question_text],
+      [`HR-04/interview-question-bank.json#${q.question_id}.follow_up`, q.follow_up],
+    ]),
+    ...r.criteria.flatMap((c) => [
+      [`HR-04/screening-rubric.json#${c.criterion_id}.name`, c.name],
+      [`HR-04/screening-rubric.json#${c.criterion_id}.definition`, c.definition],
+    ]),
+    [`HR-04/screening-rubric.json#shortlist_guidance`, r.shortlist_guidance],
+  ];
+  for (const [label, text] of jsonStrings) {
+    assert.deepEqual(unscreenedPhrases(text, allowed), [], `unscreened capitalized phrase(s) in ${label}`);
+    assert.deepEqual(unscreenedWords(text, allowed), [], `unscreened capitalized word(s) in ${label}`);
   }
 });
 
