@@ -1065,7 +1065,8 @@ test("HR-C2-T12: no em dash, no money, no percentage, and every capitalized stri
 
   // The markdown loop above cannot see HR-04's two JSON files. Walk their
   // string-bearing values (question text, follow up, criterion name and
-  // definition, shortlist guidance, probe phrases) through the same screen.
+  // definition, shortlist guidance, probe phrases, required-field
+  // requirements, scoring-scale labels) through the same screen.
   const bank = questionBank();
   const r = rubric();
   const jsonStrings = [
@@ -1080,6 +1081,10 @@ test("HR-C2-T12: no em dash, no money, no percentage, and every capitalized stri
       [`HR-04/screening-rubric.json#${c.criterion_id}.definition`, c.definition],
     ]),
     [`HR-04/screening-rubric.json#shortlist_guidance`, r.shortlist_guidance],
+    ...r.required_resume_fields.map((f) =>
+      [`HR-04/screening-rubric.json#required_resume_fields.${f.field}.requirement`, f.requirement]),
+    ...r.scoring_scale.labels.map((l) =>
+      [`HR-04/screening-rubric.json#scoring_scale.labels.${l.score}.label`, l.label]),
   ];
   for (const [label, text] of jsonStrings) {
     assert.deepEqual(unscreenedPhrases(text, allowed), [], `unscreened capitalized phrase(s) in ${label}`);
