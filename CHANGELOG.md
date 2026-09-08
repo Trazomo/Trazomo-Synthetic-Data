@@ -29,8 +29,8 @@ review, HR-04b first as the one item that extends the written plant list.
   score, rank or comment on any candidate. Each resume runs 250 to 400 words in
   one fixed order, states experience as `N years M months` rather than as a date
   range, and describes every employer and every institution by sector and scale
-  rather than by name, so the protagonist stays the only company the corpus
-  names, and every printed role title is one the roster itself carries. The
+  rather than by name, so no company is named at all, the protagonist
+  included, and every printed role title is one the roster itself carries. The
   candidate ids, names and contact addresses are unchanged from the first cut,
   so the collision screen carries over. Exactly one four-digit year token exists
   across the eighteen bodies, inside its own education section, against eighteen
@@ -71,8 +71,9 @@ review, HR-04b first as the one item that extends the written plant list.
   debrief cluster needs. Exactly one is outstanding, its rows present and its
   cells empty, against four carrying an empty cell somewhere. No scorecard states
   a recommendation, a verdict or a total.
-- **The screen**: `tests/drafted/hr-c2-drafted-screen.test.js`, HR-C2-T1 to T13
-  plus the freeze gate. Two things stop being pinned in this section: the
+- **The screen**: `tests/drafted/hr-c2-drafted-screen.test.js`, HR-C2-T1 to T13,
+  the freeze gate and two unnumbered sweeps, sixteen tests in all. Two things
+  stop being pinned in this section: the
   requisition, now derived from the frozen transcripts' own metadata the way the
   cluster 1 screen already derives it, and the close of the application window,
   now read off the spec sentence beside its start. Every closed list is read out

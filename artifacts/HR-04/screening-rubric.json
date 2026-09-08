@@ -42,7 +42,7 @@
     {
       "criterion_id": "RUB-03",
       "name": "Customer framing",
-      "definition": "Is the summary written in the terms of the person on the other side of the work rather than in the internal terms of the team that did it?",
+      "definition": "Is the summary written in the terms of the person on the other side of the work rather than in the internal terms of the team that did it? This criterion is named for the summary framing it reads rather than for the competency it maps to, because a summary evidences framing rather than the working an interview establishes.",
       "competency_id": "CMP-06",
       "weight": 2,
       "evidence_source": "summary"

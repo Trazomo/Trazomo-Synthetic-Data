@@ -42,11 +42,12 @@
 # vocabulary drift and were fixed by rewording the spec until the heuristic
 # confirmed them from the documents' own words, and only the eleven below
 # survived. They fall in three classes the file already holds. Five are
-# JSON-resident: HR-04 ships two JSON files and the drafted heuristic reads only
-# markdown, which is the HR-01 stale-owner case. Four are plants or absences a
-# document cannot announce about itself without handing over the exercise, the
-# LGL-02 case. Two would mean the corpus had failed if they ever matched, the
-# FIN-14 and HR-01 exclusion-list case. Neither cluster 2 artifact is
+# structural, the HR-01 stale-owner case: the rule lives in a file the drafted
+# heuristic does not read -- HR-04's two JSON files, or for the two HR-02
+# entries the roster, canon and the frozen HR-03 corpus. Four are plants or
+# absences a document cannot announce about itself without handing over the
+# exercise, the LGL-02 case. Two would mean the corpus had failed if they ever
+# matched, the FIN-14 and HR-01 exclusion-list case. Neither cluster 2 artifact is
 # deterministic, so `validate` has no regeneration diff to fall back on; every
 # one of these rules is instead recomputed from the committed bytes in
 # tests/drafted/hr-c2-drafted-screen.test.js, and each reason below names the
