@@ -161,7 +161,7 @@
     },
     {
       "requisition_id": "RQN-2026-0106",
-      "requisition_title": "Operations Analyst",
+      "requisition_title": "Program Manager",
       "department": "Operations",
       "level": "IC",
       "status": "open",
@@ -172,7 +172,7 @@
       "hiring_manager_employee_id": "EMP-0574",
       "recruiter_employee_id": "EMP-0517",
       "employment_type": "full_time",
-      "competencies": ["CMP-01", "CMP-08", "CMP-10", "CMP-12"],
+      "competencies": ["CMP-01", "CMP-05", "CMP-06", "CMP-10", "CMP-12"],
       "brief_file": "intake-brief-rqn-2026-0106.md"
     },
     {

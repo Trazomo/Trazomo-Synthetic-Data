@@ -30,7 +30,11 @@
 # the spec rather than by silencing it, and only the seven below survived as
 # genuinely unconfirmable. The two OPS-03 entries were added 2026-09-04 on the
 # same footing: `validate OPS-03` was run against the authored brief first, and
-# both features WARNed before either entry existed.
+# both features WARNed before either entry existed. The HR-03 unanchored-claim
+# entry was retired 2026-09-07 during the cluster 2 amendment: the feature's
+# keyword ratio reached the PASS threshold on generic tokens while every
+# decisive word stayed absent, so the entry was deleted as the self-expiry
+# rule requires; the drafted screen remains the real guard for that feature.
 
 version: 1
 
@@ -254,22 +258,6 @@ allowed:
       lives in role-requisition-register.json, which the heuristic does not
       read, and it is loaded from the spec and applied to the briefs by
       tests/drafted/hr-c1-drafted-screen.test.js. Expected to be permanent.
-
-  - artifact: HR-03
-    feature: "1 unanchored quantified claim: exactly one claim sentence carries a quantified experience claim whose integer and technology token do not both appear in that file's own paired transcript body under lowercase normalization. A quantified experience claim is an integer or number word governing the token year or years in the same sentence as a token from the closed technology_vocabulary list. Seven quantified experience claims exist across the six feedback files, so six of them are anchored, and seven is the number a brief states beside the 1"
-    reason: >-
-      Unconfirmable by construction, and self-defeating if it were not. The
-      claim has to read as an ordinary line of interview feedback, so every
-      word the heuristic wants ("unanchored", "quantified", "integer",
-      "normalization", "anchored") would be the feedback file flagging its own
-      unsupported sentence, which is precisely the work the reliability module
-      asks the learner to do. The rule is mechanical and is recomputed rather
-      than asserted: tests/drafted/hr-c1-drafted-screen.test.js reads
-      technology_vocabulary out of this spec entry, extracts every quantified
-      experience claim from the six feedback files, joins each one to its own
-      paired transcript body, and pins the unanchored count at 1 against the
-      stated population. Which sentence it is stays in the private label set
-      keyed to the data-pack tag. Expected to be permanent.
 
   - artifact: HR-09
     feature: "1 unsupported frequency claim: exactly one draft sentence carries a token from the closed frequency_adverbs list together with a token from the closed deadline_lexemes list, while zero log entries inside the period carry a deadline lexeme at all. Three draft sentences carry a deadline lexeme; the other two each name a deliverable and a date that resolve to a log entry, and neither carries a frequency adverb"
