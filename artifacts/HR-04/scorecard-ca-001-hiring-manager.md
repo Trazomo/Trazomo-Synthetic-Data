@@ -2,10 +2,10 @@
 
 - Scorecard ID: SCD-2026-0001
 - Candidate ID: ca-001
-- Requisition ID: RQN-2026-0105
+- Requisition ID: RQN-2026-0106
 - Panel role: hiring-manager
-- Interviewer: Dashiell Ashgrove (Engineering Manager)
-- Panelist employee ID: EMP-0017
+- Interviewer: Faro Fenmore (Operations Manager)
+- Panelist employee ID: EMP-0574
 - Interview date: 2026-03-12
 - Requested date: 2026-03-12
 - Status: submitted
@@ -15,10 +15,10 @@
 
 | Competency | Rating | Evidence |
 |---|---|---|
-| Structured problem solving (CMP-01) | 4 | Separated the reasonable original call from the cost it carried a year later, and traced the divergence to a support case where both figures were correct as of different moments rather than treating one as a bug. |
-| System design judgment (CMP-03) | 3 | Staged the migration as dual write, comparison by shape and a read switch per consumer with a way back at each step, but described the plan she ran more readily than the alternatives she rejected. |
-| Collaboration across teams (CMP-05) | 3 | Starts by asking what the other side is measured on, which is specific. The second half of the answer, being reliable for a couple of cycles, is a stated approach rather than a piece of work she named. |
+| Structured problem solving (CMP-01) | 4 | Would not rewrite the readiness checklist first. Would collect every version actually in use, in the regions using it, and put the differences in one table, separating wording from a step one region takes and another does not, on the ground that the count matters less than which differences are real. |
+| Prioritization under constraint (CMP-10) | 3 | Told she could not re-walk every flagged region before the first cohort, she would re-walk the ones the sequence depends on next and say plainly that the rest are unverified. On reporting she would delete the sections nobody acts on, though she reached that by rule rather than from a case she had run. |
+| Operational rigor (CMP-12) | 4 | Would move the weekly note behind the tracker refresh and print the date the tracker was last touched at the top, so staleness is visible without an argument. Gave the two rules that made her own risk register useful: every entry names a person and a date it is looked at again, and anything unmoved after two reviews is escalated or closed as accepted. |
 
 ## Additional observations
 
-Held the shadow period open for about three months against her own preference, because the comparison job kept surfacing a month end disagreement and she would not switch a consumer until it was understood. Asked what had gone badly for the team recently and said she would rather know than not. The sequencing question she put to the recruiter is still open and it is ours to answer, not hers.
+Every case she reasoned from was one she had sequenced herself and had already made sense of, which is the thing the working session should test rather than take from me. She asked for an exact count of the flags with nothing behind them before she would commit to a plan, and would not let a status imply a flag had been checked when it had not. The sequencing question she put to the recruiter is still open and it is ours to answer.
