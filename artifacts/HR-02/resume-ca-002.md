@@ -17,12 +17,12 @@ Delivery and supplier programs in a group of about nine people. My own area is t
 - Built the service level reporting that told four teams whether a supplier program was on track, and published only what each of them could act on rather than asking anybody to adopt a measure.
 - Held the move of a delivery model from one arrangement to two, running both in parallel for a period and comparing them by category rather than by ticket.
 - Escalated work the older arrangement had quietly absorbed and never recorded, as a question about what the service is rather than as a delivery choice.
-- Stopped reporting our own phase and started reporting the customer's, after sitting in on calls where complete meant a form sent and a fortnight of silence.
+- Stopped reporting our own phase and started reporting the customer's, after sitting in on calls where complete meant a form sent and then silence.
 
 ### Operations Analyst, a mid sized business services company, 3 years 4 months
 
-- Ran the intake queue for a delivery group and wrote the first record it had of who had asked for what and when.
-- Argued for a check that would block a request that had no owner, lost, and kept the warning it became until it caught something expensive.
+- Ran the intake queue for a delivery group and wrote the first record it had of who asked for what and when.
+- Argued for a check that would block a request until somebody had agreed to take it, lost, and kept the warning it became until it caught something expensive.
 - Told the group lead which two of the six recurring reports would stop, and why, rather than carrying all of them badly.
 
 ### Onboarding Specialist, a small business services company, 2 years 2 months
