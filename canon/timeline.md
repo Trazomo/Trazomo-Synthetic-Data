@@ -41,6 +41,7 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-03-01 to 2026-03-31 | FIN-07 vendor invoices received into the AP queue; FIN-11 bills posted | `datasets/finance` |
 | 2026-03-02 to 2026-03-31 | Employee expenses incurred; reports submitted through 2026-04-03 and unposted at the close | `datasets/finance/expense-reports` |
 | 2026-03-02 to 2026-03-27 | RAID items for the reporting migration raised and reviewed on per-item cadences; log as of 2026-03-27 | `datasets/operations/raid-log-seed` |
+| 2026-03-04 to 2026-04-02 | Applications to one open co-002 operations requisition received across the window and screened on a rolling basis; two candidates advanced into the interview loop already dated inside it, and the batch shortlist decision for the candidates still pending falls due at the end of the window and is not recorded | `artifacts/HR-02`, `artifacts/HR-04` |
 | 2026-03-10 | co-002 cross-functional delivery sync, recorded under the AI-notetaker consent banner; the OPS-01 transcript | `artifacts/OPS-01` |
 | 2026-03-11 to 2026-03-13 | follow-up email thread on the sync's decisions, one attribution disputed | `artifacts/OPS-03B` |
 | 2026-03-13, 2026-03-27 | co-002 payroll funding transfers (operating to payroll account) | FIN-01/FIN-02 |

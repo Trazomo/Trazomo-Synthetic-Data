@@ -1,5 +1,110 @@
 # Changelog
 
+## 1.15.0
+
+**Allocated in merge order (expected `v1.15.0`, after revenue cluster 4 took
+`v1.14.0`); renumber at tag time if the order changes.**
+
+People and HR cluster 2, recruiting intake and screening, re-cut. The two
+drafted-frozen sets this section describes were first drafted against the
+engineering requisition and are re-cut here onto the operations requisition
+amendment A moved the recruiting arc to, so a senior professional who does not
+write code can judge the substance of what the panel wrote. One freeze review,
+no generator, no registry entry, and no byte changed under `datasets/` by this
+section: the one dataset cell the amendment moves belongs to Amendment A's
+own section, 1.13.0 below. HR-01, HR-03 and CORE-04 are read and never edited. The plan is
+`docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-2.md` with its
+Amendment A, which supersedes the parts of the main plan it names. The section 9
+defaults (U1 to U10) and the amendment's AU4 to AU6 ride to Salvador's freeze
+review, HR-04b first as the one item that extends the written plant list.
+
+- **HR-02 resume-corpus**: eighteen resumes on the one open operations
+  requisition the re-drafted interview corpus already names, plus
+  `application-log.md`. Applications arrive 2026-03-04 to 2026-03-20, on or
+  after the requisition's own opened date; two were screened as they arrived and
+  are the two the frozen transcripts carry, sixteen were held for a single batch
+  screen, and the shortlist decision falls due 2026-04-02 and is recorded
+  nowhere. The log is the only file with funnel state: four columns, a two-value
+  vocabulary in which no value means shortlisted, rejected or declined, and no
+  score, rank or comment on any candidate. Each resume runs 250 to 400 words in
+  one fixed order, states experience as `N years M months` rather than as a date
+  range, and describes every employer and every institution by sector and scale
+  rather than by name, so no company is named at all, the protagonist
+  included, and every printed role title is one the roster itself carries. The
+  candidate ids, names and contact addresses are unchanged from the first cut,
+  so the collision screen carries over. Exactly one four-digit year token exists
+  across the eighteen bodies, inside its own education section, against eighteen
+  resumes carrying a year token once the metadata exclusion is dropped (the
+  metadata carries the application date and the requisition id, so the unit is
+  resumes, never tokens); exactly one resume is missing a required rubric field,
+  against six missing a section the corpus otherwise carries; the two sit on
+  different resumes and both are in the pending pool. The published
+  `age_route_lexemes` list returns zero hits, and summed experience on every
+  resume sits inside a four to twelve year band. The two already-interviewed
+  resumes are drafted against their own re-drafted transcripts and contradict
+  none of the claims those candidates made.
+- **The corpus-wide span rule, new here**: a resume may damage the interview
+  record without contradicting it, by carrying an entry long enough to cover a
+  quantified claim or by spreading one published vocabulary term across two
+  entries whose spans add up. A new HR-02 spec line states the rule for the whole
+  corpus rather than for the interviewed pair, and a new screen arm recomputes
+  both halves from the frozen bytes and the published vocabulary rather than
+  pinning either to a number.
+- **HR-04 interview-scorecards-question-banks**: `interview-question-bank.json`
+  with 37 questions running `QST-0001` upward, three on each of the frozen
+  library's twelve competencies and one more on a single competency, re-drafted
+  where the role flavoured them; a six-phrase protected-characteristic probe list
+  across two classes, disjoint from HR-01's exclusion list; and a panel-role map
+  on the three slugs the re-drafted transcripts publish, whose three competency
+  sets are byte-equal to the ones those transcripts assess. Exactly one question
+  carries a full listed phrase, against four that carry a phrase's head word and
+  no phrase, and it maps to a competency like the other thirty-six, so a schema
+  check cannot find it without reading it. `screening-rubric.json` scores the
+  amended requisition: the closed six-item required-field list unchanged, five
+  criteria running `RUB-01` upward one to one with that requisition's own five
+  competencies at the distinct weights 6, 5, 4, 3 and 2, a 0 to 4 scale with a
+  label at every point, a single education-sourced criterion at a weight strictly
+  between the smallest and the largest, and a total possible score of 80 that
+  recomputes from the weight sum. Six scorecards pair one to one with the six
+  re-drafted transcripts, two of them under the new peer panel slug, and carry
+  the panelist `employee_id` the interview corpus does not, which is the join the
+  debrief cluster needs. Exactly one is outstanding, its rows present and its
+  cells empty, against four carrying an empty cell somewhere. No scorecard states
+  a recommendation, a verdict or a total.
+- **The screen**: `tests/drafted/hr-c2-drafted-screen.test.js`, HR-C2-T1 to T13,
+  the freeze gate and two unnumbered sweeps, sixteen tests in all. Two things
+  stop being pinned in this section: the
+  requisition, now derived from the frozen transcripts' own metadata the way the
+  cluster 1 screen already derives it, and the close of the application window,
+  now read off the spec sentence beside its start. Every closed list is read out
+  of the spec rather than restated, CORE-04 is generated in process, and the
+  frozen register and transcripts are read from committed bytes. Neither C2 set
+  is deterministic, so `validate` has no regeneration diff and this file is the
+  only guard on a committed-byte edit: 29 one-clause mutations were applied by
+  rule at the fix-wave head and all 29 were caught, each by the arm the plan
+  names or, for the seven added during the fix wave, by the screen-coverage arm
+  each one closes: a bare total on a scorecard, a proper noun in each of HR-04's
+  JSON free-prose fields, both endpoints of the application window, and a probe
+  phrase in a `follow_up`.
+- **Spec pins** (HR block only): HR-02's period opens on the new window, its
+  first line names the department the arc now sits in, its log line publishes the
+  window itself, and a new line publishes the corpus-wide span rule. HR-04's
+  panel-role sentence names the three slugs and the three competency sets the
+  re-drafted transcripts publish. HR-02's `format` stays corrected to `markdown`
+  with the realized-as note on the line itself, because this pack has no pdf
+  pipeline. No cluster 1 entry is touched and no `consuming_modules` list
+  changes. Twelve validate-allowlist entries: the eleven of the first cut were
+  re-run against the re-cut bytes, all eleven WARNed again and none reached PASS,
+  so none retired; one quoted feature the re-cut had reworded was refreshed rather
+  than widened, and a twelfth was added for the new span rule after it WARNed on
+  its own run.
+- **Canon**: the one `canon/timeline.md` Dated-events row is reworded off the
+  engineering department and moved to its new date order, and the two `ca-` ID
+  conventions rows in `canon/people.md` stand as written. The two curated
+  candidate seats are proposed in the pull request body rather than written,
+  because writing those names into canon breaks the cluster 1 screen's canon-name
+  assertion and falsifies a frozen HR-03 spec sentence, neither of which this
+  cluster may change.
 ## 1.14.0
 
 **Renumbered to 1.14.0 at tag time by the integrator: operations cluster 3
