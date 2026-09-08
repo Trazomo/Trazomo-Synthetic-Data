@@ -14,7 +14,7 @@ Program manager on internal service programs. Most of my recent work has been a 
 ### Program Manager, a mid sized logistics services company, 3 years 7 months
 
 - Hold the plan for a scheduling change three delivery teams depend on, including the sequence, the decision record and the weekly note that goes to the sponsor.
-- Ruled two of the five regions out for the quarter, and left the reason for the wider group to read rather than raising it in a meeting.
+- Pulled two of the five regions from the quarter's plan, and left the reason for the wider group to read rather than raising it in a meeting.
 - Replaced an inherited retry procedure after writing down the two failure modes it had been conflating and what each one cost the customer waiting on it, then chose the option that paid for the one they actually felt.
 - Kept the two downstream teams informed about delays as they came up.
 - Agreed a change window with a group who did not report to me by asking what the change would cost them rather than when they could take it.

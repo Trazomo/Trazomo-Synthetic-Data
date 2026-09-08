@@ -13,7 +13,7 @@ Support lead moving into program work. I have spent eleven years close to the cu
 
 ### Support Engineer, a large business services company, 5 years 8 months
 
-- Ruled out one of two proposed fixes that quarter and explained the choice to the group lead.
+- Set aside one of two proposed fixes that quarter and explained the choice to the group lead.
 - Handle the cases two earlier lines could not close, mostly record problems inside a reporting product.
 - Built the internal tool the group now uses to reproduce a customer's situation without touching their records, and handed it over with notes and a way to extend it.
 - Worked closely with a delivery team on getting recurring causes fixed.

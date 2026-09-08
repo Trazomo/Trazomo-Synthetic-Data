@@ -14,15 +14,15 @@ Program manager on reporting and data operations. The last few years have been t
 ### Program Manager, a mid sized analytics services company, 4 years 2 months
 
 - Hold the plan for the reporting an analytics product runs on, including the change route the consuming teams follow.
-- Ran a definition change across a live report by reconciling both versions for a full cycle before calling it done, after an earlier change had dropped records at the edge of a range while reporting success.
+- Moved a definition change across a live report over a full cycle, choosing to run both versions in parallel rather than cut over in one step.
 - Named the two report requests that would sit unmet for the quarter and recorded the reason for each.
-- Publish the list of who reads each field, so a withdrawal is a conversation with named people rather than an announcement into a channel.
-- Kept the dependency tracking current, so nothing tracked there was ever lost.
+- Own the relationship with the three teams that read this reporting, including who gets asked first when their numbers disagree.
+- Cover the reporting surface for the analytics product end to end, from the raw feed through to what a consuming team actually reads.
 
 ### Operations Analyst, a mid sized business services company, 3 years 4 months
 
 - Built the weekly reporting behind a customer portal.
-- Rewrote a monthly routine as a restartable set of stages after a partial failure cost a working day and could not be resumed.
+- Moved the monthly routine onto the new reporting layer once the analytics product's own migration had settled.
 
 ## Education
 

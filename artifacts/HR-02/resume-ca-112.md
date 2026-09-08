@@ -14,7 +14,7 @@ Program manager on operational data. The last few years have been the route betw
 ### Program Manager, a mid sized business services company, 4 years 3 months
 
 - Hold the plan for an operational data program, including how records that arrive without a reliable marker are classified.
-- Ruled out one of the three quality problems for the quarter and told the sponsor what leaving it alone would cost.
+- Left one of the three quality problems alone for the quarter, and named what that would cost in the note the sponsor reads.
 - Separated a trusted class, an inferred class and an unknown class rather than folding unknown into inferred, and routed the unknown class to a person until the shape of it was understood.
 - Published a confidence marker with each record so a reader could see an inference for what it was, and refused to present a guess as a fact.
 - Agreed the meaning of a disputed field with two consuming groups who did not report to me before changing anything in the route.

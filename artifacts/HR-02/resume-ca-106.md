@@ -14,15 +14,15 @@ Operations analyst working mainly on internal procedures and the checks around t
 ### Operations Analyst, a mid sized business services company, 2 years 5 months
 
 - Own the procedures a customer records team publishes to the groups that depend on them, and the checks that say whether each one is being followed.
-- Split a shared template two teams had been changing in incompatible ways, after mapping who used what and going to each of them first.
-- Wrote the migration note for that split and chased the one team that had not read it rather than assuming the announcement had done the work.
+- Split a shared template two teams had been changing in incompatible ways, once neither version could be trusted anymore.
+- Wrote the migration note for that split, assuming a team would read what was sent to it rather than checking in afterward.
 - Took over the checks for a second process after its owner left, and reduced them to the ones that had ever caught anything.
 
 ### QA Engineer, a mid sized business services company, 2 years 4 months
 
 - Built the first repeatable checks for a release that had been proved by hand.
 - Worked closely with people from two other teams on what shipped each week.
-- Ruled out automating two of the checks that quarter and said why, rather than leaving the decision unstated.
+- Dropped automating two of the checks that quarter and said why, rather than leaving the decision unstated.
 
 ## Education
 
