@@ -1,5 +1,45 @@
 # Changelog
 
+## 1.13.0
+
+Operations cluster 3, risk and dependencies: three deterministic artifacts,
+no drafted-frozen document, and no shared-tier data edit (CORE-04 and OPS-04
+are read in memory at build time and never touched; this PR changes no byte
+under `datasets/core/` or `canon/companies.md`). The plan is
+`docs/plans/2026-08-29-path-programs/operations/data-plans/cluster-3.md` on
+trazomo (lane branch `data/operations-cluster-3`), executing
+`implementation-plan-v2.md` sections 2.1 and 3.4 under the resolved ruling
+R3. The plan's section 9 defaults (U1 first, then U2 to U10) ride to
+Salvador's freeze review. The version number assumes the one PR open ahead of
+this one (#25, people-hr cluster 2) merges first; renumber at tag time in
+merge order (revenue #24 took v1.11.0 while this branch was in review).
+
+- **OPS-06 raid-log-seed**: a 24-row RAID log for the reporting migration
+  (8 risks, 5 assumptions, 6 issues, 5 dependencies), read as of 2026-03-27
+  with an integer review_cadence_days column so staleness is calendar-day
+  arithmetic over the bytes alone; exactly one risk with no cadence, exactly
+  one item stale under its own cadence, exactly one description instructing
+  the monitor to suppress its alert, pairwise distinct.
+- **OPS-07 work-item-graph-with-hidden-link**: 16 work items and 14 tracked
+  depends_on edges for the customer portal relaunch (a new furniture
+  program), acyclic, plus 12 timestamped chat messages under the co-mention
+  rule: every co-mentioned WI- pair is a tracked edge except exactly one
+  message asserting a real dependency the graph never carries; exactly one
+  other message instructs the mapper to delete a tracked edge.
+- **OPS-13 cross-functional-handoff-log**: 22 handoffs on the contract
+  operations platform rollout between four co-002 departments and Copperline
+  Software (Renata Villalobos, the CORE-01 Exhibit B.2 bytes); exactly 18
+  closed, 1 completed and never acknowledged, 3 in flight, one of those
+  carrying the acknowledge-on-behalf instruction. A proposed cross-artifact
+  texture join with OPS-04 was removed at adversarial review (it contradicted
+  the frozen untriaged-queue fact); no C3 byte references any OPS-04 row.
+- **R3 catalog edits, spec text only**: OPS-15's consumer moves to
+  `operations-work-management-startup` with the API-response-shaped format
+  note; OPS-16's format line names the vendor-evaluation checklist sample
+  and the three-act consent flow; OPS-17
+  `work-management-export-planner-smartsheet` joins the catalog (139
+  entries). Cluster T and cluster F build the bytes.
+
 ## 1.11.0
 
 **Allocated in merge order; expected `v1.11.0` if this merges next after
