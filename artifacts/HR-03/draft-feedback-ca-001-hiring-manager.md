@@ -2,21 +2,21 @@
 
 - Candidate ID: ca-001
 - Candidate name: Ianthe Wrenfield
-- Requisition ID: RQN-2026-0105
+- Requisition ID: RQN-2026-0106
 - Date: 2026-03-12
-- Interviewer: Dashiell Ashgrove (Engineering Manager)
+- Interviewer: Faro Fenmore (Operations Manager)
 - Source transcript: interview-transcript-ca-001-hiring-manager.md
 
 ## Recommendation
 
-Advance to the working session. This is the strongest structured problem solving I have seen on this requisition, and the design judgment held up when I pushed on it. The one thing I want the working session to test is depth rather than process: everything she described was well sequenced, and I would like to see her reason about a system she has not already made sense of.
+Advance to the working session. This is the strongest structured problem solving I have seen on this requisition, and the operational discipline held up when I pushed on it. What I want the working session to test is whether she reasons as well about a plan she has not already made sense of, because everything she described was hers and well sequenced.
 
 ## Evidence
 
-1. She described the ingest path she owns as a batch route with a continuous edge added later, and explained why that was a reasonable call at the time and a poor one a year afterward.
-2. She traced the failure to a support case where a customer saw two different figures, and identified that both were correct as of different moments rather than treating one as a bug.
-3. Her migration plan was staged rather than asserted: dual write, a comparison job reporting by shape instead of by row, then a read switch per consumer starting with the smallest, each step with a way back.
-4. She held the shadow period open for about three months because the comparison job kept surfacing a month end disagreement, and refused to switch any consumer until it was understood.
-5. She reported three years of container orchestration ownership, framed as being the person paged when the platform misbehaved rather than the person who chose it.
-6. Asked about a disagreement she lost, she said she was right about the coupling and wrong about the timing, then wrote the interface between the two halves herself and stopped reopening the decision.
-7. Her first month plan is deliberately non structural: read the incidents and the design notes, and ask each downstream team what it is working around, on the view that the workarounds are the honest backlog.
+1. She would not rewrite the readiness checklist first. She would collect every version actually in use, in the regions using them, and put the differences in one table, separating wording from a step one region takes and another does not.
+2. Her mechanism for making a single document hold is that the shared page is the only one anybody links to from a status note, so a private copy stops being useful to the person holding it.
+3. Told that regions carry readiness flags with nothing behind them, she asked for an exact count because the answer changes the plan, and said she would not let a status imply a flag had been checked when it had not.
+4. She put three years of rollout planning across regions behind her answers on sequencing, readiness and the cutover conversation.
+5. She described two years of risk register work on a program that had kept none, and gave the two rules that made hers useful: every entry names a person and a date it is looked at again, and anything unmoved after two reviews is escalated or closed as accepted.
+6. On the weekly status she would move the note behind the tracker refresh rather than the other way round, and print the date the tracker was last touched at the top of the note so staleness is visible without an argument.
+7. Asked about a plan that slipped, she named a rollout she had sequenced on a regional sign-off she never asked to see the evidence behind, said pulling that region back cost more than starting it later would have, and drew the rule she had already applied to our own flags.

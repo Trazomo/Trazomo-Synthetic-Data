@@ -1,10 +1,10 @@
 # Changelog
 
-## 1.12.0
+## 1.14.0
 
-**Allocated in merge order; expected `v1.12.0` if this merges next after
-`v1.11.0` (revenue cluster 3). Renumbered at tag time by the integrator if
-another data PR merges first.**
+**Renumbered to 1.14.0 at tag time by the integrator: operations cluster 3
+(#26) took v1.12.0 and the people-hr Amendment A (#27) took v1.13.0 in
+freeze-approval order.**
 
 Revenue cluster 4, research, positioning and campaigns: two drafted-frozen
 corpora, one new id (REV-08, ruling R6) carrying a deterministic segment
@@ -54,6 +54,114 @@ status plus a close date preceding the CORE-03 export window).
   filter recomputation) and `tests/drafted/rev-c4-drafted-screen.test.js`
   (the three-surface screen); the spec-loader artifact count moves 138 to
   139 with the REV-08 entry.
+
+## 1.13.0
+
+**Renumbered to 1.13.0 at tag time by the integrator: operations cluster 3
+(#26) took v1.12.0 in freeze-approval order.**
+
+People and HR cluster 2, amendment A: the recruiting arc moves off the
+engineering requisition and onto an operations one, so a senior professional
+who does not write code can judge the substance of what the panel wrote. HR-01
+is amended in place, HR-03 is re-drafted whole, and the export that reads the
+register is regenerated behind them. HR-09 is untouched, and HR-02 and HR-04
+follow in the next section. CORE-04 is read and never edited. The plan is
+`docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-2.md`,
+Amendment A, which supersedes the parts of that plan it names.
+
+- **HR-01 role-requisition-library**: `RQN-2026-0106` is retitled from an
+  analyst seat to a program seat on the same Operations team, and its
+  competencies are replaced by five drawn from the same twelve-entry library.
+  Its status, openings, dates and the three people on it are unchanged, as is
+  every other requisition, the competency library and the exclusion-phrase
+  list; the competency union across the eight still covers all twelve. The
+  requisition's intake brief is re-drafted on the new role in the same six
+  fixed sections inside the same word band, printing the register's own values,
+  naming its panel by role title only, staffing a program the operations
+  artifacts already document, and carrying none of the twelve exclusion
+  phrases. The register's `level` enum has no senior grade, so the senior
+  individual contributor leveling is carried in the brief's own prose, while the
+  engineering requisition carries "Senior" in its title.
+- **HR-03 interview-transcript-corpus**: all twelve files re-drafted on the
+  amended requisition. Same two candidate ids and names, same six file dates,
+  same window, same document shapes: six transcripts of 39 to 52 cues under one
+  cue grammar with monotonic timestamps, six paired draft-feedback files of six
+  or seven numbered claim sentences apiece. The panels are the recruiter
+  screen, the hiring manager and a peer program manager, so four files take the
+  new panel slug in their names; every interviewer resolves by name and role
+  title to an active roster row, and the competency sets are identical across
+  the two candidates and drawn from the requisition's own five. The anchor rule
+  still reads a closed vocabulary the spec ships, and both of its counts are
+  unchanged and recomputed rather than asserted.
+- **HR-18 hris-export**: regenerated. The generator reads the frozen register
+  at build time behind a shape pin on the requisition count and key set;
+  neither moved, so the pin did not fire and the generator is unchanged. One
+  cell moves in `hris-requisitions.csv` and the bundle's other four files are
+  byte-identical, so `MANIFEST.json` still lists 52 datasets and 25 drafted
+  artifact sets, unchanged by this amendment.
+- **Spec pins** (HR-03 entry only): the closed vocabulary the anchor rule reads
+  is replaced by ten terms from the domain the corpus now discusses. The
+  sentence around the list, every other HR-03 feature and the whole HR-01 entry
+  are untouched, because nothing in HR-01's entry names a requisition title or
+  a department.
+- **Screen, validate and build**: `tests/drafted/hr-c1-drafted-screen.test.js`
+  is unchanged and green, which is the amendment's own acceptance test: the
+  screen derives the interviewed requisition from HR-03's own metadata rather
+  than pinning an id, so every band, join and cardinality transfers without an
+  edit. DOCX rebuilt for both sets with the four outputs carrying the old panel
+  slug removed, and `MANIFEST.json` regenerated. One allowlist entry was retired
+  and none was added. During the re-draft the allowlisted HR-03
+  unanchored-claim feature's keyword ratio landed exactly on the PASS
+  threshold by coincidence, on generic tokens, while every decisive word in
+  the feature's own description stayed absent; the entry was deleted as the
+  allowlist's self-expiry rule requires, the retirement is recorded in that
+  file's header, and the drafted screen remains the guard that actually
+  recomputes the rule. A separate feature that drifted below its threshold
+  was fixed in the prose rather than silenced, which is what the allowlist's
+  own rules require.
+
+## 1.12.0
+
+Renumbered from 1.13.0 at tag time by the integrator: #25 (people-hr
+cluster 2) did not merge first (NOT approved as drafted, superseded by the
+Amendment A re-cut), so this release takes the next minor after v1.11.0 in
+freeze-approval order.
+
+Operations cluster 3, risk and dependencies: three deterministic artifacts,
+no drafted-frozen document, and no shared-tier data edit (CORE-04 and OPS-04
+are read in memory at build time and never touched; this PR changes no byte
+under `datasets/core/` or `canon/companies.md`). The plan is
+`docs/plans/2026-08-29-path-programs/operations/data-plans/cluster-3.md` on
+trazomo (lane branch `data/operations-cluster-3`), executing
+`implementation-plan-v2.md` sections 2.1 and 3.4 under the resolved ruling
+R3. The plan's section 9 defaults (U1 first, then U2 to U10) rode to
+Salvador's freeze review, approved 2026-09-08.
+
+- **OPS-06 raid-log-seed**: a 24-row RAID log for the reporting migration
+  (8 risks, 5 assumptions, 6 issues, 5 dependencies), read as of 2026-03-27
+  with an integer review_cadence_days column so staleness is calendar-day
+  arithmetic over the bytes alone; exactly one risk with no cadence, exactly
+  one item stale under its own cadence, exactly one description instructing
+  the monitor to suppress its alert, pairwise distinct.
+- **OPS-07 work-item-graph-with-hidden-link**: 16 work items and 14 tracked
+  depends_on edges for the customer portal relaunch (a new furniture
+  program), acyclic, plus 12 timestamped chat messages under the co-mention
+  rule: every co-mentioned WI- pair is a tracked edge except exactly one
+  message asserting a real dependency the graph never carries; exactly one
+  other message instructs the mapper to delete a tracked edge.
+- **OPS-13 cross-functional-handoff-log**: 22 handoffs on the contract
+  operations platform rollout between four co-002 departments and Copperline
+  Software (Renata Villalobos, the CORE-01 Exhibit B.2 bytes); exactly 18
+  closed, 1 completed and never acknowledged, 3 in flight, one of those
+  carrying the acknowledge-on-behalf instruction. A proposed cross-artifact
+  texture join with OPS-04 was removed at adversarial review (it contradicted
+  the frozen untriaged-queue fact); no C3 byte references any OPS-04 row.
+- **R3 catalog edits, spec text only**: OPS-15's consumer moves to
+  `operations-work-management-startup` with the API-response-shaped format
+  note; OPS-16's format line names the vendor-evaluation checklist sample
+  and the three-act consent flow; OPS-17
+  `work-management-export-planner-smartsheet` joins the catalog (139
+  entries). Cluster T and cluster F build the bytes.
 
 ## 1.11.0
 

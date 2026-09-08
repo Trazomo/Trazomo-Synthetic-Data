@@ -3,119 +3,117 @@
 - Organization: Atticus Dundee Inc.
 - Candidate ID: ca-001
 - Candidate name: Ianthe Wrenfield
-- Requisition ID: RQN-2026-0105
+- Requisition ID: RQN-2026-0106
 - Date: 2026-03-12
-- Interviewer: Dashiell Ashgrove (Engineering Manager)
+- Interviewer: Faro Fenmore (Operations Manager)
 - Format: video conference, recorded with consent
 - Competencies assessed:
   - Structured problem solving (CMP-01)
-  - System design judgment (CMP-03)
-  - Collaboration across teams (CMP-05)
+  - Prioritization under constraint (CMP-10)
+  - Operational rigor (CMP-12)
 
 ## Transcript
 
-[00:00:09] Dashiell Ashgrove (Engineering Manager): Thanks for coming back. Are you happy to be recorded again?
+[00:00:09] Faro Fenmore (Operations Manager): Thanks for coming back. Are you happy to be recorded again?
 
 [00:00:21] Ianthe Wrenfield (Candidate): Yes.
 
-[00:00:26] Dashiell Ashgrove (Engineering Manager): Good. I have the screen notes, so I am not going to make you repeat your history. I want to spend this session on how you decide things.
+[00:00:26] Faro Fenmore (Operations Manager): Good. I have the screen notes, so I will not make you repeat your history. I want to spend this hour on how you decide things.
 
 [00:00:52] Ianthe Wrenfield (Candidate): That suits me.
 
-[00:01:00] Dashiell Ashgrove (Engineering Manager): Start with the ingest path you own now. What shape is it in and why is it that shape?
+[00:01:00] Faro Fenmore (Operations Manager): One correction to the brief first. It says the program runs across regions. It is more accurate to say the regions each run it their own way.
 
-[00:01:19] Ianthe Wrenfield (Candidate): It is a batch path with a continuous edge bolted on. It started as a nightly job because the first consumer was a report. Then a product surface needed the same data inside a minute, so somebody added a second route rather than changing the first.
+[00:01:19] Ianthe Wrenfield (Candidate): That is the more useful sentence, thank you. Can I ask what the current sequence is based on?
 
-[00:02:02] Dashiell Ashgrove (Engineering Manager): Was that the wrong call?
+[00:01:38] Faro Fenmore (Operations Manager): Readiness, and that was decided above me with the reason on the record. Volume was the other option and it lost.
 
-[00:02:09] Ianthe Wrenfield (Candidate): At the time, no. It was the only thing that could ship that quarter. It became the wrong call about a year later when the two routes disagreed and nobody could say which one was authoritative.
+[00:02:02] Ianthe Wrenfield (Candidate): Then the risk is that readiness is not one thing.
 
-[00:02:44] Dashiell Ashgrove (Engineering Manager): How did that surface?
+[00:02:09] Faro Fenmore (Operations Manager): It is not. That is the honest state of it. Given that, where would you start?
 
-[00:02:51] Ianthe Wrenfield (Candidate): A support case. A customer saw one number in the product and a different number in their export. It took us a day and a half to work out that both were correct as of different moments.
+[00:02:44] Ianthe Wrenfield (Candidate): I would not start by rewriting anything. I would collect every version of the readiness checklist that is actually in use, in the regions where it is actually used, and put the differences in one table.
 
-[00:03:26] Dashiell Ashgrove (Engineering Manager): What did you do about it?
+[00:03:26] Faro Fenmore (Operations Manager): We think there are several.
 
-[00:03:33] Ianthe Wrenfield (Candidate): I wrote up the two routes and the drift, and I proposed collapsing them. That proposal was rejected twice before it was accepted, which I think was reasonable both times.
+[00:03:33] Ianthe Wrenfield (Candidate): There usually are, and the count matters less than which differences are real. Some will be wording. A few will be a step one region does and another does not, and those decide whether a region is ready.
 
-[00:04:05] Dashiell Ashgrove (Engineering Manager): Why reasonable?
+[00:04:05] Faro Fenmore (Operations Manager): Say I give you that table. Then what?
 
-[00:04:11] Ianthe Wrenfield (Candidate): The first time I had no measurement, only an argument. The second time I had the measurement but no migration plan that kept the read path up. The third time I had both.
+[00:04:11] Ianthe Wrenfield (Candidate): One document with the real differences carried as named regional lines. Nobody keeps a private copy, and a region that needs a step gets it on the shared page rather than in a new file.
 
-[00:04:44] Dashiell Ashgrove (Engineering Manager): Walk me through the migration plan.
+[00:04:44] Faro Fenmore (Operations Manager): We have said that before. Saying it has never been the hard part.
 
-[00:04:53] Ianthe Wrenfield (Candidate): Dual write first, with the new route shadowing the old and nobody reading it. Then a comparison job that reported disagreements by shape rather than by row, because the row level noise was useless. Then a read switch per consumer, smallest first, with a way back.
+[00:04:53] Ianthe Wrenfield (Candidate): Saying it is not the mechanism. The mechanism is that the shared page is the only one that anybody links to in a status note, so a private copy stops being useful to the person holding it.
 
-[00:05:41] Dashiell Ashgrove (Engineering Manager): How long did the shadow period run?
+[00:05:41] Faro Fenmore (Operations Manager): That is a better answer than I expected. Different problem. There are regions flagged ready from before the checklist existed, and nothing behind the flag.
 
-[00:05:50] Ianthe Wrenfield (Candidate): About three months, which was longer than I wanted. The comparison job kept finding a class of disagreement at month end, and I refused to switch anyone until we understood it.
+[00:06:03] Ianthe Wrenfield (Candidate): So the flag is a claim with no evidence under it. Do you know how many?
 
-[00:06:26] Dashiell Ashgrove (Engineering Manager): What was it?
+[00:06:26] Faro Fenmore (Operations Manager): Roughly. Not exactly.
 
-[00:06:32] Ianthe Wrenfield (Candidate): A time zone assumption in the old route that only mattered on the last day of a month. It had been wrong for as long as the route had existed and nobody had noticed because the report was read the following week.
+[00:06:32] Ianthe Wrenfield (Candidate): I would want exactly, because the answer changes the plan. If it is a handful, somebody re-walks them this month. If it is most of them, then the flag means nothing and the sequence is currently being set by a field nobody should trust.
 
-[00:07:12] Dashiell Ashgrove (Engineering Manager): So the migration found a bug rather than caused one.
+[00:07:12] Faro Fenmore (Operations Manager): Assume it is most of them, and assume you cannot re-walk them all before the first cohort.
 
-[00:07:24] Ianthe Wrenfield (Candidate): Yes, and that was the moment the project stopped being unpopular.
+[00:07:24] Ianthe Wrenfield (Candidate): Then I re-walk the ones the sequence depends on next and I say plainly that the rest are unverified. What I will not do is let a plan rest on a flag while writing a status that implies the flag was checked.
 
-[00:07:39] Dashiell Ashgrove (Engineering Manager): Let us go somewhere else. The brief says this seat sequences the backlog. What would you do in the first month here?
+[00:07:59] Faro Fenmore (Operations Manager): Where does that leave the legacy records?
 
-[00:08:04] Ianthe Wrenfield (Candidate): Nothing structural. I would read the last two quarters of incidents and the design notes, and I would ask each downstream team what they are working around.
+[00:08:04] Ianthe Wrenfield (Candidate): Behind the checklist. Moving old records while the live work runs makes any failure impossible to attribute, and I would rather carry the delay than the ambiguity.
 
-[00:08:36] Ianthe Wrenfield (Candidate): The workarounds are the honest backlog. What a team has built around you tells you more than what they have asked you for.
+[00:08:36] Faro Fenmore (Operations Manager): That is the call we already made, and it is unpopular in one region.
 
-[00:08:58] Dashiell Ashgrove (Engineering Manager): And after that month?
+[00:08:58] Ianthe Wrenfield (Candidate): It usually is with whoever is waiting. What helps is telling them what they get in exchange and when, in writing, rather than telling them the reason.
 
-[00:09:07] Ianthe Wrenfield (Candidate): I would expect to propose an order and be argued with. I would want the argument to happen in writing and to be closed by you rather than left open.
+[00:09:37] Faro Fenmore (Operations Manager): Tell me about the shape of your last few years, since I skipped your history.
 
-[00:09:37] Dashiell Ashgrove (Engineering Manager): That is how it works here, and I will hold you to the writing part.
+[00:09:52] Ianthe Wrenfield (Candidate): Three years of rollout planning across regions, so sequencing, readiness and the cutover conversation. Before that, two years of risk register work on a program that had never kept one and was surprised every month.
 
-[00:09:52] Ianthe Wrenfield (Candidate): Understood.
+[00:10:15] Faro Fenmore (Operations Manager): Most risk registers are theatre. What made yours not?
 
-[00:10:00] Dashiell Ashgrove (Engineering Manager): Tell me about the platform underneath. What have you run yourself?
+[00:10:48] Ianthe Wrenfield (Candidate): Two rules. Every entry names a person and a date it will be looked at again, and anything that has not moved in two reviews either gets escalated or gets closed as accepted. A register that only grows is a list of worries.
 
-[00:10:15] Ianthe Wrenfield (Candidate): I have had three years of container orchestration ownership, in the sense of being the person who got paged when the platform misbehaved rather than the person who chose it.
+[00:11:22] Faro Fenmore (Operations Manager): Now the thing this seat is really for. The weekly status here goes out before the tracker is refreshed, so it describes the week before last.
 
-[00:10:48] Dashiell Ashgrove (Engineering Manager): What did that teach you that choosing it would not have?
+[00:11:52] Ianthe Wrenfield (Candidate): Then it is not a status, it is a habit. I would move the note behind the refresh rather than the refresh behind the note, and I would take the date the tracker was last touched and put it at the top of the note.
 
-[00:11:02] Ianthe Wrenfield (Candidate): That the interesting failures are almost never the ones the platform documents. They are resource limits set by somebody who left, and a probe that passes while the service is useless.
+[00:12:19] Faro Fenmore (Operations Manager): Why the date at the top?
 
-[00:11:41] Dashiell Ashgrove (Engineering Manager): Do you want to keep doing that work?
+[00:12:41] Ianthe Wrenfield (Candidate): Because it makes staleness visible without an argument. Nobody has to accuse the note of being old. The reader can see it.
 
-[00:11:52] Ianthe Wrenfield (Candidate): Some of it. I do not want it to be the job. I would rather be close enough to it that I design with it in mind.
+[00:13:19] Faro Fenmore (Operations Manager): You are describing more discipline than this program currently has. What do you drop to get it?
 
-[00:12:19] Dashiell Ashgrove (Engineering Manager): That is roughly the balance here. Now a harder question. Tell me about a disagreement you lost.
+[00:13:28] Ianthe Wrenfield (Candidate): The parts of the reporting nobody reads. Most weekly notes carry a section that exists because somebody asked for it once. I would ask each reader what they act on, and delete the rest.
 
-[00:12:41] Ianthe Wrenfield (Candidate): I argued against splitting a service and I was overruled by a director. I still think I was right about the coupling and wrong about the timing, which is a polite way of saying I lost.
+[00:14:53] Faro Fenmore (Operations Manager): Tell me about a plan of yours that slipped.
 
-[00:13:19] Dashiell Ashgrove (Engineering Manager): How did you behave afterward?
+[00:15:02] Ianthe Wrenfield (Candidate): A rollout where I took a regional sign-off at face value. The region had marked itself ready, I put it early in the sequence on the strength of that, and I never asked to see what had been checked.
 
-[00:13:28] Ianthe Wrenfield (Candidate): I wrote the interface between the two halves myself, because I had the strongest view about where it should sit, and I stopped relitigating the split.
+[00:15:36] Faro Fenmore (Operations Manager): And it was not ready.
 
-[00:14:02] Dashiell Ashgrove (Engineering Manager): Good. What about people who do not report to you and do not want to help?
+[00:15:47] Ianthe Wrenfield (Candidate): It was not, and we found out with customers already in it. Pulling that region back cost more than starting it later would have. What I took from it is that a sign-off I cannot see the evidence behind is somebody's opinion.
 
-[00:14:20] Ianthe Wrenfield (Candidate): I start by asking what they are being measured on. Half the time the reason they will not help is that helping costs them something nobody has accounted for.
+[00:16:03] Faro Fenmore (Operations Manager): What do you do differently now?
 
-[00:14:53] Dashiell Ashgrove (Engineering Manager): And the other half?
+[00:16:34] Ianthe Wrenfield (Candidate): Every assumption in a plan gets converted into either a task with an owner or an accepted risk with a date. If it can be neither, it is not an assumption, it is a hope.
 
-[00:15:02] Ianthe Wrenfield (Candidate): The other half they have been burned by a previous change and they do not believe the timeline. That one you fix by being boringly reliable for a couple of cycles.
+[00:16:53] Faro Fenmore (Operations Manager): Last one. Tell me about a disagreement you lost.
 
-[00:15:36] Dashiell Ashgrove (Engineering Manager): What questions do you have for me?
+[00:17:05] Ianthe Wrenfield (Candidate): I wanted an escalation path written down before a rollout and I was overruled on timing, because writing it looked like an admission that we expected trouble.
 
-[00:15:47] Ianthe Wrenfield (Candidate): The recruiter said I should ask you directly who sets the quarter.
+[00:17:35] Faro Fenmore (Operations Manager): How did you behave afterward?
 
-[00:16:03] Dashiell Ashgrove (Engineering Manager): I do, with the department director, and the team writes the proposal. If you take the seat, the proposal is yours to write from the second quarter onward.
+[00:17:46] Ianthe Wrenfield (Candidate): I wrote it anyway as a note to myself and used it twice in the first fortnight, and then it was adopted without further argument. I did not go back and say I had told them so.
 
-[00:16:34] Ianthe Wrenfield (Candidate): That is a real answer. Thank you.
+[00:18:09] Faro Fenmore (Operations Manager): Good. Questions for me?
 
-[00:16:46] Dashiell Ashgrove (Engineering Manager): Anything else?
+[00:18:24] Ianthe Wrenfield (Candidate): The recruiter said I should ask you directly who owns the plan.
 
-[00:16:53] Ianthe Wrenfield (Candidate): What has gone badly for this team recently?
+[00:18:41] Faro Fenmore (Operations Manager): You would. I own the outcome and I would argue with you in writing, which is not the same as owning your plan.
 
-[00:17:05] Dashiell Ashgrove (Engineering Manager): We deferred a schema change for two quarters and then had to do it under pressure. It went fine and it should not have been done that way.
+[00:19:02] Ianthe Wrenfield (Candidate): That is a real answer. Thank you.
 
-[00:17:35] Ianthe Wrenfield (Candidate): I would rather know that than not.
+[00:19:16] Faro Fenmore (Operations Manager): Then the next conversation is a working session with one of the program managers. Thank you for your time.
 
-[00:17:46] Dashiell Ashgrove (Engineering Manager): Then we are even. The next conversation is a working session on design. Thank you for your time.
-
-[00:18:09] Ianthe Wrenfield (Candidate): Thank you.
+[00:19:31] Ianthe Wrenfield (Candidate): Thank you.
