@@ -51,6 +51,15 @@
 # one of these rules is instead recomputed from the committed bytes in
 # tests/drafted/hr-c2-drafted-screen.test.js, and each reason below names the
 # arm that does it.
+#
+# Those eleven were re-justified on 2026-09-07 when cluster 2 was re-cut onto
+# another requisition: `validate HR-02 HR-04` was re-run against the re-cut
+# bytes, all eleven WARNed again on their own run and none of them reached PASS,
+# so none was retired under the self-expiry rule. One quoted planted_feature had
+# been reworded by the re-cut and the entry quoting it was FAILing the same rule;
+# its `feature` text was refreshed rather than the entry being widened. A twelfth
+# entry was added on the same footing for the corpus-wide span rule the re-cut
+# introduced, which WARNed on its own run first.
 
 version: 1
 
@@ -383,8 +392,29 @@ allowed:
       review, which this line states on its own face rather than leaving to a reader.
       Expected to be permanent.
 
+  - artifact: HR-02
+    feature: "no resume lends its own span to a claim the interview record makes, and the rule is corpus-wide rather than a rule about the interviewed pair: no term of the closed technology_vocabulary the frozen interview corpus is read against appears in more than one experience entry of the same resume, and no single experience entry runs as long as the largest quantified experience claim that frozen corpus records. Both halves are recomputed from the frozen bytes and from the published vocabulary rather than written down here, so neither the vocabulary nor the length can be pinned to a number a brief could copy"
+    reason: >-
+      Structural on one half and an absence on the other, so unconfirmable
+      twice over. The vocabulary this rule reads is published in the frozen HR-03
+      spec entry and the length it compares against is computed from the frozen
+      HR-03 bytes, and the drafted heuristic reads only the markdown under
+      artifacts/HR-02/, so "technology_vocabulary", "frozen interview corpus",
+      "quantified experience claim" and "recomputed" are words about another
+      artifact that no candidate's own resume would ever carry. The other half is
+      a rule about what is NOT there, a term that does not recur and an entry
+      that does not run that long, and a keyword count cannot see either. A
+      resume reworded to make the heuristic confirm it would be a resume
+      announcing the constraint it was drafted under, which is the LGL-02 case.
+      Both halves are recomputed rather than trusted in
+      tests/drafted/hr-c2-drafted-screen.test.js at HR-C2-T13, which loads the
+      vocabulary out of the frozen HR-03 spec entry, derives the longest
+      quantified claim by reading every frozen HR-03 source, and asserts over all
+      eighteen resumes that no entry reaches that length and that no listed term
+      sits in two entries of one resume. Expected to be permanent.
+
   - artifact: HR-04
-    feature: "interview-question-bank.json states bank_id, as_of, source_artifact, competency_source, protected_characteristic_probe_list, panel_roles and questions in that order, at an as-of of 2026-04-03 byte-equal to the frozen register's own. questions is 37 objects running QST-0001 upward in file order, each stating question_id, competency_id, question_text, follow_up, question_type and panel_role in that order, three on every competency of the frozen twelve-entry library and one more on a single competency, so all twelve are covered and all 37 map to a competency the library actually carries. panel_roles is exactly three objects of panel_role, competency_ids and question_ids for recruiter-screen, hiring-manager and staff-engineer, whose competency_ids are byte-equal to the competency sets the frozen interview corpus already publishes: recruiter-screen assesses CMP-04 and CMP-05, hiring-manager assesses CMP-01, CMP-03 and CMP-05, staff-engineer assesses CMP-01, CMP-02 and CMP-03. A question carrying a panel role names one of the three and its own competency sits in that role's set, each entry's question_ids is exactly the set of questions carrying it, and a question on a competency no panel here assesses carries an empty panel role"
+    feature: "interview-question-bank.json states bank_id, as_of, source_artifact, competency_source, protected_characteristic_probe_list, panel_roles and questions in that order, at an as-of of 2026-04-03 byte-equal to the frozen register's own. questions is 37 objects running QST-0001 upward in file order, each stating question_id, competency_id, question_text, follow_up, question_type and panel_role in that order, three on every competency of the frozen twelve-entry library and one more on a single competency, so all twelve are covered and all 37 map to a competency the library actually carries. panel_roles is exactly three objects of panel_role, competency_ids and question_ids for recruiter-screen, hiring-manager and program-manager, whose competency_ids are byte-equal to the competency sets the frozen interview corpus already publishes: recruiter-screen assesses CMP-05 and CMP-06, hiring-manager assesses CMP-01, CMP-10 and CMP-12, program-manager assesses CMP-01, CMP-05 and CMP-12. A question carrying a panel role names one of the three and its own competency sits in that role's set, each entry's question_ids is exactly the set of questions carrying it, and a question on a competency no panel here assesses carries an empty panel role"
     reason: >-
       Structural, the HR-01 stale-owner class in its strongest form: the
       rule resolves entirely inside interview-question-bank.json, and the keyword

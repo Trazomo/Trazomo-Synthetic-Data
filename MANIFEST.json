@@ -1251,20 +1251,20 @@
             "source_files": [
                 "interview-question-bank.json",
                 "scorecard-ca-001-hiring-manager.md",
+                "scorecard-ca-001-program-manager.md",
                 "scorecard-ca-001-recruiter-screen.md",
-                "scorecard-ca-001-staff-engineer.md",
                 "scorecard-ca-002-hiring-manager.md",
+                "scorecard-ca-002-program-manager.md",
                 "scorecard-ca-002-recruiter-screen.md",
-                "scorecard-ca-002-staff-engineer.md",
                 "screening-rubric.json"
             ],
             "build_files": [
                 "scorecard-ca-001-hiring-manager.docx",
+                "scorecard-ca-001-program-manager.docx",
                 "scorecard-ca-001-recruiter-screen.docx",
-                "scorecard-ca-001-staff-engineer.docx",
                 "scorecard-ca-002-hiring-manager.docx",
-                "scorecard-ca-002-recruiter-screen.docx",
-                "scorecard-ca-002-staff-engineer.docx"
+                "scorecard-ca-002-program-manager.docx",
+                "scorecard-ca-002-recruiter-screen.docx"
             ]
         },
         {
