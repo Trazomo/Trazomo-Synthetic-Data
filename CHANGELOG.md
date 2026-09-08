@@ -1,6 +1,11 @@
 # Changelog
 
-## 1.13.0
+## 1.12.0
+
+Renumbered from 1.13.0 at tag time by the integrator: #25 (people-hr
+cluster 2) did not merge first (NOT approved as drafted, superseded by the
+Amendment A re-cut), so this release takes the next minor after v1.11.0 in
+freeze-approval order.
 
 Operations cluster 3, risk and dependencies: three deterministic artifacts,
 no drafted-frozen document, and no shared-tier data edit (CORE-04 and OPS-04
@@ -9,10 +14,8 @@ under `datasets/core/` or `canon/companies.md`). The plan is
 `docs/plans/2026-08-29-path-programs/operations/data-plans/cluster-3.md` on
 trazomo (lane branch `data/operations-cluster-3`), executing
 `implementation-plan-v2.md` sections 2.1 and 3.4 under the resolved ruling
-R3. The plan's section 9 defaults (U1 first, then U2 to U10) ride to
-Salvador's freeze review. The version number assumes the one PR open ahead of
-this one (#25, people-hr cluster 2) merges first; renumber at tag time in
-merge order (revenue #24 took v1.11.0 while this branch was in review).
+R3. The plan's section 9 defaults (U1 first, then U2 to U10) rode to
+Salvador's freeze review, approved 2026-09-08.
 
 - **OPS-06 raid-log-seed**: a 24-row RAID log for the reporting migration
   (8 risks, 5 assumptions, 6 issues, 5 dependencies), read as of 2026-03-27
