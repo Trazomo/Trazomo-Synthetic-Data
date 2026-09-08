@@ -80,9 +80,12 @@ review, HR-04b first as the one item that extends the written plant list.
   of the spec rather than restated, CORE-04 is generated in process, and the
   frozen register and transcripts are read from committed bytes. Neither C2 set
   is deterministic, so `validate` has no regeneration diff and this file is the
-  only guard on a committed-byte edit: 22 one-clause mutations were applied by
-  rule at the re-cut head and all 22 were caught, each by the arm the plan names,
-  the twenty of the plan's own receipt table plus one for each leg of the new arm.
+  only guard on a committed-byte edit: 29 one-clause mutations were applied by
+  rule at the fix-wave head and all 29 were caught, each by the arm the plan
+  names or, for the seven added during the fix wave, by the screen-coverage arm
+  each one closes: a bare total on a scorecard, a proper noun in each of HR-04's
+  JSON free-prose fields, both endpoints of the application window, and a probe
+  phrase in a `follow_up`.
 - **Spec pins** (HR block only): HR-02's period opens on the new window, its
   first line names the department the arc now sits in, its log line publishes the
   window itself, and a new line publishes the corpus-wide span rule. HR-04's
