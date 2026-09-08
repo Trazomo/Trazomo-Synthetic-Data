@@ -47,7 +47,6 @@ const canon = loadCanonCompanies(join(REPO_ROOT, "canon", "companies.md"));
 
 const PROTAGONIST = "Atticus Dundee Inc.";
 const DRAFTED_IDS = ["HR-02", "HR-04"];
-const REQUISITION = "RQN-2026-0105";
 
 /** The formats the two C2 entries declare, pinned so a spec edit has to be deliberate. */
 const FORMATS = { "HR-02": "markdown", "HR-04": "json + markdown" };
@@ -109,6 +108,14 @@ function screeningStatusValues() {
   const list = splitList(feature.match(/Screening status draws from: ([^.]+)\./)[1]);
   assert.equal(list.length, 2, "the spec sentence did not yield a two-value screening vocabulary");
   return list;
+}
+
+/** The window the log states, read off the same sentence rather than pinned here. */
+function applicationWindow() {
+  const feature = featureMatching("HR-02", /^application-log\.md is the recruiter-side record/);
+  const m = feature.match(/application window of (\d{4}-\d{2}-\d{2}) to (\d{4}-\d{2}-\d{2})/);
+  assert.ok(m, "the spec sentence carries no application window");
+  return { start: m[1], end: m[2] };
 }
 
 /** The phrases the corpus is swept against and must return zero hits on. */
@@ -230,6 +237,40 @@ const scorecardNames = () => sourceNames("HR-04", (n) => n.startsWith("scorecard
 const transcriptNames = () => sourceNames("HR-03", (n) => n.startsWith("interview-transcript-") && n.endsWith(".md"));
 const pairedTranscript = (scorecard) => scorecard.replace("scorecard-", "interview-transcript-");
 
+/**
+ * The requisition this cluster attaches to, derived from the frozen interview
+ * corpus rather than pinned here. HR-03 prints it in every transcript's own
+ * metadata, so the attachment is a fact about committed bytes: an amendment that
+ * moves the recruiting arc to another requisition moves this with it, and a
+ * corpus that quietly attached itself somewhere else fails on its own.
+ */
+function requisition() {
+  const ids = new Set(transcriptNames().map((n) => metadata(readSource("HR-03", n)).get("Requisition ID")));
+  assert.equal(ids.size, 1, `the frozen interview corpus spans ${ids.size} requisitions, expected exactly 1`);
+  const id = [...ids][0];
+  assert.match(id, /^RQN-\d{4}-\d{4}$/, `the frozen interview corpus names "${id}", which is not a requisition id`);
+  return id;
+}
+
+/**
+ * The `### heading` blocks of a resume's experience section, each with the
+ * months its own duration states. The heading is kept inside the block, so a
+ * term written into a role title counts against that entry like any other.
+ */
+function experienceEntries(text, label) {
+  const experience = sections(text).get("Experience");
+  assert.ok(experience, `${label}: no experience section`);
+  const out = [];
+  for (const chunk of experience.split(/^### /m).slice(1)) {
+    const nl = chunk.indexOf("\n");
+    const heading = (nl === -1 ? chunk : chunk.slice(0, nl)).trim();
+    const m = heading.match(/, (\d+) years? (\d+) months?$/);
+    assert.ok(m, `${label}: the entry "${heading}" does not end in a duration written as N years M months`);
+    out.push({ heading, months: Number(m[1]) * 12 + Number(m[2]), text: chunk });
+  }
+  return out;
+}
+
 // One to twelve, the number words a quantified experience claim may use here.
 const CLAIM_NUMBER_WORDS = {
   one: 1, two: 2, three: 3, four: 4, five: 5, six: 6,
@@ -336,6 +377,7 @@ test("HR-C2-T1: eighteen resumes, one log, one id set, and the file names agree"
   );
 
   const ids = [];
+  const interviewed = requisition();
   for (const { name, text } of resumes()) {
     const meta = metadata(text);
     assert.deepEqual(
@@ -344,7 +386,7 @@ test("HR-C2-T1: eighteen resumes, one log, one id set, and the file names agree"
     );
     const id = meta.get("Candidate ID");
     assert.equal(name, `resume-${id}.md`, `${name}: the file name and the candidate id disagree`);
-    assert.equal(meta.get("Requisition ID"), REQUISITION, `${name}: the corpus spans more than one requisition`);
+    assert.equal(meta.get("Requisition ID"), interviewed, `${name}: the corpus spans more than one requisition`);
     ids.push(id);
   }
   assert.equal(new Set(ids).size, 18, "two resumes print the same candidate id");
@@ -582,14 +624,23 @@ test("HR-C2-T5: the funnel, its window, its two-value vocabulary and its advance
   );
 
   const reg = register();
-  const req = reg.requisitions.find((r) => r.requisition_id === REQUISITION);
+  const requisitionId = requisition();
+  const req = reg.requisitions.find((r) => r.requisition_id === requisitionId);
   assert.ok(req, "the corpus attaches to a requisition the frozen register does not carry");
   assert.equal(req.status, "open", "the requisition the corpus attaches to is not open");
   assert.equal(meta.get("Requisition title"), req.requisition_title, "the log's title is not the register's own");
-  assert.equal(meta.get("Requisition ID"), REQUISITION, "the log names another requisition");
+  assert.equal(meta.get("Requisition ID"), requisitionId, "the log names another requisition");
   assert.equal(meta.get("Applications received"), "18", "the log's stated count is not 18");
   assert.equal(meta.get("Shortlist decision due"), spec.period.end, "the decision due date is not the spec period end");
-  assert.equal(meta.get("Application window"), `${spec.period.start} to 2026-03-20`, "the stated window is not the spec's own");
+
+  // The window is the spec's own, read off it rather than typed here: it opens
+  // on the spec period's start, it closes before the decision falls due, and it
+  // cannot open before the requisition it belongs to was raised.
+  const window = applicationWindow();
+  assert.equal(window.start, spec.period.start, "the published window does not open on the spec period's own start");
+  assert.ok(window.end < spec.period.end, "the published window does not close before the decision falls due");
+  assert.ok(window.start >= req.opened_date, `the published window opens on ${window.start}, before the requisition was raised on ${req.opened_date}`);
+  assert.equal(meta.get("Application window"), `${window.start} to ${window.end}`, "the stated window is not the spec's own");
 
   const recruiter = meta.get("Recruiter").match(/^(.+) \(([^()]+)\)$/);
   assert.ok(recruiter, "the recruiter line is not a name and role title");
@@ -606,8 +657,8 @@ test("HR-C2-T5: the funnel, its window, its two-value vocabulary and its advance
   let previous = "";
   for (const [id, , date, status] of rows.slice(1)) {
     assert.match(date, ISO_DATE, `${id}: the application date is not an ISO date`);
-    assert.ok(date >= spec.period.start, `${id} applied on ${date}, before the window opened`);
-    assert.ok(date <= "2026-03-20", `${id} applied on ${date}, after the window closed`);
+    assert.ok(date >= window.start, `${id} applied on ${date}, before the window opened`);
+    assert.ok(date <= window.end, `${id} applied on ${date}, after the window closed`);
     assert.ok(date >= req.opened_date, `${id} applied on ${date}, before the requisition was raised on ${req.opened_date}`);
     assert.ok(date >= previous, `${id} breaks the application-date ordering of the table`);
     previous = date;
@@ -778,8 +829,9 @@ test("HR-C2-T8: the rubric's weights, its education criterion and its recomputed
       "scoring_scale", "criteria", "total_possible_score", "shortlist_guidance"],
     "the rubric's top-level key order has drifted from the documented one"
   );
+  const interviewed = requisition();
   assert.equal(r.as_of, register().as_of, "the rubric's as-of has drifted from the frozen register's own");
-  assert.equal(r.requisition_id, REQUISITION, "the rubric scores a different requisition from the one the corpus applies to");
+  assert.equal(r.requisition_id, interviewed, "the rubric scores a different requisition from the one the corpus applies to");
 
   assert.deepEqual(
     r.required_resume_fields.map((f) => f.field), requiredResumeFields(),
@@ -792,7 +844,7 @@ test("HR-C2-T8: the rubric's weights, its education criterion and its recomputed
     "the scale does not carry a label at every point"
   );
 
-  const competencies = register().requisitions.find((x) => x.requisition_id === REQUISITION).competencies;
+  const competencies = register().requisitions.find((x) => x.requisition_id === interviewed).competencies;
   assert.equal(r.criteria.length, 5, `the rubric holds ${r.criteria.length} criteria, expected 5`);
   r.criteria.forEach((c, i) => {
     assert.deepEqual(
@@ -880,6 +932,7 @@ test("HR-C2-T10: the six scorecards pair with the frozen transcripts and carry t
   );
 
   const spec = specs.byId.get("HR-04");
+  const interviewed = requisition();
   const active = activeRows();
   const rows = byId();
   const named = new Map(register().competency_library.map((c) => [c.competency_id, c.name]));
@@ -903,7 +956,7 @@ test("HR-C2-T10: the six scorecards pair with the frozen transcripts and carry t
     for (const key of ["Candidate ID", "Requisition ID"]) {
       assert.equal(meta.get(key), tMeta.get(key), `${name}: the ${key} line disagrees with its own transcript`);
     }
-    assert.equal(meta.get("Requisition ID"), REQUISITION, `${name}: the scorecard names another requisition`);
+    assert.equal(meta.get("Requisition ID"), interviewed, `${name}: the scorecard names another requisition`);
     assert.equal(meta.get("Interview date"), tMeta.get("Date"), `${name}: the interview date is not the paired transcript's own date`);
     assert.equal(meta.get("Interviewer"), tMeta.get("Interviewer"), `${name}: the interviewer line is not the transcript's own line`);
     assert.ok(
@@ -991,6 +1044,44 @@ test("HR-C2-T12: no em dash, no money, no percentage, and every capitalized stri
     for (const { name, text } of allMarkdown(id)) {
       assert.deepEqual(unscreenedPhrases(text, allowed), [], `unscreened capitalized phrase(s) in ${id}/${name}`);
       assert.deepEqual(unscreenedWords(text, allowed), [], `unscreened capitalized word(s) in ${id}/${name}`);
+    }
+  }
+});
+
+// ------------------------------------------------------------------ HR-C2-T13
+
+// The corpus-wide half of the consistency rule, and the only leg of it a test
+// can carry. A resume does not have to contradict the interview record to damage
+// it: an entry long enough to cover a quantified claim, or a term spread across
+// two entries so that their spans add up, lends the record a source it was never
+// meant to have. Both halves are recomputed here rather than written down: the
+// vocabulary comes off the frozen HR-03 spec entry, and the length comes off the
+// frozen HR-03 bytes. Nothing in this file knows which claim is the long one.
+test("HR-C2-T13: no resume entry repeats a vocabulary term or reaches the largest frozen claim", () => {
+  const vocabulary = technologyVocabulary();
+  const largestYears = Math.max(
+    0,
+    ...markdownNames("HR-03").map((n) => largestQuantifiedClaimYears(readSource("HR-03", n), vocabulary))
+  );
+  assert.ok(
+    largestYears > 0,
+    "the frozen corpus records no quantified experience claim at all, so this arm proves nothing"
+  );
+
+  for (const { name, text } of resumes()) {
+    const entries = experienceEntries(text, name);
+    for (const entry of entries) {
+      assert.ok(
+        entry.months < largestYears * 12,
+        `${name}: an experience entry runs at least as long as the largest quantified claim the frozen corpus records, so the entry could be read as that claim's source`
+      );
+    }
+    for (const term of vocabulary) {
+      const carrying = entries.filter((e) => carries(e.text, term)).length;
+      assert.ok(
+        carrying <= 1,
+        `${name}: the published vocabulary term "${term}" sits in ${carrying} experience entries; it belongs to at most one, so no combination of entries can add up to a span for it`
+      );
     }
   }
 });
