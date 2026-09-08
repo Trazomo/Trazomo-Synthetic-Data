@@ -1,35 +1,36 @@
 # Ianthe Wrenfield
 
 - Candidate ID: ca-001
-- Requisition ID: RQN-2026-0105
-- Application date: 2026-02-18
+- Requisition ID: RQN-2026-0106
+- Application date: 2026-03-04
 - Contact: ianthe.wrenfield@mailbox.example
 
 ## Summary
 
-Platform engineer on the data path. I own an ingest and enrichment route that five downstream teams read from, two of them outside engineering, and most of my work is negotiating change with people who did not choose to be in the negotiation. I write the change note before I write the code. I am looking for a seat where the backlog is sequenced rather than absorbed.
+Program manager in a services group of about two hundred people. I hold the plan for work whose parts belong to other people, and most of the job is reconciliation: one definition of finished, and one place the differences are written down. What the customer went through is the only test of a sequence I trust. I am looking for a program I hold end to end.
 
 ## Experience
 
-### Senior Software Engineer, a mid sized product company, 4 years 5 months
+### Program Manager, a mid sized professional services group, 4 years 6 months
 
-- Own the ingest and enrichment path five downstream teams read from, two of them outside engineering, including the on call rotation for it.
-- Proposed and ran the collapse of two routes that had drifted apart, holding the shadow period open until a month end disagreement was understood rather than switching a consumer on schedule.
-- Keep every change note in one place, each carrying the before, the after, a date and what breaks for a consumer who does nothing, and check live traffic before removing a field rather than trusting the window.
-- Rewrote the change note template sitting beside an analyst from a consuming operations group, who had told me the first versions were unreadable to them.
-- Mentor two engineers and run the on call handover.
+- Hold the plan for a regional delivery program in which nobody involved reports to me, from the sequence through to the record of what was decided.
+- Collected every version of a procedure that four regions had each rewritten, then reduced the process mapping to one document carrying the real regional differences as named lines rather than as separate copies.
+- Made the shared page the only one a status note links to, so a private copy stopped being useful to the person holding it, and the regions accepted the change once each could see its own line on it.
+- Sat in on support calls for a fortnight before writing the rollout planning for a release, and changed the order after hearing the same question put twice to one customer.
+- Told a sponsor in writing, before the quarter opened, that two of five regions would not be reached inside it.
 
-### Software Engineer, a small analytics company, 3 years 10 months
+### Operations Analyst, a mid sized professional services group, 3 years 8 months
 
-- Built the services behind a reporting product and the batch jobs that fed them.
-- Ran the container platform the team deployed onto, which is where the habit of being paged for somebody else's default came from.
+- Started the risk register on a program that had never kept one, with every entry naming a person and a date it would be looked at again.
+- Closed anything that had not moved in two reviews as accepted rather than letting the list grow, and wrote that rule down so it survived me.
+- Moved the weekly note behind the tracker refresh instead of ahead of it, and printed the date the tracker was last touched at the top of the note.
 
 ## Education
 
-### Bachelor's degree in computer science, a large public university
+### Bachelor's degree in economics, a large public university
 
-- Final year project on message ordering across distributed systems, which is where the interest in ingest paths started.
+- Final year work on how regional variation in a shared procedure survives an attempt to standardize it.
 
 ## Certifications
 
-- Container orchestration administrator, current.
+- Program and portfolio practitioner, current.

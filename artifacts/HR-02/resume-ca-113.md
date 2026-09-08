@@ -1,35 +1,36 @@
 # Osric Lammerling
 
 - Candidate ID: ca-113
-- Requisition ID: RQN-2026-0105
-- Application date: 2026-03-16
+- Requisition ID: RQN-2026-0106
+- Application date: 2026-03-17
 - Contact: osric.lammerling@mailbox.example
 
 ## Summary
 
-Engineer on internal developer platforms. I build the things other engineers are obliged to use, which means most of the work is persuasion, documentation and not breaking people who are busy. I would like to move onto a data path, where the consequences of a bad interface last longer.
+Program manager on the internal processes other teams are obliged to use. Most of that work is persuasion, documentation and not breaking people who are busy. I would like to move onto a customer facing program, where the consequences of a bad process last longer and are felt by somebody outside the building.
 
 ## Experience
 
-### Senior Software Engineer, a large business software company, 4 years 7 months
+### Program Manager, a large business services company, 4 years 7 months
 
-- Own the build and release platform the engineering group depends on, including the on call rotation for it.
-- Replaced the release pipeline in stages, keeping the old path available for a full quarter and moving teams as they were ready rather than on my own schedule.
+- Hold the plan for the release and change route the whole delivery group depends on, including the out of hours rota for it.
+- Replaced the process in stages, keeping the old route available for a full quarter and moving teams as they were ready rather than on my own schedule.
 - Wrote the migration guide, then rewrote it after watching two teams fail to follow the first version.
-- Run the office hours session the platform group holds for the teams it serves.
+- Run the office hours session the group holds for the teams it serves.
+- Named the two requests that would not be taken that quarter and published the list rather than answering each one separately.
 
-### Software Engineer, a mid sized business software company, 2 years 8 months
+### Operations Analyst, a mid sized business services company, 2 years 8 months
 
-- Built internal tooling for test environments and the data seeding behind it, and handed it over with the notes that made it usable by somebody else.
+- Built the internal tooling for test environments and the sample data behind it, and handed it over with the notes that made it usable by somebody else.
 
-### QA Engineer, a small business software company, 2 years 1 month
+### QA Engineer, a small business services company, 2 years 1 month
 
-- Built the automated checks for a release process that had none, and taught the team to read them.
+- Built the first repeatable checks for a release process that had none, and taught the team to read them.
 
 ## Education
 
-### Bachelor's degree in computer science, a large public university
+### Bachelor's degree in philosophy, a large public university
 
 ## Certifications
 
-- Cloud platform professional, current.
+- Change and release foundation, current.

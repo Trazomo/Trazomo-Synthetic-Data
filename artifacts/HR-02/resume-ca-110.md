@@ -1,34 +1,35 @@
 # Hesper Wardenholme
 
 - Candidate ID: ca-110
-- Requisition ID: RQN-2026-0105
-- Application date: 2026-03-10
+- Requisition ID: RQN-2026-0106
+- Application date: 2026-03-13
 - Contact: hesper.wardenholme@mailbox.example
 
 ## Summary
 
-Distributed systems engineer. The last few years have been ingest and enrichment paths, and most of what I do is make a change safe to run rather than make it work. I would rather write the design note twice than run the migration twice, and I have done both.
+Program manager on reporting and data operations. The last few years have been the route between the teams that produce a record and the teams that cannot tolerate a surprise in it, and most of what I do is make a change safe to run rather than make it work. I would rather write the plan twice than run the migration twice.
 
 ## Experience
 
-### Senior Software Engineer, a mid sized analytics company, 4 years 2 months
+### Program Manager, a mid sized analytics services company, 4 years 2 months
 
-- Own the ingest path for an analytics product, including the schema change process the consuming teams follow.
-- Ran a type widening across a live read path by reconciling both sides for a full cycle before calling it done, after an earlier change had dropped records at the edge of a range while reporting success.
-- Publish the list of who reads each field, so a deprecation is a conversation with named people rather than an announcement into a channel.
-- Coach two engineers through their first design notes and review the notes in writing.
+- Hold the plan for the reporting an analytics product runs on, including the change route the consuming teams follow.
+- Ran a definition change across a live report by reconciling both versions for a full cycle before calling it done, after an earlier change had dropped records at the edge of a range while reporting success.
+- Publish the list of who reads each field, so a withdrawal is a conversation with named people rather than an announcement into a channel.
+- Keep the dependency tracking for the program in one list, each row with an owner, a next date and what it blocks, reviewed in one meeting and nowhere else.
+- Named the two report requests that would not be met that quarter, and put the reason beside each.
 
-### Software Engineer, a mid sized business software company, 3 years 4 months
+### Operations Analyst, a mid sized business services company, 3 years 4 months
 
-- Built the reporting services behind a customer portal.
-- Rewrote a nightly job as a restartable set of stages after a partial failure cost a working day and could not be resumed.
+- Built the weekly reporting behind a customer portal.
+- Rewrote a monthly routine as a restartable set of stages after a partial failure cost a working day and could not be resumed.
 
 ## Education
 
-### Master's degree in distributed systems, a large research university
+### Master's degree in statistics, a large research university
 
-### Bachelor's degree in computer science, a mid sized public university
+### Bachelor's degree in mathematics, a mid sized public university
 
 ## Certifications
 
-- Data engineering associate, current.
+- Data management associate, current.

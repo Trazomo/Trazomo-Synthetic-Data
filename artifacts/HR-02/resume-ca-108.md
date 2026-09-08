@@ -1,32 +1,33 @@
 # Clemency Netherby
 
 - Candidate ID: ca-108
-- Requisition ID: RQN-2026-0105
-- Application date: 2026-03-06
+- Requisition ID: RQN-2026-0106
+- Application date: 2026-03-11
 - Contact: clemency.netherby@mailbox.example
 
 ## Summary
 
-Backend engineer on internal platform work, most recently the identity and access services other teams build against. I spend more of my time on interfaces than on implementations, because the interface is the part that is expensive to change once other people have built on it.
+Operations analyst on internal access and administration work, most recently the joiner and leaver process the rest of the company depends on. I spend more of my time on the join between teams than inside any one of them, because that is the part that is expensive to change once people have built habits on it.
 
 ## Experience
 
-### Senior Software Engineer, a mid sized business software company, 3 years 5 months
+### Operations Analyst, a mid sized business services company, 3 years 5 months
 
-- Own the identity and access services the rest of engineering builds against, and the deprecation process around them.
-- Replaced a permission model that had grown three overlapping notions of a role, after writing down which callers relied on which and what each merge would break.
-- Ran that migration by leaving the old model in place, publishing who still called it, and going to each caller with a replacement already written for their case.
+- Own the joiner, mover and leaver process the rest of the company follows, and the removal of the steps that no longer earn their place.
+- Replaced a permissions model that had grown three overlapping notions of a role, after writing down which teams relied on which and what each merge would break.
+- Ran that change by leaving the old model in place, publishing who was still using it, and going to each team with a replacement already written for their case.
+- Said which of the two remaining exceptions would be carried for another year, and recorded who had accepted it.
 
-### Software Engineer, a large retail software company, 3 years 7 months
+### Onboarding Specialist, a large retail services company, 3 years 7 months
 
-- Built the services behind a customer account area and the session handling in front of them.
-- Wrote the note a support group used to explain lockouts to customers, and rewrote it after sitting in on the calls and hearing it read out.
-- Took the on call rotation for the account area and wrote up each incident where the design, rather than the code, was the cause.
+- Took new customers through account setup and the checks in front of it.
+- Wrote the note a support group used to explain a lockout to a customer, and rewrote it after sitting in on the calls and hearing it read out.
+- Took the out of hours rota for the account area and wrote up each case where the process, rather than the person, was the cause.
 
 ## Education
 
-### Bachelor's degree in computer science, a mid sized public university
+### Bachelor's degree in business administration, a mid sized public university
 
 ## Certifications
 
-- Cloud security associate, current.
+- Access and identity administration, current.

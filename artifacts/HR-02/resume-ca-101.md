@@ -1,30 +1,31 @@
 # Peregrine Halstrove
 
 - Candidate ID: ca-101
-- Requisition ID: RQN-2026-0105
-- Application date: 2026-02-20
+- Requisition ID: RQN-2026-0106
+- Application date: 2026-03-05
 - Contact: peregrine.halstrove@mailbox.example
 
 ## Summary
 
-Backend engineer on internal platform services. Most of my recent work has been a scheduling service that other teams build on, and on making its failure modes legible to the people who depend on it. I like the problems where the hard part is agreeing what correct means before anyone writes anything.
+Program manager on internal service programs. Most of my recent work has been a scheduling change three delivery teams depend on, and making its failure modes legible to the people who feel them first. I like the problems where the hard part is agreeing what finished means before anybody starts.
 
 ## Experience
 
-### Senior Software Engineer, a mid sized logistics software company, 3 years 7 months
+### Program Manager, a mid sized logistics services company, 3 years 7 months
 
-- Own a scheduling service three delivery teams build on, including its published interface and its on call rotation.
-- Replaced an inherited retry loop after writing down the two failure modes it had been conflating and what each one cost, then chose the design that paid for the one the callers actually cared about.
-- Wrote the operating notes the two teams downstream now use to diagnose their own timeouts before raising a ticket.
+- Hold the plan for a scheduling change three delivery teams depend on, including the sequence, the decision record and the weekly note that goes to the sponsor.
+- Replaced an inherited retry procedure after writing down the two failure modes it had been conflating and what each one cost the customer waiting on it, then chose the option that paid for the one they actually felt.
+- Wrote the operating notes the two teams downstream now use to work out their own delays before raising anything with me.
 - Agreed a change window with a group who did not report to me by asking what the change would cost them rather than when they could take it.
+- Said in the plan that two of the five regions would wait until the following quarter, and named who had agreed it.
 
-### Software Engineer, a small business software company, 2 years 10 months
+### Operations Analyst, a small business services company, 2 years 10 months
 
-- Built internal tooling for a support group and sat with them while they used it.
-- Took over a batch job nobody owned and made it restartable after a partial failure, then handed it on with notes.
+- Built the internal reporting a support group used and sat with them while they used it.
+- Took over a monthly reconciliation that had drifted between two teams, made it restartable after a partial failure, and handed it on with notes.
 
 ## Education
 
-### Bachelor's degree in computer science, a large public university
+### Bachelor's degree in geography, a large public university
 
 - Dissertation on scheduling under uncertainty.

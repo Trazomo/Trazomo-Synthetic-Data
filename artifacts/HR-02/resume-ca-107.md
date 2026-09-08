@@ -1,35 +1,36 @@
 # Thaddeus Ollercombe
 
 - Candidate ID: ca-107
-- Requisition ID: RQN-2026-0105
-- Application date: 2026-03-05
+- Requisition ID: RQN-2026-0106
+- Application date: 2026-03-11
 - Contact: thaddeus.ollercombe@mailbox.example
 
 ## Summary
 
-Systems engineer with most of my career on infrastructure and the services that sit closest to it. I have run platforms rather than chosen them, and the thing I took from that is that the interesting failures are never the ones the documentation covers. I want to spend more of my time on the design side of that work.
+Operations manager with most of my working life on the services that keep other teams running. I have inherited estates rather than chosen them, and what I took from that is that the interesting failures are never the ones the documentation covers. I want to spend more of my time on the plan and less on the recovery.
 
 ## Experience
 
-### Site Reliability Engineer, a large media software company, 4 years 4 months
+### Operations Manager, a large media services company, 4 years 4 months
 
-- Own the container platform a dozen services run on, including capacity, the upgrade path and the pager.
-- Rebuilt the resource limits after an outage caused by a value somebody had set and then left the company, and wrote down why each replacement was chosen.
+- Hold the plan for the shared services a dozen teams run on, including capacity planning, the upgrade sequence and the out of hours rota.
+- Rebuilt the limits after an outage caused by a setting somebody had chosen and then left the company, and wrote down why each replacement was chosen.
 - Ran the incident review process for the group, and taught two teams to write a review nobody has to defend afterwards.
-- Negotiated the upgrade window with four service teams who did not report to me by publishing what each one would lose if it slipped.
+- Negotiated the upgrade window with four teams who did not report to me by publishing what each of them would lose if it slipped.
+- Told the sponsor which two of the six upgrades would not happen that year rather than starting all six.
 
-### Software Engineer, a mid sized business software company, 4 years 4 months
+### Operations Analyst, a mid sized business services company, 4 years 4 months
 
-- Built and ran the deployment tooling a group of product teams used.
-- Moved the estate off a hand rolled deployment script onto something those teams could operate without me, and wrote the notes that made that possible.
+- Built and ran the deployment routine a group of teams used, and the record of what had been changed and when.
+- Moved the group off a hand rolled procedure onto something those teams could run without me, and wrote the notes that made that possible.
 
 ## Education
 
-### Bachelor's degree in computer engineering, a large public university, graduated 2017
+### Bachelor's degree in engineering management, a large public university, graduated 2017
 
-- Final year project on fault injection in clustered services.
+- Final year project on failure recovery in shared services.
 
 ## Certifications
 
-- Container orchestration administrator, current.
+- Service management practitioner, current.
 - Incident response practitioner, current.
