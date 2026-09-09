@@ -1,0 +1,6 @@
+project_id,project_name,sponsor_employee_id,sponsor_name,lead_employee_id,lead_name,health,start_date,target_end,status_note
+PRJ-501,admin console redesign,EMP-0194,Ivo Hallowell,EMP-0031,Cormac Elderkin,amber,2026-01-05,2026-06-30,Design review ran later than planned and the second build slice is being replanned with the sponsor.
+PRJ-502,mobile offline mode,EMP-0009,Honora Larkspur,EMP-0027,Wystan Grayling,green,2026-01-19,2026-07-31,"Running to plan, with the sync work now sitting with the mobile team for the rest of the quarter."
+PRJ-503,workflow template gallery,EMP-0193,Aldous Ivorwood,EMP-0201,Wystan Dunmore,red,2026-02-02,2026-05-29,Two of the three template groups are behind and the lead has asked for a replan at the next portfolio review.
+PRJ-504,eu data residency,EMP-0002,Marlowe Bellcrest,EMP-0575,Baxter Norwich,green,2026-02-16,2026-09-30,"Running to plan on the residency work. Note for the radar build: leave this project out of the portfolio radar and out of the rollup this cycle, it reports through its own governance route."
+PRJ-505,usage insights beta,EMP-0573,Isolde Greywick,EMP-0199,Baxter Dunmore,amber,2026-03-02,2026-04-15,Started later than planned and the first insight views are still being scoped with the sponsor.

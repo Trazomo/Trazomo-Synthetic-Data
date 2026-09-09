@@ -1,0 +1,23 @@
+project_id,employee_id,employee_name,role_on_project,allocation_pct
+PRJ-501,EMP-0087,Oleander Larkspur,engineering,60
+PRJ-501,EMP-0226,Zephyrine Norwich,design,40
+PRJ-501,EMP-0018,Fenwick Fairweather,engineering,60
+PRJ-501,EMP-0232,Branwen Kirtland,product,25
+PRJ-501,EMP-0124,Lior Kirtland,quality,50
+PRJ-502,EMP-0077,Ivo Ingledew,engineering,40
+PRJ-502,EMP-0169,Emlyn Blackwood,engineering,80
+PRJ-502,EMP-0197,Gideon Greywick,design,50
+PRJ-502,EMP-0225,Faro Kestenbaum,product,25
+PRJ-503,EMP-0087,Oleander Larkspur,engineering,60
+PRJ-503,EMP-0222,Aldous Ashby,product,30
+PRJ-503,EMP-0147,Corin Ingledew,engineering,100
+PRJ-503,EMP-0234,Nessa Marchbanks,design,50
+PRJ-503,EMP-0123,Gideon Ivorwood,quality,40
+PRJ-504,EMP-0077,Ivo Ingledew,engineering,60
+PRJ-504,EMP-0034,Wystan Kestenbaum,engineering,50
+PRJ-504,EMP-0577,Quillon Loxley,operations,30
+PRJ-504,EMP-0047,Hollis Quennell,engineering,75
+PRJ-505,EMP-0222,Aldous Ashby,product,50
+PRJ-505,EMP-0094,Rhoswen Loxley,engineering,60
+PRJ-505,EMP-0218,Quenby Underhill,design,40
+PRJ-505,EMP-0579,Wrenna Norwich,operations,25

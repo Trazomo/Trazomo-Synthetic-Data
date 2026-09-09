@@ -1,0 +1,18 @@
+raid_id,project_id,item_type,title,owner_employee_id,owner_name,severity,status
+ITEM-601,PRJ-501,risk,The design system components the new screens need are still being rebuilt,EMP-0018,Fenwick Fairweather,high,open
+ITEM-602,PRJ-501,issue,Two of the console screens have no owner in the current design review queue,EMP-0226,Zephyrine Norwich,medium,open
+ITEM-603,PRJ-501,dependency,The permissions rework has to land before the settings screens can be cut over,EMP-0031,Cormac Elderkin,medium,monitoring
+ITEM-604,PRJ-501,assumption,The current console stays available to fall back on across the cutover,EMP-0232,Branwen Kirtland,low,open
+ITEM-605,PRJ-502,risk,Offline conflict handling has not been exercised on the older devices,EMP-0169,Emlyn Blackwood,medium,monitoring
+ITEM-606,PRJ-502,issue,The sync test suite fails intermittently on the shared build machines,EMP-0197,Gideon Greywick,high,open
+ITEM-607,PRJ-502,dependency,The store review window sits outside the team's own calendar,EMP-0027,Wystan Grayling,low,monitoring
+ITEM-608,PRJ-503,risk,The template authors are stretched across two other pieces of work,EMP-0147,Corin Ingledew,high,open
+ITEM-609,PRJ-503,issue,The first template group came back from review with the wrong category structure,EMP-0234,Nessa Marchbanks,high,open
+ITEM-610,PRJ-503,risk,The gallery search is being built against an index that is still changing shape,EMP-0201,Wystan Dunmore,medium,monitoring
+ITEM-611,PRJ-503,assumption,The existing template naming carries over without a migration step,EMP-0222,Aldous Ashby,medium,open
+ITEM-612,PRJ-504,risk,The residency work touches every export path and the list of them is not final,EMP-0034,Wystan Kestenbaum,medium,open
+ITEM-613,PRJ-504,dependency,The hosting region move sits on the infrastructure team's own calendar,EMP-0577,Quillon Loxley,high,monitoring
+ITEM-614,PRJ-504,risk,The regional read replicas add a release step nobody has rehearsed yet,EMP-0047,Hollis Quennell,low,open
+ITEM-615,PRJ-505,risk,The insight views read an event stream that is still being shaped,EMP-0094,Rhoswen Loxley,medium,open
+ITEM-616,PRJ-505,issue,The beta group is smaller than the plan was built around,EMP-0218,Quenby Underhill,medium,monitoring
+ITEM-617,PRJ-505,assumption,The existing reporting page stays in place while the beta runs,EMP-0199,Baxter Dunmore,low,open
