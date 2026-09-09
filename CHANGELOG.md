@@ -101,10 +101,13 @@ review, HR-04b first as the one item that extends the written plant list.
 - **Canon**: the one `canon/timeline.md` Dated-events row is reworded off the
   engineering department and moved to its new date order, and the two `ca-` ID
   conventions rows in `canon/people.md` stand as written. The two curated
-  candidate seats are proposed in the pull request body rather than written,
-  because writing those names into canon breaks the cluster 1 screen's canon-name
-  assertion and falsifies a frozen HR-03 spec sentence, neither of which this
-  cluster may change.
+  candidate seats were proposed in the pull request body rather than written by
+  this cluster, because writing those names into canon breaks the cluster 1
+  screen's canon-name assertion and falsifies a frozen HR-03 spec sentence,
+  neither of which this cluster may change. On the 2026-09-08 R8 freeze
+  approval the integrator seated them as CANONICAL in `d92e349` (`ca-001`
+  Ianthe Wrenfield, `ca-002` Amias Kettleborne) with a one-line cluster 1
+  screen amendment exempting seated `ca-` rows from the canon-name scan.
 ## 1.14.0
 
 **Renumbered to 1.14.0 at tag time by the integrator: operations cluster 3
