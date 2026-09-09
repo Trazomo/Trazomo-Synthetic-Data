@@ -16,6 +16,7 @@ import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
 import { csvTable, fileByPath } from "../helpers/csv-table.js";
+import { canonWords } from "../../datagen/src/generators/smb-03-inbound-inquiry-queue.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
@@ -240,6 +241,15 @@ test("SMB-03: the co-131 row is the row SMB-04's chain opens from, checked from 
   assert.equal(okafor.client.inquiry_id, spine.inquiry_id);
   assert.equal(okafor.client.inquiry_date, spine.received_date);
   assert.equal(okafor.client.source_channel, spine.channel);
+  // T-C9's join is asserted on every field the two sides share, not just the
+  // id and the date (SHOULD-FIX 2): a second undisclosed disagreement on the
+  // cluster's one cross-artifact join is worse than a plan violation.
+  assert.equal(okafor.client.client_name, spine.client_name);
+  assert.equal(okafor.client.client_type, spine.client_type);
+  assert.equal(okafor.client.contact_role, spine.contact_role);
+  assert.equal(okafor.client.property_address, spine.property_address);
+  assert.equal(okafor.client.service_area, spine.service_area);
+  assert.equal(okafor.client.project_type, spine.project_type);
 });
 
 test("SMB-03: no cell names a person, and no household takes a canon-colliding surname (rule R-ROLE, U9)", () => {
@@ -249,15 +259,17 @@ test("SMB-03: no cell names a person, and no household takes a canon-colliding s
       assert.ok(!cell.includes(surname), `a cell carries the excluded surname ${surname}`);
     }
   }
-  const canonWords = new Set(
-    [...canon.values()].flatMap((c) => c.name.toLowerCase().split(/[^a-z0-9]+/)).filter((w) => w !== "")
-  );
+  // The same word-set extraction the generator's own street screen uses
+  // (SHOULD-FIX 4, NIT 3): one exported rule, imported here rather than
+  // reimplemented, so this test cannot silently drift to a different filter
+  // than the builder's.
+  const words = canonWords(canon);
   for (const row of rows) {
     if (row.client_canon_id !== "") continue;
     const match = /^The (\S+) household$/.exec(row.client_name);
     assert.ok(match, `${row.inquiry_id} names its client "${row.client_name}", which is not a household`);
     assert.ok(
-      !canonWords.has(match[1].toLowerCase()),
+      !words.has(match[1].toLowerCase()),
       `${row.inquiry_id} names a household after the canon company word "${match[1]}"`
     );
   }
