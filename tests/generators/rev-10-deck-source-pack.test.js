@@ -382,6 +382,46 @@ test("REV-C5-T6: the manifest's slot set equals the placeholder-name set of the 
   );
 });
 
+// ECMA-376 Part 1, ST_PlaceholderType and ST_SlideLayoutType. A value outside
+// these sets is not a placeholder or a layout any consumer has to honour, and
+// the byte check above would not notice: it reads names, not types.
+const ST_PLACEHOLDER_TYPE = new Set([
+  "title", "body", "ctrTitle", "subTitle", "dt", "ftr", "sldNum",
+  "obj", "chart", "tbl", "clipArt", "dgm", "media", "sldImg", "pic",
+]);
+const ST_SLIDE_LAYOUT_TYPE = new Set([
+  "title", "tx", "twoColTx", "tbl", "txAndChart", "chartAndTx", "dgm", "chart",
+  "txAndClipArt", "clipArtAndTx", "titleOnly", "blank", "txAndObj", "objAndTx",
+  "objOnly", "obj", "txAndMedia", "mediaAndTx", "objOverTx", "txOverObj",
+  "txAndTwoObj", "twoObjAndTx", "twoObjOverTx", "fourObj", "vertTx",
+  "clipArtAndVertTx", "vertTitleAndTx", "vertTitleAndTxOverChart", "twoObj",
+  "objAndTwoObj", "twoObjAndObj", "cust", "secHead", "twoTxTwoObj", "objTx", "picTx",
+]);
+
+test("REV-10: every placeholder type and layout type is a legal ECMA-376 enumeration value", () => {
+  const zip = readStoredZip(templateBytes());
+  const layouts = zip.entries.filter((entry) => /^ppt\/slideLayouts\/slideLayout\d+\.xml$/.test(entry.path));
+  assert.equal(layouts.length, 6, `the package carries ${layouts.length} slide layouts, not six`);
+  for (const entry of layouts) {
+    const layoutType = /<p:sldLayout[^>]*\stype="([^"]+)"/.exec(entry.text);
+    assert.ok(layoutType, `${entry.path} declares no layout type`);
+    assert.ok(
+      ST_SLIDE_LAYOUT_TYPE.has(layoutType[1]),
+      `${entry.path} declares layout type "${layoutType[1]}", which is not an ST_SlideLayoutType value`
+    );
+    const idxs = [];
+    for (const match of entry.text.matchAll(/<p:ph type="([^"]+)"(?: idx="(\d+)")?\/>/g)) {
+      assert.ok(
+        ST_PLACEHOLDER_TYPE.has(match[1]),
+        `${entry.path} carries placeholder type "${match[1]}", which is not an ST_PlaceholderType value`
+      );
+      idxs.push(match[2] ?? "0");
+    }
+    assert.ok(idxs.length > 0, `${entry.path} carries no placeholder at all`);
+    assert.equal(new Set(idxs).size, idxs.length, `${entry.path} repeats a placeholder idx (${idxs.join(", ")})`);
+  }
+});
+
 test("REV-C5-T6: the fourteen pinned slots sit on the layouts the data plan assigns them", () => {
   const slots = manifest().slots;
   assert.deepEqual(

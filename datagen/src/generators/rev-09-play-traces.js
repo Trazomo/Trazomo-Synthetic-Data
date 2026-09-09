@@ -517,6 +517,13 @@ function runGates(firing, packs) {
   const consentBlocks = Boolean(
     master && (packs.blockingStates.has(master.consent_status) || master.suppressed === "true")
   );
+  // NOTE: a consent hold reuses the "held_draft" stage/status, which then takes
+  // STATUS_DETAIL.held_draft ("no record in the export and no verified address")
+  // — a sentence that is FALSE for a consent hold. Dormant at these bytes only
+  // because assertGroundTruth's honest-zero check (`consentHeld.length !== 0`)
+  // fails the build before this branch can ship a row. If the consent rule ever
+  // changes and a firing reaches here, give this branch its own status_detail
+  // key rather than letting the wrong sentence emit.
   if (consentBlocks) return { stage: "held_draft", recipient_contact_id, consent_blocked: true };
 
   // Verification. A send requires the recipient's sidecar row, verified.
@@ -766,6 +773,22 @@ function assertGroundTruth({ traces, claims, packs, events, firings }) {
   const dangling = claims.filter((claim) => !traceIds.has(claim.trace_id));
   if (dangling.length !== 1) fail(`${dangling.length} claims cite a trace id resolving to nothing, not one`);
   if (dangling[0].basis_claimed !== BASIS_SOURCED) fail("the dangling claim does not assert the forbidden basis");
+  // The dangling claim is refutable TWICE: the trace id names no trace, and the
+  // basis is the one the created-date rule forbids. The second refutation is only
+  // mechanical if the opportunity it names resolves and its created date precedes
+  // the trigger window, so both are checked here rather than assumed.
+  for (const claim of claims) {
+    const opportunity = packs.opportunitiesById.get(claim.opportunity_id);
+    if (!opportunity) fail(`${claim.claim_id} names an opportunity CORE-03 does not carry: ${claim.opportunity_id}`);
+  }
+  const earliestTrigger = events
+    .filter((e) => traces.some((row) => row.trigger_event_id === e.event_id))
+    .map((e) => e.observed_at)
+    .sort()[0];
+  const danglingOpportunity = packs.opportunitiesById.get(dangling[0].opportunity_id);
+  if (!(danglingOpportunity.created_date < earliestTrigger)) {
+    fail(`${dangling[0].claim_id} names an opportunity created on or after the trigger window opens, so the forbidden basis is not refutable by the created-date rule`);
+  }
   for (const claim of claims.filter((c) => traceIds.has(c.trace_id))) {
     const trace = traces.find((row) => row.trace_id === claim.trace_id);
     if (claim.opportunity_id !== trace.opportunity_id) fail(`${claim.claim_id} names an opportunity its trace does not`);

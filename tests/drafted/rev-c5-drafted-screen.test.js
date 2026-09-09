@@ -907,6 +907,19 @@ test("REV-C5: the sheet carries no certification claim and no consent-state voca
   );
 });
 
+test("REV-C5: the manifest and the template package name no real company and carry no certification claim", () => {
+  for (const [label, text] of [["template manifest", manifestText()], ["template package", templateBytesAsText()]]) {
+    assert.deepEqual(
+      denyHits(text, REAL_COMPANIES), [],
+      `the ${label} names a real company; every party in this universe is fictional`
+    );
+    assert.deepEqual(
+      denyHits(text, CERTIFICATION_VOCABULARY), [],
+      `the ${label} carries certification or compliance vocabulary; that is the REV-06 register's business`
+    );
+  }
+});
+
 test("REV-C5: the claims sheet carries no em dash and no en dash", () => {
   const text = sheet();
   assert.ok(!text.includes("—"), "the claims sheet carries an em dash (U+2014)");

@@ -34,7 +34,7 @@ A citation that names a record the corpus does not carry, or a deal that record 
 
 ## This sheet carries no figures
 
-Not one row below states a figure. No amount, no count, no percentage, no term length and no date appears in any row's language, and the only date on this sheet is the compiled as of date in the header above.
+Not one row below states a figure in numerals. No amount, no percentage, no term length and no date appears in any row's language, and the only date on this sheet is the compiled as of date in the header above.
 
 Every number a deck states comes from the numbers view of this source pack, which is where figures are computed, where each figure carries the records it was computed from, and where anyone who doubts one can recompute it. Language and figures are kept apart on purpose. A sentence that carries its own number is a sentence nobody can check, because the number travels with the wording instead of with the record it came from, and by the third slide the two have quietly come apart.
 
