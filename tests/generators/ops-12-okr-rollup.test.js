@@ -191,6 +191,16 @@ test("OPS-12: twenty raw rows, one numerator and one denominator per key result"
   for (const source of SOURCE_SYSTEMS) {
     assert.ok(detail.rows.some((r) => r.source_system === source), `nothing comes from ${source}`);
   }
+  // F10: both counts of every key result read out of the same source system.
+  for (const kr_id of new Set(detail.rows.map((r) => r.kr_id))) {
+    const rows = detail.rows.filter((r) => r.kr_id === kr_id);
+    const numeratorRow = rows.find((r) => r.row_kind === "numerator");
+    const denominatorRow = rows.find((r) => r.row_kind === "denominator");
+    assert.equal(
+      numeratorRow.source_system, denominatorRow.source_system,
+      `${kr_id}'s numerator reads from "${numeratorRow.source_system}" and its denominator from "${denominatorRow.source_system}"`
+    );
+  }
 });
 
 test("OPS-12: no true ratio times 100 lands within half a point of a half integer", () => {

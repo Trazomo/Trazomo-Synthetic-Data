@@ -57,6 +57,8 @@ const CAPACITY = 100;
 const DISTINCT_PEOPLE = 19;
 const DOUBLES = 3;
 const FIRST_ITEM = 601;
+/** The spec's controller-corrected recount: three other rows share the plant's percentage. */
+const OTHER_ROWS_SHARING_THE_PLANT_PERCENTAGE = 3;
 const START_WINDOW = { start: "2026-01-05", end: "2026-03-02" };
 const END_WINDOW = { start: "2026-04-15", end: "2026-09-30" };
 
@@ -238,12 +240,16 @@ test("OPS-09 P1: three people on two projects, exactly one of them past capacity
     assert.equal(project.status_note.includes(overName), false, `${project.project_id}'s note names the over-allocated person`);
   }
 
-  // The percentages are unremarkable: other rows carry them too.
+  // The percentages are unremarkable: other rows carry them too, and the
+  // spec pins the exact count rather than a floor (the eb45c95 byte recount).
   for (const row of overRows) {
     const shared = allocations.rows.filter(
       (a) => a.allocation_pct === row.allocation_pct && a.employee_id !== overId
     ).length;
-    assert.ok(shared > 0, `${row.allocation_pct} percent appears on no other row, so the plant is findable by its value`);
+    assert.equal(
+      shared, OTHER_ROWS_SHARING_THE_PLANT_PERCENTAGE,
+      `${shared} other rows carry ${row.allocation_pct} percent, and the spec pins ${OTHER_ROWS_SHARING_THE_PLANT_PERCENTAGE}`
+    );
   }
 });
 
