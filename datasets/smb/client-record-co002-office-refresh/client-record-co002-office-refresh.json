@@ -11,14 +11,14 @@
     "client_name": "Atticus Dundee Inc.",
     "client_type": "business",
     "contact_role": "office_manager",
-    "property_address": "240 Quillhaven Street, Suite 300",
+    "property_address": "1450 Halverson Quay, Suite 600, Wilmington, Delaware 19801",
     "service_area": "in_area",
     "source_channel": "email",
     "inquiry_id": "",
     "inquiry_date": "2026-01-06",
     "project_name": "Atticus Dundee small office refresh",
     "project_type": "commercial",
-    "scope_summary": "Ground floor office refresh: fitted joinery, new lighting and floor finishes across the open plan area",
+    "scope_summary": "Suite 600 office refresh: fitted joinery, new lighting and floor finishes across the open plan area",
     "contract_value_usd": "46200.00",
     "currency": "USD",
     "payment_terms": "net_15",
@@ -108,7 +108,7 @@
       "event_date": "2026-02-03",
       "status": "complete",
       "previous_stage_id": "STG-2026-0205",
-      "invoice_id": "INV-2026-0201",
+      "invoice_id": "INV-LDB-2026-201",
       "amount_usd": "9240.00",
       "source_artifact": "SMB-05",
       "source_row_id": "STG-2026-0206"
@@ -150,7 +150,7 @@
       "event_date": "2026-02-24",
       "status": "complete",
       "previous_stage_id": "STG-2026-0208",
-      "invoice_id": "INV-2026-0202",
+      "invoice_id": "INV-LDB-2026-202",
       "amount_usd": "13860.00",
       "source_artifact": "SMB-05",
       "source_row_id": "STG-2026-0209"
@@ -178,7 +178,7 @@
       "event_date": "2026-03-10",
       "status": "complete",
       "previous_stage_id": "STG-2026-0210",
-      "invoice_id": "INV-2026-0203",
+      "invoice_id": "INV-LDB-2026-203",
       "amount_usd": "13860.00",
       "source_artifact": "SMB-05",
       "source_row_id": "STG-2026-0211"
@@ -206,7 +206,7 @@
       "event_date": "2026-03-24",
       "status": "complete",
       "previous_stage_id": "STG-2026-0212",
-      "invoice_id": "INV-2026-0204",
+      "invoice_id": "INV-LDB-2026-204",
       "amount_usd": "9240.00",
       "source_artifact": "SMB-05",
       "source_row_id": "STG-2026-0213"
@@ -228,8 +228,8 @@
   ],
   "payment_log": [
     {
-      "payment_id": "PAY-2026-0201",
-      "invoice_id": "INV-2026-0201",
+      "payment_id": "PAY-LDB-2026-201",
+      "invoice_id": "INV-LDB-2026-201",
       "stage_id": "STG-2026-0206",
       "invoice_date": "2026-02-03",
       "invoice_amount_usd": "9240.00",
@@ -242,8 +242,8 @@
       "mock_notice": "MOCK PAYMENT RECORD, NO FUNDS MOVED"
     },
     {
-      "payment_id": "PAY-2026-0202",
-      "invoice_id": "INV-2026-0202",
+      "payment_id": "PAY-LDB-2026-202",
+      "invoice_id": "INV-LDB-2026-202",
       "stage_id": "STG-2026-0209",
       "invoice_date": "2026-02-24",
       "invoice_amount_usd": "13860.00",
@@ -256,8 +256,8 @@
       "mock_notice": "MOCK PAYMENT RECORD, NO FUNDS MOVED"
     },
     {
-      "payment_id": "PAY-2026-0203",
-      "invoice_id": "INV-2026-0203",
+      "payment_id": "PAY-LDB-2026-203",
+      "invoice_id": "INV-LDB-2026-203",
       "stage_id": "STG-2026-0211",
       "invoice_date": "2026-03-10",
       "invoice_amount_usd": "13860.00",
@@ -270,8 +270,8 @@
       "mock_notice": "MOCK PAYMENT RECORD, NO FUNDS MOVED"
     },
     {
-      "payment_id": "PAY-2026-0204",
-      "invoice_id": "INV-2026-0204",
+      "payment_id": "PAY-LDB-2026-204",
+      "invoice_id": "INV-LDB-2026-204",
       "stage_id": "STG-2026-0213",
       "invoice_date": "2026-03-24",
       "invoice_amount_usd": "9240.00",

@@ -28,6 +28,7 @@ import { toCents } from "./smb-02-client-record-template.js";
 import {
   AS_OF_DATE, buildClientRecord, buildOkaforRecord,
 } from "./smb-04-client-record-okafor.js";
+import { assertNoCanonEcho } from "./smb-03-inbound-inquiry-queue.js";
 
 export const id = "SMB-05";
 
@@ -53,14 +54,19 @@ export function buildOfficeRefreshRecord({ canon, rng }) {
       client_name: entry.name,
       client_type: "business",
       contact_role: "office_manager",
-      property_address: "240 Quillhaven Street, Suite 300",
+      // Byte-consistent with the universe: this is co-002's one leased
+      // premises, Suite 600 on the fifth and sixth floors of the building at
+      // this address (artifacts/CORE-01, LGL-02, LGL-03, LGL-04, LGL-05,
+      // FIN-12; 16 files). SMB-05 does not seat a second co-002 premises
+      // (BLOCKER 1).
+      property_address: "1450 Halverson Quay, Suite 600, Wilmington, Delaware 19801",
       service_area: "in_area",
       source_channel: rng("client").pick(["phone", "email"]),
       inquiry_id: "",
       inquiry_date: CHAIN_START,
       project_name: "Atticus Dundee small office refresh",
       project_type: "commercial",
-      scope_summary: "Ground floor office refresh: fitted joinery, new lighting and floor finishes across the open plan area",
+      scope_summary: "Suite 600 office refresh: fitted joinery, new lighting and floor finishes across the open plan area",
       contract_value_usd: "46200.00",
       currency: "USD",
       payment_terms: "net_15",
@@ -91,6 +97,10 @@ export function buildOfficeRefreshRecord({ canon, rng }) {
   if (toCents(record.client.contract_value_usd) !== CONTRACT_CENTS) {
     throw new Error(`${id}: the contract value moved away from ${CONTRACT_CENTS} cents`);
   }
+  // SMB-05's hardcoded property_address is a literal, not a drawn street, so
+  // it never ran through SMB-03's street screen (SHOULD-FIX 4 clause 3). Run
+  // it through the same shared screen at its own call site.
+  assertNoCanonEcho("property address", [record.client.property_address], canon);
   assertStructurallyIdentical(record, canon);
   return record;
 }
