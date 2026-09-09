@@ -786,7 +786,7 @@ function assertGroundTruth({ traces, claims, packs, events, firings }) {
     .map((e) => e.observed_at)
     .sort()[0];
   const danglingOpportunity = packs.opportunitiesById.get(dangling[0].opportunity_id);
-  if (!(danglingOpportunity.created_date < earliestTrigger)) {
+  if (!(danglingOpportunity.created_date < earliestTrigger.slice(0, 10))) {
     fail(`${dangling[0].claim_id} names an opportunity created on or after the trigger window opens, so the forbidden basis is not refutable by the created-date rule`);
   }
   for (const claim of claims.filter((c) => traceIds.has(c.trace_id))) {
