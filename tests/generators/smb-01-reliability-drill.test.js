@@ -118,7 +118,7 @@ test("SMB-01: header matches the spec, ids are gapless, and every claim cites a 
   assert.deepEqual(drill.cols, spec.columns);
   assert.deepEqual(
     drill.rows.map((r) => r.claim_id),
-    drill.rows.map((_, i) => `CLM-${String(i + 1).padStart(2, "0")}`)
+    drill.rows.map((_, i) => `DRL-${String(i + 1).padStart(2, "0")}`)
   );
   assert.equal(new Set(drill.rows.map((r) => r.source_row_id)).size, drill.rows.length, "two claims cite one row");
   for (const claim of drill.rows) {
@@ -249,4 +249,22 @@ test("SMB-01: the drill carries no answer key and names no person", () => {
     assert.ok(!drill.cols.includes(column), `the drill ships a ${column} column`);
   }
   assert.ok(!/@/.test(JSON.stringify(drill.rows)), "the drill carries an email address");
+});
+
+test("SMB-01: claim_id is DRL-namespaced and shares no id string with FIN-38 (BLOCKER 2)", () => {
+  for (const claim of drill.rows) {
+    assert.match(claim.claim_id, /^DRL-\d{2}$/, `${claim.claim_id} is not DRL-NN`);
+  }
+  // FIN-38 emits its own "reliability-drill" pack, CLM-01 upward, in a file of
+  // the same shape and the same name. Prove the two namespaces do not overlap
+  // by generating FIN-38's own bytes rather than assuming CLM- and DRL- never
+  // collide.
+  const fin38 = csvTable(
+    fileByPath(generateArtifact(specs.byId.get("FIN-38"), canon), "reliability-drill-transactions.csv").content
+  );
+  const fin38Ids = new Set(fin38.rows.map((r) => r.claim_id));
+  assert.ok(fin38Ids.size > 0, "FIN-38 emitted no claim ids, so this check proves nothing");
+  for (const claim of drill.rows) {
+    assert.ok(!fin38Ids.has(claim.claim_id), `${claim.claim_id} collides with a FIN-38 claim id`);
+  }
 });
