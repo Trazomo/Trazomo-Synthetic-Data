@@ -464,3 +464,103 @@ test("loadSpecs: every planted_feature is a string, not a YAML mapping", () => {
     }
   }
 });
+
+// ---------------------------------------------------------------------------
+// Small-business cluster 1 (SMB-01 to SMB-05). The same pre-flight the finance
+// clusters run: before any generator test exists, pin the fields each generator
+// is built against. Failing here beats failing in three generator tests at once.
+const SMB_C1 = ["SMB-01", "SMB-02", "SMB-03", "SMB-04", "SMB-05"];
+/** The two ids whose output is a flat CSV with one header row. */
+const SMB_C1_CSV = ["SMB-01", "SMB-03"];
+/** The two ids that ship one nested JSON document with keys rather than a header. */
+const SMB_C1_KEYED = ["SMB-04", "SMB-05"];
+
+test("loadSpecs: every cluster 1 SMB spec carries the fields its generator pins against", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of SMB_C1) {
+    const spec = byId.get(id);
+    assert.ok(spec, `${id} is not in the catalog`);
+    assert.equal(spec.generation, "deterministic", `${id} generation`);
+    assert.ok(spec.consuming_modules.length > 0, `${id} serves no module`);
+    assert.ok(spec.planted_features.length > 0, `${id} states no planted features`);
+    assert.equal(spec.variants, undefined, `${id} declares variants; C1 ships none (plan U7)`);
+    assert.ok(spec.period, `${id} declares no period`);
+    assert.ok(spec.period.start >= "2026-01-06" && spec.period.end <= "2026-03-31", `${id} period window`);
+    for (const feature of spec.planted_features) {
+      assert.equal(typeof feature, "string", `${id} has a planted feature that is not a string (quote the colon)`);
+      assert.ok(feature.trim() !== "", `${id} has an empty planted feature`);
+      assert.ok(!feature.includes("—"), `${id} planted feature carries an em dash`);
+      assert.ok(!feature.includes("–"), `${id} planted feature carries an en dash`);
+    }
+  }
+});
+
+test("loadSpecs: the two SMB CSV ids carry columns, SMB-02 carries files, and the records document their keys", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of SMB_C1_CSV) {
+    const cols = byId.get(id).columns;
+    assert.ok(Array.isArray(cols) && cols.length > 0, `${id} has no columns`);
+    assert.equal(new Set(cols).size, cols.length, `${id} has duplicate columns`);
+    for (const col of cols) assert.match(col, /^[a-z][a-z0-9_]*$/, `${id} column "${col}" is not snake_case`);
+    assert.equal(byId.get(id).files, undefined, `${id} is one CSV, so it declares no files map`);
+  }
+  // SMB-02 ships two files, so it declares both headers rather than one columns
+  // list, the HR-18 precedent.
+  const smb02 = byId.get("SMB-02");
+  assert.equal(smb02.columns, undefined, "SMB-02 is a two-file bundle, so it has no single columns list");
+  assert.deepEqual(
+    Object.keys(smb02.files).sort(),
+    ["client-record-fields.csv", "client-record-template.csv"]
+  );
+  assert.equal(smb02.files["client-record-template.csv"].length, 21, "the client header is not 21 names");
+  assert.deepEqual(
+    smb02.files["client-record-fields.csv"],
+    ["field_name", "record_section", "field_order", "data_type", "required", "allowed_values", "example_value", "description"]
+  );
+  // A columns list cannot describe a nested JSON object, so SMB-04 and SMB-05
+  // document their key list in planted_features prose, the FIN-29 precedent.
+  for (const id of SMB_C1_KEYED) {
+    assert.equal(byId.get(id).columns, undefined, `${id} is not a CSV, so it has no columns`);
+    assert.equal(byId.get(id).files, undefined, `${id} is one JSON file, so it declares no files map`);
+    assert.ok(
+      byId.get(id).planted_features.some((f) => f.includes("documented key list")),
+      `${id} states no documented key list`
+    );
+  }
+});
+
+test("loadSpecs: the SMB cluster 1 entries name every module that reads them, and the canon entities they join to", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  // A spec that hides two consumers is how a regeneration surprises two modules
+  // (R6, approved 2026-09-07).
+  assert.deepEqual(
+    byId.get("SMB-02").consuming_modules,
+    ["smb-client-workspace-setup", "smb-google-workspace", "smb-microsoft-365"]
+  );
+  assert.deepEqual(byId.get("SMB-01").consuming_modules, ["smb-ai-reliability"]);
+  assert.deepEqual(byId.get("SMB-03").consuming_modules, ["smb-lead-response-and-qualification"]);
+  for (const id of SMB_C1_KEYED) {
+    assert.deepEqual(byId.get(id).consuming_modules, ["smb-client-lead-to-cash-blueprint"]);
+  }
+  // Every claim cites a row of the Okafor record, and the queue names the
+  // referral partner canon/companies.md already gives co-100.
+  assert.deepEqual(byId.get("SMB-01").canon_entities, ["co-100", "co-131"]);
+  assert.deepEqual(byId.get("SMB-03").canon_entities, ["co-100", "co-131", "co-135"]);
+  assert.deepEqual(byId.get("SMB-04").canon_entities, ["co-100", "co-131"]);
+  assert.deepEqual(byId.get("SMB-05").canon_entities, ["co-100", "co-002"]);
+  assert.deepEqual(byId.get("SMB-02").canon_entities, [], "the schema names no entity");
+  for (const id of SMB_C1) {
+    assert.equal(trackDir(id), "smb", `${id} does not generate into datasets/smb/`);
+  }
+});
+
+test("loadSpecs: SMB-03's window is one calendar week and both records close at the same as-of date", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  assert.deepEqual(byId.get("SMB-03").period, { start: "2026-01-12", end: "2026-01-18" });
+  assert.equal(byId.get("SMB-04").period.end, "2026-03-31");
+  assert.equal(byId.get("SMB-05").period.end, "2026-03-31");
+  // The co-002 job was raised before the queue's window opens, which is what
+  // keeps SMB-03's single commercial row the only commercial inquiry in it.
+  assert.ok(byId.get("SMB-05").period.start < byId.get("SMB-03").period.start);
+  assert.equal(byId.get("SMB-01").period.start, byId.get("SMB-04").period.start);
+});
