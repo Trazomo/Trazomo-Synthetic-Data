@@ -277,7 +277,11 @@ export function validateStructured({ root, spec, canon }) {
       fileResults.push({ path: file.path, status: "MISSING" });
       continue;
     }
-    const committed = readFileSync(committedPath, "utf8");
+    // Base64-marked files are binary on disk; compare in the encoding the
+    // generator declared so the byte-identity check stays exact.
+    const committed = file.encoding === "base64"
+      ? readFileSync(committedPath).toString("base64")
+      : readFileSync(committedPath, "utf8");
     fileResults.push({ path: file.path, status: committed === file.content ? "MATCH" : "DIFF" });
   }
   const status = fileResults.every((f) => f.status === "MATCH") ? "PASS" : "FAIL";

@@ -805,6 +805,38 @@
             }
         },
         {
+            "id": "REV-09",
+            "name": "play-trace-ground-truth",
+            "track": "revenue",
+            "type": "dataset",
+            "format": "jsonl",
+            "generation": "deterministic",
+            "path": "datasets/revenue/play-trace-ground-truth",
+            "files": [
+                "attribution-claims.jsonl",
+                "play-traces.jsonl"
+            ],
+            "row_counts": {
+                "attribution-claims.jsonl": 3,
+                "play-traces.jsonl": 8
+            }
+        },
+        {
+            "id": "REV-10",
+            "name": "deck-and-proposal-source-pack",
+            "track": "revenue",
+            "type": "fixture",
+            "format": "json + yaml + pptx + markdown",
+            "generation": "deterministic",
+            "path": "datasets/revenue/deck-and-proposal-source-pack",
+            "files": [
+                "deck-template.pptx",
+                "qbr-numbers-view.json",
+                "template-manifest.yaml"
+            ],
+            "row_counts": {}
+        },
+        {
             "id": "REV-11",
             "name": "policy-as-code-scenarios",
             "track": "revenue",

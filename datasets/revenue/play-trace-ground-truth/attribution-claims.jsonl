@@ -1,0 +1,3 @@
+{"claim_id":"AC-01","claim_text":"The outbound play on the cited trace influenced the open opportunity it names, and the trace carries the reply that supports the claim.","trace_id":"TR-06","opportunity_id":"opp-co-157-01","basis_claimed":"influenced_existing"}
+{"claim_id":"AC-02","claim_text":"The outbound play on the cited trace influenced the open opportunity it names.","trace_id":"TR-03","opportunity_id":"opp-co-125-01","basis_claimed":"influenced_existing"}
+{"claim_id":"AC-03","claim_text":"The outbound play on the cited trace created the opportunity it names.","trace_id":"TR-09","opportunity_id":"opp-co-122-01","basis_claimed":"sourced_by_play"}

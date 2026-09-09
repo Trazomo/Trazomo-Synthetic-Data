@@ -112,7 +112,14 @@ function runGenerate({ root, positional, options }) {
       for (const file of files) {
         const outPath = join(outDir, file.path);
         mkdirSync(dirname(outPath), { recursive: true });
-        writeFileSync(outPath, file.content, "utf8");
+        // A generator may mark a file base64-encoded (binary output, e.g. a
+        // stored-zip .pptx); content stays a string so the engine contract and
+        // the determinism sweep are unchanged.
+        if (file.encoding === "base64") {
+          writeFileSync(outPath, Buffer.from(file.content, "base64"));
+        } else {
+          writeFileSync(outPath, file.content, "utf8");
+        }
       }
       console.log(`OK    ${spec.id}  -> datasets/${track}/${spec.name}/ (${files.length} file${files.length === 1 ? "" : "s"})`);
       ok += 1;
