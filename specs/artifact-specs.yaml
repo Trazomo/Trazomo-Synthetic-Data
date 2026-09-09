@@ -1789,13 +1789,18 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-100]
+    canon_entities: [co-100, co-131]
+    period: { start: "2026-01-12", end: "2026-03-31" }
+    columns: [claim_id, source_artifact, source_row_id, source_reference, client_canon_id, claimed_event_date, claimed_amount, model_confidence, reviewer_verdict, reviewer_note]
     planted_features:
-      - 1 fabricated milestone date
-      - 1 fabricated dollar figure
-      - 1 correct claim as a control
+      - "16 AI-proposed readings of the SMB-04 Okafor record, CLM-01 upward, one per clean-pool row in (source_artifact, source_row_id) order, each citing its source: a stage_id or a payment_id in source_row_id, and the stage value or the invoice_id in source_reference. The count is derived from SMB-04's clean pool rather than chosen, so it moves when the record moves. Every claim is checkable against the tagged data, which is the whole exercise"
+      - "source rows are drawn only from a clean pool inside SMB-04, computed by rule: a stage event whose status is complete or a payment entry whose settlement_status is settled, which does not participate in the record's disagreement, and whose invoice, where it has one, has exactly one payment row at the same amount to the cent. SMB-04's own planted disagreement therefore never doubles as a drill answer, and one pack's answer key cannot leak through the other's"
+      - "1 fabricated milestone date: exactly one claim's claimed_event_date matches no date on the SMB-04 row it cites, and that row's stage_class is delivery. Four claims cite a delivery-class row at all, which is the population the fabrication hides inside; every other claim's date matches its cited row exactly"
+      - "1 fabricated dollar figure: exactly one claim's claimed_amount matches no amount on the row it cites, and it is a different claim from the date fabrication. Eight of the sixteen claims carry a claimed_amount at all, being the four billing-class stages and the four payment entries; the other eight leave it empty"
+      - "1 correct claim as a control: exactly three claims carry model_confidence high, of which exactly ONE is wrong, the fabricated date. The fabricated figure is reported below high, so the two plants sit at different confidence levels and confidence locates neither of them. The two clean high-confidence claims are the two clean claims with the largest claimed_amount, chosen by rule rather than drawn. Fourteen of the sixteen claims verify clean, so blanket rejection fails the drill as surely as trusting the confident rows does, and only verifying every claim finds both plants"
+      - "reviewer_verdict and reviewer_note ship empty on every row, because the verdict is the learner's work"
     consuming_modules: [smb-ai-reliability]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 1 data plan (2.5)
 
   - id: SMB-02
     name: client-record-template
@@ -1803,22 +1808,35 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: []
-    planted_features: []
-    consuming_modules: [smb-client-workspace-setup]
-    source_plan: smb-implementation-plan
+    period: { start: "2026-01-06", end: "2026-03-31" }
+    files:
+      client-record-template.csv: [client_id, client_canon_id, client_name, client_type, contact_role, property_address, service_area, source_channel, inquiry_id, inquiry_date, project_name, project_type, scope_summary, contract_value_usd, currency, payment_terms, deposit_pct, record_owner_role, record_status, opened_date, as_of_date]
+      client-record-fields.csv: [field_name, record_section, field_order, data_type, required, allowed_values, example_value, description]
+    planted_features:
+      - "no defects by design: this is the schema contract SMB-04 and SMB-05 validate against, so a defect here would make the contract unfalsifiable. client-record-template.csv carries the 21-name client header and zero data rows, which is the blank record a learner copies into their own workspace"
+      - "client-record-fields.csv is 45 rows exactly, one per field of the three record sections: 21 client, 12 stage_event, 12 payment. field_order runs 1 upward with no gap inside each section, field_name is unique inside each section, allowed_values is a pipe-separated list on every enum row and empty on every other row"
+      - "the contract is three set equalities: the client-section field_name values in field_order equal the template header exactly and in order; the client object key set of SMB-04 and SMB-05 equals that same set with nothing missing and nothing extra; and every stages object and every payment_log object carries exactly the stage_event and payment field sets"
+      - "no field names a person: there is no contact_name, contact_email, contact_phone or employee_id field in any section, because canon/people.md seats nobody at co-100 or co-131 to co-135. A human appears as contact_role and record_owner_role and in no other shape"
+    consuming_modules: [smb-client-workspace-setup, smb-google-workspace, smb-microsoft-365]
+    source_plan: smb-implementation-plan + small-business cluster 1 data plan (2.1)
 
   - id: SMB-03
     name: inbound-inquiry-queue
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-100, co-131]
+    canon_entities: [co-100, co-131, co-135]
+    period: { start: "2026-01-12", end: "2026-01-18" }
+    columns: [inquiry_id, received_date, channel, client_canon_id, client_name, client_type, contact_role, property_address, service_area, project_type, project_description, budget_band, timeline_note, referral_partner_canon_id, referral_partner_name, status]
     planted_features:
-      - 1 inquiry missing budget and timeline (clarify, do not guess)
-      - 1 duplicate inquiry via two channels
-      - 1 out-of-scope commercial inquiry to decline and redirect
+      - "14 inquiries received 2026-01-12 to 2026-01-18, INQ-2026-001 upward in received order, which is also file order: 13 residential and 1 commercial, across the web_form, phone, email and referral channels, each channel carrying at least two rows, with status pending_review on every row, so routing is a live decision rather than a post mortem"
+      - "the queue's shape holds: 12 distinct clients over 14 rows because two clients each appear twice; exactly one row carries client_canon_id co-131 and is received 2026-01-12; exactly two rows carry referral_partner_canon_id co-135 with referral_partner_name byte-equal to the name canon/companies.md gives that id; exactly two rows are received on 2026-01-17 or 2026-01-18, the weekend, so a first-response rule counted in business days differs from one counted in calendar days on exactly those two; and exactly one row is out_of_area, which is residential and in scope by type, so scope has two axes"
+      - "1 inquiry missing budget and timeline: exactly one row leaves both budget_band and timeline_note empty, against 4 rows that leave either one of them empty, so a rule that tests a single field returns four and three of those four are answerable without going back to the client"
+      - "1 duplicate inquiry via two channels: exactly one pair shares a client_name and a normalized project_description (lowercased, leading reply or forward markers removed, punctuation replaced by a space, whitespace collapsed) and arrives on two different channel values at most 3 days apart. Dropping the description qualifier returns 2 pairs, because one client raised two genuinely different jobs at the same property within the same window, and merging that pair loses a job"
+      - "1 out-of-scope commercial inquiry to decline and redirect: exactly one row's project_type is commercial while every other row is residential. Two rows are decline-or-redirect candidates once service_area is read alongside project_type, and only one of the two is out of scope by type"
+      - "the co-131 row carries none of the three plants: it is a complete, ordinary inquiry, because it is the row SMB-04's chain opens from and the row SMB-01's clean pool descends from, and a narrative spine that is also a defect leaks one artifact's answer into another's"
     consuming_modules: [smb-lead-response-and-qualification]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 1 data plan (2.2)
 
   - id: SMB-04
     name: client-record-okafor
@@ -1826,11 +1844,17 @@ artifacts:
     format: json
     generation: deterministic
     canon_entities: [co-100, co-131]
+    period: { start: "2026-01-12", end: "2026-03-31" }
     planted_features:
-      - full inquiry-to-payment history
-      - 1 stage where systems disagree (invoice paid in payment log, proposal stage still pending in client record)
+      - "documented key list, in this fixed order (a JSON record carries keys, not a header row): generated_from_spec, record_schema, studio (canon_id, name), client, stages and payment_log. The client object carries the 21 SMB-02 client fields in field_order; every stages object carries the 12 stage_event fields; every payment_log object carries the 12 payment fields. record_schema names SMB-02 in the file itself"
+      - "full inquiry-to-payment history: 14 stage events running sequence 1 to 14 with no gap, dated 2026-01-12 to 2026-03-27, and 4 payment-log entries. previous_stage_id is empty on the first stage and names the preceding stage_id on every other, so the record is one connected chain with no orphan; event_date is monotonically non-decreasing along sequence; and every stage_id a later stage names exists"
+      - "the chain opens on the queue: the first stage carries source_artifact SMB-03 and a source_row_id and event_date equal to the inquiry_id and received_date of the one SMB-03 row carrying client_canon_id co-131, and client.inquiry_id and client.inquiry_date repeat the same two values"
+      - "1 stage where systems disagree (invoice paid in payment log, proposal stage still pending in client record): exactly one stage has a status other than complete AND has a settled payment in the payment log against an invoice the record issues at a strictly later sequence. That stage is the proposal approval, and the settled invoice is the deposit the contract stage issues two steps downstream. Dropping the settled-payment qualifier returns 2, because the closeout stage is also pending, honestly so, with punch items open at the as_of_date and no invoice after it. Every other stage agrees across both views under the stated rule: a stage agrees when its own status is complete, or when no settled payment exists against an invoice at a strictly later sequence. No column labels the conflict; it is derivable from the two arrays"
+      - "the money ties in cents: the draw schedule is 20 / 30 / 30 / 20 of contract_value_usd 148500.00, so the four invoices are 29700.00, 44550.00, 44550.00 and 29700.00. The settled amounts sum to the invoiced amounts sum to the contract value, 14850000 cents on every side; each settled amount equals its own invoice amount, so there is no partial settlement; deposit_pct times contract_value_usd rounded to the cent equals the first invoice; and every stage carrying an invoice_id has exactly one payment_log row for it and no payment cites an invoice no stage issues"
+      - "payments are pure mock records: every payment row carries record_type mock and the byte-identical notice MOCK PAYMENT RECORD, NO FUNDS MOVED, method is mock_bank_transfer or mock_check, and no processor, gateway, card network, bank product name, authorization code or instrument number exists as a value or a key anywhere in the record. This is a property asserted on every row, not a defect on one"
+      - "no person is named: the client is the canon household The Okafor household and the humans are contact_role homeowner and record_owner_role owner, because canon/people.md seats nobody at co-100 or co-131"
     consuming_modules: [smb-client-lead-to-cash-blueprint]
-    source_plan: smb-implementation-plan (was client-record-co101; entity renumbered to co-131)
+    source_plan: smb-implementation-plan (was client-record-co101; entity renumbered to co-131) + small-business cluster 1 data plan (2.3)
 
   - id: SMB-05
     name: client-record-co002-office-refresh
@@ -1838,10 +1862,17 @@ artifacts:
     format: json
     generation: deterministic
     canon_entities: [co-100, co-002]
+    period: { start: "2026-01-06", end: "2026-03-31" }
     planted_features:
-      - contrasting commercial worked example (cross-track join with the Atticus Dundee ecosystem)
+      - "documented key list, identical to SMB-04's and in the same fixed order: generated_from_spec, record_schema, studio, client, stages, payment_log, over the same three SMB-02 field sets"
+      - "contrasting commercial worked example (cross-track join with the Atticus Dundee ecosystem): a Larkspur-side client record about co-002, not a slice of the finance, HR, revenue or operations pack. No co-002 artifact carries the other side of this job, so this record joins to canon/companies.md for the entity's name and to nothing else"
+      - "no defects: every one of the 14 stage events reads status complete, and the SMB-04 disagreement rule applied unchanged to this record returns 0, so the rule is demonstrably not a tautology. This is the control the assembler is proved against"
+      - "structurally identical, narratively different: the (sequence, stage_class) pairs equal SMB-04's and the key sets are the same, while the client is a business rather than a household, the terms are net_15 rather than net_7, the contract value is 46200.00 rather than 148500.00 on the same 20 / 30 / 30 / 20 draw schedule, and the chain runs 2026-01-06 to 2026-03-31 on Tuesdays, so no stage_id, payment_id, invoice_id or event_date is shared with SMB-04 and the two records load into one table without collision"
+      - "the money ties in cents: 924000, 1386000, 1386000 and 924000 summing to the contract value 4620000, every settled amount equal to its own invoice amount, and every settlement on or before its due date and on or before 2026-03-31"
+      - "this record did not come through the inbound queue: inquiry_id is empty and the first stage carries source_artifact SMB-05, because the job was raised 2026-01-06, a week before the SMB-03 window opens. That is what keeps SMB-03's single commercial row the only commercial inquiry in the queue"
+      - "payments are pure mock records under the same rule as SMB-04: record_type mock, the byte-identical MOCK PAYMENT RECORD, NO FUNDS MOVED notice on every row, method mock_bank_transfer or mock_check, and no processor, gateway, card network, bank product name, authorization code or instrument number anywhere"
     consuming_modules: [smb-client-lead-to-cash-blueprint]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 1 data plan (2.4)
 
   - id: SMB-06
     name: approved-proposal-larkspur
