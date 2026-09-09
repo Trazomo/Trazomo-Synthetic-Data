@@ -130,7 +130,7 @@ const KEY_RESULTS = [
     objective: 1,
     key_result: "Every admin console screen has been through design review",
     owner: { department: "Product", slot: 2 },
-    numerator: { metric_name: "admin console screens through design review", value: 60, source_system: "admin console", captured_at: "2026-03-31", note: "Design review outcomes are recorded on the screen record itself, so a screen taken through review twice is still counted once." },
+    numerator: { metric_name: "admin console screens through design review", value: 60, source_system: "admin console", captured_at: "2026-03-31", note: "Design review outcomes are recorded on the screen record itself, so a screen taken through review twice is still counted once. The record has carried this convention since the console's design system first shipped." },
     denominator: { metric_name: "admin console screens in the product", value: 80, source_system: "admin console", captured_at: "2026-03-31", note: "" },
   },
   {
@@ -153,7 +153,7 @@ const KEY_RESULTS = [
     objective: 2,
     key_result: "Every support macro has been reviewed by the team that owns it",
     owner: { department: "Customer Success", slot: 0 },
-    numerator: { metric_name: "support macros reviewed by the owning team", value: 80, source_system: "support desk", captured_at: "2026-03-28", note: "Macros retired inside the quarter are out of both counts, so the ratio reads against what the desk actually carries today." },
+    numerator: { metric_name: "support macros reviewed by the owning team", value: 80, source_system: "support desk", captured_at: "2026-03-28", note: "Macros retired inside the quarter are out of both counts, so the ratio reads against what the desk actually carries today. The retirement list lives in the desk's own archive, kept apart from the active macros." },
     denominator: { metric_name: "support macros in use", value: 125, source_system: "support desk", captured_at: "2026-03-28", note: "" },
   },
   {

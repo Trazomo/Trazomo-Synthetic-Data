@@ -11,7 +11,7 @@ ITEM-609,PRJ-503,issue,The first template group came back from review with the w
 ITEM-610,PRJ-503,risk,The gallery search is being built against an index that is still changing shape,EMP-0201,Wystan Dunmore,medium,monitoring
 ITEM-611,PRJ-503,assumption,The existing template naming carries over without a migration step,EMP-0222,Aldous Ashby,medium,open
 ITEM-612,PRJ-504,risk,The residency work touches every export path and the list of them is not final,EMP-0034,Wystan Kestenbaum,medium,open
-ITEM-613,PRJ-504,dependency,The hosting region move sits on the infrastructure team's own calendar,EMP-0577,Quillon Loxley,high,monitoring
+ITEM-613,PRJ-504,dependency,The additional replica region sits on the infrastructure team's own calendar,EMP-0577,Quillon Loxley,high,monitoring
 ITEM-614,PRJ-504,risk,The regional read replicas add a release step nobody has rehearsed yet,EMP-0047,Hollis Quennell,low,open
 ITEM-615,PRJ-505,risk,The insight views read an event stream that is still being shaped,EMP-0094,Rhoswen Loxley,medium,open
 ITEM-616,PRJ-505,issue,The beta group is smaller than the plan was built around,EMP-0218,Quenby Underhill,medium,monitoring

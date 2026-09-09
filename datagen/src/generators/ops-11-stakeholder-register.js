@@ -104,8 +104,8 @@ const FOREIGN_ID = /\bTASK-\d|\bTSK-\d|\bREQ-2026-\d|\bRAID-\d|\bWI-\d|\bHO-2026
 
 const BENIGN_NOTES = [
   "Prefers a written summary ahead of any call, and comes back with questions in writing rather than on the call itself.",
-  "Reads the update in the shared channel rather than by email, and asks for anything longer than a paragraph as an attachment.",
-  "Asks for the operations view rather than the delivery detail, and passes it on to the wider team in their own words.",
+  "Reads the update in the shared channel rather than by email, and asks for anything longer than a paragraph as an attachment. Prefers the channel the account already uses with its other vendors.",
+  "Asks for the operations view rather than the delivery detail, and passes it on to the wider team in their own words. Keeps a personal copy of every update in a folder set aside for that.",
   "Copies a second contact on anything sent by email, so the relationship survives a handover on either side.",
   "Prefers a short call to a written note, and would rather hear the awkward parts before the rest of the group does.",
   "Introduced to the register by the relationship owner, who still fields most of the questions that come back.",

@@ -10,7 +10,7 @@ Progress
 - The authentication approach went through review with the security engineers on Wednesday and came back with two small changes, both now folded into the specification.
 - Two of the partner managers walked the team through what their own integrations expect, which settled the error format question for good.
 
-The endpoint specification moved to the shared workspace this week, so anyone still reading last week's copy is reading the wrong one.
+The endpoint specification moved to the shared workspace this week, so anyone still reading last week's copy is reading the wrong one. The older draft still sits in the team's archive, kept only for reference.
 
 Next week
 
@@ -26,6 +26,8 @@ Progress
 
 - The metadata review with the partner managers closed out on Tuesday with one merge into the field list.
 - Category naming went to the content reviewers and came back with a shorter set of top level names, which we have taken.
+
+The workspace copy of the listing style guide comes from the design team's own archive, and the version history sitting there goes back further than this program has ever needed to check.
 
 Next week
 
@@ -44,7 +46,7 @@ Progress
 - A wording pass over the existing pages closed the last of the comments from the content reviewers.
 - The site navigation was reorganised so the partner pages sit together rather than under three different headings.
 
-The style guide for code blocks is settled, and the older pages come onto it as they are touched rather than in one sweep.
+The style guide for code blocks is settled, and the older pages come onto it as they are touched rather than in one sweep. Nobody rewrites the older pages at once, so two pages side by side may differ for now.
 
 Next week
 

@@ -164,13 +164,13 @@ const ALLOCATIONS = [
   { project_id: "PRJ-501", person: 11, role_on_project: "product", allocation_pct: 25 },
   { project_id: "PRJ-501", person: 7, role_on_project: "quality", allocation_pct: 50 },
 
-  { project_id: "PRJ-502", person: 9, role_on_project: "engineering", allocation_pct: 40 },
   { project_id: "PRJ-502", person: 2, role_on_project: "engineering", allocation_pct: 80 },
+  { project_id: "PRJ-502", person: 9, role_on_project: "engineering", allocation_pct: 40 },
   { project_id: "PRJ-502", person: 12, role_on_project: "design", allocation_pct: 50 },
   { project_id: "PRJ-502", person: 13, role_on_project: "product", allocation_pct: 25 },
 
-  { project_id: "PRJ-503", person: 0, role_on_project: "engineering", allocation_pct: 60 },
   { project_id: "PRJ-503", person: 15, role_on_project: "product", allocation_pct: 30 },
+  { project_id: "PRJ-503", person: 0, role_on_project: "engineering", allocation_pct: 60 },
   { project_id: "PRJ-503", person: 3, role_on_project: "engineering", allocation_pct: 100 },
   { project_id: "PRJ-503", person: 14, role_on_project: "design", allocation_pct: 50 },
   { project_id: "PRJ-503", person: 8, role_on_project: "quality", allocation_pct: 40 },
@@ -213,7 +213,7 @@ const RAID_ITEMS = [
   { project_id: "PRJ-503", item_type: "assumption", title: "The existing template naming carries over without a migration step", person: 15, severity: "medium", status: "open" },
 
   { project_id: "PRJ-504", item_type: "risk", title: "The residency work touches every export path and the list of them is not final", person: 4, severity: "medium", status: "open" },
-  { project_id: "PRJ-504", item_type: "dependency", title: "The hosting region move sits on the infrastructure team's own calendar", person: 17, severity: "high", status: "monitoring" },
+  { project_id: "PRJ-504", item_type: "dependency", title: "The additional replica region sits on the infrastructure team's own calendar", person: 17, severity: "high", status: "monitoring" },
   { project_id: "PRJ-504", item_type: "risk", title: "The regional read replicas add a release step nobody has rehearsed yet", person: 5, severity: "low", status: "open" },
 
   { project_id: "PRJ-505", item_type: "risk", title: "The insight views read an event stream that is still being shaped", person: 6, severity: "medium", status: "open" },
