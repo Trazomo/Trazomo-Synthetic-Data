@@ -1,0 +1,11 @@
+objective_id,objective,kr_id,key_result,owner_employee_id,owner_name,reported_progress_pct
+OBJ-1,Make the workflow template library complete and owned,KR-801,Every workflow template in the library has a named owner,EMP-0192,Freya Fairweather,82
+OBJ-1,Make the workflow template library complete and owned,KR-802,Every workflow template carries a published description,EMP-0194,Ivo Hallowell,74
+OBJ-1,Make the workflow template library complete and owned,KR-803,Every workflow template has been reviewed inside the quarter,EMP-0573,Isolde Greywick,56
+OBJ-2,Bring the admin console up to the current design and accessibility standard,KR-804,Every admin console screen has been through design review,EMP-0195,Thessaly Blackwood,75
+OBJ-2,Bring the admin console up to the current design and accessibility standard,KR-805,Every admin console screen meets the accessibility checklist,EMP-0003,Oleander Ashgrove,80
+OBJ-2,Bring the admin console up to the current design and accessibility standard,KR-806,Every admin console screen carries a help link,EMP-0004,Freya Nightshade,85
+OBJ-3,Make the published support content cover what people actually ask,KR-807,Every support macro has been reviewed by the team that owns it,EMP-0393,Guinevere Ravenscroft,64
+OBJ-3,Make the published support content cover what people actually ask,KR-808,Every published help centre article has a named owner,EMP-0349,Isolde Corrigan,69
+OBJ-4,Make the saved reporting views usable without a specialist,KR-809,Every saved reporting view carries a description,EMP-0572,Merritt Nightshade,65
+OBJ-4,Make the saved reporting views usable without a specialist,KR-810,Every saved reporting view names the team that owns it,EMP-0002,Marlowe Bellcrest,85
