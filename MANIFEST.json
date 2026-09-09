@@ -930,6 +930,79 @@
             "row_counts": {
                 "handoff-log.csv": 22
             }
+        },
+        {
+            "id": "SMB-01",
+            "name": "reliability-drill-client-updates",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/reliability-drill-client-updates",
+            "files": [
+                "reliability-drill-client-updates.csv"
+            ],
+            "row_counts": {
+                "reliability-drill-client-updates.csv": 16
+            }
+        },
+        {
+            "id": "SMB-02",
+            "name": "client-record-template",
+            "track": "smb",
+            "type": "template",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/client-record-template",
+            "files": [
+                "client-record-fields.csv",
+                "client-record-template.csv"
+            ],
+            "row_counts": {
+                "client-record-fields.csv": 45,
+                "client-record-template.csv": 0
+            }
+        },
+        {
+            "id": "SMB-03",
+            "name": "inbound-inquiry-queue",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/inbound-inquiry-queue",
+            "files": [
+                "inbound-inquiry-queue.csv"
+            ],
+            "row_counts": {
+                "inbound-inquiry-queue.csv": 14
+            }
+        },
+        {
+            "id": "SMB-04",
+            "name": "client-record-okafor",
+            "track": "smb",
+            "type": "record",
+            "format": "json",
+            "generation": "deterministic",
+            "path": "datasets/smb/client-record-okafor",
+            "files": [
+                "client-record-okafor.json"
+            ],
+            "row_counts": {}
+        },
+        {
+            "id": "SMB-05",
+            "name": "client-record-co002-office-refresh",
+            "track": "smb",
+            "type": "record",
+            "format": "json",
+            "generation": "deterministic",
+            "path": "datasets/smb/client-record-co002-office-refresh",
+            "files": [
+                "client-record-co002-office-refresh.json"
+            ],
+            "row_counts": {}
         }
     ],
     "specs": "specs/artifact-specs.yaml",

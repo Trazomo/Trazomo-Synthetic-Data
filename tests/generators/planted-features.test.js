@@ -281,3 +281,73 @@ test("FIN-35: 38 inbound requests, every one pending_classification (fin-35-inbo
   assert.equal(rows.length, 38);
   for (const r of rows) assert.equal(r.status, "pending_classification");
 });
+
+// ---------------------------------------------------------------------------
+// Small-business cluster 1 (SMB-01 to SMB-05). Two spot checks only, and both
+// are properties of the whole pack rather than of one artifact: rule R-MOCK on
+// every payment row of both records, and rule R-ROLE across all five. Every
+// derived assertion, tie-out and cross-file join lives in the three
+// per-generator files named beside them.
+
+/** The R-MOCK notice, byte for byte. A second spelling of it is the defect. */
+const MOCK_NOTICE = "MOCK PAYMENT RECORD, NO FUNDS MOVED";
+
+test("SMB-04, SMB-05: every payment row is a mock record and no instrument is named (rule R-MOCK)", () => {
+  const records = [
+    JSON.parse(fileByPath(emitted("SMB-04"), "client-record-okafor.json").content),
+    JSON.parse(fileByPath(emitted("SMB-05"), "client-record-co002-office-refresh.json").content),
+  ];
+  const forbidden = [
+    "stripe", "paypal", "adyen", "braintree", "worldpay", "authorize", "plaid", "square",
+    "visa", "mastercard", "amex", "discover", "maestro",
+    "ach", "wire", "swift", "iban", "sepa", "bacs", "zelle", "venmo",
+    "gateway", "processor", "merchant", "acquirer", "routing", "cvv",
+    "card", "cardholder", "last4", "authorization", "auth",
+  ];
+  for (const record of records) {
+    assert.equal(record.payment_log.length, 4, `${record.generated_from_spec} payment count`);
+    for (const payment of record.payment_log) {
+      assert.equal(payment.record_type, "mock", `${payment.payment_id} record_type`);
+      assert.equal(payment.mock_notice, MOCK_NOTICE, `${payment.payment_id} notice is not byte identical`);
+      assert.ok(["mock_bank_transfer", "mock_check"].includes(payment.method), `${payment.payment_id} method`);
+    }
+    for (const word of JSON.stringify(record).toLowerCase().split(/[^a-z0-9]+/)) {
+      assert.ok(
+        !forbidden.includes(word),
+        `${record.generated_from_spec} names "${word}", which is a processor, gateway, card network or bank product`
+      );
+    }
+  }
+});
+
+test("SMB-01 to SMB-05: no artifact carries a field that names a person (rule R-ROLE)", () => {
+  const forbidden = ["contact_name", "contact_email", "contact_phone", "employee_id"];
+  const names = [];
+  for (const id of ["SMB-01", "SMB-02", "SMB-03", "SMB-04", "SMB-05"]) {
+    for (const file of emitted(id)) {
+      if (file.path.endsWith(".csv")) {
+        names.push(...splitCsvLine(file.content.trim().split("\n")[0]));
+      } else {
+        const walk = (value) => {
+          if (value === null || typeof value !== "object") return;
+          for (const [key, child] of Object.entries(value)) {
+            names.push(key);
+            walk(child);
+          }
+        };
+        walk(JSON.parse(file.content));
+      }
+    }
+  }
+  // SMB-02's dictionary declares the record's fields as row values, so the
+  // declared names are screened as well as the headers.
+  const dictionary = csvRows(fileByPath(emitted("SMB-02"), "client-record-fields.csv").content);
+  names.push(...dictionary.map((row) => row.field_name));
+  assert.equal(dictionary.length, 45, "the field dictionary is no longer 45 rows");
+
+  for (const name of forbidden) {
+    assert.ok(!names.includes(name), `the SMB pack carries a "${name}" field`);
+  }
+  assert.ok(names.includes("contact_role"), "a human has to appear somehow, and the shape is a role");
+  assert.ok(names.includes("record_owner_role"));
+});
