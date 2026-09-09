@@ -71,13 +71,17 @@ export const EXCLUDED_SURNAMES = ["Larkspur", "Ashgrove", "Millgate", "Whitlock"
 // ------------------------------------------------------------------ vocabulary
 
 /**
- * Obviously fictional street names. Screened against canon/companies.md at build
- * time by `assertNoCanonEcho`, the same screen the household surnames pass, so a
- * later addition that echoes a canon company fails generation rather than
- * shipping a false grep hit inside the pack.
+ * Obviously fictional street names. Screened at build time by
+ * `assertNoCanonEcho` against every canon company word plus the pinned
+ * DATASET_NAME_ECHOES list of names other tracks have already emitted into
+ * `datasets/`, by a bidirectional substring match, so a later addition that
+ * echoes a canon company or an already-shipped name fails generation rather
+ * than shipping a false grep hit inside the pack. This is a stricter test
+ * than the household surname screen below, which is an exact-word match
+ * against canon company words alone (SHOULD-FIX 4).
  */
 export const STREET_NAMES = [
-  "Thornhollow", "Quillhaven", "Brackenmoor", "Wrenhollow", "Alderfen",
+  "Thornhollow", "Briarcombe", "Brackenmoor", "Wrenhollow", "Alderfen",
   "Copperstile", "Havershill", "Elmhollow", "Fernwhistle", "Gallowfen",
   "Harrowmere", "Inglemoor", "Kelverstone", "Bellowdale", "Netherfield",
   "Orchardmere", "Pinewhistle", "Rushmoor",
@@ -174,11 +178,28 @@ export function normalizeDescription(text) {
   return value.replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
 }
 
-/** Every word of four characters or more that a canon company name uses. */
+/**
+ * Proper names this review surfaced as already emitted elsewhere under
+ * `datasets/`, so a generator that only screens `canon/companies.md` cannot
+ * see them (SHOULD-FIX 4 clause 3). Pinned rather than grepped live, so the
+ * list is auditable in one place: `Quillhaven` ships as `Quillhaven Partners`
+ * in `datasets/core/crm-seed-dataset/` and as `Quillhaven Intent` in
+ * `datasets/revenue/signal-event-logs/` (BLOCKER 1).
+ */
+export const DATASET_NAME_ECHOES = ["Quillhaven"];
+
+/**
+ * Every word of four characters or more that a canon company name uses, plus
+ * DATASET_NAME_ECHOES. The one word-set extraction shared by the builder
+ * assertion below and every public test that screens a generated name, so the
+ * generator and its tests cannot drift apart on what counts as a word
+ * (SHOULD-FIX 4, NIT 3).
+ */
 export function canonWords(canon) {
   const words = new Set();
-  for (const entry of canon.values()) {
-    for (const word of entry.name.toLowerCase().split(/[^a-z0-9]+/)) {
+  const names = [...canon.values()].map((entry) => entry.name).concat(DATASET_NAME_ECHOES);
+  for (const name of names) {
+    for (const word of name.toLowerCase().split(/[^a-z0-9]+/)) {
       if (word.length >= 4) words.add(word);
     }
   }
@@ -256,7 +277,12 @@ export function buildInquiryQueue(rng, canon) {
   const roleRng = rng("contact-roles");
   const commercialClientKey = SKELETON.find((s) => s.role === "commercial").client;
   for (const [key, client] of clients) {
-    client.contactRole = key === commercialClientKey ? "property_manager" : roleRng.pick(["homeowner", "co_owner"]);
+    // The co-131 Okafor row is a cross-track join with SMB-04, which pins
+    // contact_role homeowner (plan section 2.3). Every other client's role is
+    // drawn, because nothing outside this file depends on it (SHOULD-FIX 2).
+    client.contactRole = key === CLIENT_OKAFOR
+      ? "homeowner"
+      : key === commercialClientKey ? "property_manager" : roleRng.pick(["homeowner", "co_owner"]);
   }
 
   const channels = drawChannels(rng("channels"));
@@ -429,6 +455,14 @@ function assertQueue(rows, canon) {
   const canonRow = rows.find((r) => r.client_canon_id !== "");
   if (canonRow.client_canon_id !== OKAFOR_CANON_ID || canonRow.received_date !== PERIOD.start) {
     throw new Error(`${id}: the canon client row is not ${OKAFOR_CANON_ID} received ${PERIOD.start}`);
+  }
+  // T-C9's join is asserted on every shared field, not just the id and the
+  // date (SHOULD-FIX 2): the queue and SMB-04 must agree on contact_role.
+  if (canonRow.contact_role !== "homeowner") {
+    throw new Error(
+      `${id}: the ${OKAFOR_CANON_ID} row's contact_role is "${canonRow.contact_role}", `
+      + `expected "homeowner" to match SMB-04`
+    );
   }
   for (const row of rows.filter((r) => r.referral_partner_canon_id !== "")) {
     if (row.referral_partner_canon_id !== REFERRAL_PARTNER_CANON_ID) {
