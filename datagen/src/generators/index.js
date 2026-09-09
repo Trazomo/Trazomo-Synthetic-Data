@@ -66,6 +66,7 @@ import * as rev03 from "./rev-03-signal-events.js";
 import * as rev07 from "./rev-07-object-model.js";
 import * as rev08 from "./rev-08-campaign-segments.js";
 import * as rev11 from "./rev-11-policy-scenarios.js";
+import * as smb01 from "./smb-01-reliability-drill.js";
 import * as smb02 from "./smb-02-client-record-template.js";
 import * as smb03 from "./smb-03-inbound-inquiry-queue.js";
 import * as smb04 from "./smb-04-client-record-okafor.js";
@@ -90,7 +91,7 @@ export const PROGRAM_GENERATOR_IDS = [
   lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
   ops04.id, ops05.id, ops06.id, ops07.id, ops13.id,
   rev01.id, rev03.id, rev07.id, rev08.id, rev11.id,
-  smb02.id, smb03.id, smb04.id, smb05.id,
+  smb01.id, smb02.id, smb03.id, smb04.id, smb05.id,
 ];
 
 const REGISTRY = new Map(
@@ -105,7 +106,7 @@ const REGISTRY = new Map(
     lgl07, lgl11, lgl18, lgl20, lgl21, lgl22,
     ops04, ops05, ops06, ops07, ops13,
     rev01, rev03, rev07, rev08, rev11,
-    smb02, smb03, smb04, smb05,
+    smb01, smb02, smb03, smb04, smb05,
     test01,
   ].map((mod) => [mod.id, mod])
 );
