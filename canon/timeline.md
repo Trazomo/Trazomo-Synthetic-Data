@@ -41,6 +41,7 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-03-01 to 2026-03-31 | FIN-07 vendor invoices received into the AP queue; FIN-11 bills posted | `datasets/finance` |
 | 2026-03-02 to 2026-03-31 | Employee expenses incurred; reports submitted through 2026-04-03 and unposted at the close | `datasets/finance/expense-reports` |
 | 2026-03-02 to 2026-03-27 | RAID items for the reporting migration raised and reviewed on per-item cadences; log as of 2026-03-27 | `datasets/operations/raid-log-seed` |
+| 2026-03-02 to 2026-03-27 | stakeholder register for the customer portal relaunch maintained; register as of 2026-03-27 | `datasets/operations/stakeholder-register-seed` |
 | 2026-03-04 to 2026-04-02 | Applications to one open co-002 operations requisition received across the window and screened on a rolling basis; two candidates advanced into the interview loop already dated inside it, and the batch shortlist decision for the candidates still pending falls due at the end of the window and is not recorded | `artifacts/HR-02`, `artifacts/HR-04` |
 | 2026-03-10 | co-002 cross-functional delivery sync, recorded under the AI-notetaker consent banner; the OPS-01 transcript | `artifacts/OPS-01` |
 | 2026-03-11 to 2026-03-13 | follow-up email thread on the sync's decisions, one attribution disputed | `artifacts/OPS-03B` |
@@ -50,11 +51,14 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-03-18 | co-002 project brief for the contract operations platform rollout, planning co-002's own side of the Copperline implementation | `artifacts/OPS-03` |
 | 2026-03-18 to 2026-03-24 | customer portal relaunch team chat window; the work-item graph exported 2026-03-24 | `datasets/operations/work-item-graph-with-hidden-link` |
 | 2026-03-19 to 2026-03-31 | cross-functional handoffs logged on the contract operations platform rollout, between co-002 teams and Copperline Software | `datasets/operations/cross-functional-handoff-log` |
+| 2026-03-23 to 2026-03-27 | weekly status inputs for the integrations marketplace launch collected from four workstream leads; board snapshot as of 2026-03-27 | `datasets/operations/weekly-status-inputs-with-conflicting-claim` |
 | 2026-03-23 to 2026-04-06 | Inbound finance requests received into the intake queue, untriaged | `datasets/finance/inbound-requests-queue` |
 | 2026-03-24 | annual insurance premium invoiced by co-105 and posted as a prepaid, policy period 2026-04-01 to 2027-03-31 | `datasets/finance/vendor-bills` |
 | 2026-03-25 | work-tracker backlog export for the reporting migration delivery program | `datasets/operations/backlog-export-with-quality-gaps` |
 | 2026-03-31 | FIN-04 aging as-of date; FIN-05 pre-close trial balance; FIN-09 close batch posting date; FIN-10 open-PO cut-off | `datasets/finance` |
 | 2026-03-31 | Materiality thresholds for the 2026 plan year applied to the March variance pack; four lines over threshold and three over the flux threshold | `datasets/finance/materiality-thresholds`, `datasets/finance/actuals-vs-budget` |
+| 2026-03-31 | platform delivery portfolio rollup compiled by the PMO across five projects | `datasets/operations/portfolio-status-rollup` |
+| 2026-03-31 | Q1 2026 company OKR rollup compiled with raw metric detail | `datasets/operations/okr-metrics-rollup-with-contradiction` |
 | 2026-04-01 | the FIN-01 deposit in transit posts at the bank | FIN-01 spec |
 | 2026-04-01 to 2026-04-07 | March close; the window inside which the FIN-09 batch is approved | this file, `datasets/finance/journal-entries-batch` |
 | 2026-04-01, 04-02, 04-03, 04-06, 04-07 | Close days D+1 to D+5 as business days after period end; 2026-04-04 and 2026-04-05 are a weekend and are skipped | `datasets/finance/close-checklist` |
