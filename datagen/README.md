@@ -359,6 +359,24 @@ classes. The mapping reads `finance_system_role` and never `role_title`, so the
 one user who can both prepare and release comes out of the roster's own
 comma-valued cell rather than out of a draw made in the generator.
 
+## Small-business conventions
+
+SMB ids generate into `datasets/smb/`, which `datagen/src/specLoader.js`
+derives from the `SMB` prefix. The path slug is `small-business` and the track
+directory is `smb`; they are deliberately different and nothing should
+reconcile them.
+
+SMB-02 is the client-record schema. Its `client-record-fields.csv` defines
+three field sets, and SMB-04's and SMB-05's `client`, `stages` and
+`payment_log` key sets equal them exactly. A record field that is not in
+SMB-02 is a defect, not an extension.
+
+Every SMB payment row is a mock record: `record_type` `mock`, the
+byte-identical `MOCK PAYMENT RECORD, NO FUNDS MOVED` notice, and `method` from
+`mock_bank_transfer` or `mock_check`. No processor, gateway, card network or
+bank product name, no authorization code and no instrument number belongs
+anywhere in the SMB pack.
+
 ## Spec-authoring guide
 
 Adding a new artifact to the program:

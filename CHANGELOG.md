@@ -26,6 +26,74 @@ inert in-file, grounding the cluster's four failure evals; the four spec
 blocks are rewritten in the exact-cardinality style with per-generator tests
 re-deriving every plant by rule.
 
+## 1.16.0
+
+**Allocated in merge order (expected `v1.16.0`, after people-hr cluster 2 took
+`v1.15.0`); renumber at tag time if the order changes.**
+
+Small-business cluster 1, the lead-to-cash spine: five new deterministic
+artifacts under a new `datasets/smb/` directory, SMB-01 through SMB-05. The
+plan is
+`docs/plans/2026-08-29-path-programs/small-business/data-plans/cluster-1.md`,
+amended post-review 2026-09-09 (see its own Amendments subsection). The
+section 8 defaults (U1 to U9) ride to Salvador's review.
+
+- **SMB-02 client-record-template**: the schema contract, no defects by
+  design. `client-record-template.csv` is the 21-field client header with zero
+  data rows; `client-record-fields.csv` is the 45-row typed field dictionary
+  (21 client, 12 stage_event, 12 payment) that defines every vocabulary the
+  pack uses. The contract is three set equalities, asserted in both
+  directions against SMB-04 and SMB-05: a record field absent from the
+  dictionary is a defect, and a dictionary field absent from a record is a
+  defect too.
+- **SMB-03 inbound-inquiry-queue**: 14 untriaged inquiries received
+  2026-01-12 to 2026-01-18, `INQ-2026-001` upward. Three plants, each found by
+  rule at both cardinalities: 1 inquiry missing both budget and timeline (4
+  missing either), 1 cross-channel duplicate pair under a normalized
+  description match (2 pairs with the description qualifier dropped), and 1
+  out-of-scope commercial inquiry (2 decline-or-redirect candidates once
+  service_area is read alongside project_type). The co-131 Okafor row, the
+  spine SMB-04 and SMB-01 both descend from, carries none of the three.
+- **SMB-04 client-record-okafor**: the full inquiry-to-payment history for the
+  Okafor household's kitchen and primary bath renovation, one connected JSON
+  chain of 14 stage events and 4 payment-log entries. The contract value is
+  $148,500.00 on a 20/30/30/20 draw schedule ($29,700.00, $44,550.00,
+  $44,550.00, $29,700.00), terms net_7, every invoice settled and every
+  tie-out closing in integer cents. One planted disagreement: the
+  `proposal_approved` stage still reads `pending` while the payment log
+  carries the settled deposit the contract stage issued two steps downstream;
+  dropping the settled-payment qualifier also catches the honestly pending
+  `closeout` stage, so the qualifier-free count is 2 against the 1 the rule
+  itself selects.
+- **SMB-05 client-record-co002-office-refresh**: the contrasting commercial
+  worked example, structurally identical to SMB-04 and narratively different.
+  A business client (Atticus Dundee Inc., co-002) on net_15 terms, contract
+  value $46,200.00 on the same 20/30/30/20 schedule, no defects, and no
+  stage_id, payment_id, invoice_id or event_date shared with SMB-04. Its
+  `property_address` is byte-consistent with the universe's one seated co-002
+  premises (`1450 Halverson Quay, Suite 600, Wilmington, Delaware 19801`,
+  already carried verbatim by 15 other files, and in its notice-block form by
+  a sixteenth) rather than a second, contradicting premises.
+- **SMB-01 reliability-drill-client-updates**: 16 AI-proposed readings of the
+  SMB-04 record, `DRL-01` upward, one per row of a clean pool computed by rule
+  from SMB-04's own bytes so the record's planted disagreement can never
+  double as a drill answer. Two plants, at different confidence levels so
+  confidence never locates both: 1 fabricated milestone date on a
+  delivery-class row (4 claims cite one at all) and 1 fabricated dollar figure,
+  a digit transposition (8 claims carry an amount at all). `reviewer_verdict`
+  and `reviewer_note` ship empty on every row.
+- **Rule R-MOCK, every payment row in SMB-04 and SMB-05**: `record_type`
+  `mock`, the byte-identical `MOCK PAYMENT RECORD, NO FUNDS MOVED` notice, and
+  `method` from `mock_bank_transfer` or `mock_check` only. No processor,
+  gateway, card network or bank product name, no authorization code and no
+  instrument number anywhere in the pack.
+- **Rule R-ROLE, every C1 artifact**: no `contact_name`, `contact_email`,
+  `contact_phone` or `employee_id` field anywhere. A human appears only as
+  `contact_role` and `record_owner_role`, because `canon/people.md` seats
+  nobody at co-100 or at co-131 through co-135.
+- `datasets/smb/` did not exist before this section; it is created here and
+  holds all five artifacts.
+
 ## 1.15.0
 
 **Allocated in merge order (expected `v1.15.0`, after revenue cluster 4 took
@@ -127,10 +195,13 @@ review, HR-04b first as the one item that extends the written plant list.
 - **Canon**: the one `canon/timeline.md` Dated-events row is reworded off the
   engineering department and moved to its new date order, and the two `ca-` ID
   conventions rows in `canon/people.md` stand as written. The two curated
-  candidate seats are proposed in the pull request body rather than written,
-  because writing those names into canon breaks the cluster 1 screen's canon-name
-  assertion and falsifies a frozen HR-03 spec sentence, neither of which this
-  cluster may change.
+  candidate seats were proposed in the pull request body rather than written by
+  this cluster, because writing those names into canon breaks the cluster 1
+  screen's canon-name assertion and falsifies a frozen HR-03 spec sentence,
+  neither of which this cluster may change. On the 2026-09-08 R8 freeze
+  approval the integrator seated them as CANONICAL in `d92e349` (`ca-001`
+  Ianthe Wrenfield, `ca-002` Amias Kettleborne) with a one-line cluster 1
+  screen amendment exempting seated `ca-` rows from the canon-name scan.
 ## 1.14.0
 
 **Renumbered to 1.14.0 at tag time by the integrator: operations cluster 3
