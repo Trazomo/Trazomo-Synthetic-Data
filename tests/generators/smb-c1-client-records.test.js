@@ -16,6 +16,7 @@ import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
 import { csvTable, fileByPath } from "../helpers/csv-table.js";
+import { canonWords } from "../../datagen/src/generators/smb-03-inbound-inquiry-queue.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
@@ -323,9 +324,12 @@ for (const fixture of RECORDS) {
       assert.ok(p.settlement_date <= p.due_date, `${p.payment_id} settled late`);
       assert.ok(p.settlement_date <= AS_OF, `${p.payment_id} settled after the as-of date`);
     }
-    // Every date the record states as a fact sits in the record's own window. A
-    // due date is a consequence of the terms and is checked above instead: the
-    // final net_15 invoice on the co-002 record falls due after the as-of date.
+    // T-C11, amended (plan section 2.3, SHOULD-FIX 3 / adjudication B): every
+    // date the record states as a fact sits inside the record's own window;
+    // due_date is a consequence of payment_terms, checked arithmetically above
+    // as invoice_date plus the term, and is not window-bounded. The co-002
+    // record's final net_15 invoice therefore falls due (2026-04-08) after the
+    // as_of_date, which the amended contract, not this comment, authorizes.
     const factDates = [
       record.client.inquiry_date, record.client.opened_date, record.client.as_of_date,
       ...stages.map((s) => s.event_date),
@@ -418,6 +422,14 @@ test("SMB-04's chain opens on the SMB-03 queue row it cites (T-C9)", () => {
   assert.equal(okafor.client.inquiry_id, inquiry.inquiry_id);
   assert.equal(okafor.client.inquiry_date, inquiry.received_date);
   assert.equal(okafor.client.property_address, inquiry.property_address);
+  // T-C9's join is asserted on every field the two sides share, not just the
+  // id, the date and the address (SHOULD-FIX 2).
+  assert.equal(okafor.client.client_name, inquiry.client_name);
+  assert.equal(okafor.client.client_type, inquiry.client_type);
+  assert.equal(okafor.client.contact_role, inquiry.contact_role);
+  assert.equal(okafor.client.service_area, inquiry.service_area);
+  assert.equal(okafor.client.project_type, inquiry.project_type);
+  assert.equal(okafor.client.source_channel, inquiry.channel);
   for (const stage of okafor.stages.slice(1)) {
     assert.equal(stage.source_artifact, "SMB-04");
     assert.equal(stage.source_row_id, stage.stage_id);
@@ -425,11 +437,12 @@ test("SMB-04's chain opens on the SMB-03 queue row it cites (T-C9)", () => {
 });
 
 test("SMB-02, SMB-04, SMB-05: no generated address echoes a canon company name (U9)", () => {
-  const canonWords = new Set(
-    [...canon.values()]
-      .flatMap((c) => c.name.toLowerCase().split(/[^a-z0-9]+/))
-      .filter((word) => word.length >= 4)
-  );
+  // The same word-set extraction the generator's own street screen uses
+  // (SHOULD-FIX 4): one exported rule, imported here rather than
+  // reimplemented, so this test cannot silently drift to a different word
+  // filter than the builder's, and it carries the DATASET_NAME_ECHOES names
+  // other tracks have already emitted into datasets/ (at minimum Quillhaven).
+  const words = canonWords(canon);
   const addresses = [
     okafor.client.property_address,
     office.client.property_address,
@@ -441,7 +454,7 @@ test("SMB-02, SMB-04, SMB-05: no generated address echoes a canon company name (
     for (const word of address.toLowerCase().split(/[^a-z0-9]+/)) {
       if (word.length < 4) continue;
       assert.ok(
-        ![...canonWords].some((canonWord) => word.includes(canonWord) || canonWord.includes(word)),
+        ![...words].some((canonWord) => word.includes(canonWord) || canonWord.includes(word)),
         `the address "${address}" echoes a canon company name in "${word}"`
       );
     }
