@@ -210,7 +210,10 @@ export function buildReliabilityDrill({ canon, rng }) {
 
   const confidenceRng = rng("confidence");
   const rows = claims.map((claim, i) => ({
-    claim_id: `CLM-${String(i + 1).padStart(2, "0")}`,
+    // DRL-, not CLM-: FIN-38 already emits CLM-01 through CLM-15 in a
+    // same-shaped, same-named "reliability-drill" file, so CLM- is a spent
+    // namespace across tracks (BLOCKER 2).
+    claim_id: `DRL-${String(i + 1).padStart(2, "0")}`,
     source_artifact: claim.source_artifact,
     source_row_id: claim.source_row_id,
     source_reference: claim.source_reference,
