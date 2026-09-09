@@ -491,6 +491,10 @@ test("loadSpecs: every cluster 1 SMB spec carries the fields its generator pins 
       assert.ok(feature.trim() !== "", `${id} has an empty planted feature`);
       assert.ok(!feature.includes("—"), `${id} planted feature carries an em dash`);
       assert.ok(!feature.includes("–"), `${id} planted feature carries an en dash`);
+      // The FIN-scoped /learner/i ban (specLoader.test.js:239, :350), made
+      // mechanical for SMB too: a planted_features block describes the file,
+      // never what a learner does with it (adjudication C).
+      assert.ok(!/learner/i.test(feature), `${id} describes what a learner does, which no file can contain: ${feature}`);
     }
   }
 });
