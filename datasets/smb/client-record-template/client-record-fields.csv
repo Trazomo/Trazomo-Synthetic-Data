@@ -1,0 +1,46 @@
+field_name,record_section,field_order,data_type,required,allowed_values,example_value,description
+client_id,client,1,string,yes,,CLI-2026-0101,"Studio side identifier for this client record, unique across the studio's records."
+client_canon_id,client,2,string,no,,co-131,"The canon company id for this client where the universe seats one, and empty for a prospect it does not seat."
+client_name,client,3,string,yes,,The Okafor household,"The household or company name, byte equal to canon/companies.md wherever a canon id is present."
+client_type,client,4,enum,yes,household|business,household,Whether the client is a household or a business.
+contact_role,client,5,enum,yes,homeowner|co_owner|office_manager|property_manager,homeowner,"The role of the person the studio deals with. A role, never a name."
+property_address,client,6,string,yes,,18 Thornhollow Lane,Street address of the property the work is done at.
+service_area,client,7,enum,yes,in_area|out_of_area,in_area,Whether the property sits inside the studio's service area.
+source_channel,client,8,enum,yes,web_form|phone|email|referral,web_form,How the client first reached the studio.
+inquiry_id,client,9,string,no,,INQ-2026-001,"The inbound queue id this record opened from, and empty when the job never entered the queue."
+inquiry_date,client,10,date,yes,,2026-01-12,The date the studio first heard from this client.
+project_name,client,11,string,yes,,Okafor kitchen and primary bath renovation,"Short name for the job, carried on every internal reference to it."
+project_type,client,12,enum,yes,residential|commercial,residential,Whether the work is residential or commercial. Independent of client_type: a household can commission commercial work.
+scope_summary,client,13,string,yes,,Full kitchen replacement and primary bath renovation,One line describing what the studio is contracted to do.
+contract_value_usd,client,14,money_usd,yes,,148500.00,"Signed contract value in US dollars, to the cent."
+currency,client,15,string,yes,,USD,The currency code every amount in the record is stated in.
+payment_terms,client,16,enum,yes,net_7|net_15|net_30,net_7,"Net terms on every invoice this record issues, counted in calendar days."
+deposit_pct,client,17,percent,yes,,20,"Deposit percentage of the contract value, invoiced when the contract is signed."
+record_owner_role,client,18,enum,yes,owner|project lead,owner,"The studio side role that owns this record. A role, never a name."
+record_status,client,19,enum,yes,active|closeout|closed,closeout,"Where the record sits in its own life: active, in closeout, or closed."
+opened_date,client,20,date,yes,,2026-01-12,The date the record was opened in the studio's system.
+as_of_date,client,21,date,yes,,2026-03-31,The date the record is accurate as of. Every status in the record reads as of this date.
+stage_id,stage_event,1,string,yes,,STG-2026-0106,"Identifier for this stage event, unique inside the record and across records."
+sequence,stage_event,2,integer,yes,,6,"Position of this stage in the chain, running 1 upward with no gap and equal to array order."
+stage,stage_event,3,string,yes,,deposit_invoiced,"Machine name of the stage, unique inside the record."
+stage_class,stage_event,4,enum,yes,intake|sales|contract|delivery|billing|closeout,billing,The phase of the job this stage belongs to.
+stage_label,stage_event,5,string,yes,,Deposit invoiced,"Readable name for the stage, for a screen that shows the chain."
+event_date,stage_event,6,date,yes,,2026-02-09,The date the stage happened. Non decreasing along sequence.
+status,stage_event,7,enum,yes,complete|pending,complete,Whether the stage is complete or still pending at the record's as_of_date.
+previous_stage_id,stage_event,8,string,no,,STG-2026-0105,"The stage_id of the preceding stage, empty on the first stage only, which is what makes the chain one connected record."
+invoice_id,stage_event,9,string,no,,INV-2026-0101,"The invoice this stage issues, and empty on a stage that issues none."
+amount_usd,stage_event,10,money_usd,no,,29700.00,"The amount the invoice this stage issues carries, to the cent, and empty where the stage issues none."
+source_artifact,stage_event,11,string,yes,,SMB-04,The artifact this stage's facts are taken from.
+source_row_id,stage_event,12,string,yes,,STG-2026-0106,The row of source_artifact this stage's facts are taken from.
+payment_id,payment,1,string,yes,,PAY-2026-0101,"Identifier for this payment log entry, unique inside the record and across records."
+invoice_id,payment,2,string,yes,,INV-2026-0101,"The invoice this entry settles, matching the invoice_id exactly one stage issues."
+stage_id,payment,3,string,yes,,STG-2026-0106,The stage that issued the invoice.
+invoice_date,payment,4,date,yes,,2026-02-09,"The date the invoice was issued, equal to the issuing stage's event_date."
+invoice_amount_usd,payment,5,money_usd,yes,,29700.00,"The invoiced amount in US dollars, to the cent."
+due_date,payment,6,date,yes,,2026-02-16,"The date the invoice falls due, equal to invoice_date plus the payment_terms window in calendar days."
+settlement_date,payment,7,date,no,,2026-02-13,"The date the payment settled, and empty while the invoice is still open."
+settled_amount_usd,payment,8,money_usd,no,,29700.00,"The amount that settled, to the cent, and empty while the invoice is still open."
+settlement_status,payment,9,enum,yes,settled|open,settled,Whether the invoice has settled or is still open.
+method,payment,10,enum,yes,mock_bank_transfer|mock_check,mock_bank_transfer,"The mock settlement method. No processor, gateway, card network or bank product is named anywhere in the pack."
+record_type,payment,11,enum,yes,mock,mock,Always mock. Every payment in the small-business pack is a mock record and no funds move.
+mock_notice,payment,12,string,yes,,"MOCK PAYMENT RECORD, NO FUNDS MOVED","The fixed notice every payment row carries byte identical: MOCK PAYMENT RECORD, NO FUNDS MOVED."
