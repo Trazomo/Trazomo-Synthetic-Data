@@ -1,8 +1,11 @@
 # Changelog
 
-## 1.17.0
+## 1.18.0
 
-**Allocated in merge order (expected `v1.17.0`, after small-business cluster 1
+**Allocated in merge order at tag time: `v1.18.0`, after small-business
+cluster 1 took `v1.16.0` and operations cluster 4 took `v1.17.0` (renumbered
+by the integrator at the tag; the section was drafted expecting `v1.17.0`).**
+
 took the 1.16.0 slot in merge order); renumber at tag time if the order
 changes.**
 
@@ -47,6 +50,32 @@ track's files.
   `cli.js`/`validate.js` write and compare paths gain a base64 branch for
   generator files marked binary; the engine contract and the determinism
   sweep are unchanged.
+
+## 1.17.0
+
+**Allocated in merge order (expected `v1.17.0`, after small-business cluster 1
+takes `v1.16.0`); renumber at tag time if the order changes.**
+
+Operations cluster 4, status and reporting: four deterministic generators and
+no drafted document. OPS-08 weekly-status-inputs-with-conflicting-claim pairs
+a 24-row board snapshot with the four workstream leads' status notes for the
+integrations marketplace launch, both taken 2026-03-27; the note file's open
+blocker list agrees with the board on every task id except exactly one, which
+the board marks done. OPS-09 portfolio-status-rollup bundles the platform
+delivery portfolio's five projects, allocations, RAID items and a recomputable
+summary as of 2026-03-31; exactly one person is allocated across two projects
+above the 100 percent capacity the spec pins, and no RAID row or status note
+names them. OPS-11 stakeholder-register-seed is the customer portal relaunch's
+20-row register, its people drawn byte-verbatim from the CORE-04 roster and
+the CORE-03 customer accounts (the co-102 seat included); exactly one
+high-influence row carries no comms cadence. OPS-12
+okr-metrics-rollup-with-contradiction pairs the Q1 2026 company OKR report
+with its raw numerator and denominator rows; every reported percentage
+recomputes exactly except one, which reads fifteen points high. Each artifact
+carries exactly one injected instruction addressed to the build that reads it,
+inert in-file, grounding the cluster's four failure evals; the four spec
+blocks are rewritten in the exact-cardinality style with per-generator tests
+re-deriving every plant by rule.
 
 ## 1.16.0
 
