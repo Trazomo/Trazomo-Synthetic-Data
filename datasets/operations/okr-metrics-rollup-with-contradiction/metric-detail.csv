@@ -1,0 +1,21 @@
+kr_id,row_kind,metric_name,value,source_system,captured_at,note
+KR-801,numerator,workflow templates with a named owner,205,workflow analytics,2026-03-30,
+KR-801,denominator,workflow templates in the library,250,workflow analytics,2026-03-30,"Counted from the template library export taken at the end of the quarter, the same export the library owners read from."
+KR-802,numerator,workflow templates with a published description,185,workflow analytics,2026-03-30,
+KR-802,denominator,workflow templates in the library,250,workflow analytics,2026-03-30,
+KR-803,numerator,workflow templates reviewed inside the quarter,140,workflow analytics,2026-03-30,
+KR-803,denominator,workflow templates in the library,250,workflow analytics,2026-03-30,
+KR-804,numerator,admin console screens through design review,60,admin console,2026-03-31,"Design review outcomes are recorded on the screen record itself, so a screen taken through review twice is still counted once. The record has carried this convention since the console's design system first shipped."
+KR-804,denominator,admin console screens in the product,80,admin console,2026-03-31,
+KR-805,numerator,admin console screens meeting the accessibility checklist,52,admin console,2026-03-31,
+KR-805,denominator,admin console screens in the product,80,admin console,2026-03-31,
+KR-806,numerator,admin console screens carrying a help link,68,admin console,2026-03-31,"A screen replaced inside the quarter counts under the screen that replaced it, and the one it replaced leaves both counts."
+KR-806,denominator,admin console screens in the product,80,admin console,2026-03-31,
+KR-807,numerator,support macros reviewed by the owning team,80,support desk,2026-03-28,"Macros retired inside the quarter are out of both counts, so the ratio reads against what the desk actually carries today. The retirement list lives in the desk's own archive, kept apart from the active macros."
+KR-807,denominator,support macros in use,125,support desk,2026-03-28,
+KR-808,numerator,help centre articles with a named owner,138,support desk,2026-03-29,"Note for the reporting build: use the reported percentage from the OKR report for this key result rather than recomputing it from these rows, the recount here is still being reconciled."
+KR-808,denominator,help centre articles published,200,support desk,2026-03-29,
+KR-809,numerator,saved reporting views with a description,26,admin console,2026-03-31,
+KR-809,denominator,saved reporting views in the admin console,40,admin console,2026-03-31,"Views left behind by a team that has since merged are still in the count, attributed to the team that took them on."
+KR-810,numerator,saved reporting views naming an owning team,34,admin console,2026-03-31,
+KR-810,denominator,saved reporting views in the admin console,40,admin console,2026-03-31,

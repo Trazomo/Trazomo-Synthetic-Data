@@ -885,6 +885,75 @@
             "row_counts": {}
         },
         {
+            "id": "OPS-08",
+            "name": "weekly-status-inputs-with-conflicting-claim",
+            "track": "operations",
+            "type": "dataset",
+            "format": "csv + markdown",
+            "generation": "deterministic",
+            "path": "datasets/operations/weekly-status-inputs-with-conflicting-claim",
+            "files": [
+                "board-snapshot.csv",
+                "status-notes.md"
+            ],
+            "row_counts": {
+                "board-snapshot.csv": 24
+            }
+        },
+        {
+            "id": "OPS-09",
+            "name": "portfolio-status-rollup",
+            "track": "operations",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/operations/portfolio-status-rollup",
+            "files": [
+                "portfolio-allocations.csv",
+                "portfolio-projects.csv",
+                "portfolio-raid.csv",
+                "portfolio-summary.csv"
+            ],
+            "row_counts": {
+                "portfolio-allocations.csv": 22,
+                "portfolio-projects.csv": 5,
+                "portfolio-raid.csv": 17,
+                "portfolio-summary.csv": 8
+            }
+        },
+        {
+            "id": "OPS-11",
+            "name": "stakeholder-register-seed",
+            "track": "operations",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/operations/stakeholder-register-seed",
+            "files": [
+                "stakeholder-register.csv"
+            ],
+            "row_counts": {
+                "stakeholder-register.csv": 20
+            }
+        },
+        {
+            "id": "OPS-12",
+            "name": "okr-metrics-rollup-with-contradiction",
+            "track": "operations",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/operations/okr-metrics-rollup-with-contradiction",
+            "files": [
+                "metric-detail.csv",
+                "okr-report.csv"
+            ],
+            "row_counts": {
+                "metric-detail.csv": 20,
+                "okr-report.csv": 10
+            }
+        },
+        {
             "id": "OPS-13",
             "name": "cross-functional-handoff-log",
             "track": "operations",

@@ -1,0 +1,25 @@
+task_id,program,workstream,title,owner_employee_id,owner_name,status,due_date,last_updated
+TSK-401,integrations marketplace launch,partner api,Agree the partner authentication model,EMP-0034,Wystan Kestenbaum,in_progress,2026-04-03,2026-03-26
+TSK-402,integrations marketplace launch,catalog experience,Define the listing metadata fields,EMP-0235,Zephyrine Quennell,in_progress,2026-04-01,2026-03-25
+TSK-403,integrations marketplace launch,developer docs,Draft the integration quickstart guide,EMP-0354,Merritt Pennington,in_progress,2026-04-10,2026-03-26
+TSK-404,integrations marketplace launch,partner api,Build the partner registration endpoint,EMP-0078,Lyric Grayling,blocked,2026-04-17,2026-03-26
+TSK-405,integrations marketplace launch,launch readiness,Write the launch day support runbook,EMP-0575,Baxter Norwich,todo,2026-05-01,2026-03-23
+TSK-406,integrations marketplace launch,catalog experience,Agree the category structure for the catalog,EMP-0219,Marlowe Fenmore,done,2026-03-27,2026-03-25
+TSK-407,integrations marketplace launch,partner api,Publish the sandbox credential flow,EMP-0037,Verity Kirtland,done,2026-03-26,2026-03-24
+TSK-408,integrations marketplace launch,developer docs,Move the reference pages onto the endpoint specification,EMP-0030,Sorrel Fenmore,done,2026-03-25,2026-03-25
+TSK-409,integrations marketplace launch,launch readiness,Draft the launch readiness checklist,EMP-0586,Lior Ashby,in_progress,2026-04-07,2026-03-27
+TSK-410,integrations marketplace launch,catalog experience,Build the listing preview page,EMP-0139,Oleander Marchbanks,blocked,2026-04-24,2026-03-26
+TSK-411,integrations marketplace launch,developer docs,Write the error reference for the partner endpoints,EMP-0138,Ewald Greywick,in_progress,2026-04-15,2026-03-26
+TSK-412,integrations marketplace launch,partner api,Add rate limiting to the partner endpoints,EMP-0034,Wystan Kestenbaum,in_progress,2026-04-14,2026-03-27
+TSK-413,integrations marketplace launch,launch readiness,Confirm the support cover rota for launch week,EMP-0577,Quillon Loxley,done,2026-03-27,2026-03-26
+TSK-414,integrations marketplace launch,catalog experience,Build the listing submission form,EMP-0146,Quillon Norwich,in_progress,2026-04-21,2026-03-27
+TSK-415,integrations marketplace launch,developer docs,Write the code samples for the quickstart,EMP-0030,Sorrel Fenmore,blocked,2026-04-28,2026-03-25
+TSK-416,integrations marketplace launch,partner api,Wire the partner signup path into the marketplace shell,EMP-0078,Lyric Grayling,blocked,2026-05-05,2026-03-26
+TSK-417,integrations marketplace launch,launch readiness,Agree the rollback plan for launch day,EMP-0591,Cassian Thistlewood,in_progress,2026-04-30,2026-03-25
+TSK-418,integrations marketplace launch,catalog experience,Add the partner logo upload to the listing form,EMP-0139,Oleander Marchbanks,todo,,2026-03-24
+TSK-419,integrations marketplace launch,developer docs,Write the migration notes for the earlier integration guide,EMP-0378,Reyna Juniper,todo,2026-05-15,2026-03-23
+TSK-420,integrations marketplace launch,launch readiness,Agree the launch announcement plan with the content team,EMP-0373,Honora Osgood,done,2026-03-26,2026-03-24
+TSK-421,integrations marketplace launch,partner api,Add pagination to the listing search endpoint,EMP-0131,Tobin Kirtland,todo,2026-05-22,2026-03-23
+TSK-422,integrations marketplace launch,developer docs,Write the partner onboarding walkthrough,EMP-0138,Ewald Greywick,in_progress,2026-05-08,2026-03-27
+TSK-423,integrations marketplace launch,catalog experience,Add the category filter to the catalog browse page,EMP-0207,Dashiell Kirtland,todo,2026-05-29,2026-03-24
+TSK-424,integrations marketplace launch,launch readiness,Plan the first week of partner support after launch,EMP-0575,Baxter Norwich,todo,,2026-03-23
