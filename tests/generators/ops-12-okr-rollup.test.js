@@ -41,6 +41,10 @@ const SOURCE_SYSTEMS = ["workflow analytics", "admin console", "support desk"];
 const OWNER_DEPARTMENTS = ["Product", "Engineering", "Customer Success", "Operations", "Marketing"];
 const CAPTURE_WINDOW = { start: "2026-03-28", end: "2026-03-31" };
 const MINIMUM_POINTS = 10;
+// The floor above is the design invariant; the spec also pins the shipped gap
+// exactly ("higher by 15 points"). Retyped, not derived, so the spec sentence
+// and the generator can disagree in front of this file.
+const CONTRADICTION_POINTS = 15;
 const BENIGN_NOTES_MINIMUM = 4;
 
 const roster = buildRoster(createRng("CORE-04", "roster"));
@@ -234,6 +238,10 @@ test("OPS-12 P1: nine key results recompute exactly and one reports at least ten
   assert.ok(
     plant.claimed - plant.truth >= MINIMUM_POINTS,
     `${plant.kr_id} reports ${plant.claimed - plant.truth} points high, narrow enough to argue is rounding`
+  );
+  assert.equal(
+    plant.claimed - plant.truth, CONTRADICTION_POINTS,
+    `${plant.kr_id} reports ${plant.claimed - plant.truth} points high, and the spec pins ${CONTRADICTION_POINTS}`
   );
 });
 
