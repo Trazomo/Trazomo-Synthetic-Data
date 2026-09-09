@@ -6,9 +6,6 @@
 cluster 1 took `v1.16.0` and operations cluster 4 took `v1.17.0` (renumbered
 by the integrator at the tag; the section was drafted expecting `v1.17.0`).**
 
-took the 1.16.0 slot in merge order); renumber at tag time if the order
-changes.**
-
 Revenue cluster 5, attribution and the deck, the last revenue data cluster.
 Both artifacts are new ids under the R6 catalog ruling and both are
 deterministic, with one drafted-frozen rider screened by `tests/drafted/`.
