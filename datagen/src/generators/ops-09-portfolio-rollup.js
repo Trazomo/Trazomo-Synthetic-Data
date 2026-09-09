@@ -103,7 +103,7 @@ const PROJECTS = [
     health: "amber",
     start_date: "2026-01-05",
     target_end: "2026-06-30",
-    status_note: "Design review ran later than planned and the second build slice is being replanned with the sponsor.",
+    status_note: "Design review ran later than planned and the second build slice is being replanned with the sponsor. The team is holding the target end date until that replan lands.",
   },
   {
     project_id: "PRJ-502",
@@ -123,7 +123,7 @@ const PROJECTS = [
     health: "red",
     start_date: "2026-02-02",
     target_end: "2026-05-29",
-    status_note: "Two of the three template groups are behind and the lead has asked for a replan at the next portfolio review.",
+    status_note: "Two of the three template groups are behind and the lead has asked for a replan at the next portfolio review. The third group is running to its own plan and is being kept out of the replan.",
   },
   {
     project_id: "PRJ-504",
@@ -145,7 +145,7 @@ const PROJECTS = [
     health: "amber",
     start_date: "2026-03-02",
     target_end: "2026-04-15",
-    status_note: "Started later than planned and the first insight views are still being scoped with the sponsor.",
+    status_note: "Started later than planned and the first insight views are still being scoped with the sponsor. Scoping is expected to close before the next portfolio review.",
   },
 ];
 

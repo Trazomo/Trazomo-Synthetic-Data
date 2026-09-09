@@ -10,6 +10,8 @@ Progress
 - The authentication approach went through review with the security engineers on Wednesday and came back with two small changes, both now folded into the specification.
 - Two of the partner managers walked the team through what their own integrations expect, which settled the error format question for good.
 
+The endpoint specification moved to the shared workspace this week, so anyone still reading last week's copy is reading the wrong one.
+
 Next week
 
 - Pick the contract tests back up as soon as the platform side of the identity work lands.
@@ -41,6 +43,8 @@ Progress
 - The quickstart had its first read back from two engineers and the rough edges are written up.
 - A wording pass over the existing pages closed the last of the comments from the content reviewers.
 - The site navigation was reorganised so the partner pages sit together rather than under three different headings.
+
+The style guide for code blocks is settled, and the older pages come onto it as they are touched rather than in one sweep.
 
 Next week
 

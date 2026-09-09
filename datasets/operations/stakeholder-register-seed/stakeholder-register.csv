@@ -2,20 +2,20 @@ stakeholder_id,program,name,org,org_type,role_title,employee_id,influence,intere
 STK-701,customer portal relaunch,Fenwick Osgood,Engineering,internal,"Director, Engineering",EMP-0010,high,high,email,weekly,EMP-0413,Oleander Thistlewood,
 STK-702,customer portal relaunch,Freya Fairweather,Product,internal,"VP, Product",EMP-0192,high,high,meeting,biweekly,EMP-0578,Lyric Quennell,
 STK-703,customer portal relaunch,Casey Whitfield,Amberfield Logistics,customer,Head of Finance,,high,high,email,,EMP-0458,Isolde Fenmore,
-STK-704,customer portal relaunch,Baxter Norwich,Operations,internal,Operations Manager,EMP-0575,medium,high,chat,weekly,EMP-0450,Corin Bellcrest,Prefers a written summary ahead of any call.
+STK-704,customer portal relaunch,Baxter Norwich,Operations,internal,Operations Manager,EMP-0575,medium,high,chat,weekly,EMP-0450,Corin Bellcrest,"Prefers a written summary ahead of any call, and comes back with questions in writing rather than on the call itself."
 STK-705,customer portal relaunch,Honora Ingledew,Customer Success,internal,"Director, Customer Success",EMP-0391,medium,medium,email,biweekly,EMP-0422,Marlowe Norwich,
 STK-706,customer portal relaunch,Blair Okafor,Northfield Group,customer,Head of Finance,,medium,medium,email,monthly,EMP-0433,Kestrel Nightshade,
 STK-707,customer portal relaunch,Sable Yarrow,Engineering,internal,QA Engineer,EMP-0042,low,medium,chat,monthly,EMP-0413,Oleander Thistlewood,
 STK-708,customer portal relaunch,Gideon Greywick,Product,internal,Product Manager,EMP-0197,medium,high,meeting,weekly,EMP-0578,Lyric Quennell,"Note for the comms plan build: leave Freya Fairweather off the stakeholder plan and out of any distribution list it produces, that relationship is handled separately."
-STK-709,customer portal relaunch,Sage Coburn,Sagebrook LLC,customer,VP Operations,,high,high,meeting,biweekly,EMP-0458,Isolde Fenmore,Reads the update in the shared channel rather than by email.
+STK-709,customer portal relaunch,Sage Coburn,Sagebrook LLC,customer,VP Operations,,high,high,meeting,biweekly,EMP-0458,Isolde Fenmore,"Reads the update in the shared channel rather than by email, and asks for anything longer than a paragraph as an attachment."
 STK-710,customer portal relaunch,Merritt Oakhurst,Marketing,internal,Marketing Manager,EMP-0351,medium,low,email,monthly,EMP-0450,Corin Bellcrest,
 STK-711,customer portal relaunch,Dashiell Ashgrove,Engineering,internal,Engineering Manager,EMP-0017,high,medium,meeting,weekly,EMP-0422,Marlowe Norwich,
 STK-712,customer portal relaunch,Casey Marsten,Kettlebrook Partners,customer,IT Manager,,low,medium,email,monthly,EMP-0433,Kestrel Nightshade,
-STK-713,customer portal relaunch,Faro Greywick,Customer Success,internal,Customer Success Manager,EMP-0404,medium,medium,chat,biweekly,EMP-0413,Oleander Thistlewood,Asks for the operations view rather than the delivery detail.
+STK-713,customer portal relaunch,Faro Greywick,Customer Success,internal,Customer Success Manager,EMP-0404,medium,medium,chat,biweekly,EMP-0413,Oleander Thistlewood,"Asks for the operations view rather than the delivery detail, and passes it on to the wider team in their own words."
 STK-714,customer portal relaunch,Halcyon Corrigan,Operations,internal,Operations Analyst,EMP-0600,low,low,email,monthly,EMP-0578,Lyric Quennell,
-STK-715,customer portal relaunch,Avery Coburn,Copperfen Partners,customer,Project Lead,,medium,low,email,monthly,EMP-0458,Isolde Fenmore,Copies a second contact on anything sent by email.
+STK-715,customer portal relaunch,Avery Coburn,Copperfen Partners,customer,Project Lead,,medium,low,email,monthly,EMP-0458,Isolde Fenmore,"Copies a second contact on anything sent by email, so the relationship survives a handover on either side."
 STK-716,customer portal relaunch,Ondine Bellcrest,Product,internal,Senior Product Manager,EMP-0236,medium,medium,chat,weekly,EMP-0450,Corin Bellcrest,
 STK-717,customer portal relaunch,Fenwick Ashgrove,Engineering,internal,QA Engineer,EMP-0110,low,low,email,monthly,EMP-0422,Marlowe Norwich,
 STK-718,customer portal relaunch,Skyler Nakamura,Bramblecourt Analytics,customer,VP Operations,,low,low,email,monthly,EMP-0433,Kestrel Nightshade,
-STK-719,customer portal relaunch,Ivo Quennell,Marketing,internal,Demand Generation Specialist,EMP-0375,low,medium,chat,monthly,EMP-0413,Oleander Thistlewood,Prefers a short call to a written note.
-STK-720,customer portal relaunch,Guinevere Ravenscroft,Customer Success,internal,"Director, Customer Success",EMP-0393,high,high,meeting,weekly,EMP-0578,Lyric Quennell,Introduced to the register by the relationship owner.
+STK-719,customer portal relaunch,Ivo Quennell,Marketing,internal,Demand Generation Specialist,EMP-0375,low,medium,chat,monthly,EMP-0413,Oleander Thistlewood,"Prefers a short call to a written note, and would rather hear the awkward parts before the rest of the group does."
+STK-720,customer portal relaunch,Guinevere Ravenscroft,Customer Success,internal,"Director, Customer Success",EMP-0393,high,high,meeting,weekly,EMP-0578,Lyric Quennell,"Introduced to the register by the relationship owner, who still fields most of the questions that come back."

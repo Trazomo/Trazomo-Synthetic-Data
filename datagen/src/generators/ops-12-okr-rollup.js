@@ -110,7 +110,7 @@ const KEY_RESULTS = [
     key_result: "Every workflow template in the library has a named owner",
     owner: { department: "Product", slot: 0 },
     numerator: { metric_name: "workflow templates with a named owner", value: 205, source_system: "workflow analytics", captured_at: "2026-03-30", note: "" },
-    denominator: { metric_name: "workflow templates in the library", value: 250, source_system: "workflow analytics", captured_at: "2026-03-30", note: "Counted from the template library export taken at the end of the quarter." },
+    denominator: { metric_name: "workflow templates in the library", value: 250, source_system: "workflow analytics", captured_at: "2026-03-30", note: "Counted from the template library export taken at the end of the quarter, the same export the library owners read from." },
   },
   {
     objective: 0,
@@ -130,7 +130,7 @@ const KEY_RESULTS = [
     objective: 1,
     key_result: "Every admin console screen has been through design review",
     owner: { department: "Product", slot: 2 },
-    numerator: { metric_name: "admin console screens through design review", value: 60, source_system: "admin console", captured_at: "2026-03-31", note: "Design review outcomes are recorded on the screen record itself." },
+    numerator: { metric_name: "admin console screens through design review", value: 60, source_system: "admin console", captured_at: "2026-03-31", note: "Design review outcomes are recorded on the screen record itself, so a screen taken through review twice is still counted once." },
     denominator: { metric_name: "admin console screens in the product", value: 80, source_system: "admin console", captured_at: "2026-03-31", note: "" },
   },
   {
@@ -146,14 +146,14 @@ const KEY_RESULTS = [
     objective: 1,
     key_result: "Every admin console screen carries a help link",
     owner: { department: "Engineering", slot: 1 },
-    numerator: { metric_name: "admin console screens carrying a help link", value: 68, source_system: "admin console", captured_at: "2026-03-31", note: "A screen replaced inside the quarter counts under the screen that replaced it." },
+    numerator: { metric_name: "admin console screens carrying a help link", value: 68, source_system: "admin console", captured_at: "2026-03-31", note: "A screen replaced inside the quarter counts under the screen that replaced it, and the one it replaced leaves both counts." },
     denominator: { metric_name: "admin console screens in the product", value: 80, source_system: "admin console", captured_at: "2026-03-31", note: "" },
   },
   {
     objective: 2,
     key_result: "Every support macro has been reviewed by the team that owns it",
     owner: { department: "Customer Success", slot: 0 },
-    numerator: { metric_name: "support macros reviewed by the owning team", value: 80, source_system: "support desk", captured_at: "2026-03-28", note: "Macros retired inside the quarter are out of both counts." },
+    numerator: { metric_name: "support macros reviewed by the owning team", value: 80, source_system: "support desk", captured_at: "2026-03-28", note: "Macros retired inside the quarter are out of both counts, so the ratio reads against what the desk actually carries today." },
     denominator: { metric_name: "support macros in use", value: 125, source_system: "support desk", captured_at: "2026-03-28", note: "" },
   },
   {
@@ -175,7 +175,7 @@ const KEY_RESULTS = [
     key_result: "Every saved reporting view carries a description",
     owner: { department: "Operations", slot: 1 },
     numerator: { metric_name: "saved reporting views with a description", value: 26, source_system: "admin console", captured_at: "2026-03-31", note: "" },
-    denominator: { metric_name: "saved reporting views in the admin console", value: 40, source_system: "admin console", captured_at: "2026-03-31", note: "Views left behind by a team that has since merged are still in the count." },
+    denominator: { metric_name: "saved reporting views in the admin console", value: 40, source_system: "admin console", captured_at: "2026-03-31", note: "Views left behind by a team that has since merged are still in the count, attributed to the team that took them on." },
   },
   {
     objective: 3,
