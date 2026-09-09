@@ -108,7 +108,7 @@
       "event_date": "2026-02-09",
       "status": "complete",
       "previous_stage_id": "STG-2026-0105",
-      "invoice_id": "INV-2026-0101",
+      "invoice_id": "INV-LDB-2026-101",
       "amount_usd": "29700.00",
       "source_artifact": "SMB-04",
       "source_row_id": "STG-2026-0106"
@@ -150,7 +150,7 @@
       "event_date": "2026-02-27",
       "status": "complete",
       "previous_stage_id": "STG-2026-0108",
-      "invoice_id": "INV-2026-0102",
+      "invoice_id": "INV-LDB-2026-102",
       "amount_usd": "44550.00",
       "source_artifact": "SMB-04",
       "source_row_id": "STG-2026-0109"
@@ -178,7 +178,7 @@
       "event_date": "2026-03-13",
       "status": "complete",
       "previous_stage_id": "STG-2026-0110",
-      "invoice_id": "INV-2026-0103",
+      "invoice_id": "INV-LDB-2026-103",
       "amount_usd": "44550.00",
       "source_artifact": "SMB-04",
       "source_row_id": "STG-2026-0111"
@@ -206,7 +206,7 @@
       "event_date": "2026-03-20",
       "status": "complete",
       "previous_stage_id": "STG-2026-0112",
-      "invoice_id": "INV-2026-0104",
+      "invoice_id": "INV-LDB-2026-104",
       "amount_usd": "29700.00",
       "source_artifact": "SMB-04",
       "source_row_id": "STG-2026-0113"
@@ -228,8 +228,8 @@
   ],
   "payment_log": [
     {
-      "payment_id": "PAY-2026-0101",
-      "invoice_id": "INV-2026-0101",
+      "payment_id": "PAY-LDB-2026-101",
+      "invoice_id": "INV-LDB-2026-101",
       "stage_id": "STG-2026-0106",
       "invoice_date": "2026-02-09",
       "invoice_amount_usd": "29700.00",
@@ -242,8 +242,8 @@
       "mock_notice": "MOCK PAYMENT RECORD, NO FUNDS MOVED"
     },
     {
-      "payment_id": "PAY-2026-0102",
-      "invoice_id": "INV-2026-0102",
+      "payment_id": "PAY-LDB-2026-102",
+      "invoice_id": "INV-LDB-2026-102",
       "stage_id": "STG-2026-0109",
       "invoice_date": "2026-02-27",
       "invoice_amount_usd": "44550.00",
@@ -256,8 +256,8 @@
       "mock_notice": "MOCK PAYMENT RECORD, NO FUNDS MOVED"
     },
     {
-      "payment_id": "PAY-2026-0103",
-      "invoice_id": "INV-2026-0103",
+      "payment_id": "PAY-LDB-2026-103",
+      "invoice_id": "INV-LDB-2026-103",
       "stage_id": "STG-2026-0111",
       "invoice_date": "2026-03-13",
       "invoice_amount_usd": "44550.00",
@@ -270,8 +270,8 @@
       "mock_notice": "MOCK PAYMENT RECORD, NO FUNDS MOVED"
     },
     {
-      "payment_id": "PAY-2026-0104",
-      "invoice_id": "INV-2026-0104",
+      "payment_id": "PAY-LDB-2026-104",
+      "invoice_id": "INV-LDB-2026-104",
       "stage_id": "STG-2026-0113",
       "invoice_date": "2026-03-20",
       "invoice_amount_usd": "29700.00",

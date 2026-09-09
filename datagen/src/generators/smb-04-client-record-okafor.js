@@ -98,8 +98,26 @@ const FORBIDDEN_TOKENS = [
 
 // ------------------------------------------------------------------ builder
 
-/** Build one object per field, in field_order, from a plain values map. */
+/**
+ * Build one object per field, in field_order, from a plain values map. Throws
+ * on a key of `values` the field list does not declare, and on a field the
+ * list declares that `values` does not carry, so the "no key extra" half of
+ * T-A2 is falsifiable at the record construction site rather than only at the
+ * dictionary side (SHOULD-FIX 5): before this, a field added to a record
+ * literal without a matching SMB-02 dictionary entry was silently dropped
+ * instead of failing generation.
+ */
 function ordered(fields, values) {
+  const declared = fields.map((f) => f.field_name);
+  const carried = Object.keys(values);
+  const missing = declared.filter((name) => !carried.includes(name));
+  const extra = carried.filter((name) => !declared.includes(name));
+  if (missing.length > 0 || extra.length > 0) {
+    throw new Error(
+      `ordered(): key set disagrees with the declared fields. `
+      + `missing [${missing.join(", ")}], extra [${extra.join(", ")}]`
+    );
+  }
   const object = {};
   for (const field of fields) object[field.field_name] = values[field.field_name] ?? "";
   return object;
@@ -135,8 +153,13 @@ export function buildClientRecord(config) {
   }
 
   const stageId = (sequence) => `STG-2026-${block}${String(sequence).padStart(2, "0")}`;
-  const invoiceId = (draw) => `INV-2026-${block}${String(draw + 1).padStart(2, "0")}`;
-  const paymentId = (draw) => `PAY-2026-${block}${String(draw + 1).padStart(2, "0")}`;
+  // Larkspur-scoped (LDB) invoice and payment ids: the finance pack's own
+  // reliability drill and AR aging export already spend the INV-2026-01xx to
+  // INV-2026-02xx and PAY-2026-01xx blocks on unrelated companies (SHOULD-FIX
+  // 1), so C1 does not share finance's bare INV-2026-/PAY-2026- namespace.
+  const blockNum = String(parseInt(block, 10));
+  const invoiceId = (draw) => `INV-LDB-2026-${blockNum}${String(draw + 1).padStart(2, "0")}`;
+  const paymentId = (draw) => `PAY-LDB-2026-${blockNum}${String(draw + 1).padStart(2, "0")}`;
 
   const stages = steps.map((step, i) => {
     const sequence = i + 1;
@@ -333,7 +356,8 @@ export function assertRecord(record, options) {
       }
     }
   }
-  // Every date the record states as a fact sits in the window. A due_date is a
+  // T-C11 (amended, plan section 2.3, SHOULD-FIX 3 / adjudication B): every
+  // date the record states as a fact sits in the window. A due_date is a
   // consequence of the terms rather than a fact about the job, so the final
   // net_15 invoice on a record that runs to the as-of date falls due after it;
   // that is checked above as invoice_date plus the term and is not bounded here.
