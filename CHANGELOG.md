@@ -1,5 +1,53 @@
 # Changelog
 
+## 1.18.0
+
+**Allocated in merge order at tag time: `v1.18.0`, after small-business
+cluster 1 took `v1.16.0` and operations cluster 4 took `v1.17.0` (renumbered
+by the integrator at the tag; the section was drafted expecting `v1.17.0`).**
+
+Revenue cluster 5, attribution and the deck, the last revenue data cluster.
+Both artifacts are new ids under the R6 catalog ruling and both are
+deterministic, with one drafted-frozen rider screened by `tests/drafted/`.
+The plan is
+`docs/plans/2026-08-29-path-programs/revenue/data-plans/cluster-5.md`; its
+U-C5-T3 correction (T3-prime: no play in the trigger window can have sourced
+any opportunity in the export, because the latest created date, 2026-02-10,
+precedes the window, so attributed traces declare the influenced-existing
+basis and the sourced count is pinned at zero) rides to Salvador's freeze
+review first, with the section 9 defaults U1 to U10. No byte changes under
+`datasets/core/`, `canon/`, the frozen revenue directories or any other
+track's files.
+
+- **REV-09 play-trace-ground-truth**: `play-traces.jsonl`, eight traces
+  enumerated by rule rather than listed by hand: the generator re-derives the
+  REV-03 trigger sets (one qualifying hire, one champion move, one
+  re-engagement, five identified visitors) from the CORE-03, REV-01 and
+  REV-03 generators' in-memory output plus the committed REV-04 verification
+  sidecar, then runs the taught gates (audience, suppression, consent,
+  verification) to a byte-forced terminal status per trace. Exactly one trace
+  is complete across all five links, exactly one is missing exactly its reply
+  classification, and the three customer-account visitor events route
+  internally. `attribution-claims.jsonl` carries three claims of which
+  exactly one cites a trace that does not exist and a basis the created-date
+  rule forbids, the console module's failure eval made data.
+- **REV-10 deck-and-proposal-source-pack**: `qbr-numbers-view.json`
+  (21 figures, every one carrying the opportunity ids it was computed from,
+  money in exact cents under the declared v1 stage weights, the Closed Won
+  zero stated with an empty id list), `deck-template.pptx` (the repo's first
+  binary dataset file: a minimal ECMA-376 package written as a stored-entry
+  zip with fixed timestamps and sorted paths, so it regenerates
+  byte-identically inside validate's deterministic branch; six layouts,
+  fourteen named placeholder slots), `template-manifest.yaml` (emitted from
+  the same layout definition, binding every slot to numbers-view figures,
+  claims-sheet rows or pinned static text), and the drafted-frozen
+  `artifacts/REV-10/approved-claims-and-proposal-language.md` (eight rows;
+  the single unapproved row is the corpus's both-directions
+  procurement_process attribute, and no manifest slot binds it). The
+  `cli.js`/`validate.js` write and compare paths gain a base64 branch for
+  generator files marked binary; the engine contract and the determinism
+  sweep are unchanged.
+
 ## 1.17.0
 
 **Allocated in merge order (expected `v1.17.0`, after small-business cluster 1

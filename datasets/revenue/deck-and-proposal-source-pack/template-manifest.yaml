@@ -1,0 +1,71 @@
+# REV-10 deck template manifest. Emitted by the generator that writes
+# deck-template.pptx, out of one layout definition, so the two cannot drift.
+# Every slot below is a placeholder name in the template package, and every
+# bound id resolves in the file its source names.
+generated_from_spec: REV-10
+as_of: "2026-03-16"
+template: deck-template.pptx
+numbers_view: qbr-numbers-view.json
+claims_sheet: approved-claims-and-proposal-language.md
+placeholder_rule: "a slot is the name attribute of the p:cNvPr of a shape that carries a p:ph element; the slots below are the whole placeholder-name set of deck-template.pptx"
+sources:
+  numbers_view: "allowed_ids are figure_id values of qbr-numbers-view.json"
+  claims_sheet: "allowed_ids are claim_id values of approved-claims-and-proposal-language.md"
+  static: "text is pinned in the template and resolves no id"
+slots:
+  - slot: slot_deck_title
+    layout: title_slide
+    source: static
+    text: "Quarterly Business Review"
+  - slot: slot_period_line
+    layout: title_slide
+    source: static
+    text: "Quarter ending 31 March 2026"
+  - slot: slot_presenting_team
+    layout: title_slide
+    source: static
+    text: "Atticus Dundee Inc."
+  - slot: slot_pipeline_by_stage_table
+    layout: pipeline_overview
+    source: numbers_view
+    allowed_ids: [QF-01, QF-02, QF-03, QF-04, QF-05, QF-06, QF-07, QF-08, QF-09, QF-10, QF-11, QF-12]
+  - slot: slot_open_total
+    layout: pipeline_overview
+    source: numbers_view
+    allowed_ids: [QF-13, QF-14]
+  - slot: slot_weighted_total
+    layout: pipeline_overview
+    source: numbers_view
+    allowed_ids: [QF-15]
+  - slot: slot_asof_note
+    layout: pipeline_overview
+    source: static
+    text: "As of 16 March 2026"
+  - slot: slot_closed_summary
+    layout: quarter_outcomes
+    source: numbers_view
+    allowed_ids: [QF-16, QF-17, QF-18]
+  - slot: slot_closed_ids_note
+    layout: quarter_outcomes
+    source: static
+    text: "Every figure on this slide prints the opportunity ids it was computed from."
+  - slot: slot_account_heading
+    layout: account_review
+    source: static
+    text: "Amberfield Logistics, quarterly business review"
+  - slot: slot_account_open_position
+    layout: account_review
+    source: numbers_view
+    allowed_ids: [QF-19, QF-20, QF-21]
+  - slot: slot_customer_language_quotes
+    layout: voice_of_customer
+    source: claims_sheet
+    allowed_ids: [CL-01, CL-02, CL-03, CL-04, CL-05, CL-06, CL-07]
+  - slot: slot_approved_claims
+    layout: proposal_language
+    source: claims_sheet
+    allowed_ids: [CL-01, CL-02, CL-03, CL-04, CL-05, CL-06, CL-07]
+  - slot: slot_language_citation_note
+    layout: proposal_language
+    source: static
+    text: "Every quote cites the WL id of the win loss record it was taken from."

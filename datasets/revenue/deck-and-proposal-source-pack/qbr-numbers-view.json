@@ -1,0 +1,447 @@
+{
+  "generated_from_spec": "REV-10",
+  "as_of": "2026-03-16",
+  "period": {
+    "start": "2026-01-01",
+    "end": "2026-03-31"
+  },
+  "source": "CORE-03 crm-seed-dataset opportunities.csv",
+  "stage_column_convention": "every stage in this view is read from the opportunities.csv stage column as of 2026-03-16, not reconstructed from stage_history.csv",
+  "open_rule": "an opportunity is open when its stage is neither Closed Won nor Closed Lost",
+  "declared_weights": {
+    "version": "v1",
+    "policy": "declared, not measured",
+    "weights": {
+      "Prospecting": "0.10",
+      "Qualification": "0.25",
+      "Proposal": "0.50",
+      "Negotiation": "0.75"
+    }
+  },
+  "figures": [
+    {
+      "figure_id": "QF-01",
+      "section": "pipeline_by_stage",
+      "label": "Prospecting open opportunities",
+      "value": 11,
+      "unit": "count",
+      "opportunity_ids": [
+        "opp-co-140-01",
+        "opp-co-141-01",
+        "opp-co-142-01",
+        "opp-co-144-01",
+        "opp-co-145-01",
+        "opp-co-149-01",
+        "opp-co-153-01",
+        "opp-co-157-01",
+        "opp-co-159-01",
+        "opp-co-164-01",
+        "opp-co-165-01"
+      ],
+      "derivation": "count of CORE-03 crm-seed-dataset opportunities.csv rows whose stage column reads Prospecting as of 2026-03-16; an opportunity is open when its stage is neither Closed Won nor Closed Lost"
+    },
+    {
+      "figure_id": "QF-02",
+      "section": "pipeline_by_stage",
+      "label": "Prospecting open pipeline",
+      "value": "1548047.00",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-140-01",
+        "opp-co-141-01",
+        "opp-co-142-01",
+        "opp-co-144-01",
+        "opp-co-145-01",
+        "opp-co-149-01",
+        "opp-co-153-01",
+        "opp-co-157-01",
+        "opp-co-159-01",
+        "opp-co-164-01",
+        "opp-co-165-01"
+      ],
+      "derivation": "sum of the amount column over the Prospecting rows named in opportunity_ids"
+    },
+    {
+      "figure_id": "QF-03",
+      "section": "pipeline_by_stage",
+      "label": "Prospecting weighted pipeline",
+      "value": "154804.70",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-140-01",
+        "opp-co-141-01",
+        "opp-co-142-01",
+        "opp-co-144-01",
+        "opp-co-145-01",
+        "opp-co-149-01",
+        "opp-co-153-01",
+        "opp-co-157-01",
+        "opp-co-159-01",
+        "opp-co-164-01",
+        "opp-co-165-01"
+      ],
+      "derivation": "the Prospecting open pipeline multiplied by the declared v1 weight 0.10"
+    },
+    {
+      "figure_id": "QF-04",
+      "section": "pipeline_by_stage",
+      "label": "Qualification open opportunities",
+      "value": 7,
+      "unit": "count",
+      "opportunity_ids": [
+        "opp-co-122-01",
+        "opp-co-125-01",
+        "opp-co-150-01",
+        "opp-co-160-01",
+        "opp-co-161-01",
+        "opp-co-166-01",
+        "opp-co-169-01"
+      ],
+      "derivation": "count of CORE-03 crm-seed-dataset opportunities.csv rows whose stage column reads Qualification as of 2026-03-16; an opportunity is open when its stage is neither Closed Won nor Closed Lost"
+    },
+    {
+      "figure_id": "QF-05",
+      "section": "pipeline_by_stage",
+      "label": "Qualification open pipeline",
+      "value": "775672.00",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-122-01",
+        "opp-co-125-01",
+        "opp-co-150-01",
+        "opp-co-160-01",
+        "opp-co-161-01",
+        "opp-co-166-01",
+        "opp-co-169-01"
+      ],
+      "derivation": "sum of the amount column over the Qualification rows named in opportunity_ids"
+    },
+    {
+      "figure_id": "QF-06",
+      "section": "pipeline_by_stage",
+      "label": "Qualification weighted pipeline",
+      "value": "193918.00",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-122-01",
+        "opp-co-125-01",
+        "opp-co-150-01",
+        "opp-co-160-01",
+        "opp-co-161-01",
+        "opp-co-166-01",
+        "opp-co-169-01"
+      ],
+      "derivation": "the Qualification open pipeline multiplied by the declared v1 weight 0.25"
+    },
+    {
+      "figure_id": "QF-07",
+      "section": "pipeline_by_stage",
+      "label": "Proposal open opportunities",
+      "value": 8,
+      "unit": "count",
+      "opportunity_ids": [
+        "opp-co-143-01",
+        "opp-co-146-01",
+        "opp-co-151-01",
+        "opp-co-155-01",
+        "opp-co-158-01",
+        "opp-co-162-01",
+        "opp-co-163-01",
+        "opp-co-167-01"
+      ],
+      "derivation": "count of CORE-03 crm-seed-dataset opportunities.csv rows whose stage column reads Proposal as of 2026-03-16; an opportunity is open when its stage is neither Closed Won nor Closed Lost"
+    },
+    {
+      "figure_id": "QF-08",
+      "section": "pipeline_by_stage",
+      "label": "Proposal open pipeline",
+      "value": "1092098.00",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-143-01",
+        "opp-co-146-01",
+        "opp-co-151-01",
+        "opp-co-155-01",
+        "opp-co-158-01",
+        "opp-co-162-01",
+        "opp-co-163-01",
+        "opp-co-167-01"
+      ],
+      "derivation": "sum of the amount column over the Proposal rows named in opportunity_ids"
+    },
+    {
+      "figure_id": "QF-09",
+      "section": "pipeline_by_stage",
+      "label": "Proposal weighted pipeline",
+      "value": "546049.00",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-143-01",
+        "opp-co-146-01",
+        "opp-co-151-01",
+        "opp-co-155-01",
+        "opp-co-158-01",
+        "opp-co-162-01",
+        "opp-co-163-01",
+        "opp-co-167-01"
+      ],
+      "derivation": "the Proposal open pipeline multiplied by the declared v1 weight 0.50"
+    },
+    {
+      "figure_id": "QF-10",
+      "section": "pipeline_by_stage",
+      "label": "Negotiation open opportunities",
+      "value": 9,
+      "unit": "count",
+      "opportunity_ids": [
+        "opp-co-102-01",
+        "opp-co-103-01",
+        "opp-co-147-01",
+        "opp-co-148-01",
+        "opp-co-152-01",
+        "opp-co-154-01",
+        "opp-co-156-01",
+        "opp-co-168-01",
+        "opp-co-170-01"
+      ],
+      "derivation": "count of CORE-03 crm-seed-dataset opportunities.csv rows whose stage column reads Negotiation as of 2026-03-16; an opportunity is open when its stage is neither Closed Won nor Closed Lost"
+    },
+    {
+      "figure_id": "QF-11",
+      "section": "pipeline_by_stage",
+      "label": "Negotiation open pipeline",
+      "value": "1496814.00",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-102-01",
+        "opp-co-103-01",
+        "opp-co-147-01",
+        "opp-co-148-01",
+        "opp-co-152-01",
+        "opp-co-154-01",
+        "opp-co-156-01",
+        "opp-co-168-01",
+        "opp-co-170-01"
+      ],
+      "derivation": "sum of the amount column over the Negotiation rows named in opportunity_ids"
+    },
+    {
+      "figure_id": "QF-12",
+      "section": "pipeline_by_stage",
+      "label": "Negotiation weighted pipeline",
+      "value": "1122610.50",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-102-01",
+        "opp-co-103-01",
+        "opp-co-147-01",
+        "opp-co-148-01",
+        "opp-co-152-01",
+        "opp-co-154-01",
+        "opp-co-156-01",
+        "opp-co-168-01",
+        "opp-co-170-01"
+      ],
+      "derivation": "the Negotiation open pipeline multiplied by the declared v1 weight 0.75"
+    },
+    {
+      "figure_id": "QF-13",
+      "section": "pipeline_totals",
+      "label": "Open opportunities",
+      "value": 35,
+      "unit": "count",
+      "opportunity_ids": [
+        "opp-co-102-01",
+        "opp-co-103-01",
+        "opp-co-122-01",
+        "opp-co-125-01",
+        "opp-co-140-01",
+        "opp-co-141-01",
+        "opp-co-142-01",
+        "opp-co-143-01",
+        "opp-co-144-01",
+        "opp-co-145-01",
+        "opp-co-146-01",
+        "opp-co-147-01",
+        "opp-co-148-01",
+        "opp-co-149-01",
+        "opp-co-150-01",
+        "opp-co-151-01",
+        "opp-co-152-01",
+        "opp-co-153-01",
+        "opp-co-154-01",
+        "opp-co-155-01",
+        "opp-co-156-01",
+        "opp-co-157-01",
+        "opp-co-158-01",
+        "opp-co-159-01",
+        "opp-co-160-01",
+        "opp-co-161-01",
+        "opp-co-162-01",
+        "opp-co-163-01",
+        "opp-co-164-01",
+        "opp-co-165-01",
+        "opp-co-166-01",
+        "opp-co-167-01",
+        "opp-co-168-01",
+        "opp-co-169-01",
+        "opp-co-170-01"
+      ],
+      "derivation": "count of CORE-03 crm-seed-dataset opportunities.csv rows open as of 2026-03-16; an opportunity is open when its stage is neither Closed Won nor Closed Lost"
+    },
+    {
+      "figure_id": "QF-14",
+      "section": "pipeline_totals",
+      "label": "Open pipeline",
+      "value": "4912631.00",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-102-01",
+        "opp-co-103-01",
+        "opp-co-122-01",
+        "opp-co-125-01",
+        "opp-co-140-01",
+        "opp-co-141-01",
+        "opp-co-142-01",
+        "opp-co-143-01",
+        "opp-co-144-01",
+        "opp-co-145-01",
+        "opp-co-146-01",
+        "opp-co-147-01",
+        "opp-co-148-01",
+        "opp-co-149-01",
+        "opp-co-150-01",
+        "opp-co-151-01",
+        "opp-co-152-01",
+        "opp-co-153-01",
+        "opp-co-154-01",
+        "opp-co-155-01",
+        "opp-co-156-01",
+        "opp-co-157-01",
+        "opp-co-158-01",
+        "opp-co-159-01",
+        "opp-co-160-01",
+        "opp-co-161-01",
+        "opp-co-162-01",
+        "opp-co-163-01",
+        "opp-co-164-01",
+        "opp-co-165-01",
+        "opp-co-166-01",
+        "opp-co-167-01",
+        "opp-co-168-01",
+        "opp-co-169-01",
+        "opp-co-170-01"
+      ],
+      "derivation": "sum of the amount column over every open row named in opportunity_ids"
+    },
+    {
+      "figure_id": "QF-15",
+      "section": "pipeline_totals",
+      "label": "Weighted pipeline",
+      "value": "2017382.20",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-102-01",
+        "opp-co-103-01",
+        "opp-co-122-01",
+        "opp-co-125-01",
+        "opp-co-140-01",
+        "opp-co-141-01",
+        "opp-co-142-01",
+        "opp-co-143-01",
+        "opp-co-144-01",
+        "opp-co-145-01",
+        "opp-co-146-01",
+        "opp-co-147-01",
+        "opp-co-148-01",
+        "opp-co-149-01",
+        "opp-co-150-01",
+        "opp-co-151-01",
+        "opp-co-152-01",
+        "opp-co-153-01",
+        "opp-co-154-01",
+        "opp-co-155-01",
+        "opp-co-156-01",
+        "opp-co-157-01",
+        "opp-co-158-01",
+        "opp-co-159-01",
+        "opp-co-160-01",
+        "opp-co-161-01",
+        "opp-co-162-01",
+        "opp-co-163-01",
+        "opp-co-164-01",
+        "opp-co-165-01",
+        "opp-co-166-01",
+        "opp-co-167-01",
+        "opp-co-168-01",
+        "opp-co-169-01",
+        "opp-co-170-01"
+      ],
+      "derivation": "each open row's amount multiplied by the declared v1 weight of its own stage, summed"
+    },
+    {
+      "figure_id": "QF-16",
+      "section": "period_outcomes",
+      "label": "Closed Lost opportunities in period",
+      "value": 1,
+      "unit": "count",
+      "opportunity_ids": [
+        "opp-co-124-01"
+      ],
+      "derivation": "count of rows whose stage column reads Closed Lost and whose close_date falls inside 2026-01-01 to 2026-03-31"
+    },
+    {
+      "figure_id": "QF-17",
+      "section": "period_outcomes",
+      "label": "Closed Lost amount in period",
+      "value": "27161.00",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-124-01"
+      ],
+      "derivation": "sum of the amount column over the rows named in opportunity_ids"
+    },
+    {
+      "figure_id": "QF-18",
+      "section": "period_outcomes",
+      "label": "Closed Won opportunities in period",
+      "value": 0,
+      "unit": "count",
+      "opportunity_ids": [],
+      "derivation": "no CORE-03 crm-seed-dataset opportunities.csv row reads Closed Won with a close_date inside 2026-01-01 to 2026-03-31, so this figure is zero and its opportunity_ids list is empty; the zero is stated rather than omitted"
+    },
+    {
+      "figure_id": "QF-19",
+      "section": "account_review",
+      "label": "Amberfield Logistics open opportunities",
+      "value": 1,
+      "unit": "count",
+      "opportunity_ids": [
+        "opp-co-102-01"
+      ],
+      "derivation": "count of open rows whose account_id is co-102; an opportunity is open when its stage is neither Closed Won nor Closed Lost"
+    },
+    {
+      "figure_id": "QF-20",
+      "section": "account_review",
+      "label": "Amberfield Logistics open pipeline",
+      "value": "480000.00",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-102-01"
+      ],
+      "derivation": "sum of the amount column over the rows named in opportunity_ids"
+    },
+    {
+      "figure_id": "QF-21",
+      "section": "account_review",
+      "label": "Amberfield Logistics weighted pipeline",
+      "value": "360000.00",
+      "unit": "USD",
+      "opportunity_ids": [
+        "opp-co-102-01"
+      ],
+      "derivation": "each open co-102 row's amount multiplied by the declared v1 weight of its own stage, summed"
+    }
+  ]
+}

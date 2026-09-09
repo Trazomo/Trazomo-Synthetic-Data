@@ -69,6 +69,8 @@ import * as rev01 from "./rev-01-consent-suppression.js";
 import * as rev03 from "./rev-03-signal-events.js";
 import * as rev07 from "./rev-07-object-model.js";
 import * as rev08 from "./rev-08-campaign-segments.js";
+import * as rev09 from "./rev-09-play-traces.js";
+import * as rev10 from "./rev-10-deck-source-pack.js";
 import * as rev11 from "./rev-11-policy-scenarios.js";
 import * as smb01 from "./smb-01-reliability-drill.js";
 import * as smb02 from "./smb-02-client-record-template.js";
@@ -94,7 +96,7 @@ export const PROGRAM_GENERATOR_IDS = [
   hr17.id, hr18.id,
   lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
   ops04.id, ops05.id, ops06.id, ops07.id, ops08.id, ops09.id, ops11.id, ops12.id, ops13.id,
-  rev01.id, rev03.id, rev07.id, rev08.id, rev11.id,
+  rev01.id, rev03.id, rev07.id, rev08.id, rev09.id, rev10.id, rev11.id,
   smb01.id, smb02.id, smb03.id, smb04.id, smb05.id,
 ];
 
@@ -109,7 +111,7 @@ const REGISTRY = new Map(
     hr17, hr18,
     lgl07, lgl11, lgl18, lgl20, lgl21, lgl22,
     ops04, ops05, ops06, ops07, ops08, ops09, ops11, ops12, ops13,
-    rev01, rev03, rev07, rev08, rev11,
+    rev01, rev03, rev07, rev08, rev09, rev10, rev11,
     smb01, smb02, smb03, smb04, smb05,
     test01,
   ].map((mod) => [mod.id, mod])
