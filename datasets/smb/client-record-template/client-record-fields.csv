@@ -28,12 +28,12 @@ stage_label,stage_event,5,string,yes,,Deposit invoiced,"Readable name for the st
 event_date,stage_event,6,date,yes,,2026-02-09,The date the stage happened. Non decreasing along sequence.
 status,stage_event,7,enum,yes,complete|pending,complete,Whether the stage is complete or still pending at the record's as_of_date.
 previous_stage_id,stage_event,8,string,no,,STG-2026-0105,"The stage_id of the preceding stage, empty on the first stage only, which is what makes the chain one connected record."
-invoice_id,stage_event,9,string,no,,INV-2026-0101,"The invoice this stage issues, and empty on a stage that issues none."
+invoice_id,stage_event,9,string,no,,INV-LDB-2026-101,"The invoice this stage issues, and empty on a stage that issues none."
 amount_usd,stage_event,10,money_usd,no,,29700.00,"The amount the invoice this stage issues carries, to the cent, and empty where the stage issues none."
 source_artifact,stage_event,11,string,yes,,SMB-04,The artifact this stage's facts are taken from.
 source_row_id,stage_event,12,string,yes,,STG-2026-0106,The row of source_artifact this stage's facts are taken from.
-payment_id,payment,1,string,yes,,PAY-2026-0101,"Identifier for this payment log entry, unique inside the record and across records."
-invoice_id,payment,2,string,yes,,INV-2026-0101,"The invoice this entry settles, matching the invoice_id exactly one stage issues."
+payment_id,payment,1,string,yes,,PAY-LDB-2026-101,"Identifier for this payment log entry, unique inside the record and across records."
+invoice_id,payment,2,string,yes,,INV-LDB-2026-101,"The invoice this entry settles, matching the invoice_id exactly one stage issues."
 stage_id,payment,3,string,yes,,STG-2026-0106,The stage that issued the invoice.
 invoice_date,payment,4,date,yes,,2026-02-09,"The date the invoice was issued, equal to the issuing stage's event_date."
 invoice_amount_usd,payment,5,money_usd,yes,,29700.00,"The invoiced amount in US dollars, to the cent."

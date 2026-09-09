@@ -148,7 +148,7 @@ const STAGE_EVENT_FIELD_DEFS = [
     "Whether the stage is complete or still pending at the record's as_of_date."],
   ["previous_stage_id", "string", "no", null, "STG-2026-0105",
     "The stage_id of the preceding stage, empty on the first stage only, which is what makes the chain one connected record."],
-  ["invoice_id", "string", "no", null, "INV-2026-0101",
+  ["invoice_id", "string", "no", null, "INV-LDB-2026-101",
     "The invoice this stage issues, and empty on a stage that issues none."],
   ["amount_usd", "money_usd", "no", null, "29700.00",
     "The amount the invoice this stage issues carries, to the cent, and empty where the stage issues none."],
@@ -159,9 +159,9 @@ const STAGE_EVENT_FIELD_DEFS = [
 ];
 
 const PAYMENT_FIELD_DEFS = [
-  ["payment_id", "string", "yes", null, "PAY-2026-0101",
+  ["payment_id", "string", "yes", null, "PAY-LDB-2026-101",
     "Identifier for this payment log entry, unique inside the record and across records."],
-  ["invoice_id", "string", "yes", null, "INV-2026-0101",
+  ["invoice_id", "string", "yes", null, "INV-LDB-2026-101",
     "The invoice this entry settles, matching the invoice_id exactly one stage issues."],
   ["stage_id", "string", "yes", null, "STG-2026-0106",
     "The stage that issued the invoice."],
