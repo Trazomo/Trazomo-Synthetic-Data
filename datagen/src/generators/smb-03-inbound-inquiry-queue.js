@@ -187,18 +187,28 @@ export function normalizeDescription(text) {
  * `datasets/revenue/signal-event-logs/` (BLOCKER 1).
  *
  * N4 (re-review) asked to extend this list with ten more in-universe company
- * names already emitted under `datasets/`: Bramblecourt, Amberline,
- * Gladewick, Copperfen, Windrow, Northfield, Elmstead, Braxmoor, Harrowfen,
- * Brightfen. Nine are clean. `Bramblecourt` is not: it collides with the
- * generic street-type suffix "Court" in co-131's pinned address "327
- * Havershill Court" (T-C9), so adding it breaks
- * `SMB-02, SMB-04, SMB-05: no generated address echoes a canon company name
- * (U9)`. Per the fixer instruction to stop rather than re-draw pinned data on
- * a name-list collision, none of the ten were added; this needs a human call
- * (exclude Bramblecourt, or teach the screen to ignore bare STREET_TYPES
- * words) before N4 can land. See the fixer's report for 2026-09-09.
+ * names already emitted under `datasets/`: ten candidates were screened for
+ * the pin on 2026-09-09 and nine landed below. `Bramblecourt` is excluded by
+ * controller ruling: the bidirectional word screen would read the generic
+ * street-type suffix "Court" in co-131's pinned address "327 Havershill
+ * Court" (a T-C9 join constant) as an echo of it, a false positive on a
+ * generic token. The alternative (exempting bare street-type words from the
+ * containment check) is recorded for the C2 data plan to weigh; until then a
+ * future draw of "Bramblecourt" itself would pass this screen unflagged,
+ * which is accepted and recorded here.
  */
-export const DATASET_NAME_ECHOES = ["Quillhaven"];
+export const DATASET_NAME_ECHOES = [
+  "Quillhaven",
+  "Amberline",
+  "Gladewick",
+  "Copperfen",
+  "Windrow",
+  "Northfield",
+  "Elmstead",
+  "Braxmoor",
+  "Harrowfen",
+  "Brightfen",
+];
 
 /**
  * Every word of four characters or more that a canon company name uses, plus
