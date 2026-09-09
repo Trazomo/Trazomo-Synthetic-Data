@@ -312,6 +312,26 @@ for (const fixture of RECORDS) {
     }
   });
 
+  test(`${label}: invoice_id and payment_id are LDB-namespaced, not finance's INV-2026-/PAY-2026- ids (N1, SHOULD-FIX 1)`, () => {
+    for (const stage of stages) {
+      if (stage.invoice_id === "") continue;
+      assert.match(
+        stage.invoice_id, /^INV-LDB-2026-\d{3}$/,
+        `${label}.stages[${stage.stage_id}].invoice_id ${stage.invoice_id} is not INV-LDB-2026-NNN`
+      );
+    }
+    for (const p of payments) {
+      assert.match(
+        p.invoice_id, /^INV-LDB-2026-\d{3}$/,
+        `${label}.payment_log[${p.payment_id}].invoice_id ${p.invoice_id} is not INV-LDB-2026-NNN`
+      );
+      assert.match(
+        p.payment_id, /^PAY-LDB-2026-\d{3}$/,
+        `${label}.payment_log[${p.payment_id}].payment_id is not PAY-LDB-2026-NNN`
+      );
+    }
+  });
+
   test(`${label}: the calendar ties out (T-C10, T-C11)`, () => {
     assert.equal(record.client.payment_terms, `net_${fixture.termDays}`);
     for (const p of payments) {

@@ -57,8 +57,9 @@ export function buildOfficeRefreshRecord({ canon, rng }) {
       // Byte-consistent with the universe: this is co-002's one leased
       // premises, Suite 600 on the fifth and sixth floors of the building at
       // this address (artifacts/CORE-01, LGL-02, LGL-03, LGL-04, LGL-05,
-      // FIN-12; 16 files). SMB-05 does not seat a second co-002 premises
-      // (BLOCKER 1).
+      // FIN-12; carried verbatim by 15 of those files, and in its
+      // notice-block form by the sixteenth, LGL-05). SMB-05 does not seat a
+      // second co-002 premises (BLOCKER 1).
       property_address: "1450 Halverson Quay, Suite 600, Wilmington, Delaware 19801",
       service_area: "in_area",
       source_channel: rng("client").pick(["phone", "email"]),

@@ -185,6 +185,18 @@ export function normalizeDescription(text) {
  * list is auditable in one place: `Quillhaven` ships as `Quillhaven Partners`
  * in `datasets/core/crm-seed-dataset/` and as `Quillhaven Intent` in
  * `datasets/revenue/signal-event-logs/` (BLOCKER 1).
+ *
+ * N4 (re-review) asked to extend this list with ten more in-universe company
+ * names already emitted under `datasets/`: Bramblecourt, Amberline,
+ * Gladewick, Copperfen, Windrow, Northfield, Elmstead, Braxmoor, Harrowfen,
+ * Brightfen. Nine are clean. `Bramblecourt` is not: it collides with the
+ * generic street-type suffix "Court" in co-131's pinned address "327
+ * Havershill Court" (T-C9), so adding it breaks
+ * `SMB-02, SMB-04, SMB-05: no generated address echoes a canon company name
+ * (U9)`. Per the fixer instruction to stop rather than re-draw pinned data on
+ * a name-list collision, none of the ten were added; this needs a human call
+ * (exclude Bramblecourt, or teach the screen to ignore bare STREET_TYPES
+ * words) before N4 can land. See the fixer's report for 2026-09-09.
  */
 export const DATASET_NAME_ECHOES = ["Quillhaven"];
 

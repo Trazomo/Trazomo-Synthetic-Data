@@ -46,8 +46,8 @@ section 8 defaults (U1 to U9) ride to Salvador's review.
   stage_id, payment_id, invoice_id or event_date shared with SMB-04. Its
   `property_address` is byte-consistent with the universe's one seated co-002
   premises (`1450 Halverson Quay, Suite 600, Wilmington, Delaware 19801`,
-  already carried by 16 other files) rather than a second, contradicting
-  premises.
+  already carried verbatim by 15 other files, and in its notice-block form by
+  a sixteenth) rather than a second, contradicting premises.
 - **SMB-01 reliability-drill-client-updates**: 16 AI-proposed readings of the
   SMB-04 record, `DRL-01` upward, one per row of a clean pool computed by rule
   from SMB-04's own bytes so the record's planted disagreement can never
