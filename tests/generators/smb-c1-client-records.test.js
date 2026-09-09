@@ -424,6 +424,33 @@ test("SMB-04's chain opens on the SMB-03 queue row it cites (T-C9)", () => {
   }
 });
 
+test("SMB-02, SMB-04, SMB-05: no generated address echoes a canon company name (U9)", () => {
+  const canonWords = new Set(
+    [...canon.values()]
+      .flatMap((c) => c.name.toLowerCase().split(/[^a-z0-9]+/))
+      .filter((word) => word.length >= 4)
+  );
+  const addresses = [
+    okafor.client.property_address,
+    office.client.property_address,
+    ...dictionary.rows.filter((r) => r.field_name === "property_address").map((r) => r.example_value),
+  ];
+  assert.equal(addresses.length, 3, "an address stopped being emitted, so this screen proves nothing");
+  for (const address of addresses) {
+    assert.notEqual(address, "", "an address is empty");
+    for (const word of address.toLowerCase().split(/[^a-z0-9]+/)) {
+      if (word.length < 4) continue;
+      assert.ok(
+        ![...canonWords].some((canonWord) => word.includes(canonWord) || canonWord.includes(word)),
+        `the address "${address}" echoes a canon company name in "${word}"`
+      );
+    }
+    for (const surname of ["Larkspur", "Ashgrove", "Millgate", "Whitlock", "Ravenscroft"]) {
+      assert.ok(!address.includes(surname), `the address "${address}" carries the excluded surname ${surname}`);
+    }
+  }
+});
+
 test("SMB-05 did not come through the queue, so its first stage cites itself", () => {
   assert.equal(office.client.inquiry_id, "");
   assert.equal(office.stages[0].source_artifact, "SMB-05");

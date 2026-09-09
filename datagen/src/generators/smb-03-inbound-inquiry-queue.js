@@ -70,11 +70,16 @@ export const EXCLUDED_SURNAMES = ["Larkspur", "Ashgrove", "Millgate", "Whitlock"
 
 // ------------------------------------------------------------------ vocabulary
 
-/** Obviously fictional street names, screened against canon/companies.md. */
-const STREET_NAMES = [
+/**
+ * Obviously fictional street names. Screened against canon/companies.md at build
+ * time by `assertNoCanonEcho`, the same screen the household surnames pass, so a
+ * later addition that echoes a canon company fails generation rather than
+ * shipping a false grep hit inside the pack.
+ */
+export const STREET_NAMES = [
   "Thornhollow", "Quillhaven", "Brackenmoor", "Wrenhollow", "Alderfen",
-  "Copperstile", "Dunmarrow", "Elmhollow", "Fernwhistle", "Gallowfen",
-  "Harrowmere", "Inglemoor", "Kelverstone", "Lowmarsh", "Netherfield",
+  "Copperstile", "Havershill", "Elmhollow", "Fernwhistle", "Gallowfen",
+  "Harrowmere", "Inglemoor", "Kelverstone", "Bellowdale", "Netherfield",
   "Orchardmere", "Pinewhistle", "Rushmoor",
 ];
 const STREET_TYPES = ["Lane", "Street", "Road", "Way", "Court", "Terrace"];
@@ -169,21 +174,50 @@ export function normalizeDescription(text) {
   return value.replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
 }
 
-/** Surnames the household pool may use: the shared pool less the five collisions. */
-export function availableSurnames(canon) {
-  const canonWords = new Set();
+/** Every word of four characters or more that a canon company name uses. */
+export function canonWords(canon) {
+  const words = new Set();
   for (const entry of canon.values()) {
     for (const word of entry.name.toLowerCase().split(/[^a-z0-9]+/)) {
-      if (word !== "") canonWords.add(word);
+      if (word.length >= 4) words.add(word);
     }
   }
+  return words;
+}
+
+/** Surnames the household pool may use: the shared pool less the five collisions. */
+export function availableSurnames(canon) {
+  const words = canonWords(canon);
   const available = LAST_NAMES.filter(
-    (surname) => !EXCLUDED_SURNAMES.includes(surname) && !canonWords.has(surname.toLowerCase())
+    (surname) => !EXCLUDED_SURNAMES.includes(surname) && !words.has(surname.toLowerCase())
   );
   if (available.length < GENERATED_HOUSEHOLDS) {
     throw new Error(`${id}: only ${available.length} surnames survive the canon screen, need ${GENERATED_HOUSEHOLDS}`);
   }
   return available;
+}
+
+/**
+ * A generated string may not echo a canon company name, in either direction.
+ * "Lowmarsh Road" is not "The Marsh household", but it is a false grep hit
+ * inside a pack whose whole point is that a cross-track join resolves, so the
+ * screen is enforced here rather than remembered in a review checklist.
+ */
+export function assertNoCanonEcho(label, values, canon) {
+  const words = canonWords(canon);
+  for (const value of values) {
+    const low = value.toLowerCase();
+    for (const word of words) {
+      if (low.includes(word) || word.includes(low)) {
+        throw new Error(`${id}: the ${label} "${value}" echoes the canon company word "${word}"`);
+      }
+    }
+    for (const surname of EXCLUDED_SURNAMES) {
+      if (low.includes(surname.toLowerCase())) {
+        throw new Error(`${id}: the ${label} "${value}" carries the excluded surname "${surname}"`);
+      }
+    }
+  }
 }
 
 // ------------------------------------------------------------------- builder
@@ -201,6 +235,7 @@ export function buildInquiryQueue(rng, canon) {
 
   // Households. One seeded stream per logical group, so a change to the address
   // pool cannot move the surnames.
+  assertNoCanonEcho("street name", STREET_NAMES, canon);
   const surnames = rng("surnames").shuffle(availableSurnames(canon)).slice(0, GENERATED_HOUSEHOLDS);
   const addressRng = rng("addresses");
   const clients = new Map();
