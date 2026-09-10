@@ -703,6 +703,26 @@
             }
         },
         {
+            "id": "HR-05",
+            "name": "interviewer-calendars",
+            "track": "hr",
+            "type": "dataset",
+            "format": "ics + csv",
+            "generation": "deterministic",
+            "path": "datasets/hr/interviewer-calendars",
+            "files": [
+                "busy-intervals.csv",
+                "calendar-emp-0517.ics",
+                "calendar-emp-0574.ics",
+                "calendar-emp-0581.ics",
+                "panel-request.csv"
+            ],
+            "row_counts": {
+                "busy-intervals.csv": 270,
+                "panel-request.csv": 3
+            }
+        },
+        {
             "id": "HR-17",
             "name": "mixed-sensitivity-employee-dataset",
             "track": "hr",

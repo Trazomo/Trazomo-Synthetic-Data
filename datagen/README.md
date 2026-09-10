@@ -273,6 +273,7 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | REV-11 | policy-as-code-scenarios | fixture | seven-rule pre-send policy JSON plus five ground-truth scenarios spanning three outcomes and three subjects, targets resolved from REV-01 at build time |
 | HR-17 | mixed-sensitivity-employee-dataset | dataset | 40-row employee sensitivity extract CSV stratified by department, tier and lawful basis computed rather than declared from two published field classes (one record whose declared tier its own fields do not compute) |
 | HR-18 | hris-export | dataset | 5-file HRIS bundle (582-row roster, 8-row requisitions, 24-row case queue, 6-row permission tiers, JSON header) derived from CORE-04 and the frozen HR-01 register at build time (one case above its assignee's granted tier) |
+| HR-05 | interviewer-calendars | dataset | 3 panelist `.ics` calendars plus a 270-row busy-interval CSV and the 3-row panel request publishing the slot grammar, seats and interview dates derived from the frozen HR-01 register, HR-03 transcripts and HR-04 scorecards at build time (one panelist double booked across the proposed panel window) |
 
 **Not implemented yet**: every other `generation: deterministic` spec (the
 remaining FIN, REV, OPS, SMB, and the remaining HR, plus the remaining LGL
@@ -358,6 +359,13 @@ copy and asserts the generator's exported table still equals it.
 classes. The mapping reads `finance_system_role` and never `role_title`, so the
 one user who can both prepare and release comes out of the roster's own
 comma-valued cell rather than out of a draw made in the generator.
+
+## People and HR conventions
+
+HR-05's calendars are UTC and carry no timezone region, because a region would
+state a work location the HR pack deliberately does not carry. Business hours
+are 09:00 to 17:00 UTC on Monday to Friday and the slot grammar lives in
+`panel-request.csv`, not in a generator constant.
 
 ## Small-business conventions
 
