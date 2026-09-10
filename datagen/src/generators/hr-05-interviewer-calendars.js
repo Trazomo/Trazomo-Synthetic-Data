@@ -496,8 +496,9 @@ function readMirroredMeeting(meeting, seat) {
 /**
  * The mirror-set sweep: turns the frozen-layer predicate the spec and the plan
  * both state into a build-time pin rather than a per-document check alone.
- * Walks artifacts/*/*.md (top level, no build/ recursion) in a fixed, sorted
- * directory order; a file qualifies
+ * Walks the .md files one level below artifacts/ (each artifact directory's
+ * own files, no build/ recursion) in a fixed, sorted directory order; a file
+ * qualifies
  * when it carries a "- Date:" line, a "- Start time:" line and an attendee
  * bullet seating one of the three panel seats. The qualifying set must equal
  * MIRRORED_MEETINGS exactly: a later frozen document that starts, or stops,
