@@ -34,7 +34,7 @@
 //
 // No money, no percentage, no statistic, no work location and no timezone
 // region appears anywhere. UTC names no place, which is the reason it is UTC.
-import { readdirSync, readFileSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { toCsv } from "../csv.js";
 import { addDays, isWeekend, toEpochDay } from "../dates.js";
@@ -493,6 +493,49 @@ function readMirroredMeeting(meeting, seat) {
   return meeting;
 }
 
+/**
+ * The mirror-set sweep: turns the frozen-layer predicate the spec and the plan
+ * both state into a build-time pin rather than a per-document check alone.
+ * Walks artifacts/*.md in a fixed, sorted directory order; a file qualifies
+ * when it carries a "- Date:" line, a "- Start time:" line and an attendee
+ * bullet seating one of the three panel seats. The qualifying set must equal
+ * MIRRORED_MEETINGS exactly: a later frozen document that starts, or stops,
+ * qualifying fails the build loudly instead of shipping calendars that quietly
+ * disagree with the predicate the spec advertises.
+ */
+function sweepMirroredMeetings(seats) {
+  const artifactsDir = join(REPO_ROOT, "artifacts");
+  const qualifying = [];
+  for (const dir of readdirSync(artifactsDir).sort()) {
+    const dirPath = join(artifactsDir, dir);
+    if (!statSync(dirPath).isDirectory()) continue;
+    const names = readdirSync(dirPath)
+      .filter((name) => name.endsWith(".md"))
+      .sort();
+    for (const name of names) {
+      const filePath = join(dirPath, name);
+      const text = readText(filePath, `the frozen ${dir}/${name}`);
+      if (!/^- Date:/m.test(text)) continue;
+      if (!/^- Start time:/m.test(text)) continue;
+      const seatsAttendee = seats.some((seat) => text.includes(`  - ${seat.full_name} (${seat.role_title})`));
+      if (!seatsAttendee) continue;
+      qualifying.push(filePath);
+    }
+  }
+  qualifying.sort();
+  const expected = [...MIRRORED_MEETINGS.map((meeting) => meeting.file)].sort();
+  const qualifyingSet = new Set(qualifying);
+  const expectedSet = new Set(expected);
+  const unexpected = qualifying.filter((file) => !expectedSet.has(file));
+  const missing = expected.filter((file) => !qualifyingSet.has(file));
+  if (unexpected.length > 0 || missing.length > 0) {
+    fail(
+      "the mirror-set sweep over artifacts/*/*.md does not equal MIRRORED_MEETINGS. "
+      + `Unexpected: ${unexpected.join(", ") || "none"}. Missing: ${missing.join(", ") || "none"}.`
+    );
+  }
+}
+
 // --------------------------------------------------------------- the seats
 
 /**
@@ -631,6 +674,8 @@ function buildFrozenLayer({ seats, scorecards }) {
       source_artifact: "HR-03",
     });
   });
+
+  sweepMirroredMeetings(seats);
 
   const mirrorSeat = seatByRole.get(MIRRORED_MEETING_PANEL_ROLE);
   const meetings = MIRRORED_MEETINGS.map((meeting) => {
@@ -1137,14 +1182,15 @@ function assertPostConditions(built, files, spec) {
       if (file.content.includes(token)) fail(`HR-C3-T9: ${file.path} carries the candidate token "${token}"`);
     }
   }
-  if (spec?.files) {
-    for (const [path, columns] of Object.entries(spec.files)) {
-      const emitted = files.find((file) => file.path === path);
-      if (!emitted) fail(`HR-C3-T12: the spec lists ${path}, which is not emitted`);
-      const header = emitted.content.split("\n")[0].split(",");
-      if (header.length !== columns.length || header.some((cell, i) => cell !== columns[i])) {
-        fail(`HR-C3-T12: ${path}'s header does not equal the spec's own column list`);
-      }
+  if (!spec?.files) {
+    fail("HR-C3-T12: the spec carries no \"files\" block, so the emitted headers cannot be pinned against it");
+  }
+  for (const [path, columns] of Object.entries(spec.files)) {
+    const emitted = files.find((file) => file.path === path);
+    if (!emitted) fail(`HR-C3-T12: the spec lists ${path}, which is not emitted`);
+    const header = emitted.content.split("\n")[0].split(",");
+    if (header.length !== columns.length || header.some((cell, i) => cell !== columns[i])) {
+      fail(`HR-C3-T12: ${path}'s header does not equal the spec's own column list`);
     }
   }
   if (byId.size !== 3) fail("HR-C3-T4: the panel is not three seats");

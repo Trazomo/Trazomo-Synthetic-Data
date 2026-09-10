@@ -321,6 +321,9 @@ test("HR-C3-T2: the proposed panel window is the first slot the two clean diarie
   );
 
   // The two counterfactual readings the spec rejects, recomputed from the bytes.
+  // Restatement, not a check: line 318 already establishes the carrier is not
+  // free at the window, so this set can only be the carrier and cannot fail;
+  // the load-bearing sibling is the day-level arm below.
   const busyInside = [...spans.keys()].filter((employeeId) => !freeForSlot(spans.get(employeeId), window));
   assert.equal(busyInside.length, 1, "a rule counting panelists busy across the window returns 1 without seeing the double booking");
   const somethingThatDay = [...spans.keys()].filter((employeeId) =>
