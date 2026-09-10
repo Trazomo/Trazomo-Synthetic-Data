@@ -1124,7 +1124,7 @@ function assertPostConditions(built, files, spec) {
         }
       }
     }
-    if (file.content.includes("—")) fail(`HR-C3-T12: ${file.path} carries an em dash`);
+    if (file.content.includes("\u2014")) fail(`HR-C3-T12: ${file.path} carries an em dash`);
     if (/[$%]/.test(file.content)) fail(`HR-C3-T12: ${file.path} carries a money or percentage sign`);
     for (const domain of file.content.match(/[A-Za-z0-9.-]*\.example/g) ?? []) {
       if (domain !== UID_DOMAIN) fail(`HR-C3-T12: ${file.path} names the domain ${domain}`);

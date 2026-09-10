@@ -639,7 +639,7 @@ test("HR-C3-T11: each calendar holds exactly its own panelist's intervals, rende
 
 test("HR-C3-T12: the emitted bytes carry no em dash, no money, no percentage and no second example domain", () => {
   for (const file of files()) {
-    assert.ok(!file.content.includes("—"), `${file.path} carries an em dash`);
+    assert.ok(!file.content.includes("\u2014"), `${file.path} carries an em dash`);
     assert.ok(!file.content.includes("$"), `${file.path} carries a currency symbol`);
     assert.ok(!file.content.includes("%"), `${file.path} carries a percentage sign`);
     // The money screen runs per cell on the tables rather than over the raw
