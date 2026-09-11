@@ -1,0 +1,4 @@
+request_id,requisition_id,requisition_title,department,round_name,panel_role,seat_employee_id,seat_full_name,seat_role_title,seat_source_artifact,slot_minutes,slot_grid_minutes,business_hours_start,business_hours_end,time_zone,window_start_date,window_end_date,requested_by_employee_id,requested_on
+PNL-2026-0001,RQN-2026-0106,Program Manager,Operations,second round panel,recruiter-screen,EMP-0517,Sable Underhill,Recruiter,HR-01,60,30,09:00:00Z,17:00:00Z,UTC,2026-04-06,2026-04-24,EMP-0517,2026-04-03
+PNL-2026-0001,RQN-2026-0106,Program Manager,Operations,second round panel,hiring-manager,EMP-0574,Faro Fenmore,Operations Manager,HR-01,60,30,09:00:00Z,17:00:00Z,UTC,2026-04-06,2026-04-24,EMP-0517,2026-04-03
+PNL-2026-0001,RQN-2026-0106,Program Manager,Operations,second round panel,program-manager,EMP-0581,Lyric Norwich,Program Manager,HR-04,60,30,09:00:00Z,17:00:00Z,UTC,2026-04-06,2026-04-24,EMP-0517,2026-04-03

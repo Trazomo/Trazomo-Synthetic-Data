@@ -1,5 +1,42 @@
 # Changelog
 
+## 1.19.0
+
+**Drafted expecting `v1.19.0` and renumbered by the integrator at tag time if
+another cluster merges first: the tag is allocated in merge order and
+`v1.18.0` is the current tip.**
+
+People and HR cluster 3, interview execution and debrief. One artifact, one
+generator, one test, deterministic. The plan is
+`docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-3.md`; its
+section 9 defaults U-C3-1 to U-C3-10 ride to Salvador's freeze review, U-C3-1
+first, because the six interview clock times are the only facts in the cluster
+that are invented rather than derived and they become permanent the moment the
+bytes land. No byte changes under `datasets/` outside the new HR-05 directory,
+none under `canon/`, and none in the frozen HR-01, HR-02, HR-03 or HR-04
+directories this artifact reads.
+
+- **HR-05 interviewer-calendars**: three panelist calendars
+  (`calendar-emp-NNNN.ics`, the repo's first iCalendar output), a 270-row
+  `busy-intervals.csv` across the 35 business days from 2026-03-09 to
+  2026-04-24, and a 3-row `panel-request.csv` that publishes the whole
+  scheduling grammar as columns, so the proposed panel window is a pure
+  function of the shipped bytes rather than a number stated anywhere. The
+  three seats, the six interview dates and the two mirrored operations
+  meetings are read from the frozen HR-01 register, the HR-04 scorecards, the
+  HR-03 transcripts and the two OPS transcripts at build time behind
+  loud-throw shape pins, so a later amendment to any of them breaks
+  generation instead of shipping calendars that quietly disagree with the loop
+  they record. The frozen layer is placed before any seeded draw and the plant
+  seat's calendar is built last, after the window has been computed from the
+  other two, so the derivation is constructed rather than found by luck.
+  Exactly one panelist's own intervals contain an overlapping pair whose
+  intersection lies inside that window, and the other two are pairwise
+  disjoint. No candidate id, name or count appears in any of the five files,
+  and no attendee, location or timezone-region column exists to carry one.
+  Calendars are LF with no folded line and no `VTIMEZONE` block, a deliberate
+  deviation recorded in the spec entry.
+
 ## 1.18.0
 
 **Allocated in merge order at tag time: `v1.18.0`, after small-business
