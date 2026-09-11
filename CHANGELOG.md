@@ -2,10 +2,6 @@
 
 ## 1.19.0
 
-**Drafted expecting `v1.19.0` and renumbered by the integrator at tag time if
-another cluster merges first: the tag is allocated in merge order and
-`v1.18.0` is the current tip.**
-
 People and HR cluster 3, interview execution and debrief. One artifact, one
 generator, one test, deterministic. The plan is
 `docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-3.md`; its
