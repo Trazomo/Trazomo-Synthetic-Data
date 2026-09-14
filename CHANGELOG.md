@@ -29,7 +29,7 @@ and copies.
   connecting tissue between it and the capture spine lives in the corpus
   overview's citations instead.
 - **OPS-14 program-knowledge-corpus**: eight flat markdown files under
-  `artifacts/OPS-14/`, the repo's second `type: corpus` directory after CORE-05.
+  `artifacts/OPS-14/`, a flat `type: corpus` directory on the CORE-05 shape, an index named by the spec with its documents beside it.
   The index carries the source register, KB-01 to KB-07 in order, which is the
   corpus's single point of citation metadata, because three of its sources are
   byte-identical copies of `artifacts/OPS-01`, `artifacts/OPS-02` and
