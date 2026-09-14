@@ -234,12 +234,8 @@ function system(systemId) {
 // against and throws naming the number or the key that moved, because the next
 // person to see the error will be amending the frozen artifact.
 
-/**
- * The one frozen requisition whose target_start_date falls in the first week of
- * April 2026, selected by that predicate rather than by id. The generator
- * throws unless the predicate still resolves to exactly one row.
- */
-export function readStartingRequisition() {
+/** The frozen HR-01 register's own requisition list, read once and shared. */
+function readRequisitionRegister() {
   let parsed;
   try {
     parsed = JSON.parse(readFileSync(HR_01_REGISTER, "utf8"));
@@ -252,6 +248,35 @@ export function readStartingRequisition() {
   if (!Array.isArray(requisitions)) {
     throw new Error(`${E}: the HR-01 register carries no "requisitions" list`);
   }
+  return requisitions;
+}
+
+/**
+ * Every hiring manager of a frozen requisition carrying the given role title,
+ * read directly off the register rather than through readStartingRequisition
+ * (which resolves only the one requisition HR-06 derives its new hire from).
+ *
+ * Clause 9 (review F7): a departing employee whose own manager of record just
+ * filled the same role reads, joined against HR-01 or HR-18, as a backfill
+ * hired days before the resignation, a story no artifact intends.
+ */
+export function hiringManagersForRoleTitle(roleTitle) {
+  const requisitions = readRequisitionRegister();
+  return new Set(
+    requisitions
+      .filter((row) => row?.requisition_title === roleTitle)
+      .map((row) => row.hiring_manager_employee_id)
+      .filter((id) => typeof id === "string" && id !== "")
+  );
+}
+
+/**
+ * The one frozen requisition whose target_start_date falls in the first week of
+ * April 2026, selected by that predicate rather than by id. The generator
+ * throws unless the predicate still resolves to exactly one row.
+ */
+export function readStartingRequisition() {
+  const requisitions = readRequisitionRegister();
   const matches = requisitions.filter(
     (row) =>
       typeof row?.target_start_date === "string"
@@ -754,6 +779,7 @@ export function buildLifecycleCoordination() {
   const requisition = readStartingRequisition();
   const hr09 = readHr09Pair(roster);
   const caseParticipants = readCaseQueueParticipants(roster);
+  const backfillManagers = hiringManagersForRoleTitle(DEPARTING_ROLE_TITLE);
 
   const activeRow = (employeeId, what) => {
     const row = byId.get(employeeId);
@@ -766,7 +792,9 @@ export function buildLifecycleCoordination() {
   const fullName = (row) => `${row.first_name} ${row.last_name}`;
 
   // ---- people before content
-  const people = resolvePeople({ roster, active, byId, activeRow, requisition, caseParticipants, hr09 });
+  const people = resolvePeople({
+    roster, active, byId, activeRow, requisition, caseParticipants, hr09, backfillManagers,
+  });
 
   // ---- content
   const onboarding = buildOnboarding({ people, activeRow, fullName });
@@ -780,7 +808,7 @@ export function buildLifecycleCoordination() {
 
 // -------------------------------------------------------------- the people
 
-function resolvePeople({ roster, active, byId, activeRow, requisition, caseParticipants, hr09 }) {
+function resolvePeople({ roster, active, byId, activeRow, requisition, caseParticipants, hr09, backfillManagers }) {
   // The new hire: everything except the person is read off the frozen row.
   const hiringManager = activeRow(requisition.hiring_manager_employee_id, "the requisition's hiring manager");
   const recruiter = activeRow(requisition.recruiter_employee_id, "the requisition's recruiter");
@@ -836,8 +864,11 @@ function resolvePeople({ roster, active, byId, activeRow, requisition, caseParti
   const peopleOperations = drawByTitle("People", "People Operations Specialist", "onboarding-people-ops");
   const itSecurity = drawByTitle("IT & Security", "IT Administrator", "onboarding-it-owner");
 
-  // The departing employee: drawn against all eight clauses, none of them
-  // resolved anywhere outside this function.
+  // The departing employee: drawn against all nine clauses, none of them
+  // resolved anywhere outside this function. Clause 9 (review F7) excludes a
+  // candidate whose own manager of record just filled the same role title in
+  // the frozen HR-01 register, so a reader joining HR-01 or HR-18 to HR-07
+  // never sees a backfill hired days before the resignation.
   const tenureCutoff = monthsBefore(LAST_WORKING_DAY, DEPARTING_MINIMUM_TENURE_MONTHS);
   const departingPool = active
     .filter(
@@ -850,11 +881,12 @@ function resolvePeople({ roster, active, byId, activeRow, requisition, caseParti
         && !caseParticipants.has(row.employee_id)
         && row.finance_system_role === ""
         && !arc.has(row.employee_id)
+        && !backfillManagers.has(row.manager_employee_id)
     )
     .sort((a, b) => a.employee_id.localeCompare(b.employee_id));
   if (departingPool.length === 0) {
     throw new Error(
-      `${E}: no active roster row satisfies all eight departing-employee clauses, so the exit cannot be seated`
+      `${E}: no active roster row satisfies all nine departing-employee clauses, so the exit cannot be seated`
     );
   }
   const departing = createRng(STREAM, "departing").pick(departingPool);
