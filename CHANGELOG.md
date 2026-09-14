@@ -40,9 +40,10 @@ shape pin.
   frozen candidate log. Due dates are published as two columns, `due_basis` and
   a signed `due_offset_business_days`, so every one of the 29 recomputes from
   the start date. Exactly one instance row is overdue, incomplete and blocked by
-  a row that is itself incomplete: a readiness check People schedule two
-  business days before the start date, waiting on an access request another
-  team schedules for the day after it.
+  a row that is itself incomplete. The pair is structural rather than drawn:
+  People schedule the half of onboarding they control against the start date,
+  and the access approval they do not control runs on another team's own
+  clock.
 
 - **HR-07 offboarding-checklist-access-inventory**: a one-row `exit-record.csv`,
   a 34-row `access-grant-inventory.csv` covering the whole tenure so the set
