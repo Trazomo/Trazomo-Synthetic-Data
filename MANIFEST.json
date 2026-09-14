@@ -1092,6 +1092,51 @@
                 "client-record-co002-office-refresh.json"
             ],
             "row_counts": {}
+        },
+        {
+            "id": "SMB-08",
+            "name": "client-next-steps-checklist",
+            "track": "smb",
+            "type": "template",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/client-next-steps-checklist",
+            "files": [
+                "client-next-steps-checklist.csv"
+            ],
+            "row_counts": {
+                "client-next-steps-checklist.csv": 12
+            }
+        },
+        {
+            "id": "SMB-10",
+            "name": "intake-questionnaire",
+            "track": "smb",
+            "type": "form",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/intake-questionnaire",
+            "files": [
+                "intake-questionnaire.csv"
+            ],
+            "row_counts": {
+                "intake-questionnaire.csv": 18
+            }
+        },
+        {
+            "id": "SMB-11",
+            "name": "kickoff-checklist",
+            "track": "smb",
+            "type": "template",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/kickoff-checklist",
+            "files": [
+                "kickoff-checklist.csv"
+            ],
+            "row_counts": {
+                "kickoff-checklist.csv": 14
+            }
         }
     ],
     "specs": "specs/artifact-specs.yaml",

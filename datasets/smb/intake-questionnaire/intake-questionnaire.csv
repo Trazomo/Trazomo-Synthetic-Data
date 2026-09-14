@@ -1,0 +1,19 @@
+question_id,section,sequence,question_text,answer_type,required,client_canon_id,answer_text
+IQQ-LDB-01,scope_and_selections,1,Which areas of the home are in scope for this project?,single_select,yes,co-131,Kitchen and primary bath
+IQQ-LDB-02,scope_and_selections,2,What finish level are you aiming for overall?,single_select,yes,co-131,Mid range with a few upgrade pieces
+IQQ-LDB-03,scope_and_selections,3,Are there any fixtures or appliances you plan to keep and reuse?,free_text,no,co-131,"We are keeping the range and the dishwasher, and everything else is being replaced."
+IQQ-LDB-04,scope_and_selections,4,How many light fittings do you want replaced in total?,number,no,co-131,11
+IQQ-LDB-05,household_and_access,5,Who should we deal with on day to day questions during the work?,single_select,yes,co-131,The homeowner named on the contract
+IQQ-LDB-06,household_and_access,6,Are there days or hours when the crew should not be on site?,free_text,yes,co-131,"Weekdays after eight in the morning are fine and we would rather nobody worked Sundays. One thing you should know, my mother lives with us and uses a walker, so the hallway has to stay clear and the front step cannot be blocked at any point in the day."
+IQQ-LDB-07,household_and_access,7,How will the crew get into the property each morning?,single_select,yes,co-131,A key safe by the side door
+IQQ-LDB-08,household_and_access,8,Are there pets in the home the crew should know about?,free_text,no,co-131,One cat who stays upstairs during the day and must not get out through the front door.
+IQQ-LDB-09,household_and_access,9,Where can the crew park during the working day?,single_select,yes,co-131,"On the driveway, one vehicle at a time"
+IQQ-LDB-10,schedule_and_communication,10,What date suits you for the kickoff walkthrough?,date,yes,co-131,2026-02-16
+IQQ-LDB-11,schedule_and_communication,11,By what date will you have confirmed the finish selections?,date,yes,co-131,2026-02-27
+IQQ-LDB-12,schedule_and_communication,12,Who should receive the weekly project update?,free_text,yes,co-131,"Send it to me by email, and my partner handles the finish selections, so send the selection sheet to both of us."
+IQQ-LDB-13,schedule_and_communication,13,How often would you like a written update?,single_select,yes,co-131,Once a week
+IQQ-LDB-14,schedule_and_communication,14,How should we send documents that need a signature?,single_select,no,co-131,By email
+IQQ-LDB-15,site_conditions,15,Are there any known problems with the plumbing or the electrics we should expect?,free_text,yes,co-131,"The kitchen sockets trip when the kettle and the toaster run together, and the bath tap has dripped for about a year."
+IQQ-LDB-16,site_conditions,16,How old is the property in years?,number,no,co-131,62
+IQQ-LDB-17,site_conditions,17,Where can materials be stored on site?,free_text,yes,co-131,"The garage is empty and can hold deliveries, and the side gate is wide enough for a pallet."
+IQQ-LDB-18,site_conditions,18,Is there anything else we should know before work starts?,free_text,yes,co-131,"Nothing else comes to mind, and the last studio we used left the site tidy every evening, which we appreciated."
