@@ -1656,6 +1656,48 @@
             "build_files": [
                 "follow-up-email-thread.docx"
             ]
+        },
+        {
+            "id": "SMB-06",
+            "name": "approved-proposal-larkspur",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-06",
+            "source_files": [
+                "approved-proposal-larkspur.md"
+            ],
+            "build_files": [
+                "approved-proposal-larkspur.docx"
+            ]
+        },
+        {
+            "id": "SMB-07",
+            "name": "contract-template",
+            "type": "template",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-07",
+            "source_files": [
+                "contract-template.md"
+            ],
+            "build_files": [
+                "contract-template.docx"
+            ]
+        },
+        {
+            "id": "SMB-09",
+            "name": "welcome-pack-template",
+            "type": "template",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-09",
+            "source_files": [
+                "welcome-pack-template.md"
+            ],
+            "build_files": [
+                "welcome-pack-template.docx"
+            ]
         }
     ]
 }
