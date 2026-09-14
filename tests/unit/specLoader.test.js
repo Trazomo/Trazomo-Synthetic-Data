@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
+import { mkdtempSync, writeFileSync, rmSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { loadSpecs, SpecValidationError, trackDir, trackPrefix } from "../../datagen/src/specLoader.js";
@@ -665,7 +665,7 @@ test("loadSpecs: the five drafted cluster 2 SMB ids carry no columns and no file
   }
 });
 
-test("loadSpecs: all eleven cluster 2 SMB ids declare a period inside the small-business window", () => {
+test("loadSpecs: all eleven cluster 2 SMB ids declare a period, well-shaped and not backwards", () => {
   const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
   assert.equal(SMB_C2.length, 11);
   for (const id of SMB_C2) {
@@ -674,11 +674,52 @@ test("loadSpecs: all eleven cluster 2 SMB ids declare a period inside the small-
     assert.match(spec.period.start, /^\d{4}-\d{2}-\d{2}$/, `${id} period.start`);
     assert.match(spec.period.end, /^\d{4}-\d{2}-\d{2}$/, `${id} period.end`);
     assert.ok(spec.period.start <= spec.period.end, `${id} period runs backwards`);
-    // The cluster 2 arc opens on the proposal approval and closes at the same
-    // as-of date the two C1 records close at.
+  }
+});
+
+// specLoader.js's own reading of `period` is "the fiscal window the rows
+// cover" (SHOULD-FIX 4). A membership check against the cluster's two month
+// window passes on any value in a two month range and cannot fail on a period
+// with nothing behind it. The derived form below is falsifiable: for the two
+// cluster 2a ids whose own committed bytes carry an ISO date, every date in
+// those bytes has to sit inside the declared period; for the four ids with no
+// date-bearing bytes at all, the period is honestly "the window this template
+// belongs to" only if the artifact carries no ISO date to contradict it.
+const SMB_C2A_DATED_PATHS = {
+  "SMB-06": join(REPO_ROOT, "artifacts", "SMB-06", "approved-proposal-larkspur.md"),
+  "SMB-10": join(REPO_ROOT, "datasets", "smb", "intake-questionnaire", "intake-questionnaire.csv"),
+};
+const SMB_C2A_NO_DATE_PATHS = {
+  "SMB-07": join(REPO_ROOT, "artifacts", "SMB-07", "contract-template.md"),
+  "SMB-08": join(REPO_ROOT, "datasets", "smb", "client-next-steps-checklist", "client-next-steps-checklist.csv"),
+  "SMB-09": join(REPO_ROOT, "artifacts", "SMB-09", "welcome-pack-template.md"),
+  "SMB-11": join(REPO_ROOT, "datasets", "smb", "kickoff-checklist", "kickoff-checklist.csv"),
+};
+
+test("loadSpecs: cluster 2a's period values are true against the ISO dates the committed bytes actually carry", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const ISO = /\d{4}-\d{2}-\d{2}/g;
+
+  for (const [id, path] of Object.entries(SMB_C2A_DATED_PATHS)) {
+    const spec = byId.get(id);
+    const dates = (readFileSync(path, "utf8").match(ISO) ?? []).sort();
+    assert.ok(dates.length > 0, `${id} carries no ISO date; it belongs in the no-date list instead`);
     assert.ok(
-      spec.period.start >= "2026-02-02" && spec.period.end <= "2026-03-31",
-      `${id} period ${spec.period.start} to ${spec.period.end} sits outside the cluster 2 window`
+      dates[0] >= spec.period.start,
+      `${id} carries the date ${dates[0]}, before its own period.start ${spec.period.start}`
+    );
+    assert.ok(
+      dates.at(-1) <= spec.period.end,
+      `${id} carries the date ${dates.at(-1)}, after its own period.end ${spec.period.end}`
+    );
+  }
+
+  for (const [id, path] of Object.entries(SMB_C2A_NO_DATE_PATHS)) {
+    const dates = readFileSync(path, "utf8").match(ISO) ?? [];
+    assert.deepEqual(
+      dates, [],
+      `${id} is a template whose period is honest only as "the window this template belongs to";`
+      + ` it now carries the date(s) ${dates.join(", ")}, which makes that reading false`
     );
   }
 });
@@ -704,6 +745,42 @@ test("loadSpecs: the cluster 2 SMB entries name the one module that reads each o
   for (const id of ["SMB-07", "SMB-08", "SMB-09", "SMB-11"]) {
     assert.deepEqual(byId.get(id).canon_entities, [], `${id} is a template and names no entity`);
   }
+});
+
+// SHOULD-FIX 7. checkPlantedFeature can never return FAIL (fact 0.4), so a
+// planted_features string that states a cardinality the bytes contradict is
+// caught by nothing at `validate` time. The plan's section 2 replacement
+// blocks are pinned text; pin the three C2a lists byte exact against them
+// here, so a later edit to either the yaml or the plan shows up as a test
+// diff. Source: cluster-2.md section 2.1 (SMB-06), 2.2 (SMB-07) and 2.5
+// (SMB-10), after NIT 3's section-order wording swap.
+test("loadSpecs: the three C2a planted_features lists are byte exact against cluster-2.md section 2", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+
+  assert.deepEqual(byId.get("SMB-06").planted_features, [
+    "the approved proposal for the Okafor kitchen and primary bath renovation at 327 Havershill Court, approved 2 February 2026, priced as 12 line items against a 12 row rate basis appendix, one line to one rate, totalling 148,500.00 which is the contract value the client record carries and which the 20 / 30 / 30 / 20 draw schedule splits into 29,700.00, 44,550.00, 44,550.00 and 29,700.00",
+    "1 line item priced at a since-expired materials rate: exactly one line, the quartz countertop supply and fabrication line, is priced at a rate whose effective_through date of 2025-12-31 closed before the 2026-02-02 proposal date. Every other line's rate is current at that date",
+    "the rate basis makes the staleness findable but not obvious: four of the twelve rate rows carry a stated effective_through, three of them materials and one labour, and only one of the four closed before the proposal date, so a reader who greps for a closing date finds four and a reader who filters on the materials rate class finds three",
+    "every line item resolves to exactly one rate row and every rate row is cited by exactly one line item, and every line total is the quantity times the unit rate to the cent, so the bill is recomputable rather than asserted",
+    "no person is named: the studio side is the owner role, the client is the canon household The Okafor household, and the acceptance block carries a role rather than a signature",
+    "payments are described as terms and draws only: no processor, gateway, card network or bank product name appears in the payment schedule or anywhere else in the document",
+  ], "SMB-06's planted_features has drifted from cluster-2.md section 2.1");
+
+  assert.deepEqual(byId.get("SMB-07").planted_features, [
+    "a blank contract template, not a filled contract: 16 fields, each with a field id, a required flag and a placeholder token, listed in the template's own required-field list at the top and repeated as a body section in the same order. No client, no price, no date and no canon entity appears anywhere in the document",
+    "1 required field, the scope-change clause, left blank: exactly one field that the required-field list marks required carries no placeholder token and no text in its body section. Every other required field carries its token",
+    "the blank is a discrimination task, not a grep: three of the sixteen field sections carry an empty slot, and two of the three, dispute resolution and site access hours, are marked not required, so a rule that finds empty slots without reading the required column returns three and blocks on two fields the template was free to leave empty",
+    "twelve of the sixteen fields are required and four are optional, and the required-field list is the authority: a field's required flag is stated once, in that table, and the body never restates it",
+    "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, and never fills one from a working file",
+  ], "SMB-07's planted_features has drifted from cluster-2.md section 2.2");
+
+  assert.deepEqual(byId.get("SMB-10").planted_features, [
+    "18 intake questions and answers for the Okafor household, IQQ-LDB-01 upward in sequence order which is also file order, across four sections: scope and selections, household and access, schedule and communication, site conditions. Seven answers are free text, seven single select, two dates and two numbers, and no answer is empty",
+    "one answer volunteering sensitive information unprompted (mobility need affecting site access): exactly one free-text answer carries information outside the scope of its own question. The question asks which hours the crew should not be on site; the answer volunteers that a household member uses a walker and that the hallway and front step must stay clear, which is health information about a third party that nobody asked for and that needs minimal careful handling and must never be copied into general project notes",
+    "the volunteered answer hides inside a population of seven: seven of the eighteen answers are free text, so a reviewer who reads every free-text answer reads seven and has to judge six of them in scope",
+    "two answers mention a household member other than the signing contact and only one of the two is sensitive, the other being a note that a partner handles the finish selections, so a rule keyed on whether an answer mentions another person over-flags by one",
+    "no person is named in any question or any answer: household members appear as relationships and the studio side appears as roles, because canon/people.md seats nobody at co-100 or co-131",
+  ], "SMB-10's planted_features has drifted from cluster-2.md section 2.5");
 });
 
 test("loadSpecs: no cluster 2 SMB planted feature carries a dash this pack does not use or describes a learner", () => {
