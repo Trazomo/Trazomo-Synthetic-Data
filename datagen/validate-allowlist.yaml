@@ -61,6 +61,15 @@
 # its `feature` text was refreshed rather than the entry being widened. A twelfth
 # entry was added on the same footing for the corpus-wide span rule the re-cut
 # introduced, which WARNed on its own run first.
+#
+# The two operations cluster 5 entries were added 2026-09-14 the same way:
+# `validate OPS-10 OPS-14` was run against the authored bytes first, sixteen
+# features were checked across the two specs, fourteen passed on the documents'
+# own words, and only the two below WARNed. Both are OPS-10 and both are the
+# LGL-02 class of absence. OPS-14 needed no entry at all: its nine features,
+# the two-injection line included, confirm from the corpus's own vocabulary,
+# because the register, the records and the overview all say in their own words
+# what the spec says about them.
 
 version: 1
 
@@ -512,3 +521,40 @@ allowed:
       source at HR-C2-T12, which is also what makes an unstated work location
       mechanical, since a place name would be an unaccounted proper noun. Expected to
       be permanent.
+
+  - artifact: OPS-10
+    feature: "the procedure makes no claim about the meeting, the retros or any transcript: it states a process, its approvals, its evidence, its escalation path and its review cycle, and the connecting tissue between it and the capture spine lives in the OPS-14 overview's citations instead"
+    reason: >-
+      The feature is an absence, and every word the heuristic wants is a word
+      the document must not contain. "meeting", "retros" and "transcript" are
+      exactly the references this SOP may not carry: the delivery sync left the
+      escalation path as an open loop and the SOP closes it as later history, so
+      a procedure that said "as agreed at the meeting" would corroborate an
+      attribution the capture spine deliberately leaves unresolved and would do
+      module 13's open-loop exercise for the learner. "OPS-14" is a spec id no
+      internal procedure would ever print, and "capture spine" is a data-plan
+      phrase rather than an operational one. The rule holds and is checked as an
+      absence rather than a presence: tests/drafted/ops-c5-drafted-screen.test.js
+      pins the six numbered sections, joins every named person to an active
+      CORE-04 row, and asserts the one roster row whose OPS-01 turn runs through
+      the support handoff is named nowhere in the SOP or in any file the corpus
+      authors. No rewording of the spec can make this checkable from the prose,
+      so this entry is expected to be permanent.
+
+  - artifact: OPS-10
+    feature: "the shape holds: the one file is sop-with-unnamed-approver.md; every person named anywhere in it is an active CORE-04 row and nobody is named who is not; no canon company other than Atticus Dundee Inc. appears; no money amount, no percentage and no id belonging to another operations fixture appears anywhere"
+    reason: >-
+      Confirming this feature would mean the document had failed. It is the
+      FIN-14 and HR-01 exclusion-list case: the line is a negative-space rule a
+      reviewer sweeps with, not a description of anything the SOP says, and by
+      construction "no canon company", "no money amount", "no percentage" and
+      "no id belonging to another operations fixture" must appear nowhere in the
+      bytes. A heuristic that matched "money", "percentage" or "fixture" would be
+      reporting that a sign-off procedure had started quoting budgets and spec
+      ids. "sop-with-unnamed-approver" is the artifact's file name and
+      "CORE-04" is a spec id, neither of which a procedure would print either.
+      Every clause is executed rather than asserted in
+      tests/drafted/ops-c5-drafted-screen.test.js: the roster join over the
+      document-control rows, the step approvers and the escalation seats, the
+      departed-name sweep, the canon-company sweep, the em-dash screen and the
+      shared money shape. Expected to be permanent.
