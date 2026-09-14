@@ -1,0 +1,17 @@
+document_id,document_title,document_type,classification,visibility,owner_role,created_date,last_updated_date,storage_path,related_milestone_id,related_task_id,client_canon_id
+DOC-LDB-01,"Approved proposal, Okafor kitchen and primary bath renovation",agreement,client_shared,client_facing,owner,2026-02-02,2026-02-02,projects/okafor-renovation/01-agreements/approved-proposal.pdf,,,co-131
+DOC-LDB-02,"Signed contract, Okafor kitchen and primary bath renovation",agreement,client_shared,client_facing,owner,2026-02-09,2026-02-09,projects/okafor-renovation/01-agreements/signed-contract.pdf,,,co-131
+DOC-LDB-03,Welcome pack and client next steps,onboarding,client_shared,client_facing,project lead,2026-02-09,2026-02-09,projects/okafor-renovation/02-onboarding/welcome-pack.pdf,,,co-131
+DOC-LDB-04,Returned intake questionnaire,onboarding,client_shared,client_facing,project lead,2026-02-13,2026-02-13,projects/okafor-renovation/02-onboarding/intake-questionnaire-returned.pdf,,,co-131
+DOC-LDB-05,Kickoff walkthrough notes and agreed site boundary,notes,client_shared,client_facing,project lead,2026-02-16,2026-02-17,projects/okafor-renovation/03-site/kickoff-walkthrough-notes.pdf,MST-LDB-01,TSK-LDB-01,co-131
+DOC-LDB-06,Product and finish selections schedule,schedule,client_shared,client_facing,project lead,2026-02-18,2026-03-02,projects/okafor-renovation/04-selections/product-and-finish-selections.pdf,MST-LDB-04,TSK-LDB-10,co-131
+DOC-LDB-07,Demolition sign off and waste disposal record,record,client_shared,client_facing,project lead,2026-02-27,2026-02-27,projects/okafor-renovation/03-site/demolition-sign-off.pdf,MST-LDB-02,TSK-LDB-05,co-131
+DOC-LDB-08,"Site photo set, week of 2026-03-13",photo_set,client_shared,client_facing,project lead,2026-03-13,2026-03-13,projects/okafor-renovation/03-site/photos-2026-03-13.zip,MST-LDB-03,,co-131
+DOC-LDB-09,Rough in inspection certificate,certificate,client_shared,client_facing,owner,2026-03-13,2026-03-13,projects/okafor-renovation/05-inspections/rough-in-inspection-certificate.pdf,MST-LDB-03,TSK-LDB-09,co-131
+DOC-LDB-10,"Client status update, 16 March 2026",update,client_shared,client_facing,project lead,2026-03-16,2026-03-16,projects/okafor-renovation/06-client-updates/status-update-2026-03-16.pdf,MST-LDB-03,,co-131
+DOC-LDB-11,"Job cost tracker, Okafor renovation",tracker,internal,client_facing,owner,2026-03-18,2026-03-30,projects/okafor-renovation/07-internal/job-cost-tracker.xlsx,,,co-131
+DOC-LDB-12,Subcontractor quote comparison,record,internal,internal_only,owner,2026-03-19,2026-03-19,projects/okafor-renovation/07-internal/subcontractor-quote-comparison.xlsx,MST-LDB-03,TSK-LDB-07,co-131
+DOC-LDB-13,"Internal status notes, week of 2026-03-30",notes,internal,internal_only,owner,2026-03-30,2026-03-30,projects/okafor-renovation/07-internal/internal-status-notes-2026-03-30.docx,,,co-131
+DOC-LDB-14,Margin review worksheet,tracker,internal,internal_only,owner,2026-03-30,2026-03-30,projects/okafor-renovation/07-internal/margin-review-worksheet.xlsx,,,co-131
+DOC-LDB-15,Crew scheduling grid,schedule,internal,internal_only,project lead,2026-03-30,2026-03-30,projects/okafor-renovation/07-internal/crew-scheduling-grid.xlsx,MST-LDB-06,,co-131
+DOC-LDB-16,"Punch list and outstanding items, as of 2026-03-31",checklist,client_shared,client_facing,project lead,2026-03-31,2026-03-31,projects/okafor-renovation/08-closeout/punch-list-2026-03-31.pdf,MST-LDB-06,TSK-LDB-16,co-131
