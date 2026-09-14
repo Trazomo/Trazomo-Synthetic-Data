@@ -754,7 +754,7 @@ export function buildLifecycleCoordination() {
 
   // ---- content
   const onboarding = buildOnboarding({ people, activeRow, fullName });
-  const offboarding = buildOffboarding({ people, fullName });
+  const offboarding = buildOffboarding({ people, active, fullName });
   const review = buildReview({ byId, people, hr09, fullName });
 
   assertCrossArtifactRules({ onboarding, offboarding, review, people });
@@ -1179,9 +1179,36 @@ function assertAcyclic(rows, idKey, edgeKey, label) {
 
 // --------------------------------------------------------------- HR-07 rows
 
-function buildOffboarding({ people, fullName }) {
+function buildOffboarding({ people, active, fullName }) {
   const { departing, exitOwners } = people;
   const dayZero = firstBusinessDayAfter(departing.start_date);
+
+  // The pool every grant and revocation is attributed to: active IT & Security
+  // rows holding IT Administrator, the same title exitOwners.itOwner (2026's
+  // own checklist owner) holds. A single person administering five years of
+  // access is not realistic at a 582 person company (F3), and a fixed grantor
+  // makes every grant date before that person's own start_date a byte-level
+  // contradiction with the frozen roster and with HR-18 (F1). The pool is
+  // drawn against per row rather than once, so each row's own grantor and
+  // revoker are eligible on the date the row itself carries.
+  const itAdminPool = active
+    .filter((row) => row.department === "IT & Security" && row.role_title === "IT Administrator")
+    .sort((a, b) => a.employee_id.localeCompare(b.employee_id));
+  if (itAdminPool.length === 0) {
+    throw new Error(`${E}: no active IT & Security row holds "IT Administrator" to grant or revoke access`);
+  }
+  const grantedByRng = createRng(STREAM, "granted-by");
+  const revokedByRng = createRng(STREAM, "revoked-by");
+  const eligibleAt = (eventDate, rowLabel) => {
+    const eligible = itAdminPool.filter((row) => row.start_date <= eventDate);
+    if (eligible.length === 0) {
+      throw new Error(
+        `${E}: ${rowLabel} needs an active IT Administrator on or before ${eventDate}, `
+        + `and no IT & Security row had started by then`
+      );
+    }
+    return eligible;
+  };
   const window = businessDays(addBusinessDays(dayZero, 20), addBusinessDays(AS_OF, -20));
   if (window.length < 90) {
     throw new Error(`${E}: the tenure leaves only ${window.length} business days to grant access across`);
@@ -1247,13 +1274,39 @@ function buildOffboarding({ people, fullName }) {
       grant_source: source,
       is_shared_grant: shared ? "yes" : "no",
       granted_date: draft.granted_date,
-      granted_by_employee_id: exitOwners.itOwner.employee_id,
+      granted_by_employee_id: grantedByRng.pick(eligibleAt(draft.granted_date, `${draft.system_id}'s grant`)).employee_id,
       request_ticket_id: "",
       revoked_date: draft.revoked_date,
-      revoked_by_employee_id: draft.revoked_date === "" ? "" : exitOwners.itOwner.employee_id,
+      revoked_by_employee_id:
+        draft.revoked_date === ""
+          ? ""
+          : revokedByRng.pick(eligibleAt(draft.revoked_date, `${draft.system_id}'s revocation`)).employee_id,
       revocation_ticket_id: "",
     };
   });
+
+  // Post-condition: every grantor and every revoker had themselves started on
+  // or before the date they act on. A fixed pool cannot silently drift into
+  // hiring a grantor before their own start date the way a single pinned
+  // person could not be checked at all.
+  const itAdminById = new Map(itAdminPool.map((row) => [row.employee_id, row]));
+  for (const row of grants) {
+    const grantor = itAdminById.get(row.granted_by_employee_id);
+    if (!grantor || grantor.start_date > row.granted_date) {
+      throw new Error(
+        `${E}: ${row.grant_id} is granted at ${row.granted_date} by ${row.granted_by_employee_id}, `
+        + `whose own start_date is ${grantor?.start_date ?? "unknown"}, after the grant's own date`
+      );
+    }
+    if (row.revoked_date === "") continue;
+    const revoker = itAdminById.get(row.revoked_by_employee_id);
+    if (!revoker || revoker.start_date > row.revoked_date) {
+      throw new Error(
+        `${E}: ${row.grant_id} is revoked at ${row.revoked_date} by ${row.revoked_by_employee_id}, `
+        + `whose own start_date is ${revoker?.start_date ?? "unknown"}, after the revocation's own date`
+      );
+    }
+  }
 
   // The coverage set: the distinct systems open at the as-of, minus the one
   // grant that carries no access change request behind it.
