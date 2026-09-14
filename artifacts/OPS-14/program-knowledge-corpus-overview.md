@@ -28,11 +28,11 @@ As of: 2026-03-31
 - The pilot write-up put more on the program's own way of working than on the form itself, and named the readiness work as the thing standing between the program and a first full cohort [KB-06, 2026-03-05]
 - The readiness checklist was not the same document in every region [KB-01, 00:02:41]
 - The readiness signal in the system is a single field, so the system sees one answer whichever checklist a region worked from [KB-01, 00:04:34]
+- The readiness field is set by hand at the end of a checklist, so it is only as good as whichever checklist was used [KB-01, 00:05:28]
 - Some regions were flagged ready before the readiness checklist existed [KB-01, 00:06:08]
 - The older readiness flags carry no notes behind them, so the record does not show what was checked [KB-01, 00:07:36]
 - During the pilot a readiness flag was set while the notes behind it sat in a chat thread [KB-01, 00:07:57]
 - There was no written path for who hears about a customer stuck partway through onboarding [KB-01, 00:37:31]
-- The readiness field is set by hand at the end of a checklist, so it is only as good as whichever checklist was used [KB-01, 00:05:28]
 - A region flagged ready that turns out not to be is a stated reason to stop the first cohort once it has started [KB-01, 00:41:05]
 
 ## March 2026, from the procedure onward

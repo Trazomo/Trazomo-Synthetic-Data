@@ -29,7 +29,8 @@ and copies.
   connecting tissue between it and the capture spine lives in the corpus
   overview's citations instead.
 - **OPS-14 program-knowledge-corpus**: eight flat markdown files under
-  `artifacts/OPS-14/`, a flat `type: corpus` directory on the CORE-05 shape, an index named by the spec with its documents beside it.
+  `artifacts/OPS-14/`, a flat `type: corpus` directory on the CORE-05 shape,
+  an index named by the spec with its documents beside it.
   The index carries the source register, KB-01 to KB-07 in order, which is the
   corpus's single point of citation metadata, because three of its sources are
   byte-identical copies of `artifacts/OPS-01`, `artifacts/OPS-02` and
@@ -44,7 +45,7 @@ and copies.
   person-level answer can come only from the embedded sources, and the corpus
   states its own boundary rather than leaving a reader to find it.
 - **Screen and plumbing**: `tests/drafted/ops-c5-drafted-screen.test.js`, the
-  ops-c1 pattern with the CORE-04 roster generated in-test, carries eighteen
+  ops-c1 pattern with the CORE-04 roster generated in-test, carries nineteen
   answer-key-free arms over the census, the grammar, the roster joins, the
   byte-identity of the three copies, the citation contract, and the name,
   canon-company, em-dash and money screens. Five sorted rows land in
