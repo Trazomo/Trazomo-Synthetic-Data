@@ -10,7 +10,7 @@ IQQ-LDB-08,household_and_access,8,Are there pets in the home the crew should kno
 IQQ-LDB-09,household_and_access,9,Where can the crew park during the working day?,single_select,yes,co-131,"On the driveway, one vehicle at a time"
 IQQ-LDB-10,schedule_and_communication,10,What date suits you for the kickoff walkthrough?,date,yes,co-131,2026-02-16
 IQQ-LDB-11,schedule_and_communication,11,By what date will you have confirmed the finish selections?,date,yes,co-131,2026-02-27
-IQQ-LDB-12,schedule_and_communication,12,Who should receive the weekly project update?,free_text,yes,co-131,"Send it to me by email, and my partner handles the finish selections, so send the selection sheet to both of us."
+IQQ-LDB-12,schedule_and_communication,12,Who should receive project updates and documents?,free_text,yes,co-131,"Send it to me by email, and my partner handles the finish selections, so send the selection sheet to both of us."
 IQQ-LDB-13,schedule_and_communication,13,How often would you like a written update?,single_select,yes,co-131,Once a week
 IQQ-LDB-14,schedule_and_communication,14,How should we send documents that need a signature?,single_select,no,co-131,By email
 IQQ-LDB-15,site_conditions,15,Are there any known problems with the plumbing or the electrics we should expect?,free_text,yes,co-131,"The kitchen sockets trip when the kettle and the toaster run together, and the bath tap has dripped for about a year."

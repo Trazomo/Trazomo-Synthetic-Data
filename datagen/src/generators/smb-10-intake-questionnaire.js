@@ -205,7 +205,7 @@ const QUESTIONS = [
   },
   {
     section: "schedule_and_communication",
-    question_text: "Who should receive the weekly project update?",
+    question_text: "Who should receive project updates and documents?",
     answer_type: "free_text",
     required: "yes",
     answer_text: `Send it to me by email, and ${PARTNER_PHRASE}.`,
@@ -343,7 +343,7 @@ function assertQuestionnaire(rows, canon) {
     if (/[$£€]|\d+\.\d{2}/.test(`${r.question_text} ${r.answer_text}`)) {
       throw new Error(`${where} states a money figure, and no C2 onboarding file mints one`);
     }
-    for (const dash of ["—", "–"]) {
+    for (const dash of ["\u2014", "\u2013"]) {
       if (r.question_text.includes(dash) || r.answer_text.includes(dash)) {
         throw new Error(`${where} carries an em dash or an en dash`);
       }

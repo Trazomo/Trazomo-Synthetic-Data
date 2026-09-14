@@ -230,6 +230,11 @@ function assertChecklist(rows) {
     if (/[$£€]|\d+\.\d{2}/.test(r.item)) {
       throw new Error(`${where} states a money figure, and no C2 onboarding file mints one`);
     }
+    for (const dash of ["\u2014", "\u2013"]) {
+      if (r.item.includes(dash)) {
+        throw new Error(`${where} carries an em dash or an en dash`);
+      }
+    }
   }
 
   // Phases: the declared counts, each block contiguous and in PHASES order,

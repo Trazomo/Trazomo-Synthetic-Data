@@ -244,6 +244,11 @@ function assertChecklist(rows) {
     if (/[$£€]|\d+\.\d{2}/.test(`${r.step} ${r.trigger}`)) {
       throw new Error(`${where} states a money figure, and the amounts live in SMB-06 and SMB-04`);
     }
+    for (const dash of ["\u2014", "\u2013"]) {
+      if (r.step.includes(dash) || r.trigger.includes(dash)) {
+        throw new Error(`${where} carries an em dash or an en dash`);
+      }
+    }
   }
 
   const census = (predicate) => rows.filter(predicate).length;
