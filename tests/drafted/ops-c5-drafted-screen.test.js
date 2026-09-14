@@ -568,3 +568,25 @@ test("nothing this cluster authors carries an em dash or a money amount", () => 
     assert.deepEqual(moneyMatches(text), [], `${label} states a figure, and cluster 5 carries no money`);
   }
 });
+
+/** The locator scheme each register row must declare, keyed to the file class it names. */
+const SCHEME_WORDS = {
+  "meeting-transcript-with-commitments.md": "cue timestamp",
+  "retro-transcript-with-recurring-finding.md": "cue timestamp",
+  "sop-with-unnamed-approver.md": "section or step heading",
+  "program-knowledge-corpus-history-2025-q3.md": "entry date",
+  "program-knowledge-corpus-history-2025-q4.md": "entry date",
+  "program-knowledge-corpus-history-2026-q1.md": "entry date",
+  "program-knowledge-corpus-overview.md": "section heading",
+};
+
+test("OPS-14: every register row declares the locator scheme its file is actually read under", () => {
+  for (const row of register(corpus(INDEX_FILE))) {
+    const expected = SCHEME_WORDS[row.file];
+    assert.ok(expected, `register row ${row.id} names ${row.file}, which is not a corpus file`);
+    assert.ok(
+      row.scheme.startsWith(expected),
+      `register row ${row.id} declares the scheme "${row.scheme}", and ${row.file} is read by ${expected}`
+    );
+  }
+});
