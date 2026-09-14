@@ -385,6 +385,24 @@ byte-identical `MOCK PAYMENT RECORD, NO FUNDS MOVED` notice, and `method` from
 bank product name, no authorization code and no instrument number belongs
 anywhere in the SMB pack.
 
+C2's five drafted-frozen ids live at `artifacts/SMB-06`, `SMB-07`, `SMB-09`,
+`SMB-14` and `SMB-15`, each with a built `.docx` under `build/`. `validate`
+runs only a keyword heuristic over a drafted spec and can never report FAIL,
+so the falsifiable guard on every drafted plant is
+`tests/drafted/smb-c2a-drafted-screen.test.js` and
+`tests/drafted/smb-c2b-drafted-screen.test.js`.
+
+Every id class the SMB pack mints is namespaced with the studio token `LDB`:
+`PLI-LDB-`, `RTC-LDB-`, `CFD-LDB-`, `NSC-LDB-`, `IQQ-LDB-`, `KCK-LDB-`,
+`TSK-LDB-`, `DOC-LDB-`, `MST-LDB-`, alongside C1's `INV-LDB-` and `PAY-LDB-`.
+`TSK-` and `DOC-` are already spent by the operations and legal packs; the
+namespace is what keeps them disjoint.
+
+The `$6,480.00` electrical rework figure in `artifacts/SMB-15` is an internal
+cost figure. It must appear in exactly one `SMB-21` job-expense row at
+`6480.00` and in no client-facing artifact in any cluster. SMB-15 is frozen,
+so C3 matches the figure rather than the other way round.
+
 ## Spec-authoring guide
 
 Adding a new artifact to the program:
