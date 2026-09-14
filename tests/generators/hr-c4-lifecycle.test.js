@@ -104,6 +104,51 @@ const PUBLISHED_REVIEWER_RELATIONSHIPS = ["manager", "skip_level"];
 const PUBLISHED_REVIEW_STATUSES = ["not_started", "in_progress", "submitted"];
 const PUBLISHED_RECRUITING_ARC = ["EMP-0517", "EMP-0524", "EMP-0574"];
 
+/**
+ * The system catalog, restated literally rather than imported (review F5, the
+ * HR-18 discipline): the guard against a branded system_name has to compare
+ * two independent copies, because deepEqual-ing the builder's own export
+ * against itself can never fail.
+ */
+const PUBLISHED_SYSTEM_CATALOG = [
+  { system_id: "SYS-0001", system_name: "identity directory", system_category: "identity" },
+  { system_id: "SYS-0002", system_name: "single sign on administration console", system_category: "identity" },
+  { system_id: "SYS-0003", system_name: "privileged access vault", system_category: "identity" },
+  { system_id: "SYS-0004", system_name: "workplace email and calendar", system_category: "productivity" },
+  { system_id: "SYS-0005", system_name: "shared team drive", system_category: "productivity" },
+  { system_id: "SYS-0006", system_name: "shared engineering drive", system_category: "productivity" },
+  { system_id: "SYS-0007", system_name: "document collaboration space", system_category: "productivity" },
+  { system_id: "SYS-0008", system_name: "team chat workspace", system_category: "productivity" },
+  { system_id: "SYS-0009", system_name: "internal wiki", system_category: "productivity" },
+  { system_id: "SYS-0010", system_name: "ticket and issue tracker", system_category: "productivity" },
+  { system_id: "SYS-0011", system_name: "source control", system_category: "engineering" },
+  { system_id: "SYS-0012", system_name: "continuous integration service", system_category: "engineering" },
+  { system_id: "SYS-0013", system_name: "artifact registry", system_category: "engineering" },
+  { system_id: "SYS-0014", system_name: "container image registry", system_category: "engineering" },
+  { system_id: "SYS-0015", system_name: "infrastructure as code pipeline", system_category: "engineering" },
+  { system_id: "SYS-0016", system_name: "secret management service", system_category: "engineering" },
+  { system_id: "SYS-0017", system_name: "production cloud console", system_category: "engineering" },
+  { system_id: "SYS-0018", system_name: "staging cloud console", system_category: "engineering" },
+  { system_id: "SYS-0019", system_name: "database administration console", system_category: "engineering" },
+  { system_id: "SYS-0020", system_name: "feature flag service", system_category: "engineering" },
+  { system_id: "SYS-0021", system_name: "metrics dashboard", system_category: "monitoring" },
+  { system_id: "SYS-0022", system_name: "log search", system_category: "monitoring" },
+  { system_id: "SYS-0023", system_name: "incident paging rota", system_category: "monitoring" },
+  { system_id: "SYS-0024", system_name: "error tracking service", system_category: "monitoring" },
+  { system_id: "SYS-0025", system_name: "uptime probe service", system_category: "monitoring" },
+  { system_id: "SYS-0026", system_name: "distributed tracing console", system_category: "monitoring" },
+  { system_id: "SYS-0027", system_name: "data warehouse", system_category: "data" },
+  { system_id: "SYS-0028", system_name: "business intelligence workspace", system_category: "data" },
+  { system_id: "SYS-0029", system_name: "product analytics workspace", system_category: "data" },
+  { system_id: "SYS-0030", system_name: "data pipeline scheduler", system_category: "data" },
+  { system_id: "SYS-0031", system_name: "payroll and benefits portal", system_category: "vendor_service" },
+  { system_id: "SYS-0032", system_name: "learning platform", system_category: "vendor_service" },
+  { system_id: "SYS-0033", system_name: "expense system", system_category: "vendor_service" },
+  { system_id: "SYS-0034", system_name: "customer relationship system", system_category: "vendor_service" },
+  { system_id: "SYS-0035", system_name: "finance ledger", system_category: "vendor_service" },
+  { system_id: "SYS-0036", system_name: "status page administration", system_category: "vendor_service" },
+];
+
 // ------------------------------------------------------------ the frozen inputs
 
 /** The committed HR-01 register, read here rather than through the builder. */
@@ -139,6 +184,12 @@ const caseQueue = csvTable(
 const caseParticipants = new Set(
   caseQueue.flatMap((row) => [row.subject_employee_id, row.assignee_employee_id])
 );
+
+/** The frozen HR-18 roster export, read here rather than through the builder (X8). */
+const hrisRoster = csvTable(
+  readFileSync(join(REPO_ROOT, "datasets", "hr", "hris-export", "hris-roster.csv"), "utf8")
+).rows;
+const hrisById = new Map(hrisRoster.map((row) => [row.employee_id, row]));
 
 /** The candidate names, read out of the frozen application log rather than restated. */
 const applicationLog = readFileSync(join(REPO_ROOT, "artifacts", "HR-02", "application-log.md"), "utf8");
@@ -242,6 +293,23 @@ test("HR-C4: the published vocabulary tables are still the ones this test recomp
   );
 });
 
+test("HR-C4: the system catalog is restated literally and no system_name could pass for a brand (review F5)", () => {
+  // deepEqual against a literal copy, the HR-18 discipline: comparing the
+  // builder's own export against itself (SYSTEM_CATALOG.find(...) inside the
+  // builder) can never fail no matter what the catalog says.
+  assert.deepEqual(
+    SYSTEM_CATALOG,
+    PUBLISHED_SYSTEM_CATALOG,
+    "the system catalog has drifted from the literal copy this test restates it against"
+  );
+  for (const row of PUBLISHED_SYSTEM_CATALOG) {
+    assert.ok(
+      /^[a-z][a-z ]*$/.test(row.system_name),
+      `${row.system_id} carries "${row.system_name}", which is not an ordinary lowercase name; a brand would fail this shape`
+    );
+  }
+});
+
 // --------------------------------------------------------------------- HR-06
 
 test("HR-C4-T1: the instance is the template filtered by department, in template order, with the date arithmetic holding", () => {
@@ -264,7 +332,11 @@ test("HR-C4-T1: the instance is the template filtered by department, in template
       `${row.checklist_task_id} due_date does not recompute from the start date and the offset`
     );
     assert.ok(!isWeekend(row.due_date), `${row.checklist_task_id} is due on a weekend`);
-    assert.equal(row.due_basis ?? "start_date", "start_date");
+    assert.equal(
+      "due_basis" in row,
+      false,
+      "the instance carries a due_basis column; the arithmetic is derived rather than stated per row"
+    );
   }
   for (const row of template) {
     assert.equal(row.due_basis, "start_date", `${row.task_code} states another due basis`);
@@ -669,6 +741,41 @@ test("HR-C4-T13: replaying the grant dates gives 9 open on the first business da
   }
 });
 
+test("HR-C4-T13 (grantor tenure): every grantor and revoker is an active, tenured IT & Security row (review F1)", () => {
+  const grants = grantRows();
+  // Every granted_by_employee_id and revoked_by_employee_id resolves, against
+  // the roster this test rebuilds in its own code, to an active IT & Security
+  // row holding IT Administrator whose own start_date is on or before the
+  // date on the row it acts on. No grant row may be attributed to somebody
+  // who had not joined the company yet, and no twenty rows may be attributed
+  // to the same single person again.
+  for (const row of grants) {
+    const grantor = byEmployeeId.get(row.granted_by_employee_id);
+    assert.ok(grantor, `${row.grant_id} names a grantor who is not a roster row`);
+    assert.equal(grantor.department, "IT & Security", `${row.grant_id}'s grantor sits outside IT & Security`);
+    assert.equal(grantor.role_title, "IT Administrator", `${row.grant_id}'s grantor does not hold IT Administrator`);
+    assert.equal(grantor.employment_status, "active", `${row.grant_id}'s grantor is not active`);
+    assert.ok(
+      grantor.start_date <= row.granted_date,
+      `${row.grant_id} is granted at ${row.granted_date} by somebody who started ${grantor.start_date}`
+    );
+    if (row.revoked_date === "") continue;
+    const revoker = byEmployeeId.get(row.revoked_by_employee_id);
+    assert.ok(revoker, `${row.grant_id} names a revoker who is not a roster row`);
+    assert.equal(revoker.department, "IT & Security", `${row.grant_id}'s revoker sits outside IT & Security`);
+    assert.equal(revoker.role_title, "IT Administrator", `${row.grant_id}'s revoker does not hold IT Administrator`);
+    assert.equal(revoker.employment_status, "active", `${row.grant_id}'s revoker is not active`);
+    assert.ok(
+      revoker.start_date <= row.revoked_date,
+      `${row.grant_id} is revoked at ${row.revoked_date} by somebody who started ${revoker.start_date}`
+    );
+  }
+  assert.ok(
+    new Set(grants.map((row) => row.granted_by_employee_id)).size > 1,
+    "every grant is attributed to the same single person again"
+  );
+});
+
 test("HR-C4-T14: every access row runs off a named request and a named owner, inside the exit window", () => {
   const checklist = offboardingRows();
   const grants = grantRows();
@@ -870,7 +977,7 @@ test("HR-C4-T18: the frozen pair is an ordinary manager row, still outstanding a
 
 // ------------------------------------------------------------ cross-artifact
 
-test("HR-C4-T19: the cross-artifact rules hold, each recomputed independently", () => {
+test("HR-C4-T19: the cross-artifact rules X1 to X7 hold, each recomputed independently (X8 and X9 live in their own arms)", () => {
   const instance = checklistRows();
   const [exit] = exitRecord();
   const offboarding = offboardingRows();
@@ -931,6 +1038,107 @@ test("HR-C4-T19: the cross-artifact rules hold, each recomputed independently", 
     assert.ok(!/shortlist/i.test(file.content), `${file.path} names the shortlist decision`);
     for (const token of candidateTokens) {
       assert.ok(!file.content.includes(token), `${file.path} carries the candidate token "${token}"`);
+    }
+  }
+});
+
+test("HR-C4-T19 (X4, reviewee side): the overdue assignment's own reviewee is not a named actor in HR-06 or HR-07 (review F6)", () => {
+  const instance = checklistRows();
+  const [exit] = exitRecord();
+  const offboarding = offboardingRows();
+  const grants = grantRows();
+  const assignments = assignmentRows();
+  const overdue = assignments.filter((row) => row.submitted_date === "" && row.due_date < AS_OF);
+
+  const onboardingActors = new Set([
+    ...instance.map((row) => row.owner_employee_id),
+    ...instance.map((row) => row.approval_owner_employee_id),
+  ]);
+  const offboardingActors = new Set([
+    ...offboarding.map((row) => row.owner_employee_id),
+    ...grants.map((row) => row.granted_by_employee_id),
+    ...grants.map((row) => row.revoked_by_employee_id),
+    exit.manager_employee_id, exit.hrbp_employee_id, exit.it_owner_employee_id,
+  ]);
+
+  // A cross-artifact reader cannot over-read the late review as belonging to
+  // somebody already busy in HR-06 or HR-07: the seat was free before review
+  // F6, and a draw once landed the overdue review's reviewee on HR-07's own
+  // HR business partner.
+  const plantReviewee = overdue[0].reviewee_employee_id;
+  assert.equal(
+    onboardingActors.has(plantReviewee),
+    false,
+    "the overdue assignment's reviewee owns or approves an onboarding task"
+  );
+  assert.equal(offboardingActors.has(plantReviewee), false, "the overdue assignment's reviewee owns part of the exit");
+});
+
+test("HR-C4-T19 (X8): HR-18 carries no field this cluster contradicts", () => {
+  const instance = checklistRows();
+  const newHireId = instance[0].new_hire_employee_id;
+
+  // Read from the committed export bytes rather than through the builder, so
+  // the claim under test is that the two independently-built files agree.
+  //
+  // Part one: every employee id any C4 file names that also appears in the
+  // frozen export carries the same hire_date, employment_status and
+  // record_status the export publishes. The minted new hire carries no HR-18
+  // row at all, which is the same silence CORE-04 already keeps (0.3).
+  const ACTOR_COLUMNS = [
+    "employee_id", "new_hire_employee_id", "owner_employee_id", "approval_owner_employee_id",
+    "granted_by_employee_id", "revoked_by_employee_id", "manager_employee_id", "hrbp_employee_id",
+    "it_owner_employee_id", "reviewer_employee_id", "reviewee_employee_id", "escalation_contact_employee_id",
+  ];
+  for (const file of allFiles()) {
+    if (!file.path.endsWith(".csv")) continue;
+    for (const row of csvTable(file.content).rows) {
+      for (const column of ACTOR_COLUMNS) {
+        const id = row[column];
+        if (!id) continue;
+        const exported = hrisById.get(id);
+        if (!exported) continue; // the minted new hire carries no HR-18 row; that silence is the point
+        assert.equal(
+          exported.hire_date,
+          byEmployeeId.get(id)?.start_date,
+          `${file.path}: ${id}'s HR-18 hire_date does not match the roster's own start_date`
+        );
+        assert.equal(exported.employment_status, "active", `${file.path}: ${id}'s HR-18 employment_status is not active`);
+        assert.equal(exported.record_status, "active", `${file.path}: ${id}'s HR-18 record_status is not active`);
+      }
+    }
+  }
+  assert.equal(hrisById.has(newHireId), false, "the new hire carries a HR-18 export row");
+
+  // Part two: no C4 row attributes an action to a person before their own
+  // hire date, paired only where a row's own date is the actor's own action
+  // (a grantor's grant, a revoker's revocation, an owner's due task), never
+  // against an unrelated date that happens to share the row (review F1's own
+  // defect: twenty grants dated years before their named grantor had joined).
+  const ACTION_DATE_PAIRS = [
+    ["access-grant-inventory.csv", "granted_by_employee_id", "granted_date"],
+    ["access-grant-inventory.csv", "revoked_by_employee_id", "revoked_date"],
+    ["new-hire-checklist.csv", "owner_employee_id", "due_date"],
+    ["new-hire-checklist.csv", "approval_owner_employee_id", "due_date"],
+    ["offboarding-checklist.csv", "owner_employee_id", "due_date"],
+    ["review-assignments.csv", "reviewer_employee_id", "due_date"],
+  ];
+  for (const file of allFiles()) {
+    const pairs = ACTION_DATE_PAIRS.filter(([path]) => path === file.path);
+    if (pairs.length === 0) continue;
+    for (const row of csvTable(file.content).rows) {
+      for (const [, actorColumn, dateColumn] of pairs) {
+        const id = row[actorColumn];
+        const date = row[dateColumn];
+        if (!id || !date) continue;
+        const exported = hrisById.get(id);
+        if (!exported) continue;
+        assert.ok(
+          date >= exported.hire_date,
+          `${file.path}: ${actorColumn} ${id} is dated ${date} on ${dateColumn}, before their own HR-18 `
+          + `hire_date ${exported.hire_date}`
+        );
+      }
     }
   }
 });
