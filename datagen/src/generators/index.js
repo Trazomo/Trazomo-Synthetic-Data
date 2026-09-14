@@ -81,6 +81,7 @@ import * as smb05 from "./smb-05-client-record-co002.js";
 import * as smb08 from "./smb-08-client-next-steps-checklist.js";
 import * as smb10 from "./smb-10-intake-questionnaire.js";
 import * as smb11 from "./smb-11-kickoff-checklist.js";
+import * as smb12 from "./smb-12-project-tasks-and-dates.js";
 import * as smb16 from "./smb-16-milestone-schedule.js";
 import * as test01 from "./test-01-fixture.js";
 import { NotImplementedError } from "../errors.js";
@@ -104,7 +105,7 @@ export const PROGRAM_GENERATOR_IDS = [
   rev01.id, rev03.id, rev07.id, rev08.id, rev09.id, rev10.id, rev11.id,
   smb01.id, smb02.id, smb03.id, smb04.id, smb05.id,
   smb08.id, smb10.id, smb11.id,
-  smb16.id,
+  smb12.id, smb16.id,
 ];
 
 const REGISTRY = new Map(
@@ -121,7 +122,7 @@ const REGISTRY = new Map(
     rev01, rev03, rev07, rev08, rev09, rev10, rev11,
     smb01, smb02, smb03, smb04, smb05,
     smb08, smb10, smb11,
-    smb16,
+    smb12, smb16,
     test01,
   ].map((mod) => [mod.id, mod])
 );
