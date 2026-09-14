@@ -1,6 +1,6 @@
 checklist_id,checklist_task_id,task_code,task_name,phase,exit_id,employee_id,action,system_id,system_name,owner_role,owner_employee_id,owner_full_name,due_date,status,completed_date,request_ticket_id,evidence_required
 OFB-2026-0001,OFBT-2026-0001,OFB-01,Notify payroll of the last working day,notice,EXT-2026-0001,EMP-0047,administrative,,,People Operations,EMP-0509,Aldous Crestfall,2026-03-31,complete,2026-03-30,,yes
-OFB-2026-0001,OFBT-2026-0002,OFB-02,Notify benefits of the coverage end date,notice,EXT-2026-0001,EMP-0047,administrative,,,People Operations,EMP-0509,Aldous Crestfall,2026-04-01,complete,2026-03-31,,yes
+OFB-2026-0001,OFBT-2026-0002,OFB-02,Notify benefits of the coverage end date,notice,EXT-2026-0001,EMP-0047,administrative,,,People Operations,EMP-0509,Aldous Crestfall,2026-04-01,complete,2026-03-27,,yes
 OFB-2026-0001,OFBT-2026-0003,OFB-03,Agree the handover plan for the open work,notice,EXT-2026-0001,EMP-0047,administrative,,,Manager,EMP-0040,Merritt Larkspur,2026-04-03,in_progress,,,no
 OFB-2026-0001,OFBT-2026-0004,OFB-04,Review who else holds access to the shared team drive,final_week,EXT-2026-0001,EMP-0047,review_shared_access,SYS-0005,shared team drive,Manager,EMP-0040,Merritt Larkspur,2026-04-08,not_started,,ACR-2026-0040,yes
 OFB-2026-0001,OFBT-2026-0005,OFB-05,Review who else holds access to the shared engineering drive,final_week,EXT-2026-0001,EMP-0047,review_shared_access,SYS-0006,shared engineering drive,Manager,EMP-0040,Merritt Larkspur,2026-04-08,not_started,,ACR-2026-0041,yes

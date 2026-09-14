@@ -710,6 +710,18 @@ function levelForCategory(systemId, category) {
   return LEVEL_OVERRIDE_BY_SYSTEM[systemId] ?? LEVEL_BY_CATEGORY[category];
 }
 
+/**
+ * How many business days early a completed admin task finishes, varied the way
+ * the onboarding instance already varies (F12): every offboarding completion
+ * landed exactly one business day early, with no texture at all. Only the two
+ * rows whose due_date sits before the as-of ever reach complete at these exit
+ * dates; every completion still lands on or before the as-of.
+ */
+const OFFBOARDING_COMPLETION_OFFSET = {
+  "Notify payroll of the last working day": -1,
+  "Notify benefits of the coverage end date": -3,
+};
+
 /** The eight checklist rows that name no system, in checklist order. */
 const OFFBOARDING_ADMIN_TASKS = [
   { task_name: "Notify payroll of the last working day", phase: "notice", action: "administrative", owner_role: "People Operations", due_offset: -8, evidence_required: "yes" },
@@ -1445,7 +1457,10 @@ function buildOffboarding({ people, active, fullName }) {
       owner_full_name: fullName(owner),
       due_date: task.due_date,
       status,
-      completed_date: status === "complete" ? addBusinessDays(task.due_date, -1) : "",
+      completed_date:
+        status === "complete"
+          ? addBusinessDays(task.due_date, OFFBOARDING_COMPLETION_OFFSET[task.task_name] ?? -1)
+          : "",
       request_ticket_id: "",
       evidence_required: task.evidence_required,
     };
@@ -1649,6 +1664,9 @@ function assertOffboarding({ exit_record, grants, checklist, dayZero, departing 
     }
     if ((row.status === "complete") !== (row.completed_date !== "")) {
       throw new Error(`${E}: ${row.checklist_task_id} carries a completed_date its status does not allow`);
+    }
+    if (row.completed_date !== "" && row.completed_date > AS_OF) {
+      throw new Error(`${E}: ${row.checklist_task_id} was finished at ${row.completed_date}, after the as-of`);
     }
     if ((row.system_id !== "") !== (row.request_ticket_id !== "")) {
       throw new Error(`${E}: ${row.checklist_task_id} carries a request ticket its system does not call for, or the reverse`);
@@ -2068,9 +2086,8 @@ export function renderOnboardingTemplateMarkdown(templateRows, companyName) {
   );
   lines.push("");
   lines.push(
-    "Worked example. A task carrying an offset of minus two is due two business days before the start "
-    + "date, so it can already be late while the start date is still ahead. A task carrying an offset of "
-    + "plus five is due a full working week after the start date."
+    "Worked example. A task carrying an offset of minus five is due five business days before the start "
+    + "date. A task carrying an offset of plus five is due a full working week after the start date."
   );
   lines.push("");
   lines.push("## The four phases");

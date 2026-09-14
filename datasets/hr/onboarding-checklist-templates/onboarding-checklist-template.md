@@ -6,7 +6,7 @@ The standard onboarding task catalog Atticus Dundee Inc. runs for every new hire
 
 Every task is scheduled against the start date. `due_basis` is `start_date` on every row and `due_offset_business_days` is a signed whole number of business days: negative is before the start date, zero is the start date itself, positive is after it. A due date is the business day reached by stepping that many business days from the start date, skipping Saturdays and Sundays. There is no holiday calendar.
 
-Worked example. A task carrying an offset of minus two is due two business days before the start date, so it can already be late while the start date is still ahead. A task carrying an offset of plus five is due a full working week after the start date.
+Worked example. A task carrying an offset of minus five is due five business days before the start date. A task carrying an offset of plus five is due a full working week after the start date.
 
 ## The four phases
 
