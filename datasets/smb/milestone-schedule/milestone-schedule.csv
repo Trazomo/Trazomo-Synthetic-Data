@@ -1,0 +1,7 @@
+milestone_id,sequence,milestone,planned_start,planned_end,actual_start,actual_completion,milestone_status,client_canon_id,project_name
+MST-LDB-01,1,Kickoff and site protection,2026-02-16,2026-02-16,2026-02-16,2026-02-16,complete,co-131,Okafor kitchen and primary bath renovation
+MST-LDB-02,2,Demolition and disposal,2026-02-17,2026-02-20,2026-02-17,2026-02-27,complete,co-131,Okafor kitchen and primary bath renovation
+MST-LDB-03,3,Plumbing and electrical rough in,2026-02-23,2026-03-13,2026-03-02,2026-03-13,complete,co-131,Okafor kitchen and primary bath renovation
+MST-LDB-04,4,Cabinetry and vanity installation,2026-03-16,2026-03-18,2026-03-16,2026-03-18,complete,co-131,Okafor kitchen and primary bath renovation
+MST-LDB-05,5,"Tile, countertops and finish carpentry",2026-03-19,2026-03-20,2026-03-19,2026-03-20,complete,co-131,Okafor kitchen and primary bath renovation
+MST-LDB-06,6,Punch list and closeout,2026-03-23,2026-03-27,2026-03-23,,open,co-131,Okafor kitchen and primary bath renovation
