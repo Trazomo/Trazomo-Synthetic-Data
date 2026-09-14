@@ -771,7 +771,7 @@ export function buildLifecycleCoordination() {
   // ---- content
   const onboarding = buildOnboarding({ people, activeRow, fullName });
   const offboarding = buildOffboarding({ people, active, fullName });
-  const review = buildReview({ byId, people, hr09, fullName });
+  const review = buildReview({ byId, people, hr09, fullName, onboarding, offboarding });
 
   assertCrossArtifactRules({ onboarding, offboarding, review, people });
 
@@ -1642,7 +1642,25 @@ function assertOffboarding({ exit_record, grants, checklist, dayZero, departing 
 
 // --------------------------------------------------------------- HR-08 rows
 
-function buildReview({ byId, people, hr09, fullName }) {
+/**
+ * Every person who already owns or approves a seat in HR-06 or HR-07: the set
+ * X4 keeps the plant assignment clear of on both sides, the carrier (who holds
+ * the overdue review) and, since review F6, the reviewee (whose review it is).
+ * A person in this set carrying the plant too would let a cross-artifact reader
+ * build a narrative neither artifact intends.
+ */
+function lifecycleActors({ onboarding, offboarding }) {
+  return new Set(
+    [
+      ...onboarding.checklist_rows.map((row) => row.owner_employee_id),
+      ...onboarding.checklist_rows.map((row) => row.approval_owner_employee_id),
+      ...offboarding.checklist.map((row) => row.owner_employee_id),
+      ...offboarding.grants.map((row) => row.granted_by_employee_id),
+    ].filter((id) => id !== "")
+  );
+}
+
+function buildReview({ byId, people, hr09, fullName, onboarding, offboarding }) {
   const { assignments } = people;
 
   const byReviewer = new Map();
@@ -1706,10 +1724,30 @@ function buildReview({ byId, people, hr09, fullName }) {
   }
   const carrier = createRng(STREAM, "review-plant").pick(eligible);
 
+  // The plant row itself: the carrier's LAST early row (reviewee-ascending, so
+  // this is deterministic and does not move the carrier or the staging ranks),
+  // excluding any row whose reviewee already owns or approves a seat in HR-06
+  // or HR-07 (review F6: the reviewee seat was free, and a draw once landed the
+  // overdue review on HR-07's own HR business partner, inviting a wrong
+  // cross-artifact narrative). No reroll: the carrier stays exactly who the
+  // "eligible" draw above already picked.
+  const excludedReviewees = lifecycleActors({ onboarding, offboarding });
   let earlyIndex = 0;
   let lateIndex = 0;
   const carrierEarly = staged.filter((row) => row.reviewer.employee_id === carrier && row.stage === "early");
-  const plantKey = carrierEarly[carrierEarly.length - 1];
+  let plantKey;
+  for (let i = carrierEarly.length - 1; i >= 0; i--) {
+    if (!excludedReviewees.has(carrierEarly[i].reviewee.employee_id)) {
+      plantKey = carrierEarly[i];
+      break;
+    }
+  }
+  if (!plantKey) {
+    throw new Error(
+      `${E}: every one of the carrier's early rows reviews somebody who already owns or approves a seat in `
+      + `HR-06 or HR-07, so no reviewee-clear row exists to carry the overdue assignment`
+    );
+  }
   const submittedRng = createRng(STREAM, "review-submissions");
   const progressRng = createRng(STREAM, "review-progress");
 
@@ -1934,6 +1972,15 @@ function assertCrossArtifactRules({ onboarding, offboarding, review, people }) {
   }
   if (onboardingPeople.has(carrier) || offboardingPeople.has(carrier)) {
     throw new Error(`${E}: the reviewer carrying the overdue assignment also owns work in another artifact`);
+  }
+
+  // X4, reviewee side (review F6): the overdue assignment's reviewee is not a
+  // named actor in HR-06 or HR-07 either, so a cross-artifact reader cannot
+  // over-read the late review as belonging to somebody already busy elsewhere.
+  const plantRow = review.assignments.find((row) => row.submitted_date === "" && row.due_date < AS_OF);
+  if (!plantRow) throw new Error(`${E}: the review cycle carries no overdue unsubmitted assignment`);
+  if (onboardingPeople.has(plantRow.reviewee_employee_id) || offboardingPeople.has(plantRow.reviewee_employee_id)) {
+    throw new Error(`${E}: the overdue assignment's reviewee also owns work in another artifact`);
   }
 
   // X3: the departing employee sits nowhere in the review cycle.
