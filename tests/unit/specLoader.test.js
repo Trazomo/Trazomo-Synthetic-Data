@@ -712,8 +712,8 @@ test("loadSpecs: no cluster 2 SMB planted feature carries a dash this pack does 
     for (const feature of byId.get(id).planted_features) {
       assert.equal(typeof feature, "string", `${id} has a planted feature that is not a string (quote the colon)`);
       assert.ok(feature.trim() !== "", `${id} has an empty planted feature`);
-      assert.ok(!feature.includes("—"), `${id} planted feature carries an em dash`);
-      assert.ok(!feature.includes("–"), `${id} planted feature carries an en dash`);
+      assert.ok(!feature.includes("\u2014"), `${id} planted feature carries an em dash`);
+      assert.ok(!feature.includes("\u2013"), `${id} planted feature carries an en dash`);
       assert.ok(!/learner/i.test(feature), `${id} describes what a learner does, which no file can contain: ${feature}`);
     }
   }
