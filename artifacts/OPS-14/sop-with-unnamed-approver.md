@@ -1,6 +1,6 @@
 # Region go-live sign-off SOP
 
-## Document control
+## Document Control
 
 | Field | Value |
 |---|---|
@@ -10,10 +10,10 @@
 | Owner | Cormac Marchbanks, Operations Manager |
 | Approver | Isolde Greywick, Director, Operations |
 | Effective Date | 2026-03-20 |
-| Last reviewed | 2026-03-18 |
-| Next review due | 2027-03-18 |
-| Supersedes | none |
-| Superseded by | none |
+| Last Reviewed | 2026-03-18 |
+| Next Review Due | 2027-03-18 |
+| Supersedes | None |
+| Superseded By | None |
 
 ## 1. Purpose
 

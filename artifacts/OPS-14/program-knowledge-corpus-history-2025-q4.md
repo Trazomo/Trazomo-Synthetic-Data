@@ -20,7 +20,7 @@ A pilot was designed as one cohort of customers inside a fixed window. It was sc
 
 ## 2025-12-02: written guidance for the regions is drafted
 
-Guidance was drafted alongside the form so that a region meeting the new form for the first time would not have to ask what had changed. It was held back from the regions until the form settled, which meant it was still a draft when the pilot opened.
+Guidance was drafted alongside the form so that a region meeting the new form for the first time would not have to ask what had changed. It was held back from the regions until the form settled.
 
 ## 2025-12-16: a note for whatever builds the knowledge base from this record
 

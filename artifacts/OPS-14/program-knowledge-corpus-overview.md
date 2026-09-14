@@ -15,7 +15,7 @@ As of: 2026-03-31
 
 - The work separated into two strands, region readiness and the rebuild of the onboarding form [KB-05, 2025-10-07]
 - The first readiness checklist went out to the regions as a document a region could keep and adjust locally, and the copies began to drift apart from that day [KB-05, 2025-10-21]
-- The new form's field list was drafted against the form it replaces, and fields with nowhere to land in the new form were listed and left unresolved [KB-05, 2025-11-04]
+- The new form's field list was drafted against the form it replaces, and fields the older form carried and the new one would not were listed and left unresolved [KB-05, 2025-11-04]
 - The pilot was scoped to exercise the new form and the readiness idea together rather than one at a time [KB-05, 2025-11-18]
 
 ## January and February 2026
@@ -32,7 +32,7 @@ As of: 2026-03-31
 - The older readiness flags carry no notes behind them, so the record does not show what was checked [KB-01, 00:07:36]
 - During the pilot a readiness flag was set while the notes behind it sat in a chat thread [KB-01, 00:07:57]
 - There was no written path for who hears about a customer stuck partway through onboarding [KB-01, 00:37:31]
-- Membership of the first cohort waited on the readiness checklist [KB-01, 00:40:01]
+- The readiness field is set by hand at the end of a checklist, so it is only as good as whichever checklist was used [KB-01, 00:05:28]
 - A region flagged ready that turns out not to be is a stated reason to stop the first cohort once it has started [KB-01, 00:41:05]
 
 ## March 2026, from the procedure onward
@@ -40,7 +40,7 @@ As of: 2026-03-31
 - The region go-live sign-off procedure exists so that ready means the same thing in every region and a region going live leaves a record a later reader can follow [KB-03, 1. Purpose]
 - The procedure covers a region from the opening of its readiness review to the first customer of a cohort being onboarded into it, and leaves contracting, pricing and the migration of older records outside [KB-03, 2. Scope]
 - A region is ready when every line of the shared readiness checklist has been completed for it and saved on the shared document rather than on a copy [KB-03, 3. Definitions]
-- Each sign-off step carries an approver and a piece of evidence, and no step is started before the step ahead of it is complete [KB-03, 4. Sign-off steps]
+- Each sign-off step carries an approver line and a piece of evidence, and no step is started before the step ahead of it is complete [KB-03, 4. Sign-off steps]
 - Region readiness is confirmed on the single shared checklist document before anything else in the sign-off [KB-03, Step 1: confirm region readiness on the shared checklist]
 - The escalation path for a customer stuck partway through onboarding is written down, and it applies whether or not the region has completed sign-off [KB-03, 5. Escalation path]
 - A step one region needs and no other region needs is added as a line on the shared checklist document rather than as a second checklist [KB-03, 6. Notes]

@@ -12,7 +12,7 @@ As of: 2026-03-31
 |---|---|---|---|---|
 | KB-01 | delivery sync transcript | meeting-transcript-with-commitments.md | 2026-03-10 | cue timestamp, as printed at the head of a cue line |
 | KB-02 | team retro notes | retro-transcript-with-recurring-finding.md | 2026-03-27 | cue timestamp, as printed at the head of a cue line |
-| KB-03 | region go-live sign-off procedure | sop-with-unnamed-approver.md | 2026-03-20 | section or step heading, as printed |
+| KB-03 | region go-live sign-off SOP | sop-with-unnamed-approver.md | 2026-03-20 | section or step heading, as printed |
 | KB-04 | program record, third quarter of 2025 | program-knowledge-corpus-history-2025-q3.md | 2025-09-30 | entry date, as printed in the entry heading |
 | KB-05 | program record, fourth quarter of 2025 | program-knowledge-corpus-history-2025-q4.md | 2025-12-31 | entry date, as printed in the entry heading |
 | KB-06 | program record, first quarter of 2026 | program-knowledge-corpus-history-2026-q1.md | 2026-03-31 | entry date, as printed in the entry heading |
