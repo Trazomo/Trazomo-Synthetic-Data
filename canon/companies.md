@@ -13,6 +13,7 @@ Source: 2026-08-08 program consolidation (`docs/plans/2026-08-08-program-consoli
 | co-101 to co-129 | Atticus Dundee ecosystem supporting cast (assigned below) |
 | co-131 to co-139 | Larkspur local cast (assigned below) |
 | co-140 and up | Generator-produced population (CRM accounts, contacts, bulk fixtures; neutral generated names) |
+| co-200 to co-249 | Larkspur-side generated entities, reserved for the small-business clusters (prospects, vendors and clients the studio deals with; neutral generated names). Carved out of the generator range because co-140 to co-190 is already spent by co-002's CRM population, so a Larkspur-side generated counterparty never takes an id that means a co-002 customer (D-R1). |
 
 Entities that exist only inside one artifact (for example the holding companies, subsidiaries, and fund vehicles inside the LGL-08 corporate family tree) live in that artifact's spec, not in this roster.
 
