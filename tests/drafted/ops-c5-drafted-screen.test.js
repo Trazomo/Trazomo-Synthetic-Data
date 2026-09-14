@@ -224,16 +224,27 @@ function claims(text) {
 // ------------------------------------------------------------------ furniture
 
 // The one place a typed list is allowed. Each entry is here because a document
-// has to say it and the pack ships it nowhere else: the document-control field
-// labels the CORE-05 control block established, the document's own type word,
-// the word a step heading opens with (quoted inside an overview locator, where
-// it does not begin a line), and the three month names the corpus writes out.
-// The KB ids are NOT here: they are derived below from the register's own bytes,
-// which another arm pins to KB-01..KB-07.
+// has to say it and the pack ships it nowhere else: the document's own type
+// word, the word a step heading opens with (quoted inside an overview
+// locator, where it does not begin a line), the three month names the corpus
+// writes out, "Control" (the document-control block's own heading, second
+// word), and the trailing words of the three pinned field-label phrases below
+// ("Reviewed", "Review", "Due", "By") — the phrase pin only satisfies the
+// phrase screen, and the standalone word screen still checks each non-opening
+// word of those phrases on its own, so it needs them too. The KB ids are NOT
+// here: they are derived below from the register's own bytes, which another
+// arm pins to KB-01..KB-07.
 const FURNITURE_WORDS = [
   "SOP", "Document", "ID", "Effective", "Date", "Step", "January", "February", "March",
+  "Control", "Reviewed", "Review", "Due", "By",
 ];
-const FURNITURE_PHRASES = [];
+
+// The three document-control field labels the CORE-05 control block
+// established, pinned whole: each opens a table cell with a first word the
+// pack accounts for nowhere else ("Last", "Next", "Superseded" are not
+// otherwise screened words), so the phrase is pinned rather than widening the
+// word list with openers that would screen a real name just as readily.
+const FURNITURE_PHRASES = ["Last Reviewed", "Next Review Due", "Superseded By"];
 
 // ------------------------------------------------------------- the freeze gate
 
@@ -263,8 +274,8 @@ test("OPS-10: the document control block parses, is effective 2026-03-20, and jo
     const { name, role } = personAndRole(control.get(field), `document control ${field}`);
     resolveActive(name, role, `document control ${field}`);
   }
-  const reviewed = control.get("Last reviewed");
-  const due = control.get("Next review due");
+  const reviewed = control.get("Last Reviewed");
+  const due = control.get("Next Review Due");
   assert.ok(reviewed && due, "the document control block carries no review dates");
   assert.ok(reviewed <= EFFECTIVE_DATE, `the SOP was last reviewed ${reviewed}, after it took effect`);
   assert.ok(due > EFFECTIVE_DATE, `the next review is due ${due}, on or before the effective date`);
