@@ -1,0 +1,2 @@
+exit_id,employee_id,full_name,department,role_title,level,worker_type,manager_employee_id,manager_full_name,hrbp_employee_id,hrbp_full_name,it_owner_employee_id,it_owner_full_name,start_date,notice_date,last_working_day,exit_type,as_of
+EXT-2026-0001,EMP-0043,Delphine Bellcrest,Engineering,Site Reliability Engineer,IC,employee,EMP-0014,Quenby Osgood,EMP-0525,Lyric Pennington,EMP-0551,Freya Ivorwood,2020-11-20,2026-03-27,2026-04-10,voluntary_resignation,2026-04-03
