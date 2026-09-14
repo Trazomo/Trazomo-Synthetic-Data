@@ -13,7 +13,7 @@ As of: 2026-03-31
 
 ## Fourth quarter of 2025
 
-- The work separated into the readiness work in the regions and the rebuild of the onboarding form [KB-05, 2025-10-07]
+- The work separated into two strands, region readiness and the rebuild of the onboarding form [KB-05, 2025-10-07]
 - The first readiness checklist went out to the regions as a document a region could keep and adjust locally, and the copies began to drift apart from that day [KB-05, 2025-10-21]
 - The new form's field list was drafted against the form it replaces, and fields with nowhere to land in the new form were listed and left unresolved [KB-05, 2025-11-04]
 - The pilot was scoped to exercise the new form and the readiness idea together rather than one at a time [KB-05, 2025-11-18]

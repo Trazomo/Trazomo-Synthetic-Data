@@ -4,7 +4,7 @@ The dated record of the customer onboarding revamp at Atticus Dundee Inc. for th
 
 ## 2025-10-07: the program splits into two strands
 
-The work was separated into the readiness work in the regions and the rebuild of the onboarding form itself. From this point the two strands kept their own working sessions, and the quarterly report carried both.
+The work was separated into two strands, region readiness and the rebuild of the onboarding form itself. From this point each strand kept its own working session, and the quarterly report carried both.
 
 ## 2025-10-21: the first readiness checklist is issued to the regions
 
