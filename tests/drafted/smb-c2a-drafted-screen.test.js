@@ -664,8 +664,11 @@ test("SMB-C2A: the allowances section's contingency figure recomputes to its lin
   // whole document is either the total, a draw, or the one line item the
   // allowances section names by id and figure. Anything else is unaccounted.
   const total = rows.reduce((acc, r) => acc + cents(r.line_total_usd, `${r.line_id} line_total_usd`), 0);
-  const schedule = theSection(proposal(), /^Payment schedule$/, "SMB-06");
-  const draws = [...schedule.body.matchAll(/(\$[\d,]+\.\d{2})\./g)].map((m) => m[1]);
+  // The draws come from SMB-04's own invoice amounts, never from the payment
+  // schedule's body: a set harvested from a section of the document under test
+  // would let that section license its own figures.
+  const draws = record().payment_log.map((p) =>
+    money(cents(p.invoice_amount_usd, `${p.invoice_id} invoice_amount_usd`)));
   const derivable = new Set([money(total), figure, ...draws]);
   const figuresInDoc = new Set(proposal().match(/\$[\d,]+\.\d{2}/g) ?? []);
   assert.deepEqual(

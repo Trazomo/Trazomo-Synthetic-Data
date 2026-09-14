@@ -266,7 +266,7 @@ test("SMB-10: client_canon_id is co-131 on all eighteen rows and resolves in can
   assert.match(seated.name, /Okafor/, "co-131 is no longer the Okafor household");
 });
 
-test("SMB-10: exactly one answer carries information outside its question's scope, and it is IQQ-LDB-06 (P3, T-D4)", () => {
+test("SMB-10: exactly one answer carries health, mobility or care vocabulary and no question asks for it, and it is IQQ-LDB-06 (P3, T-D4 as operationalised)", () => {
   // Half one: no question asks about health, mobility or care. Without this the
   // rule below would go quiet the day the form grew a question that did.
   const asked = intake.rows.filter((r) => usesAny(r.question_text, OUT_OF_SCOPE_WORDS, OUT_OF_SCOPE_PHRASES));

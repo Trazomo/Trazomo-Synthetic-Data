@@ -411,17 +411,26 @@ const C2A_OWN_CLASSES = ["PLI-LDB-", "RTC-LDB-", "CFD-LDB-", "NSC-LDB-", "IQQ-LD
 const C2A_FORWARD_CITATION = { class: "MST-LDB-", from: "SMB-11", column: "related_milestone_id" };
 
 test("SMB-06 to SMB-11: no processor, gateway, card network or bank product is named (rule R-MOCK)", () => {
-  // The cluster 1 list, less two terms dropped for a stated reason rather than
-  // forgotten, on the rule that a deny term may not also be an ordinary word of
-  // the document: "square", because square_foot is a unit of the proposal's own
-  // bill, and "auth", because it is a fragment rather than a word. The list's
-  // own "authorization" carries that half.
-  const dropped = ["square", "auth"];
+  // The cluster 1 list, less one term dropped for a stated reason rather than
+  // forgotten: "auth", because it is a fragment rather than a word, and the
+  // list's own "authorization" carries that half. "square" stays on the list;
+  // the two exact strings that make it an ordinary word of the proposal's bill
+  // are excised before tokenising, and the excision is proven non-vacuous so it
+  // cannot rot into a blanket allowance.
+  const dropped = ["auth"];
+  const excised = ["per square foot", "square_foot"];
   const forbidden = MOCK_VOCABULARY.filter((term) => !dropped.includes(term));
   assert.equal(forbidden.length, MOCK_VOCABULARY.length - dropped.length, "a dropped term is no longer in the list");
 
+  const smb06 = c2aFiles().find((f) => f.id === "SMB-06");
+  for (const phrase of excised) {
+    assert.ok(smb06.text.toLowerCase().includes(phrase), `SMB-06 no longer carries "${phrase}"; retire the excision`);
+  }
+
   for (const file of c2aFiles()) {
-    const words = new Set(file.text.toLowerCase().split(/[^a-z0-9]+/));
+    let swept = file.text.toLowerCase();
+    for (const phrase of excised) swept = swept.split(phrase).join(" ");
+    const words = new Set(swept.split(/[^a-z0-9]+/));
     for (const term of forbidden) {
       assert.ok(
         !words.has(term),
