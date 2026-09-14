@@ -67,6 +67,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { MOCK_VOCABULARY } from "../helpers/smb-mock-vocabulary.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 
@@ -329,21 +330,41 @@ function canonPeople() {
  * and draws and names no instrument, and C2 emits no payment row at all, so the
  * whole obligation here is an absence.
  *
- * The list is the SMB C1 list (tests/generators/planted-features.test.js) with
- * two entries deliberately dropped rather than forgotten, on the rev-c5 rule
- * that a deny term may not also be an ordinary word of the document: "square",
- * because `square_foot` is a unit of the proposal's own bill, and "auth",
- * because it is a fragment rather than a word. "authorization" carries that
- * half of the rule instead, and phrases are matched whole.
+ * Derived from the SMB C1 list (tests/helpers/smb-mock-vocabulary.js) rather
+ * than kept as a second, independently maintained copy that can drift from it.
+ * Exactly one term is dropped: "square". The reason is stated for this
+ * screen's own matcher (a word boundary regex, under which `_` is a word
+ * character) rather than for the other screen's tokeniser: `square_foot`
+ * never matches `\bsquare\b` at all, because there is no boundary between "e"
+ * and "_". What actually forces the drop is the prose phrase "per square
+ * foot", the rate basis appendix's own unit description (twice) and the
+ * allowances section's "priced per square foot" (once), which is an ordinary
+ * phrase of this document. Coverage is recovered rather than left dropped:
+ * both exact phrases are excised before "square" is matched on its own below,
+ * so an actual instrument mention (a card network literally named Square)
+ * is still caught.
  */
-const PAYMENT_INSTRUMENTS = [
-  "stripe", "paypal", "adyen", "braintree", "worldpay", "plaid",
-  "visa", "mastercard", "amex", "maestro", "card", "cardholder", "card network",
-  "ach", "wire", "wire transfer", "swift", "iban", "sepa", "bacs", "zelle", "venmo",
-  "gateway", "payment gateway", "processor", "payment processor", "merchant", "acquirer",
-  "routing", "routing number", "sort code", "account number", "cvv", "last4",
-  "authorization", "authorisation", "authorization code", "reference token",
+const DROPPED = ["square"];
+assert.equal(DROPPED.length, 1, "a term was dropped from the deny list without updating this assertion");
+
+/** Multi-word phrases this screen adds beyond the single-word C1 vocabulary. */
+const C2_PHRASES = [
+  "card network", "wire transfer", "payment gateway", "payment processor",
+  "routing number", "sort code", "account number",
+  "authorisation", "authorization code", "reference token",
 ];
+
+const PAYMENT_INSTRUMENTS = [...MOCK_VOCABULARY.filter((t) => !DROPPED.includes(t)), ...C2_PHRASES];
+
+/** The two exact, byte-for-byte phrases that legitimately use "square" as an ordinary word. */
+const SQUARE_ALLOWED_PHRASES = ["per square foot", "square_foot"];
+
+/** `text` with every occurrence of the two allowed square phrases removed. */
+function withSquareAllowancesExcised(text) {
+  let out = text;
+  for (const phrase of SQUARE_ALLOWED_PHRASES) out = out.split(phrase).join("");
+  return out;
+}
 
 const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -614,6 +635,46 @@ test("SMB-C2A T-A6: the four draws recompute off the total to SMB-04's four invo
   );
 });
 
+test("SMB-C2A: the allowances section's contingency figure recomputes to its line item, and every dollar figure in the document is accounted for", () => {
+  // T-A1, T-A2 and T-A6 recompute every figure that lives in a table or in the
+  // payment schedule's own stated shape. The one money figure that lives in
+  // free prose outside either, the allowances section's contingency dollar
+  // amount, was unchecked: money could move between two lines in both tables
+  // at once and this figure would still read $4,500.00 on its own.
+  const rows = theTable(proposal(), LINE_COLUMNS, "the approved proposal's line item table");
+  const rowsById = new Map(rows.map((r) => [r.line_id, r]));
+
+  const allowances = theSection(proposal(), /^Allowances and exclusions$/, "SMB-06");
+  const cited = allowances.body.match(/line `(PLI-LDB-\d{2})` at (\$[\d,]+\.\d{2})/);
+  assert.ok(
+    cited,
+    `the allowances section does not name a line id and a dollar figure: ${JSON.stringify(allowances.body.trim())}`
+  );
+  const [, lineId, figure] = cited;
+  const line = rowsById.get(lineId);
+  assert.ok(line, `the allowances section cites ${lineId}, which is not a line in the bill`);
+  assert.equal(
+    proseCents(figure, "the allowances section's contingency figure"),
+    cents(line.line_total_usd, `${lineId} line_total_usd`),
+    `the allowances section states ${figure} for ${lineId} and the line item table states`
+    + ` ${money(cents(line.line_total_usd, lineId))}; money has moved between the two without the other moving`
+  );
+
+  // The general case, not just this one instance: every dollar figure in the
+  // whole document is either the total, a draw, or the one line item the
+  // allowances section names by id and figure. Anything else is unaccounted.
+  const total = rows.reduce((acc, r) => acc + cents(r.line_total_usd, `${r.line_id} line_total_usd`), 0);
+  const schedule = theSection(proposal(), /^Payment schedule$/, "SMB-06");
+  const draws = [...schedule.body.matchAll(/(\$[\d,]+\.\d{2})\./g)].map((m) => m[1]);
+  const derivable = new Set([money(total), figure, ...draws]);
+  const figuresInDoc = new Set(proposal().match(/\$[\d,]+\.\d{2}/g) ?? []);
+  assert.deepEqual(
+    [...figuresInDoc].sort(), [...derivable].sort(),
+    "the document states a dollar figure that is not the total, a draw, or the one line item the allowances"
+    + " section names by id and figure"
+  );
+});
+
 test("SMB-C2A T-A7: the proposal header carries SMB-04's address and project name and canon's own names", () => {
   const { header } = sections(proposal());
   const fields = headerFields(header);
@@ -652,12 +713,21 @@ test("SMB-C2A T-A7: the proposal header carries SMB-04's address and project nam
     + ` record_owner_role, "${client.record_owner_role}", and a role rather than a person`
   );
 
-  // The address is one string in this pack and it appears nowhere in a longer form.
+  // The address is one string in this pack and it appears nowhere in a longer
+  // form. Full-line equality rather than a substring test: a labeled header
+  // line ("**Property address:** 327 Havershill Court") strips its label and
+  // must equal the address exactly, and any other line naming Havershill has
+  // to equal the address exactly too, so a fuller address in prose (a city
+  // and a postcode appended) fails here rather than passing because it
+  // merely contains the pin.
   const addressLines = proposal().split("\n").filter((l) => l.includes("Havershill"));
   for (const line of addressLines) {
-    assert.ok(
-      line.includes(client.property_address),
-      `a line names Havershill outside the canonical address string: ${JSON.stringify(line.trim())}`
+    const trimmed = line.trim();
+    const labeled = trimmed.match(/^\*\*(.+?):\*\*\s*(.*)$/);
+    const value = labeled ? labeled[2].trim() : trimmed;
+    assert.equal(
+      value, client.property_address,
+      `a line names Havershill outside the canonical address string: ${JSON.stringify(trimmed)}`
     );
   }
 });
@@ -685,13 +755,22 @@ test("SMB-C2A: the proposal carries its eight sections in the order the plan fix
     `the acceptance block does not record approval on ${longForm(asOf)}`
   );
   const client = record().client;
-  assert.ok(
-    acceptance.body.includes(`the ${client.contact_role}`),
-    `the acceptance block does not approve by SMB-04's contact_role, "${client.contact_role}"`
+  // Line-level equality against the strings recomputed from SMB-04, not a
+  // substring test: `includes` would still pass if a name were inserted in
+  // front of the role ("Dana Okafor, the homeowner, ..."), because the role
+  // substring stays intact. The whole line has to be exactly this shape.
+  const acceptanceLines = acceptance.body.split("\n");
+  const approverLine = acceptanceLines.find((l) => l.startsWith("**Approved for the client:**"));
+  const accepterLine = acceptanceLines.find((l) => l.startsWith("**Accepted for the studio:**"));
+  assert.equal(
+    approverLine,
+    `**Approved for the client:** the ${client.contact_role}, for ${client.client_name}, on ${longForm(asOf)}.`,
+    "the acceptance block's approver line is not exactly SMB-04's contact_role, client_name and the proposal date"
   );
-  assert.ok(
-    acceptance.body.includes(`the ${client.record_owner_role}`),
-    `the acceptance block does not accept by SMB-04's record_owner_role, "${client.record_owner_role}"`
+  assert.equal(
+    accepterLine,
+    `**Accepted for the studio:** the ${client.record_owner_role}, on ${longForm(asOf)}.`,
+    "the acceptance block's accepter line is not exactly SMB-04's record_owner_role and the proposal date"
   );
   assert.ok(
     !/signature|signed by|\bsign here\b/i.test(acceptance.body),
@@ -779,6 +858,18 @@ test("SMB-C2A T-B3, P2: exactly one required field has an empty slot, and three 
     blankOptional.sort(), [...BLANK_OPTIONAL_FIELD_IDS].sort(),
     `the optional fields with an empty slot are ${blankOptional.join(", ")}, expected two`
   );
+
+  // The plant is bare and its two siblings are not, and that asymmetry is the
+  // document's teaching surface: pin both halves, not just the plant's.
+  for (const id of BLANK_OPTIONAL_FIELD_IDS) {
+    assert.notEqual(
+      bodyById.get(id).body.trim(), "",
+      `${id} has lost its guidance sentence; an optional empty slot carries prose and the`
+      + " required empty slot is the only section in the document with nothing in it"
+    );
+  }
+  const bare = [...bodyById].filter(([, s]) => s.body.trim() === "").map(([id]) => id);
+  assert.deepEqual(bare, [BLANK_REQUIRED_FIELD_ID], `${bare.length} body sections are bare, expected exactly one`);
 
   // The one required blank carries nothing at all, not merely no token: the
   // spec's own words are "no placeholder token and no text in its body section".
@@ -962,7 +1053,11 @@ test("SMB-C2A T-C5: the welcome pack carries no digit-bearing token other than a
 
 // ========================================== the properties over all three documents
 
-test("SMB-C2A T-B5, T-C4: neither template names a canon company, and no document names a person", () => {
+test("SMB-C2A T-B5, T-C4: neither template names a canon company, and no document names a canon-seated, retired or frozen name", () => {
+  // canon/people.md's own names are the whole of this deny list. An invented
+  // name canon has never seated, retired or frozen is out of scope for it:
+  // this screen can only ever verify the absence of canon's own names, never
+  // the absence of a person named in fabricated prose.
   const companies = canonCompanies();
   const studioName = companies.get("co-100");
   assert.ok(studioName?.length > 0, "canon carries no co-100 name, so the absence screen would pass vacuously");
@@ -999,17 +1094,35 @@ test("SMB-C2A R-MOCK: no drafted document names a processor, a gateway, a card n
       denyHits(doc.text, PAYMENT_INSTRUMENTS), [],
       `${doc.label} names a payment instrument; this pack describes terms and draws and names no instrument`
     );
+    // "square" is excised out of PAYMENT_INSTRUMENTS above; recover the
+    // coverage here rather than leave it dropped, so a real instrument named
+    // Square is still caught outside the two allowed phrases.
+    assert.deepEqual(
+      denyHits(withSquareAllowancesExcised(doc.text), ["square"]), [],
+      `${doc.label} names "square" outside the two allowed phrases ("per square foot", "square_foot"),`
+      + " which is a payment instrument"
+    );
+  }
+  // The excise is only honest when both allowed phrases actually appear on
+  // the page they are licensed for; otherwise the allowlist is a silent
+  // no-op that would not be caught by the assertion above.
+  for (const phrase of SQUARE_ALLOWED_PHRASES) {
+    assert.ok(
+      proposal().includes(phrase),
+      `the allowed phrase "${phrase}" no longer appears in the approved proposal, so allowlisting it is now a no-op`
+    );
   }
 });
 
 test("SMB-C2A: every id in the three documents belongs to one of the namespaced 2a classes", () => {
   const ALLOWED = [LINE_ID, RATE_ID, FIELD_ID];
   for (const doc of documents()) {
-    // An id-shaped token is an uppercase class, a hyphen and digits. SMB ids are
-    // artifact references and are excluded; everything else has to be namespaced.
+    // An id-shaped token is an uppercase class, a hyphen and digits. No document
+    // carries a bare SMB id any more (the proposal number is now 2026-014,
+    // NIT 1), so nothing needs excluding here: every id-shaped token has to be
+    // namespaced.
     const candidates = doc.text.match(/\b[A-Z]{3}(?:-[A-Z]{3})*-\d{2,}\b/g) ?? [];
     for (const id of new Set(candidates)) {
-      if (/^SMB-\d{2}$/.test(id)) continue;
       assert.ok(
         ALLOWED.some((re) => re.test(id)),
         `${doc.label} carries the id ${id}, which is not one of the PLI-LDB, RTC-LDB or CFD-LDB classes (rule R-NS)`
@@ -1020,13 +1133,21 @@ test("SMB-C2A: every id in the three documents belongs to one of the namespaced 
 
 test("SMB-C2A: the three documents sit inside their word bands and carry no em dash and no en dash", () => {
   for (const doc of documents()) {
-    const count = doc.text.split(/\s+/).filter(Boolean).length;
+    // The band excludes a markdown table cell wall counted as its own word: a
+    // "|" delimiter, whitespace on both sides, is structure rather than a
+    // word, and counting it as one pushed SMB-06 and SMB-09 to within about
+    // one percent of their ceiling (NIT 2, cluster-2.md section 1.1). Table
+    // cell content itself still counts: only the bare "|" token is excluded,
+    // so a table row's own prose is not silently exempted from the band.
+    const count = doc.text.split(/\s+/).filter((w) => w.length > 0 && w !== "|").length;
     const [low, high] = doc.band;
     assert.ok(
       count >= low && count <= high,
       `${doc.label} runs ${count} words, outside the ${low} to ${high} band`
     );
-    assert.ok(!doc.text.includes("—"), `${doc.label} carries an em dash (U+2014)`);
-    assert.ok(!doc.text.includes("–"), `${doc.label} carries an en dash (U+2013)`);
+    // Written as escapes so this screen is not itself a hit for a grep over
+    // the repo for the two characters it bans.
+    assert.ok(!doc.text.includes("\u2014"), `${doc.label} carries an em dash (U+2014)`);
+    assert.ok(!doc.text.includes("\u2013"), `${doc.label} carries an en dash (U+2013)`);
   }
 });
