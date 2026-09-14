@@ -669,6 +669,22 @@ const LEVEL_BY_CATEGORY = {
   vendor_service: "read",
 };
 
+/**
+ * Per-system overrides, consulted before LEVEL_BY_CATEGORY (F2). The identity
+ * category is otherwise flat admin, which would put a brand new hire's day-zero
+ * identity directory seat at administrator on their first business day. The
+ * directory account is an ordinary account; the single sign on administration
+ * console and the privileged access vault are correctly admin-level seats and
+ * carry no override, so the category default still applies to them.
+ */
+const LEVEL_OVERRIDE_BY_SYSTEM = {
+  "SYS-0001": "write", // identity directory
+};
+
+function levelForCategory(systemId, category) {
+  return LEVEL_OVERRIDE_BY_SYSTEM[systemId] ?? LEVEL_BY_CATEGORY[category];
+}
+
 /** The eight checklist rows that name no system, in checklist order. */
 const OFFBOARDING_ADMIN_TASKS = [
   { task_name: "Notify payroll of the last working day", phase: "notice", action: "administrative", owner_role: "People Operations", due_offset: -8, evidence_required: "yes" },
@@ -1262,7 +1278,7 @@ function buildOffboarding({ people, active, fullName }) {
     const source = sourceFor(draft.system_id);
     const shared = SHARED_DRIVE_SYSTEMS.includes(draft.system_id) && draft.revoked_date === "";
     const level = draft.revoked_date === ""
-      ? LEVEL_BY_CATEGORY[catalog.system_category]
+      ? levelForCategory(draft.system_id, catalog.system_category)
       : levelRng.pick(ACCESS_LEVELS);
     return {
       grant_id: `GRT-2026-${String(index + 1).padStart(4, "0")}`,

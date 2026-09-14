@@ -1,5 +1,5 @@
 grant_id,employee_id,system_id,system_name,system_category,access_level,grant_source,is_shared_grant,granted_date,granted_by_employee_id,request_ticket_id,revoked_date,revoked_by_employee_id,revocation_ticket_id
-GRT-2026-0001,EMP-0043,SYS-0001,identity directory,identity,admin,identity_provider,no,2020-11-23,EMP-0553,ACR-2026-0001,,,
+GRT-2026-0001,EMP-0043,SYS-0001,identity directory,identity,write,identity_provider,no,2020-11-23,EMP-0553,ACR-2026-0001,,,
 GRT-2026-0002,EMP-0043,SYS-0004,workplace email and calendar,productivity,write,identity_provider,no,2020-11-23,EMP-0553,ACR-2026-0002,,,
 GRT-2026-0003,EMP-0043,SYS-0005,shared team drive,productivity,write,shared_drive_acl,yes,2020-11-23,EMP-0562,ACR-2026-0003,,,
 GRT-2026-0004,EMP-0043,SYS-0008,team chat workspace,productivity,write,identity_provider,no,2020-11-23,EMP-0562,ACR-2026-0004,,,
