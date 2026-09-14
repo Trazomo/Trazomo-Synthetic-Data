@@ -8,7 +8,7 @@
 
 **Project name:** Okafor kitchen and primary bath renovation
 
-**Proposal number:** SMB-06
+**Proposal number:** 2026-014
 
 **Proposal date:** 2 February 2026
 
