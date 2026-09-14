@@ -561,3 +561,163 @@ test("SMB-06 to SMB-11: no file carries an em dash or an en dash", () => {
     assert.ok(!file.text.includes("\u2013"), `${file.id} carries an en dash (U+2013)`);
   }
 });
+
+// Small-business cluster 2b (SMB-12, SMB-13, SMB-16). The same four sweeps 2a
+// carries, over the delivery wave's own shipped files.
+//
+// Why this block exists rather than the 2a block simply widening. `c2aFiles()`
+// above is bound to six ids by name, so shipping a 2b file does NOT enrol it in
+// those sweeps: the only part of the 2a block that extends by shipping is the
+// `C2_ID_CLASSES` dictionary, which already lists all nine classes. The data
+// plan's section 4 spot-check row asks for R-MOCK, R-ROLE, R-NS and the address
+// equality over all ELEVEN cluster 2 artifacts, so the wave that ships the
+// files adds the block that screens them. SMB-14 and SMB-15 are drafted and
+// join `SMB_C2B_DRAFTED` with the drafted screen.
+//
+// Every derived assertion, tie-out and cardinality for these three lives in
+// tests/generators/smb-c2b-delivery.test.js. What is here is the property of
+// the wave: the class of later edit that adds a processor reference, a person
+// name, an un-namespaced id or an address, each of which looks like a field.
+
+const SMB_C2B_DETERMINISTIC = ["SMB-12", "SMB-13", "SMB-16"];
+const SMB_C2B_DRAFTED = [];
+
+/** The shipped 2b files, path derived from the spec's own name rather than typed. */
+function c2bFiles() {
+  const out = [];
+  for (const id of SMB_C2B_DRAFTED) {
+    const { name } = specs.byId.get(id);
+    out.push({ id, path: join(REPO_ROOT, "artifacts", id, `${name}.md`) });
+  }
+  for (const id of SMB_C2B_DETERMINISTIC) {
+    const { name } = specs.byId.get(id);
+    out.push({ id, path: join(REPO_ROOT, "datasets", "smb", name, `${name}.csv`) });
+  }
+  return out.map((f) => ({ ...f, text: readFileSync(f.path, "utf8") }));
+}
+
+/** The three id classes 2b's own files mint, and nothing else. */
+const C2B_OWN_CLASSES = ["TSK-LDB-", "DOC-LDB-", "MST-LDB-"];
+
+/**
+ * canon/people.md's own names. A second implementation of the parser the 2a
+ * block carries, deliberately not shared with it: two screens that shared one
+ * parser would go blind together. This one keeps any table cell that reads as a
+ * full personal name rather than locating a Name column first, so it is wider
+ * than the 2a parser and never narrower.
+ */
+function canonPersonNames() {
+  const text = readFileSync(join(REPO_ROOT, "canon", "people.md"), "utf8");
+  const names = new Set();
+  for (const line of text.split("\n")) {
+    if (!line.trim().startsWith("|")) continue;
+    for (const cell of line.trim().replace(/^\||\|$/g, "").split("|")) {
+      const value = cell.replace(/\*\*/g, "").trim();
+      if (/^[A-Z][a-z]+(?:\s+[A-Z]\.)?(?:\s+[A-Z][A-Za-z'-]+)+$/.test(value)) names.add(value);
+    }
+  }
+  return names;
+}
+
+test("SMB-12, SMB-13, SMB-16: no processor, gateway, card network or bank product is named (rule R-MOCK)", () => {
+  // The same list and the same one stated drop as 2a: "auth", a fragment whose
+  // half the list's own "authorization" already carries. 2a needed two
+  // excisions for the proposal's "per square foot"; the delivery wave needs
+  // none, and that absence is asserted rather than assumed.
+  const dropped = ["auth"];
+  const forbidden = MOCK_VOCABULARY.filter((term) => !dropped.includes(term));
+  assert.equal(forbidden.length, MOCK_VOCABULARY.length - dropped.length, "a dropped term is no longer in the list");
+
+  for (const file of c2bFiles()) {
+    const words = new Set(file.text.toLowerCase().split(/[^a-z0-9]+/));
+    for (const term of forbidden) {
+      assert.ok(
+        !words.has(term),
+        `${file.id} names "${term}", which is a processor, gateway, card network or bank product`
+      );
+    }
+  }
+});
+
+test("SMB-12, SMB-13, SMB-16: no file carries a name canon seats, retires or freezes (rule R-ROLE)", () => {
+  const names = canonPersonNames();
+  assert.ok(names.size > 0, "canon/people.md parsed to no names, so this screen would pass on anything");
+  for (const file of c2bFiles()) {
+    for (const name of names) {
+      assert.ok(!file.text.includes(name), `${file.id} carries the canon person name "${name}"`);
+    }
+  }
+  // The household is a company, not a person, and it is the one human-shaped
+  // string these files are allowed to carry. Read off canon rather than typed.
+  const household = canon.get("co-131");
+  assert.ok(household, "canon/companies.md does not seat co-131");
+  assert.ok(!names.has(household.name), "canon now seats a person under the household's own name");
+});
+
+test("SMB-12, SMB-13, SMB-16: every minted id is namespaced, and 2b mints only 2b classes (rule R-NS)", () => {
+  const seen = new Map();
+  for (const file of c2bFiles()) {
+    for (const match of file.text.matchAll(/\b([A-Z]{2,4})-LDB-(\d+)\b/g)) {
+      const idClass = `${match[1]}-LDB-`;
+      assert.ok(
+        Object.hasOwn(C2_ID_CLASSES, idClass),
+        `${file.id} mints "${match[0]}", whose class ${idClass} is not one of the nine the data plan namespaces`
+      );
+      assert.equal(match[2].length, 2, `${file.id} carries "${match[0]}", and the format is two zero-padded digits`);
+      seen.set(idClass, new Set([...(seen.get(idClass) ?? []), file.id]));
+    }
+
+    // The half the namespace exists for: a class token used bare. TSK- and
+    // DOC- are already spent by the operations and legal packs, so a bare mint
+    // here is a cross-track collision rather than a style slip.
+    for (const idClass of Object.keys(C2_ID_CLASSES)) {
+      const bare = idClass.replace("LDB-", "");
+      assert.doesNotMatch(
+        file.text, new RegExp(`\\b${bare}\\d`),
+        `${file.id} carries an un-namespaced ${bare} id`
+      );
+    }
+  }
+
+  for (const idClass of C2B_OWN_CLASSES) {
+    assert.ok(seen.has(idClass), `no cluster 2b file mints ${idClass}, so this screen checks nothing for it`);
+  }
+  assert.deepEqual(
+    [...seen.keys()].filter((c) => !C2B_OWN_CLASSES.includes(c)), [],
+    "a cluster 2b file cites an id class outside the three the delivery wave mints"
+  );
+});
+
+test("SMB-12, SMB-13, SMB-16: the delivery wave carries no property address at all, in any shape", () => {
+  // The canonical string is read out of SMB-04 rather than typed here, so a
+  // record edit moves this screen with it. Unlike 2a, where the address is a
+  // real passage of the drafted documents, none of these three files has a
+  // column that could honestly carry it: a task, a milestone and a storage path
+  // are all about the work rather than about where it happens. That expectation
+  // is asserted as two equalities rather than as an absence nobody counted.
+  const record = JSON.parse(fileByPath(emitted("SMB-04"), "client-record-okafor.json").content);
+  const address = record.client.property_address;
+  assert.equal(address, "327 Havershill Court", "the client record's property_address has moved");
+
+  const STREET = /\b\d{1,4}(?:\s+[A-Z][A-Za-z]+){1,3}\s+(?:Court|Lane|Street|Road|Way|Terrace|Avenue|Drive|Place)\b/g;
+  let streetMatches = 0;
+  let pinOccurrences = 0;
+  for (const file of c2bFiles()) {
+    for (const match of file.text.matchAll(STREET)) {
+      assert.equal(match[0], address, `${file.id} carries the address "${match[0]}", and the record says "${address}"`);
+      streetMatches += 1;
+    }
+    pinOccurrences += file.text.split(address).length - 1;
+  }
+  assert.equal(streetMatches, 0, "a delivery file now carries a street-shaped string, which none of the three columns needs");
+  assert.equal(pinOccurrences, 0, "a delivery file now carries the property address, which none of the three columns needs");
+});
+
+test("SMB-12, SMB-13, SMB-16: no file carries an em dash or an en dash", () => {
+  for (const file of c2bFiles()) {
+    // Written as escapes so this screen is not itself a hit for a grep over
+    // the repo for the two characters it bans.
+    assert.ok(!file.text.includes("—"), `${file.id} carries an em dash (U+2014)`);
+    assert.ok(!file.text.includes("–"), `${file.id} carries an en dash (U+2013)`);
+  }
+});
