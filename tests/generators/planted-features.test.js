@@ -7,6 +7,7 @@ import { join } from "node:path";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
+import { MOCK_VOCABULARY } from "../helpers/smb-mock-vocabulary.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
@@ -293,22 +294,13 @@ test("FIN-35: 38 inbound requests, every one pending_classification (fin-35-inbo
 /** The R-MOCK notice, byte for byte. A second spelling of it is the defect. */
 const MOCK_NOTICE = "MOCK PAYMENT RECORD, NO FUNDS MOVED";
 
-/**
- * Processors, gateways, card networks, bank products, authorization codes and
- * instrument numbers. Rule R-MOCK, as one word-anchored list for the whole SMB
- * pack: matched against the words of a file rather than as substrings, so
- * "each" is not a hit for "ach".
- *
- * Hoisted out of the cluster 1 test below so cluster 2 extends it rather than
- * keeping a second copy that can drift from it.
- */
-const MOCK_VOCABULARY = [
-  "stripe", "paypal", "adyen", "braintree", "worldpay", "authorize", "plaid", "square",
-  "visa", "mastercard", "amex", "discover", "maestro",
-  "ach", "wire", "swift", "iban", "sepa", "bacs", "zelle", "venmo",
-  "gateway", "processor", "merchant", "acquirer", "routing", "cvv",
-  "card", "cardholder", "last4", "authorization", "auth",
-];
+// Processors, gateways, card networks, bank products, authorization codes and
+// instrument numbers. Rule R-MOCK, as one word-anchored list for the whole SMB
+// pack: matched against the words of a file rather than as substrings, so
+// "each" is not a hit for "ach".
+//
+// Hoisted to tests/helpers/smb-mock-vocabulary.js so cluster 2's drafted
+// screen extends it rather than keeping a second copy that can drift from it.
 
 test("SMB-04, SMB-05: every payment row is a mock record and no instrument is named (rule R-MOCK)", () => {
   const records = [
@@ -522,15 +514,34 @@ test("SMB-06 to SMB-11: wherever a property address appears it is the client rec
   const address = record.client.property_address;
   assert.equal(address, "327 Havershill Court", "the client record's property_address has moved");
 
-  const STREET = /\b\d{1,4}\s+[A-Z][A-Za-z]+\s+(?:Court|Lane|Street|Road|Way|Terrace|Avenue|Drive|Place)\b/g;
-  let found = 0;
+  // Bounded (a trailing comma or digit means a fuller address follows the
+  // match, e.g. a city and a postcode) and widened to a one-to-three word
+  // street name, so a second, wholly invented street is seen rather than
+  // matched-nothing.
+  const STREET = /\b\d{1,4}(?:\s+[A-Z][A-Za-z]+){1,3}\s+(?:Court|Lane|Street|Road|Way|Terrace|Avenue|Drive|Place)\b/g;
+  let streetMatches = 0;
+  let pinOccurrences = 0;
   for (const file of c2aFiles()) {
-    for (const match of file.text.match(STREET) ?? []) {
-      assert.equal(match, address, `${file.id} carries the address "${match}", and the record says "${address}"`);
-      found += 1;
+    for (const match of file.text.matchAll(STREET)) {
+      const after = file.text.slice(match.index + match[0].length, match.index + match[0].length + 1);
+      assert.ok(
+        !/[,0-9]/.test(after),
+        `${file.id} carries "${match[0]}" immediately followed by "${after}", which is a fuller address than the pin`
+      );
+      assert.equal(match[0], address, `${file.id} carries the address "${match[0]}", and the record says "${address}"`);
+      streetMatches += 1;
     }
+    pinOccurrences += file.text.split(address).length - 1;
   }
-  assert.ok(found > 0, "no cluster 2a file carries the property address at all, so this screen checks nothing");
+  assert.ok(streetMatches > 0, "no cluster 2a file carries the property address at all, so this screen checks nothing");
+  // The positive half the sweep was missing: any street-shaped string that is
+  // not the pin, or a pin occurrence the street sweep does not see, is a
+  // failure by construction rather than by pattern luck.
+  assert.equal(
+    streetMatches, pinOccurrences,
+    `the street-shaped sweep finds ${streetMatches} matches and the exact address occurs ${pinOccurrences} times`
+    + " across the six files; they have to be the same count or an address-shaped string is hiding from one side"
+  );
 });
 
 test("SMB-06 to SMB-11: no file carries an em dash or an en dash", () => {
