@@ -964,7 +964,7 @@ test("HR-C4-T20: the headers match the spec, every value is published, and the h
   }
 
   for (const file of allFiles()) {
-    assert.ok(!file.content.includes("—"), `${file.path} carries an em dash`);
+    assert.ok(!file.content.includes("\u2014"), `${file.path} carries an em dash`);
     assert.ok(!file.content.includes("$"), `${file.path} carries a currency symbol`);
     assert.ok(!file.content.includes("%"), `${file.path} carries a percentage sign`);
     assert.ok(!file.content.includes("\r"), `${file.path} carries a CR byte`);
