@@ -624,7 +624,7 @@ export const NOTICE_DATE = "2026-03-27";
 export const LAST_WORKING_DAY = "2026-04-10";
 export const EXIT_TYPE = "voluntary_resignation";
 
-/** The eight clauses the departing employee is drawn against (2.3.1). */
+/** The nine clauses the departing employee is drawn against (2.3.1). */
 export const DEPARTING_DEPARTMENT = "Engineering";
 export const DEPARTING_LEVEL = "IC";
 export const DEPARTING_ROLE_TITLE = "Site Reliability Engineer";
@@ -1706,6 +1706,7 @@ function lifecycleActors({ onboarding, offboarding }) {
       ...onboarding.checklist_rows.map((row) => row.approval_owner_employee_id),
       ...offboarding.checklist.map((row) => row.owner_employee_id),
       ...offboarding.grants.map((row) => row.granted_by_employee_id),
+      ...offboarding.grants.map((row) => row.revoked_by_employee_id),
     ].filter((id) => id !== "")
   );
 }
@@ -2016,7 +2017,8 @@ function assertCrossArtifactRules({ onboarding, offboarding, review, people }) {
   const offboardingPeople = new Set([
     ...offboarding.checklist.map((row) => row.owner_employee_id),
     ...offboarding.grants.map((row) => row.granted_by_employee_id),
-  ]);
+    ...offboarding.grants.map((row) => row.revoked_by_employee_id),
+  ].filter((id) => id !== ""));
   if (onboardingPeople.has(departing.employee_id)) {
     throw new Error(`${E}: the departing employee owns or approves an onboarding task`);
   }

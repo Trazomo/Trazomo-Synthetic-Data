@@ -52,7 +52,7 @@ shape pin.
   takes that side by construction: `worker_type` is `employee` and nothing else,
   no row claims coverage for a non-employee worker, and the checklist carries
   an exit interview and a return-of-materials task. The departing employee is
-  drawn against eight clauses, one of which excludes everybody the frozen
+  drawn against nine clauses, one of which excludes everybody the frozen
   people-system case queue already names, so this exit adds no salience to a
   finding another artifact carries. Deprovisioning runs off a named access
   change request rather than off the last working day, and exactly one open

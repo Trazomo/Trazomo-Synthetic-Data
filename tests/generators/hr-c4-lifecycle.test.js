@@ -581,7 +581,7 @@ test("HR-C4-T7: the template document renders the catalog cell for cell and carr
 
 // --------------------------------------------------------------------- HR-07
 
-test("HR-C4-T8: the departing employee satisfies all eight clauses, each recomputed here", () => {
+test("HR-C4-T8: the departing employee satisfies all nine clauses, each recomputed here", () => {
   const [exit] = exitRecord();
   const person = byEmployeeId.get(exit.employee_id);
   assert.ok(person, "the exit record names somebody who is not a roster row");
@@ -595,6 +595,20 @@ test("HR-C4-T8: the departing employee satisfies all eight clauses, each recompu
   assert.ok(person.start_date <= cutoff, "clause 6: at least two years of tenure before the last working day");
   assert.equal(caseParticipants.has(person.employee_id), false, "clause 7: not named in the frozen case queue");
   assert.equal(person.finance_system_role, "", "clause 8: no finance system role");
+  // Clause 9, read from the frozen register in this test's own code: the
+  // departing employee's manager is not the hiring manager of any frozen
+  // requisition carrying the same role title, so no reader joining the
+  // register sees a backfill hired before the resignation (review F7).
+  const sameRoleHiringManagers = new Set(
+    register.requisitions
+      .filter((row) => row.requisition_title === person.role_title)
+      .map((row) => row.hiring_manager_employee_id)
+  );
+  assert.equal(
+    sameRoleHiringManagers.has(person.manager_employee_id),
+    false,
+    "clause 9: the manager of record hires for the same role in the frozen register"
+  );
 
   const pool = activeRoster.filter(
     (row) =>
@@ -606,11 +620,12 @@ test("HR-C4-T8: the departing employee satisfies all eight clauses, each recompu
       && !caseParticipants.has(row.employee_id)
       && row.finance_system_role === ""
       && !PUBLISHED_RECRUITING_ARC.includes(row.employee_id)
+      && !sameRoleHiringManagers.has(row.manager_employee_id)
   );
-  assert.ok(pool.length > 0, "the eight clauses select nobody at all");
+  assert.ok(pool.length > 0, "the nine clauses select nobody at all");
   assert.ok(
     pool.some((row) => row.employee_id === person.employee_id),
-    "the departing employee is outside the set the eight clauses define"
+    "the departing employee is outside the set the nine clauses define"
   );
   assert.equal(exit.full_name, nameOf(person), "the exit record prints another name");
   assert.equal(exit.role_title, person.role_title, "the exit record prints another role title");
