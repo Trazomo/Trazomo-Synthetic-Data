@@ -1,11 +1,6 @@
 # Changelog
 
-## 1.20.0
-
-**Drafted expecting `v1.20.0`; the integrator allocates in merge order at tag
-time and renumbers this heading if another PR takes it first. `v1.19.0` is the
-current tip and data PR #34, operations cluster 5, is open against the same
-base.**
+## 1.21.0
 
 People and HR cluster 4, lifecycle coordination. Three artifacts, one seeded
 builder, one test file, all deterministic. The plan is
@@ -76,6 +71,60 @@ shape pin.
   rather than by draw. There is no rating, score, comment, draft or development
   area column anywhere, so a chase drafted from these rows cannot carry anybody's
   feedback.
+## 1.20.0
+
+Operations cluster 5, the governance corpus, and the last data cluster of the
+operations blueprint sequence. Two artifacts, both `drafted-frozen`, no
+generator and no `datasets/` file. The plan is
+`docs/plans/2026-08-29-path-programs/operations/data-plans/cluster-5.md`; its
+section 9 defaults ride to Salvador's freeze review, U3 first, because the two
+injected-instruction spec lines extend `planted_features` beyond what the
+catalog carried and they are what make the two failure evals executable against
+vendored bytes. No byte changes under `datasets/`, none in `canon/companies.md`,
+and none in the frozen OPS-01, OPS-02 or OPS-03B directories this cluster reads
+and copies.
+
+- **OPS-10 sop-with-unnamed-approver**: the region go-live sign-off procedure,
+  `ADI-SOP-001`, effective 2026-03-20, with a CORE-05-style document control
+  block whose Owner and Approver join active CORE-04 rows byte for byte. Six
+  numbered sections and six sign-off steps, each step carrying exactly one
+  approver line and one non-empty evidence line naming a record that exists
+  outside the procedure; exactly one of the six approvals is the bare role
+  phrase with no person and no employee id, and the other five resolve name and
+  employee id to the same live roster row. Section 5 is the written escalation
+  path for a customer stuck partway through onboarding, named as roles and as
+  seats, and it applies whether or not the region has completed sign-off. The
+  procedure never mentions the delivery sync, the retros or any transcript: the
+  connecting tissue between it and the capture spine lives in the corpus
+  overview's citations instead.
+- **OPS-14 program-knowledge-corpus**: eight flat markdown files under
+  `artifacts/OPS-14/`, a flat `type: corpus` directory on the CORE-05 shape,
+  an index named by the spec with its documents beside it.
+  The index carries the source register, KB-01 to KB-07 in order, which is the
+  corpus's single point of citation metadata, because three of its sources are
+  byte-identical copies of `artifacts/OPS-01`, `artifacts/OPS-02` and
+  `artifacts/OPS-10` and can carry none of their own. Three dated records hold
+  the program's primary history across the anchor quarter and the two before it,
+  6 to 10 entries each with every date inside its own quarter, and one synthesis
+  overview groups 24 to 36 claims under period headings with every claim ending
+  in exactly one citation token whose locator resolves against the bytes of the
+  file its register row names: a cue timestamp in a transcript copy, a section
+  or step heading in the procedure copy, an entry date in the record cited. The
+  index, the records and the overview name no roster person at all, so a
+  person-level answer can come only from the embedded sources, and the corpus
+  states its own boundary rather than leaving a reader to find it.
+- **Screen and plumbing**: `tests/drafted/ops-c5-drafted-screen.test.js`, the
+  ops-c1 pattern with the CORE-04 roster generated in-test, carries nineteen
+  answer-key-free arms over the census, the grammar, the roster joins, the
+  byte-identity of the three copies, the citation contract, and the name,
+  canon-company, em-dash and money screens. Five sorted rows land in
+  `canon/timeline.md`, and two permanent-WARN allowlist entries land for OPS-10,
+  both the LGL-02 class of absence; OPS-14 needed none, because its nine feature
+  lines confirm from the corpus's own vocabulary. One cross-artifact repair
+  rides along: HR-05's mirror-set sweep now forgives a qualifying file whose
+  bytes equal an already-mirrored document's, because the corpus bundle makes
+  OPS-01 and OPS-02 qualify twice over as files while staying one event each. No
+  HR-05 byte moves.
 
 ## 1.19.0
 

@@ -1710,6 +1710,48 @@
             "build_files": [
                 "follow-up-email-thread.docx"
             ]
+        },
+        {
+            "id": "OPS-10",
+            "name": "sop-with-unnamed-approver",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/OPS-10",
+            "source_files": [
+                "sop-with-unnamed-approver.md"
+            ],
+            "build_files": [
+                "sop-with-unnamed-approver.docx"
+            ]
+        },
+        {
+            "id": "OPS-14",
+            "name": "program-knowledge-corpus",
+            "type": "corpus",
+            "format": "mixed bundle (OPS-01 + OPS-02 + OPS-10 + narrative history docs)",
+            "generation": "drafted-frozen",
+            "path": "artifacts/OPS-14",
+            "source_files": [
+                "meeting-transcript-with-commitments.md",
+                "program-knowledge-corpus-history-2025-q3.md",
+                "program-knowledge-corpus-history-2025-q4.md",
+                "program-knowledge-corpus-history-2026-q1.md",
+                "program-knowledge-corpus-overview.md",
+                "program-knowledge-corpus.md",
+                "retro-transcript-with-recurring-finding.md",
+                "sop-with-unnamed-approver.md"
+            ],
+            "build_files": [
+                "meeting-transcript-with-commitments.docx",
+                "program-knowledge-corpus-history-2025-q3.docx",
+                "program-knowledge-corpus-history-2025-q4.docx",
+                "program-knowledge-corpus-history-2026-q1.docx",
+                "program-knowledge-corpus-overview.docx",
+                "program-knowledge-corpus.docx",
+                "retro-transcript-with-recurring-finding.docx",
+                "sop-with-unnamed-approver.docx"
+            ]
         }
     ]
 }
