@@ -580,7 +580,7 @@ test("SMB-06 to SMB-11: no file carries an em dash or an en dash", () => {
 // name, an un-namespaced id or an address, each of which looks like a field.
 
 const SMB_C2B_DETERMINISTIC = ["SMB-12", "SMB-13", "SMB-16"];
-const SMB_C2B_DRAFTED = [];
+const SMB_C2B_DRAFTED = ["SMB-14", "SMB-15"];
 
 /** The shipped 2b files, path derived from the spec's own name rather than typed. */
 function c2bFiles() {
