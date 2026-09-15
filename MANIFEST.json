@@ -1799,7 +1799,9 @@
             "source_files": [
                 "latest-status-update.md"
             ],
-            "build_files": []
+            "build_files": [
+                "latest-status-update.docx"
+            ]
         },
         {
             "id": "SMB-15",
@@ -1811,7 +1813,9 @@
             "source_files": [
                 "internal-status-notes.md"
             ],
-            "build_files": []
+            "build_files": [
+                "internal-status-notes.docx"
+            ]
         }
     ]
 }
