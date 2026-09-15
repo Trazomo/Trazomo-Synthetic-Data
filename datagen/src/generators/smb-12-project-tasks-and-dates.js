@@ -450,7 +450,7 @@ function assertTasks(rows, schedule) {
       if (/[$£€]|\d+\.\d{2}/.test(value)) {
         throw new Error(`${where} states a money figure in ${column}, and this file mints none`);
       }
-      for (const dash of ["—", "–"]) {
+      for (const dash of ["\u2014", "\u2013"]) {
         if (value.includes(dash)) throw new Error(`${where} carries an em dash or an en dash in ${column}`);
       }
     }

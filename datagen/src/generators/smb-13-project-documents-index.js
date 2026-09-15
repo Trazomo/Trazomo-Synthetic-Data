@@ -396,7 +396,7 @@ function assertIndex(rows, milestoneIds, taskIds) {
       if (MONEY.test(value)) {
         throw new Error(`${where} states a money figure in ${column}, and this index carries no amount at all`);
       }
-      for (const dash of ["—", "–"]) {
+      for (const dash of ["\u2014", "\u2013"]) {
         if (value.includes(dash)) throw new Error(`${where} carries an em dash or an en dash in ${column}`);
       }
     }

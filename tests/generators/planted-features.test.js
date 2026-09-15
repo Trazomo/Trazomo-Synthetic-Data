@@ -717,7 +717,7 @@ test("SMB-12, SMB-13, SMB-16: no file carries an em dash or an en dash", () => {
   for (const file of c2bFiles()) {
     // Written as escapes so this screen is not itself a hit for a grep over
     // the repo for the two characters it bans.
-    assert.ok(!file.text.includes("—"), `${file.id} carries an em dash (U+2014)`);
-    assert.ok(!file.text.includes("–"), `${file.id} carries an en dash (U+2013)`);
+    assert.ok(!file.text.includes("\u2014"), `${file.id} carries an em dash (U+2014)`);
+    assert.ok(!file.text.includes("\u2013"), `${file.id} carries an en dash (U+2013)`);
   }
 });

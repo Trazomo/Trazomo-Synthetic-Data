@@ -707,7 +707,7 @@ test("SMB-12, SMB-13 and SMB-16 mint only their own namespaced id classes, two z
       const bare = idClass.replace("LDB-", "");
       assert.doesNotMatch(text, new RegExp(`\\b${bare}\\d`), `${specId} carries an un-namespaced ${bare} id`);
     }
-    assert.ok(!text.includes("—"), `${specId} carries an em dash (U+2014)`);
-    assert.ok(!text.includes("–"), `${specId} carries an en dash (U+2013)`);
+    assert.ok(!text.includes("\u2014"), `${specId} carries an em dash (U+2014)`);
+    assert.ok(!text.includes("\u2013"), `${specId} carries an en dash (U+2013)`);
   }
 });

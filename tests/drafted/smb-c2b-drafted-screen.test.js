@@ -1038,7 +1038,7 @@ test("SMB-C2B: both documents sit inside their word bands and carry no em dash a
     );
     // Written as escapes so this screen is not itself a hit for a grep over the
     // repo for the two characters it bans.
-    assert.ok(!doc.text.includes("—"), `${doc.label} carries an em dash (U+2014)`);
-    assert.ok(!doc.text.includes("–"), `${doc.label} carries an en dash (U+2013)`);
+    assert.ok(!doc.text.includes("\u2014"), `${doc.label} carries an em dash (U+2014)`);
+    assert.ok(!doc.text.includes("\u2013"), `${doc.label} carries an en dash (U+2013)`);
   }
 });
