@@ -1,9 +1,9 @@
 task_id,milestone_id,task,owner_role,planned_start,planned_end,internal_status,internal_completed_date,client_visible_status,client_visible_updated_date,client_canon_id
 TSK-LDB-01,MST-LDB-01,Walk the work area with the homeowners and agree the site boundary,project lead,2026-02-16,2026-02-16,complete,2026-02-16,complete,2026-02-16,co-131
 TSK-LDB-02,MST-LDB-01,"Set out the dust barriers, the floor protection and the crew entry route",owner,2026-02-16,2026-02-16,complete,2026-02-16,complete,2026-02-16,co-131
-TSK-LDB-03,MST-LDB-02,Strip out the existing kitchen units and worktops,project lead,2026-02-17,2026-02-18,complete,2026-02-18,complete,2026-03-24,co-131
-TSK-LDB-04,MST-LDB-02,Remove the primary bath fittings and the floor tile,project lead,2026-02-18,2026-02-19,complete,2026-02-24,complete,2026-03-24,co-131
-TSK-LDB-05,MST-LDB-02,Clear the demolition waste from site and confirm the disposal run,owner,2026-02-19,2026-02-20,complete,2026-02-27,complete,2026-03-24,co-131
+TSK-LDB-03,MST-LDB-02,Strip out the existing kitchen units and worktops,project lead,2026-02-17,2026-02-18,complete,2026-02-18,complete,2026-03-25,co-131
+TSK-LDB-04,MST-LDB-02,Remove the primary bath fittings and the floor tile,project lead,2026-02-18,2026-02-19,complete,2026-02-24,complete,2026-03-25,co-131
+TSK-LDB-05,MST-LDB-02,Clear the demolition waste from site and confirm the disposal run,owner,2026-02-19,2026-02-20,complete,2026-02-27,complete,2026-03-25,co-131
 TSK-LDB-06,MST-LDB-03,Move the kitchen waste and supply lines to the new layout,project lead,2026-02-23,2026-02-27,complete,2026-03-05,complete,2026-03-25,co-131
 TSK-LDB-07,MST-LDB-03,Run the new kitchen and bath circuits back to the panel,project lead,2026-03-02,2026-03-06,complete,2026-03-09,complete,2026-03-25,co-131
 TSK-LDB-08,MST-LDB-03,Rough in the primary bath shower valve and the drain,project lead,2026-03-09,2026-03-11,complete,2026-03-11,complete,2026-03-25,co-131

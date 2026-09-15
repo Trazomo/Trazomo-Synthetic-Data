@@ -139,7 +139,7 @@ const TASKS = [
     owner_role: "project lead",
     planned_start: "2026-02-17", planned_end: "2026-02-18",
     internal_status: "complete", internal_completed_date: "2026-02-18",
-    client_visible_status: "complete", client_visible_updated_date: "2026-03-24",
+    client_visible_status: "complete", client_visible_updated_date: "2026-03-25",
   },
   {
     milestone_id: "MST-LDB-02",
@@ -147,7 +147,7 @@ const TASKS = [
     owner_role: "project lead",
     planned_start: "2026-02-18", planned_end: "2026-02-19",
     internal_status: "complete", internal_completed_date: "2026-02-24",
-    client_visible_status: "complete", client_visible_updated_date: "2026-03-24",
+    client_visible_status: "complete", client_visible_updated_date: "2026-03-25",
   },
   {
     milestone_id: "MST-LDB-02",
@@ -155,7 +155,7 @@ const TASKS = [
     owner_role: "owner",
     planned_start: "2026-02-19", planned_end: "2026-02-20",
     internal_status: "complete", internal_completed_date: "2026-02-27",
-    client_visible_status: "complete", client_visible_updated_date: "2026-03-24",
+    client_visible_status: "complete", client_visible_updated_date: "2026-03-25",
   },
 
   // MST-LDB-03, plumbing and electrical rough in. Planned three weeks from

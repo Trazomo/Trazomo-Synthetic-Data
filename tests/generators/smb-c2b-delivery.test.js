@@ -373,6 +373,19 @@ test("SMB-12: P4 at both cardinalities, one stale row and four old client timest
     old.some((r) => r.task_id === "TSK-LDB-12"),
     "the plant is not inside the population it is supposed to hide in"
   );
+
+  // NIT 1: the boundary itself. Three rows once sat exactly seven days old,
+  // where the strict ("more than seven") and the inclusive (">= 7") readings
+  // of the plan's own sentence disagree (4 rows under > 7, 7 under >= 7).
+  // Asserting the two readings agree here is what keeps that boundary clear:
+  // a future edit that drifts a row back onto the line fails this line first,
+  // rather than shipping a brief that is only right under one reading.
+  const oldInclusive = tasks.rows.filter((r) => daysBetween(r.client_visible_updated_date, AS_OF) >= 7);
+  assert.equal(
+    oldInclusive.length, old.length,
+    `${oldInclusive.length} rows are at least seven days old and ${old.length} are more than seven days old;`
+    + " a row sits exactly on the boundary, so B7's qualifier-free count depends on which reading is used"
+  );
 });
 
 test("SMB-12: exactly one task disagrees across the two status columns under ANY reading (T-F4)", () => {
