@@ -61,6 +61,19 @@
 # its `feature` text was refreshed rather than the entry being widened. A twelfth
 # entry was added on the same footing for the corpus-wide span rule the re-cut
 # introduced, which WARNed on its own run first.
+#
+# The three small-business cluster 2b entries were added 2026-09-14 during the
+# adversarial-review fix wave (SHOULD-FIX 1). SMB-15's internal notes originally
+# narrated three of its own planted_features in prose -- which figure of three
+# is the internal one and why, which of two overdue milestones is measurable,
+# and why the electrical subcontractor is not named -- a per-instance answer key
+# in a drafted document, the class cluster-2.md section 0 rules out for a
+# column and rules out here for a sentence. The three paragraphs were cut
+# (about 95 words, SMB-15 848 to 689, still inside the 500 to 900 band) and
+# `validate SMB-15` was run against the cut bytes first: it WARNed on exactly
+# these three features and no others, confirming the cut removed the vocabulary
+# these three entries cover and nothing else. Each plant stays checkable
+# without the prose, in tests/drafted/smb-c2b-drafted-screen.test.js.
 
 version: 1
 
@@ -512,3 +525,60 @@ allowed:
       source at HR-C2-T12, which is also what makes an unstated work location
       mechanical, since a place name would be an unaccounted proper noun. Expected to
       be permanent.
+
+  - artifact: SMB-15
+    feature: "blunt language and an internal cost figure that must never leak into the client-facing draft: exactly one passage states a dollar figure that appears in no client-facing artifact, the 6,480.00 of rework the electrical sub caused, and that same passage carries the blunt language, saying the sub burned five days on a two day job and that the homeowners have not asked one question about it"
+    reason: >-
+      Unconfirmable by construction, the LGL-02 class. This feature is the
+      cost-leak plant described from outside the document: "blunt", "exactly",
+      "passage", "carries" and "client-facing" are a reviewer's words for what
+      the notes do, not words the owner would write about their own notes, and
+      "figure", "dollar", "appears" and "artifact" are the vocabulary of a data
+      plan's cardinality table, not of a person describing a rework bill. A
+      private notes file that said a passage of itself "appears in no
+      client-facing artifact" would be narrating its own answer key -- P6's
+      cardinality and the cross-reference to the job cost tracker (`DOC-LDB-11`)
+      -- which is exactly what SHOULD-FIX 1 of the 2b adversarial review cut.
+      The figure and the blunt language are both present and pinned verbatim:
+      tests/drafted/smb-c2b-drafted-screen.test.js's byte-exact passage test
+      holds the P6 sentence itself, and its P6 cardinality test recomputes,
+      from the document's own dollar figures, that exactly one of three
+      passages states a figure no client-facing artifact carries. No rewording
+      of SMB-15 can make this checkable from the prose without reintroducing
+      the answer key, so this entry is expected to be permanent.
+
+  - artifact: SMB-15
+    feature: "the internal figure hides among figures that are safe to repeat: three passages state a dollar figure, the 148,500.00 contract value and the 4,500.00 contingency allowance both appearing in the approved proposal, so a reader who greps for a currency symbol finds three and only one of the three is internal"
+    reason: >-
+      Unconfirmable by construction, the same class as this entry's sibling
+      above. "figure", "figures", "passages", "safe" and "hides" are a
+      reviewer's vocabulary for the cardinality trap, not an owner's; "reader",
+      "greps", "currency" and "symbol" describe someone auditing the notes with
+      a search tool, which the owner writing them has no reason to mention; and
+      "value", "appearing" and "approved proposal" restate P6's own selection
+      rule (two of three figures are safe because SMB-06 already states them).
+      A document that said this about itself would be doing SHOULD-FIX 1's
+      whole job for it, so the sentence was cut. The count is present and
+      recomputed without it: tests/drafted/smb-c2b-drafted-screen.test.js's P6
+      test harvests every dollar-bearing passage in SMB-15, pins the
+      qualifier-free count at three, and confirms the other two are byte-present
+      in the approved proposal. No rewording can make this checkable from the
+      prose, so this entry is expected to be permanent.
+
+  - artifact: SMB-15
+    feature: "the electrical subcontractor is not named: the notes say the electrical sub, because naming a canon company here would put an entity in the document that the spec does not carry"
+    reason: >-
+      Unconfirmable by construction, the LGL-02 class again and the most
+      direct of the three. "subcontractor", "named", "naming" and "carry" are
+      the vocabulary of a reader checking the document against a rule, and
+      "canon", "company", "entity" and "spec" name this repo's own modelling
+      concepts -- an owner's private notes would say "the electrical sub", not
+      that a "canon company" is absent from "the spec". A notes file that
+      explained why it does not name the subcontractor would, in the act of
+      explaining, raise the possibility of naming them, which is the tell
+      section 2.11 says this document must not carry. The absence itself is
+      checked without the sentence: tests/drafted/smb-c2b-drafted-screen.test.js
+      (rule R-ROLE) reads co-133's name off canon/companies.md and confirms
+      neither drafted document carries it, the id, or its first word. No
+      rewording of SMB-15 can make this checkable from the prose, so this entry
+      is expected to be permanent.
