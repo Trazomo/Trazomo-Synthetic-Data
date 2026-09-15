@@ -1,5 +1,76 @@
 # Changelog
 
+## 1.21.0
+
+People and HR cluster 4, lifecycle coordination. Three artifacts, one seeded
+builder, one test file, all deterministic. The plan is
+`docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-4.md` on the
+trazomo repo; its section 9 defaults U-C4-1 to U-C4-12 ride to Salvador's
+freeze review, U-C4-1 and U-C4-2 first, because each of the two moves every
+byte of one artifact. No byte changes under `datasets/` outside the three new
+directories, none under `canon/`, and none in the frozen HR-01, HR-02, HR-09,
+HR-18 or LGL-12 material this cluster reads.
+
+The three artifacts come out of one builder, `datagen/src/generators/hr-lifecycle.js`,
+which is a shared helper and is never registered, the `finance-roles.js`
+precedent; the three registered modules are thin wrappers over it, the FIN-02
+and FIN-03 precedent. That is what makes the cross-artifact rules properties of
+the construction rather than checks after the fact: the new hire, the departing
+employee and the reviewer holding late feedback are three distinct people in
+three distinct departments, and none of them owns work in another of the three
+files. Frozen reads sit before every seeded draw, each behind a loud-throw
+shape pin.
+
+- **HR-06 onboarding-checklist-templates**: a 34-row `onboarding-task-template.csv`
+  carrying no date, no employee id and no status at all, the 29-row
+  `new-hire-checklist.csv` that catalog instantiates for one new hire, and
+  `onboarding-checklist-template.md` rendered from the same in-memory table so
+  the two renderings cannot drift. The requisition behind the hire is selected
+  as the unique frozen row whose target start date falls in the first week of
+  April 2026 rather than by id, and the generator throws if that predicate
+  stops resolving to exactly one row; the start date, department, role title,
+  level, hiring manager and recruiter are all its own fields. Only the name,
+  the id `EMP-0601` and the derived work email are minted, and the name pair is
+  swept against every roster row, against `canon/people.md` and against the
+  frozen candidate log. Due dates are published as two columns, `due_basis` and
+  a signed `due_offset_business_days`, so every one of the 29 recomputes from
+  the start date. Exactly one instance row is overdue, incomplete and blocked by
+  a row that is itself incomplete. The pair is structural rather than drawn:
+  People schedule the half of onboarding they control against the start date,
+  and the access approval they do not control runs on another team's own
+  clock.
+
+- **HR-07 offboarding-checklist-access-inventory**: a one-row `exit-record.csv`,
+  a 34-row `access-grant-inventory.csv` covering the whole tenure so the set
+  open at any date is a predicate over two columns, and a 35-row
+  `offboarding-checklist.csv`. This is the employee side of offboarding and it
+  takes that side by construction: `worker_type` is `employee` and nothing else,
+  no row claims coverage for a non-employee worker, and the checklist carries
+  an exit interview and a return-of-materials task. The departing employee is
+  drawn against nine clauses, one of which excludes everybody the frozen
+  people-system case queue already names, so this exit adds no salience to a
+  finding another artifact carries. Deprovisioning runs off a named access
+  change request rather than off the last working day, and exactly one open
+  grant carries no request at all because it was issued directly in a vendor's
+  own admin console: a grant with no request gets no checklist row and a system
+  with no checklist row gets no removal, so 28 systems are open at the as-of
+  and 27 are covered.
+
+- **HR-08 review-cycle-roster**: a one-row `review-cycle.csv` holding the whole
+  grammar, including the three business day escalation grace period as a
+  column, and 55 rows of `review-assignments.csv`. The review period is read off
+  the frozen manager log and review draft's own header lines, which both
+  documents must still state identically. The scope numbers are recomputed from
+  CORE-04 rather than typed: 57 active rows across two departments, 55
+  assignments, 13 reviewers, 48 manager rows and 7 skip-level rows, the latter
+  earned by seven people whose manager of record is a departed roster row.
+  Exactly one reviewer holds an assignment that is outstanding and past its due
+  date; six reviewers hold outstanding work and nine hold work due before the
+  as-of, so neither qualifier alone finds the one. The frozen pair appears as an
+  ordinary manager row whose feedback is outstanding and not yet late, by rule
+  rather than by draw. There is no rating, score, comment, draft or development
+  area column anywhere, so a chase drafted from these rows cannot carry anybody's
+  feedback.
 ## 1.20.0
 
 Operations cluster 5, the governance corpus, and the last data cluster of the
