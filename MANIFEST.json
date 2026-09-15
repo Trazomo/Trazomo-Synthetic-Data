@@ -1800,6 +1800,18 @@
                 "latest-status-update.md"
             ],
             "build_files": []
+        },
+        {
+            "id": "SMB-15",
+            "name": "internal-status-notes",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-15",
+            "source_files": [
+                "internal-status-notes.md"
+            ],
+            "build_files": []
         }
     ]
 }
