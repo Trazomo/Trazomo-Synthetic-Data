@@ -63,7 +63,13 @@ const DIRS = [
 test("no small-business file under datagen/src/generators/, tests/generators/ or tests/drafted/ contains a literal em dash or en dash", () => {
   const files = DIRS.flatMap((dir) => {
     assert.ok(statSync(dir).isDirectory(), `${dir} is not a directory; this screen's own paths have moved`);
-    return filesUnder(dir, [".js"]).filter((f) => f.split("/").pop().toLowerCase().startsWith("smb-"));
+    return filesUnder(dir, [".js"]).filter((f) => {
+      const name = f.split("/").pop().toLowerCase();
+      // planted-features.test.js is one of SHOULD-FIX 4's six original sites
+      // and carries the pack's wave sweeps without the smb- prefix, so it is
+      // named here explicitly (re-review NEW-3).
+      return name.startsWith("smb-") || name === "planted-features.test.js";
+    });
   });
   assert.ok(files.length >= 15, `only ${files.length} small-business files were walked; this screen's own paths look wrong`);
 

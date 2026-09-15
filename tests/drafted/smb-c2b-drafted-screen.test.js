@@ -779,8 +779,28 @@ test("SMB-C2B SHOULD-FIX 2: every clause naming substantial completion, and SMB-
         );
       }
     }
-    assert.ok(checked > 0, `${doc.label} names substantial completion beside no date this screen can check`);
+    // The coverage counter is an exact count, not a floor: dropping the words
+    // "substantial completion" from one dated mention, or splitting the phrase
+    // from its date across a clause boundary, lowers the count and fails here
+    // rather than shrinking the checked population in silence (re-review NEW-1).
+    const expectedChecked = { "latest-status-update.md": 2, "internal-status-notes.md": 3 }[doc.label];
+    assert.equal(
+      checked, expectedChecked,
+      `${doc.label} states substantial completion beside a date in ${checked} clauses, expected exactly`
+      + ` ${expectedChecked}; a mention has been reworded away from the phrase or split from its date`
+    );
   }
+
+  // The two load-bearing sentences, byte-pinned with the date recomputed, the
+  // pattern this file already uses for the demolition and cabinet-run sentences.
+  assert.ok(
+    update().includes(`Substantial completion is still ${subCompletion}`),
+    "SMB-14 no longer states the substantial completion date in its schedule sentence"
+  );
+  assert.ok(
+    notes().includes(`substantial completion held at ${subCompletion}`),
+    "SMB-15 no longer states that substantial completion held at the schedule's own date"
+  );
 
   // SMB-15's one clause naming when the cabinet run itself finished.
   const cabinetClause = clauses(notes()).find((c) => /cabinet run finished/i.test(c));
@@ -799,7 +819,13 @@ test("SMB-C2B SHOULD-FIX 2: every clause naming substantial completion, and SMB-
 // was written. Forecasts are unaffected: they are stated in the present or
 // future tense, and a forecast that later turns out correct is not a
 // completion at the time of writing.
-const PAST_COMPLETION_VERBS = /\b(?:finished|passed|delivered|issued)\b/i;
+// The verb list is a bound, not a tense parser (re-review NEW-2): a completion
+// reported with a verb off this list is not seen. The list carries every
+// completion verb both documents use today plus the edits a freeze-review pen
+// naturally reaches for; a broader guard would need real tense parsing, and
+// the alternative of dropping the verb gate false-fails on SMB-14's four
+// legitimate forecasts of dates that are recorded completions.
+const PAST_COMPLETION_VERBS = /\b(?:finished|passed|delivered|issued|completed|landed|wrapped up|went in|closed out)\b/i;
 
 /** SMB-14's own Update date, as an ISO string derived the header test's own way. */
 function updateDateIso() {

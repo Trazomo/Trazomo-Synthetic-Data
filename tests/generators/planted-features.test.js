@@ -736,7 +736,10 @@ test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: the delivery wave carries no prope
   // the two documents. The three CSVs carry no long-form date, with one
   // exception handled below: SMB-13 indexes a document titled "Client status
   // update, 16 March 2026", so month names are excluded the same way a
-  // long-form date's month word would be.
+  // long-form date's month word would be. The exclusion is itself a bound
+  // (re-review NEW-4): a street named after a month, such as 14 April
+  // Boulevard, would be excluded with it. Accepted, because no C2 cell may
+  // carry any address at all and the suffix-list sweep above still runs.
   const GENERIC_STREET_START = /\b\d{1,4}[ ]+[A-Z][A-Za-z]*/g;
   const isMonthName = (word) => MONTHS.includes(word);
   for (const id of SMB_C2B_DETERMINISTIC) {

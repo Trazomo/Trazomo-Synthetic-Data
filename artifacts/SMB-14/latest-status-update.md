@@ -20,7 +20,7 @@ Demolition and disposal finished on 27 February 2026 and the disposal run was re
 
 The kitchen waste and supply lines moved to the new layout, the new circuits were run back to the panel, and the bath shower valve and drain were roughed in.
 
-The rough in inspection passed on 13 March 2026 and the inspection is recorded in your project hub. The cabinet run was delivered on 16 March 2026 and checked against the product and finish selections schedule.
+The rough in inspection passed on 13 March 2026 and the record of it lives in your project hub. The cabinet run was delivered on 16 March 2026 and checked against the product and finish selections schedule.
 
 ## The schedule
 
