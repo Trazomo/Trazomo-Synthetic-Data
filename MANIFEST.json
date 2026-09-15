@@ -1191,6 +1191,51 @@
             "row_counts": {
                 "kickoff-checklist.csv": 14
             }
+        },
+        {
+            "id": "SMB-12",
+            "name": "project-tasks-and-dates",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/project-tasks-and-dates",
+            "files": [
+                "project-tasks-and-dates.csv"
+            ],
+            "row_counts": {
+                "project-tasks-and-dates.csv": 18
+            }
+        },
+        {
+            "id": "SMB-13",
+            "name": "project-documents-index",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/project-documents-index",
+            "files": [
+                "project-documents-index.csv"
+            ],
+            "row_counts": {
+                "project-documents-index.csv": 16
+            }
+        },
+        {
+            "id": "SMB-16",
+            "name": "milestone-schedule",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/milestone-schedule",
+            "files": [
+                "milestone-schedule.csv"
+            ],
+            "row_counts": {
+                "milestone-schedule.csv": 6
+            }
         }
     ],
     "specs": "specs/artifact-specs.yaml",
@@ -1838,6 +1883,34 @@
             ],
             "build_files": [
                 "welcome-pack-template.docx"
+            ]
+        },
+        {
+            "id": "SMB-14",
+            "name": "latest-status-update",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-14",
+            "source_files": [
+                "latest-status-update.md"
+            ],
+            "build_files": [
+                "latest-status-update.docx"
+            ]
+        },
+        {
+            "id": "SMB-15",
+            "name": "internal-status-notes",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-15",
+            "source_files": [
+                "internal-status-notes.md"
+            ],
+            "build_files": [
+                "internal-status-notes.docx"
             ]
         }
     ]

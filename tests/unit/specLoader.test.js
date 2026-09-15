@@ -680,27 +680,40 @@ test("loadSpecs: all eleven cluster 2 SMB ids declare a period, well-shaped and 
 // specLoader.js's own reading of `period` is "the fiscal window the rows
 // cover" (SHOULD-FIX 4). A membership check against the cluster's two month
 // window passes on any value in a two month range and cannot fail on a period
-// with nothing behind it. The derived form below is falsifiable: for the two
-// cluster 2a ids whose own committed bytes carry an ISO date, every date in
-// those bytes has to sit inside the declared period; for the four ids with no
-// date-bearing bytes at all, the period is honestly "the window this template
-// belongs to" only if the artifact carries no ISO date to contradict it.
-const SMB_C2A_DATED_PATHS = {
+// with nothing behind it. The derived form below is falsifiable: for the ids
+// whose own committed bytes carry an ISO date, every date in those bytes has
+// to sit inside the declared period; for the ids with no date-bearing bytes
+// at all, the period is honestly "the window this template belongs to" only
+// if the artifact carries no ISO date to contradict it.
+//
+// Extended to the whole of cluster 2 (SHOULD-FIX 5 of the 2b adversarial
+// review): 2a's version of this test named only 2a's six ids by id, so none
+// of 2b's five reached it and SMB-14's declared period went false against its
+// own bytes (its citation of DOC-LDB-08 carries the byte-equal ISO date
+// 2026-03-13) with nothing here to catch it.
+const SMB_C2_DATED_PATHS = {
   "SMB-06": join(REPO_ROOT, "artifacts", "SMB-06", "approved-proposal-larkspur.md"),
   "SMB-10": join(REPO_ROOT, "datasets", "smb", "intake-questionnaire", "intake-questionnaire.csv"),
+  "SMB-12": join(REPO_ROOT, "datasets", "smb", "project-tasks-and-dates", "project-tasks-and-dates.csv"),
+  "SMB-13": join(REPO_ROOT, "datasets", "smb", "project-documents-index", "project-documents-index.csv"),
+  "SMB-14": join(REPO_ROOT, "artifacts", "SMB-14", "latest-status-update.md"),
+  "SMB-16": join(REPO_ROOT, "datasets", "smb", "milestone-schedule", "milestone-schedule.csv"),
 };
-const SMB_C2A_NO_DATE_PATHS = {
+const SMB_C2_NO_DATE_PATHS = {
   "SMB-07": join(REPO_ROOT, "artifacts", "SMB-07", "contract-template.md"),
   "SMB-08": join(REPO_ROOT, "datasets", "smb", "client-next-steps-checklist", "client-next-steps-checklist.csv"),
   "SMB-09": join(REPO_ROOT, "artifacts", "SMB-09", "welcome-pack-template.md"),
   "SMB-11": join(REPO_ROOT, "datasets", "smb", "kickoff-checklist", "kickoff-checklist.csv"),
+  // SMB-15's notes state every date in long form (dayMonth or longForm), never
+  // as an ISO literal, so the no-date reading holds for it too.
+  "SMB-15": join(REPO_ROOT, "artifacts", "SMB-15", "internal-status-notes.md"),
 };
 
-test("loadSpecs: cluster 2a's period values are true against the ISO dates the committed bytes actually carry", () => {
+test("loadSpecs: cluster 2's period values are true against the ISO dates the committed bytes actually carry", () => {
   const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
   const ISO = /\d{4}-\d{2}-\d{2}/g;
 
-  for (const [id, path] of Object.entries(SMB_C2A_DATED_PATHS)) {
+  for (const [id, path] of Object.entries(SMB_C2_DATED_PATHS)) {
     const spec = byId.get(id);
     const dates = (readFileSync(path, "utf8").match(ISO) ?? []).sort();
     assert.ok(dates.length > 0, `${id} carries no ISO date; it belongs in the no-date list instead`);
@@ -714,7 +727,7 @@ test("loadSpecs: cluster 2a's period values are true against the ISO dates the c
     );
   }
 
-  for (const [id, path] of Object.entries(SMB_C2A_NO_DATE_PATHS)) {
+  for (const [id, path] of Object.entries(SMB_C2_NO_DATE_PATHS)) {
     const dates = readFileSync(path, "utf8").match(ISO) ?? [];
     assert.deepEqual(
       dates, [],

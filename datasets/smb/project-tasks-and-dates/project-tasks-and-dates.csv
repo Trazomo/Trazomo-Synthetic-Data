@@ -1,0 +1,19 @@
+task_id,milestone_id,task,owner_role,planned_start,planned_end,internal_status,internal_completed_date,client_visible_status,client_visible_updated_date,client_canon_id
+TSK-LDB-01,MST-LDB-01,Walk the work area with the homeowners and agree the site boundary,project lead,2026-02-16,2026-02-16,complete,2026-02-16,complete,2026-02-16,co-131
+TSK-LDB-02,MST-LDB-01,"Set out the dust barriers, the floor protection and the crew entry route",owner,2026-02-16,2026-02-16,complete,2026-02-16,complete,2026-02-16,co-131
+TSK-LDB-03,MST-LDB-02,Strip out the existing kitchen units and worktops,project lead,2026-02-17,2026-02-18,complete,2026-02-18,complete,2026-03-25,co-131
+TSK-LDB-04,MST-LDB-02,Remove the primary bath fittings and the floor tile,project lead,2026-02-18,2026-02-19,complete,2026-02-24,complete,2026-03-25,co-131
+TSK-LDB-05,MST-LDB-02,Clear the demolition waste from site and confirm the disposal run,owner,2026-02-19,2026-02-20,complete,2026-02-27,complete,2026-03-25,co-131
+TSK-LDB-06,MST-LDB-03,Move the kitchen waste and supply lines to the new layout,project lead,2026-02-23,2026-02-27,complete,2026-03-05,complete,2026-03-25,co-131
+TSK-LDB-07,MST-LDB-03,Run the new kitchen and bath circuits back to the panel,project lead,2026-03-02,2026-03-06,complete,2026-03-09,complete,2026-03-25,co-131
+TSK-LDB-08,MST-LDB-03,Rough in the primary bath shower valve and the drain,project lead,2026-03-09,2026-03-11,complete,2026-03-11,complete,2026-03-25,co-131
+TSK-LDB-09,MST-LDB-03,Book and pass the rough in inspection,owner,2026-03-12,2026-03-13,complete,2026-03-13,complete,2026-03-16,co-131
+TSK-LDB-10,MST-LDB-04,Take delivery of the cabinet run and check it against the selections sheet,project lead,2026-03-16,2026-03-16,complete,2026-03-16,complete,2026-03-26,co-131
+TSK-LDB-11,MST-LDB-04,Set and level the primary bath vanity and the mirror unit,project lead,2026-03-17,2026-03-17,complete,2026-03-17,complete,2026-03-26,co-131
+TSK-LDB-12,MST-LDB-04,Kitchen base and wall cabinet installation,project lead,2026-03-16,2026-03-18,complete,2026-03-18,in_progress,2026-03-16,co-131
+TSK-LDB-13,MST-LDB-05,Lay the kitchen and bath floor tile,project lead,2026-03-19,2026-03-19,complete,2026-03-19,complete,2026-03-26,co-131
+TSK-LDB-14,MST-LDB-05,"Template, fit and seal the kitchen countertops",project lead,2026-03-19,2026-03-20,complete,2026-03-20,complete,2026-03-27,co-131
+TSK-LDB-15,MST-LDB-05,"Hang the trim, the door casings and the shelving",project lead,2026-03-20,2026-03-20,complete,2026-03-20,complete,2026-03-27,co-131
+TSK-LDB-16,MST-LDB-06,Walk the punch list with the homeowners and log every item,project lead,2026-03-23,2026-03-24,in_progress,,in_progress,2026-03-30,co-131
+TSK-LDB-17,MST-LDB-06,Close out the punch list items raised at the walkthrough,project lead,2026-03-25,2026-03-26,in_progress,,in_progress,2026-03-30,co-131
+TSK-LDB-18,MST-LDB-06,"Hand over the warranty pack, the care notes and the final drawings",owner,2026-03-27,2026-03-27,not_started,,not_started,2026-03-30,co-131
