@@ -1,5 +1,51 @@
 # Changelog
 
+## 1.21.0
+
+**Allocated in merge order at tag time; the section was drafted expecting
+`v1.21.0`, stacked on the cluster 2a section below.**
+
+Small-business cluster 2b, delivery: the last five of C2's eleven artifacts,
+covering `smb-client-project-hub` and `smb-milestone-update-drafter`. Same
+plan as 2a; the freeze review on SMB-14 and SMB-15 is this PR's own gate.
+The four C2 canon timeline rows ride the PR bodies (with C1's four still
+pending, one integrator append covers all eight).
+
+- **SMB-16 milestone-schedule** (deterministic): the six milestone baseline.
+  Four completions equal SMB-04's frozen stage dates, read from the record at
+  build time behind loud-throw pins. Exactly one milestone completed late,
+  demolition at seven calendar days; punch list and closeout is open at the
+  as-of date, so a lateness rule has to test for a completion rather than a
+  date in the past.
+- **SMB-12 project-tasks-and-dates** (deterministic): 18 tasks over the six
+  milestones. Exactly one task reads complete internally while the client
+  view still says in progress, refreshed 2026-03-16, the day the work began
+  and the reading was true; four client views are older than seven days and
+  three of them are correct, so the timestamp over-flags by three.
+- **SMB-13 project-documents-index** (deterministic): 16 documents, 11 client
+  shared and 5 internal. Exactly one internal document, the job cost tracker,
+  sits in the client-facing index: the access-boundary trap, and the file the
+  internal cost figure comes from. No amount column exists.
+- **SMB-14 latest-status-update** (drafted): the defect-free client baseline,
+  dated 2026-03-16. Discloses the demolition slip with both dates, cites
+  exactly three documents, all client shared, and carries no dollar figure at
+  all.
+- **SMB-15 internal-status-notes** (drafted): the owner's private notes as of
+  2026-03-30. Exactly one passage carries a dollar figure that appears in no
+  client-facing artifact, the $6,480.00 of electrical rework, with the blunt
+  language pinned verbatim; the late milestone is disclosed plainly. The
+  figure obligates exactly one SMB-21 job-expense row in C3 (the README's
+  small-business section carries the rule); SMB-15 freezes here, so C3
+  matches the figure.
+
+Guards: `tests/generators/smb-c2b-delivery.test.js` (the schedule joined to
+SMB-04 at test time, both directions of the task join asserted empty, every
+census an equality), `tests/drafted/smb-c2b-drafted-screen.test.js` (both
+pinned passages byte-exact, the figure present once in SMB-15 and absent from
+the nine other C2 artifacts, SMB-14's citations resolved against the emitted
+index, the demolition dates re-read from SMB-16), and the cluster 2b block of
+the wave sweeps in `tests/generators/planted-features.test.js`.
+
 ## 1.20.0
 
 **Allocated in merge order at tag time; the section was drafted expecting
