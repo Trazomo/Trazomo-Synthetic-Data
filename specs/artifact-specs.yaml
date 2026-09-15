@@ -2071,7 +2071,7 @@ artifacts:
     format: markdown
     generation: drafted-frozen
     canon_entities: [co-100, co-131]
-    period: { start: "2026-03-16", end: "2026-03-16" }
+    period: { start: "2026-03-13", end: "2026-03-16" }
     planted_features:
       - "no defects: this is the last written status update the client actually received, dated 16 March 2026 inside the delivery window, and it is the baseline the staleness and lateness rules are measured against, so a defect here would make both unfalsifiable"
       - "the demolition slip is disclosed plainly with both dates: demolition finished 27 February against a planned 20 February, the schedule absorbed the week in rough in, and substantial completion still holds at 20 March. The delay is stated as a fact rather than softened"

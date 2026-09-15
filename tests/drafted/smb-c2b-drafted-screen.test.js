@@ -468,9 +468,14 @@ test("SMB-C2B: SMB-14's header is SMB-04's project and client, the stale row's o
     `SMB-14 is dated "${fields.get("Update date")}" and ${STALE_TASK_ID}'s client view was refreshed`
     + ` ${stale[0].client_visible_updated_date}; the two are the same day or the plant loses its story`
   );
+  // SHOULD-FIX 5: SMB-14's period is the loader's fiscal-window reading
+  // (2.1's SF4 convention), not "the day the document is dated" -- the
+  // document's own ISO date is 2026-03-13, byte-equal in DOC-LDB-08's title,
+  // which is what sets period.start. period.end is the cell that carries the
+  // document's own date, so that is where this coupling belongs.
   assert.equal(
-    specs.byId.get("SMB-14").period.start, stale[0].client_visible_updated_date,
-    "SMB-14's spec period no longer starts on the day the document is dated"
+    specs.byId.get("SMB-14").period.end, stale[0].client_visible_updated_date,
+    "SMB-14's spec period no longer ends on the day the document is dated"
   );
 
   // The preparer is a role, and it is the role the index records as owning the
@@ -485,6 +490,17 @@ test("SMB-C2B: SMB-14's header is SMB-04's project and client, the stale row's o
     fields.get("Prepared by"), `the ${updates[0].owner_role}`,
     `SMB-14 is prepared by "${fields.get("Prepared by")}" and SMB-13 records the update as owned by`
     + ` "${updates[0].owner_role}"; the preparer is that role and never a person`
+  );
+
+  // SHOULD-FIX 6's second half: while pinning SMB-15's Circulation line,
+  // consider giving SMB-14 the same treatment for any header field a later
+  // edit could add. The four keys above are the whole of section 2.10's
+  // header contract ("header (project, client, update date, prepared by
+  // role)"), so a fifth field is a deviation this screen should name.
+  assert.deepEqual(
+    [...fields.keys()], ["Project", "Client", "Update date", "Prepared by"],
+    `SMB-14's header carries [${[...fields.keys()].join(", ")}], and section 2.10 fixes exactly`
+    + " Project, Client, Update date and Prepared by"
   );
 });
 
@@ -508,6 +524,15 @@ test("SMB-C2B: SMB-15's header is the project, the spec's own as-of date and the
     fields.get("Written by"), `the ${own[0].owner_role}`,
     `SMB-15 is written by "${fields.get("Written by")}" and SMB-13 records the notes as owned by`
     + ` "${own[0].owner_role}"`
+  );
+
+  // SHOULD-FIX 6: Circulation is the seventh header field and the one field
+  // in the wave with no equality assertion, and it is a natural place to
+  // write who may see the file. Pinned exactly, so it takes no person.
+  assert.equal(
+    fields.get("Circulation"), "the studio. Nothing in this file goes out as written.",
+    "SMB-15's circulation line is pinned: the notes go to the studio and to nobody else, and the line"
+    + " names no person"
   );
 });
 
