@@ -2,8 +2,6 @@
 
 ## 1.20.0
 
-**Allocated in merge order; renumber at tag time if the order changes.**
-
 Operations cluster 5, the governance corpus, and the last data cluster of the
 operations blueprint sequence. Two artifacts, both `drafted-frozen`, no
 generator and no `datasets/` file. The plan is
