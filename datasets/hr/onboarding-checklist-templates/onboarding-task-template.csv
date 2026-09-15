@@ -1,0 +1,35 @@
+task_code,task_name,phase,applies_to_department,owner_role,due_basis,due_offset_business_days,blocked_by_task_code,grants_system_id,grants_system_name,approval_owner_role,evidence_required
+ONB-01,Send the written offer pack and collect the signed copy,pre_start,all,People Operations,start_date,-10,,,,,yes
+ONB-02,Open the payroll and benefits enrolment record,pre_start,all,People Operations,start_date,-8,,SYS-0031,payroll and benefits portal,IT & Security,yes
+ONB-03,Raise the identity directory account request,pre_start,all,IT & Security,start_date,-7,,SYS-0001,identity directory,Hiring Manager,yes
+ONB-04,Raise the workplace email and calendar request,pre_start,all,IT & Security,start_date,-6,,SYS-0004,workplace email and calendar,Hiring Manager,yes
+ONB-05,Order the laptop and the building access badge,pre_start,all,IT & Security,start_date,-5,,,,,yes
+ONB-06,Name the onboarding buddy for the first two weeks,pre_start,all,Hiring Manager,start_date,-5,,,,,no
+ONB-07,Write the first thirty day plan,pre_start,all,Hiring Manager,start_date,-4,,,,,no
+ONB-08,Raise the source control and continuous integration access request,pre_start,Engineering,IT & Security,start_date,-4,,SYS-0011,source control,Hiring Manager,yes
+ONB-09,Raise the finance ledger role request,pre_start,Finance,IT & Security,start_date,-4,,SYS-0035,finance ledger,Hiring Manager,yes
+ONB-10,Raise the customer relationship system seat request,pre_start,Sales,IT & Security,start_date,-4,,SYS-0034,customer relationship system,Hiring Manager,yes
+ONB-11,Raise the product analytics workspace request,pre_start,Product,IT & Security,start_date,-4,,SYS-0029,product analytics workspace,Hiring Manager,yes
+ONB-12,Confirm the start date and the joining instructions with the new hire,pre_start,all,Recruiter,start_date,-3,,,,,no
+ONB-13,Confirm every system access request is ready before day one,pre_start,all,People Operations,start_date,-2,ONB-21,,,,yes
+ONB-14,Send the welcome note and the first day agenda,pre_start,all,People Operations,start_date,-1,,,,,no
+ONB-15,Run the first day welcome and the workplace tour,day_one,all,People Operations,start_date,0,,,,,no
+ONB-16,Hand over the laptop and the access badge,day_one,all,IT & Security,start_date,0,,,,,yes
+ONB-17,Sign the security and acceptable use acknowledgement,day_one,all,New Hire,start_date,0,,,,,yes
+ONB-18,Introduce the new hire to the immediate team,day_one,all,Hiring Manager,start_date,0,,,,,no
+ONB-19,Walk through the first week schedule with the buddy,day_one,all,Onboarding Buddy,start_date,0,,,,,no
+ONB-20,Check the payroll details and the benefits elections,day_one,all,New Hire,start_date,0,,,,,yes
+ONB-21,Work the access provisioning request for the shared team drive,week_one,all,IT & Security,start_date,1,,SYS-0005,shared team drive,Hiring Manager,yes
+ONB-22,Sit the workplace policy and records training,week_one,all,New Hire,start_date,2,ONB-16,,,,yes
+ONB-23,Book the recurring one to one session,week_one,all,Hiring Manager,start_date,2,,,,,no
+ONB-24,Review the first thirty day plan with the manager,week_one,all,New Hire,start_date,3,ONB-07,,,,no
+ONB-25,Walk through the product metric definitions and the reporting calendar,week_one,Product,Hiring Manager,start_date,3,ONB-11,,,,no
+ONB-26,Meet the wider department at the weekly team meeting,week_one,all,Onboarding Buddy,start_date,4,,,,,no
+ONB-27,Run the production access and on call induction,week_one,Engineering,Hiring Manager,start_date,4,ONB-08,,,,yes
+ONB-28,Shadow three customer sessions before taking an account,week_one,Customer Success,Onboarding Buddy,start_date,4,,,,,no
+ONB-29,Check in on the first week and record anything outstanding,week_one,all,People Operations,start_date,5,,,,,no
+ONB-30,Finish the mandatory compliance training modules,first_month,all,New Hire,start_date,10,ONB-22,,,,yes
+ONB-31,Confirm the buddy pairing is working and close the buddy period,first_month,all,Hiring Manager,start_date,10,ONB-19,,,,no
+ONB-32,Confirm the probation review date is in the calendar,first_month,all,People Operations,start_date,15,,,,,no
+ONB-33,Present the first piece of analysis to the product team,first_month,Product,New Hire,start_date,20,,,,,no
+ONB-34,Run the thirty day check in with the new hire,first_month,all,Hiring Manager,start_date,20,,,,,no

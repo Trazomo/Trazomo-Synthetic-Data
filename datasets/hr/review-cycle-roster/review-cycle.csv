@@ -1,0 +1,2 @@
+cycle_id,cycle_name,period_start,period_end,cycle_open_date,cycle_close_date,feedback_due_window_start,feedback_due_window_end,escalation_grace_business_days,departments_in_scope,assignment_count,reviewer_count,as_of
+RVC-2026-0001,half year performance review cycle,2025-10-01,2026-03-31,2026-03-23,2026-04-24,2026-03-27,2026-04-17,3,People; IT & Security,55,13,2026-04-03

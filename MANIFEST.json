@@ -723,6 +723,60 @@
             }
         },
         {
+            "id": "HR-06",
+            "name": "onboarding-checklist-templates",
+            "track": "hr",
+            "type": "template",
+            "format": "csv + markdown",
+            "generation": "deterministic",
+            "path": "datasets/hr/onboarding-checklist-templates",
+            "files": [
+                "new-hire-checklist.csv",
+                "onboarding-checklist-template.md",
+                "onboarding-task-template.csv"
+            ],
+            "row_counts": {
+                "new-hire-checklist.csv": 29,
+                "onboarding-task-template.csv": 34
+            }
+        },
+        {
+            "id": "HR-07",
+            "name": "offboarding-checklist-access-inventory",
+            "track": "hr",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/hr/offboarding-checklist-access-inventory",
+            "files": [
+                "access-grant-inventory.csv",
+                "exit-record.csv",
+                "offboarding-checklist.csv"
+            ],
+            "row_counts": {
+                "access-grant-inventory.csv": 34,
+                "exit-record.csv": 1,
+                "offboarding-checklist.csv": 35
+            }
+        },
+        {
+            "id": "HR-08",
+            "name": "review-cycle-roster",
+            "track": "hr",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/hr/review-cycle-roster",
+            "files": [
+                "review-assignments.csv",
+                "review-cycle.csv"
+            ],
+            "row_counts": {
+                "review-assignments.csv": 55,
+                "review-cycle.csv": 1
+            }
+        },
+        {
             "id": "HR-17",
             "name": "mixed-sensitivity-employee-dataset",
             "track": "hr",
@@ -1745,6 +1799,48 @@
             ],
             "build_files": [
                 "follow-up-email-thread.docx"
+            ]
+        },
+        {
+            "id": "OPS-10",
+            "name": "sop-with-unnamed-approver",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/OPS-10",
+            "source_files": [
+                "sop-with-unnamed-approver.md"
+            ],
+            "build_files": [
+                "sop-with-unnamed-approver.docx"
+            ]
+        },
+        {
+            "id": "OPS-14",
+            "name": "program-knowledge-corpus",
+            "type": "corpus",
+            "format": "mixed bundle (OPS-01 + OPS-02 + OPS-10 + narrative history docs)",
+            "generation": "drafted-frozen",
+            "path": "artifacts/OPS-14",
+            "source_files": [
+                "meeting-transcript-with-commitments.md",
+                "program-knowledge-corpus-history-2025-q3.md",
+                "program-knowledge-corpus-history-2025-q4.md",
+                "program-knowledge-corpus-history-2026-q1.md",
+                "program-knowledge-corpus-overview.md",
+                "program-knowledge-corpus.md",
+                "retro-transcript-with-recurring-finding.md",
+                "sop-with-unnamed-approver.md"
+            ],
+            "build_files": [
+                "meeting-transcript-with-commitments.docx",
+                "program-knowledge-corpus-history-2025-q3.docx",
+                "program-knowledge-corpus-history-2025-q4.docx",
+                "program-knowledge-corpus-history-2026-q1.docx",
+                "program-knowledge-corpus-overview.docx",
+                "program-knowledge-corpus.docx",
+                "retro-transcript-with-recurring-finding.docx",
+                "sop-with-unnamed-approver.docx"
             ]
         },
         {
