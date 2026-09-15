@@ -9,7 +9,7 @@
 // sweep and turn `validate`'s honest SKIP NOT_IMPLEMENTED into a failure, so an
 // id is registered by the wave that builds it, in the same commit as its bytes.
 // finance-statement.js is a shared helper rather than a generator and is never
-// registered, the same as finance-roles.js.
+// registered, the same as finance-roles.js and hr-lifecycle.js.
 import * as core02 from "./core-02-invoice.js";
 import * as core03 from "./core-03-crm-seed.js";
 import * as core04 from "./core-04-people-roster.js";
@@ -49,6 +49,9 @@ import * as fin37 from "./fin-37-budget-vs-actual-template.js";
 import * as fin38 from "./fin-38-reliability-drill.js";
 import * as fin39 from "./fin-39-decision-authority-matrix.js";
 import * as hr05 from "./hr-05-interviewer-calendars.js";
+import * as hr06 from "./hr-06-onboarding-checklist-templates.js";
+import * as hr07 from "./hr-07-offboarding-access-inventory.js";
+import * as hr08 from "./hr-08-review-cycle-roster.js";
 import * as hr17 from "./hr-17-mixed-sensitivity.js";
 import * as hr18 from "./hr-18-hris-export.js";
 import * as lgl07 from "./lgl-07-intake.js";
@@ -97,7 +100,7 @@ export const PROGRAM_GENERATOR_IDS = [
   fin24.id, fin25.id, fin26.id, fin27.id, fin29.id,
   fin31.id, fin32.id, fin33.id, fin34.id, fin35.id,
   fin36.id, fin37.id, fin38.id, fin39.id,
-  hr05.id, hr17.id, hr18.id,
+  hr05.id, hr06.id, hr07.id, hr08.id, hr17.id, hr18.id,
   lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
   ops04.id, ops05.id, ops06.id, ops07.id, ops08.id, ops09.id, ops11.id, ops12.id, ops13.id,
   rev01.id, rev03.id, rev07.id, rev08.id, rev09.id, rev10.id, rev11.id,
@@ -113,7 +116,7 @@ const REGISTRY = new Map(
     fin24, fin25, fin26, fin27, fin29,
     fin31, fin32, fin33, fin34, fin35,
     fin36, fin37, fin38, fin39,
-    hr05, hr17, hr18,
+    hr05, hr06, hr07, hr08, hr17, hr18,
     lgl07, lgl11, lgl18, lgl20, lgl21, lgl22,
     ops04, ops05, ops06, ops07, ops08, ops09, ops11, ops12, ops13,
     rev01, rev03, rev07, rev08, rev09, rev10, rev11,

@@ -504,6 +504,15 @@ function readMirroredMeeting(meeting, seat) {
  * MIRRORED_MEETINGS exactly: a later frozen document that starts, or stops,
  * qualifying fails the build loudly instead of shipping calendars that quietly
  * disagree with the predicate the spec advertises.
+ *
+ * One concession, and only one: the predicate the spec states selects frozen
+ * EVENTS, and a byte-identical copy of an already-mirrored document is the same
+ * event rather than a second one. Operations cluster 5 bundles the OPS-01 and
+ * OPS-02 transcripts into the OPS-14 corpus verbatim, so both now qualify twice
+ * over, and mirroring a copy would double-book the seat for a meeting that
+ * happened once. A qualifying file is therefore forgiven only when its bytes
+ * equal those of a file MIRRORED_MEETINGS already names; anything else that
+ * starts qualifying still fails loudly, which is the whole point of the sweep.
  */
 function sweepMirroredMeetings(seats) {
   const artifactsDir = join(REPO_ROOT, "artifacts");
@@ -528,7 +537,13 @@ function sweepMirroredMeetings(seats) {
   const expected = [...MIRRORED_MEETINGS.map((meeting) => meeting.file)].sort();
   const qualifyingSet = new Set(qualifying);
   const expectedSet = new Set(expected);
-  const unexpected = qualifying.filter((file) => !expectedSet.has(file));
+  const mirroredBytes = new Set(
+    expected.map((file) => readText(file, `the frozen ${file}`))
+  );
+  const unexpected = qualifying.filter(
+    (file) => !expectedSet.has(file)
+      && !mirroredBytes.has(readText(file, `the frozen ${file}`))
+  );
   const missing = expected.filter((file) => !qualifyingSet.has(file));
   if (unexpected.length > 0 || missing.length > 0) {
     fail(

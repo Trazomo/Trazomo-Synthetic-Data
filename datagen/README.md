@@ -274,6 +274,9 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | HR-17 | mixed-sensitivity-employee-dataset | dataset | 40-row employee sensitivity extract CSV stratified by department, tier and lawful basis computed rather than declared from two published field classes (one record whose declared tier its own fields do not compute) |
 | HR-18 | hris-export | dataset | 5-file HRIS bundle (582-row roster, 8-row requisitions, 24-row case queue, 6-row permission tiers, JSON header) derived from CORE-04 and the frozen HR-01 register at build time (one case above its assignee's granted tier) |
 | HR-05 | interviewer-calendars | dataset | 3 panelist `.ics` calendars plus a 270-row busy-interval CSV and the 3-row panel request publishing the slot grammar, seats and interview dates derived from the frozen HR-01 register, HR-03 transcripts and HR-04 scorecards at build time (one panelist double booked across the proposed panel window) |
+| HR-06 | onboarding-checklist-templates | template | 34-row onboarding task catalog, the 29-row instance for one minted new hire derived from the frozen HR-01 requisition at build time, and the template document rendered off the same in-memory table (one instance task overdue and blocked by an access request another team schedules after the start date) |
+| HR-07 | offboarding-checklist-access-inventory | dataset | 1-row exit record, a 34-row access grant inventory spanning the whole tenure, and a 35-row offboarding checklist (one open grant issued in a vendor console with no access change request behind it, so it carries no checklist row and no removal) |
+| HR-08 | review-cycle-roster | dataset | 1-row cycle grammar and 55 reviewer-to-reviewee assignments recomputed from CORE-04 across two departments, with no review content column of any kind (one reviewer holding feedback that is outstanding and past its due date) |
 
 **Not implemented yet**: every other `generation: deterministic` spec (the
 remaining FIN, REV, OPS, SMB, and the remaining HR, plus the remaining LGL
@@ -366,6 +369,22 @@ HR-05's calendars are UTC and carry no timezone region, because a region would
 state a work location the HR pack deliberately does not carry. Business hours
 are 09:00 to 17:00 UTC on Monday to Friday and the slot grammar lives in
 `panel-request.csv`, not in a generator constant.
+
+HR-06, HR-07 and HR-08 are one seeded builder in `hr-lifecycle.js`, which is a
+shared helper and is never registered, the `finance-roles.js` precedent. The
+three registered modules are thin wrappers over it, the FIN-02 and FIN-03
+precedent, and the shared build is what makes the cross-artifact disjointness
+rules a property of the construction rather than a check.
+
+HR-06's new hire carries `EMP-0601` and is deliberately not a CORE-04 row: the
+roster's maximum `start_date` is `2026-02-09`, so no April 2026 start exists in
+it and inventing one would mean regenerating CORE-04. Everything about the hire
+except the name, the id and the work email is read off the frozen
+`RQN-2026-0103` requisition at build time.
+
+HR-07 is co-002's employee offboarding. It carries no non-employee worker type
+and claims no contractor coverage, and every access removal runs off a named
+request ticket rather than off the last working day.
 
 ## Small-business conventions
 

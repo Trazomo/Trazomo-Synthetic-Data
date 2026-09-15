@@ -1,0 +1,35 @@
+grant_id,employee_id,system_id,system_name,system_category,access_level,grant_source,is_shared_grant,granted_date,granted_by_employee_id,request_ticket_id,revoked_date,revoked_by_employee_id,revocation_ticket_id
+GRT-2026-0001,EMP-0047,SYS-0001,identity directory,identity,write,identity_provider,no,2020-10-19,EMP-0553,ACR-2026-0001,,,
+GRT-2026-0002,EMP-0047,SYS-0004,workplace email and calendar,productivity,write,identity_provider,no,2020-10-19,EMP-0553,ACR-2026-0002,,,
+GRT-2026-0003,EMP-0047,SYS-0005,shared team drive,productivity,write,shared_drive_acl,yes,2020-10-19,EMP-0562,ACR-2026-0003,,,
+GRT-2026-0004,EMP-0047,SYS-0008,team chat workspace,productivity,write,identity_provider,no,2020-10-19,EMP-0562,ACR-2026-0004,,,
+GRT-2026-0005,EMP-0047,SYS-0009,internal wiki,productivity,write,identity_provider,no,2020-10-19,EMP-0562,ACR-2026-0005,2024-03-04,EMP-0554,ACR-2026-0030
+GRT-2026-0006,EMP-0047,SYS-0010,ticket and issue tracker,productivity,write,identity_provider,no,2020-10-19,EMP-0562,ACR-2026-0006,,,
+GRT-2026-0007,EMP-0047,SYS-0011,source control,engineering,write,identity_provider,no,2020-10-19,EMP-0562,ACR-2026-0007,,,
+GRT-2026-0008,EMP-0047,SYS-0031,payroll and benefits portal,vendor_service,read,identity_provider,no,2020-10-19,EMP-0553,ACR-2026-0008,,,
+GRT-2026-0009,EMP-0047,SYS-0033,expense system,vendor_service,read,identity_provider,no,2020-10-19,EMP-0562,ACR-2026-0009,,,
+GRT-2026-0010,EMP-0047,SYS-0014,container image registry,engineering,write,identity_provider,no,2020-12-21,EMP-0562,ACR-2026-0010,,,
+GRT-2026-0011,EMP-0047,SYS-0020,feature flag service,engineering,write,identity_provider,no,2021-01-07,EMP-0553,ACR-2026-0011,2022-11-29,EMP-0548,ACR-2026-0021
+GRT-2026-0012,EMP-0047,SYS-0013,artifact registry,engineering,read,identity_provider,no,2021-01-13,EMP-0562,ACR-2026-0012,2024-03-22,EMP-0554,ACR-2026-0031
+GRT-2026-0013,EMP-0047,SYS-0030,data pipeline scheduler,data,admin,identity_provider,no,2021-07-26,EMP-0562,ACR-2026-0013,2023-08-07,EMP-0566,ACR-2026-0024
+GRT-2026-0014,EMP-0047,SYS-0019,database administration console,engineering,write,local_account,no,2021-10-26,EMP-0562,ACR-2026-0014,,,
+GRT-2026-0015,EMP-0047,SYS-0018,staging cloud console,engineering,read,identity_provider,no,2022-04-21,EMP-0553,ACR-2026-0015,2024-01-02,EMP-0554,ACR-2026-0028
+GRT-2026-0016,EMP-0047,SYS-0021,metrics dashboard,monitoring,admin,identity_provider,no,2022-05-05,EMP-0566,ACR-2026-0016,,,
+GRT-2026-0017,EMP-0047,SYS-0007,document collaboration space,productivity,write,shared_drive_acl,yes,2022-06-30,EMP-0560,ACR-2026-0017,,,
+GRT-2026-0018,EMP-0047,SYS-0022,log search,monitoring,write,identity_provider,no,2022-07-04,EMP-0560,ACR-2026-0018,2022-11-22,EMP-0548,ACR-2026-0020
+GRT-2026-0019,EMP-0047,SYS-0036,status page administration,vendor_service,read,vendor_admin_console,no,2022-10-18,EMP-0553,ACR-2026-0019,,,
+GRT-2026-0020,EMP-0047,SYS-0016,secret management service,engineering,write,identity_provider,no,2023-01-12,EMP-0560,ACR-2026-0022,,,
+GRT-2026-0021,EMP-0047,SYS-0006,shared engineering drive,productivity,write,shared_drive_acl,yes,2023-06-05,EMP-0562,ACR-2026-0023,,,
+GRT-2026-0022,EMP-0047,SYS-0002,single sign on administration console,identity,admin,identity_provider,no,2023-08-14,EMP-0560,ACR-2026-0025,,,
+GRT-2026-0023,EMP-0047,SYS-0015,infrastructure as code pipeline,engineering,write,identity_provider,no,2023-08-24,EMP-0553,ACR-2026-0026,,,
+GRT-2026-0024,EMP-0047,SYS-0017,production cloud console,engineering,write,identity_provider,no,2023-11-28,EMP-0551,ACR-2026-0027,,,
+GRT-2026-0025,EMP-0047,SYS-0012,continuous integration service,engineering,write,identity_provider,no,2024-01-19,EMP-0562,ACR-2026-0029,,,
+GRT-2026-0026,EMP-0047,SYS-0025,uptime probe service,monitoring,admin,vendor_admin_console,no,2024-05-03,EMP-0548,,,,
+GRT-2026-0027,EMP-0047,SYS-0003,privileged access vault,identity,admin,local_account,no,2024-05-21,EMP-0562,ACR-2026-0032,,,
+GRT-2026-0028,EMP-0047,SYS-0027,data warehouse,data,read,identity_provider,no,2024-06-07,EMP-0560,ACR-2026-0033,,,
+GRT-2026-0029,EMP-0047,SYS-0020,feature flag service,engineering,write,identity_provider,no,2024-11-19,EMP-0567,ACR-2026-0034,,,
+GRT-2026-0030,EMP-0047,SYS-0018,staging cloud console,engineering,write,identity_provider,no,2024-12-11,EMP-0569,ACR-2026-0035,,,
+GRT-2026-0031,EMP-0047,SYS-0024,error tracking service,monitoring,admin,vendor_admin_console,no,2025-06-19,EMP-0560,ACR-2026-0036,,,
+GRT-2026-0032,EMP-0047,SYS-0026,distributed tracing console,monitoring,admin,identity_provider,no,2025-08-05,EMP-0553,ACR-2026-0037,,,
+GRT-2026-0033,EMP-0047,SYS-0022,log search,monitoring,admin,identity_provider,no,2025-09-03,EMP-0548,ACR-2026-0038,,,
+GRT-2026-0034,EMP-0047,SYS-0023,incident paging rota,monitoring,admin,identity_provider,no,2025-10-08,EMP-0560,ACR-2026-0039,,,

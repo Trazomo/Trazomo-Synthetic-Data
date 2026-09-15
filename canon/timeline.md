@@ -24,6 +24,7 @@ it for D1: bumping rerolls the bytes of all five.
 | Date | Event | Source |
 |---|---|---|
 | 2024-04-30 to 2026-03-31 | The 24 month-end reporting periods the FP&A trend covers; January and February 2026 sum to the FIN-05 profit-and-loss beginning balances and March 2026 equals its period movement | `datasets/finance/actuals-24mo`, `datasets/finance/kpi-source-data`, `datasets/finance/bank-balances` |
+| 2025-08-04 | customer onboarding revamp program kickoff at co-002 | `artifacts/OPS-14` |
 | 2025-10-01 to 2025-12-31 | Q4 2025, the prior board reporting period whose deck structure the current pack follows | `artifacts/FIN-30` |
 | 2025-10-01 to 2026-03-31 | The People-department review period a manager's one to one log covers and the performance review draft reports on | `artifacts/HR-09` |
 | 2025-11-14 to 2026-03-31 | FIN-04 AR aging document dates; the oldest open invoice is the 90+ bucket floor | `datasets/finance/ar-aging-export` |
@@ -32,6 +33,7 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-01-12 | CORE-01 MSA Effective Date, the date the agreement is entered into (co-002 with co-101) | artifacts/CORE-01 |
 | 2026-01-12 to 2026-03-20 | co-002 role requisitions raised across the quarter and stated open at 2026-04-03; the interview loops on one of them run inside 2026-03-09 to 2026-03-20, within the same window | `artifacts/HR-01`, `artifacts/HR-03` |
 | 2026-01-15 to 2026-03-30 | FIN-20 regulatory and policy updates published; effective dates run 2026-04-01 to 2027-01-01 | `datasets/finance/regulatory-updates-feed` |
+| 2026-01-19 to 2026-02-20 | customer onboarding revamp pilot cohort runs | `artifacts/OPS-14` |
 | 2026-02-01 | CORE-01 Subscription Start Date; the initial subscription term runs twelve months to 2027-01-31 | artifacts/CORE-01 |
 | 2026-02-01 | co-101 CORE-01 subscription invoiced in advance, $450,000, service 2026-02-01 to 2027-01-31, amortized $37,500 a month from February | `artifacts/CORE-01` section 5.2, `datasets/finance/vendor-bills` |
 | 2026-02-01 to 2026-02-28 | The prior close period whose disclosure footnotes are the drafting exemplar for March | `artifacts/FIN-28` |
@@ -51,22 +53,29 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-03-18 | co-002 project brief for the contract operations platform rollout, planning co-002's own side of the Copperline implementation | `artifacts/OPS-03` |
 | 2026-03-18 to 2026-03-24 | customer portal relaunch team chat window; the work-item graph exported 2026-03-24 | `datasets/operations/work-item-graph-with-hidden-link` |
 | 2026-03-19 to 2026-03-31 | cross-functional handoffs logged on the contract operations platform rollout, between co-002 teams and Copperline Software | `datasets/operations/cross-functional-handoff-log` |
+| 2026-03-20 | region go-live sign-off SOP effective; the written escalation path for stuck onboarding customers takes effect with it | `artifacts/OPS-10` |
+| 2026-03-23 | first customer onboarding cohort begins | `artifacts/OPS-14` |
 | 2026-03-23 to 2026-03-27 | weekly status inputs for the integrations marketplace launch collected from four workstream leads; board snapshot as of 2026-03-27 | `datasets/operations/weekly-status-inputs-with-conflicting-claim` |
 | 2026-03-23 to 2026-04-06 | Inbound finance requests received into the intake queue, untriaged | `datasets/finance/inbound-requests-queue` |
+| 2026-03-23 to 2026-04-24 | The co-002 performance review cycle covering the 2025-10-01 to 2026-03-31 review period for the People and IT & Security departments; per reviewer feedback due dates straddle the 2026-04-03 as-of and the cycle closes on the last Friday of April | `datasets/hr/review-cycle-roster` |
 | 2026-03-24 | annual insurance premium invoiced by co-105 and posted as a prepaid, policy period 2026-04-01 to 2027-03-31 | `datasets/finance/vendor-bills` |
 | 2026-03-25 | work-tracker backlog export for the reporting migration delivery program | `datasets/operations/backlog-export-with-quality-gaps` |
+| 2026-03-27 to 2026-04-10 | Notice period and last working day of one co-002 employee exit; the offboarding tracker and its access inventory are live at 2026-04-03 with the exit five business days out | `datasets/hr/offboarding-checklist-access-inventory` |
 | 2026-03-31 | FIN-04 aging as-of date; FIN-05 pre-close trial balance; FIN-09 close batch posting date; FIN-10 open-PO cut-off | `datasets/finance` |
 | 2026-03-31 | Materiality thresholds for the 2026 plan year applied to the March variance pack; four lines over threshold and three over the flux threshold | `datasets/finance/materiality-thresholds`, `datasets/finance/actuals-vs-budget` |
 | 2026-03-31 | platform delivery portfolio rollup compiled by the PMO across five projects | `datasets/operations/portfolio-status-rollup` |
 | 2026-03-31 | Q1 2026 company OKR rollup compiled with raw metric detail | `datasets/operations/okr-metrics-rollup-with-contradiction` |
+| 2026-03-31 | program knowledge corpus assembled as of quarter end | `artifacts/OPS-14` |
 | 2026-04-01 | the FIN-01 deposit in transit posts at the bank | FIN-01 spec |
 | 2026-04-01 to 2026-04-07 | March close; the window inside which the FIN-09 batch is approved | this file, `datasets/finance/journal-entries-batch` |
 | 2026-04-01, 04-02, 04-03, 04-06, 04-07 | Close days D+1 to D+5 as business days after period end; 2026-04-04 and 2026-04-05 are a weekend and are skipped | `datasets/finance/close-checklist` |
 | 2026-04-02 | FIN-08 proposed payment run `PR-2026-04-02`, pending approval, unreleased | `datasets/finance/payment-run` |
 | 2026-04-01 to 2026-04-30 | FIN-40 quiet period: the Q1 2026 draft figures stay unreleased until the results announcement | `artifacts/FIN-40` |
+| 2026-04-06 to 2026-04-24 | Second round interview panel scheduling window on the open co-002 operations requisition; the panel seats are the three interviewers the March loop used, and the window closes on the last business day before the requisition's own target start date | datasets/hr/interviewer-calendars |
 | 2026-04-06 | Close status as-of (D+4) for the checklist, the control matrix, the access list and the intake queue | `datasets/finance` |
 | 2026-04-06 | Variance pack produced at D+4; `variance_explanation` is blank on every line, because the pack is the input CLS-17 consumes rather than its output, and the checklist file still carries CLS-17 as not started | `datasets/finance/actuals-vs-budget`, `datasets/finance/close-checklist` |
 | 2026-04-06 | Q1 2026 metrics pack approved for board use off the pre-close trial balance CLS-16 produces; the two headline figures are the ones the FIN-40 excerpt already carries in rounded form | `datasets/finance/approved-metrics-pack`, `artifacts/FIN-40` |
+| 2026-04-06 | Start date of the one co-002 new hire the onboarding pack is instantiated for; the requisition's own frozen target start date, and the first business day after the snapshot boundary the CORE-04 roster closes at | `datasets/hr/onboarding-checklist-templates` |
 | 2026-04-07 | Finance system access review (CLS-21) due at D+5 and not yet performed | `datasets/finance/close-checklist`, `datasets/finance/user-access-role-assignments` |
 | 2026-04-07 | Evidence binder assembled at D+5 (CLS-22); binder references EVB-2026Q1-001 upward span the tested controls and the completed close tasks | `datasets/finance/audit-evidence-index` |
 | 2026-04-21 | Board meeting at which the FIN-40 Q1 2026 board pack is presented | `artifacts/FIN-40` |
