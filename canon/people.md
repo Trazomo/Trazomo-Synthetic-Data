@@ -51,7 +51,7 @@ than splitting it across two documents that already disagree.
 | pe-201 to pe-249 | Named officers and contacts at ecosystem entities (co-101 to co-139) |
 | pe-251 to pe-299 | Non-party individuals: litigation parties, witnesses, experts, mediators, introducers, contractors |
 | ca-001 to ca-049 | Curated named candidates and applicants to co-002 roles. Two seats are seated at people-hr cluster 2, for the reason recorded under the table. |
-| EMP-NNNN | Generator-produced co-002 employee population, `datasets/core/people-roster/people-roster.csv` (CORE-04). Not curated here. Two rows are promoted into this file because they hold contested seats. |
+| EMP-NNNN | Generator-produced co-002 employee population, `datasets/core/people-roster/people-roster.csv` (CORE-04). Not curated here. Two rows are promoted into this file because they hold contested seats. Ids above `EMP-0600` are minted by lifecycle artifacts for people who postdate the CORE-04 snapshot (the HR-06 new hire carries `EMP-0601`). |
 | ct-co-NNN-NN | Generator-produced CRM contacts, `datasets/core/crm-seed-dataset/contacts.csv` (CORE-03). Not curated here. |
 | ca-100 and up | Bulk co-002 candidate population, `artifacts/HR-02/` and later applicant fixtures. Not curated here. |
 
