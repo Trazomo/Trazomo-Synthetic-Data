@@ -582,6 +582,12 @@ test("SMB-06 to SMB-11: no file carries an em dash or an en dash", () => {
 const SMB_C2B_DETERMINISTIC = ["SMB-12", "SMB-13", "SMB-16"];
 const SMB_C2B_DRAFTED = ["SMB-14", "SMB-15"];
 
+/** Excludes a long-form date's month word from the suffix-free address sweep below. */
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
 /** The shipped 2b files, path derived from the spec's own name rather than typed. */
 function c2bFiles() {
   const out = [];
@@ -688,29 +694,63 @@ test("SMB-12, SMB-13, SMB-16: every minted id is namespaced, and 2b mints only 2
   );
 });
 
-test("SMB-12, SMB-13, SMB-16: the delivery wave carries no property address at all, in any shape", () => {
+test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: the delivery wave carries no property address at all, in any shape", () => {
   // The canonical string is read out of SMB-04 rather than typed here, so a
   // record edit moves this screen with it. Unlike 2a, where the address is a
-  // real passage of the drafted documents, none of these three files has a
-  // column that could honestly carry it: a task, a milestone and a storage path
-  // are all about the work rather than about where it happens. That expectation
-  // is asserted as two equalities rather than as an absence nobody counted.
+  // real passage of the drafted documents, none of these five files has a
+  // column or a passage that could honestly carry it: a task, a milestone, a
+  // storage path and the two drafted documents are all about the work rather
+  // than about where it happens. That expectation is asserted as equalities
+  // rather than as an absence nobody counted.
   const record = JSON.parse(fileByPath(emitted("SMB-04"), "client-record-okafor.json").content);
   const address = record.client.property_address;
   assert.equal(address, "327 Havershill Court", "the client record's property_address has moved");
 
+  // The named-suffix sweep (NIT 2's recorded bound, carried from 2a's NEW-3):
+  // this can only see a street shape ending in one of the nine listed
+  // suffixes, so an invented address with an unlisted suffix (M13 planted
+  // "412 Rosewood Boulevard") is invisible to it. Kept over all five files
+  // because it is the only form of this sweep that is safe on the two
+  // documents: a suffix-free version matches a long-form date too (see
+  // below). The per-match equality this loop used to run is gone -- it could
+  // never execute while the count assertion after the loop holds, so it read
+  // as a positive check that was not one; the file and byte-offset in the
+  // count assertion's own message is what a failure needs.
   const STREET = /\b\d{1,4}(?:\s+[A-Z][A-Za-z]+){1,3}\s+(?:Court|Lane|Street|Road|Way|Terrace|Avenue|Drive|Place)\b/g;
-  let streetMatches = 0;
+  const suffixHits = [];
   let pinOccurrences = 0;
   for (const file of c2bFiles()) {
     for (const match of file.text.matchAll(STREET)) {
-      assert.equal(match[0], address, `${file.id} carries the address "${match[0]}", and the record says "${address}"`);
-      streetMatches += 1;
+      suffixHits.push(`${file.id} carries "${match[0]}" at index ${match.index}`);
     }
     pinOccurrences += file.text.split(address).length - 1;
   }
-  assert.equal(streetMatches, 0, "a delivery file now carries a street-shaped string, which none of the three columns needs");
-  assert.equal(pinOccurrences, 0, "a delivery file now carries the property address, which none of the three columns needs");
+  assert.deepEqual(suffixHits, [], "a delivery file now carries a street shape ending in a listed suffix");
+  assert.equal(pinOccurrences, 0, "a delivery file now carries the property address, which none of the five files needs");
+
+  // The suffix-free equality (NIT 2's fix, applied where it is honest): a
+  // generic "digits then a capitalised word" shape, with no suffix required,
+  // closes the bound above -- but only on the three CSVs. Measured directly:
+  // the same pattern matches 27 times in SMB-14 and 15 times in SMB-15, every
+  // one of them a long-form date such as "16 March", so it is not portable to
+  // the two documents. The three CSVs carry no long-form date, with one
+  // exception handled below: SMB-13 indexes a document titled "Client status
+  // update, 16 March 2026", so month names are excluded the same way a
+  // long-form date's month word would be.
+  const GENERIC_STREET_START = /\b\d{1,4}[ ]+[A-Z][A-Za-z]*/g;
+  const isMonthName = (word) => MONTHS.includes(word);
+  for (const id of SMB_C2B_DETERMINISTIC) {
+    const file = c2bFiles().find((f) => f.id === id);
+    const genericHits = (file.text.match(GENERIC_STREET_START) ?? [])
+      .filter((m) => !isMonthName(m.split(/[ ]+/)[1]));
+    const filePinOccurrences = file.text.split(address).length - 1;
+    assert.equal(
+      genericHits.length, filePinOccurrences,
+      `${id} carries ${genericHits.length} digit-then-capitalised-word shape(s) (${genericHits.join(", ") || "none"})`
+      + ` against ${filePinOccurrences} occurrence(s) of the pinned address; an unlisted-suffix address would`
+      + " show up here even though the named-suffix sweep above cannot see it"
+    );
+  }
 });
 
 test("SMB-12, SMB-13, SMB-16: no file carries an em dash or an en dash", () => {
