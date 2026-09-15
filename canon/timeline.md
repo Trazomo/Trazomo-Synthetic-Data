@@ -64,6 +64,7 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-04-01, 04-02, 04-03, 04-06, 04-07 | Close days D+1 to D+5 as business days after period end; 2026-04-04 and 2026-04-05 are a weekend and are skipped | `datasets/finance/close-checklist` |
 | 2026-04-02 | FIN-08 proposed payment run `PR-2026-04-02`, pending approval, unreleased | `datasets/finance/payment-run` |
 | 2026-04-01 to 2026-04-30 | FIN-40 quiet period: the Q1 2026 draft figures stay unreleased until the results announcement | `artifacts/FIN-40` |
+| 2026-04-06 to 2026-04-24 | Second round interview panel scheduling window on the open co-002 operations requisition; the panel seats are the three interviewers the March loop used, and the window closes on the last business day before the requisition's own target start date | datasets/hr/interviewer-calendars |
 | 2026-04-06 | Close status as-of (D+4) for the checklist, the control matrix, the access list and the intake queue | `datasets/finance` |
 | 2026-04-06 | Variance pack produced at D+4; `variance_explanation` is blank on every line, because the pack is the input CLS-17 consumes rather than its output, and the checklist file still carries CLS-17 as not started | `datasets/finance/actuals-vs-budget`, `datasets/finance/close-checklist` |
 | 2026-04-06 | Q1 2026 metrics pack approved for board use off the pre-close trial balance CLS-16 produces; the two headline figures are the ones the FIN-40 excerpt already carries in rounded form | `datasets/finance/approved-metrics-pack`, `artifacts/FIN-40` |
