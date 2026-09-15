@@ -625,7 +625,7 @@ function canonPersonNames() {
   return names;
 }
 
-test("SMB-12, SMB-13, SMB-16: no processor, gateway, card network or bank product is named (rule R-MOCK)", () => {
+test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: no processor, gateway, card network or bank product is named (rule R-MOCK)", () => {
   // The same list and the same one stated drop as 2a: "auth", a fragment whose
   // half the list's own "authorization" already carries. 2a needed two
   // excisions for the proposal's "per square foot"; the delivery wave needs
@@ -645,7 +645,7 @@ test("SMB-12, SMB-13, SMB-16: no processor, gateway, card network or bank produc
   }
 });
 
-test("SMB-12, SMB-13, SMB-16: no file carries a name canon seats, retires or freezes (rule R-ROLE)", () => {
+test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: no file carries a name canon seats, retires or freezes (rule R-ROLE)", () => {
   const names = canonPersonNames();
   assert.ok(names.size > 0, "canon/people.md parsed to no names, so this screen would pass on anything");
   for (const file of c2bFiles()) {
@@ -660,7 +660,7 @@ test("SMB-12, SMB-13, SMB-16: no file carries a name canon seats, retires or fre
   assert.ok(!names.has(household.name), "canon now seats a person under the household's own name");
 });
 
-test("SMB-12, SMB-13, SMB-16: every minted id is namespaced, and 2b mints only 2b classes (rule R-NS)", () => {
+test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: every minted id is namespaced, and 2b mints only 2b classes (rule R-NS)", () => {
   const seen = new Map();
   for (const file of c2bFiles()) {
     for (const match of file.text.matchAll(/\b([A-Z]{2,4})-LDB-(\d+)\b/g)) {
@@ -753,7 +753,7 @@ test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: the delivery wave carries no prope
   }
 });
 
-test("SMB-12, SMB-13, SMB-16: no file carries an em dash or an en dash", () => {
+test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: no file carries an em dash or an en dash", () => {
   for (const file of c2bFiles()) {
     // Written as escapes so this screen is not itself a hit for a grep over
     // the repo for the two characters it bans.
