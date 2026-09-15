@@ -1788,6 +1788,18 @@
             "build_files": [
                 "welcome-pack-template.docx"
             ]
+        },
+        {
+            "id": "SMB-14",
+            "name": "latest-status-update",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-14",
+            "source_files": [
+                "latest-status-update.md"
+            ],
+            "build_files": []
         }
     ]
 }
