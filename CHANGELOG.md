@@ -1,5 +1,54 @@
 # Changelog
 
+## 1.22.0
+
+Small-business cluster 2a, agreements: the first six of C2's eleven artifacts,
+covering `smb-proposal-to-contract-workflow` and
+`smb-client-onboarding-concierge`. The plan is
+`docs/plans/2026-08-29-path-programs/small-business/data-plans/cluster-2.md`;
+its section 8.1 defaults U-A to U-J ride to Salvador's freeze review with this
+PR, U-A first, because the $6,480.00 internal rework figure it pins freezes
+into SMB-15 in cluster 2b and obligates exactly one SMB-21 job-expense row in
+C3. The three drafted documents (the pack's first) sit behind their own freeze
+gate. No byte changes under `datasets/` outside the three new SMB directories,
+none under `canon/` (the four C2 timeline rows ride the PR body as a proposal,
+alongside C1's four still-pending rows), and none in the frozen C1 directories
+this cluster reads.
+
+- **SMB-06 approved-proposal-larkspur** (drafted): the approved Okafor
+  proposal, 12 line items against a 12 row rate basis appendix, one line to
+  one rate, totalling $148,500.00, which is SMB-04's contract value to the
+  cent, with the 20 / 30 / 30 / 20 draw split byte-equal to the record's four
+  invoice amounts. Exactly one line, the quartz countertops, is priced at a
+  rate whose effective window closed 2025-12-31, before the 2026-02-02
+  proposal date; four rate rows state a window at all and three of the four
+  are current, so neither a closing-date grep nor a materials-class filter
+  finds the plant on its own.
+- **SMB-07 contract-template** (drafted): a blank 16-field template that opens
+  with its own required-field list, 12 required and 4 optional. Exactly one
+  required field, the scope-change clause, carries no placeholder token and no
+  text; three sections carry an empty slot and two of the three are optional,
+  so the blank is a discrimination task rather than a grep. The closing note
+  states the required behaviour: stop and name the field, never fill it from a
+  working file.
+- **SMB-09 welcome-pack-template** (drafted): the no-defect control, 14
+  placeholders each used exactly once and zero empty required slots; the
+  drafted screen runs the identical blank-slot predicate over SMB-07 and
+  SMB-09 and asserts 1 and 0.
+- **SMB-08, SMB-10, SMB-11** (deterministic): the conversion run sheet, the
+  returned intake questionnaire and the kickoff checklist. SMB-10 carries the
+  cluster's one data plant: exactly one free-text answer, of seven, volunteers
+  a household member's mobility need the question did not ask for, pinned byte
+  for byte and asserted at both cardinalities. SMB-11's four `at_kickoff`
+  evidence rows cite `MST-LDB-01` ahead of the 2b schedule; the join is
+  asserted when SMB-16 ships.
+
+Guards: `tests/drafted/smb-c2a-drafted-screen.test.js` (the money recomputed
+in cents against SMB-04's emitted JSON, the two-table join, both template
+predicates), `tests/generators/smb-c2a-onboarding.test.js` (every census an
+equality), spec pins in `tests/unit/specLoader.test.js`, and the whole-wave
+absence screen (R-MOCK, person names, id namespaces, the canonical address,
+dashes) in `tests/generators/planted-features.test.js`.
 ## 1.21.0
 
 People and HR cluster 4, lifecycle coordination. Three artifacts, one seeded

@@ -2,10 +2,12 @@
 // called out in specs/artifact-specs.yaml, not just "produces some CSV".
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
 import { generateArtifact } from "../../datagen/src/engine.js";
+import { MOCK_VOCABULARY } from "../helpers/smb-mock-vocabulary.js";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const specs = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
@@ -292,18 +294,20 @@ test("FIN-35: 38 inbound requests, every one pending_classification (fin-35-inbo
 /** The R-MOCK notice, byte for byte. A second spelling of it is the defect. */
 const MOCK_NOTICE = "MOCK PAYMENT RECORD, NO FUNDS MOVED";
 
+// Processors, gateways, card networks, bank products, authorization codes and
+// instrument numbers. Rule R-MOCK, as one word-anchored list for the whole SMB
+// pack: matched against the words of a file rather than as substrings, so
+// "each" is not a hit for "ach".
+//
+// Hoisted to tests/helpers/smb-mock-vocabulary.js so cluster 2's drafted
+// screen extends it rather than keeping a second copy that can drift from it.
+
 test("SMB-04, SMB-05: every payment row is a mock record and no instrument is named (rule R-MOCK)", () => {
   const records = [
     JSON.parse(fileByPath(emitted("SMB-04"), "client-record-okafor.json").content),
     JSON.parse(fileByPath(emitted("SMB-05"), "client-record-co002-office-refresh.json").content),
   ];
-  const forbidden = [
-    "stripe", "paypal", "adyen", "braintree", "worldpay", "authorize", "plaid", "square",
-    "visa", "mastercard", "amex", "discover", "maestro",
-    "ach", "wire", "swift", "iban", "sepa", "bacs", "zelle", "venmo",
-    "gateway", "processor", "merchant", "acquirer", "routing", "cvv",
-    "card", "cardholder", "last4", "authorization", "auth",
-  ];
+  const forbidden = MOCK_VOCABULARY;
   for (const record of records) {
     assert.equal(record.payment_log.length, 4, `${record.generated_from_spec} payment count`);
     for (const payment of record.payment_log) {
@@ -350,4 +354,210 @@ test("SMB-01 to SMB-05: no artifact carries a field that names a person (rule R-
   }
   assert.ok(names.includes("contact_role"), "a human has to appear somehow, and the shape is a role");
   assert.ok(names.includes("record_owner_role"));
+});
+
+// ---------------------------------------------------------------------------
+// Small-business cluster 2a (SMB-06 to SMB-11). Five spot checks, and every one
+// is a property of the whole wave rather than of one artifact: the rules the
+// cluster 2 data plan states in section 0 and asserts nowhere else as a single
+// sweep. Every derived assertion, tie-out and cardinality lives in the two
+// per-wave files, tests/generators/smb-c2a-onboarding.test.js and
+// tests/drafted/smb-c2a-drafted-screen.test.js.
+//
+// The class of change this block exists to catch: a later edit that adds a
+// processor reference, a person name, an un-namespaced id or a fuller address.
+// Each of those looks like a field, so nobody reviews it closely.
+//
+// The six files are read from disk rather than regenerated, because these are
+// absence properties of what actually ships. That the emitted bytes and the
+// committed bytes agree is `validate`'s job and it is checked there.
+
+const SMB_C2A_DRAFTED = ["SMB-06", "SMB-07", "SMB-09"];
+const SMB_C2A_DETERMINISTIC = ["SMB-08", "SMB-10", "SMB-11"];
+
+/** The six shipped files, path derived from the spec's own name rather than typed. */
+function c2aFiles() {
+  const out = [];
+  for (const id of SMB_C2A_DRAFTED) {
+    const { name } = specs.byId.get(id);
+    out.push({ id, path: join(REPO_ROOT, "artifacts", id, `${name}.md`) });
+  }
+  for (const id of SMB_C2A_DETERMINISTIC) {
+    const { name } = specs.byId.get(id);
+    out.push({ id, path: join(REPO_ROOT, "datasets", "smb", name, `${name}.csv`) });
+  }
+  return out.map((f) => ({ ...f, text: readFileSync(f.path, "utf8") }));
+}
+
+/**
+ * The nine namespaced id classes cluster 2 mints (data plan rule R-NS). Six are
+ * 2a's and three are 2b's; all nine are listed so that 2b extends this screen
+ * by shipping its files rather than by editing it.
+ */
+const C2_ID_CLASSES = {
+  "PLI-LDB-": "SMB-06 proposal line item",
+  "RTC-LDB-": "SMB-06 rate schedule row",
+  "CFD-LDB-": "SMB-07 contract field",
+  "NSC-LDB-": "SMB-08 next-steps checklist item",
+  "IQQ-LDB-": "SMB-10 intake questionnaire question",
+  "KCK-LDB-": "SMB-11 kickoff checklist item",
+  "TSK-LDB-": "SMB-12 project task",
+  "DOC-LDB-": "SMB-13 project document",
+  "MST-LDB-": "SMB-16 milestone",
+};
+
+/** The classes 2a's own files may mint, and the one 2b class 2a is allowed to cite. */
+const C2A_OWN_CLASSES = ["PLI-LDB-", "RTC-LDB-", "CFD-LDB-", "NSC-LDB-", "IQQ-LDB-", "KCK-LDB-"];
+const C2A_FORWARD_CITATION = { class: "MST-LDB-", from: "SMB-11", column: "related_milestone_id" };
+
+test("SMB-06 to SMB-11: no processor, gateway, card network or bank product is named (rule R-MOCK)", () => {
+  // The cluster 1 list, less one term dropped for a stated reason rather than
+  // forgotten: "auth", because it is a fragment rather than a word, and the
+  // list's own "authorization" carries that half. "square" stays on the list;
+  // the two exact strings that make it an ordinary word of the proposal's bill
+  // are excised before tokenising, and the excision is proven non-vacuous so it
+  // cannot rot into a blanket allowance.
+  const dropped = ["auth"];
+  const excised = ["per square foot", "square_foot"];
+  const forbidden = MOCK_VOCABULARY.filter((term) => !dropped.includes(term));
+  assert.equal(forbidden.length, MOCK_VOCABULARY.length - dropped.length, "a dropped term is no longer in the list");
+
+  const smb06 = c2aFiles().find((f) => f.id === "SMB-06");
+  for (const phrase of excised) {
+    assert.ok(smb06.text.toLowerCase().includes(phrase), `SMB-06 no longer carries "${phrase}"; retire the excision`);
+  }
+
+  for (const file of c2aFiles()) {
+    let swept = file.text.toLowerCase();
+    for (const phrase of excised) swept = swept.split(phrase).join(" ");
+    const words = new Set(swept.split(/[^a-z0-9]+/));
+    for (const term of forbidden) {
+      assert.ok(
+        !words.has(term),
+        `${file.id} names "${term}", which is a processor, gateway, card network or bank product`
+      );
+    }
+  }
+});
+
+test("SMB-06 to SMB-11: no file carries a name canon seats, retires or freezes (rule R-ROLE)", () => {
+  // canon/people.md's own names, parsed rather than retyped. The parser is a
+  // deliberate second copy of the one the drafted screen carries: two screens
+  // that shared one parser would go blind together.
+  const NAME_HEADS = ["name", "retired name", "frozen name"];
+  const isTableLine = (line) => line.trim().startsWith("|");
+  const cellsOf = (line) => line.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+  const isRule = (row) => row.every((c) => /^:?-{2,}:?$/.test(c));
+
+  const lines = readFileSync(join(REPO_ROOT, "canon", "people.md"), "utf8").split("\n");
+  const names = new Set();
+  for (const [i, line] of lines.entries()) {
+    if (!isTableLine(line)) continue;
+    const head = cellsOf(line);
+    const at = head.findIndex((c) => NAME_HEADS.includes(c.toLowerCase()));
+    if (at < 0) continue;
+    for (let j = i + 1; j < lines.length; j += 1) {
+      if (!isTableLine(lines[j])) break;
+      const row = cellsOf(lines[j]);
+      if (isRule(row)) continue;
+      const value = (row[at] ?? "").replace(/\*\*/g, "").trim();
+      if (/^[A-Z][A-Za-z.'-]*(?:\s+[A-Z][A-Za-z.'-]*)+/.test(value)) names.add(value);
+    }
+  }
+  assert.ok(names.size > 0, "canon/people.md parsed to no names, so this screen would pass on anything");
+
+  for (const file of c2aFiles()) {
+    for (const name of names) {
+      assert.ok(!file.text.includes(name), `${file.id} carries the canon person name "${name}"`);
+    }
+  }
+});
+
+test("SMB-06 to SMB-11: every minted id is namespaced, and 2a mints only 2a classes (rule R-NS)", () => {
+  const seen = new Map();
+  for (const file of c2aFiles()) {
+    for (const match of file.text.matchAll(/\b([A-Z]{2,4})-LDB-(\d+)\b/g)) {
+      const idClass = `${match[1]}-LDB-`;
+      assert.ok(
+        Object.hasOwn(C2_ID_CLASSES, idClass),
+        `${file.id} mints "${match[0]}", whose class ${idClass} is not one of the nine the data plan namespaces`
+      );
+      assert.equal(match[2].length, 2, `${file.id} carries "${match[0]}", and the format is two zero-padded digits`);
+      seen.set(idClass, new Set([...(seen.get(idClass) ?? []), file.id]));
+    }
+
+    // The other half of R-NS, and the one the namespace exists for: a class
+    // token used bare. TSK- and DOC- are already spent elsewhere in the repo,
+    // so a bare mint here is a cross-track collision rather than a style slip.
+    for (const idClass of Object.keys(C2_ID_CLASSES)) {
+      const bare = idClass.replace("LDB-", "");
+      assert.doesNotMatch(
+        file.text, new RegExp(`\\b${bare}\\d`),
+        `${file.id} carries an un-namespaced ${bare} id`
+      );
+    }
+  }
+
+  // Every 2a class is actually minted, so the screen is not passing on absence,
+  // and no 2b class appears except the one forward citation the plan allows.
+  for (const idClass of C2A_OWN_CLASSES) {
+    assert.ok(seen.has(idClass), `no cluster 2a file mints ${idClass}, so this screen checks nothing for it`);
+  }
+  const foreign = [...seen.keys()].filter((c) => !C2A_OWN_CLASSES.includes(c));
+  assert.deepEqual(
+    foreign, [C2A_FORWARD_CITATION.class],
+    "a cluster 2a file cites a 2b id class other than the one forward citation the data plan allows"
+  );
+  assert.deepEqual(
+    [...seen.get(C2A_FORWARD_CITATION.class)], [C2A_FORWARD_CITATION.from],
+    `only ${C2A_FORWARD_CITATION.from}'s ${C2A_FORWARD_CITATION.column} may cite a milestone before SMB-16 exists`
+  );
+});
+
+test("SMB-06 to SMB-11: wherever a property address appears it is the client record's, byte for byte", () => {
+  // The canonical string is read out of SMB-04 rather than typed here, so a
+  // record edit moves this screen with it. This is the cluster 1 review's
+  // BLOCKER 1 class (a canonical address contradicted by sixteen files)
+  // applied prospectively.
+  const record = JSON.parse(fileByPath(emitted("SMB-04"), "client-record-okafor.json").content);
+  const address = record.client.property_address;
+  assert.equal(address, "327 Havershill Court", "the client record's property_address has moved");
+
+  // Bounded (a trailing comma or digit means a fuller address follows the
+  // match, e.g. a city and a postcode) and widened to a one-to-three word
+  // street name, so a second, wholly invented street is seen rather than
+  // matched-nothing.
+  const STREET = /\b\d{1,4}(?:\s+[A-Z][A-Za-z]+){1,3}\s+(?:Court|Lane|Street|Road|Way|Terrace|Avenue|Drive|Place)\b/g;
+  let streetMatches = 0;
+  let pinOccurrences = 0;
+  for (const file of c2aFiles()) {
+    for (const match of file.text.matchAll(STREET)) {
+      const after = file.text.slice(match.index + match[0].length, match.index + match[0].length + 1);
+      assert.ok(
+        !/[,0-9]/.test(after),
+        `${file.id} carries "${match[0]}" immediately followed by "${after}", which is a fuller address than the pin`
+      );
+      assert.equal(match[0], address, `${file.id} carries the address "${match[0]}", and the record says "${address}"`);
+      streetMatches += 1;
+    }
+    pinOccurrences += file.text.split(address).length - 1;
+  }
+  assert.ok(streetMatches > 0, "no cluster 2a file carries the property address at all, so this screen checks nothing");
+  // The positive half the sweep was missing: any street-shaped string that is
+  // not the pin, or a pin occurrence the street sweep does not see, is a
+  // failure by construction rather than by pattern luck.
+  assert.equal(
+    streetMatches, pinOccurrences,
+    `the street-shaped sweep finds ${streetMatches} matches and the exact address occurs ${pinOccurrences} times`
+    + " across the six files; they have to be the same count or an address-shaped string is hiding from one side"
+  );
+});
+
+test("SMB-06 to SMB-11: no file carries an em dash or an en dash", () => {
+  for (const file of c2aFiles()) {
+    // Written as escapes so this screen is not itself a hit for a grep over
+    // the repo for the two characters it bans.
+    assert.ok(!file.text.includes("\u2014"), `${file.id} carries an em dash (U+2014)`);
+    assert.ok(!file.text.includes("\u2013"), `${file.id} carries an en dash (U+2013)`);
+  }
 });

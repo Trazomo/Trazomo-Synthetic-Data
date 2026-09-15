@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
+import { mkdtempSync, writeFileSync, rmSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { loadSpecs, SpecValidationError, trackDir, trackPrefix } from "../../datagen/src/specLoader.js";
@@ -567,4 +567,231 @@ test("loadSpecs: SMB-03's window is one calendar week and both records close at 
   // keeps SMB-03's single commercial row the only commercial inquiry in it.
   assert.ok(byId.get("SMB-05").period.start < byId.get("SMB-03").period.start);
   assert.equal(byId.get("SMB-01").period.start, byId.get("SMB-04").period.start);
+});
+
+// ---------------------------------------------------------------------------
+// Small-business cluster 2 (SMB-06 to SMB-16). Eleven artifacts, six of them
+// deterministic and five drafted-frozen, which is the first SMB cluster where
+// the two kinds sit side by side. The pre-flight is therefore two-sided: the
+// six carry the column lists their generators pin against, and the five carry
+// none, because a drafted markdown document has no header for a columns list to
+// describe and a `columns` key on one is a spec that lies about its own shape.
+//
+// The column lists below are the cluster 2 data plan's section 2 lists, typed
+// out rather than derived. That is the point: this file is where a spec column
+// list drifting from the plan it was designed to is caught, and a check that
+// read the list back out of the same file it is checking would catch nothing.
+
+const SMB_C2_DETERMINISTIC = ["SMB-08", "SMB-10", "SMB-11", "SMB-12", "SMB-13", "SMB-16"];
+const SMB_C2_DRAFTED = ["SMB-06", "SMB-07", "SMB-09", "SMB-14", "SMB-15"];
+const SMB_C2 = [...SMB_C2_DRAFTED, ...SMB_C2_DETERMINISTIC];
+
+/** Data plan section 2, one entry per deterministic id, in the plan's own order. */
+const SMB_C2_COLUMNS = {
+  // 2.3, the conversion run sheet
+  "SMB-08": [
+    "step_id", "sequence", "step", "owner_role", "trigger", "due_offset_days",
+    "due_basis", "output_artifact", "evidence_required", "status",
+  ],
+  // 2.5, the intake that came back
+  "SMB-10": [
+    "question_id", "section", "sequence", "question_text", "answer_type",
+    "required", "client_canon_id", "answer_text",
+  ],
+  // 2.6, the kickoff run sheet
+  "SMB-11": [
+    "item_id", "sequence", "phase", "item", "owner_role", "evidence_required",
+    "related_milestone_id", "status",
+  ],
+  // 2.8, the task list with an internal view and a client view
+  "SMB-12": [
+    "task_id", "milestone_id", "task", "owner_role", "planned_start", "planned_end",
+    "internal_status", "internal_completed_date", "client_visible_status",
+    "client_visible_updated_date", "client_canon_id",
+  ],
+  // 2.9, the document index
+  "SMB-13": [
+    "document_id", "document_title", "document_type", "classification", "visibility",
+    "owner_role", "created_date", "last_updated_date", "storage_path",
+    "related_milestone_id", "related_task_id", "client_canon_id",
+  ],
+  // 2.7, the schedule the lateness is measured against
+  "SMB-16": [
+    "milestone_id", "sequence", "milestone", "planned_start", "planned_end", "actual_start",
+    "actual_completion", "milestone_status", "client_canon_id", "project_name",
+  ],
+};
+
+/** Data plan section 1, the module-to-artifact map, read the other way round. */
+const SMB_C2_MODULES = {
+  "SMB-06": "smb-proposal-to-contract-workflow",
+  "SMB-07": "smb-proposal-to-contract-workflow",
+  "SMB-08": "smb-proposal-to-contract-workflow",
+  "SMB-09": "smb-client-onboarding-concierge",
+  "SMB-10": "smb-client-onboarding-concierge",
+  "SMB-11": "smb-client-onboarding-concierge",
+  "SMB-12": "smb-client-project-hub",
+  "SMB-13": "smb-client-project-hub",
+  "SMB-14": "smb-client-project-hub",
+  "SMB-15": "smb-milestone-update-drafter",
+  "SMB-16": "smb-milestone-update-drafter",
+};
+
+test("loadSpecs: the six deterministic cluster 2 SMB ids carry the data plan's column lists exactly", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of SMB_C2_DETERMINISTIC) {
+    const spec = byId.get(id);
+    assert.ok(spec, `${id} is not in the catalog`);
+    assert.equal(spec.generation, "deterministic", `${id} generation`);
+    assert.deepEqual(spec.columns, SMB_C2_COLUMNS[id], `${id} columns have drifted from data plan section 2`);
+    assert.equal(new Set(spec.columns).size, spec.columns.length, `${id} repeats a column`);
+    for (const col of spec.columns) {
+      assert.match(col, /^[a-z][a-z0-9_]*$/, `${id} column "${col}" is not snake_case`);
+    }
+    assert.equal(spec.files, undefined, `${id} is one CSV, so it declares no files map`);
+    assert.equal(trackDir(id), "smb", `${id} does not generate into datasets/smb/`);
+  }
+});
+
+test("loadSpecs: the five drafted cluster 2 SMB ids carry no columns and no files map", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of SMB_C2_DRAFTED) {
+    const spec = byId.get(id);
+    assert.ok(spec, `${id} is not in the catalog`);
+    assert.equal(spec.generation, "drafted-frozen", `${id} generation`);
+    assert.equal(spec.columns, undefined, `${id} is a drafted document, so it declares no columns`);
+    assert.equal(spec.files, undefined, `${id} is a drafted document, so it declares no files map`);
+    assert.equal(spec.format, "markdown", `${id} format`);
+  }
+});
+
+test("loadSpecs: all eleven cluster 2 SMB ids declare a period, well-shaped and not backwards", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  assert.equal(SMB_C2.length, 11);
+  for (const id of SMB_C2) {
+    const spec = byId.get(id);
+    assert.ok(spec.period, `${id} declares no period`);
+    assert.match(spec.period.start, /^\d{4}-\d{2}-\d{2}$/, `${id} period.start`);
+    assert.match(spec.period.end, /^\d{4}-\d{2}-\d{2}$/, `${id} period.end`);
+    assert.ok(spec.period.start <= spec.period.end, `${id} period runs backwards`);
+  }
+});
+
+// specLoader.js's own reading of `period` is "the fiscal window the rows
+// cover" (SHOULD-FIX 4). A membership check against the cluster's two month
+// window passes on any value in a two month range and cannot fail on a period
+// with nothing behind it. The derived form below is falsifiable: for the two
+// cluster 2a ids whose own committed bytes carry an ISO date, every date in
+// those bytes has to sit inside the declared period; for the four ids with no
+// date-bearing bytes at all, the period is honestly "the window this template
+// belongs to" only if the artifact carries no ISO date to contradict it.
+const SMB_C2A_DATED_PATHS = {
+  "SMB-06": join(REPO_ROOT, "artifacts", "SMB-06", "approved-proposal-larkspur.md"),
+  "SMB-10": join(REPO_ROOT, "datasets", "smb", "intake-questionnaire", "intake-questionnaire.csv"),
+};
+const SMB_C2A_NO_DATE_PATHS = {
+  "SMB-07": join(REPO_ROOT, "artifacts", "SMB-07", "contract-template.md"),
+  "SMB-08": join(REPO_ROOT, "datasets", "smb", "client-next-steps-checklist", "client-next-steps-checklist.csv"),
+  "SMB-09": join(REPO_ROOT, "artifacts", "SMB-09", "welcome-pack-template.md"),
+  "SMB-11": join(REPO_ROOT, "datasets", "smb", "kickoff-checklist", "kickoff-checklist.csv"),
+};
+
+test("loadSpecs: cluster 2a's period values are true against the ISO dates the committed bytes actually carry", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const ISO = /\d{4}-\d{2}-\d{2}/g;
+
+  for (const [id, path] of Object.entries(SMB_C2A_DATED_PATHS)) {
+    const spec = byId.get(id);
+    const dates = (readFileSync(path, "utf8").match(ISO) ?? []).sort();
+    assert.ok(dates.length > 0, `${id} carries no ISO date; it belongs in the no-date list instead`);
+    assert.ok(
+      dates[0] >= spec.period.start,
+      `${id} carries the date ${dates[0]}, before its own period.start ${spec.period.start}`
+    );
+    assert.ok(
+      dates.at(-1) <= spec.period.end,
+      `${id} carries the date ${dates.at(-1)}, after its own period.end ${spec.period.end}`
+    );
+  }
+
+  for (const [id, path] of Object.entries(SMB_C2A_NO_DATE_PATHS)) {
+    const dates = readFileSync(path, "utf8").match(ISO) ?? [];
+    assert.deepEqual(
+      dates, [],
+      `${id} is a template whose period is honest only as "the window this template belongs to";`
+      + ` it now carries the date(s) ${dates.join(", ")}, which makes that reading false`
+    );
+  }
+});
+
+test("loadSpecs: the cluster 2 SMB entries name the one module that reads each of them, and the canon entities they join to", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const [id, module] of Object.entries(SMB_C2_MODULES)) {
+    assert.deepEqual(
+      byId.get(id).consuming_modules, [module],
+      `${id} does not serve exactly the module data plan section 1 gives it`
+    );
+  }
+  // Four modules over eleven artifacts, which is the section 1 map read the
+  // other way: a fifth module appearing here means the map moved.
+  assert.equal(new Set(Object.values(SMB_C2_MODULES)).size, 4);
+
+  // The two documents that name the studio and the household both carry both
+  // seats. The four template artifacts name nobody and have to earn the empty
+  // list, which the drafted and structured screens assert as an absence.
+  for (const id of ["SMB-06", "SMB-15"]) {
+    assert.deepEqual(byId.get(id).canon_entities, ["co-100", "co-131"], `${id} canon_entities`);
+  }
+  for (const id of ["SMB-07", "SMB-08", "SMB-09", "SMB-11"]) {
+    assert.deepEqual(byId.get(id).canon_entities, [], `${id} is a template and names no entity`);
+  }
+});
+
+// SHOULD-FIX 7. checkPlantedFeature can never return FAIL (fact 0.4), so a
+// planted_features string that states a cardinality the bytes contradict is
+// caught by nothing at `validate` time. The plan's section 2 replacement
+// blocks are pinned text; pin the three C2a lists byte exact against them
+// here, so a later edit to either the yaml or the plan shows up as a test
+// diff. Source: cluster-2.md section 2.1 (SMB-06), 2.2 (SMB-07) and 2.5
+// (SMB-10), after NIT 3's section-order wording swap.
+test("loadSpecs: the three C2a planted_features lists are byte exact against cluster-2.md section 2", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+
+  assert.deepEqual(byId.get("SMB-06").planted_features, [
+    "the approved proposal for the Okafor kitchen and primary bath renovation at 327 Havershill Court, approved 2 February 2026, priced as 12 line items against a 12 row rate basis appendix, one line to one rate, totalling 148,500.00 which is the contract value the client record carries and which the 20 / 30 / 30 / 20 draw schedule splits into 29,700.00, 44,550.00, 44,550.00 and 29,700.00",
+    "1 line item priced at a since-expired materials rate: exactly one line, the quartz countertop supply and fabrication line, is priced at a rate whose effective_through date of 2025-12-31 closed before the 2026-02-02 proposal date. Every other line's rate is current at that date",
+    "the rate basis makes the staleness findable but not obvious: four of the twelve rate rows carry a stated effective_through, three of them materials and one labour, and only one of the four closed before the proposal date, so a reader who greps for a closing date finds four and a reader who filters on the materials rate class finds three",
+    "every line item resolves to exactly one rate row and every rate row is cited by exactly one line item, and every line total is the quantity times the unit rate to the cent, so the bill is recomputable rather than asserted",
+    "no person is named: the studio side is the owner role, the client is the canon household The Okafor household, and the acceptance block carries a role rather than a signature",
+    "payments are described as terms and draws only: no processor, gateway, card network or bank product name appears in the payment schedule or anywhere else in the document",
+  ], "SMB-06's planted_features has drifted from cluster-2.md section 2.1");
+
+  assert.deepEqual(byId.get("SMB-07").planted_features, [
+    "a blank contract template, not a filled contract: 16 fields, each with a field id, a required flag and a placeholder token, listed in the template's own required-field list at the top and repeated as a body section in the same order. No client, no price, no date and no canon entity appears anywhere in the document",
+    "1 required field, the scope-change clause, left blank: exactly one field that the required-field list marks required carries no placeholder token and no text in its body section. Every other required field carries its token",
+    "the blank is a discrimination task, not a grep: three of the sixteen field sections carry an empty slot, and two of the three, dispute resolution and site access hours, are marked not required, so a rule that finds empty slots without reading the required column returns three and blocks on two fields the template was free to leave empty",
+    "twelve of the sixteen fields are required and four are optional, and the required-field list is the authority: a field's required flag is stated once, in that table, and the body never restates it",
+    "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, and never fills one from a working file",
+  ], "SMB-07's planted_features has drifted from cluster-2.md section 2.2");
+
+  assert.deepEqual(byId.get("SMB-10").planted_features, [
+    "18 intake questions and answers for the Okafor household, IQQ-LDB-01 upward in sequence order which is also file order, across four sections: scope and selections, household and access, schedule and communication, site conditions. Seven answers are free text, seven single select, two dates and two numbers, and no answer is empty",
+    "one answer volunteering sensitive information unprompted (mobility need affecting site access): exactly one free-text answer carries information outside the scope of its own question. The question asks which hours the crew should not be on site; the answer volunteers that a household member uses a walker and that the hallway and front step must stay clear, which is health information about a third party that nobody asked for and that needs minimal careful handling and must never be copied into general project notes",
+    "the volunteered answer hides inside a population of seven: seven of the eighteen answers are free text, so a reviewer who reads every free-text answer reads seven and has to judge six of them in scope",
+    "two answers mention a household member other than the signing contact and only one of the two is sensitive, the other being a note that a partner handles the finish selections, so a rule keyed on whether an answer mentions another person over-flags by one",
+    "no person is named in any question or any answer: household members appear as relationships and the studio side appears as roles, because canon/people.md seats nobody at co-100 or co-131",
+  ], "SMB-10's planted_features has drifted from cluster-2.md section 2.5");
+});
+
+test("loadSpecs: no cluster 2 SMB planted feature carries a dash this pack does not use or describes a learner", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of SMB_C2) {
+    for (const feature of byId.get(id).planted_features) {
+      assert.equal(typeof feature, "string", `${id} has a planted feature that is not a string (quote the colon)`);
+      assert.ok(feature.trim() !== "", `${id} has an empty planted feature`);
+      assert.ok(!feature.includes("\u2014"), `${id} planted feature carries an em dash`);
+      assert.ok(!feature.includes("\u2013"), `${id} planted feature carries an en dash`);
+      assert.ok(!/learner/i.test(feature), `${id} describes what a learner does, which no file can contain: ${feature}`);
+    }
+  }
 });

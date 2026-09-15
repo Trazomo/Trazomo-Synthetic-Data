@@ -1146,6 +1146,51 @@
                 "client-record-co002-office-refresh.json"
             ],
             "row_counts": {}
+        },
+        {
+            "id": "SMB-08",
+            "name": "client-next-steps-checklist",
+            "track": "smb",
+            "type": "template",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/client-next-steps-checklist",
+            "files": [
+                "client-next-steps-checklist.csv"
+            ],
+            "row_counts": {
+                "client-next-steps-checklist.csv": 12
+            }
+        },
+        {
+            "id": "SMB-10",
+            "name": "intake-questionnaire",
+            "track": "smb",
+            "type": "form",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/intake-questionnaire",
+            "files": [
+                "intake-questionnaire.csv"
+            ],
+            "row_counts": {
+                "intake-questionnaire.csv": 18
+            }
+        },
+        {
+            "id": "SMB-11",
+            "name": "kickoff-checklist",
+            "track": "smb",
+            "type": "template",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/kickoff-checklist",
+            "files": [
+                "kickoff-checklist.csv"
+            ],
+            "row_counts": {
+                "kickoff-checklist.csv": 14
+            }
         }
     ],
     "specs": "specs/artifact-specs.yaml",
@@ -1751,6 +1796,48 @@
                 "program-knowledge-corpus.docx",
                 "retro-transcript-with-recurring-finding.docx",
                 "sop-with-unnamed-approver.docx"
+            ]
+        },
+        {
+            "id": "SMB-06",
+            "name": "approved-proposal-larkspur",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-06",
+            "source_files": [
+                "approved-proposal-larkspur.md"
+            ],
+            "build_files": [
+                "approved-proposal-larkspur.docx"
+            ]
+        },
+        {
+            "id": "SMB-07",
+            "name": "contract-template",
+            "type": "template",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-07",
+            "source_files": [
+                "contract-template.md"
+            ],
+            "build_files": [
+                "contract-template.docx"
+            ]
+        },
+        {
+            "id": "SMB-09",
+            "name": "welcome-pack-template",
+            "type": "template",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-09",
+            "source_files": [
+                "welcome-pack-template.md"
+            ],
+            "build_files": [
+                "welcome-pack-template.docx"
             ]
         }
     ]

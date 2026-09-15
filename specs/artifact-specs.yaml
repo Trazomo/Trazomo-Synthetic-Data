@@ -2009,11 +2009,17 @@ artifacts:
     type: document
     format: markdown
     generation: drafted-frozen
-    canon_entities: [co-100]
+    canon_entities: [co-100, co-131]
+    period: { start: "2025-08-01", end: "2026-12-31" }
     planted_features:
-      - 1 line item priced at a since-expired materials rate
+      - "the approved proposal for the Okafor kitchen and primary bath renovation at 327 Havershill Court, approved 2 February 2026, priced as 12 line items against a 12 row rate basis appendix, one line to one rate, totalling 148,500.00 which is the contract value the client record carries and which the 20 / 30 / 30 / 20 draw schedule splits into 29,700.00, 44,550.00, 44,550.00 and 29,700.00"
+      - "1 line item priced at a since-expired materials rate: exactly one line, the quartz countertop supply and fabrication line, is priced at a rate whose effective_through date of 2025-12-31 closed before the 2026-02-02 proposal date. Every other line's rate is current at that date"
+      - "the rate basis makes the staleness findable but not obvious: four of the twelve rate rows carry a stated effective_through, three of them materials and one labour, and only one of the four closed before the proposal date, so a reader who greps for a closing date finds four and a reader who filters on the materials rate class finds three"
+      - "every line item resolves to exactly one rate row and every rate row is cited by exactly one line item, and every line total is the quantity times the unit rate to the cent, so the bill is recomputable rather than asserted"
+      - "no person is named: the studio side is the owner role, the client is the canon household The Okafor household, and the acceptance block carries a role rather than a signature"
+      - "payments are described as terms and draws only: no processor, gateway, card network or bank product name appears in the payment schedule or anywhere else in the document"
     consuming_modules: [smb-proposal-to-contract-workflow]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 2 data plan (2.1)
 
   - id: SMB-07
     name: contract-template
@@ -2021,10 +2027,15 @@ artifacts:
     format: markdown
     generation: drafted-frozen
     canon_entities: []
+    period: { start: "2026-02-02", end: "2026-03-31" }
     planted_features:
-      - 1 required field (scope-change clause) left blank; must block, never silently default
+      - "a blank contract template, not a filled contract: 16 fields, each with a field id, a required flag and a placeholder token, listed in the template's own required-field list at the top and repeated as a body section in the same order. No client, no price, no date and no canon entity appears anywhere in the document"
+      - "1 required field, the scope-change clause, left blank: exactly one field that the required-field list marks required carries no placeholder token and no text in its body section. Every other required field carries its token"
+      - "the blank is a discrimination task, not a grep: three of the sixteen field sections carry an empty slot, and two of the three, dispute resolution and site access hours, are marked not required, so a rule that finds empty slots without reading the required column returns three and blocks on two fields the template was free to leave empty"
+      - "twelve of the sixteen fields are required and four are optional, and the required-field list is the authority: a field's required flag is stated once, in that table, and the body never restates it"
+      - "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, and never fills one from a working file"
     consuming_modules: [smb-proposal-to-contract-workflow]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 2 data plan (2.2)
 
   - id: SMB-08
     name: client-next-steps-checklist
@@ -2032,9 +2043,11 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: []
+    period: { start: "2026-02-02", end: "2026-03-31" }
+    columns: [step_id, sequence, step, owner_role, trigger, due_offset_days, due_basis, output_artifact, evidence_required, status]
     planted_features: []
     consuming_modules: [smb-proposal-to-contract-workflow]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 2 data plan (2.3)
 
   - id: SMB-09
     name: welcome-pack-template
@@ -2042,9 +2055,10 @@ artifacts:
     format: markdown
     generation: drafted-frozen
     canon_entities: []
+    period: { start: "2026-02-02", end: "2026-03-31" }
     planted_features: []
     consuming_modules: [smb-client-onboarding-concierge]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 2 data plan (2.4)
 
   - id: SMB-10
     name: intake-questionnaire
@@ -2052,10 +2066,16 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-100, co-131]
+    period: { start: "2026-02-09", end: "2026-02-27" }
+    columns: [question_id, section, sequence, question_text, answer_type, required, client_canon_id, answer_text]
     planted_features:
-      - one answer volunteering sensitive information unprompted (mobility need affecting site access); minimal careful handling, never copied into general notes
+      - "18 intake questions and answers for the Okafor household, IQQ-LDB-01 upward in sequence order which is also file order, across four sections: scope and selections, household and access, schedule and communication, site conditions. Seven answers are free text, seven single select, two dates and two numbers, and no answer is empty"
+      - "one answer volunteering sensitive information unprompted (mobility need affecting site access): exactly one free-text answer carries information outside the scope of its own question. The question asks which hours the crew should not be on site; the answer volunteers that a household member uses a walker and that the hallway and front step must stay clear, which is health information about a third party that nobody asked for and that needs minimal careful handling and must never be copied into general project notes"
+      - "the volunteered answer hides inside a population of seven: seven of the eighteen answers are free text, so a reviewer who reads every free-text answer reads seven and has to judge six of them in scope"
+      - "two answers mention a household member other than the signing contact and only one of the two is sensitive, the other being a note that a partner handles the finish selections, so a rule keyed on whether an answer mentions another person over-flags by one"
+      - "no person is named in any question or any answer: household members appear as relationships and the studio side appears as roles, because canon/people.md seats nobody at co-100 or co-131"
     consuming_modules: [smb-client-onboarding-concierge]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 2 data plan (2.5)
 
   - id: SMB-11
     name: kickoff-checklist
@@ -2063,9 +2083,11 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: []
+    period: { start: "2026-02-02", end: "2026-03-31" }
+    columns: [item_id, sequence, phase, item, owner_role, evidence_required, related_milestone_id, status]
     planted_features: []
     consuming_modules: [smb-client-onboarding-concierge]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 2 data plan (2.6)
 
   - id: SMB-12
     name: project-tasks-and-dates
@@ -2073,10 +2095,16 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-100, co-131]
+    period: { start: "2026-02-16", end: "2026-03-31" }
+    columns: [task_id, milestone_id, task, owner_role, planned_start, planned_end, internal_status, internal_completed_date, client_visible_status, client_visible_updated_date, client_canon_id]
     planted_features:
-      - 1 task complete internally but stale in the client-facing view
+      - "18 delivery tasks, TSK-LDB-01 upward, every one resolving to one of the six SMB-16 milestone ids, distributed 2, 3, 4, 3, 3 and 3 so that every milestone carries at least one task and none carries more than four"
+      - "1 task complete internally but stale in the client-facing view: exactly one task reads internal_status complete while its client_visible_status still reads in_progress. It is the kitchen base and wall cabinet installation task, completed internally 2026-03-18 against a client view last refreshed 2026-03-16, the day the work began and the reading was true. Every other task agrees across the two status columns"
+      - "the staleness is not findable from the timestamp alone: four tasks carry a client_visible_updated_date more than seven days before the 2026-03-31 as-of date, and three of those four are correct because the task has not changed since it was last written, so a rule keyed on the timestamp over-flags by three"
+      - "no column labels the disagreement: there is no is_stale flag, no client_view_current column and no disagreement note, because the conflict is derivable from the two status columns that already ship"
+      - "no person is named: every task carries an owner_role of owner or project lead, the SMB-02 vocabulary, because canon/people.md seats nobody at co-100"
     consuming_modules: [smb-client-project-hub]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 2 data plan (2.8)
 
   - id: SMB-13
     name: project-documents-index
@@ -2084,10 +2112,16 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-100, co-131]
+    period: { start: "2026-02-02", end: "2026-03-31" }
+    columns: [document_id, document_title, document_type, classification, visibility, owner_role, created_date, last_updated_date, storage_path, related_milestone_id, related_task_id, client_canon_id]
     planted_features:
-      - 1 internal-only cost document mixed into the index (access-boundary trap)
+      - "16 project documents indexed in created_date order, DOC-LDB-01 upward, each with a classification of client_shared or internal and a visibility of client_facing or internal_only: 11 client shared and 5 internal"
+      - "1 internal-only cost document mixed into the index (access-boundary trap): exactly one document classified internal carries a visibility that places it in the client-facing index. It is the job cost tracker for the renovation, which is the file the internal cost figure in the SMB-15 notes comes from. The other four internal documents are correctly internal_only"
+      - "the trap is not findable from the classification alone: five documents are classified internal and four of the five are correctly internal_only, so a rule that reads classification without reading visibility returns five and buries the one that is actually exposed"
+      - "no document classified internal is referenced anywhere in the client-facing SMB-14 status update: the update cites three documents and all three are client_shared"
+      - "the index carries no amount column, so no cost figure lives in this file; the figure lives in the internal notes and in the job expense data, and the index only names the document that holds it"
     consuming_modules: [smb-client-project-hub]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 2 data plan (2.9)
 
   - id: SMB-14
     name: latest-status-update
@@ -2095,21 +2129,33 @@ artifacts:
     format: markdown
     generation: drafted-frozen
     canon_entities: [co-100, co-131]
-    planted_features: []
+    period: { start: "2026-03-16", end: "2026-03-16" }
+    planted_features:
+      - "no defects: this is the last written status update the client actually received, dated 16 March 2026 inside the delivery window, and it is the baseline the staleness and lateness rules are measured against, so a defect here would make both unfalsifiable"
+      - "the demolition slip is disclosed plainly with both dates: demolition finished 27 February against a planned 20 February, the schedule absorbed the week in rough in, and substantial completion still holds at 20 March. The delay is stated as a fact rather than softened"
+      - "it cites exactly three documents and all three are classified client_shared in the SMB-13 index: the approved proposal, the product and finish selections schedule, and the site photo set for the week of 13 March. No document classified internal is named or referenced"
+      - "no internal cost figure appears anywhere: every money figure in the update also appears in the approved proposal or the client record, and the internal rework figure that the internal notes carry appears nowhere in this document"
+      - "no person is named and no payment instrument is named: the studio side appears as the owner and project lead roles and the payment section describes terms and draws only"
     consuming_modules: [smb-client-project-hub]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 2 data plan (2.10)
 
   - id: SMB-15
     name: internal-status-notes
     type: document
     format: markdown
     generation: drafted-frozen
-    canon_entities: [co-100]
+    canon_entities: [co-100, co-131]
+    period: { start: "2026-03-30", end: "2026-03-30" }
     planted_features:
-      - blunt language and an internal cost figure that must never leak into the client-facing draft
-      - one genuinely late milestone that must be disclosed honestly
+      - "the owner's internal notes on the Okafor renovation as of 30 March 2026, written for the studio and not for the client: where the job stands, what slipped on the schedule, cost and margin, the client, and what goes in the next update"
+      - "blunt language and an internal cost figure that must never leak into the client-facing draft: exactly one passage states a dollar figure that appears in no client-facing artifact, the 6,480.00 of rework the electrical sub caused, and that same passage carries the blunt language, saying the sub burned five days on a two day job and that the homeowners have not asked one question about it"
+      - "the internal figure hides among figures that are safe to repeat: three passages state a dollar figure, the 148,500.00 contract value and the 4,500.00 contingency allowance both appearing in the approved proposal, so a reader who greps for a currency symbol finds three and only one of the three is internal"
+      - "one genuinely late milestone that must be disclosed honestly: exactly one milestone completed after its planned end, demolition finishing 27 February against a planned 20 February, seven days late, and the notes say so plainly and say the closeout date will move"
+      - "two milestones are past their planned end at the as-of date and the notes distinguish them: demolition is seven days late and complete, punch list and closeout is still open, so a drafter that treats every overdue milestone the same way gets one of the two wrong"
+      - "the electrical subcontractor is not named: the notes say the electrical sub, because naming a canon company here would put an entity in the document that the spec does not carry"
+      - "no person is named: the client side is the homeowners and the studio side is the owner and project lead roles"
     consuming_modules: [smb-milestone-update-drafter]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 2 data plan (2.11)
 
   - id: SMB-16
     name: milestone-schedule
@@ -2117,9 +2163,16 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-100, co-131]
-    planted_features: []
+    period: { start: "2026-02-16", end: "2026-03-27" }
+    columns: [milestone_id, sequence, milestone, planned_start, planned_end, actual_start, actual_completion, milestone_status, client_canon_id, project_name]
+    planted_features:
+      - "no defects by design: this is the planned and actual schedule the SMB-12 tasks resolve into and the SMB-15 lateness is measured against, so a defect here would make both unfalsifiable. Six milestones, MST-LDB-01 upward in sequence order, covering the delivery window 2026-02-16 to 2026-03-27"
+      - "four of the six milestones complete on the dates the SMB-04 client record already froze: kickoff 2026-02-16, demolition complete 2026-02-27, rough in complete 2026-03-13 and substantial completion 2026-03-20, so the schedule and the record cannot disagree"
+      - "exactly one milestone completed after its planned end: demolition and disposal was planned to finish 2026-02-20 and actually finished 2026-02-27, seven calendar days and five business days late. Every other completed milestone finished on or before its planned end"
+      - "punch list and closeout has no actual completion at all and was planned to finish 2026-03-27, so two milestones are past their planned end at the 2026-03-31 as-of date and only one of the two has a completion to measure against, which is why a lateness rule has to test for a completion rather than for a date in the past"
+      - "rough in was planned three weeks and took two, starting 2026-03-02 rather than the planned 2026-02-23, which is where the demolition week went and why no milestone after demolition slipped"
     consuming_modules: [smb-milestone-update-drafter]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 2 data plan (2.7)
 
   - id: SMB-17
     name: invoices-issued

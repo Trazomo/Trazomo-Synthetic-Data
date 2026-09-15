@@ -81,6 +81,9 @@ import * as smb02 from "./smb-02-client-record-template.js";
 import * as smb03 from "./smb-03-inbound-inquiry-queue.js";
 import * as smb04 from "./smb-04-client-record-okafor.js";
 import * as smb05 from "./smb-05-client-record-co002.js";
+import * as smb08 from "./smb-08-client-next-steps-checklist.js";
+import * as smb10 from "./smb-10-intake-questionnaire.js";
+import * as smb11 from "./smb-11-kickoff-checklist.js";
 import * as test01 from "./test-01-fixture.js";
 import { NotImplementedError } from "../errors.js";
 
@@ -102,6 +105,7 @@ export const PROGRAM_GENERATOR_IDS = [
   ops04.id, ops05.id, ops06.id, ops07.id, ops08.id, ops09.id, ops11.id, ops12.id, ops13.id,
   rev01.id, rev03.id, rev07.id, rev08.id, rev09.id, rev10.id, rev11.id,
   smb01.id, smb02.id, smb03.id, smb04.id, smb05.id,
+  smb08.id, smb10.id, smb11.id,
 ];
 
 const REGISTRY = new Map(
@@ -117,6 +121,7 @@ const REGISTRY = new Map(
     ops04, ops05, ops06, ops07, ops08, ops09, ops11, ops12, ops13,
     rev01, rev03, rev07, rev08, rev09, rev10, rev11,
     smb01, smb02, smb03, smb04, smb05,
+    smb08, smb10, smb11,
     test01,
   ].map((mod) => [mod.id, mod])
 );

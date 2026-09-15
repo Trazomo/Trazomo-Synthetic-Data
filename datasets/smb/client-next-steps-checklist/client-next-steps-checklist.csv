@@ -1,0 +1,13 @@
+step_id,sequence,step,owner_role,trigger,due_offset_days,due_basis,output_artifact,evidence_required,status
+NSC-LDB-01,1,Confirm the approved scope and pricing with the client in writing,owner,the client approves the proposal,1,proposal_approved,,yes,
+NSC-LDB-02,2,Generate the contract from the template and fill every required field,owner,the approved scope is confirmed in writing,2,proposal_approved,SMB-07,yes,
+NSC-LDB-03,3,Review the drafted contract against the approved proposal line by line,project lead,the contract draft is generated,3,proposal_approved,,no,
+NSC-LDB-04,4,Send the contract to the client for signature,owner,the contract draft passes review,4,proposal_approved,,yes,
+NSC-LDB-05,5,File the signed contract in the client folder and record the signature date,project lead,the signed contract comes back,0,contract_signed,,yes,
+NSC-LDB-06,6,Issue the welcome pack to the client,owner,the signed contract is filed,1,contract_signed,SMB-09,no,
+NSC-LDB-07,7,Send the intake questionnaire and set a return date,project lead,the welcome pack goes out,1,contract_signed,SMB-10,no,
+NSC-LDB-08,8,Raise the deposit invoice on the first draw,owner,the signed contract is filed,2,contract_signed,,yes,
+NSC-LDB-09,9,Open the shared project folder and grant the client access,project lead,the signed contract is filed,3,contract_signed,,no,
+NSC-LDB-10,10,Book the kickoff walkthrough with the client and confirm who attends,project lead,the intake questionnaire comes back,5,contract_signed,,no,
+NSC-LDB-11,11,Prepare the kickoff run sheet for the walkthrough,project lead,the kickoff walkthrough is booked,5,contract_signed,SMB-11,no,
+NSC-LDB-12,12,Confirm site access hours and the material delivery window,project lead,the intake questionnaire comes back,7,contract_signed,,yes,
