@@ -273,6 +273,19 @@ function passages(text) {
   return out.filter((p) => !/^#{1,6}\s/.test(p));
 }
 
+/**
+ * A document broken into clauses: split on a sentence boundary or on the
+ * word "and", so that a compound sentence pairing two unrelated facts (a
+ * milestone's own completion beside a draw's due date, say) is not read as
+ * licensing either fact for the other's date. SHOULD-FIX 2 and SHOULD-FIX 3
+ * both need "the date beside this word is about this fact and no other", and
+ * a whole sentence is too wide a unit for that once a sentence carries two
+ * facts joined by "and".
+ */
+function clauses(text) {
+  return text.split(/(?<=[.!?])\s+|\s+and\s+/).map((c) => c.trim()).filter((c) => c.length > 0);
+}
+
 // ---------------------------------------------------------- the schedule join
 
 /** The six milestone rows, read off the shipped CSV. */
@@ -628,6 +641,176 @@ test("SMB-C2B: the demolition dates in both documents are the two cells SMB-16 s
     slipped.body.includes(`${NUMBER_WORDS[days]} days late`),
     `SMB-16 makes ${late.milestone_id} ${days} days late and SMB-15 does not say`
     + ` "${NUMBER_WORDS[days]} days late"; the schedule has moved and the prose is orphaned`
+  );
+});
+
+// SHOULD-FIX 2: the derive rule above joins exactly one date pair (the
+// demolition slip). Every other date either document states is unjoined. The
+// three tests below close that: a broad harvest-and-membership join over
+// every long-form date either document states, a pinned recompute of the
+// rough in absorption sentence (the mechanism of the whole one-cause story),
+// and a clause-level join for the two remaining recurring facts (substantial
+// completion, and SMB-15's cabinet-run sentence) that a flat membership test
+// cannot tell apart from each other, because 20 March 2026 is independently a
+// true date of more than one milestone in this schedule.
+
+/** The long-form date shape both documents write: "27 February 2026". */
+const LONG_FORM_DATE = new RegExp(`\\b\\d{1,2} (?:${MONTHS.join("|")}) \\d{4}\\b`, "g");
+
+/**
+ * Every date the schedule, the task list and the client record's own payment
+ * log actually carry, in long form, harvested from the shipped bytes rather
+ * than typed. A long-form date either document states that is not in this set
+ * is a date written into prose with no byte behind it at all.
+ */
+function allowedLongFormDates() {
+  const out = new Set();
+  for (const m of milestones()) {
+    for (const col of ["planned_start", "planned_end", "actual_start", "actual_completion"]) {
+      if (m[col] !== "") out.add(longForm(m[col]));
+    }
+  }
+  for (const t of smb12().rows) {
+    for (const col of ["planned_start", "planned_end", "internal_completed_date", "client_visible_updated_date"]) {
+      if (t[col] !== "") out.add(longForm(t[col]));
+    }
+  }
+  for (const p of record().payment_log) {
+    out.add(longForm(p.invoice_date));
+    out.add(longForm(p.due_date));
+  }
+  return out;
+}
+
+test("SMB-C2B SHOULD-FIX 2: every long-form date either document states is a planned or actual date the schedule, the task list or the client record's payment log carries", () => {
+  const allowed = allowedLongFormDates();
+  assert.ok(allowed.size >= 15, `only ${allowed.size} dates were harvested; the allow-set looks too small to be a real join`);
+  for (const doc of drafted()) {
+    const stated = doc.text.match(LONG_FORM_DATE) ?? [];
+    assert.ok(stated.length > 0, `${doc.label} states no long-form date at all`);
+    for (const date of stated) {
+      assert.ok(
+        allowed.has(date),
+        `${doc.label} states "${date}", which matches no planned_start, planned_end, actual_start,`
+        + " actual_completion, internal_completed_date, client_visible_updated_date or SMB-04 draw date"
+        + " in the emitted bytes; a schedule edit has orphaned this document's prose"
+      );
+    }
+  }
+});
+
+test("SMB-C2B SHOULD-FIX 2: the rough in absorption sentence states the two weeks and the two dates SMB-16 ships, not two weeks typed into prose", () => {
+  const roughIn = milestones().find((m) => m.milestone_id === "MST-LDB-03");
+  assert.ok(roughIn, "SMB-16 no longer carries MST-LDB-03");
+
+  const plannedWeeks = Math.round(daysBetween(roughIn.planned_start, roughIn.planned_end) / 7);
+  const actualWeeks = Math.round(daysBetween(roughIn.actual_start, roughIn.actual_completion) / 7);
+  assert.ok(
+    plannedWeeks > 0 && plannedWeeks < NUMBER_WORDS.length && actualWeeks > 0 && actualWeeks < NUMBER_WORDS.length,
+    `rough in is planned ${plannedWeeks} weeks and took ${actualWeeks}, outside the range this screen spells`
+  );
+
+  assert.ok(
+    update().includes(`planned for ${NUMBER_WORDS[plannedWeeks]} weeks and took ${NUMBER_WORDS[actualWeeks]}`),
+    `SMB-14 does not say rough in "was planned for ${NUMBER_WORDS[plannedWeeks]} weeks and took`
+    + ` ${NUMBER_WORDS[actualWeeks]}"; SMB-16 now gives rough in a different planned or actual duration`
+  );
+  assert.ok(
+    notes().includes(`planned ${NUMBER_WORDS[plannedWeeks]} weeks and took ${NUMBER_WORDS[actualWeeks]}`),
+    `SMB-15 does not say rough in was "planned ${NUMBER_WORDS[plannedWeeks]} weeks and took`
+    + ` ${NUMBER_WORDS[actualWeeks]}"`
+  );
+  assert.ok(
+    notes().includes(`starting ${longForm(roughIn.actual_start)} against a planned ${longForm(roughIn.planned_start)}`),
+    "SMB-15 does not state the rough in absorption dates against SMB-16's own planned_start and actual_start"
+    + " for MST-LDB-03; P7's whole explanation for why nothing else slipped is orphaned"
+  );
+});
+
+test("SMB-C2B SHOULD-FIX 2: every clause naming substantial completion, and SMB-15's cabinet-run clause, state SMB-16's own dates", () => {
+  const cabinetry = milestones().find((m) => m.milestone_id === "MST-LDB-04");
+  const finishCarpentry = milestones().find((m) => m.milestone_id === "MST-LDB-05");
+  assert.ok(cabinetry && finishCarpentry, "SMB-16 no longer carries MST-LDB-04 or MST-LDB-05");
+  const subCompletion = longForm(finishCarpentry.actual_completion);
+
+  // "Substantial completion" is this schedule's own name for MST-LDB-05, used
+  // throughout both documents in place of the milestone's SMB-16 name ("Tile,
+  // countertops and finish carpentry"), so it is not reached by the milestone
+  // key rule above. Every clause that names it is checked here instead, at
+  // clause rather than sentence granularity: SMB-14's own schedule sentence
+  // states substantial completion's date beside the punch list's planned
+  // dates in one sentence, and a sentence-wide check would let a punch list
+  // date license substantial completion's or vice versa.
+  for (const doc of drafted()) {
+    let checked = 0;
+    for (const clause of clauses(doc.text)) {
+      if (!/substantial completion/i.test(clause)) continue;
+      for (const date of clause.match(LONG_FORM_DATE) ?? []) {
+        checked += 1;
+        assert.equal(
+          date, subCompletion,
+          `${doc.label} ties substantial completion to "${date}" in "${clause}", and SMB-16's MST-LDB-05`
+          + ` completes ${finishCarpentry.actual_completion}`
+        );
+      }
+    }
+    assert.ok(checked > 0, `${doc.label} names substantial completion beside no date this screen can check`);
+  }
+
+  // SMB-15's one clause naming when the cabinet run itself finished.
+  const cabinetClause = clauses(notes()).find((c) => /cabinet run finished/i.test(c));
+  assert.ok(cabinetClause, "SMB-15 no longer states when the cabinet run finished");
+  const cabinetDate = (cabinetClause.match(LONG_FORM_DATE) ?? [])[0];
+  assert.equal(
+    cabinetDate, longForm(cabinetry.actual_completion),
+    `SMB-15 says the cabinet run finished "${cabinetDate}" and SMB-16 completes MST-LDB-04 on`
+    + ` ${cabinetry.actual_completion}`
+  );
+});
+
+// SHOULD-FIX 3. SMB-14 is the defect-free baseline: nothing it states in a
+// past-tense completion verb may postdate its own Update date, or the
+// document reports, in the past tense, a fact that had not happened when it
+// was written. Forecasts are unaffected: they are stated in the present or
+// future tense, and a forecast that later turns out correct is not a
+// completion at the time of writing.
+const PAST_COMPLETION_VERBS = /\b(?:finished|passed|delivered|issued)\b/i;
+
+/** SMB-14's own Update date, as an ISO string derived the header test's own way. */
+function updateDateIso() {
+  const stale = smb12().rows.filter(
+    (t) => t.internal_status === "complete" && t.client_visible_status === "in_progress"
+  );
+  assert.equal(stale.length, 1, `${stale.length} tasks are complete internally and in_progress client side, expected exactly one`);
+  return stale[0].client_visible_updated_date;
+}
+
+test("SMB-C2B SHOULD-FIX 3: no clause of SMB-14 reports, in a past-tense completion verb, a date after its own Update date", () => {
+  const asOf = updateDateIso();
+  const completions = new Set([
+    ...milestones().map((m) => m.actual_completion).filter((d) => d !== ""),
+    ...smb12().rows.map((t) => t.internal_completed_date).filter((d) => d !== ""),
+  ]);
+  assert.ok(completions.size >= 5, `only ${completions.size} recorded completions were harvested`);
+  const completionByLongForm = new Map([...completions].map((iso) => [longForm(iso), iso]));
+
+  let checked = 0;
+  for (const clause of clauses(update())) {
+    if (!PAST_COMPLETION_VERBS.test(clause)) continue;
+    for (const date of clause.match(LONG_FORM_DATE) ?? []) {
+      if (!completionByLongForm.has(date)) continue;
+      checked += 1;
+      const iso = completionByLongForm.get(date);
+      assert.ok(
+        iso <= asOf,
+        `SMB-14 reports, in a past-tense completion verb, "${date}" (${iso}) in "${clause}"; its own Update`
+        + ` date is ${asOf}, so this update could not truthfully have known this on the day it was written`
+      );
+    }
+  }
+  assert.ok(
+    checked > 0,
+    "no clause of SMB-14 paired a past-completion verb with a recorded completion date; this screen checks nothing"
   );
 });
 
