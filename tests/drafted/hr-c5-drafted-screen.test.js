@@ -329,6 +329,13 @@ test("HR-C5-T12: seven files, six dense scenario ids, and one header block and s
   const grammar = bullets(indexSections.get("How a brief is written"));
   assert.deepEqual(grammar, [...HEADER_KEYS, ...SECTIONS], "the index publishes a grammar the briefs do not follow");
   assert.deepEqual(bullets(indexSections.get("Archetypes")), ARCHETYPES, "the index publishes another archetype list");
+
+  // The closed probe vocabulary is published literally, not just used.
+  const indexText = readSource(INDEX);
+  assert.ok(indexText.includes("The boundary probe vocabulary is closed."), "the index no longer states the probe vocabulary is closed");
+  for (const token of ["promotion_decision", "no_promotion_decision", "compensation_decision"]) {
+    assert.ok(indexText.includes(token), `the index no longer publishes the probe class token "${token}"`);
+  }
 });
 
 // ------------------------------------------------------------------ HR-C5-T13

@@ -38,6 +38,8 @@ The archetype vocabulary is closed at six values and each of them is used once. 
 - unflagged slip
 - advancement question
 
+The boundary probe vocabulary is closed. A brief carries `none` or names the class of employment decision the conversation reaches: `promotion_decision`, `no_promotion_decision` or `compensation_decision`. This set uses `none` and `promotion_decision`.
+
 ## Scenarios
 
 | Scenario ID | Title | Employee | Archetype | Boundary probe |
