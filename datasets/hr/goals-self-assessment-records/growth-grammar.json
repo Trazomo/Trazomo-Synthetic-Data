@@ -1,0 +1,139 @@
+{
+  "grammar_id": "GROWTH-GRAMMAR-2026-04-03",
+  "as_of": "2026-04-03",
+  "goal_period_start": "2025-10-01",
+  "goal_period_end": "2026-03-31",
+  "review_cycle_id": "RVC-2026-0001",
+  "source_artifacts": [
+    "CORE-04",
+    "HR-01",
+    "HR-08"
+  ],
+  "competency_source": "role-requisition-register.json",
+  "proficiency_scale": [
+    {
+      "position": 1,
+      "name": "learning",
+      "definition": "does this with someone alongside who has done it before, and is still building the habit"
+    },
+    {
+      "position": 2,
+      "name": "applying",
+      "definition": "does this on their own work without being asked"
+    },
+    {
+      "position": 3,
+      "name": "extending",
+      "definition": "does this where the work crosses into another team, and can say why they chose what they chose"
+    },
+    {
+      "position": 4,
+      "name": "teaching",
+      "definition": "is the person another team asks, and the way they do it is the way the team does it"
+    }
+  ],
+  "role_competency_map": [
+    {
+      "role_title": "People Operations Specialist",
+      "department": "People",
+      "competency_ids": [
+        "CMP-04",
+        "CMP-07",
+        "CMP-12"
+      ]
+    },
+    {
+      "role_title": "HR Business Partner",
+      "department": "People",
+      "competency_ids": [
+        "CMP-04",
+        "CMP-05",
+        "CMP-09"
+      ]
+    },
+    {
+      "role_title": "People Manager",
+      "department": "People",
+      "competency_ids": [
+        "CMP-05",
+        "CMP-09",
+        "CMP-10"
+      ]
+    },
+    {
+      "role_title": "Recruiter",
+      "department": "People",
+      "competency_ids": [
+        "CMP-04",
+        "CMP-05",
+        "CMP-06"
+      ]
+    },
+    {
+      "role_title": "Director, People",
+      "department": "People",
+      "competency_ids": [
+        "CMP-01",
+        "CMP-08",
+        "CMP-10"
+      ]
+    },
+    {
+      "role_title": "Security Engineer",
+      "department": "IT & Security",
+      "competency_ids": [
+        "CMP-02",
+        "CMP-03",
+        "CMP-12"
+      ]
+    },
+    {
+      "role_title": "IT Administrator",
+      "department": "IT & Security",
+      "competency_ids": [
+        "CMP-02",
+        "CMP-07",
+        "CMP-12"
+      ]
+    },
+    {
+      "role_title": "IT & Security Manager",
+      "department": "IT & Security",
+      "competency_ids": [
+        "CMP-01",
+        "CMP-09",
+        "CMP-10"
+      ]
+    },
+    {
+      "role_title": "Director, IT & Security",
+      "department": "IT & Security",
+      "competency_ids": [
+        "CMP-08",
+        "CMP-09",
+        "CMP-10"
+      ]
+    }
+  ],
+  "goal_setting_window": {
+    "start": "2025-10-06",
+    "end": "2025-10-17"
+  },
+  "self_assessment_window": {
+    "start": "2026-03-23",
+    "end": "2026-04-02"
+  },
+  "record_counts": {
+    "employees": 55,
+    "goal_records": 165,
+    "self_assessments": 55,
+    "self_assessment_entries": 165
+  },
+  "not_a_rating": [
+    "Nobody rates anybody. The only two levels in this record set are the level a goal aims at, which is a plan the approver agreed, and the level a person places themselves at, which is self-reported. There is no manager-assigned level anywhere.",
+    "It describes a way of working rather than a period. The four definitions say how far a practice has spread, from doing the work with someone alongside to being the person another team asks, and none of them says how well anything went.",
+    "Nothing aggregates. There is no total, no average, no rank, no band and no field that sums across competencies or across people.",
+    "Every level is joined to a goal_id rather than to delivered work, so a level sits against a plan rather than against what was shipped.",
+    "The review cycle roster carries no column any value here could populate, so the absence runs both ways: the cycle refuses review content and this record set emits nothing the cycle could accept."
+  ]
+}
