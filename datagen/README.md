@@ -277,6 +277,7 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | HR-06 | onboarding-checklist-templates | template | 34-row onboarding task catalog, the 29-row instance for one minted new hire derived from the frozen HR-01 requisition at build time, and the template document rendered off the same in-memory table (one instance task overdue and blocked by an access request another team schedules after the start date) |
 | HR-07 | offboarding-checklist-access-inventory | dataset | 1-row exit record, a 34-row access grant inventory spanning the whole tenure, and a 35-row offboarding checklist (one open grant issued in a vendor console with no access change request behind it, so it carries no checklist row and no removal) |
 | HR-08 | review-cycle-roster | dataset | 1-row cycle grammar and 55 reviewer-to-reviewee assignments recomputed from CORE-04 across two departments, with no review content column of any kind (one reviewer holding feedback that is outstanding and past its due date) |
+| HR-11 | goals-self-assessment-records | dataset | published growth grammar, 165 goal records and 55 self-assessments carrying 165 entries, over the same 55 people the review cycle covers, with the competency vocabulary resolved into the frozen HR-01 library at build time (one employee placing themselves two published levels below what one of their own goals aims at) |
 
 **Not implemented yet**: every other `generation: deterministic` spec (the
 remaining FIN, REV, OPS, SMB, and the remaining HR, plus the remaining LGL
@@ -385,6 +386,19 @@ except the name, the id and the work email is read off the frozen
 HR-07 is co-002's employee offboarding. It carries no non-employee worker type
 and claims no contractor coverage, and every access removal runs off a named
 request ticket rather than off the last working day.
+
+HR-11 is the growth record for the same 55 people the review cycle roster
+covers, and it takes that population, the cycle and the roster from
+`hr-lifecycle.js` in process rather than reading the cycle's committed CSVs
+back off disk. Its competency ids resolve into the frozen `artifacts/HR-01/`
+library at build time, the same library the interview question bank points at,
+so recruiting and growth speak one vocabulary.
+
+HR-11 publishes its own four-level named proficiency scale and stores the level
+**names**, never their positions, so no bare figure sits beside an employee's
+name. It is not a rating: no third party places anybody, nothing totals or
+averages, every level is joined to a goal rather than to delivered work, and
+the review cycle roster carries no column any value here could populate.
 
 ## Small-business conventions
 

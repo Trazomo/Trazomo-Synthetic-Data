@@ -1,5 +1,74 @@
 # Changelog
 
+## 1.24.0
+
+Renumber at tag time: the integrator allocates the tag in merge order, `v1.23.0`
+is the current tip, and the operations and revenue cluster 5 data branches are
+live and either may take `v1.24.0` first.
+
+People and HR cluster 5, performance and growth. Two artifacts, one PR, one
+deterministic and one drafted-frozen. The plan is
+`docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-5.md` on the
+trazomo repo; its section 9 defaults U-C5-1 to U-C5-10 ride to Salvador's freeze
+review, U-C5-1, U-C5-2 and U-C5-3 first, because the first two move every byte of
+HR-11 and the third is the one whose contrary ruling costs a redraft. No byte
+changes under `datasets/` outside the one new directory, none under `canon/`, and
+none in the frozen HR-01, HR-04, HR-08 or HR-09 material this cluster reads.
+
+- **HR-11 goals-self-assessment-records** (deterministic): three JSON files.
+  `growth-grammar.json` is the predicate a reviewer reads first, carrying the
+  four-level proficiency scale, the nine-row role to competency map, the two
+  windows, the record counts and the `not_a_rating` argument in the artifact's
+  own words. `goal-records.json` is 165 goals, one per employee per competency,
+  and `self-assessments.json` is 55 records carrying 165 entries. The population
+  is not a choice: it is exactly the 55 reviewees of the review cycle, taken from
+  the shared `hr-lifecycle.js` builder in process rather than read back off the
+  cycle's committed CSVs, and the join is total in both directions. The
+  competency vocabulary is the frozen HR-01 library, read at build time behind a
+  loud-throw pin and declared through the same `competency_source` string the
+  interview question bank uses, so recruiting and growth speak one vocabulary.
+  The stored level is the name and the positions live in the scale block alone,
+  so no bare figure sits beside an employee's name. Exactly one employee places
+  themselves two published levels below what one of their own goals aims at;
+  every other employee sits at most one position either side of each of their
+  own goals. The carrier is drawn against six clauses recomputed in process
+  before the draw, which exclude both members of the frozen one to one pair and
+  both ends of the single review assignment that is outstanding and past its due
+  date, so no person carries two findings across the two clusters. Goals are
+  approved on a business day in the goal-setting window that opened the period,
+  one date per employee; self-assessments are submitted on a business day in the
+  window that closes the day before the as-of. Nothing here states or implies
+  that any review was written, submitted or read.
+
+- **HR-10 rehearsal-scenario-briefs** (drafted): seven markdown files, the
+  scenario index and six scenario briefs. The index publishes the section
+  grammar, the closed six-value archetype list, the scenario table and the out of
+  scope paragraph the briefs repeat byte for byte. Every persona is a composite
+  with a first name, a surname, a role title an active roster row holds and a
+  department that title appears in, and carries no employee id, no work email and
+  no start date; the six sit in six distinct departments, none of them People and
+  none of them IT & Security. The manager is unnamed and addressed in the second
+  person, and no other person is named in any brief. Exactly one scenario carries
+  a `Boundary probe` other than `none`, and preparing for that conversation
+  cannot be done without reaching a promote or no-promote position, which is the
+  step the control module's own `EMPLOY` rule prohibits; the artifact states the
+  situation and the module keeps the rule. No brief carries a date, a money
+  amount, a percentage, a score, a rating phrase, a protected characteristic, a
+  termination or a formal process, and no file carries a `- Date:` line, a
+  `- Start time:` line or an indented attendee bullet, so the set stays outside
+  the interviewer calendar mirror sweep that walks every artifact markdown file
+  at build time.
+
+Guards: `tests/generators/hr-11-growth-records.test.js` (HR-C5-T1 to T11: the
+total join recomputed against the committed review cycle CSVs, the role map and
+every competency name recomputed against the frozen HR-01 library, every census
+an equality, the six carrier clauses recomputed in the test's own code, and the
+sweep that keeps every HR-11 string clear of all four of HR-09's closed lists),
+plus HR-C5-T15 in the same file, a regression census over the frozen HR-09 pair
+that fails loudly if anybody ever re-cuts it underneath the module it feeds; and
+`tests/drafted/hr-c5-drafted-screen.test.js` (HR-C5-T12 to T18) over the drafted
+set. `MANIFEST.json` is regenerated from what is on disk, never hand-edited.
+
 ## 1.23.0
 
 Small-business cluster 2b, delivery: the last five of C2's eleven artifacts,

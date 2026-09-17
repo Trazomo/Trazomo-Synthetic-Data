@@ -777,6 +777,21 @@
             }
         },
         {
+            "id": "HR-11",
+            "name": "goals-self-assessment-records",
+            "track": "hr",
+            "type": "dataset",
+            "format": "json",
+            "generation": "deterministic",
+            "path": "datasets/hr/goals-self-assessment-records",
+            "files": [
+                "goal-records.json",
+                "growth-grammar.json",
+                "self-assessments.json"
+            ],
+            "row_counts": {}
+        },
+        {
             "id": "HR-17",
             "name": "mixed-sensitivity-employee-dataset",
             "track": "hr",
