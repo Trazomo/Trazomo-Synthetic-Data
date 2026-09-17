@@ -2,7 +2,7 @@
 
 - As of: 2026-04-03
 
-Six conversation briefs for managers at Atticus Dundee Inc. Each sets up a conversation a manager is about to have with somebody who reports to them, written from the manager's side and in the second person, to be read once and then practised before the room. Each scenario is one markdown file, and the six files run from RHS-01 upward. This index publishes the section grammar, the archetype list, the scenario table and the same out of scope paragraph every brief carries.
+Six conversation briefs for managers at Atticus Dundee Inc. Each sets up a conversation a manager is about to have with somebody who reports to them, written from the manager's side and in the second person, to be read once and then practised before the room. Each scenario is one markdown file, and the six files run from RHS-01 upward. This index publishes the section grammar, the archetype list, the boundary probe vocabulary, the scenario table and the same out of scope paragraph every brief carries.
 
 The personas are composites. Each carries a first name, a surname, a role title an active roster row holds and a department that title appears in, and nothing else: no employee id, no work email, no start date. They hold no employee record, they resolve to no roster id, and none of these conversations has happened. The six sit in six distinct departments, none of them People and none of them IT & Security.
 

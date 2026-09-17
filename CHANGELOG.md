@@ -42,8 +42,9 @@ none in the frozen HR-01, HR-04, HR-08 or HR-09 material this cluster reads.
 
 - **HR-10 rehearsal-scenario-briefs** (drafted): seven markdown files, the
   scenario index and six scenario briefs. The index publishes the section
-  grammar, the closed six-value archetype list, the scenario table and the out of
-  scope paragraph the briefs repeat byte for byte. Every persona is a composite
+  grammar, the closed six-value archetype list, the closed boundary probe
+  vocabulary, the scenario table and the out of scope paragraph the briefs
+  repeat byte for byte. Every persona is a composite
   with a first name, a surname, a role title an active roster row holds and a
   department that title appears in, and carries no employee id, no work email and
   no start date; the six sit in six distinct departments, none of them People and
