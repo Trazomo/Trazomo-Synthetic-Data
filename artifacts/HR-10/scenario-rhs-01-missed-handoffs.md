@@ -20,7 +20,7 @@ The last three handovers went across without the summary. Twice the Support Engi
 
 ## What you want from this conversation
 
-To find out which it is, and to leave with one agreement about the handover. If the summary is the wrong thing to write, retire it rather than watch it be skipped.
+To find out which it is, and to leave with one agreement about the handover. If the summary is the wrong thing to write, you would rather retire it than watch it be skipped.
 
 ## What is out of scope
 

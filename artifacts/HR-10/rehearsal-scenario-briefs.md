@@ -10,7 +10,7 @@ In every brief the manager is unnamed and is addressed as you, and no other pers
 
 ## How a brief is written
 
-The grammar is closed: no brief adds a section or reorders them. Every brief opens with the same header block, stating in this order:
+The grammar is closed: no brief adds a section, drops one or reorders them. Every brief opens with the same header block, stating in this order:
 
 - Scenario ID
 - Archetype
