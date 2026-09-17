@@ -808,7 +808,7 @@ function assertRecords({ people, goals, selfAssessments, approvalDays, submissio
     if (text.includes("GSA-") && !assessmentIds.has(text)) {
       throw new Error(`${id}: "GSA-" reaches a string that is not one of this record set's own self-assessment ids`);
     }
-    if (text.includes("—") || text.includes("–")) {
+    if (text.includes("\u2014") || text.includes("\u2013")) {
       throw new Error(`${id}: an emitted string carries a dash the house rules keep out of the pack`);
     }
     if (/\$|%/.test(text)) throw new Error(`${id}: an emitted string carries a money or percentage mark`);

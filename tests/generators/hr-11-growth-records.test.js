@@ -567,7 +567,7 @@ test("HR-C5-T11: the key orders, the id blocks, and the absences the house rules
   for (const text of everyEmittedString) {
     if (text.includes("GOL-")) assert.ok(knownGoalIds.has(text), `"GOL-" reaches the string "${text}"`);
     if (text.includes("GSA-")) assert.ok(knownAssessmentIds.has(text), `"GSA-" reaches the string "${text}"`);
-    assert.ok(!text.includes("—") && !text.includes("–"), `an emitted string carries a long dash`);
+    assert.ok(!text.includes("\u2014") && !text.includes("\u2013"), `an emitted string carries a long dash`);
     assert.ok(!text.includes("$") && !text.includes("%"), `an emitted string carries a money or percentage mark`);
     assert.deepEqual(moneyMatches(text), [], `an emitted string carries a money-shaped figure`);
     assert.ok(!/\d{2}:\d{2}/.test(text), "an emitted string carries a time of day");
