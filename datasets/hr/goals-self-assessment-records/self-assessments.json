@@ -1,0 +1,1549 @@
+{
+  "record_set_id": "SELF-ASSESSMENTS-2026-04-03",
+  "as_of": "2026-04-03",
+  "goal_period_start": "2025-10-01",
+  "goal_period_end": "2026-03-31",
+  "review_cycle_id": "RVC-2026-0001",
+  "self_assessments": [
+    {
+      "self_assessment_id": "GSA-2026-0001",
+      "employee_id": "EMP-0499",
+      "full_name": "Nessa Duskwood",
+      "department": "People",
+      "role_title": "Director, People",
+      "submitted_date": "2026-03-24",
+      "entries": [
+        {
+          "competency_id": "CMP-01",
+          "goal_id": "GOL-2026-0001",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-08",
+          "goal_id": "GOL-2026-0002",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-10",
+          "goal_id": "GOL-2026-0003",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0002",
+      "employee_id": "EMP-0500",
+      "full_name": "Delphine Ashgrove",
+      "department": "People",
+      "role_title": "Director, People",
+      "submitted_date": "2026-04-02",
+      "entries": [
+        {
+          "competency_id": "CMP-01",
+          "goal_id": "GOL-2026-0004",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-08",
+          "goal_id": "GOL-2026-0005",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-10",
+          "goal_id": "GOL-2026-0006",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0003",
+      "employee_id": "EMP-0501",
+      "full_name": "Cormac Ashby",
+      "department": "People",
+      "role_title": "People Manager",
+      "submitted_date": "2026-03-31",
+      "entries": [
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0007",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0008",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-10",
+          "goal_id": "GOL-2026-0009",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0004",
+      "employee_id": "EMP-0502",
+      "full_name": "Isolde Elderkin",
+      "department": "People",
+      "role_title": "People Manager",
+      "submitted_date": "2026-03-23",
+      "entries": [
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0010",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0011",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-10",
+          "goal_id": "GOL-2026-0012",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0005",
+      "employee_id": "EMP-0503",
+      "full_name": "Corwin Quennell",
+      "department": "People",
+      "role_title": "People Manager",
+      "submitted_date": "2026-03-23",
+      "entries": [
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0013",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0014",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-10",
+          "goal_id": "GOL-2026-0015",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0006",
+      "employee_id": "EMP-0504",
+      "full_name": "Perrin Ingledew",
+      "department": "People",
+      "role_title": "People Manager",
+      "submitted_date": "2026-04-01",
+      "entries": [
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0016",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0017",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-10",
+          "goal_id": "GOL-2026-0018",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0007",
+      "employee_id": "EMP-0506",
+      "full_name": "Lyric Corrigan",
+      "department": "People",
+      "role_title": "People Operations Specialist",
+      "submitted_date": "2026-03-26",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0019",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0020",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0021",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0008",
+      "employee_id": "EMP-0507",
+      "full_name": "Dashiell Ivorwood",
+      "department": "People",
+      "role_title": "HR Business Partner",
+      "submitted_date": "2026-03-25",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0022",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0023",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0024",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0009",
+      "employee_id": "EMP-0508",
+      "full_name": "Wystan Marchbanks",
+      "department": "People",
+      "role_title": "Recruiter",
+      "submitted_date": "2026-03-25",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0025",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0026",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-06",
+          "goal_id": "GOL-2026-0027",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0010",
+      "employee_id": "EMP-0509",
+      "full_name": "Aldous Crestfall",
+      "department": "People",
+      "role_title": "People Operations Specialist",
+      "submitted_date": "2026-03-26",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0028",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0029",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0030",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0011",
+      "employee_id": "EMP-0510",
+      "full_name": "Quillon Yarrow",
+      "department": "People",
+      "role_title": "People Operations Specialist",
+      "submitted_date": "2026-04-02",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0031",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0032",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0033",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0012",
+      "employee_id": "EMP-0511",
+      "full_name": "Emlyn Loxley",
+      "department": "People",
+      "role_title": "People Operations Specialist",
+      "submitted_date": "2026-03-30",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0034",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0035",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0036",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0013",
+      "employee_id": "EMP-0512",
+      "full_name": "Lior Fenmore",
+      "department": "People",
+      "role_title": "Recruiter",
+      "submitted_date": "2026-03-27",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0037",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        },
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0038",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-06",
+          "goal_id": "GOL-2026-0039",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0014",
+      "employee_id": "EMP-0513",
+      "full_name": "Saskia Dunmore",
+      "department": "People",
+      "role_title": "People Operations Specialist",
+      "submitted_date": "2026-03-23",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0040",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0041",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0042",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0015",
+      "employee_id": "EMP-0514",
+      "full_name": "Sorrel Duskwood",
+      "department": "People",
+      "role_title": "People Operations Specialist",
+      "submitted_date": "2026-03-23",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0043",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0044",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0045",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0016",
+      "employee_id": "EMP-0515",
+      "full_name": "Lior Pemberton",
+      "department": "People",
+      "role_title": "HR Business Partner",
+      "submitted_date": "2026-03-25",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0046",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0047",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0048",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0017",
+      "employee_id": "EMP-0516",
+      "full_name": "Corin Kestenbaum",
+      "department": "People",
+      "role_title": "People Operations Specialist",
+      "submitted_date": "2026-03-24",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0049",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0050",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0051",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0018",
+      "employee_id": "EMP-0517",
+      "full_name": "Sable Underhill",
+      "department": "People",
+      "role_title": "Recruiter",
+      "submitted_date": "2026-03-31",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0052",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0053",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-06",
+          "goal_id": "GOL-2026-0054",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0019",
+      "employee_id": "EMP-0518",
+      "full_name": "Briar Vantree",
+      "department": "People",
+      "role_title": "People Operations Specialist",
+      "submitted_date": "2026-03-27",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0055",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0056",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0057",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0020",
+      "employee_id": "EMP-0519",
+      "full_name": "Guinevere Ashby",
+      "department": "People",
+      "role_title": "HR Business Partner",
+      "submitted_date": "2026-03-25",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0058",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0059",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0060",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0021",
+      "employee_id": "EMP-0521",
+      "full_name": "Merritt Underhill",
+      "department": "People",
+      "role_title": "People Operations Specialist",
+      "submitted_date": "2026-04-01",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0061",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0062",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0063",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0022",
+      "employee_id": "EMP-0522",
+      "full_name": "Sorrel Everhart",
+      "department": "People",
+      "role_title": "People Operations Specialist",
+      "submitted_date": "2026-04-02",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0064",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0065",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0066",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0023",
+      "employee_id": "EMP-0523",
+      "full_name": "Delphine Everhart",
+      "department": "People",
+      "role_title": "Recruiter",
+      "submitted_date": "2026-04-02",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0067",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0068",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-06",
+          "goal_id": "GOL-2026-0069",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0024",
+      "employee_id": "EMP-0524",
+      "full_name": "Marlowe Duskwood",
+      "department": "People",
+      "role_title": "HR Business Partner",
+      "submitted_date": "2026-03-24",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0070",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0071",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0072",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0025",
+      "employee_id": "EMP-0525",
+      "full_name": "Lyric Pennington",
+      "department": "People",
+      "role_title": "HR Business Partner",
+      "submitted_date": "2026-03-25",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0073",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0074",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0075",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0026",
+      "employee_id": "EMP-0526",
+      "full_name": "Isolde Hallowell",
+      "department": "People",
+      "role_title": "HR Business Partner",
+      "submitted_date": "2026-03-23",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0076",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0077",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0078",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0027",
+      "employee_id": "EMP-0527",
+      "full_name": "Quenby Juniper",
+      "department": "People",
+      "role_title": "HR Business Partner",
+      "submitted_date": "2026-03-25",
+      "entries": [
+        {
+          "competency_id": "CMP-04",
+          "goal_id": "GOL-2026-0079",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-05",
+          "goal_id": "GOL-2026-0080",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0081",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0028",
+      "employee_id": "EMP-0542",
+      "full_name": "Dashiell Holloway",
+      "department": "IT & Security",
+      "role_title": "Director, IT & Security",
+      "submitted_date": "2026-03-23",
+      "entries": [
+        {
+          "competency_id": "CMP-08",
+          "goal_id": "GOL-2026-0082",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0083",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-10",
+          "goal_id": "GOL-2026-0084",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0029",
+      "employee_id": "EMP-0543",
+      "full_name": "Piran Blackwood",
+      "department": "IT & Security",
+      "role_title": "Director, IT & Security",
+      "submitted_date": "2026-03-27",
+      "entries": [
+        {
+          "competency_id": "CMP-08",
+          "goal_id": "GOL-2026-0085",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0086",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-10",
+          "goal_id": "GOL-2026-0087",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0030",
+      "employee_id": "EMP-0545",
+      "full_name": "Gideon Dunmore",
+      "department": "IT & Security",
+      "role_title": "IT & Security Manager",
+      "submitted_date": "2026-03-24",
+      "entries": [
+        {
+          "competency_id": "CMP-01",
+          "goal_id": "GOL-2026-0088",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0089",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-10",
+          "goal_id": "GOL-2026-0090",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0031",
+      "employee_id": "EMP-0546",
+      "full_name": "Briar Dunmore",
+      "department": "IT & Security",
+      "role_title": "IT & Security Manager",
+      "submitted_date": "2026-04-01",
+      "entries": [
+        {
+          "competency_id": "CMP-01",
+          "goal_id": "GOL-2026-0091",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0092",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-10",
+          "goal_id": "GOL-2026-0093",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0032",
+      "employee_id": "EMP-0547",
+      "full_name": "Tobin Grayling",
+      "department": "IT & Security",
+      "role_title": "IT & Security Manager",
+      "submitted_date": "2026-03-31",
+      "entries": [
+        {
+          "competency_id": "CMP-01",
+          "goal_id": "GOL-2026-0094",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-09",
+          "goal_id": "GOL-2026-0095",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-10",
+          "goal_id": "GOL-2026-0096",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0033",
+      "employee_id": "EMP-0548",
+      "full_name": "Guinevere Blackwood",
+      "department": "IT & Security",
+      "role_title": "IT Administrator",
+      "submitted_date": "2026-03-26",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0097",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0098",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0099",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0034",
+      "employee_id": "EMP-0549",
+      "full_name": "Marlowe Quennell",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-03-26",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0100",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0101",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0102",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0035",
+      "employee_id": "EMP-0550",
+      "full_name": "Quillon Quennell",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-03-26",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0103",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0104",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0105",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0036",
+      "employee_id": "EMP-0551",
+      "full_name": "Freya Ivorwood",
+      "department": "IT & Security",
+      "role_title": "IT Administrator",
+      "submitted_date": "2026-04-02",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0106",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0107",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0108",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0037",
+      "employee_id": "EMP-0552",
+      "full_name": "Honora Norwich",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-04-01",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0109",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0110",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0111",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0038",
+      "employee_id": "EMP-0553",
+      "full_name": "Ewald Whitlock",
+      "department": "IT & Security",
+      "role_title": "IT Administrator",
+      "submitted_date": "2026-04-02",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0112",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0113",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0114",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0039",
+      "employee_id": "EMP-0554",
+      "full_name": "Reyna Crestfall",
+      "department": "IT & Security",
+      "role_title": "IT Administrator",
+      "submitted_date": "2026-03-31",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0115",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0116",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0117",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0040",
+      "employee_id": "EMP-0555",
+      "full_name": "Ondine Ivorwood",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-03-25",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0118",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0119",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0120",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0041",
+      "employee_id": "EMP-0556",
+      "full_name": "Aldous Pennington",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-04-01",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0121",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0122",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0123",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0042",
+      "employee_id": "EMP-0557",
+      "full_name": "Emlyn Pemberton",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-03-25",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0124",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0125",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0126",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0043",
+      "employee_id": "EMP-0558",
+      "full_name": "Corwin Oakhurst",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-03-26",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0127",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0128",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0129",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0044",
+      "employee_id": "EMP-0559",
+      "full_name": "Briar Blackwood",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-03-27",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0130",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0131",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0132",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0045",
+      "employee_id": "EMP-0560",
+      "full_name": "Reyna Osgood",
+      "department": "IT & Security",
+      "role_title": "IT Administrator",
+      "submitted_date": "2026-03-26",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0133",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0134",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0135",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0046",
+      "employee_id": "EMP-0561",
+      "full_name": "Odalys Everhart",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-04-01",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0136",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0137",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0138",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0047",
+      "employee_id": "EMP-0562",
+      "full_name": "Cormac Loxley",
+      "department": "IT & Security",
+      "role_title": "IT Administrator",
+      "submitted_date": "2026-03-26",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0139",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0140",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0141",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0048",
+      "employee_id": "EMP-0563",
+      "full_name": "Sorrel Pemberton",
+      "department": "IT & Security",
+      "role_title": "IT Administrator",
+      "submitted_date": "2026-04-01",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0142",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0143",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0144",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0049",
+      "employee_id": "EMP-0564",
+      "full_name": "Sable Blackwood",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-04-02",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0145",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0146",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0147",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0050",
+      "employee_id": "EMP-0565",
+      "full_name": "Delphine Quennell",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-04-01",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0148",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0149",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0150",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0051",
+      "employee_id": "EMP-0566",
+      "full_name": "Corin Marchbanks",
+      "department": "IT & Security",
+      "role_title": "IT Administrator",
+      "submitted_date": "2026-04-01",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0151",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0152",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0153",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0052",
+      "employee_id": "EMP-0567",
+      "full_name": "Odalys Vantree",
+      "department": "IT & Security",
+      "role_title": "IT Administrator",
+      "submitted_date": "2026-03-23",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0154",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0155",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0156",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0053",
+      "employee_id": "EMP-0568",
+      "full_name": "Zephyrine Fenmore",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-03-30",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0157",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0158",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0159",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0054",
+      "employee_id": "EMP-0569",
+      "full_name": "Merritt Jarrow",
+      "department": "IT & Security",
+      "role_title": "IT Administrator",
+      "submitted_date": "2026-03-31",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0160",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        },
+        {
+          "competency_id": "CMP-07",
+          "goal_id": "GOL-2026-0161",
+          "self_level": "learning",
+          "note": "I have done this with someone alongside me and I am still building the habit."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0162",
+          "self_level": "teaching",
+          "note": "Other teams ask me how this is done here."
+        }
+      ]
+    },
+    {
+      "self_assessment_id": "GSA-2026-0055",
+      "employee_id": "EMP-0570",
+      "full_name": "Ewald Pemberton",
+      "department": "IT & Security",
+      "role_title": "Security Engineer",
+      "submitted_date": "2026-03-23",
+      "entries": [
+        {
+          "competency_id": "CMP-02",
+          "goal_id": "GOL-2026-0163",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-03",
+          "goal_id": "GOL-2026-0164",
+          "self_level": "extending",
+          "note": "I do this where the work crosses into another team and I can say why I chose what I chose."
+        },
+        {
+          "competency_id": "CMP-12",
+          "goal_id": "GOL-2026-0165",
+          "self_level": "applying",
+          "note": "I do this on my own work without being asked."
+        }
+      ]
+    }
+  ]
+}
