@@ -16,7 +16,7 @@ You have worked together since before you took the group, and you speak every ot
 
 ## What has happened
 
-The last three handovers went across without the summary. The Support Engineer who received them came back for it twice; the third time nobody came back, and the support side has written its own since. She would say the summary repeats the account record and is the part she drops when a week is short. What you do not know is whether it has stopped earning its place or whether three weeks simply ran short.
+The last three handovers went across without the summary. Twice the Support Engineer who received them came back for it; the third time nobody came back, and the support side has written its own since. She would say the summary repeats the account record and is the part she drops when a week is short. What you do not know is whether it has stopped earning its place or whether three weeks simply ran short.
 
 ## What you want from this conversation
 
