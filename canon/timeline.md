@@ -27,6 +27,7 @@ it for D1: bumping rerolls the bytes of all five.
 | 2025-08-04 | customer onboarding revamp program kickoff at co-002 | `artifacts/OPS-14` |
 | 2025-10-01 to 2025-12-31 | Q4 2025, the prior board reporting period whose deck structure the current pack follows | `artifacts/FIN-30` |
 | 2025-10-01 to 2026-03-31 | The People-department review period a manager's one to one log covers and the performance review draft reports on | `artifacts/HR-09` |
+| 2025-10-06 to 2025-10-17 | The co-002 goal-setting window that opened the 2025-10-01 to 2026-03-31 goal period, the same half year the performance review cycle covers; the manager-approved goals it produced are the goals the self-assessments at that period's close respond to | `datasets/hr/goals-self-assessment-records` |
 | 2025-11-14 to 2026-03-31 | FIN-04 AR aging document dates; the oldest open invoice is the 90+ bucket floor | `datasets/finance/ar-aging-export` |
 | 2026-01-05 to 2026-03-26 | FIN-06 purchase orders raised; goods and services received through 2026-03-31 | `datasets/finance/purchase-orders`, `datasets/finance/open-pos` |
 | 2026-01-06 to 2026-03-31 | co-100's small office refresh for co-002 runs from inquiry to closeout: proposal approved 2026-01-27, contract signed 2026-02-03, delivery 2026-02-10 to 2026-03-24, four mock draws settled inside terms, record closed 2026-03-31. This is a Larkspur-side client record about co-002 and no co-002 artifact carries the other side | `datasets/smb/client-record-co002-office-refresh` |
@@ -63,6 +64,7 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-03-20 | region go-live sign-off SOP effective; the written escalation path for stuck onboarding customers takes effect with it | `artifacts/OPS-10` |
 | 2026-03-23 | first customer onboarding cohort begins | `artifacts/OPS-14` |
 | 2026-03-23 to 2026-03-27 | weekly status inputs for the integrations marketplace launch collected from four workstream leads; board snapshot as of 2026-03-27 | `datasets/operations/weekly-status-inputs-with-conflicting-claim` |
+| 2026-03-23 to 2026-04-02 | The self-assessment window for that goal period, opening on the review cycle's own open date and closing the day before the 2026-04-03 as-of; every self-assessment in scope is submitted inside it | `datasets/hr/goals-self-assessment-records` |
 | 2026-03-23 to 2026-04-06 | Inbound finance requests received into the intake queue, untriaged | `datasets/finance/inbound-requests-queue` |
 | 2026-03-23 to 2026-04-24 | The co-002 performance review cycle covering the 2025-10-01 to 2026-03-31 review period for the People and IT & Security departments; per reviewer feedback due dates straddle the 2026-04-03 as-of and the cycle closes on the last Friday of April | `datasets/hr/review-cycle-roster` |
 | 2026-03-24 | annual insurance premium invoiced by co-105 and posted as a prepaid, policy period 2026-04-01 to 2027-03-31 | `datasets/finance/vendor-bills` |
