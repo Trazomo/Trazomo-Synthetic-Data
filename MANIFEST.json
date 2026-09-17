@@ -1697,6 +1697,32 @@
             ]
         },
         {
+            "id": "HR-10",
+            "name": "rehearsal-scenario-briefs",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/HR-10",
+            "source_files": [
+                "rehearsal-scenario-briefs.md",
+                "scenario-rhs-01-missed-handoffs.md",
+                "scenario-rhs-02-quality-slippage.md",
+                "scenario-rhs-03-peer-friction.md",
+                "scenario-rhs-04-growth-conversation.md",
+                "scenario-rhs-05-unflagged-slip.md",
+                "scenario-rhs-06-advancement-question.md"
+            ],
+            "build_files": [
+                "rehearsal-scenario-briefs.docx",
+                "scenario-rhs-01-missed-handoffs.docx",
+                "scenario-rhs-02-quality-slippage.docx",
+                "scenario-rhs-03-peer-friction.docx",
+                "scenario-rhs-04-growth-conversation.docx",
+                "scenario-rhs-05-unflagged-slip.docx",
+                "scenario-rhs-06-advancement-question.docx"
+            ]
+        },
+        {
             "id": "REV-02",
             "name": "account-fact-packets",
             "type": "corpus",
