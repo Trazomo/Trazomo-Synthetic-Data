@@ -8,7 +8,7 @@
 
 ## Context
 
-Imogen runs the site readiness program. It carries one commitment everything else keys off, the opening of the first site, and it is the thing everybody outside the program watches.
+Imogen runs the tooling consolidation program. It carries one commitment everything else keys off, the switch to the new system, and it is the thing everybody outside the program watches.
 
 ## Working relationship
 
@@ -16,7 +16,7 @@ She has run three programs for you and none of them has needed rescuing. You mee
 
 ## What has happened
 
-The opening has moved twice this quarter. You heard about the first move a week later from the Operations Analyst who keeps the plan, and about the second from a Director in another function. Both moves sit inside the buffer the plan carries. Neither reached you from Imogen. She would say she brings you something when there is something firm to bring, and that a moving answer told three times is worse than one told once. What you do not know is which of those habits you are looking at.
+The switch has moved twice this quarter. You heard about the first move a week later from the Operations Analyst who keeps the plan, and about the second from a Director in another function. Both moves sit inside the buffer the plan carries. Neither reached you from Imogen. She would say she brings you something when there is something firm to bring, and that a moving answer told three times is worse than one told once. What you do not know is which of those habits you are looking at.
 
 ## What you want from this conversation
 

@@ -16,7 +16,7 @@ You meet every week and the meetings are short, because the work has not needed 
 
 ## What has happened
 
-In the last one to one he asked you whether he can own the calendar end to end rather than writing into it. He asked once and has not raised it since. Twice this quarter he has resolved a clash in it without being asked to. He would say the writing is repetitive and that he has been doing the harder half of the job anyway. The review cycle is open and he knows it. What you do not know is whether the calendar is enough of a piece of work to hand over.
+In the last one to one he asked you whether he can own the calendar end to end rather than writing into it. He asked once and has not raised it since. Twice this quarter he has resolved a clash in it without being asked to. He would say the writing is repetitive and that he has been doing the harder half of the job anyway. The half year just closed and he knows it. What you do not know is whether the calendar is enough of a piece of work to hand over.
 
 ## What you want from this conversation
 

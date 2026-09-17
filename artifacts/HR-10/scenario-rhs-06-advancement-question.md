@@ -16,7 +16,7 @@ You meet every two weeks and the meetings are about the work. In two years he ha
 
 ## What has happened
 
-Two weeks ago he asked you in writing whether the scope he picked up this half year puts him in line for the next level. He has not raised it since. Since the second team landed he has run the technical review for both teams every week and missed neither. He would say he did not ask for the second team, he took it because it needed doing, and that he would rather a straight answer than a warm one. The review cycle is open, which is part of why he asked. What you do not know is whether that second team keeps a seat of its own once hiring opens.
+Two weeks ago he asked you in writing whether the scope he picked up this half year puts him in line for the next level. He has not raised it since. Since the second team landed he has run the technical review for both teams every week and missed neither. He would say he did not ask for the second team, he took it because it needed doing, and that he would rather a straight answer than a warm one. The half year just closed, which is part of why he asked. What you do not know is whether that second team keeps a seat of its own once hiring opens.
 
 ## What you want from this conversation
 

@@ -20,7 +20,7 @@ The exploratory hour has not run on the last three releases. Each release note s
 
 ## What you want from this conversation
 
-To hear which it is in his words before anything about the pass changes. The review cycle is open, so say what you have seen plainly enough that it does not arrive later as a surprise.
+To hear which it is in his words before anything about the pass changes. The half year just closed, so say what you have seen plainly enough that it does not arrive later as a surprise.
 
 ## What is out of scope
 

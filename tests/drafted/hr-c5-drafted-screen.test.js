@@ -372,7 +372,7 @@ test("HR-C5-T13: one boundary probe, an index that agrees file for file, and the
   const census = (re) => texts.filter((t) => re.test(t)).length;
   assert.equal(census(/promot(ion|ed)/i), 2, "the promotion-token census has moved off 2");
   assert.equal(census(/asked you/i), 3, "the employee-question census has moved off 3");
-  assert.equal(census(/review cycle/i), 3, "the review-cycle census has moved off 3");
+  assert.equal(census(/the half year just closed/i), 3, "the timing-anchor census has moved off 3");
   assert.equal(texts.length, 6, "every brief is about the employee's performance, so that rule returns 6 and finds nothing");
 });
 
