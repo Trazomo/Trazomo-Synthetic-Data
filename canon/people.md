@@ -54,6 +54,7 @@ than splitting it across two documents that already disagree.
 | EMP-NNNN | Generator-produced co-002 employee population, `datasets/core/people-roster/people-roster.csv` (CORE-04). Not curated here. Two rows are promoted into this file because they hold contested seats. Ids above `EMP-0600` are minted by lifecycle artifacts for people who postdate the CORE-04 snapshot (the HR-06 new hire carries `EMP-0601`). |
 | ct-co-NNN-NN | Generator-produced CRM contacts, `datasets/core/crm-seed-dataset/contacts.csv` (CORE-03). Not curated here. |
 | ca-100 and up | Bulk co-002 candidate population, `artifacts/HR-02/` and later applicant fixtures. Not curated here. |
+| HR-10 personas | The rehearsal personas in `artifacts/HR-10/` are composites: they carry no employee id and are deliberately not curated here. |
 
 `pe-` rows are invisible to `datagen/src/canon.js#loadCanonCompanies`, which only
 matches a first cell of `co-\d+`. Adding this file changes no generator behaviour.
