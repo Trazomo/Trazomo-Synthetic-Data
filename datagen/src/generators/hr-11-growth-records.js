@@ -184,7 +184,11 @@ export const EMPLOYEE_CENSUSES = {
   any_shortfall: 31,
   self_above_goal: 20,
   all_agree: 8,
+  positive_only_summed_at_least_two: 15,
 };
+
+/** The one candidate set size the carrier is drawn from, published so a later change to the roster or the exclusions names itself. */
+export const CARRIER_CANDIDATE_COUNT = 42;
 
 /** A goal aims at applying or above; the bottom of the scale is a place a person starts from. */
 const LOWEST_TARGET_POSITION = 2;
@@ -646,7 +650,10 @@ function walkStrings(value, out = []) {
   return out;
 }
 
-function assertRecords({ people, goals, selfAssessments, approvalDays, submissionDays }, bundles) {
+function assertRecords({ people, goals, selfAssessments, candidateCount, approvalDays, submissionDays }, bundles) {
+  if (candidateCount !== CARRIER_CANDIDATE_COUNT) {
+    throw new Error(`${id}: ${candidateCount} rows satisfy the carrier clauses, expected ${CARRIER_CANDIDATE_COUNT}`);
+  }
   const expectedGoals = people.length * 3;
   if (goals.length !== expectedGoals) {
     throw new Error(`${id}: ${goals.length} goal records against ${expectedGoals} expected`);
@@ -777,6 +784,7 @@ function assertRecords({ people, goals, selfAssessments, approvalDays, submissio
     any_shortfall: 0,
     self_above_goal: 0,
     all_agree: 0,
+    positive_only_summed_at_least_two: 0,
   };
   let twoLevelEntries = 0;
   for (const deltas of deltasByEmployee.values()) {
@@ -786,6 +794,9 @@ function assertRecords({ people, goals, selfAssessments, approvalDays, submissio
     if (deltas.some((delta) => delta > 0)) census.any_shortfall += 1;
     if (deltas.some((delta) => delta < 0)) census.self_above_goal += 1;
     if (deltas.every((delta) => delta === 0)) census.all_agree += 1;
+    if (deltas.filter((delta) => delta > 0).reduce((sum, delta) => sum + delta, 0) >= 2) {
+      census.positive_only_summed_at_least_two += 1;
+    }
     twoLevelEntries += deltas.filter((delta) => delta >= 2).length;
   }
   for (const [name, expected] of Object.entries(EMPLOYEE_CENSUSES)) {

@@ -445,6 +445,10 @@ test("HR-C5-T8: one two-level delta, and every other census the record set is bu
   assert.equal(census((deltas) => deltas.some((delta) => delta >= 2)), 1);
   assert.equal(census((deltas) => deltas.some((delta) => Math.abs(delta) >= 2)), 1, "the absolute census differs");
   assert.equal(census((deltas) => deltas.reduce((sum, delta) => sum + delta, 0) >= 2), 11);
+  assert.equal(
+    census((deltas) => deltas.filter((delta) => delta > 0).reduce((sum, delta) => sum + delta, 0) >= 2),
+    15, "the positive-only summed census differs"
+  );
   assert.equal(census((deltas) => deltas.some((delta) => delta > 0)), 31);
   assert.equal(census((deltas) => deltas.some((delta) => delta < 0)), 20);
   assert.equal(census((deltas) => deltas.every((delta) => delta === 0)), 8);
@@ -495,7 +499,7 @@ test("HR-C5-T9: the conflict carrier satisfies all six clauses, each recomputed 
     );
   };
   const candidates = revieweeIds.filter(satisfies);
-  assert.ok(candidates.length > 0, "no reviewee satisfies the six clauses, so the conflict cannot be drawn by rule");
+  assert.equal(candidates.length, 42, "the carrier candidate set has moved off the published 42");
   assert.ok(satisfies(carrierId), "the conflict carrier fails one of the six clauses");
 });
 
