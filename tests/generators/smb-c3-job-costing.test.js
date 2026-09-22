@@ -682,6 +682,8 @@ test("SMB-21: the rework figure appears once, on a subcontractor row inside the 
     const text = textOf(id, `${specs.byId.get(id).name}.csv`);
     assert.ok(!text.includes(figure), `${id} carries the rework figure, and the plan puts it in exactly one cell`);
   }
+  const smb30 = readFileSync(join(REPO_ROOT, "artifacts", "SMB-30", "weekly-owner-report-template.md"), "utf8");
+  assert.ok(!smb30.includes(figure), "SMB-30 carries the rework figure, and the plan puts it in exactly one cell");
   for (const table of [time, expenses, progress]) {
     for (const r of table.rows) {
       for (const [col, value] of Object.entries(r)) {
