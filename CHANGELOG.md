@@ -44,7 +44,7 @@ is.
   gap over the published threshold while both published controls, median tenure
   and work-location mix, hold on every evaluable group; every other evaluable
   group is inside the threshold by construction. Every band carries a last pay
-  review date, so the pay transparency trigger is a two-limb computation over
+  review date, so the two-limb gap trigger is a two-limb computation over
   the file rather than a lookup, and the two parameters are published with their
   source named while no statute, citation or directive text appears anywhere.
   No row carries a proposed, target or adjusted amount, a rank or a flag.
