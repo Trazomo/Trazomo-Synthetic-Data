@@ -155,6 +155,11 @@ test("OPS-17: five files, each the body of one documented call, named by the cap
     assert.ok(/^https:\/\//.test(capture.url), "a capture records no url");
     assert.ok(["GET", "POST"].includes(capture.method), "a capture records no method");
   }
+  const smartsheetCapture = captureLog.captures.find((c) => c.response_file === "smartsheet-sheet.json");
+  assert.equal(smartsheetCapture.query?.exclude, "nonexistentCells",
+    "the capture log does not record the parameter that drops the empty cell, so the seven-cell row is not the body of the call it names");
+  assert.match(smartsheetCapture.url, /\?exclude=nonexistentCells$/,
+    "the capture log does not record the parameter that drops the empty cell, so the seven-cell row is not the body of the call it names");
 });
 
 test("OPS-17: the envelopes are the documented collection responses", () => {

@@ -683,7 +683,11 @@ export function buildExport(rng) {
       {
         tool: "smartsheet",
         method: "GET",
-        url: `https://api.smartsheet.com/2.0/sheets/${sheet.id}`,
+        // The unassigned task's row carries seven cells against eight
+        // columns only because this call excludes nonexistent cells; a
+        // default Get Sheet call would carry an empty Owner cell instead.
+        url: `https://api.smartsheet.com/2.0/sheets/${sheet.id}?exclude=nonexistentCells`,
+        query: { exclude: "nonexistentCells" },
         response_file: "smartsheet-sheet.json",
       },
     ],

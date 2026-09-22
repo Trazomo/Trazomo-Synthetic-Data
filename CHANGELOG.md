@@ -24,7 +24,8 @@ behind every payload file.
   put a definition of done. State is `percentComplete` alone (0, 50, 100);
   priority is an integer with two off-nominal values the banding absorbs;
   assignments are GUID-keyed with one task unassigned (its sheet row omits the
-  Owner cell) and one GUID that resolves to no directory entry; sheet cells are
+  Owner cell, the capture having been taken with `exclude=nonexistentCells`)
+  and one GUID that resolves to no directory entry; sheet cells are
   keyed by numeric `columnId`, with `value` and `displayValue` differing on
   every cell of exactly two columns, agreeing on four more, and the two DATE
   columns carrying no `displayValue` at all.
