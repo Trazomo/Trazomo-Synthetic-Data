@@ -24,6 +24,7 @@ it for D1: bumping rerolls the bytes of all five.
 | Date | Event | Source |
 |---|---|---|
 | 2024-04-30 to 2026-03-31 | The 24 month-end reporting periods the FP&A trend covers; January and February 2026 sum to the FIN-05 profit-and-loss beginning balances and March 2026 equals its period movement | `datasets/finance/actuals-24mo`, `datasets/finance/kpi-source-data`, `datasets/finance/bank-balances` |
+| 2025-04-01 to 2026-03-31 | The rolling twelve month attrition window the co-002 people analytics set reports over, closing on the same quarter end the finance and operations packs close on; the thirteen month end headcounts it is measured against open at 2025-03-31 | `datasets/hr/engagement-attrition-dataset` |
 | 2025-08-04 | customer onboarding revamp program kickoff at co-002 | `artifacts/OPS-14` |
 | 2025-10-01 to 2025-12-31 | Q4 2025, the prior board reporting period whose deck structure the current pack follows | `artifacts/FIN-30` |
 | 2025-10-01 to 2026-03-31 | The People-department review period a manager's one to one log covers and the performance review draft reports on | `artifacts/HR-09` |
@@ -92,3 +93,4 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-04-07 | Evidence binder assembled at D+5 (CLS-22); binder references EVB-2026Q1-001 upward span the tested controls and the completed close tasks | `datasets/finance/audit-evidence-index` |
 | 2026-04-21 | Board meeting at which the FIN-40 Q1 2026 board pack is presented | `artifacts/FIN-40` |
 | 2026-04-30 | Q1 2026 results announcement to investors and employees; the FIN-40 excerpt stops being material non-public information | `artifacts/FIN-40` |
+| 2026-05-15 | The co-002 compensation review cycle date, at which the current bands are re-cut for the next plan year; it sits after the 2026-04-03 as-of because the pay equity report the bands support is an input to that decision rather than a justification written after it | `datasets/hr/compensation-band-dataset` |
