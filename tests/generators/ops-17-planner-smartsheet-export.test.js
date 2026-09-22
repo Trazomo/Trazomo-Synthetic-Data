@@ -366,6 +366,10 @@ test("OPS-17 T-S7: every cell resolves to a column, once, and the column index h
   assert.equal(new Set(ids).size, ids.length, "a column id repeats");
   assert.deepEqual(sheet.columns.map((c) => c.index), sheet.columns.map((_, i) => i));
   assert.deepEqual(sheet.columns.map((c) => c.primary === true), sheet.columns.map((_, i) => i === 0));
+  for (const [index, column] of sheet.columns.entries()) {
+    assert.equal("primary" in column, index === 0,
+      "primary is present on a column that is not the sheet's primary column");
+  }
   const known = new Set(ids);
   const byId = columnIndex(sheet);
   for (const row of sheet.rows) {

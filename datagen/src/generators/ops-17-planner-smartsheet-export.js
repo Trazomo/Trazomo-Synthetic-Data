@@ -569,10 +569,12 @@ export function buildExport(rng) {
       index,
       title,
       type: columnType(title),
-      primary: index === 0,
       validation: false,
       width: sheetIdStream.int(110, 220),
     };
+    // primary is returned only when true (the reference is explicit), so the
+    // key is absent rather than false on every other column.
+    if (index === 0) column.primary = true;
     if (title === "Workstream") column.options = BUCKETS.slice();
     if (title === "Priority") column.options = PRIORITY_BANDS.map((b) => b.name);
     return column;
@@ -773,7 +775,9 @@ function assertExport({ payload, roster, departed }) {
   for (const [index, column] of columns.entries()) {
     if (column.index !== index) throw new Error(`${id}: the column index sequence has a hole in it`);
     if (column.title !== COLUMN_TITLES[index]) throw new Error(`${id}: column ${index} is "${column.title}"`);
-    if ((column.primary === true) !== (index === 0)) throw new Error(`${id}: the primary column is not the first one`);
+    if (("primary" in column) !== (index === 0)) {
+      throw new Error(`${id}: primary is present on a column that is not the sheet's primary column`);
+    }
   }
   const columnById = new Map(columns.map((c) => [c.id, c]));
   for (const row of rows) {
