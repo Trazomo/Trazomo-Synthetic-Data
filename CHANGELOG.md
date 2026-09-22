@@ -1,9 +1,8 @@
 # Changelog
 
-## 1.25.0
+## 1.26.0
 
 Renumber at tag time: the integrator allocates the tag in merge order, `v1.24.0`
-<<<<<<< HEAD
 is the current tip, and other paths' data branches are live and may take
 `v1.25.0` first.
 
@@ -72,7 +71,10 @@ is.
   exit rate exceeds the company rate by more than the published multiple, and it
   is resolved by rule rather than drawn; the engagement file does not point at
   it.
-=======
+
+## 1.25.0
+
+Renumber at tag time: the integrator allocates the tag in merge order, `v1.24.0`
 is the current tip, and the revenue cluster 5 and small-business cluster 2 data
 branches are live and either may take `v1.25.0` first.
 
@@ -113,7 +115,6 @@ Spec: the OPS-15 A15 line and the OPS-17 R3 lines are rewritten to exact
 cardinalities with `period` on both. Canon: two timeline rows, no company or
 people edit. Every human is a CORE-04 row; the one departed row OPS-17 names is
 chosen by rule and appears by email in a sheet cell only.
->>>>>>> origin/main
 
 ## 1.24.0
 
