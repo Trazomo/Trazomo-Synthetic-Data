@@ -940,7 +940,15 @@ test("SMB-22: P5 at both cardinalities, and the on-track set is the same under b
   assert.equal(inclusive.length, 5, "SMB-22: the on-track count");
 
   // The six gaps in whole points, so a later edit that moves one onto the
-  // boundary fails with the number rather than with a set.
+  // boundary fails with the number rather than with a set. Every money
+  // assertion in this file is integer cents and every threshold comparison
+  // is a cross-multiplication, so the ratio is checked as an integer
+  // quotient rather than a float division: a remainder would mean a
+  // contract value that does not divide evenly, which should fail on that
+  // rather than on a rounding artefact.
+  for (const r of progress.rows) {
+    assert.equal(gap(r) % toCents(r.contract_value_usd), 0, `${r.job_id}: the gap is not a whole number of percent-billed points`);
+  }
   const points = progress.rows.map((r) => gap(r) / toCents(r.contract_value_usd));
   assert.deepEqual(points, [0, 0, 5, 5, 5, 10], "SMB-22: the six percent-billed gaps moved");
 
