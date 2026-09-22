@@ -157,6 +157,7 @@ const EVALUABLE_AT_TWO_PERCENT_CENSUS = 1;
 const COHORT_A_LEADS_CENSUS = 13;
 const STALE_BAND_CENSUS = 44;
 const BOTH_LIMBS_CENSUS = 1;
+const ALL_GROUPS_BOTH_LIMBS_CENSUS = 9;
 const DEPARTMENT_SLICES = 10;
 const DEPARTMENT_SLICE_OVER_THRESHOLD_CENSUS = 6;
 
@@ -662,6 +663,23 @@ test("HR-C6-T11: the trigger is a two limb computation and neither column is a f
     (group) => Math.abs(gapOf(group)) >= PUBLISHED_GAP_THRESHOLD && stale(group.band)
   );
   assert.equal(bothLimbs.length, BOTH_LIMBS_CENSUS, "the count of evaluable groups satisfying both limbs has moved");
+
+  // F5: the all-groups both-limbs census, published and pinned. Evaluating
+  // both limbs over every group that holds both cohorts, rather than only
+  // over the evaluable ones, returns nine rather than one, which is what the
+  // minimum group size is holding back.
+  const allGroupsBothCohorts = groupList.filter((group) => group.cohort_a.length > 0 && group.cohort_b.length > 0);
+  const allGroupsBothLimbs = allGroupsBothCohorts.filter(
+    (group) => Math.abs(gapOf(group)) >= PUBLISHED_GAP_THRESHOLD && stale(group.band)
+  );
+  assert.equal(
+    allGroupsBothLimbs.length, ALL_GROUPS_BOTH_LIMBS_CENSUS,
+    "the both-limbs census over every group rather than the evaluable ones has moved"
+  );
+  assert.ok(
+    ALL_GROUPS_BOTH_LIMBS_CENSUS > BOTH_LIMBS_CENSUS,
+    "the evaluable qualifier no longer differentiates on the trigger"
+  );
 
   // No statute, citation, article number or directive text, anywhere.
   for (const pattern of [/directive/i, /\barticle\s*\d/i, /\bregulation\b/i, /\b\d{4}\/\d{2,4}\b/, /\bEU\b/, /\bgdpr\b/i]) {

@@ -271,6 +271,9 @@ export const NON_PLANT_GAP_LIMIT = 1.80;
 /** Bands satisfying both limbs of the trigger across the evaluable groups. */
 export const BOTH_LIMBS_CENSUS = 1;
 
+/** The same trigger, both limbs, over every group that holds both cohorts rather than only the evaluable ones. */
+export const ALL_GROUPS_BOTH_LIMBS_CENSUS = 9;
+
 /** The two dashes this pack never writes, held as code points so this file carries neither. */
 const EN_DASH = String.fromCharCode(0x2013);
 const EM_DASH = String.fromCharCode(0x2014);
@@ -735,6 +738,16 @@ export function generate() {
     .filter((group) => Math.abs(group.gapPct) >= UNADJUSTED_GAP_THRESHOLD_PCT && isStale(group.band)).length;
   if (bothLimbs !== BOTH_LIMBS_CENSUS) {
     throw new Error(`${E}: ${bothLimbs} evaluable groups satisfy both limbs of the trigger against the ${BOTH_LIMBS_CENSUS} this artifact plants`);
+  }
+
+  // ---- the same trigger, both limbs, over every group holding both cohorts
+  // rather than only the evaluable ones, which is what the minimum group size
+  // is holding back
+  const allGroupsBothCohorts = groups.filter((group) => group.a.length > 0 && group.b.length > 0);
+  const allGroupsBothLimbs = allGroupsBothCohorts
+    .filter((group) => Math.abs(round2(gapFromPay(group))) >= UNADJUSTED_GAP_THRESHOLD_PCT && isStale(group.band)).length;
+  if (allGroupsBothLimbs !== ALL_GROUPS_BOTH_LIMBS_CENSUS) {
+    throw new Error(`${E}: ${allGroupsBothLimbs} groups holding both cohorts satisfy both limbs of the trigger against the ${ALL_GROUPS_BOTH_LIMBS_CENSUS} this artifact plants`);
   }
 
   // ---- the two dates every pay row carries
