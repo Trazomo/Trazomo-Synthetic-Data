@@ -324,7 +324,7 @@ const OTHER_EXPENSES = {
     { expense_date: "2026-03-04", category: "materials", counterparty: MATERIALS_COUNTERPARTY, amount_cents: 490000, description: "quartz worktop supply and fabrication", coded_by_role: "project lead" },
     { expense_date: "2026-03-11", category: "disposal", counterparty: "", amount_cents: 82000, description: "disposal runs, studio truck and tip charges", coded_by_role: "project lead" },
     { expense_date: "2026-03-18", category: "materials", counterparty: MATERIALS_COUNTERPARTY, amount_cents: 342000, description: "tile and flooring supply", coded_by_role: "project lead" },
-    { expense_date: "2026-03-25", category: "subcontract", counterparty: SUBCONTRACT_COUNTERPARTY, amount_cents: 285000, description: "electrical for the added scope, not yet billed on", coded_by_role: "owner", scope: "change_order" },
+    { expense_date: "2026-03-25", category: "subcontract", counterparty: SUBCONTRACT_COUNTERPARTY, amount_cents: 285000, description: "electrical for the added scope the client asked for", coded_by_role: "owner", scope: "change_order" },
   ],
   "JOB-LDB-06": [
     { expense_date: "2026-02-13", category: "materials", counterparty: MATERIALS_COUNTERPARTY, amount_cents: 410000, description: "framing and insulation supply", coded_by_role: "project lead" },
