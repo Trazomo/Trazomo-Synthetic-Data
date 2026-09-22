@@ -67,7 +67,7 @@ builder predicate.
   jobs carry an open change order. The on-track tolerance is 8 points and the
   same set holds under both readings.
 - **SMB-30 weekly-owner-report-template** (drafted, freeze gate): a blank
-  template, 986 words, 14 fields with a required-field list, eleven required
+  template, 985 words, 14 fields with a required-field list, eleven required
   and three optional, no client, price, date, canon entity, person or figure.
   Cash on hand and cash after committed payables are two required fields with
   a required cash basis assumption between them, and any week-bounded figure
