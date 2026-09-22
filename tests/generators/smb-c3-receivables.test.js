@@ -789,6 +789,7 @@ test("SMB-19: three buckets are populated and 61-90 and 90+ are empty, asserted 
 
 test("SMB-19: stages 0, 2 and 3 are populated and 1 and 4 are empty, asserted by name (T-C7)", () => {
   const stages = new Set(column(aging, "dunning_stage"));
+  assert.equal(stages.size, 3, "SMB-19: the count of populated dunning stages moved");
   assert.deepEqual([...stages].sort(), ["0", "2", "3"], "SMB-19: the populated dunning stages moved");
   for (const empty of ["1", "4"]) {
     assert.equal(count(aging.rows, (r) => r.dunning_stage === empty), 0, `dunning stage ${empty} is populated`);
