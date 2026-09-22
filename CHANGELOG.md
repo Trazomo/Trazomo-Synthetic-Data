@@ -1,5 +1,47 @@
 # Changelog
 
+## 1.25.0
+
+Renumber at tag time: the integrator allocates the tag in merge order, `v1.24.0`
+is the current tip, and the revenue cluster 5 and small-business cluster 2 data
+branches are live and either may take `v1.25.0` first.
+
+Operations cluster T, the tool flavors. Two deterministic artifacts, one PR,
+both API-response-shaped rather than UI exports, because only the API surfaces
+have published schemas. The plan is
+`docs/plans/2026-08-29-path-programs/operations/data-plans/cluster-T.md` on the
+trazomo repo; its section 9 defaults U1 to U10 ride to Salvador's freeze review.
+Each fixture is a new co-002 delivery program, so no byte here can contradict a
+frozen row, and each directory carries a `capture-log.json` naming the API call
+behind every payload file.
+
+- **OPS-17 work-management-export-planner-smartsheet** (deterministic): the
+  support tooling consolidation, 14 tasks `STC-101` to `STC-114`, captured
+  2026-03-26 as the Planner list-tasks response (every `plannerTask` property,
+  no `details` object), the Planner buckets response, the directory users
+  response for the plan's members, and a Smartsheet Get Sheet response of 8
+  columns and 14 rows. The planted gap is structural: nowhere on either side to
+  put a definition of done. State is `percentComplete` alone (0, 50, 100);
+  priority is an integer with two off-nominal values the banding absorbs;
+  assignments are GUID-keyed with one task unassigned (its sheet row omits the
+  Owner cell) and one GUID that resolves to no directory entry; sheet cells are
+  keyed by numeric `columnId` with `value` and `displayValue` differing on
+  every cell of exactly four columns.
+- **OPS-15 work-management-platform-export** (deterministic; consumer moved to
+  `operations-work-management-startup` per R3): the developer documentation
+  relaunch, 12 tasks `DDR-201` to `DDR-212`, captured 2026-03-26 as a Notion
+  data-source query response (properties keyed by display name, rich text as
+  runs, single objects beside arrays) and an Asana project task list fetched
+  with an `opt_fields` string that names `assignee` and not `assignee.name`.
+  Exactly one definition of done present but empty in both tools, exactly one
+  assignee gid unresolvable from the payloads alone, and the Notion `Blocked`
+  state with no counterpart in Asana's three sections.
+
+Spec: the OPS-15 A15 line and the OPS-17 R3 lines are rewritten to exact
+cardinalities with `period` on both. Canon: two timeline rows, no company or
+people edit. Every human is a CORE-04 row; the one departed row OPS-17 names is
+chosen by rule and appears by email in a sheet cell only.
+
 ## 1.24.0
 
 Renumber at tag time: the integrator allocates the tag in merge order, `v1.23.0`

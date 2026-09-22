@@ -646,6 +646,7 @@ export function buildExport(rng) {
     "@odata.context": `https://graph.microsoft.com/v1.0/$metadata#planner/plans('${planId}')/buckets`,
     value: buckets,
   };
+  const groupId = derivedGuid("ops-17-plan-group", PROGRAM);
   const directoryPayload = {
     "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#users",
     value: directoryUsers,
@@ -672,7 +673,10 @@ export function buildExport(rng) {
       {
         tool: "microsoft-graph",
         method: "GET",
-        url: "https://graph.microsoft.com/v1.0/users",
+        // The plan's Microsoft 365 group, cast to users, so the listing is the
+        // plan's members rather than the tenant; the cast keeps the users
+        // envelope and the default user property set.
+        url: `https://graph.microsoft.com/v1.0/groups/${groupId}/members/microsoft.graph.user`,
         response_file: "directory-users.json",
       },
       {
