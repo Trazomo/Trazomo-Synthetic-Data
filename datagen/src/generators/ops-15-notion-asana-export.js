@@ -604,7 +604,10 @@ export function buildExport(rng) {
         tool: "asana",
         method: "GET",
         url: `https://app.asana.com/api/1.0/projects/${projectGid}/tasks`,
-        query: { opt_fields: OPT_FIELDS },
+        // next_page is present only when a limit was passed (the Asana
+        // NextPage schema); the capture records the limit that makes the
+        // payload's next_page: null correct.
+        query: { opt_fields: OPT_FIELDS, limit: "100" },
         response_file: "asana-project-tasks.json",
       },
     ],

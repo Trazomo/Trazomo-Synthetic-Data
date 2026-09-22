@@ -144,6 +144,7 @@ test("OPS-15: the capture log records the Notion version and the opt_fields stri
   for (const field of ["name", "completed", "due_on", "permalink_url", "custom_fields"]) {
     assert.ok(optFields.includes(field), `the opt_fields string does not name ${field}, which the payload carries`);
   }
+  assert.ok(asana.query.limit, "the capture log records no limit, so next_page would be absent rather than null");
 });
 
 test("OPS-15: both envelopes are the documented list responses over twelve records", () => {
