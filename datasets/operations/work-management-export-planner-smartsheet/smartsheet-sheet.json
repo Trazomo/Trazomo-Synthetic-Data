@@ -1,0 +1,830 @@
+{
+  "id": 2914473194628954,
+  "name": "Support tooling consolidation tracker",
+  "version": 52,
+  "totalRowCount": 14,
+  "accessLevel": "EDITOR",
+  "effectiveAttachmentOptions": [
+    "FILE",
+    "GOOGLE_DRIVE",
+    "LINK",
+    "BOX_COM",
+    "DROPBOX",
+    "ONEDRIVE"
+  ],
+  "ganttEnabled": false,
+  "dependenciesEnabled": false,
+  "resourceManagementEnabled": false,
+  "cellImageUploadEnabled": true,
+  "hasSummaryFields": false,
+  "isMultiPicklistEnabled": false,
+  "resourceManagementType": "NONE",
+  "userSettings": {
+    "criticalPathEnabled": false,
+    "displaySummaryTasks": true
+  },
+  "userPermissions": {
+    "summaryPermissions": "ADMIN"
+  },
+  "permalink": "https://app.smartsheet.com/sheets/3gvMP0QyxDpciultLxlE44zxbPL3",
+  "createdAt": "2026-02-16T14:12:05Z",
+  "modifiedAt": "2026-03-26T16:48:00Z",
+  "columns": [
+    {
+      "id": 3561434287577867,
+      "version": 0,
+      "index": 0,
+      "title": "Task ID",
+      "type": "TEXT_NUMBER",
+      "validation": false,
+      "width": 208,
+      "primary": true
+    },
+    {
+      "id": 3162863189354539,
+      "version": 0,
+      "index": 1,
+      "title": "Task Name",
+      "type": "TEXT_NUMBER",
+      "validation": false,
+      "width": 157
+    },
+    {
+      "id": 7129332708194852,
+      "version": 0,
+      "index": 2,
+      "title": "Workstream",
+      "type": "PICKLIST",
+      "validation": false,
+      "width": 216,
+      "options": [
+        "Discovery",
+        "Migration",
+        "Enablement",
+        "Close-out"
+      ]
+    },
+    {
+      "id": 3852614304050803,
+      "version": 0,
+      "index": 3,
+      "title": "Owner",
+      "type": "CONTACT_LIST",
+      "validation": false,
+      "width": 161
+    },
+    {
+      "id": 1963223595172166,
+      "version": 0,
+      "index": 4,
+      "title": "Start Date",
+      "type": "DATE",
+      "validation": false,
+      "width": 136
+    },
+    {
+      "id": 6221259426325560,
+      "version": 0,
+      "index": 5,
+      "title": "Due Date",
+      "type": "DATE",
+      "validation": false,
+      "width": 142
+    },
+    {
+      "id": 8053106322884560,
+      "version": 0,
+      "index": 6,
+      "title": "% Complete",
+      "type": "TEXT_NUMBER",
+      "validation": false,
+      "width": 194
+    },
+    {
+      "id": 3194880317896604,
+      "version": 0,
+      "index": 7,
+      "title": "Priority",
+      "type": "PICKLIST",
+      "validation": false,
+      "width": 214,
+      "options": [
+        "Urgent",
+        "Important",
+        "Medium",
+        "Low"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "id": 7203672496601939,
+      "rowNumber": 1,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-02-16T14:03:11Z",
+      "modifiedAt": "2026-03-03T11:30:17Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-101",
+          "displayValue": "STC-101"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Inventory every ticket queue, macro and knowledge article the three support tools carry today",
+          "displayValue": "Inventory every ticket queue, macro and knowledge article the three support tools carry today"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Discovery",
+          "displayValue": "Discovery"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "cassian.thistlewood.emp-0591@co002.example",
+          "displayValue": "Cassian Thistlewood"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-02-23"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-03-27"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 1,
+          "displayValue": "100%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Urgent",
+          "displayValue": "Urgent"
+        }
+      ]
+    },
+    {
+      "id": 6675755145028234,
+      "rowNumber": 2,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-02-16T12:58:41Z",
+      "modifiedAt": "2026-02-27T10:59:54Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-102",
+          "displayValue": "STC-102"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Agree the single set of ticket fields the consolidated platform will hold",
+          "displayValue": "Agree the single set of ticket fields the consolidated platform will hold"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Discovery",
+          "displayValue": "Discovery"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "cormac.moorfield.emp-0596@co002.example",
+          "displayValue": "Cormac Moorfield"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-02-23"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-04-02"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 1,
+          "displayValue": "100%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Important",
+          "displayValue": "Important"
+        }
+      ]
+    },
+    {
+      "id": 4249165253713727,
+      "rowNumber": 3,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-02-18T09:13:11Z",
+      "modifiedAt": "2026-03-08T17:08:39Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-103",
+          "displayValue": "STC-103"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Map each legacy ticket status onto the agreed status set and write the mapping down",
+          "displayValue": "Map each legacy ticket status onto the agreed status set and write the mapping down"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Discovery",
+          "displayValue": "Discovery"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "perrin.everhart.emp-0595@co002.example",
+          "displayValue": "Perrin Everhart"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-02-25"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-04-07"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 0.5,
+          "displayValue": "50%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Important",
+          "displayValue": "Important"
+        }
+      ]
+    },
+    {
+      "id": 5350338347256183,
+      "rowNumber": 4,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-02-18T14:21:56Z",
+      "modifiedAt": "2026-03-12T11:33:10Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-104",
+          "displayValue": "STC-104"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Confirm which knowledge articles move across at cutover and which are retired in place",
+          "displayValue": "Confirm which knowledge articles move across at cutover and which are retired in place"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Discovery",
+          "displayValue": "Discovery"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "isolde.duskwood.emp-0444@co002.example",
+          "displayValue": "Isolde Duskwood"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-03-02"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-04-10"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 0.5,
+          "displayValue": "50%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Medium",
+          "displayValue": "Medium"
+        }
+      ]
+    },
+    {
+      "id": 4948886141180992,
+      "rowNumber": 5,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-02-20T11:33:25Z",
+      "modifiedAt": "2026-03-15T17:14:55Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-105",
+          "displayValue": "STC-105"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Build the ticket import and run it against a copy of the largest queue",
+          "displayValue": "Build the ticket import and run it against a copy of the largest queue"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Migration",
+          "displayValue": "Migration"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "corwin.elderkin.emp-0406@co002.example",
+          "displayValue": "Corwin Elderkin"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-03-02"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-03-31"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 1,
+          "displayValue": "100%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Important",
+          "displayValue": "Important"
+        }
+      ]
+    },
+    {
+      "id": 7398273829370737,
+      "rowNumber": 6,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-02-23T17:26:54Z",
+      "modifiedAt": "2026-03-23T14:14:28Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-106",
+          "displayValue": "STC-106"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Rebuild the escalation routing rules in the consolidated platform",
+          "displayValue": "Rebuild the escalation routing rules in the consolidated platform"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Migration",
+          "displayValue": "Migration"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "quillon.pemberton.emp-0425@co002.example",
+          "displayValue": "Quillon Pemberton"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-03-09"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-04-14"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 0.5,
+          "displayValue": "50%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Urgent",
+          "displayValue": "Urgent"
+        }
+      ]
+    },
+    {
+      "id": 8997425550594926,
+      "rowNumber": 7,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-02-25T16:36:37Z",
+      "modifiedAt": "2026-03-14T17:27:37Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-107",
+          "displayValue": "STC-107"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Move the knowledge articles that survived the review into the new space",
+          "displayValue": "Move the knowledge articles that survived the review into the new space"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Migration",
+          "displayValue": "Migration"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-03-09"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-04-17"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 0.5,
+          "displayValue": "50%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Important",
+          "displayValue": "Important"
+        }
+      ]
+    },
+    {
+      "id": 5201404726132750,
+      "rowNumber": 8,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-02-27T15:45:33Z",
+      "modifiedAt": "2026-03-25T10:20:48Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-108",
+          "displayValue": "STC-108"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Reconnect the customer portal so a submitted request lands in the consolidated queue",
+          "displayValue": "Reconnect the customer portal so a submitted request lands in the consolidated queue"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Migration",
+          "displayValue": "Migration"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "fenwick.everhart.emp-0188@co002.example",
+          "displayValue": "Fenwick Everhart"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-03-16"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-04-21"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 0.5,
+          "displayValue": "50%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Low",
+          "displayValue": "Low"
+        }
+      ]
+    },
+    {
+      "id": 5073330502957105,
+      "rowNumber": 9,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-03-02T12:19:45Z",
+      "modifiedAt": "2026-03-10T18:34:37Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-109",
+          "displayValue": "STC-109"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Run a two week pilot with one support pod working only in the consolidated platform",
+          "displayValue": "Run a two week pilot with one support pod working only in the consolidated platform"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Enablement",
+          "displayValue": "Enablement"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "corin.fairweather.emp-0590@co002.example",
+          "displayValue": "Corin Fairweather"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-03-16"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-04-24"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 0.5,
+          "displayValue": "50%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Medium",
+          "displayValue": "Medium"
+        }
+      ]
+    },
+    {
+      "id": 8308876831084490,
+      "rowNumber": 10,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-03-05T15:18:56Z",
+      "modifiedAt": "2026-03-17T12:38:47Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-110",
+          "displayValue": "STC-110"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Write the agent guide for the consolidated workflow and put it where agents already look",
+          "displayValue": "Write the agent guide for the consolidated workflow and put it where agents already look"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Enablement",
+          "displayValue": "Enablement"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "tobin.everhart.emp-0072@co002.example",
+          "displayValue": "Tobin Everhart"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-03-30"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-04-28"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 0,
+          "displayValue": "0%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Medium",
+          "displayValue": "Medium"
+        }
+      ]
+    },
+    {
+      "id": 3551870226860046,
+      "rowNumber": 11,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-03-10T12:44:01Z",
+      "modifiedAt": "2026-03-21T08:12:34Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-111",
+          "displayValue": "STC-111"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Take every support and success agent through the consolidated workflow before cutover",
+          "displayValue": "Take every support and success agent through the consolidated workflow before cutover"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Enablement",
+          "displayValue": "Enablement"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "ivo.norwich.emp-0038@co002.example",
+          "displayValue": "Ivo Norwich"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-04-06"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-05-01"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 0,
+          "displayValue": "0%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Important",
+          "displayValue": "Important"
+        }
+      ]
+    },
+    {
+      "id": 5784751355648041,
+      "rowNumber": 12,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-03-16T08:27:12Z",
+      "modifiedAt": "2026-03-22T10:50:41Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-112",
+          "displayValue": "STC-112"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Decommission the two retired tools and revoke the access they still hold",
+          "displayValue": "Decommission the two retired tools and revoke the access they still hold"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Close-out",
+          "displayValue": "Close-out"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "cassian.thistlewood.emp-0591@co002.example",
+          "displayValue": "Cassian Thistlewood"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-04-13"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-05-08"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 0,
+          "displayValue": "0%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Medium",
+          "displayValue": "Medium"
+        }
+      ]
+    },
+    {
+      "id": 5955704681575298,
+      "rowNumber": 13,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-03-19T08:39:37Z",
+      "modifiedAt": "2026-03-25T13:04:30Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-113",
+          "displayValue": "STC-113"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Archive the historical ticket record from the retired tools into the agreed store",
+          "displayValue": "Archive the historical ticket record from the retired tools into the agreed store"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Close-out",
+          "displayValue": "Close-out"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "cormac.moorfield.emp-0596@co002.example",
+          "displayValue": "Cormac Moorfield"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-04-20"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-05-15"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 0,
+          "displayValue": "0%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Low",
+          "displayValue": "Low"
+        }
+      ]
+    },
+    {
+      "id": 4217347549274564,
+      "rowNumber": 14,
+      "expanded": true,
+      "accessLevel": "EDITOR",
+      "locked": false,
+      "lockedForUser": false,
+      "version": 52,
+      "createdAt": "2026-03-24T15:51:36Z",
+      "modifiedAt": "2026-03-25T14:42:39Z",
+      "cells": [
+        {
+          "columnId": 3561434287577867,
+          "value": "STC-114",
+          "displayValue": "STC-114"
+        },
+        {
+          "columnId": 3162863189354539,
+          "value": "Run the consolidation retrospective and record what the next migration should do differently",
+          "displayValue": "Run the consolidation retrospective and record what the next migration should do differently"
+        },
+        {
+          "columnId": 7129332708194852,
+          "value": "Close-out",
+          "displayValue": "Close-out"
+        },
+        {
+          "columnId": 3852614304050803,
+          "value": "perrin.everhart.emp-0595@co002.example",
+          "displayValue": "Perrin Everhart"
+        },
+        {
+          "columnId": 1963223595172166,
+          "value": "2026-04-27"
+        },
+        {
+          "columnId": 6221259426325560,
+          "value": "2026-05-22"
+        },
+        {
+          "columnId": 8053106322884560,
+          "value": 0,
+          "displayValue": "0%"
+        },
+        {
+          "columnId": 3194880317896604,
+          "value": "Low",
+          "displayValue": "Low"
+        }
+      ]
+    }
+  ]
+}

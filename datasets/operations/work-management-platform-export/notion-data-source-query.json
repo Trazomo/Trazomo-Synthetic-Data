@@ -1,0 +1,1563 @@
+{
+  "object": "list",
+  "results": [
+    {
+      "object": "page",
+      "id": "20fd9677-20f0-40b7-9062-69cc52770456",
+      "created_time": "2026-02-18T18:56:00.000Z",
+      "last_edited_time": "2026-03-14T18:35:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "2fd9e614-e6c0-4c4e-b396-3af33bf4beb4",
+        "database_id": "e79b7853-4218-4c0f-8cf3-c3634d4c82d0"
+      },
+      "archived": false,
+      "in_trash": false,
+      "properties": {
+        "Task": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Audit the published developer docs and mark every page keep, rewrite or retire",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Audit the published developer docs and mark every page keep, rewrite or retire",
+              "href": null
+            }
+          ]
+        },
+        "ID": {
+          "id": "rWOR",
+          "type": "unique_id",
+          "unique_id": {
+            "number": 201,
+            "prefix": "DDR"
+          }
+        },
+        "Owner": {
+          "id": "dYUd",
+          "type": "people",
+          "people": [
+            {
+              "object": "user",
+              "id": "a88b414a-d35e-4779-b7fb-fc7cfe1e3c6b",
+              "name": "Verity Holloway",
+              "avatar_url": null,
+              "type": "person",
+              "person": {
+                "email": "verity.holloway.emp-0209@co002.example"
+              }
+            }
+          ]
+        },
+        "State": {
+          "id": "QsaO",
+          "type": "status",
+          "status": {
+            "id": "4e3f4aa9-3d2b-48c8-aac6-1d811c11becf",
+            "name": "Done",
+            "color": "green"
+          }
+        },
+        "Workstream": {
+          "id": "sGBV",
+          "type": "select",
+          "select": {
+            "id": "d4eac026-bc9c-43f1-a520-9f32728126e5",
+            "name": "Content",
+            "color": "orange"
+          }
+        },
+        "Definition of done": {
+          "id": "xTeQ",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The audit sheet carries a disposition and a named owner for every published page.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The audit sheet carries a disposition and a named owner for every published page.",
+              "href": null
+            }
+          ]
+        },
+        "Due": {
+          "id": "qjTr",
+          "type": "date",
+          "date": {
+            "start": "2026-03-30",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Asana task": {
+          "id": "gAtX",
+          "type": "url",
+          "url": "https://app.asana.com/0/2553683917745705/7054433803695469"
+        }
+      },
+      "url": "https://app.notion.com/p/Audit-the-published-developer-docs-and-mark-every-page-keep-rewrite-or-retire-20fd967720f040b7906269cc52770456",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "30382331-0f8d-40ee-a5ca-ba7dafb5420e",
+      "created_time": "2026-02-18T15:57:00.000Z",
+      "last_edited_time": "2026-02-23T17:09:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "2fd9e614-e6c0-4c4e-b396-3af33bf4beb4",
+        "database_id": "e79b7853-4218-4c0f-8cf3-c3634d4c82d0"
+      },
+      "archived": false,
+      "in_trash": false,
+      "properties": {
+        "Task": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Agree the information architecture for the relaunched developer site",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Agree the information architecture for the relaunched developer site",
+              "href": null
+            }
+          ]
+        },
+        "ID": {
+          "id": "rWOR",
+          "type": "unique_id",
+          "unique_id": {
+            "number": 202,
+            "prefix": "DDR"
+          }
+        },
+        "Owner": {
+          "id": "dYUd",
+          "type": "people",
+          "people": [
+            {
+              "object": "user",
+              "id": "9988eb16-5e62-40e1-bcf9-c5c47d2142ef",
+              "name": "Freya Grayling",
+              "avatar_url": null,
+              "type": "person",
+              "person": {
+                "email": "freya.grayling.emp-0216@co002.example"
+              }
+            }
+          ]
+        },
+        "State": {
+          "id": "QsaO",
+          "type": "status",
+          "status": {
+            "id": "90ae40af-c431-48b2-b835-82d67f2b5084",
+            "name": "In progress",
+            "color": "blue"
+          }
+        },
+        "Workstream": {
+          "id": "sGBV",
+          "type": "select",
+          "select": {
+            "id": "d4eac026-bc9c-43f1-a520-9f32728126e5",
+            "name": "Content",
+            "color": "orange"
+          }
+        },
+        "Definition of done": {
+          "id": "xTeQ",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The agreed information architecture is written down and the navigation tree matches it.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The agreed information architecture is written down and the navigation tree matches it.",
+              "href": null
+            }
+          ]
+        },
+        "Due": {
+          "id": "qjTr",
+          "type": "date",
+          "date": {
+            "start": "2026-04-03",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Asana task": {
+          "id": "gAtX",
+          "type": "url",
+          "url": "https://app.asana.com/0/2553683917745705/1294103224365286"
+        }
+      },
+      "url": "https://app.notion.com/p/Agree-the-information-architecture-for-the-relaunched-developer-site-303823310f8d40eea5caba7dafb5420e",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "2c100768-6c71-477d-b3a4-b3713611eb3a",
+      "created_time": "2026-02-20T12:57:00.000Z",
+      "last_edited_time": "2026-03-15T10:52:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "2fd9e614-e6c0-4c4e-b396-3af33bf4beb4",
+        "database_id": "e79b7853-4218-4c0f-8cf3-c3634d4c82d0"
+      },
+      "archived": false,
+      "in_trash": false,
+      "properties": {
+        "Task": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Rewrite the getting started guide so a new integrator ships a first call in one sitting",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Rewrite the getting started guide so a new integrator ships a first call in one sitting",
+              "href": null
+            }
+          ]
+        },
+        "ID": {
+          "id": "rWOR",
+          "type": "unique_id",
+          "unique_id": {
+            "number": 203,
+            "prefix": "DDR"
+          }
+        },
+        "Owner": {
+          "id": "dYUd",
+          "type": "people",
+          "people": [
+            {
+              "object": "user",
+              "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362",
+              "name": "Isolde Nightshade",
+              "avatar_url": null,
+              "type": "person",
+              "person": {
+                "email": "isolde.nightshade.emp-0196@co002.example"
+              }
+            }
+          ]
+        },
+        "State": {
+          "id": "QsaO",
+          "type": "status",
+          "status": {
+            "id": "90ae40af-c431-48b2-b835-82d67f2b5084",
+            "name": "In progress",
+            "color": "blue"
+          }
+        },
+        "Workstream": {
+          "id": "sGBV",
+          "type": "select",
+          "select": {
+            "id": "d4eac026-bc9c-43f1-a520-9f32728126e5",
+            "name": "Content",
+            "color": "orange"
+          }
+        },
+        "Definition of done": {
+          "id": "xTeQ",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A new integrator follows the guide end to end and makes a first successful call without asking for help. ",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A new integrator follows the guide end to end and makes a first successful call without asking for help. ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Reviewed by two people outside the docs team.",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Reviewed by two people outside the docs team.",
+              "href": null
+            }
+          ]
+        },
+        "Due": {
+          "id": "qjTr",
+          "type": "date",
+          "date": {
+            "start": "2026-04-07",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Asana task": {
+          "id": "gAtX",
+          "type": "url",
+          "url": "https://app.asana.com/0/2553683917745705/2710622786458804"
+        }
+      },
+      "url": "https://app.notion.com/p/Rewrite-the-getting-started-guide-so-a-new-integrator-ships-a-first-call-in-one-sitting-2c1007686c71477db3a4b3713611eb3a",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "fd71b8f7-4655-47ae-8a63-97727b43511b",
+      "created_time": "2026-02-24T10:04:00.000Z",
+      "last_edited_time": "2026-03-17T15:55:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "2fd9e614-e6c0-4c4e-b396-3af33bf4beb4",
+        "database_id": "e79b7853-4218-4c0f-8cf3-c3634d4c82d0"
+      },
+      "archived": false,
+      "in_trash": false,
+      "properties": {
+        "Task": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Bring the API reference back in line with the endpoints that actually shipped",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Bring the API reference back in line with the endpoints that actually shipped",
+              "href": null
+            }
+          ]
+        },
+        "ID": {
+          "id": "rWOR",
+          "type": "unique_id",
+          "unique_id": {
+            "number": 204,
+            "prefix": "DDR"
+          }
+        },
+        "Owner": {
+          "id": "dYUd",
+          "type": "people",
+          "people": [
+            {
+              "object": "user",
+              "id": "d5ca9602-73c3-44ed-b73f-02ccc226905f",
+              "name": "Lior Kirtland",
+              "avatar_url": null,
+              "type": "person",
+              "person": {
+                "email": "lior.kirtland.emp-0124@co002.example"
+              }
+            }
+          ]
+        },
+        "State": {
+          "id": "QsaO",
+          "type": "status",
+          "status": {
+            "id": "82b69a1a-8779-4d87-b147-4a69b8f02744",
+            "name": "Blocked",
+            "color": "red"
+          }
+        },
+        "Workstream": {
+          "id": "sGBV",
+          "type": "select",
+          "select": {
+            "id": "d4eac026-bc9c-43f1-a520-9f32728126e5",
+            "name": "Content",
+            "color": "orange"
+          }
+        },
+        "Definition of done": {
+          "id": "xTeQ",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Every endpoint in the reference matches the shipped schema, and the reference build fails when it does not.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Every endpoint in the reference matches the shipped schema, and the reference build fails when it does not.",
+              "href": null
+            }
+          ]
+        },
+        "Due": {
+          "id": "qjTr",
+          "type": "date",
+          "date": {
+            "start": "2026-04-10",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Asana task": {
+          "id": "gAtX",
+          "type": "url",
+          "url": "https://app.asana.com/0/2553683917745705/1586318426476984"
+        }
+      },
+      "url": "https://app.notion.com/p/Bring-the-API-reference-back-in-line-with-the-endpoints-that-actually-shipped-fd71b8f7465547ae8a6397727b43511b",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "7b0f6064-6c33-4f3c-ba9c-9623d01a178a",
+      "created_time": "2026-02-26T14:04:00.000Z",
+      "last_edited_time": "2026-03-09T09:37:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "2fd9e614-e6c0-4c4e-b396-3af33bf4beb4",
+        "database_id": "e79b7853-4218-4c0f-8cf3-c3634d4c82d0"
+      },
+      "archived": false,
+      "in_trash": false,
+      "properties": {
+        "Task": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Write the authentication guide covering token issue, rotation and revocation",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Write the authentication guide covering token issue, rotation and revocation",
+              "href": null
+            }
+          ]
+        },
+        "ID": {
+          "id": "rWOR",
+          "type": "unique_id",
+          "unique_id": {
+            "number": 205,
+            "prefix": "DDR"
+          }
+        },
+        "Owner": {
+          "id": "dYUd",
+          "type": "people",
+          "people": [
+            {
+              "object": "user",
+              "id": "d2703a11-f31c-4112-87ef-2153659e6a44",
+              "name": "Oleander Fairweather",
+              "avatar_url": null,
+              "type": "person",
+              "person": {
+                "email": "oleander.fairweather.emp-0086@co002.example"
+              }
+            }
+          ]
+        },
+        "State": {
+          "id": "QsaO",
+          "type": "status",
+          "status": {
+            "id": "7b7a3ecd-92e5-4d20-a312-e42d228c13f4",
+            "name": "Not started",
+            "color": "default"
+          }
+        },
+        "Workstream": {
+          "id": "sGBV",
+          "type": "select",
+          "select": {
+            "id": "d4eac026-bc9c-43f1-a520-9f32728126e5",
+            "name": "Content",
+            "color": "orange"
+          }
+        },
+        "Definition of done": {
+          "id": "xTeQ",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The guide covers issuing, rotating and revoking a token, and each flow is checked against the sandbox.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The guide covers issuing, rotating and revoking a token, and each flow is checked against the sandbox.",
+              "href": null
+            }
+          ]
+        },
+        "Due": {
+          "id": "qjTr",
+          "type": "date",
+          "date": {
+            "start": "2026-04-14",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Asana task": {
+          "id": "gAtX",
+          "type": "url",
+          "url": "https://app.asana.com/0/2553683917745705/9426805110527170"
+        }
+      },
+      "url": "https://app.notion.com/p/Write-the-authentication-guide-covering-token-issue-rotation-and-revocation-7b0f60646c334f3cba9c9623d01a178a",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "754e8e12-ea67-4271-a523-378c1d7e5338",
+      "created_time": "2026-03-02T13:27:00.000Z",
+      "last_edited_time": "2026-03-25T11:16:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "2fd9e614-e6c0-4c4e-b396-3af33bf4beb4",
+        "database_id": "e79b7853-4218-4c0f-8cf3-c3634d4c82d0"
+      },
+      "archived": false,
+      "in_trash": false,
+      "properties": {
+        "Task": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Stand up the docs build pipeline with a preview deploy on every change request",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Stand up the docs build pipeline with a preview deploy on every change request",
+              "href": null
+            }
+          ]
+        },
+        "ID": {
+          "id": "rWOR",
+          "type": "unique_id",
+          "unique_id": {
+            "number": 206,
+            "prefix": "DDR"
+          }
+        },
+        "Owner": {
+          "id": "dYUd",
+          "type": "people",
+          "people": [
+            {
+              "object": "user",
+              "id": "d3bdc6e9-edcf-4dee-8d50-555f44299b9c",
+              "name": "Perrin Osgood",
+              "avatar_url": null,
+              "type": "person",
+              "person": {
+                "email": "perrin.osgood.emp-0150@co002.example"
+              }
+            }
+          ]
+        },
+        "State": {
+          "id": "QsaO",
+          "type": "status",
+          "status": {
+            "id": "4e3f4aa9-3d2b-48c8-aac6-1d811c11becf",
+            "name": "Done",
+            "color": "green"
+          }
+        },
+        "Workstream": {
+          "id": "sGBV",
+          "type": "select",
+          "select": {
+            "id": "82891c62-70d6-4eff-afc3-43ab65d73f22",
+            "name": "Platform",
+            "color": "purple"
+          }
+        },
+        "Definition of done": {
+          "id": "xTeQ",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "A change request produces a preview deploy that a reviewer can open from the request itself.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "A change request produces a preview deploy that a reviewer can open from the request itself.",
+              "href": null
+            }
+          ]
+        },
+        "Due": {
+          "id": "qjTr",
+          "type": "date",
+          "date": {
+            "start": "2026-04-17",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Asana task": {
+          "id": "gAtX",
+          "type": "url",
+          "url": "https://app.asana.com/0/2553683917745705/3412762951784047"
+        }
+      },
+      "url": "https://app.notion.com/p/Stand-up-the-docs-build-pipeline-with-a-preview-deploy-on-every-change-request-754e8e12ea674271a523378c1d7e5338",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "229825c9-af2e-4f22-86be-ca261a131d17",
+      "created_time": "2026-03-04T08:42:00.000Z",
+      "last_edited_time": "2026-03-25T13:16:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "2fd9e614-e6c0-4c4e-b396-3af33bf4beb4",
+        "database_id": "e79b7853-4218-4c0f-8cf3-c3634d4c82d0"
+      },
+      "archived": false,
+      "in_trash": false,
+      "properties": {
+        "Task": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Move the docs source into the platform repository and wire up the ownership file",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Move the docs source into the platform repository and wire up the ownership file",
+              "href": null
+            }
+          ]
+        },
+        "ID": {
+          "id": "rWOR",
+          "type": "unique_id",
+          "unique_id": {
+            "number": 207,
+            "prefix": "DDR"
+          }
+        },
+        "Owner": {
+          "id": "dYUd",
+          "type": "people",
+          "people": [
+            {
+              "object": "user",
+              "id": "a88b414a-d35e-4779-b7fb-fc7cfe1e3c6b",
+              "name": "Verity Holloway",
+              "avatar_url": null,
+              "type": "person",
+              "person": {
+                "email": "verity.holloway.emp-0209@co002.example"
+              }
+            }
+          ]
+        },
+        "State": {
+          "id": "QsaO",
+          "type": "status",
+          "status": {
+            "id": "90ae40af-c431-48b2-b835-82d67f2b5084",
+            "name": "In progress",
+            "color": "blue"
+          }
+        },
+        "Workstream": {
+          "id": "sGBV",
+          "type": "select",
+          "select": {
+            "id": "82891c62-70d6-4eff-afc3-43ab65d73f22",
+            "name": "Platform",
+            "color": "purple"
+          }
+        },
+        "Definition of done": {
+          "id": "xTeQ",
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Due": {
+          "id": "qjTr",
+          "type": "date",
+          "date": {
+            "start": "2026-04-21",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Asana task": {
+          "id": "gAtX",
+          "type": "url",
+          "url": "https://app.asana.com/0/2553683917745705/7048635409064412"
+        }
+      },
+      "url": "https://app.notion.com/p/Move-the-docs-source-into-the-platform-repository-and-wire-up-the-ownership-file-229825c9af2e4f2286beca261a131d17",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "0cea6f8c-17ac-4afc-956a-cefe6442243b",
+      "created_time": "2026-03-09T13:43:00.000Z",
+      "last_edited_time": "2026-03-20T08:28:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "2fd9e614-e6c0-4c4e-b396-3af33bf4beb4",
+        "database_id": "e79b7853-4218-4c0f-8cf3-c3634d4c82d0"
+      },
+      "archived": false,
+      "in_trash": false,
+      "properties": {
+        "Task": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Add search across the whole developer site and check the common queries return something useful",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Add search across the whole developer site and check the common queries return something useful",
+              "href": null
+            }
+          ]
+        },
+        "ID": {
+          "id": "rWOR",
+          "type": "unique_id",
+          "unique_id": {
+            "number": 208,
+            "prefix": "DDR"
+          }
+        },
+        "Owner": {
+          "id": "dYUd",
+          "type": "people",
+          "people": [
+            {
+              "object": "user",
+              "id": "9988eb16-5e62-40e1-bcf9-c5c47d2142ef",
+              "name": "Freya Grayling",
+              "avatar_url": null,
+              "type": "person",
+              "person": {
+                "email": "freya.grayling.emp-0216@co002.example"
+              }
+            }
+          ]
+        },
+        "State": {
+          "id": "QsaO",
+          "type": "status",
+          "status": {
+            "id": "90ae40af-c431-48b2-b835-82d67f2b5084",
+            "name": "In progress",
+            "color": "blue"
+          }
+        },
+        "Workstream": {
+          "id": "sGBV",
+          "type": "select",
+          "select": {
+            "id": "82891c62-70d6-4eff-afc3-43ab65d73f22",
+            "name": "Platform",
+            "color": "purple"
+          }
+        },
+        "Definition of done": {
+          "id": "xTeQ",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Search returns a relevant page for each of the twenty most common queries. ",
+                "link": null
+              },
+              "annotations": {
+                "bold": true,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Search returns a relevant page for each of the twenty most common queries. ",
+              "href": null
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "Measured on the query log from the last full month.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Measured on the query log from the last full month.",
+              "href": null
+            }
+          ]
+        },
+        "Due": {
+          "id": "qjTr",
+          "type": "date",
+          "date": {
+            "start": "2026-04-24",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Asana task": {
+          "id": "gAtX",
+          "type": "url",
+          "url": "https://app.asana.com/0/2553683917745705/1761201965512498"
+        }
+      },
+      "url": "https://app.notion.com/p/Add-search-across-the-whole-developer-site-and-check-the-common-queries-return-something-useful-0cea6f8c17ac4afc956acefe6442243b",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "3cad73d8-2112-419b-ac36-5f25dd3cf792",
+      "created_time": "2026-03-11T08:39:00.000Z",
+      "last_edited_time": "2026-03-25T14:59:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "2fd9e614-e6c0-4c4e-b396-3af33bf4beb4",
+        "database_id": "e79b7853-4218-4c0f-8cf3-c3634d4c82d0"
+      },
+      "archived": false,
+      "in_trash": false,
+      "properties": {
+        "Task": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Set up the broken link and sample code checks so a stale snippet fails the build",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Set up the broken link and sample code checks so a stale snippet fails the build",
+              "href": null
+            }
+          ]
+        },
+        "ID": {
+          "id": "rWOR",
+          "type": "unique_id",
+          "unique_id": {
+            "number": 209,
+            "prefix": "DDR"
+          }
+        },
+        "Owner": {
+          "id": "dYUd",
+          "type": "people",
+          "people": [
+            {
+              "object": "user",
+              "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362",
+              "name": "Isolde Nightshade",
+              "avatar_url": null,
+              "type": "person",
+              "person": {
+                "email": "isolde.nightshade.emp-0196@co002.example"
+              }
+            }
+          ]
+        },
+        "State": {
+          "id": "QsaO",
+          "type": "status",
+          "status": {
+            "id": "82b69a1a-8779-4d87-b147-4a69b8f02744",
+            "name": "Blocked",
+            "color": "red"
+          }
+        },
+        "Workstream": {
+          "id": "sGBV",
+          "type": "select",
+          "select": {
+            "id": "82891c62-70d6-4eff-afc3-43ab65d73f22",
+            "name": "Platform",
+            "color": "purple"
+          }
+        },
+        "Definition of done": {
+          "id": "xTeQ",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The link and sample checks run on every build and a stale snippet turns the build red.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The link and sample checks run on every build and a stale snippet turns the build red.",
+              "href": null
+            }
+          ]
+        },
+        "Due": {
+          "id": "qjTr",
+          "type": "date",
+          "date": {
+            "start": "2026-04-28",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Asana task": {
+          "id": "gAtX",
+          "type": "url",
+          "url": "https://app.asana.com/0/2553683917745705/5950286927014701"
+        }
+      },
+      "url": "https://app.notion.com/p/Set-up-the-broken-link-and-sample-code-checks-so-a-stale-snippet-fails-the-build-3cad73d82112419bac365f25dd3cf792",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "f871f791-4db8-4e4f-8bc8-df72cab23bed",
+      "created_time": "2026-03-16T11:13:00.000Z",
+      "last_edited_time": "2026-03-25T15:53:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "2fd9e614-e6c0-4c4e-b396-3af33bf4beb4",
+        "database_id": "e79b7853-4218-4c0f-8cf3-c3634d4c82d0"
+      },
+      "archived": false,
+      "in_trash": false,
+      "properties": {
+        "Task": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Agree the redirect map from every retired page to its replacement",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Agree the redirect map from every retired page to its replacement",
+              "href": null
+            }
+          ]
+        },
+        "ID": {
+          "id": "rWOR",
+          "type": "unique_id",
+          "unique_id": {
+            "number": 210,
+            "prefix": "DDR"
+          }
+        },
+        "Owner": {
+          "id": "dYUd",
+          "type": "people",
+          "people": [
+            {
+              "object": "user",
+              "id": "d5ca9602-73c3-44ed-b73f-02ccc226905f",
+              "name": "Lior Kirtland",
+              "avatar_url": null,
+              "type": "person",
+              "person": {
+                "email": "lior.kirtland.emp-0124@co002.example"
+              }
+            }
+          ]
+        },
+        "State": {
+          "id": "QsaO",
+          "type": "status",
+          "status": {
+            "id": "7b7a3ecd-92e5-4d20-a312-e42d228c13f4",
+            "name": "Not started",
+            "color": "default"
+          }
+        },
+        "Workstream": {
+          "id": "sGBV",
+          "type": "select",
+          "select": {
+            "id": "90c14152-8655-442d-b528-acbba0ec43b2",
+            "name": "Launch",
+            "color": "blue"
+          }
+        },
+        "Definition of done": {
+          "id": "xTeQ",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Every retired page resolves to a live replacement and no redirect chain is longer than one hop.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Every retired page resolves to a live replacement and no redirect chain is longer than one hop.",
+              "href": null
+            }
+          ]
+        },
+        "Due": {
+          "id": "qjTr",
+          "type": "date",
+          "date": {
+            "start": "2026-05-05",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Asana task": {
+          "id": "gAtX",
+          "type": "url",
+          "url": "https://app.asana.com/0/2553683917745705/1749272831998029"
+        }
+      },
+      "url": "https://app.notion.com/p/Agree-the-redirect-map-from-every-retired-page-to-its-replacement-f871f7914db84e4f8bc8df72cab23bed",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "4d2809f8-e90c-4734-a12a-0ca229e8ac00",
+      "created_time": "2026-03-18T18:11:00.000Z",
+      "last_edited_time": "2026-03-25T11:30:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "2fd9e614-e6c0-4c4e-b396-3af33bf4beb4",
+        "database_id": "e79b7853-4218-4c0f-8cf3-c3634d4c82d0"
+      },
+      "archived": false,
+      "in_trash": false,
+      "properties": {
+        "Task": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Write the launch note for the relaunched developer site and line up the release entry",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Write the launch note for the relaunched developer site and line up the release entry",
+              "href": null
+            }
+          ]
+        },
+        "ID": {
+          "id": "rWOR",
+          "type": "unique_id",
+          "unique_id": {
+            "number": 211,
+            "prefix": "DDR"
+          }
+        },
+        "Owner": {
+          "id": "dYUd",
+          "type": "people",
+          "people": []
+        },
+        "State": {
+          "id": "QsaO",
+          "type": "status",
+          "status": {
+            "id": "90ae40af-c431-48b2-b835-82d67f2b5084",
+            "name": "In progress",
+            "color": "blue"
+          }
+        },
+        "Workstream": {
+          "id": "sGBV",
+          "type": "select",
+          "select": {
+            "id": "90c14152-8655-442d-b528-acbba0ec43b2",
+            "name": "Launch",
+            "color": "blue"
+          }
+        },
+        "Definition of done": {
+          "id": "xTeQ",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The launch note is approved and scheduled, and the release entry points at it.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The launch note is approved and scheduled, and the release entry points at it.",
+              "href": null
+            }
+          ]
+        },
+        "Due": {
+          "id": "qjTr",
+          "type": "date",
+          "date": {
+            "start": "2026-05-11",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Asana task": {
+          "id": "gAtX",
+          "type": "url",
+          "url": "https://app.asana.com/0/2553683917745705/9198849423425902"
+        }
+      },
+      "url": "https://app.notion.com/p/Write-the-launch-note-for-the-relaunched-developer-site-and-line-up-the-release-entry-4d2809f8e90c4734a12a0ca229e8ac00",
+      "public_url": null
+    },
+    {
+      "object": "page",
+      "id": "db0f5cdd-1bb6-4c7b-a19b-a0e79a88d904",
+      "created_time": "2026-03-23T17:29:00.000Z",
+      "last_edited_time": "2026-03-25T09:23:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "d5dbdf23-5fb1-4c50-ab5a-df95420b8362"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "2fd9e614-e6c0-4c4e-b396-3af33bf4beb4",
+        "database_id": "e79b7853-4218-4c0f-8cf3-c3634d4c82d0"
+      },
+      "archived": false,
+      "in_trash": false,
+      "properties": {
+        "Task": {
+          "id": "title",
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "text": {
+                "content": "Run the post launch review two weeks after cutover and file what the docs still miss",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "Run the post launch review two weeks after cutover and file what the docs still miss",
+              "href": null
+            }
+          ]
+        },
+        "ID": {
+          "id": "rWOR",
+          "type": "unique_id",
+          "unique_id": {
+            "number": 212,
+            "prefix": "DDR"
+          }
+        },
+        "Owner": {
+          "id": "dYUd",
+          "type": "people",
+          "people": [
+            {
+              "object": "user",
+              "id": "d2703a11-f31c-4112-87ef-2153659e6a44",
+              "name": "Oleander Fairweather",
+              "avatar_url": null,
+              "type": "person",
+              "person": {
+                "email": "oleander.fairweather.emp-0086@co002.example"
+              }
+            }
+          ]
+        },
+        "State": {
+          "id": "QsaO",
+          "type": "status",
+          "status": {
+            "id": "7b7a3ecd-92e5-4d20-a312-e42d228c13f4",
+            "name": "Not started",
+            "color": "default"
+          }
+        },
+        "Workstream": {
+          "id": "sGBV",
+          "type": "select",
+          "select": {
+            "id": "90c14152-8655-442d-b528-acbba0ec43b2",
+            "name": "Launch",
+            "color": "blue"
+          }
+        },
+        "Definition of done": {
+          "id": "xTeQ",
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "The review is written up and every gap it finds is filed as its own task.",
+                "link": null
+              },
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "plain_text": "The review is written up and every gap it finds is filed as its own task.",
+              "href": null
+            }
+          ]
+        },
+        "Due": {
+          "id": "qjTr",
+          "type": "date",
+          "date": {
+            "start": "2026-05-15",
+            "end": null,
+            "time_zone": null
+          }
+        },
+        "Asana task": {
+          "id": "gAtX",
+          "type": "url",
+          "url": "https://app.asana.com/0/2553683917745705/4461267260342027"
+        }
+      },
+      "url": "https://app.notion.com/p/Run-the-post-launch-review-two-weeks-after-cutover-and-file-what-the-docs-still-miss-db0f5cdd1bb64c7ba19ba0e79a88d904",
+      "public_url": null
+    }
+  ],
+  "next_cursor": null,
+  "has_more": false,
+  "type": "page_or_data_source",
+  "page_or_data_source": {},
+  "request_id": "beefbd27-ab5a-40fe-80f7-dadf479e1c53"
+}

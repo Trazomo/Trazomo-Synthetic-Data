@@ -1090,6 +1090,38 @@
             }
         },
         {
+            "id": "OPS-15",
+            "name": "work-management-platform-export",
+            "track": "operations",
+            "type": "dataset",
+            "format": "json: a Notion data source query response plus an Asana task list, API-response-shaped rather than a UI export, because only the API surfaces have published schemas",
+            "generation": "deterministic",
+            "path": "datasets/operations/work-management-platform-export",
+            "files": [
+                "asana-project-tasks.json",
+                "capture-log.json",
+                "notion-data-source-query.json"
+            ],
+            "row_counts": {}
+        },
+        {
+            "id": "OPS-17",
+            "name": "work-management-export-planner-smartsheet",
+            "track": "operations",
+            "type": "dataset",
+            "format": "json: a Planner Graph task list plus a Smartsheet Get Sheet response, API-response-shaped rather than a UI export, because only the API surfaces have published schemas",
+            "generation": "deterministic",
+            "path": "datasets/operations/work-management-export-planner-smartsheet",
+            "files": [
+                "capture-log.json",
+                "directory-users.json",
+                "planner-buckets.json",
+                "planner-tasks.json",
+                "smartsheet-sheet.json"
+            ],
+            "row_counts": {}
+        },
+        {
             "id": "SMB-01",
             "name": "reliability-drill-client-updates",
             "track": "smb",
