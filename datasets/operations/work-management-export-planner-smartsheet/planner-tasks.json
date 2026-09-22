@@ -2,9 +2,9 @@
   "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#planner/plans('ua-d44IHYdhYcWFFBbO-X76bi5_S')/tasks",
   "value": [
     {
-      "id": "lg6tfrmzxZ9mTaspCFo-y0_lWBJ2",
+      "id": "9OpP7aygSjdhO-4M2NwPMedricBp",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "N2jaKn9Bn3OVZcJimY-JAYof3iww",
+      "bucketId": "fVEeuSGgvrGSz89CIZ9Dzh1VqKmI",
       "title": "STC-101 Inventory every ticket queue, macro and knowledge article the three support tools carry today",
       "orderHint": "92233702065813038W",
       "assigneePriority": "87494162W",
@@ -18,7 +18,7 @@
       "completedDateTime": "2026-03-11T17:22:53.056Z",
       "completedBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       },
       "referenceCount": 0,
@@ -27,11 +27,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "50038b5a-5f35-d60b-dd10-e03ca7f7a375": {
+        "50038b5a-5f35-460b-9d10-e03ca7f7a375": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-02-17T14:48:12.898Z",
@@ -40,14 +40,14 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "SAdaewauXz_NMP2WPLdyH7MjcyZo",
+      "id": "0EicApU2U1-_JoubdJMyFiFZfJBg",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "N2jaKn9Bn3OVZcJimY-JAYof3iww",
+      "bucketId": "fVEeuSGgvrGSz89CIZ9Dzh1VqKmI",
       "title": "STC-102 Agree the single set of ticket fields the consolidated platform will hold",
       "orderHint": "92233702068962974W",
       "assigneePriority": "80740529W",
@@ -61,7 +61,7 @@
       "completedDateTime": "2026-03-18T10:42:55.380Z",
       "completedBy": {
         "user": {
-          "id": "4b03837b-6435-ddea-dc10-dea9a0f79870"
+          "id": "4b03837b-6435-4dea-8c10-dea9a0f79870"
         }
       },
       "referenceCount": 0,
@@ -70,11 +70,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "4b03837b-6435-ddea-dc10-dea9a0f79870": {
+        "4b03837b-6435-4dea-8c10-dea9a0f79870": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-02-17T11:30:12.566Z",
@@ -83,14 +83,14 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "2svLndzKvW8eWT9PoCmQswaahekq",
+      "id": "oqDvEC9aa9HsEAmDoxj82IcvqvGR",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "N2jaKn9Bn3OVZcJimY-JAYof3iww",
+      "bucketId": "fVEeuSGgvrGSz89CIZ9Dzh1VqKmI",
       "title": "STC-103 Map each legacy ticket status onto the agreed status set and write the mapping down",
       "orderHint": "92233702072184641W",
       "assigneePriority": "93358307W",
@@ -109,11 +109,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "4c03850e-6335-dc57-d910-d9f0a3f79d29": {
+        "4c03850e-6335-4c57-9910-d9f0a3f79d29": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-02-19T08:38:45.744Z",
@@ -122,14 +122,14 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "sqZ83SuiUZRGHGlcVo8LTx2koOtf",
+      "id": "y6I13aMON_NjRp79P6BLA5j3y71u",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "N2jaKn9Bn3OVZcJimY-JAYof3iww",
+      "bucketId": "fVEeuSGgvrGSz89CIZ9Dzh1VqKmI",
       "title": "STC-104 Confirm which knowledge articles move across at cutover and which are retired in place",
       "orderHint": "92233702080476782W",
       "assigneePriority": "84993372W",
@@ -148,11 +148,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "25a2363f-f9d2-729e-5a74-697132809f20": {
+        "25a2363f-f9d2-429e-8a74-697132809f20": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-02-19T17:46:52.378Z",
@@ -161,14 +161,14 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "9OpP7aygSjdhO-4M2NwPMedricBp",
+      "id": "Kys4u78zVAMW1ELI63iQeHp_Smg4",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "fVEeuSGgvrGSz89CIZ9Dzh1VqKmI",
+      "bucketId": "EY0A1SyRw6_Nwzxo-XwacxcT6hcW",
       "title": "STC-105 Build the ticket import and run it against a copy of the largest queue",
       "orderHint": "92233702084536395W",
       "assigneePriority": "86791445W",
@@ -182,7 +182,7 @@
       "completedDateTime": "2026-03-24T18:32:13.818Z",
       "completedBy": {
         "user": {
-          "id": "b7ac1671-77dc-3354-c86a-893fc476f79a"
+          "id": "b7ac1671-77dc-4354-a86a-893fc476f79a"
         }
       },
       "referenceCount": 0,
@@ -191,11 +191,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "b7ac1671-77dc-3354-c86a-893fc476f79a": {
+        "b7ac1671-77dc-4354-a86a-893fc476f79a": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-02-21T11:56:32.839Z",
@@ -204,14 +204,14 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "0EicApU2U1-_JoubdJMyFiFZfJBg",
+      "id": "GJj_UVZXX5r49YZ5NM5IMbrnwY26",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "fVEeuSGgvrGSz89CIZ9Dzh1VqKmI",
+      "bucketId": "EY0A1SyRw6_Nwzxo-XwacxcT6hcW",
       "title": "STC-106 Rebuild the escalation routing rules in the consolidated platform",
       "orderHint": "92233702089091601W",
       "assigneePriority": "94810950W",
@@ -230,11 +230,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "28a6b826-66d7-9b63-d56f-1ae4c77b7981": {
+        "28a6b826-66d7-4b63-956f-1ae4c77b7981": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-02-24T17:43:20.415Z",
@@ -243,14 +243,14 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "oqDvEC9aa9HsEAmDoxj82IcvqvGR",
+      "id": "IATeW998Bw7LiPiSEoqNidEm5HRU",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "fVEeuSGgvrGSz89CIZ9Dzh1VqKmI",
+      "bucketId": "EY0A1SyRw6_Nwzxo-XwacxcT6hcW",
       "title": "STC-107 Move the knowledge articles that survived the review into the new space",
       "orderHint": "92233702095461769W",
       "assigneePriority": "81946618W",
@@ -271,14 +271,14 @@
       "assignments": {},
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "y6I13aMON_NjRp79P6BLA5j3y71u",
+      "id": "XcxD_MJZjGpK7QkD71iHhbqvI8QE",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "fVEeuSGgvrGSz89CIZ9Dzh1VqKmI",
+      "bucketId": "EY0A1SyRw6_Nwzxo-XwacxcT6hcW",
       "title": "STC-108 Reconnect the customer portal so a submitted request lands in the consolidated queue",
       "orderHint": "92233702100626488W",
       "assigneePriority": "86140972W",
@@ -297,11 +297,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "878ddf50-17ab-68e5-1b5a-266a61aa6acf": {
+        "878ddf50-17ab-48e5-bb5a-266a61aa6acf": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-02-28T14:32:26.294Z",
@@ -310,14 +310,14 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "Kys4u78zVAMW1ELI63iQeHp_Smg4",
+      "id": "NpeNdUnbuWy9IDUlp5iNSj5gVvkM",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "VtmcVyDOxP2dC_PGjXvkcnHmacoh",
+      "bucketId": "SAdaewauXz_NMP2WPLdyH7MjcyZo",
       "title": "STC-109 Run a two week pilot with one support pod working only in the consolidated platform",
       "orderHint": "92233702105072457W",
       "assigneePriority": "98696568W",
@@ -336,11 +336,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "51038ced-5e35-d478-de10-e1cfa6f7a1e2": {
+        "51038ced-5e35-4478-ae10-e1cfa6f7a1e2": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-03-03T14:57:54.193Z",
@@ -349,14 +349,14 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "GJj_UVZXX5r49YZ5NM5IMbrnwY26",
+      "id": "RMH-CqbJRGFb0M2NImM52MFlzqYC",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "VtmcVyDOxP2dC_PGjXvkcnHmacoh",
+      "bucketId": "SAdaewauXz_NMP2WPLdyH7MjcyZo",
       "title": "STC-110 Write the agent guide for the consolidated workflow and put it where agents already look",
       "orderHint": "92233702111612760W",
       "assigneePriority": "89931937W",
@@ -375,11 +375,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "0613fc5a-212f-1c4f-0dfd-7c2475bf5fd1": {
+        "0613fc5a-212f-4c4f-9dfd-7c2475bf5fd1": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-03-06T16:47:37.110Z",
@@ -388,14 +388,14 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "IATeW998Bw7LiPiSEoqNidEm5HRU",
+      "id": "fD8CRjBQ4SfXJmYD_Bzf94b2pMrU",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "VtmcVyDOxP2dC_PGjXvkcnHmacoh",
+      "bucketId": "SAdaewauXz_NMP2WPLdyH7MjcyZo",
       "title": "STC-111 Take every support and success agent through the consolidated workflow before cutover",
       "orderHint": "92233702114471616W",
       "assigneePriority": "97664469W",
@@ -414,11 +414,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "740a1c28-a325-5b99-0007-f37673c9ea07": {
+        "740a1c28-a325-4b99-b007-f37673c9ea07": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-03-11T15:30:46.210Z",
@@ -427,14 +427,14 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "XcxD_MJZjGpK7QkD71iHhbqvI8QE",
+      "id": "fxKNMUgIcSYT7aUOVg6-n1Vw2ATd",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "EY0A1SyRw6_Nwzxo-XwacxcT6hcW",
+      "bucketId": "sqZ83SuiUZRGHGlcVo8LTx2koOtf",
       "title": "STC-112 Decommission the two retired tools and revoke the access they still hold",
       "orderHint": "92233702120034767W",
       "assigneePriority": "86625708W",
@@ -453,11 +453,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "50038b5a-5f35-d60b-dd10-e03ca7f7a375": {
+        "50038b5a-5f35-460b-9d10-e03ca7f7a375": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-03-17T14:03:07.742Z",
@@ -466,14 +466,14 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "NpeNdUnbuWy9IDUlp5iNSj5gVvkM",
+      "id": "HYyM9FDrQZDd6ngWyOajWxb7RrXr",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "EY0A1SyRw6_Nwzxo-XwacxcT6hcW",
+      "bucketId": "sqZ83SuiUZRGHGlcVo8LTx2koOtf",
       "title": "STC-113 Archive the historical ticket record from the retired tools into the agreed store",
       "orderHint": "92233702128259089W",
       "assigneePriority": "94081988W",
@@ -492,11 +492,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "4b03837b-6435-ddea-dc10-dea9a0f79870": {
+        "4b03837b-6435-4dea-8c10-dea9a0f79870": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-03-20T12:58:50.112Z",
@@ -505,14 +505,14 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     },
     {
-      "id": "RMH-CqbJRGFb0M2NImM52MFlzqYC",
+      "id": "LAI5XtR3ygCajHQtnfgVQHcpk5cX",
       "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
-      "bucketId": "EY0A1SyRw6_Nwzxo-XwacxcT6hcW",
+      "bucketId": "sqZ83SuiUZRGHGlcVo8LTx2koOtf",
       "title": "STC-114 Run the consolidation retrospective and record what the next migration should do differently",
       "orderHint": "92233702131448697W",
       "assigneePriority": "89983550W",
@@ -531,11 +531,11 @@
       "conversationThreadId": null,
       "appliedCategories": {},
       "assignments": {
-        "4c03850e-6335-dc57-d910-d9f0a3f79d29": {
+        "4c03850e-6335-4c57-9910-d9f0a3f79d29": {
           "@odata.type": "#microsoft.graph.plannerAssignment",
           "assignedBy": {
             "user": {
-              "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+              "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
             }
           },
           "assignedDateTime": "2026-03-25T08:20:59.160Z",
@@ -544,7 +544,7 @@
       },
       "createdBy": {
         "user": {
-          "id": "50038b5a-5f35-d60b-dd10-e03ca7f7a375"
+          "id": "50038b5a-5f35-460b-9d10-e03ca7f7a375"
         }
       }
     }

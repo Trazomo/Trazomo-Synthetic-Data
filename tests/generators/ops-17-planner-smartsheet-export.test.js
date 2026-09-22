@@ -57,6 +57,17 @@ const DIRECTORY_USER_KEYS = [
   "userPrincipalName", "id",
 ];
 const BUCKET_KEYS = ["@odata.etag", "name", "planId", "orderHint", "id"];
+const SHEET_KEYS = [
+  "id", "name", "version", "totalRowCount", "accessLevel",
+  "effectiveAttachmentOptions", "ganttEnabled", "dependenciesEnabled",
+  "resourceManagementEnabled", "cellImageUploadEnabled", "hasSummaryFields",
+  "isMultiPicklistEnabled", "resourceManagementType", "userSettings",
+  "userPermissions", "permalink", "createdAt", "modifiedAt", "columns", "rows",
+];
+const ROW_KEYS = [
+  "id", "rowNumber", "expanded", "accessLevel", "locked", "lockedForUser",
+  "version", "createdAt", "modifiedAt", "cells",
+];
 const PERCENT_CENSUS = { 0: 5, 50: 6, 100: 3 };
 const PLANNER_WRITTEN_PRIORITIES = [1, 3, 5, 9];
 const OFF_NOMINAL_PRIORITIES = 2;
@@ -164,7 +175,7 @@ test("OPS-17: five files, each the body of one documented call, named by the cap
 });
 
 test("OPS-17: the envelopes are the documented collection responses", () => {
-  const { tasks, buckets, directory } = fixture();
+  const { tasks, buckets, directory, sheet } = fixture();
   for (const envelope of [tasks, buckets, directory]) {
     assert.deepEqual(Object.keys(envelope), ["@odata.context", "value"]);
     assert.ok(Array.isArray(envelope.value));
@@ -175,6 +186,17 @@ test("OPS-17: the envelopes are the documented collection responses", () => {
   assert.match(tasks["@odata.context"], /planner\/plans\('[^']+'\)\/tasks$/);
   assert.match(buckets["@odata.context"], /planner\/plans\('[^']+'\)\/buckets$/);
   assert.match(directory["@odata.context"], /#users$/);
+
+  assert.deepEqual(Object.keys(sheet), SHEET_KEYS,
+    "the sheet does not carry the ungated Sheet schema key set and order");
+  for (const row of sheet.rows) {
+    assert.deepEqual(Object.keys(row), ROW_KEYS,
+      "a row does not carry the ungated Row schema key set and order");
+    assert.equal(row.accessLevel, "EDITOR");
+    assert.equal(row.locked, false);
+    assert.equal(row.lockedForUser, false);
+    assert.equal(row.version, sheet.version, "a row's version is not the sheet's version");
+  }
 });
 
 test("OPS-17 T-S6: no plannerTask property and no sheet column carries a definition of done", () => {

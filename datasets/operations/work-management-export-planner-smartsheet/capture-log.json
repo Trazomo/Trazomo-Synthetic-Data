@@ -19,13 +19,16 @@
     {
       "tool": "microsoft-graph",
       "method": "GET",
-      "url": "https://graph.microsoft.com/v1.0/groups/4b445861-c144-ddf6-8860-df3353e22500/members/microsoft.graph.user",
+      "url": "https://graph.microsoft.com/v1.0/groups/4b445861-c144-4df6-8860-df3353e22500/members/microsoft.graph.user",
       "response_file": "directory-users.json"
     },
     {
       "tool": "smartsheet",
       "method": "GET",
-      "url": "https://api.smartsheet.com/2.0/sheets/4217347549274564",
+      "url": "https://api.smartsheet.com/2.0/sheets/2914473194628954?exclude=nonexistentCells",
+      "query": {
+        "exclude": "nonexistentCells"
+      },
       "response_file": "smartsheet-sheet.json"
     }
   ]

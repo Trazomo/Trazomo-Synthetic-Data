@@ -588,6 +588,9 @@ export function buildExport(rng) {
   });
   const columnByTitle = new Map(columns.map((c) => [c.title, c]));
 
+  // Drawn once, before the rows, so every row's version matches the sheet's.
+  const sheetVersion = sheetIdStream.int(30, 90);
+
   const rows = TASKS.map((task, index) => {
     const plannerTask = tasks[index];
     const code = headToken(plannerTask.title);
@@ -622,6 +625,10 @@ export function buildExport(rng) {
       id: numericId(sheetIdStream),
       rowNumber: index + 1,
       expanded: true,
+      accessLevel: "EDITOR",
+      locked: false,
+      lockedForUser: false,
+      version: sheetVersion,
       createdAt,
       modifiedAt,
       cells,
@@ -631,7 +638,7 @@ export function buildExport(rng) {
   const sheet = {
     id: numericId(sheetIdStream),
     name: SHEET_NAME,
-    version: sheetIdStream.int(30, 90),
+    version: sheetVersion,
     totalRowCount: rows.length,
     accessLevel: "EDITOR",
     effectiveAttachmentOptions: ["FILE", "GOOGLE_DRIVE", "LINK", "BOX_COM", "DROPBOX", "ONEDRIVE"],
@@ -639,6 +646,9 @@ export function buildExport(rng) {
     dependenciesEnabled: false,
     resourceManagementEnabled: false,
     cellImageUploadEnabled: true,
+    hasSummaryFields: false,
+    isMultiPicklistEnabled: false,
+    resourceManagementType: "NONE",
     userSettings: { criticalPathEnabled: false, displaySummaryTasks: true },
     userPermissions: { summaryPermissions: "ADMIN" },
     permalink: `https://app.smartsheet.com/sheets/${opaqueId(sheetIdStream)}`,

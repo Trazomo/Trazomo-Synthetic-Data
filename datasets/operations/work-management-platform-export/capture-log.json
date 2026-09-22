@@ -7,7 +7,7 @@
     {
       "tool": "notion",
       "method": "POST",
-      "url": "https://api.notion.com/v1/data_sources/2fd9e614-e6c0-0c4e-b396-3af33bf4beb4/query",
+      "url": "https://api.notion.com/v1/data_sources/2fd9e614-e6c0-4c4e-b396-3af33bf4beb4/query",
       "headers": {
         "Notion-Version": "2025-09-03"
       },
@@ -18,7 +18,8 @@
       "method": "GET",
       "url": "https://app.asana.com/api/1.0/projects/2553683917745705/tasks",
       "query": {
-        "opt_fields": "name,resource_subtype,assignee,completed,completed_at,due_on,notes,created_at,modified_at,permalink_url,memberships.project.name,memberships.section.name,custom_fields"
+        "opt_fields": "name,resource_subtype,assignee,completed,completed_at,due_on,notes,created_at,modified_at,permalink_url,memberships.project.name,memberships.section.name,custom_fields",
+        "limit": "100"
       },
       "response_file": "asana-project-tasks.json"
     }
