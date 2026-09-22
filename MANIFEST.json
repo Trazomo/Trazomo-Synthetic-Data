@@ -1251,6 +1251,51 @@
             "row_counts": {
                 "milestone-schedule.csv": 6
             }
+        },
+        {
+            "id": "SMB-17",
+            "name": "invoices-issued",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/invoices-issued",
+            "files": [
+                "invoices-issued.csv"
+            ],
+            "row_counts": {
+                "invoices-issued.csv": 19
+            }
+        },
+        {
+            "id": "SMB-18",
+            "name": "payment-status-mock",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/payment-status-mock",
+            "files": [
+                "payment-status-mock.csv"
+            ],
+            "row_counts": {
+                "payment-status-mock.csv": 25
+            }
+        },
+        {
+            "id": "SMB-19",
+            "name": "aging-summary",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/aging-summary",
+            "files": [
+                "aging-summary.csv"
+            ],
+            "row_counts": {
+                "aging-summary.csv": 4
+            }
         }
     ],
     "specs": "specs/artifact-specs.yaml",
