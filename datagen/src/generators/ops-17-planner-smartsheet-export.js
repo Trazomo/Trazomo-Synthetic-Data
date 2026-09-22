@@ -126,6 +126,9 @@ const DIRECTORY_USER_KEYS = [
   "userPrincipalName", "id",
 ];
 
+/** The list-buckets example's key order, weak etag first. */
+const BUCKET_KEYS = ["@odata.etag", "name", "planId", "orderHint", "id"];
+
 /** The alphabet Planner's opaque ids are drawn from. */
 const OPAQUE_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 const OPAQUE_LENGTH = 28;
@@ -477,11 +480,15 @@ export function buildExport(rng) {
   const managerRef = { user: { id: guidFor(programManager.employee_id) } };
 
   // ------------------------------------------------------------ buckets
+  // The list-buckets example carries a weak etag on every bucket; the
+  // list-tasks example carries none, so planner-tasks.json stays as is
+  // (section 9, U11 for the asymmetry).
   const buckets = BUCKETS.map((name) => ({
-    id: opaqueId(idStream),
+    "@odata.etag": `W/"Jz${opaqueId(idStream)}Jyc="`,
     name,
     planId,
     orderHint: orderHint(hintStream.int(8585000000, 8585999999)),
+    id: opaqueId(idStream),
   }));
   const bucketByName = new Map(buckets.map((b) => [b.name, b]));
 
@@ -751,6 +758,12 @@ function assertExport({ payload, roster, departed }) {
     const keys = Object.keys(user);
     if (keys.join(",") !== DIRECTORY_USER_KEYS.join(",")) {
       throw new Error(`${id}: a directory entry carries the property set ${keys.join(",")}, not the published default set`);
+    }
+  }
+  for (const bucket of buckets) {
+    const keys = Object.keys(bucket);
+    if (keys.join(",") !== BUCKET_KEYS.join(",")) {
+      throw new Error(`${id}: a bucket carries the property set ${keys.join(",")}, not the list-buckets example's set and order`);
     }
   }
   if (/"details"/.test(JSON.stringify(plannerTasks))) {

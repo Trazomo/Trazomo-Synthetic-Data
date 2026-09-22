@@ -56,6 +56,7 @@ const DIRECTORY_USER_KEYS = [
   "mobilePhone", "officeLocation", "preferredLanguage", "surname",
   "userPrincipalName", "id",
 ];
+const BUCKET_KEYS = ["@odata.etag", "name", "planId", "orderHint", "id"];
 const PERCENT_CENSUS = { 0: 5, 50: 6, 100: 3 };
 const PLANNER_WRITTEN_PRIORITIES = [1, 3, 5, 9];
 const OFF_NOMINAL_PRIORITIES = 2;
@@ -216,7 +217,10 @@ test("OPS-17: the directory is the default user property set, and every task sit
   }
   assert.deepEqual(buckets.value.map((b) => b.name).sort(), BUCKETS.slice().sort());
   for (const bucket of buckets.value) {
-    assert.deepEqual(Object.keys(bucket), ["id", "name", "planId", "orderHint"]);
+    assert.deepEqual(Object.keys(bucket), BUCKET_KEYS,
+      "a bucket does not carry the list-buckets example's key set and order");
+    assert.match(bucket["@odata.etag"], /^W\/"Jz[A-Za-z0-9\-_]{28}Jyc="$/,
+      "a bucket's @odata.etag is not the documented weak-etag form");
   }
   const planIds = new Set([...tasks.value.map((t) => t.planId), ...buckets.value.map((b) => b.planId)]);
   assert.equal(planIds.size, 1, "the fixture describes more than one plan");
