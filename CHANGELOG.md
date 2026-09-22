@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.25.0
+## 1.27.0
 
 Renumber at tag time: the integrator allocates the tag in merge order, `v1.24.0`
 is the current tip, and other cluster data branches may be live and take
@@ -78,6 +78,122 @@ builder predicate.
 Gates at the wave-two head: `npm test` 1246 pass, `validate --all` 142 checked,
 3 failed (SMB-24, SMB-25 and SMB-31, all missing drafted directories of later
 clusters), 32 allowlisted; `MANIFEST.json` 84 datasets and 38 artifacts.
+
+## 1.26.0
+
+Renumber at tag time: the integrator allocates the tag in merge order, `v1.24.0`
+is the current tip, and other paths' data branches are live and may take
+`v1.25.0` first.
+
+People and HR cluster 6, people data and pay equity. Two artifacts, one PR, both
+deterministic, nothing drafted and no freeze review. The plan is
+`docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-6.md` on the
+trazomo repo; its section 9 defaults U-C6-1 to U-C6-10 ride to Salvador's merge
+word, U-C6-1 and U-C6-2 first, because the first moves every amount in HR-12 and
+the second changes what a band is. No byte changes under `datasets/` outside the
+two new directories, none under `canon/`, and none in the frozen CORE-04, FIN-33,
+FIN-34, HR-07, HR-08, HR-17 or HR-18 material this cluster reads.
+
+This is the first cluster that puts money and a work location into the HR pack.
+Neither absence stated by an earlier HR artifact is amended: each remains true of
+the artifact that states it, and `datagen/README.md` records where the money now
+is.
+
+- **HR-12 compensation-band-dataset** (deterministic): three CSV files.
+  `compensation-grammar.csv` is the one-row predicate a reviewer reads first,
+  carrying the parameters, the three multiplier tables, the vocabularies, the
+  counts, the synthetic category statement and the not-a-pay-recommendation
+  argument in the artifact's own words. `compensation-bands.csv` is one row per
+  active role title and level pair, 63 of them recomputed from the roster, and
+  is the band library a later knowledge-base module reads.
+  `employee-compensation.csv` is one row per active employee, 582 of them, each
+  carrying an employee id, a band id and HR-side fields only: no name, email,
+  department, role title, level, manager or start date is restated. The bands
+  are derived downward from the general ledger rather than upward from a salary
+  table: the band unit is solved at generation so the emitted annual base pay
+  total lands at a published coverage ratio of twelve times the March movement
+  on accounts 6000 and 5020, read from the committed FIN-33 bytes at build time,
+  so the HR pack and the finance pack describe one company. The
+  `synthetic_equity_cohort` column is a synthetic-only header over a synthetic-
+  only two-value vocabulary, assigned by a seeded shuffle inside each band group
+  and derived from no attribute in the pack; the artifact says so itself. Exactly
+  one employee's pay sits above the maximum of their band and every other
+  employee sits inside their band inclusive; exactly one evaluable group, both
+  cohorts at or above the published minimum group size, carries an unadjusted
+  gap over the published threshold while both published controls, median tenure
+  and work-location mix, hold on every evaluable group; every other evaluable
+  group is inside the threshold by construction. Every band carries a last pay
+  review date, so the gap trigger is a two-limb computation over
+  the file rather than a lookup, and the two parameters are published with their
+  source named while no statute, citation or directive text appears anywhere.
+  No row carries a proposed, target or adjusted amount, a rank or a flag.
+
+- **HR-13 engagement-attrition-dataset** (deterministic): four CSV files.
+  `attrition-grammar.csv` is the one-row predicate carrying the rolling twelve
+  month window, the published denominator rule, the vocabularies, the minimum
+  group size, the multiple and the counts. `exit-records.csv` is one row per
+  departed roster row, 18 of them, carrying an exit date and an exit type from
+  the offboarding set's own published vocabulary and nothing else: no reason,
+  no rehire flag, no notice date. Exit dates are assigned against the floors and
+  ceilings shipped bytes already impose, so seven fall inside the window and
+  eleven before it by arithmetic rather than by choice. `headcount-movement.csv`
+  is one row per department per month end across thirteen month ends, every
+  cell recomputed from the roster and the exit records alone.
+  `engagement-quarterly.csv` is one row per department per quarter, with the
+  invited count read off the movement file, three published items on a one to
+  five scale, an index that is their mean, and a reporting status that
+  suppresses the scores where the responded count falls below the published
+  minimum. No row anywhere carries an individual-level risk score or any
+  per-person prediction field: the only employee-keyed rows are exits that have
+  already happened, no active employee appears anywhere, and the finest grain
+  is a department month. Exactly one department's rolling twelve-month voluntary
+  exit rate exceeds the company rate by more than the published multiple, and it
+  is resolved by rule rather than drawn; the engagement file does not point at
+  it.
+
+## 1.25.0
+
+Renumber at tag time: the integrator allocates the tag in merge order, `v1.24.0`
+is the current tip, and the revenue cluster 5 and small-business cluster 2 data
+branches are live and either may take `v1.25.0` first.
+
+Operations cluster T, the tool flavors. Two deterministic artifacts, one PR,
+both API-response-shaped rather than UI exports, because only the API surfaces
+have published schemas. The plan is
+`docs/plans/2026-08-29-path-programs/operations/data-plans/cluster-T.md` on the
+trazomo repo; its section 9 defaults U1 to U10 ride to Salvador's freeze review.
+Each fixture is a new co-002 delivery program, so no byte here can contradict a
+frozen row, and each directory carries a `capture-log.json` naming the API call
+behind every payload file.
+
+- **OPS-17 work-management-export-planner-smartsheet** (deterministic): the
+  support tooling consolidation, 14 tasks `STC-101` to `STC-114`, captured
+  2026-03-26 as the Planner list-tasks response (every `plannerTask` property,
+  no `details` object), the Planner buckets response, the directory users
+  response for the plan's members, and a Smartsheet Get Sheet response of 8
+  columns and 14 rows. The planted gap is structural: nowhere on either side to
+  put a definition of done. State is `percentComplete` alone (0, 50, 100);
+  priority is an integer with two off-nominal values the banding absorbs;
+  assignments are GUID-keyed with one task unassigned (its sheet row omits the
+  Owner cell, the capture having been taken with `exclude=nonexistentCells`)
+  and one GUID that resolves to no directory entry; sheet cells are
+  keyed by numeric `columnId`, with `value` and `displayValue` differing on
+  every cell of exactly two columns, agreeing on four more, and the two DATE
+  columns carrying no `displayValue` at all.
+- **OPS-15 work-management-platform-export** (deterministic; consumer moved to
+  `operations-work-management-startup` per R3): the developer documentation
+  relaunch, 12 tasks `DDR-201` to `DDR-212`, captured 2026-03-26 as a Notion
+  data-source query response (properties keyed by display name, rich text as
+  runs, single objects beside arrays) and an Asana project task list fetched
+  with an `opt_fields` string that names `assignee` and not `assignee.name`.
+  Exactly one definition of done present but empty in both tools, exactly one
+  assignee gid unresolvable from the payloads alone, and the Notion `Blocked`
+  state with no counterpart in Asana's three sections.
+
+Spec: the OPS-15 A15 line and the OPS-17 R3 lines are rewritten to exact
+cardinalities with `period` on both. Canon: two timeline rows, no company or
+people edit. Every human is a CORE-04 row; the one departed row OPS-17 names is
+chosen by rule and appears by email in a sheet cell only.
 
 ## 1.24.0
 

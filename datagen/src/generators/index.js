@@ -55,6 +55,8 @@ import * as hr06 from "./hr-06-onboarding-checklist-templates.js";
 import * as hr07 from "./hr-07-offboarding-access-inventory.js";
 import * as hr08 from "./hr-08-review-cycle-roster.js";
 import * as hr11 from "./hr-11-growth-records.js";
+import * as hr12 from "./hr-12-compensation-bands.js";
+import * as hr13 from "./hr-13-engagement-attrition.js";
 import * as hr17 from "./hr-17-mixed-sensitivity.js";
 import * as hr18 from "./hr-18-hris-export.js";
 import * as lgl07 from "./lgl-07-intake.js";
@@ -72,6 +74,8 @@ import * as ops09 from "./ops-09-portfolio-rollup.js";
 import * as ops11 from "./ops-11-stakeholder-register.js";
 import * as ops12 from "./ops-12-okr-rollup.js";
 import * as ops13 from "./ops-13-handoff-log.js";
+import * as ops15 from "./ops-15-notion-asana-export.js";
+import * as ops17 from "./ops-17-planner-smartsheet-export.js";
 import * as rev01 from "./rev-01-consent-suppression.js";
 import * as rev03 from "./rev-03-signal-events.js";
 import * as rev07 from "./rev-07-object-model.js";
@@ -112,9 +116,10 @@ export const PROGRAM_GENERATOR_IDS = [
   fin24.id, fin25.id, fin26.id, fin27.id, fin29.id,
   fin31.id, fin32.id, fin33.id, fin34.id, fin35.id,
   fin36.id, fin37.id, fin38.id, fin39.id,
-  hr05.id, hr06.id, hr07.id, hr08.id, hr11.id, hr17.id, hr18.id,
+  hr05.id, hr06.id, hr07.id, hr08.id, hr11.id, hr12.id, hr13.id, hr17.id, hr18.id,
   lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
   ops04.id, ops05.id, ops06.id, ops07.id, ops08.id, ops09.id, ops11.id, ops12.id, ops13.id,
+  ops15.id, ops17.id,
   rev01.id, rev03.id, rev07.id, rev08.id, rev09.id, rev10.id, rev11.id,
   smb01.id, smb02.id, smb03.id, smb04.id, smb05.id,
   smb08.id, smb10.id, smb11.id,
@@ -131,9 +136,9 @@ const REGISTRY = new Map(
     fin24, fin25, fin26, fin27, fin29,
     fin31, fin32, fin33, fin34, fin35,
     fin36, fin37, fin38, fin39,
-    hr05, hr06, hr07, hr08, hr11, hr17, hr18,
+    hr05, hr06, hr07, hr08, hr11, hr12, hr13, hr17, hr18,
     lgl07, lgl11, lgl18, lgl20, lgl21, lgl22,
-    ops04, ops05, ops06, ops07, ops08, ops09, ops11, ops12, ops13,
+    ops04, ops05, ops06, ops07, ops08, ops09, ops11, ops12, ops13, ops15, ops17,
     rev01, rev03, rev07, rev08, rev09, rev10, rev11,
     smb01, smb02, smb03, smb04, smb05,
     smb08, smb10, smb11,

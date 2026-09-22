@@ -1,0 +1,33 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#planner/plans('ua-d44IHYdhYcWFFBbO-X76bi5_S')/buckets",
+  "value": [
+    {
+      "@odata.etag": "W/\"JzN2jaKn9Bn3OVZcJimY-JAYof3iwwJyc=\"",
+      "name": "Discovery",
+      "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
+      "orderHint": "8585059210W",
+      "id": "fVEeuSGgvrGSz89CIZ9Dzh1VqKmI"
+    },
+    {
+      "@odata.etag": "W/\"JzVtmcVyDOxP2dC_PGjXvkcnHmacohJyc=\"",
+      "name": "Migration",
+      "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
+      "orderHint": "8585208557W",
+      "id": "EY0A1SyRw6_Nwzxo-XwacxcT6hcW"
+    },
+    {
+      "@odata.etag": "W/\"Jzlg6tfrmzxZ9mTaspCFo-y0_lWBJ2Jyc=\"",
+      "name": "Enablement",
+      "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
+      "orderHint": "8585205469W",
+      "id": "SAdaewauXz_NMP2WPLdyH7MjcyZo"
+    },
+    {
+      "@odata.etag": "W/\"Jz2svLndzKvW8eWT9PoCmQswaahekqJyc=\"",
+      "name": "Close-out",
+      "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
+      "orderHint": "8585274571W",
+      "id": "sqZ83SuiUZRGHGlcVo8LTx2koOtf"
+    }
+  ]
+}

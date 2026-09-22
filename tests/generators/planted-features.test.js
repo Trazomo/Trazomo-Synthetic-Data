@@ -756,6 +756,36 @@ test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: the delivery wave carries no prope
   }
 });
 
+test("HR-12: 63 bands, 582 pay rows, 1 above band and 0 below (hr-12-compensation-bands.test.js)", () => {
+  const files = emitted("HR-12");
+  const grammar = csvRows(fileByPath(files, "compensation-grammar.csv").content);
+  assert.equal(grammar.length, 1);
+  assert.equal(grammar[0].band_count, "63");
+  assert.equal(grammar[0].employee_count, "582");
+  assert.equal(grammar[0].evaluable_group_count, "24");
+  const bands = csvRows(fileByPath(files, "compensation-bands.csv").content);
+  assert.equal(bands.length, 63);
+  const bandById = new Map(bands.map((b) => [b.band_id, b]));
+  const employees = csvRows(fileByPath(files, "employee-compensation.csv").content);
+  assert.equal(employees.length, 582);
+  const above = employees.filter((e) => Number(e.base_pay_amount) > Number(bandById.get(e.band_id).band_max));
+  const below = employees.filter((e) => Number(e.base_pay_amount) < Number(bandById.get(e.band_id).band_min));
+  assert.equal(above.length, 1);
+  assert.equal(below.length, 0);
+});
+
+test("HR-13: 18 exit rows, 143 department months, 44 survey rows and 4 suppressed (hr-13-engagement-attrition.test.js)", () => {
+  const files = emitted("HR-13");
+  assert.equal(csvRows(fileByPath(files, "exit-records.csv").content).length, 18);
+  assert.equal(csvRows(fileByPath(files, "headcount-movement.csv").content).length, 143);
+  const survey = csvRows(fileByPath(files, "engagement-quarterly.csv").content);
+  assert.equal(survey.length, 44);
+  assert.equal(survey.filter((r) => r.reporting_status === "suppressed").length, 4);
+  const grammar = csvRows(fileByPath(files, "attrition-grammar.csv").content);
+  assert.equal(grammar.length, 1);
+  assert.equal(grammar[0].in_window_exit_count, "7");
+});
+
 test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: no file carries an em dash or an en dash", () => {
   for (const file of c2bFiles()) {
     // Written as escapes so this screen is not itself a hit for a grep over
@@ -922,4 +952,33 @@ test("SMB-17 to SMB-22: no file carries an em dash or an en dash", () => {
     assert.ok(!file.text.includes("\u2014"), `${file.id} carries an em dash (U+2014)`);
     assert.ok(!file.text.includes("\u2013"), `${file.id} carries an en dash (U+2013)`);
   }
+});
+
+test("OPS-17: five files, 14 Planner tasks, and exactly one sheet row short of a cell (ops-17-planner-smartsheet-export.test.js)", () => {
+  const files = emitted("OPS-17");
+  assert.deepEqual(
+    files.map((f) => f.path).sort(),
+    ["capture-log.json", "directory-users.json", "planner-buckets.json", "planner-tasks.json", "smartsheet-sheet.json"]
+  );
+  const tasks = JSON.parse(fileByPath(files, "planner-tasks.json").content);
+  assert.equal(tasks.value.length, 14);
+  const sheet = JSON.parse(fileByPath(files, "smartsheet-sheet.json").content);
+  assert.equal(sheet.columns.length, 8);
+  assert.equal(sheet.rows.length, 14);
+  const short = sheet.rows.filter((r) => r.cells.length === 7);
+  assert.equal(short.length, 1, "the count of rows carrying seven cells against eight columns moved");
+});
+
+test("OPS-15: three files, 12 tasks, and exactly one definition of done present and empty (ops-15-notion-asana-export.test.js)", () => {
+  const files = emitted("OPS-15");
+  assert.deepEqual(
+    files.map((f) => f.path).sort(),
+    ["asana-project-tasks.json", "capture-log.json", "notion-data-source-query.json"]
+  );
+  const query = JSON.parse(fileByPath(files, "notion-data-source-query.json").content);
+  assert.equal(query.results.length, 12);
+  const asana = JSON.parse(fileByPath(files, "asana-project-tasks.json").content);
+  assert.equal(asana.data.length, 12);
+  const empty = query.results.filter((p) => p.properties["Definition of done"].rich_text.length === 0);
+  assert.equal(empty.length, 1, "the count of definitions of done present and empty moved");
 });

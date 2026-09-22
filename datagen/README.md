@@ -278,6 +278,10 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | HR-07 | offboarding-checklist-access-inventory | dataset | 1-row exit record, a 34-row access grant inventory spanning the whole tenure, and a 35-row offboarding checklist (one open grant issued in a vendor console with no access change request behind it, so it carries no checklist row and no removal) |
 | HR-08 | review-cycle-roster | dataset | 1-row cycle grammar and 55 reviewer-to-reviewee assignments recomputed from CORE-04 across two departments, with no review content column of any kind (one reviewer holding feedback that is outstanding and past its due date) |
 | HR-11 | goals-self-assessment-records | dataset | published growth grammar, 165 goal records and 55 self-assessments carrying 165 entries, over the same 55 people the review cycle covers, with the competency vocabulary resolved into the frozen HR-01 library at build time (one employee placing themselves two published levels below what one of their own goals aims at) |
+| HR-12 | compensation-band-dataset | dataset | 1-row compensation grammar, a 63-row band library over the distinct active role title and level pairs with every figure derived downward from the March salary accounts of the committed general ledger, and 582 pay rows carrying a work location and a synthetic equity cohort and no roster column at all (one employee paid above their own band maximum, and one evaluable group whose two cohort mean pays sit beyond the published threshold) |
+| HR-13 | engagement-attrition-dataset | dataset | 1-row attrition grammar, 18 exit records over the departed roster rows with dates assigned against the in-post floors the shipped pack already imposes, a 143-row department-month headcount series across 13 month ends and 44 quarterly engagement aggregates, with no individual-level score, prediction or reason field anywhere (one department whose rolling twelve-month voluntary exit rate the published clauses resolve to) |
+| OPS-15 | work-management-platform-export | dataset | 3-file API-response bundle for one delivery program (a Notion data source query of 12 pages keyed by display name, the Asana task list of the same 12 fetched with the recorded opt_fields string, and the capture log), owners drawn from CORE-04 at build time (one definition of done present and empty in both tools, one assignee gid that resolves through no payload, one Notion state with no Asana counterpart) |
+| OPS-17 | work-management-export-planner-smartsheet | dataset | 5-file API-response bundle for one delivery program (the Planner list-tasks and buckets responses, the directory users response, the Smartsheet Get Sheet response of 8 columns and 14 rows, and the capture log), people drawn from CORE-04 at build time (no definition of done anywhere by construction, one task with no assignment whose row omits the Owner cell, one assignment GUID the directory cannot resolve) |
 
 **Not implemented yet**: every other `generation: deterministic` spec (the
 remaining FIN, REV, OPS, SMB, and the remaining HR, plus the remaining LGL
@@ -386,6 +390,28 @@ except the name, the id and the work email is read off the frozen
 HR-07 is co-002's employee offboarding. It carries no non-employee worker type
 and claims no contractor coverage, and every access removal runs off a named
 request ticket rather than off the last working day.
+
+HR-12 is the first HR artifact to carry money and a work location, and neither
+absence stated elsewhere is amended: HR-05's calendars stay UTC with no region,
+and HR-06, HR-08, HR-16 and HR-17 each keep the absence their own spec states.
+What changed is the pack, not those artifacts. HR-12's bands are derived
+downward from the general ledger rather than upward from a salary table:
+`band_unit_amount` is solved at generation so the emitted annual base pay total
+lands at a published coverage ratio of twelve times the March movement on
+accounts 6000 and 5020, read from the committed FIN-33 bytes at build time. The
+work location vocabulary carries no place name, so it cannot collide with
+HR-17's restricted `home_city` list and it states nothing canon does not say
+about where co-002 sits.
+
+HR-12's `synthetic_equity_cohort` is a synthetic-only header over a
+synthetic-only vocabulary, assigned by a seeded shuffle inside each band group
+and derived from no attribute in the pack. It stands in for whatever protected
+characteristic a real pay report would analyse, the artifact says so itself, and
+no row joins a named individual to a protected characteristic because no HR-12
+row carries a name. HR-13 carries no individual-level risk score and no
+per-person prediction field: its only employee-keyed rows are exit records for
+people who have already left, and every other row is keyed on a department and
+a period.
 
 HR-11 is the growth record for the same 55 people the review cycle roster
 covers, and it takes that population, the cycle and the roster from
@@ -616,7 +642,8 @@ Runs `node --test` over `tests/`:
   `fin-15-credit-notes`, `fin-16-collections-log`, `fin-17-close-checklist`,
   `fin-18-control-matrix`, `fin-19-user-access`, `fin-20-regulatory-feed`,
   `fin-22-chart-of-accounts`, `fin-35-inbound-requests`,
-  `fin-38-reliability-drill`, `fin-track-b-templates` (FIN-36/37/39).
+  `fin-38-reliability-drill`, `fin-track-b-templates` (FIN-36/37/39),
+  `ops-15-notion-asana-export`, `ops-17-planner-smartsheet-export`.
 - `tests/artifacts/` -- checks over drafted-frozen artifacts that recompute a
   stated figure from the document's own inputs.
 - `tests/drafted/` -- structural screens over drafted-frozen documents: what
