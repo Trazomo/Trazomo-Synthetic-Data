@@ -142,8 +142,8 @@ const NOT_A_FIGURE_COUNT = 6;
  * set has to be derivable from this column rather than judged, and a free-text
  * cell would make it judged again.
  */
-const WINDOW_WEEK = "bounded by the report week";
-const WINDOW_AS_OF = "as of the report date";
+const WINDOW_WEEK = "week bounded";
+const WINDOW_AS_OF = "as-of date";
 const WINDOW_NONE = "not a figure";
 const WINDOW_RULES = [WINDOW_WEEK, WINDOW_AS_OF, WINDOW_NONE];
 
