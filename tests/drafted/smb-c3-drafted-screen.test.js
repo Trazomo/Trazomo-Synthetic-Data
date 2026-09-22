@@ -827,8 +827,8 @@ test("SMB-C3: the template sits inside its word band, carries no em dash and no 
 
   // Written as escapes so this screen is not itself a hit for a grep over the
   // repo for the two characters it bans.
-  assert.ok(!text.includes("—"), "the template carries an em dash (U+2014)");
-  assert.ok(!text.includes("–"), "the template carries an en dash (U+2013)");
+  assert.ok(!text.includes("\u2014"), "the template carries an em dash (U+2014)");
+  assert.ok(!text.includes("\u2013"), "the template carries an en dash (U+2013)");
 
   const nonAscii = [...new Set(text.match(/[^\x00-\x7F]/g) ?? [])];
   assert.deepEqual(nonAscii, [], `the template carries the non-ASCII character(s) ${nonAscii.join(" ")}`);
