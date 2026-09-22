@@ -756,6 +756,18 @@ test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: the delivery wave carries no prope
   }
 });
 
+test("HR-13: 18 exit rows, 143 department months, 44 survey rows and 4 suppressed (hr-13-engagement-attrition.test.js)", () => {
+  const files = emitted("HR-13");
+  assert.equal(csvRows(fileByPath(files, "exit-records.csv").content).length, 18);
+  assert.equal(csvRows(fileByPath(files, "headcount-movement.csv").content).length, 143);
+  const survey = csvRows(fileByPath(files, "engagement-quarterly.csv").content);
+  assert.equal(survey.length, 44);
+  assert.equal(survey.filter((r) => r.reporting_status === "suppressed").length, 4);
+  const grammar = csvRows(fileByPath(files, "attrition-grammar.csv").content);
+  assert.equal(grammar.length, 1);
+  assert.equal(grammar[0].in_window_exit_count, "7");
+});
+
 test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: no file carries an em dash or an en dash", () => {
   for (const file of c2bFiles()) {
     // Written as escapes so this screen is not itself a hit for a grep over
