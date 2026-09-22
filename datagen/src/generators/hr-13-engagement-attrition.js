@@ -845,10 +845,16 @@ function buildEngagement({ departments, ends, headcount, carrier }) {
 /**
  * The carrier's index sits at neither end of the reported range in any quarter,
  * so the department holding the lowest index in a quarter is never the one the
- * exit-rate clauses resolve to.
+ * exit-rate clauses resolve to. That per-quarter level check alone leaves the
+ * trend open: a reader who sorts the engagement file on quarter-over-quarter
+ * change rather than on level can still land on the carrier. The trend limb
+ * below closes that gap: over the departments reported in both the first and
+ * the last quarter, the carrier's first-to-last change must rank in neither
+ * the bottom third nor the top third, and the carrier must not fall in both
+ * of the last two quarters.
  */
 function engagementRefusesToCorroborate(rows, carrier) {
-  return QUARTERS.every((quarter) => {
+  const perQuarterHolds = QUARTERS.every((quarter) => {
     const reported = rows.filter((row) => row.quarter === quarter && row.index !== null);
     if (reported.length < 3) return false;
     const carrierRow = reported.find((row) => row.department === carrier);
@@ -856,6 +862,24 @@ function engagementRefusesToCorroborate(rows, carrier) {
     const values = reported.map((row) => row.index);
     return carrierRow.index > Math.min(...values) && carrierRow.index < Math.max(...values);
   });
+  if (!perQuarterHolds) return false;
+
+  const atQuarter = (quarter) => new Map(
+    rows.filter((row) => row.quarter === quarter && row.index !== null).map((row) => [row.department, row.index])
+  );
+  const [q1, q2, q3, q4] = QUARTERS.map(atQuarter);
+
+  const trendDepartments = [...q1.keys()].filter((department) => q4.has(department));
+  const change = (department) => q4.get(department) - q1.get(department);
+  const ranked = trendDepartments.map(change).sort((a, b) => a - b);
+  const position = ranked.indexOf(change(carrier));
+  const trendCount = ranked.length;
+  const trendHolds = position >= Math.ceil(trendCount / 3) && position < Math.floor((2 * trendCount) / 3);
+  if (!trendHolds) return false;
+
+  const fallsFrom = (later, earlier) => later.has(carrier) && earlier.has(carrier) && later.get(carrier) < earlier.get(carrier);
+  const fallsInBothLastQuarters = fallsFrom(q4, q3) && fallsFrom(q3, q2);
+  return !fallsInBothLastQuarters;
 }
 
 // -------------------------------------------------------------- the emitted sweep

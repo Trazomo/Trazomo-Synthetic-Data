@@ -548,6 +548,34 @@ test("HR-C6-T19: the engagement file refuses to corroborate the attrition findin
       `the resolved department's index sits at an end of the reported range in ${quarter.quarter_label}`
     );
   }
+
+  // the trend limb: across the departments reported in both the first and the
+  // last quarter, the resolved department's first-to-last change ranks
+  // neither in the bottom third nor the top third, and it does not fall in
+  // both of the last two quarters
+  const byQuarter = QUARTER_TABLE.map((quarter) => new Map(
+    engagement
+      .filter((row) => row.quarter_label === quarter.quarter_label
+        && row.reporting_status === REPORTING_STATUS_VOCABULARY[0])
+      .map((row) => [row.department, Number(row.engagement_index)])
+  ));
+  const [q1, q2, q3, q4] = byQuarter;
+  const trendDepartments = [...q1.keys()].filter((department) => q4.has(department));
+  const change = (department) => q4.get(department) - q1.get(department);
+  const ranked = trendDepartments.map(change).sort((a, b) => a - b);
+  const carrierChangeRank = ranked.indexOf(change(carrier));
+  const trendCount = ranked.length;
+  assert.ok(
+    carrierChangeRank >= Math.ceil(trendCount / 3) && carrierChangeRank < Math.floor((2 * trendCount) / 3),
+    "the resolved department's first-to-last engagement change ranks in the bottom or the top third, so the "
+    + "finding is reachable by sorting the engagement file on change"
+  );
+  const fallsFrom = (later, earlier) => later.get(carrier) < earlier.get(carrier);
+  assert.ok(
+    !(fallsFrom(q4, q3) && fallsFrom(q3, q2)),
+    "the resolved department falls in both of the last two quarters, so a recent-trend read still corroborates "
+    + "the finding"
+  );
 });
 
 test("HR-C6-T20: the id blocks, the absences and the one exit in flight, as one sweep", () => {
