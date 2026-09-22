@@ -1,0 +1,20 @@
+invoice_id,client_canon_id,client_name,job_id,invoice_date,payment_terms,due_date,invoice_amount_usd,invoice_status,milestone_reference,as_of_date
+INV-LDB-2026-101,co-131,The Okafor household,JOB-LDB-01,2026-02-09,net_7,2026-02-16,29700.00,paid,,2026-03-31
+INV-LDB-2026-102,co-131,The Okafor household,JOB-LDB-01,2026-02-27,net_7,2026-03-06,44550.00,paid,MST-LDB-02,2026-03-31
+INV-LDB-2026-103,co-131,The Okafor household,JOB-LDB-01,2026-03-13,net_7,2026-03-20,44550.00,paid,MST-LDB-03,2026-03-31
+INV-LDB-2026-104,co-131,The Okafor household,JOB-LDB-01,2026-03-20,net_7,2026-03-27,29700.00,paid,MST-LDB-05,2026-03-31
+INV-LDB-2026-201,co-002,Atticus Dundee Inc.,JOB-LDB-02,2026-02-03,net_15,2026-02-18,9240.00,paid,,2026-03-31
+INV-LDB-2026-202,co-002,Atticus Dundee Inc.,JOB-LDB-02,2026-02-24,net_15,2026-03-11,13860.00,paid,,2026-03-31
+INV-LDB-2026-203,co-002,Atticus Dundee Inc.,JOB-LDB-02,2026-03-10,net_15,2026-03-25,13860.00,paid,,2026-03-31
+INV-LDB-2026-204,co-002,Atticus Dundee Inc.,JOB-LDB-02,2026-03-24,net_15,2026-04-08,9240.00,paid,,2026-03-31
+INV-LDB-2026-301,co-132,The Marsh household,JOB-LDB-03,2026-02-02,net_15,2026-02-17,17875.00,paid,,2026-03-31
+INV-LDB-2026-302,co-132,The Marsh household,JOB-LDB-03,2026-02-13,net_15,2026-02-28,21450.00,part_paid,,2026-03-31
+INV-LDB-2026-303,co-201,The Quennell household,JOB-LDB-04,2026-02-06,net_30,2026-03-08,9625.00,part_paid,,2026-03-31
+INV-LDB-2026-304,co-201,The Quennell household,JOB-LDB-04,2026-02-27,net_30,2026-03-29,9625.00,paid,,2026-03-31
+INV-LDB-2026-305,co-201,The Quennell household,JOB-LDB-04,2026-03-13,net_30,2026-04-12,9625.00,sent,,2026-03-31
+INV-LDB-2026-306,co-202,The Underhill household,JOB-LDB-05,2026-02-02,net_15,2026-02-17,17600.00,paid,,2026-03-31
+INV-LDB-2026-307,co-202,The Underhill household,JOB-LDB-05,2026-02-19,net_15,2026-03-06,22000.00,paid,,2026-03-31
+INV-LDB-2026-308,co-202,The Underhill household,JOB-LDB-05,2026-03-19,net_15,2026-04-03,22000.00,sent,,2026-03-31
+INV-LDB-2026-309,co-203,The Thistlewood household,JOB-LDB-06,2026-02-02,net_15,2026-02-17,10800.00,paid,,2026-03-31
+INV-LDB-2026-310,co-203,The Thistlewood household,JOB-LDB-06,2026-02-12,net_15,2026-02-27,10800.00,overdue,,2026-03-31
+INV-LDB-2026-311,co-203,The Thistlewood household,JOB-LDB-06,2026-03-12,net_15,2026-03-27,10800.00,overdue,,2026-03-31

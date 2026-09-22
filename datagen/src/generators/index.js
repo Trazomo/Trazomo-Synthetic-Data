@@ -9,7 +9,8 @@
 // sweep and turn `validate`'s honest SKIP NOT_IMPLEMENTED into a failure, so an
 // id is registered by the wave that builds it, in the same commit as its bytes.
 // finance-statement.js is a shared helper rather than a generator and is never
-// registered, the same as finance-roles.js and hr-lifecycle.js.
+// registered, the same as finance-roles.js, hr-lifecycle.js and
+// smb-c3-receivables.js, which builds SMB-17, SMB-18 and SMB-19 as one unit.
 import * as core02 from "./core-02-invoice.js";
 import * as core03 from "./core-03-crm-seed.js";
 import * as core04 from "./core-04-people-roster.js";
@@ -88,6 +89,9 @@ import * as smb11 from "./smb-11-kickoff-checklist.js";
 import * as smb12 from "./smb-12-project-tasks-and-dates.js";
 import * as smb13 from "./smb-13-project-documents-index.js";
 import * as smb16 from "./smb-16-milestone-schedule.js";
+import * as smb17 from "./smb-17-invoices-issued.js";
+import * as smb18 from "./smb-18-payment-status-mock.js";
+import * as smb19 from "./smb-19-aging-summary.js";
 import * as test01 from "./test-01-fixture.js";
 import { NotImplementedError } from "../errors.js";
 
@@ -111,6 +115,7 @@ export const PROGRAM_GENERATOR_IDS = [
   smb01.id, smb02.id, smb03.id, smb04.id, smb05.id,
   smb08.id, smb10.id, smb11.id,
   smb12.id, smb13.id, smb16.id,
+  smb17.id, smb18.id, smb19.id,
 ];
 
 const REGISTRY = new Map(
@@ -128,6 +133,7 @@ const REGISTRY = new Map(
     smb01, smb02, smb03, smb04, smb05,
     smb08, smb10, smb11,
     smb12, smb13, smb16,
+    smb17, smb18, smb19,
     test01,
   ].map((mod) => [mod.id, mod])
 );
