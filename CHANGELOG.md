@@ -1,5 +1,84 @@
 # Changelog
 
+## 1.25.0
+
+Renumber at tag time: the integrator allocates the tag in merge order, `v1.24.0`
+is the current tip, and other cluster data branches may be live and take
+`v1.25.0` first.
+
+Small-business cluster 3, money. Seven artifacts, one PR, six deterministic and
+one drafted-frozen, for `smb-invoice-and-collections-assistant`,
+`smb-job-margin-snapshot` and `smb-cash-flow-and-aging-report`. The plan is
+`docs/plans/2026-08-29-path-programs/small-business/data-plans/cluster-3.md` on
+the trazomo repo, amended with a dated log after each wave; its section 8.1
+defaults U-A to U-K ride to Salvador's freeze review, U-A (the co-002 invoices
+in the register), U-B (the derived control) and U-C (three reserved-band ids)
+first. No byte changes under `datasets/` outside the six new directories, none
+under `canon/`, and none in the frozen SMB-04, SMB-05, SMB-06, SMB-15 or SMB-16
+material this cluster reads. Three ids are consumed from the reserved co-200 to
+co-249 Larkspur-side band (co-201, co-202, co-203), names drawn through SMB-03's
+exported screens, and no canon edit is made.
+
+The cluster is one arithmetic system and every figure is integer cents (rule
+R-CENTS): no percentage or quotient column anywhere, every threshold an integer
+cross-multiplication in basis points. Every plant is asserted at both
+cardinalities, in the builder and again in a public test that imports no
+builder predicate.
+
+- **SMB-17 invoices-issued** (deterministic): 19 invoices across six jobs and
+  six clients in February and March 2026. The eight co-131 and co-002 draws are
+  read out of the SMB-04 and SMB-05 builders at build time behind loud-throw
+  pins, never retyped. Exactly one invoice's own `invoice_status` reads paid
+  while the mock payment log carries no settled payment for it; thirteen
+  invoices read paid in all.
+- **SMB-18 payment-status-mock** (deterministic): 25 rows, one per invoice and
+  one per installment on the two payment plans, every one `record_type` mock
+  with the byte-identical `MOCK PAYMENT RECORD, NO FUNDS MOVED` notice and a
+  `method` from the SMB-02 vocabulary. 14 settled and 11 open. A plan is one
+  row per installment, each wholly settled or wholly open, so no SMB-02
+  vocabulary widens.
+- **SMB-19 aging-summary** (deterministic): four rows, one per client with an
+  open balance at 2026-03-31, every cell derived from SMB-17 and SMB-18 and
+  recomputed by the test. Exactly one client is past the ladder's first step
+  with no promise to pay (co-132); three are past the first step. Exactly one
+  client is on an installment plan whose next payment is not yet due, so a rule
+  aged from the invoice due date alone would draft a call 23 days early; two
+  clients are on a plan. Buckets `61-90` and `90+` and ladder steps 1 and 4 are
+  empty and asserted empty by name.
+- **SMB-20 time-entries-mock** (deterministic): 67 weekly role rows over six
+  jobs, no defects by design. `crew_role` and an anonymous `CRW-LDB-` slot, no
+  person named. The renovation's hours equal the approved proposal's five
+  day-rate quantities at eight hours to the day (600 hours against 75 billed
+  days), parsed out of SMB-06 at build time. Cost rates are the studio's own
+  and sit below the billed day rates.
+- **SMB-21 job-expenses-mock** (deterministic): 34 rows, 21 against co-134, 5
+  against co-133 and 8 internal lines. Exactly one row carries a job code while
+  its category is personal; four rows carry a category outside the job-cost
+  set and three of the four correctly carry no job code. `JEX-LDB-07` carries
+  the `6480.00` electrical rework the frozen SMB-15 notes state, on a co-133
+  line dated 2026-03-09, correctly coded, discharging the C2 obligation
+  without moving the figure.
+- **SMB-22 job-progress** (deterministic): six jobs and the margin identity.
+  Every money cell is a sum over the emitted SMB-17, SMB-20 and SMB-21 rows.
+  The co-131 renovation is the control by derivation from SMB-15. Exactly one
+  job reads on track and carries an open change order above the `5000.00`
+  materiality line, clearing the 1500 basis point floor on its contract-scope
+  margin and falling to 765 once the change order is counted; three on-track
+  jobs carry an open change order. The on-track tolerance is 8 points and the
+  same set holds under both readings.
+- **SMB-30 weekly-owner-report-template** (drafted, freeze gate): a blank
+  template, 986 words, 14 fields with a required-field list, eleven required
+  and three optional, no client, price, date, canon entity, person or figure.
+  Cash on hand and cash after committed payables are two required fields with
+  a required cash basis assumption between them, and any week-bounded figure
+  carries a PROVISIONAL marker when the report week is open at the report date.
+  Guarded by `tests/drafted/smb-c3-drafted-screen.test.js`; `validate` PASS on
+  all six features with no allowlist entry.
+
+Gates at the wave-two head: `npm test` 1246 pass, `validate --all` 142 checked,
+3 failed (SMB-24, SMB-25 and SMB-31, all missing drafted directories of later
+clusters), 32 allowlisted; `MANIFEST.json` 84 datasets and 38 artifacts.
+
 ## 1.24.0
 
 Renumber at tag time: the integrator allocates the tag in merge order, `v1.23.0`
