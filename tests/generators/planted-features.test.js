@@ -756,6 +756,36 @@ test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: the delivery wave carries no prope
   }
 });
 
+test("HR-12: 63 bands, 582 pay rows, 1 above band and 0 below (hr-12-compensation-bands.test.js)", () => {
+  const files = emitted("HR-12");
+  const grammar = csvRows(fileByPath(files, "compensation-grammar.csv").content);
+  assert.equal(grammar.length, 1);
+  assert.equal(grammar[0].band_count, "63");
+  assert.equal(grammar[0].employee_count, "582");
+  assert.equal(grammar[0].evaluable_group_count, "24");
+  const bands = csvRows(fileByPath(files, "compensation-bands.csv").content);
+  assert.equal(bands.length, 63);
+  const bandById = new Map(bands.map((b) => [b.band_id, b]));
+  const employees = csvRows(fileByPath(files, "employee-compensation.csv").content);
+  assert.equal(employees.length, 582);
+  const above = employees.filter((e) => Number(e.base_pay_amount) > Number(bandById.get(e.band_id).band_max));
+  const below = employees.filter((e) => Number(e.base_pay_amount) < Number(bandById.get(e.band_id).band_min));
+  assert.equal(above.length, 1);
+  assert.equal(below.length, 0);
+});
+
+test("HR-13: 18 exit rows, 143 department months, 44 survey rows and 4 suppressed (hr-13-engagement-attrition.test.js)", () => {
+  const files = emitted("HR-13");
+  assert.equal(csvRows(fileByPath(files, "exit-records.csv").content).length, 18);
+  assert.equal(csvRows(fileByPath(files, "headcount-movement.csv").content).length, 143);
+  const survey = csvRows(fileByPath(files, "engagement-quarterly.csv").content);
+  assert.equal(survey.length, 44);
+  assert.equal(survey.filter((r) => r.reporting_status === "suppressed").length, 4);
+  const grammar = csvRows(fileByPath(files, "attrition-grammar.csv").content);
+  assert.equal(grammar.length, 1);
+  assert.equal(grammar[0].in_window_exit_count, "7");
+});
+
 test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: no file carries an em dash or an en dash", () => {
   for (const file of c2bFiles()) {
     // Written as escapes so this screen is not itself a hit for a grep over
