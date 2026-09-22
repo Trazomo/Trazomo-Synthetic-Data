@@ -1,0 +1,32 @@
+{
+  "artifact": "OPS-17",
+  "program": "support tooling consolidation",
+  "company": "co-002",
+  "captured_at": "2026-03-26T17:05:00Z",
+  "captures": [
+    {
+      "tool": "planner",
+      "method": "GET",
+      "url": "https://graph.microsoft.com/v1.0/planner/plans/ua-d44IHYdhYcWFFBbO-X76bi5_S/tasks",
+      "response_file": "planner-tasks.json"
+    },
+    {
+      "tool": "planner",
+      "method": "GET",
+      "url": "https://graph.microsoft.com/v1.0/planner/plans/ua-d44IHYdhYcWFFBbO-X76bi5_S/buckets",
+      "response_file": "planner-buckets.json"
+    },
+    {
+      "tool": "microsoft-graph",
+      "method": "GET",
+      "url": "https://graph.microsoft.com/v1.0/users",
+      "response_file": "directory-users.json"
+    },
+    {
+      "tool": "smartsheet",
+      "method": "GET",
+      "url": "https://api.smartsheet.com/2.0/sheets/4217347549274564",
+      "response_file": "smartsheet-sheet.json"
+    }
+  ]
+}

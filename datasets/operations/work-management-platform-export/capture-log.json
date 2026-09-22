@@ -1,0 +1,26 @@
+{
+  "artifact": "OPS-15",
+  "program": "developer documentation relaunch",
+  "company": "co-002",
+  "captured_at": "2026-03-26T17:05:00Z",
+  "captures": [
+    {
+      "tool": "notion",
+      "method": "POST",
+      "url": "https://api.notion.com/v1/data_sources/2fd9e614-e6c0-0c4e-b396-3af33bf4beb4/query",
+      "headers": {
+        "Notion-Version": "2025-09-03"
+      },
+      "response_file": "notion-data-source-query.json"
+    },
+    {
+      "tool": "asana",
+      "method": "GET",
+      "url": "https://app.asana.com/api/1.0/projects/2553683917745705/tasks",
+      "query": {
+        "opt_fields": "name,resource_subtype,assignee,completed,completed_at,due_on,notes,created_at,modified_at,permalink_url,memberships.project.name,memberships.section.name,custom_fields"
+      },
+      "response_file": "asana-project-tasks.json"
+    }
+  ]
+}

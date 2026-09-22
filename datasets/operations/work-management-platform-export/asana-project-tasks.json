@@ -1,0 +1,1145 @@
+{
+  "data": [
+    {
+      "gid": "7054433803695469",
+      "resource_type": "task",
+      "name": "Audit the published developer docs and mark every page keep, rewrite or retire",
+      "resource_subtype": "default_task",
+      "assignee": {
+        "gid": "2911455076817375",
+        "resource_type": "user"
+      },
+      "completed": true,
+      "completed_at": "2026-03-17T15:04:00.000Z",
+      "due_on": "2026-03-30",
+      "notes": "The audit covers the published site only. Anything in the internal wiki is out of scope for this pass.",
+      "created_at": "2026-02-18T13:31:00.000Z",
+      "modified_at": "2026-03-14T18:23:00.000Z",
+      "permalink_url": "https://app.asana.com/0/2553683917745705/7054433803695469",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2553683917745705",
+            "resource_type": "project",
+            "name": "Developer documentation relaunch"
+          },
+          "section": {
+            "gid": "7277431602044751",
+            "resource_type": "section",
+            "name": "Done"
+          }
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "4214045037849993",
+          "resource_type": "custom_field",
+          "name": "Task ID",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "DDR-201",
+          "text_value": "DDR-201"
+        },
+        {
+          "gid": "7706161212541677",
+          "resource_type": "custom_field",
+          "name": "Definition of done",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "The audit sheet carries a disposition and a named owner for every published page.",
+          "text_value": "The audit sheet carries a disposition and a named owner for every published page."
+        },
+        {
+          "gid": "3700811392359239",
+          "resource_type": "custom_field",
+          "name": "Workstream",
+          "resource_subtype": "enum",
+          "type": "enum",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Content",
+          "enum_value": {
+            "gid": "3363096960137918",
+            "resource_type": "enum_option",
+            "name": "Content",
+            "enabled": true,
+            "color": "orange"
+          },
+          "enum_options": [
+            {
+              "gid": "3363096960137918",
+              "resource_type": "enum_option",
+              "name": "Content",
+              "enabled": true,
+              "color": "orange"
+            },
+            {
+              "gid": "2939227647174296",
+              "resource_type": "enum_option",
+              "name": "Platform",
+              "enabled": true,
+              "color": "purple"
+            },
+            {
+              "gid": "6533189537674932",
+              "resource_type": "enum_option",
+              "name": "Launch",
+              "enabled": true,
+              "color": "blue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gid": "1294103224365286",
+      "resource_type": "task",
+      "name": "Agree the information architecture for the relaunched developer site",
+      "resource_subtype": "default_task",
+      "assignee": {
+        "gid": "8236716961528919",
+        "resource_type": "user"
+      },
+      "completed": false,
+      "completed_at": null,
+      "due_on": "2026-04-03",
+      "notes": "Two navigation drafts are in the shared doc. The team picks one at the next working session.",
+      "created_at": "2026-02-18T11:05:00.000Z",
+      "modified_at": "2026-02-23T11:07:00.000Z",
+      "permalink_url": "https://app.asana.com/0/2553683917745705/1294103224365286",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2553683917745705",
+            "resource_type": "project",
+            "name": "Developer documentation relaunch"
+          },
+          "section": {
+            "gid": "8817947139115502",
+            "resource_type": "section",
+            "name": "In progress"
+          }
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "4214045037849993",
+          "resource_type": "custom_field",
+          "name": "Task ID",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "DDR-202",
+          "text_value": "DDR-202"
+        },
+        {
+          "gid": "7706161212541677",
+          "resource_type": "custom_field",
+          "name": "Definition of done",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "The agreed information architecture is written down and the navigation tree matches it.",
+          "text_value": "The agreed information architecture is written down and the navigation tree matches it."
+        },
+        {
+          "gid": "3700811392359239",
+          "resource_type": "custom_field",
+          "name": "Workstream",
+          "resource_subtype": "enum",
+          "type": "enum",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Content",
+          "enum_value": {
+            "gid": "3363096960137918",
+            "resource_type": "enum_option",
+            "name": "Content",
+            "enabled": true,
+            "color": "orange"
+          },
+          "enum_options": [
+            {
+              "gid": "3363096960137918",
+              "resource_type": "enum_option",
+              "name": "Content",
+              "enabled": true,
+              "color": "orange"
+            },
+            {
+              "gid": "2939227647174296",
+              "resource_type": "enum_option",
+              "name": "Platform",
+              "enabled": true,
+              "color": "purple"
+            },
+            {
+              "gid": "6533189537674932",
+              "resource_type": "enum_option",
+              "name": "Launch",
+              "enabled": true,
+              "color": "blue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gid": "2710622786458804",
+      "resource_type": "task",
+      "name": "Rewrite the getting started guide so a new integrator ships a first call in one sitting",
+      "resource_subtype": "default_task",
+      "assignee": {
+        "gid": "7334473916168726",
+        "resource_type": "user"
+      },
+      "completed": false,
+      "completed_at": null,
+      "due_on": "2026-04-07",
+      "notes": "The current guide assumes an existing workspace, which most new integrators do not have.",
+      "created_at": "2026-02-20T18:36:00.000Z",
+      "modified_at": "2026-03-15T18:59:00.000Z",
+      "permalink_url": "https://app.asana.com/0/2553683917745705/2710622786458804",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2553683917745705",
+            "resource_type": "project",
+            "name": "Developer documentation relaunch"
+          },
+          "section": {
+            "gid": "8817947139115502",
+            "resource_type": "section",
+            "name": "In progress"
+          }
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "4214045037849993",
+          "resource_type": "custom_field",
+          "name": "Task ID",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "DDR-203",
+          "text_value": "DDR-203"
+        },
+        {
+          "gid": "7706161212541677",
+          "resource_type": "custom_field",
+          "name": "Definition of done",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "A new integrator follows the guide end to end and makes a first successful call without asking for help. Reviewed by two people outside the docs team.",
+          "text_value": "A new integrator follows the guide end to end and makes a first successful call without asking for help. Reviewed by two people outside the docs team."
+        },
+        {
+          "gid": "3700811392359239",
+          "resource_type": "custom_field",
+          "name": "Workstream",
+          "resource_subtype": "enum",
+          "type": "enum",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Content",
+          "enum_value": {
+            "gid": "3363096960137918",
+            "resource_type": "enum_option",
+            "name": "Content",
+            "enabled": true,
+            "color": "orange"
+          },
+          "enum_options": [
+            {
+              "gid": "3363096960137918",
+              "resource_type": "enum_option",
+              "name": "Content",
+              "enabled": true,
+              "color": "orange"
+            },
+            {
+              "gid": "2939227647174296",
+              "resource_type": "enum_option",
+              "name": "Platform",
+              "enabled": true,
+              "color": "purple"
+            },
+            {
+              "gid": "6533189537674932",
+              "resource_type": "enum_option",
+              "name": "Launch",
+              "enabled": true,
+              "color": "blue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gid": "1586318426476984",
+      "resource_type": "task",
+      "name": "Bring the API reference back in line with the endpoints that actually shipped",
+      "resource_subtype": "default_task",
+      "assignee": {
+        "gid": "3523299597453487",
+        "resource_type": "user"
+      },
+      "completed": false,
+      "completed_at": null,
+      "due_on": "2026-04-10",
+      "notes": "Three endpoints shipped after the last reference update and are missing from it entirely.",
+      "created_at": "2026-02-24T11:57:00.000Z",
+      "modified_at": "2026-03-17T10:16:00.000Z",
+      "permalink_url": "https://app.asana.com/0/2553683917745705/1586318426476984",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2553683917745705",
+            "resource_type": "project",
+            "name": "Developer documentation relaunch"
+          },
+          "section": {
+            "gid": "8817947139115502",
+            "resource_type": "section",
+            "name": "In progress"
+          }
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "4214045037849993",
+          "resource_type": "custom_field",
+          "name": "Task ID",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "DDR-204",
+          "text_value": "DDR-204"
+        },
+        {
+          "gid": "7706161212541677",
+          "resource_type": "custom_field",
+          "name": "Definition of done",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Every endpoint in the reference matches the shipped schema, and the reference build fails when it does not.",
+          "text_value": "Every endpoint in the reference matches the shipped schema, and the reference build fails when it does not."
+        },
+        {
+          "gid": "3700811392359239",
+          "resource_type": "custom_field",
+          "name": "Workstream",
+          "resource_subtype": "enum",
+          "type": "enum",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Content",
+          "enum_value": {
+            "gid": "3363096960137918",
+            "resource_type": "enum_option",
+            "name": "Content",
+            "enabled": true,
+            "color": "orange"
+          },
+          "enum_options": [
+            {
+              "gid": "3363096960137918",
+              "resource_type": "enum_option",
+              "name": "Content",
+              "enabled": true,
+              "color": "orange"
+            },
+            {
+              "gid": "2939227647174296",
+              "resource_type": "enum_option",
+              "name": "Platform",
+              "enabled": true,
+              "color": "purple"
+            },
+            {
+              "gid": "6533189537674932",
+              "resource_type": "enum_option",
+              "name": "Launch",
+              "enabled": true,
+              "color": "blue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gid": "9426805110527170",
+      "resource_type": "task",
+      "name": "Write the authentication guide covering token issue, rotation and revocation",
+      "resource_subtype": "default_task",
+      "assignee": {
+        "gid": "3777644269647085",
+        "resource_type": "user"
+      },
+      "completed": false,
+      "completed_at": null,
+      "due_on": "2026-04-14",
+      "notes": "Rotation is the part support gets asked about most, so it needs its own worked example.",
+      "created_at": "2026-02-26T08:24:00.000Z",
+      "modified_at": "2026-03-09T13:06:00.000Z",
+      "permalink_url": "https://app.asana.com/0/2553683917745705/9426805110527170",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2553683917745705",
+            "resource_type": "project",
+            "name": "Developer documentation relaunch"
+          },
+          "section": {
+            "gid": "8667375056375254",
+            "resource_type": "section",
+            "name": "To do"
+          }
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "4214045037849993",
+          "resource_type": "custom_field",
+          "name": "Task ID",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "DDR-205",
+          "text_value": "DDR-205"
+        },
+        {
+          "gid": "7706161212541677",
+          "resource_type": "custom_field",
+          "name": "Definition of done",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "The guide covers issuing, rotating and revoking a token, and each flow is checked against the sandbox.",
+          "text_value": "The guide covers issuing, rotating and revoking a token, and each flow is checked against the sandbox."
+        },
+        {
+          "gid": "3700811392359239",
+          "resource_type": "custom_field",
+          "name": "Workstream",
+          "resource_subtype": "enum",
+          "type": "enum",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Content",
+          "enum_value": {
+            "gid": "3363096960137918",
+            "resource_type": "enum_option",
+            "name": "Content",
+            "enabled": true,
+            "color": "orange"
+          },
+          "enum_options": [
+            {
+              "gid": "3363096960137918",
+              "resource_type": "enum_option",
+              "name": "Content",
+              "enabled": true,
+              "color": "orange"
+            },
+            {
+              "gid": "2939227647174296",
+              "resource_type": "enum_option",
+              "name": "Platform",
+              "enabled": true,
+              "color": "purple"
+            },
+            {
+              "gid": "6533189537674932",
+              "resource_type": "enum_option",
+              "name": "Launch",
+              "enabled": true,
+              "color": "blue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gid": "3412762951784047",
+      "resource_type": "task",
+      "name": "Stand up the docs build pipeline with a preview deploy on every change request",
+      "resource_subtype": "default_task",
+      "assignee": {
+        "gid": "1572902263192978",
+        "resource_type": "user"
+      },
+      "completed": true,
+      "completed_at": "2026-03-23T16:43:00.000Z",
+      "due_on": "2026-04-17",
+      "notes": "The pipeline runs on the same build image the platform team already maintains.",
+      "created_at": "2026-03-02T13:20:00.000Z",
+      "modified_at": "2026-03-25T11:09:00.000Z",
+      "permalink_url": "https://app.asana.com/0/2553683917745705/3412762951784047",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2553683917745705",
+            "resource_type": "project",
+            "name": "Developer documentation relaunch"
+          },
+          "section": {
+            "gid": "7277431602044751",
+            "resource_type": "section",
+            "name": "Done"
+          }
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "4214045037849993",
+          "resource_type": "custom_field",
+          "name": "Task ID",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "DDR-206",
+          "text_value": "DDR-206"
+        },
+        {
+          "gid": "7706161212541677",
+          "resource_type": "custom_field",
+          "name": "Definition of done",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "A change request produces a preview deploy that a reviewer can open from the request itself.",
+          "text_value": "A change request produces a preview deploy that a reviewer can open from the request itself."
+        },
+        {
+          "gid": "3700811392359239",
+          "resource_type": "custom_field",
+          "name": "Workstream",
+          "resource_subtype": "enum",
+          "type": "enum",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Platform",
+          "enum_value": {
+            "gid": "2939227647174296",
+            "resource_type": "enum_option",
+            "name": "Platform",
+            "enabled": true,
+            "color": "purple"
+          },
+          "enum_options": [
+            {
+              "gid": "3363096960137918",
+              "resource_type": "enum_option",
+              "name": "Content",
+              "enabled": true,
+              "color": "orange"
+            },
+            {
+              "gid": "2939227647174296",
+              "resource_type": "enum_option",
+              "name": "Platform",
+              "enabled": true,
+              "color": "purple"
+            },
+            {
+              "gid": "6533189537674932",
+              "resource_type": "enum_option",
+              "name": "Launch",
+              "enabled": true,
+              "color": "blue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gid": "7048635409064412",
+      "resource_type": "task",
+      "name": "Move the docs source into the platform repository and wire up the ownership file",
+      "resource_subtype": "default_task",
+      "assignee": {
+        "gid": "2911455076817375",
+        "resource_type": "user"
+      },
+      "completed": false,
+      "completed_at": null,
+      "due_on": "2026-04-21",
+      "notes": "The move has to keep the page history, so it is a repository move rather than a copy.",
+      "created_at": "2026-03-04T16:25:00.000Z",
+      "modified_at": "2026-03-25T11:35:00.000Z",
+      "permalink_url": "https://app.asana.com/0/2553683917745705/7048635409064412",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2553683917745705",
+            "resource_type": "project",
+            "name": "Developer documentation relaunch"
+          },
+          "section": {
+            "gid": "8817947139115502",
+            "resource_type": "section",
+            "name": "In progress"
+          }
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "4214045037849993",
+          "resource_type": "custom_field",
+          "name": "Task ID",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "DDR-207",
+          "text_value": "DDR-207"
+        },
+        {
+          "gid": "7706161212541677",
+          "resource_type": "custom_field",
+          "name": "Definition of done",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": null,
+          "text_value": null
+        },
+        {
+          "gid": "3700811392359239",
+          "resource_type": "custom_field",
+          "name": "Workstream",
+          "resource_subtype": "enum",
+          "type": "enum",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Platform",
+          "enum_value": {
+            "gid": "2939227647174296",
+            "resource_type": "enum_option",
+            "name": "Platform",
+            "enabled": true,
+            "color": "purple"
+          },
+          "enum_options": [
+            {
+              "gid": "3363096960137918",
+              "resource_type": "enum_option",
+              "name": "Content",
+              "enabled": true,
+              "color": "orange"
+            },
+            {
+              "gid": "2939227647174296",
+              "resource_type": "enum_option",
+              "name": "Platform",
+              "enabled": true,
+              "color": "purple"
+            },
+            {
+              "gid": "6533189537674932",
+              "resource_type": "enum_option",
+              "name": "Launch",
+              "enabled": true,
+              "color": "blue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gid": "1761201965512498",
+      "resource_type": "task",
+      "name": "Add search across the whole developer site and check the common queries return something useful",
+      "resource_subtype": "default_task",
+      "assignee": {
+        "gid": "8236716961528919",
+        "resource_type": "user"
+      },
+      "completed": false,
+      "completed_at": null,
+      "due_on": "2026-04-24",
+      "notes": "Search runs against the built site rather than the source, so it can ship after the rewrite lands.",
+      "created_at": "2026-03-09T09:09:00.000Z",
+      "modified_at": "2026-03-20T18:00:00.000Z",
+      "permalink_url": "https://app.asana.com/0/2553683917745705/1761201965512498",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2553683917745705",
+            "resource_type": "project",
+            "name": "Developer documentation relaunch"
+          },
+          "section": {
+            "gid": "8817947139115502",
+            "resource_type": "section",
+            "name": "In progress"
+          }
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "4214045037849993",
+          "resource_type": "custom_field",
+          "name": "Task ID",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "DDR-208",
+          "text_value": "DDR-208"
+        },
+        {
+          "gid": "7706161212541677",
+          "resource_type": "custom_field",
+          "name": "Definition of done",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Search returns a relevant page for each of the twenty most common queries. Measured on the query log from the last full month.",
+          "text_value": "Search returns a relevant page for each of the twenty most common queries. Measured on the query log from the last full month."
+        },
+        {
+          "gid": "3700811392359239",
+          "resource_type": "custom_field",
+          "name": "Workstream",
+          "resource_subtype": "enum",
+          "type": "enum",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Platform",
+          "enum_value": {
+            "gid": "2939227647174296",
+            "resource_type": "enum_option",
+            "name": "Platform",
+            "enabled": true,
+            "color": "purple"
+          },
+          "enum_options": [
+            {
+              "gid": "3363096960137918",
+              "resource_type": "enum_option",
+              "name": "Content",
+              "enabled": true,
+              "color": "orange"
+            },
+            {
+              "gid": "2939227647174296",
+              "resource_type": "enum_option",
+              "name": "Platform",
+              "enabled": true,
+              "color": "purple"
+            },
+            {
+              "gid": "6533189537674932",
+              "resource_type": "enum_option",
+              "name": "Launch",
+              "enabled": true,
+              "color": "blue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gid": "5950286927014701",
+      "resource_type": "task",
+      "name": "Set up the broken link and sample code checks so a stale snippet fails the build",
+      "resource_subtype": "default_task",
+      "assignee": {
+        "gid": "7334473916168726",
+        "resource_type": "user"
+      },
+      "completed": false,
+      "completed_at": null,
+      "due_on": "2026-04-28",
+      "notes": "The sample checks run the snippets against the sandbox, so they need a sandbox token in the build.",
+      "created_at": "2026-03-11T10:28:00.000Z",
+      "modified_at": "2026-03-25T12:26:00.000Z",
+      "permalink_url": "https://app.asana.com/0/2553683917745705/5950286927014701",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2553683917745705",
+            "resource_type": "project",
+            "name": "Developer documentation relaunch"
+          },
+          "section": {
+            "gid": "8817947139115502",
+            "resource_type": "section",
+            "name": "In progress"
+          }
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "4214045037849993",
+          "resource_type": "custom_field",
+          "name": "Task ID",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "DDR-209",
+          "text_value": "DDR-209"
+        },
+        {
+          "gid": "7706161212541677",
+          "resource_type": "custom_field",
+          "name": "Definition of done",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "The link and sample checks run on every build and a stale snippet turns the build red.",
+          "text_value": "The link and sample checks run on every build and a stale snippet turns the build red."
+        },
+        {
+          "gid": "3700811392359239",
+          "resource_type": "custom_field",
+          "name": "Workstream",
+          "resource_subtype": "enum",
+          "type": "enum",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Platform",
+          "enum_value": {
+            "gid": "2939227647174296",
+            "resource_type": "enum_option",
+            "name": "Platform",
+            "enabled": true,
+            "color": "purple"
+          },
+          "enum_options": [
+            {
+              "gid": "3363096960137918",
+              "resource_type": "enum_option",
+              "name": "Content",
+              "enabled": true,
+              "color": "orange"
+            },
+            {
+              "gid": "2939227647174296",
+              "resource_type": "enum_option",
+              "name": "Platform",
+              "enabled": true,
+              "color": "purple"
+            },
+            {
+              "gid": "6533189537674932",
+              "resource_type": "enum_option",
+              "name": "Launch",
+              "enabled": true,
+              "color": "blue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gid": "1749272831998029",
+      "resource_type": "task",
+      "name": "Agree the redirect map from every retired page to its replacement",
+      "resource_subtype": "default_task",
+      "assignee": {
+        "gid": "3523299597453487",
+        "resource_type": "user"
+      },
+      "completed": false,
+      "completed_at": null,
+      "due_on": "2026-05-05",
+      "notes": "The redirect map is owned by the platform team once the relaunch is done.",
+      "created_at": "2026-03-16T08:48:00.000Z",
+      "modified_at": "2026-03-25T17:01:00.000Z",
+      "permalink_url": "https://app.asana.com/0/2553683917745705/1749272831998029",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2553683917745705",
+            "resource_type": "project",
+            "name": "Developer documentation relaunch"
+          },
+          "section": {
+            "gid": "8667375056375254",
+            "resource_type": "section",
+            "name": "To do"
+          }
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "4214045037849993",
+          "resource_type": "custom_field",
+          "name": "Task ID",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "DDR-210",
+          "text_value": "DDR-210"
+        },
+        {
+          "gid": "7706161212541677",
+          "resource_type": "custom_field",
+          "name": "Definition of done",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Every retired page resolves to a live replacement and no redirect chain is longer than one hop.",
+          "text_value": "Every retired page resolves to a live replacement and no redirect chain is longer than one hop."
+        },
+        {
+          "gid": "3700811392359239",
+          "resource_type": "custom_field",
+          "name": "Workstream",
+          "resource_subtype": "enum",
+          "type": "enum",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Launch",
+          "enum_value": {
+            "gid": "6533189537674932",
+            "resource_type": "enum_option",
+            "name": "Launch",
+            "enabled": true,
+            "color": "blue"
+          },
+          "enum_options": [
+            {
+              "gid": "3363096960137918",
+              "resource_type": "enum_option",
+              "name": "Content",
+              "enabled": true,
+              "color": "orange"
+            },
+            {
+              "gid": "2939227647174296",
+              "resource_type": "enum_option",
+              "name": "Platform",
+              "enabled": true,
+              "color": "purple"
+            },
+            {
+              "gid": "6533189537674932",
+              "resource_type": "enum_option",
+              "name": "Launch",
+              "enabled": true,
+              "color": "blue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gid": "9198849423425902",
+      "resource_type": "task",
+      "name": "Write the launch note for the relaunched developer site and line up the release entry",
+      "resource_subtype": "default_task",
+      "assignee": {
+        "gid": "5814627328428046",
+        "resource_type": "user"
+      },
+      "completed": false,
+      "completed_at": null,
+      "due_on": "2026-05-11",
+      "notes": "The launch note goes out the morning after cutover, not before.",
+      "created_at": "2026-03-18T12:49:00.000Z",
+      "modified_at": "2026-03-25T17:17:00.000Z",
+      "permalink_url": "https://app.asana.com/0/2553683917745705/9198849423425902",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2553683917745705",
+            "resource_type": "project",
+            "name": "Developer documentation relaunch"
+          },
+          "section": {
+            "gid": "8817947139115502",
+            "resource_type": "section",
+            "name": "In progress"
+          }
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "4214045037849993",
+          "resource_type": "custom_field",
+          "name": "Task ID",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "DDR-211",
+          "text_value": "DDR-211"
+        },
+        {
+          "gid": "7706161212541677",
+          "resource_type": "custom_field",
+          "name": "Definition of done",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "The launch note is approved and scheduled, and the release entry points at it.",
+          "text_value": "The launch note is approved and scheduled, and the release entry points at it."
+        },
+        {
+          "gid": "3700811392359239",
+          "resource_type": "custom_field",
+          "name": "Workstream",
+          "resource_subtype": "enum",
+          "type": "enum",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Launch",
+          "enum_value": {
+            "gid": "6533189537674932",
+            "resource_type": "enum_option",
+            "name": "Launch",
+            "enabled": true,
+            "color": "blue"
+          },
+          "enum_options": [
+            {
+              "gid": "3363096960137918",
+              "resource_type": "enum_option",
+              "name": "Content",
+              "enabled": true,
+              "color": "orange"
+            },
+            {
+              "gid": "2939227647174296",
+              "resource_type": "enum_option",
+              "name": "Platform",
+              "enabled": true,
+              "color": "purple"
+            },
+            {
+              "gid": "6533189537674932",
+              "resource_type": "enum_option",
+              "name": "Launch",
+              "enabled": true,
+              "color": "blue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gid": "4461267260342027",
+      "resource_type": "task",
+      "name": "Run the post launch review two weeks after cutover and file what the docs still miss",
+      "resource_subtype": "default_task",
+      "assignee": {
+        "gid": "3777644269647085",
+        "resource_type": "user"
+      },
+      "completed": false,
+      "completed_at": null,
+      "due_on": "2026-05-15",
+      "notes": "The review looks at search queries that returned nothing and at support tickets raised against the docs.",
+      "created_at": "2026-03-23T10:59:00.000Z",
+      "modified_at": "2026-03-25T16:11:00.000Z",
+      "permalink_url": "https://app.asana.com/0/2553683917745705/4461267260342027",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2553683917745705",
+            "resource_type": "project",
+            "name": "Developer documentation relaunch"
+          },
+          "section": {
+            "gid": "8667375056375254",
+            "resource_type": "section",
+            "name": "To do"
+          }
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "4214045037849993",
+          "resource_type": "custom_field",
+          "name": "Task ID",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "DDR-212",
+          "text_value": "DDR-212"
+        },
+        {
+          "gid": "7706161212541677",
+          "resource_type": "custom_field",
+          "name": "Definition of done",
+          "resource_subtype": "text",
+          "type": "text",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "The review is written up and every gap it finds is filed as its own task.",
+          "text_value": "The review is written up and every gap it finds is filed as its own task."
+        },
+        {
+          "gid": "3700811392359239",
+          "resource_type": "custom_field",
+          "name": "Workstream",
+          "resource_subtype": "enum",
+          "type": "enum",
+          "enabled": true,
+          "is_formula_field": false,
+          "display_value": "Launch",
+          "enum_value": {
+            "gid": "6533189537674932",
+            "resource_type": "enum_option",
+            "name": "Launch",
+            "enabled": true,
+            "color": "blue"
+          },
+          "enum_options": [
+            {
+              "gid": "3363096960137918",
+              "resource_type": "enum_option",
+              "name": "Content",
+              "enabled": true,
+              "color": "orange"
+            },
+            {
+              "gid": "2939227647174296",
+              "resource_type": "enum_option",
+              "name": "Platform",
+              "enabled": true,
+              "color": "purple"
+            },
+            {
+              "gid": "6533189537674932",
+              "resource_type": "enum_option",
+              "name": "Launch",
+              "enabled": true,
+              "color": "blue"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "next_page": null
+}

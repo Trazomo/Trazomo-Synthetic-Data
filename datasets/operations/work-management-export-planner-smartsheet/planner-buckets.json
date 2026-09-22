@@ -1,0 +1,29 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#planner/plans('ua-d44IHYdhYcWFFBbO-X76bi5_S')/buckets",
+  "value": [
+    {
+      "id": "N2jaKn9Bn3OVZcJimY-JAYof3iww",
+      "name": "Discovery",
+      "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
+      "orderHint": "8585059210W"
+    },
+    {
+      "id": "fVEeuSGgvrGSz89CIZ9Dzh1VqKmI",
+      "name": "Migration",
+      "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
+      "orderHint": "8585208557W"
+    },
+    {
+      "id": "VtmcVyDOxP2dC_PGjXvkcnHmacoh",
+      "name": "Enablement",
+      "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
+      "orderHint": "8585205469W"
+    },
+    {
+      "id": "EY0A1SyRw6_Nwzxo-XwacxcT6hcW",
+      "name": "Close-out",
+      "planId": "ua-d44IHYdhYcWFFBbO-X76bi5_S",
+      "orderHint": "8585274571W"
+    }
+  ]
+}
