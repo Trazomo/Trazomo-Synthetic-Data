@@ -794,3 +794,32 @@ test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: no file carries an em dash or an e
     assert.ok(!file.text.includes("\u2013"), `${file.id} carries an en dash (U+2013)`);
   }
 });
+
+test("OPS-17: five files, 14 Planner tasks, and exactly one sheet row short of a cell (ops-17-planner-smartsheet-export.test.js)", () => {
+  const files = emitted("OPS-17");
+  assert.deepEqual(
+    files.map((f) => f.path).sort(),
+    ["capture-log.json", "directory-users.json", "planner-buckets.json", "planner-tasks.json", "smartsheet-sheet.json"]
+  );
+  const tasks = JSON.parse(fileByPath(files, "planner-tasks.json").content);
+  assert.equal(tasks.value.length, 14);
+  const sheet = JSON.parse(fileByPath(files, "smartsheet-sheet.json").content);
+  assert.equal(sheet.columns.length, 8);
+  assert.equal(sheet.rows.length, 14);
+  const short = sheet.rows.filter((r) => r.cells.length === 7);
+  assert.equal(short.length, 1, "the count of rows carrying seven cells against eight columns moved");
+});
+
+test("OPS-15: three files, 12 tasks, and exactly one definition of done present and empty (ops-15-notion-asana-export.test.js)", () => {
+  const files = emitted("OPS-15");
+  assert.deepEqual(
+    files.map((f) => f.path).sort(),
+    ["asana-project-tasks.json", "capture-log.json", "notion-data-source-query.json"]
+  );
+  const query = JSON.parse(fileByPath(files, "notion-data-source-query.json").content);
+  assert.equal(query.results.length, 12);
+  const asana = JSON.parse(fileByPath(files, "asana-project-tasks.json").content);
+  assert.equal(asana.data.length, 12);
+  const empty = query.results.filter((p) => p.properties["Definition of done"].rich_text.length === 0);
+  assert.equal(empty.length, 1, "the count of definitions of done present and empty moved");
+});
