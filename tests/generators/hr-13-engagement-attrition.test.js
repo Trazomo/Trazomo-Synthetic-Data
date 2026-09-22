@@ -686,6 +686,21 @@ test("HR-C6-T20: X21 and X24 across the two C6 artifacts, when the other one is 
     );
   }
 
+  // F4: an explicit zero-overlap arm, beside X21's population-level check, so
+  // the structural negative's join claim is asserted by its own name rather
+  // than only implied by the active/departed disjointness above.
+  const hr12EmployeeIds = new Set(pay.map((row) => row.employee_id));
+  for (const row of exits) {
+    assert.ok(
+      !hr12EmployeeIds.has(row.employee_id),
+      "a departed row carries a compensation row, so the exit labels have features"
+    );
+  }
+  assert.equal(
+    exits.filter((row) => hr12EmployeeIds.has(row.employee_id)).length, 0,
+    "the overlap between HR-13 exit ids and HR-12 employee ids has moved off zero"
+  );
+
   // X24, the half of it this artifact can see: the one employee the pay file
   // places above their own band maximum is active and holds no exit row here.
   const outOfBand = pay.filter((row) => Number(row.base_pay_amount) > Number(bandById.get(row.band_id).band_max));

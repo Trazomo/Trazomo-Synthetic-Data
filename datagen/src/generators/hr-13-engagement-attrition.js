@@ -141,7 +141,10 @@ export const NO_INDIVIDUAL_PREDICTION =
   "No row carries an individual level risk score or any per person prediction field, because the only employee "
   + "keyed rows are exit records for people who have already left, every other row is keyed on a department and a "
   + "period, and the file holds no per person attribute beyond an exit date and an exit type, so there is no field "
-  + "a prediction could be stored in and none it could be trained on.";
+  + "a prediction could be stored in; the eighteen labelled rows are departed employees, none of whom holds a pay, "
+  + "band, location or cohort row in the compensation set, so nothing in the two C6 artifacts joins a label to a "
+  + "feature; what this artifact cannot prevent is a reader joining the eighteen labels to the roster, which is "
+  + "why the module teaches aggregate-only reporting.";
 
 /** The published key orders, one per file, asserted against the emitted rows rather than trusted. */
 export const GRAMMAR_COLUMNS = [
