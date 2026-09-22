@@ -687,12 +687,12 @@ test("SMB-19: every derived cell recomputes from SMB-17 and SMB-18, by a second 
   assert.deepEqual(aging.rows.map((r) => [
     r.client_canon_id, r.open_balance_usd, r.oldest_unsettled_invoice_id, r.on_payment_plan,
     r.payment_plan_id, r.governing_due_date, r.days_past_due, r.aging_bucket, r.dunning_stage,
-    r.promise_to_pay_date,
+    r.promise_to_pay_date, r.promise_amount_usd,
   ]), [
-    ["co-132", "16087.50", "INV-LDB-2026-302", "yes", "PLN-LDB-01", "2026-03-13", "18", "1-30", "2", ""],
-    ["co-201", "16843.75", "INV-LDB-2026-303", "yes", "PLN-LDB-02", "2026-04-10", "0", "current", "0", ""],
-    ["co-202", "44000.00", "INV-LDB-2026-307", "no", "", "2026-03-06", "25", "1-30", "2", "2026-04-10"],
-    ["co-203", "21600.00", "INV-LDB-2026-310", "no", "", "2026-02-27", "32", "31-60", "3", "2026-04-03"],
+    ["co-132", "16087.50", "INV-LDB-2026-302", "yes", "PLN-LDB-01", "2026-03-13", "18", "1-30", "2", "", ""],
+    ["co-201", "16843.75", "INV-LDB-2026-303", "yes", "PLN-LDB-02", "2026-04-10", "0", "current", "0", "", ""],
+    ["co-202", "44000.00", "INV-LDB-2026-307", "no", "", "2026-03-06", "25", "1-30", "2", "2026-04-10", "44000.00"],
+    ["co-203", "21600.00", "INV-LDB-2026-310", "no", "", "2026-02-27", "32", "31-60", "3", "2026-04-03", "21600.00"],
   ], "SMB-19: a row has drifted from data plan section 2.3");
 });
 
