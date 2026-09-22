@@ -117,7 +117,7 @@ Cash on hand and cash after committed payables are two readings of one question,
 
 Any figure whose window is still open at the report date carries the marker PROVISIONAL beside it, and no figure carrying that marker is presented as final. The report date sits inside the report week, so the week bounded fields are the ones the rule applies to: Invoices issued this week (RPT-LDB-03), Value invoiced this week (RPT-LDB-04) and Payments settled this week (RPT-LDB-05). Every figure carrying the marker is named in Provisional figures and why (RPT-LDB-12), with the reason its window is open. The open balance and aging fields are as-of figures, so they are not provisional.
 
-## 6. Before this report is generated from
+## 6. Before this report is generated
 
 Generation stops when a required field's slot is empty. The template never fills an empty required slot from a working file or from anything else on the drive: it stops and names the field it stopped on, by field name and by field id.
 

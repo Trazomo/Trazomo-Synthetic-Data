@@ -154,7 +154,7 @@ const SECTION_TITLES = [
   "3. The report",
   "4. One metric defined twice",
   "5. The provisional rule",
-  "6. Before this report is generated from",
+  "6. Before this report is generated",
 ];
 
 /** The word band section 1.1 fixes, measured the C2 way. */
