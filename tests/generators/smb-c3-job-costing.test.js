@@ -1164,6 +1164,33 @@ test("SMB-20, SMB-21 and SMB-22 name no person, and a human appears only as a ro
   for (const r of expenses.rows) {
     assert.ok(["owner", "project lead"].includes(r.coded_by_role), `${r.expense_id} carries coded_by_role "${r.coded_by_role}"`);
   }
+  // SMB-21's description is free text and unscreened above: no capitalised
+  // word survives except a month name, and no digit survives at all, so an
+  // invented person name, a bare canon surname or a phone-shaped digit
+  // string cannot hide in a description cell.
+  const MONTHS = /^(January|February|March|April|May|June|July|August|September|October|November|December)$/;
+  for (const r of expenses.rows) {
+    assert.match(r.description, /^[a-z][a-zA-Z0-9 ,.'-]*$/, `${r.expense_id} description`);
+    for (const word of r.description.split(/[^A-Za-z]+/).filter(Boolean)) {
+      assert.ok(/^[a-z]/.test(word) || MONTHS.test(word),
+        `${r.expense_id} description carries the capitalised word "${word}", which could be a name`);
+    }
+    assert.doesNotMatch(r.description, /\d/, `${r.expense_id} description carries a digit`);
+  }
+  // SMB-22's project_name is free-ish text too: allow the client's own
+  // already-disclosed identity (a household surname, or a canon business's
+  // name) to lead it capitalised, in order, and nothing else, and no digit.
+  for (const r of progress.rows) {
+    assert.doesNotMatch(r.project_name, /\d/, `${r.job_id} project_name carries a digit`);
+    const household = /^The (\S+) household$/.exec(r.client_name);
+    const identityWords = household
+      ? [household[1]]
+      : r.client_name.replace(/\s+(Inc\.|LLC|LLP|Ltd\.?|Co\.)$/, "").split(/\s+/);
+    r.project_name.split(/\s+/).forEach((word, i) => {
+      if (!/^[A-Z]/.test(word)) return;
+      assert.equal(word, identityWords[i], `${r.job_id} project_name carries the capitalised word "${word}", which could be a name`);
+    });
+  }
 });
 
 test("SMB-20, SMB-21 and SMB-22 mint only their own namespaced id classes, and every client id is seated or reserved (rules R-NS and the band)", () => {
