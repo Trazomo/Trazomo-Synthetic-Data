@@ -10,7 +10,8 @@
 // id is registered by the wave that builds it, in the same commit as its bytes.
 // finance-statement.js is a shared helper rather than a generator and is never
 // registered, the same as finance-roles.js, hr-lifecycle.js and
-// smb-c3-receivables.js, which builds SMB-17, SMB-18 and SMB-19 as one unit.
+// smb-c3-receivables.js, which builds SMB-17, SMB-18 and SMB-19 as one unit,
+// and smb-c3-job-costing.js, which builds SMB-20, SMB-21 and SMB-22 as another.
 import * as core02 from "./core-02-invoice.js";
 import * as core03 from "./core-03-crm-seed.js";
 import * as core04 from "./core-04-people-roster.js";
@@ -92,6 +93,9 @@ import * as smb16 from "./smb-16-milestone-schedule.js";
 import * as smb17 from "./smb-17-invoices-issued.js";
 import * as smb18 from "./smb-18-payment-status-mock.js";
 import * as smb19 from "./smb-19-aging-summary.js";
+import * as smb20 from "./smb-20-time-entries-mock.js";
+import * as smb21 from "./smb-21-job-expenses-mock.js";
+import * as smb22 from "./smb-22-job-progress.js";
 import * as test01 from "./test-01-fixture.js";
 import { NotImplementedError } from "../errors.js";
 
@@ -116,6 +120,7 @@ export const PROGRAM_GENERATOR_IDS = [
   smb08.id, smb10.id, smb11.id,
   smb12.id, smb13.id, smb16.id,
   smb17.id, smb18.id, smb19.id,
+  smb20.id, smb21.id, smb22.id,
 ];
 
 const REGISTRY = new Map(
@@ -134,6 +139,7 @@ const REGISTRY = new Map(
     smb08, smb10, smb11,
     smb12, smb13, smb16,
     smb17, smb18, smb19,
+    smb20, smb21, smb22,
     test01,
   ].map((mod) => [mod.id, mod])
 );
