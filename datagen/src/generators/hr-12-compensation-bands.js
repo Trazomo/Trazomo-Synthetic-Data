@@ -244,7 +244,7 @@ export const FINANCE_COVERAGE_TARGET = 0.9400;
 export const FINANCE_COVERAGE_FLOOR = 0.9390;
 export const FINANCE_COVERAGE_CEILING = 0.9410;
 
-/** Every compa ratio sits inside the band, and the two ends are what "inside" means. */
+/** Every compa ratio other than the single out-of-band row's sits inside the band, and the two ends are what "inside" means. */
 export const COMPA_FLOOR = 0.800;
 export const COMPA_CEILING = 1.200;
 
