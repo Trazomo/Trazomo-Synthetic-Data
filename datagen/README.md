@@ -389,6 +389,28 @@ HR-07 is co-002's employee offboarding. It carries no non-employee worker type
 and claims no contractor coverage, and every access removal runs off a named
 request ticket rather than off the last working day.
 
+HR-12 is the first HR artifact to carry money and a work location, and neither
+absence stated elsewhere is amended: HR-05's calendars stay UTC with no region,
+and HR-06, HR-08, HR-16 and HR-17 each keep the absence their own spec states.
+What changed is the pack, not those artifacts. HR-12's bands are derived
+downward from the general ledger rather than upward from a salary table:
+`band_unit_amount` is solved at generation so the emitted annual base pay total
+lands at a published coverage ratio of twelve times the March movement on
+accounts 6000 and 5020, read from the committed FIN-33 bytes at build time. The
+work location vocabulary carries no place name, so it cannot collide with
+HR-17's restricted `home_city` list and it states nothing canon does not say
+about where co-002 sits.
+
+HR-12's `synthetic_equity_cohort` is a synthetic-only header over a
+synthetic-only vocabulary, assigned by a seeded shuffle inside each band group
+and derived from no attribute in the pack. It stands in for whatever protected
+characteristic a real pay report would analyse, the artifact says so itself, and
+no row joins a named individual to a protected characteristic because no HR-12
+row carries a name. HR-13 carries no individual-level risk score and no
+per-person prediction field: its only employee-keyed rows are exit records for
+people who have already left, and every other row is keyed on a department and
+a period.
+
 HR-11 is the growth record for the same 55 people the review cycle roster
 covers, and it takes that population, the cycle and the roster from
 `hr-lifecycle.js` in process rather than reading the cycle's committed CSVs
