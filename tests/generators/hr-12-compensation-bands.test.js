@@ -157,6 +157,8 @@ const EVALUABLE_AT_TWO_PERCENT_CENSUS = 1;
 const COHORT_A_LEADS_CENSUS = 13;
 const STALE_BAND_CENSUS = 44;
 const BOTH_LIMBS_CENSUS = 1;
+const DEPARTMENT_SLICES = 10;
+const DEPARTMENT_SLICE_OVER_THRESHOLD_CENSUS = 6;
 
 // ------------------------------------------------------- derived structures
 
@@ -580,6 +582,31 @@ test("HR-C6-T9: exactly one evaluable group carries a gap over the published thr
   assert.ok(
     COHORT_A_LEADS_CENSUS > 0 && COHORT_A_LEADS_CENSUS < EVALUABLE_GROUPS,
     "one cohort leads every evaluable group, which would make the sign of the gap a property of the file"
+  );
+
+  // F2: the department-grain gap census, published and pinned. Grouping the
+  // pay rows by the roster department instead of by the band key, at the same
+  // published minimum group size, is the slice a reader reaches before the
+  // band key, and it returns a different qualifying and breaching picture
+  // because a department mixes bands and the mix is what a band-keyed group
+  // removes.
+  const departmentGroups = new Map();
+  for (const row of employees) {
+    const department = bandById.get(row.band_id).department;
+    if (!departmentGroups.has(department)) {
+      departmentGroups.set(department, { cohort_a: [], cohort_b: [] });
+    }
+    departmentGroups.get(department)[row.synthetic_equity_cohort].push(row);
+  }
+  const departmentSlices = [...departmentGroups.values()].filter(isEvaluable);
+  assert.equal(
+    departmentSlices.length, DEPARTMENT_SLICES,
+    "the department-grain qualifying count has moved"
+  );
+  assert.equal(
+    departmentSlices.filter((slice) => Math.abs(gapOf(slice)) >= PUBLISHED_GAP_THRESHOLD).length,
+    DEPARTMENT_SLICE_OVER_THRESHOLD_CENSUS,
+    "the department-grain census has moved, so the brief's statement about the wrong slice is stale"
   );
 });
 
