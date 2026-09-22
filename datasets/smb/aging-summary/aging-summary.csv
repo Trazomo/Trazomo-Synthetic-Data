@@ -1,0 +1,5 @@
+aging_row_id,client_canon_id,client_name,as_of_date,open_balance_usd,oldest_unsettled_invoice_id,on_payment_plan,payment_plan_id,governing_due_date,days_past_due,aging_bucket,dunning_stage,promise_to_pay_date,promise_amount_usd
+AGE-LDB-01,co-132,The Marsh household,2026-03-31,16087.50,INV-LDB-2026-302,yes,PLN-LDB-01,2026-03-13,18,1-30,2,,
+AGE-LDB-02,co-201,The Quennell household,2026-03-31,16843.75,INV-LDB-2026-303,yes,PLN-LDB-02,2026-04-10,0,current,0,,
+AGE-LDB-03,co-202,The Underhill household,2026-03-31,44000.00,INV-LDB-2026-307,no,,2026-03-06,25,1-30,2,2026-04-10,44000.00
+AGE-LDB-04,co-203,The Thistlewood household,2026-03-31,21600.00,INV-LDB-2026-310,no,,2026-02-27,32,31-60,3,2026-04-03,21600.00

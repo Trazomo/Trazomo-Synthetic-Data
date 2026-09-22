@@ -795,6 +795,165 @@ test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: no file carries an em dash or an e
   }
 });
 
+// ---------------------------------------------------------------------------
+// Small-business cluster 3, the money wave (SMB-17 to SMB-22). The
+// same sweeps 2a and 2b carry, over the money wave's own shipped files, plus
+// one the earlier waves did not need: the reserved-band rule.
+//
+// Why this block exists rather than the 2b block simply widening: `c2bFiles()`
+// is bound to five ids by name, so shipping a C3 file does not enrol it in
+// those sweeps. The cluster 3 data plan's section 4 spot-check row asks for
+// R-MOCK, R-ROLE, R-NS and the co-200 band assertion over the cluster's
+// artifacts, so the wave that ships the files adds the block that screens
+// them. Wave two shipped SMB-20, SMB-21 and SMB-22 and joined them to the id
+// lists below, which is the only thing that had to change. SMB-30 is drafted
+// rather than deterministic, so it is screened by tests/drafted/ instead.
+//
+// Every derived assertion, tie-out and cardinality for these three lives in
+// tests/generators/smb-c3-receivables.test.js. What is here is the property of
+// the wave: the class of later edit that adds a processor reference, a person
+// name, an un-namespaced id or a client id outside both canon and the reserved
+// band, each of which looks like a field and so nobody reviews it closely.
+
+const SMB_C3_DETERMINISTIC = ["SMB-17", "SMB-18", "SMB-19", "SMB-20", "SMB-21", "SMB-22"];
+
+/** The reserved Larkspur-side band, canon/companies.md:16. */
+const C3_RESERVED_BAND = { first: 200, last: 249 };
+
+/** The shipped C3 files, path derived from the spec's own name rather than typed. */
+function c3Files() {
+  return SMB_C3_DETERMINISTIC.map((id) => {
+    const { name } = specs.byId.get(id);
+    const path = join(REPO_ROOT, "datasets", "smb", name, `${name}.csv`);
+    return { id, path, text: readFileSync(path, "utf8") };
+  });
+}
+
+/** The id classes the receivables wave mints, and the one it cites from 2b. */
+const C3_ID_CLASSES = {
+  "JOB-LDB-": "the job a row is coded to",
+  "AGE-LDB-": "SMB-19 aging row",
+  "PLN-LDB-": "SMB-18 payment plan",
+  "MST-LDB-": "SMB-16 milestone, cited by SMB-17",
+  "INV-LDB-": "SMB-17 invoice, the block cluster 1 opened",
+  "PAY-LDB-": "SMB-18 payment, the block cluster 1 opened",
+  "TME-LDB-": "SMB-20 time entry",
+  "JEX-LDB-": "SMB-21 job expense, the class that is not EXP-",
+  "CHO-LDB-": "SMB-20, SMB-21 and SMB-22 change order",
+  "CRW-LDB-": "SMB-20 anonymous crew slot",
+};
+
+test("SMB-17 to SMB-22: no processor, gateway, card network or bank product is named (rule R-MOCK)", () => {
+  // The full cluster 1 list, with nothing dropped. 2a dropped "auth" as a
+  // fragment and 2b carried that drop forward; the money wave needs neither,
+  // which is asserted here rather than assumed, because the wave that emits
+  // payment rows in bulk is exactly the one that should not be relaxing this
+  // list.
+  for (const file of c3Files()) {
+    const words = new Set(file.text.toLowerCase().split(/[^a-z0-9]+/));
+    for (const term of MOCK_VOCABULARY) {
+      assert.ok(
+        !words.has(term),
+        `${file.id} names "${term}", which is a processor, gateway, card network or bank product`
+      );
+    }
+  }
+  // And the presence half, on the one file that carries payment records: the
+  // notice is byte identical on every row and the record type is mock.
+  const log = c3Files().find((f) => f.id === "SMB-18");
+  const lines = log.text.trim().split("\n").slice(1);
+  assert.equal(lines.length, 25, "SMB-18 is no longer twenty-five rows");
+  for (const line of lines) {
+    assert.ok(line.includes(`,mock,"${MOCK_NOTICE}"`), `a payment row is not a mock record carrying the mock notice: ${line.slice(0, 40)}`);
+  }
+});
+
+test("SMB-17 to SMB-22: no file carries a name canon seats, retires or freezes (rule R-ROLE)", () => {
+  const names = canonPersonNames();
+  assert.ok(names.size > 0, "canon/people.md parsed to no names, so this screen would pass on anything");
+  for (const file of c3Files()) {
+    for (const name of names) {
+      assert.ok(!file.text.includes(name), `${file.id} carries the canon person name "${name}"`);
+    }
+  }
+  // The two human-shaped strings these files may carry are a canon household
+  // and a generated one, both of which are companies rather than people.
+  for (const canonId of ["co-131", "co-132"]) {
+    const entry = canon.get(canonId);
+    assert.ok(entry, `canon/companies.md does not seat ${canonId}`);
+    assert.ok(!names.has(entry.name), `canon now seats a person under ${canonId}'s own name`);
+  }
+});
+
+test("SMB-17 to SMB-22: every minted id is namespaced, and the wave mints only cluster 3 classes (rule R-NS)", () => {
+  const seen = new Map();
+  for (const file of c3Files()) {
+    for (const match of file.text.matchAll(/\b([A-Z]{2,4})-LDB-([0-9-]+)\b/g)) {
+      const idClass = `${match[1]}-LDB-`;
+      assert.ok(
+        Object.hasOwn(C3_ID_CLASSES, idClass),
+        `${file.id} mints "${match[0]}", whose class ${idClass} is not one the money wave namespaces`
+      );
+      if (idClass === "INV-LDB-" || idClass === "PAY-LDB-") {
+        // Cluster 1's own format: a year and a three-digit block number.
+        assert.match(match[0], /^(INV|PAY)-LDB-2026-[123]\d\d$/, `${file.id} carries "${match[0]}", outside the 2026 blocks`);
+      } else {
+        assert.equal(match[2].length, 2, `${file.id} carries "${match[0]}", and the format is two zero-padded digits`);
+      }
+      seen.set(idClass, new Set([...(seen.get(idClass) ?? []), file.id]));
+    }
+    // The half the namespace exists for: a class token used bare. JOB-, AGE-
+    // and PLN- are free repo wide today, and EXP- is the class this cluster
+    // did NOT reach for because the finance pack already spends it.
+    for (const idClass of Object.keys(C3_ID_CLASSES)) {
+      const bare = idClass.replace("LDB-", "");
+      assert.doesNotMatch(file.text, new RegExp(`\\b${bare}\\d`), `${file.id} carries an un-namespaced ${bare} id`);
+    }
+  }
+  for (const idClass of ["JOB-LDB-", "AGE-LDB-", "PLN-LDB-", "INV-LDB-", "PAY-LDB-", "TME-LDB-", "JEX-LDB-", "CHO-LDB-", "CRW-LDB-"]) {
+    assert.ok(seen.has(idClass), `no cluster 3 file mints ${idClass}, so this screen checks nothing for it`);
+  }
+  // EXP- is the class this cluster did NOT reach for: the finance
+  // expense-report pack spends it, and JEX- exists so it stays spent there.
+  for (const file of c3Files()) {
+    assert.doesNotMatch(file.text, /\bEXP-/, `${file.id} mints an EXP- id, which the finance pack already spends`);
+  }
+});
+
+test("SMB-17 to SMB-22: every client id is seated in canon or lies inside the reserved co-200 band", () => {
+  // The rule the reserved band exists for, asserted over the shipped bytes: a
+  // canon id that is neither seated nor reserved is an entity this pack
+  // invented, and that is the class of edit nobody reviews closely.
+  const outside = new Set();
+  const inBand = new Set();
+  for (const file of c3Files()) {
+    for (const match of file.text.matchAll(/\bco-(\d{3})\b/g)) {
+      const canonId = match[0];
+      if (canon.has(canonId)) continue;
+      const number = Number(match[1]);
+      if (number >= C3_RESERVED_BAND.first && number <= C3_RESERVED_BAND.last) inBand.add(canonId);
+      else outside.add(`${file.id} names ${canonId}`);
+    }
+  }
+  assert.deepEqual([...outside], [], "a cluster 3 file names a company canon does not seat and the band does not cover");
+  assert.deepEqual(
+    [...inBand].sort(), ["co-201", "co-202", "co-203"],
+    "the reserved-band ids the money wave consumes have moved; the PR body discloses exactly three"
+  );
+  // And canon really does not seat them: if the integrator later seats one,
+  // this fails and the disclosure in the PR body needs revisiting.
+  for (const canonId of inBand) {
+    assert.ok(!canon.has(canonId), `canon/companies.md now seats ${canonId}`);
+  }
+});
+
+test("SMB-17 to SMB-22: no file carries an em dash or an en dash", () => {
+  for (const file of c3Files()) {
+    assert.ok(!file.text.includes("\u2014"), `${file.id} carries an em dash (U+2014)`);
+    assert.ok(!file.text.includes("\u2013"), `${file.id} carries an en dash (U+2013)`);
+  }
+});
+
 test("OPS-17: five files, 14 Planner tasks, and exactly one sheet row short of a cell (ops-17-planner-smartsheet-export.test.js)", () => {
   const files = emitted("OPS-17");
   assert.deepEqual(

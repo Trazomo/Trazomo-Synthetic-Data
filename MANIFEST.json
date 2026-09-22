@@ -1323,6 +1323,96 @@
             "row_counts": {
                 "milestone-schedule.csv": 6
             }
+        },
+        {
+            "id": "SMB-17",
+            "name": "invoices-issued",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/invoices-issued",
+            "files": [
+                "invoices-issued.csv"
+            ],
+            "row_counts": {
+                "invoices-issued.csv": 19
+            }
+        },
+        {
+            "id": "SMB-18",
+            "name": "payment-status-mock",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/payment-status-mock",
+            "files": [
+                "payment-status-mock.csv"
+            ],
+            "row_counts": {
+                "payment-status-mock.csv": 25
+            }
+        },
+        {
+            "id": "SMB-19",
+            "name": "aging-summary",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/aging-summary",
+            "files": [
+                "aging-summary.csv"
+            ],
+            "row_counts": {
+                "aging-summary.csv": 4
+            }
+        },
+        {
+            "id": "SMB-20",
+            "name": "time-entries-mock",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/time-entries-mock",
+            "files": [
+                "time-entries-mock.csv"
+            ],
+            "row_counts": {
+                "time-entries-mock.csv": 67
+            }
+        },
+        {
+            "id": "SMB-21",
+            "name": "job-expenses-mock",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/job-expenses-mock",
+            "files": [
+                "job-expenses-mock.csv"
+            ],
+            "row_counts": {
+                "job-expenses-mock.csv": 34
+            }
+        },
+        {
+            "id": "SMB-22",
+            "name": "job-progress",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/job-progress",
+            "files": [
+                "job-progress.csv"
+            ],
+            "row_counts": {
+                "job-progress.csv": 6
+            }
         }
     ],
     "specs": "specs/artifact-specs.yaml",
@@ -2024,6 +2114,20 @@
             ],
             "build_files": [
                 "internal-status-notes.docx"
+            ]
+        },
+        {
+            "id": "SMB-30",
+            "name": "weekly-owner-report-template",
+            "type": "template",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-30",
+            "source_files": [
+                "weekly-owner-report-template.md"
+            ],
+            "build_files": [
+                "weekly-owner-report-template.docx"
             ]
         }
     ]

@@ -1,0 +1,35 @@
+expense_id,expense_date,job_id,scope,change_order_id,expense_category,counterparty_canon_id,counterparty_name,description,amount_usd,coded_by_role,record_type
+JEX-LDB-01,2026-03-04,JOB-LDB-01,contract,,materials,co-134,Highmarch Building Supply,plumbing fixtures and rough in materials,4200.00,project lead,mock
+JEX-LDB-02,2026-03-13,JOB-LDB-01,contract,,subcontract,co-133,Voltridge Electrical,electrical rough in and device set,9100.00,project lead,mock
+JEX-LDB-03,2026-03-16,JOB-LDB-01,contract,,materials,co-134,Highmarch Building Supply,kitchen cabinetry supply,18900.00,project lead,mock
+JEX-LDB-04,2026-03-20,JOB-LDB-01,contract,,materials,co-134,Highmarch Building Supply,quartz supply and fabrication,5850.00,project lead,mock
+JEX-LDB-05,2026-03-19,JOB-LDB-01,contract,,materials,co-134,Highmarch Building Supply,"tile supply, floor and wall",6100.00,project lead,mock
+JEX-LDB-06,2026-03-17,JOB-LDB-01,contract,,materials,co-134,Highmarch Building Supply,primary bath fixtures and vanity,7880.00,project lead,mock
+JEX-LDB-07,2026-03-09,JOB-LDB-01,contract,,subcontract,co-133,Voltridge Electrical,"electrical rework, new sub feed to the panel",6480.00,owner,mock
+JEX-LDB-08,2026-02-13,JOB-LDB-02,contract,,materials,co-134,Highmarch Building Supply,joinery panels and fixings,9840.00,project lead,mock
+JEX-LDB-09,2026-02-20,JOB-LDB-02,contract,,permit,,,"building permit fee, paid by the studio",485.50,owner,mock
+JEX-LDB-10,2026-02-27,JOB-LDB-02,contract,,materials,co-134,Highmarch Building Supply,flooring and underlay supply,6250.00,project lead,mock
+JEX-LDB-11,2026-03-06,JOB-LDB-02,contract,,materials,co-134,Highmarch Building Supply,lighting and fitting supply,4050.00,project lead,mock
+JEX-LDB-12,2026-03-12,JOB-LDB-02,contract,,personal,co-134,Highmarch Building Supply,patio set and two exterior doors for the owner's own house,1284.50,owner,mock
+JEX-LDB-13,2026-02-06,JOB-LDB-03,contract,,materials,co-134,Highmarch Building Supply,kitchen cabinetry supply,5400.00,project lead,mock
+JEX-LDB-14,2026-02-20,JOB-LDB-03,contract,,subcontract,co-133,Voltridge Electrical,electrical first fix,3600.00,project lead,mock
+JEX-LDB-15,2026-03-06,JOB-LDB-03,contract,,materials,co-134,Highmarch Building Supply,tile and worktop supply,4250.00,project lead,mock
+JEX-LDB-16,2026-03-13,JOB-LDB-03,contract,,disposal,,,"disposal runs, studio truck and tip charges",710.00,project lead,mock
+JEX-LDB-17,2026-03-20,JOB-LDB-03,change_order,CHO-LDB-01,materials,co-134,Highmarch Building Supply,extra cabinetry run the client asked for,1850.00,owner,mock
+JEX-LDB-18,2026-02-13,JOB-LDB-04,contract,,materials,co-134,Highmarch Building Supply,bath fixtures and vanity supply,4380.00,project lead,mock
+JEX-LDB-19,2026-02-27,JOB-LDB-04,contract,,subcontract,co-133,Voltridge Electrical,"electrical rough in, bath and landing",3250.00,project lead,mock
+JEX-LDB-20,2026-03-06,JOB-LDB-04,contract,,equipment_hire,,,"scaffold tower and lift, from the studio plant pool",950.00,project lead,mock
+JEX-LDB-21,2026-03-17,JOB-LDB-04,change_order,CHO-LDB-02,materials,co-134,Highmarch Building Supply,second heated rail and valves the client asked for,970.00,owner,mock
+JEX-LDB-22,2026-02-02,JOB-LDB-05,contract,,materials,co-134,Highmarch Building Supply,cabinetry and joinery supply,8600.00,project lead,mock
+JEX-LDB-23,2026-02-20,JOB-LDB-05,contract,,materials,co-134,Highmarch Building Supply,glazing and external door supply,6750.00,project lead,mock
+JEX-LDB-24,2026-03-04,JOB-LDB-05,contract,,materials,co-134,Highmarch Building Supply,quartz worktop supply and fabrication,4900.00,project lead,mock
+JEX-LDB-25,2026-03-11,JOB-LDB-05,contract,,disposal,,,"disposal runs, studio truck and tip charges",820.00,project lead,mock
+JEX-LDB-26,2026-03-18,JOB-LDB-05,contract,,materials,co-134,Highmarch Building Supply,tile and flooring supply,3420.00,project lead,mock
+JEX-LDB-27,2026-03-25,JOB-LDB-05,change_order,CHO-LDB-03,subcontract,co-133,Voltridge Electrical,electrical for the added scope the client asked for,2850.00,owner,mock
+JEX-LDB-28,2026-02-13,JOB-LDB-06,contract,,materials,co-134,Highmarch Building Supply,framing and insulation supply,4100.00,project lead,mock
+JEX-LDB-29,2026-02-27,JOB-LDB-06,contract,,permit,,,"building permit fee, paid by the studio",450.00,owner,mock
+JEX-LDB-30,2026-03-13,JOB-LDB-06,contract,,materials,co-134,Highmarch Building Supply,plasterboard and finish supply,2900.00,project lead,mock
+JEX-LDB-31,2026-03-20,JOB-LDB-06,change_order,CHO-LDB-04,materials,co-134,Highmarch Building Supply,extra door and ironmongery the client asked for,500.00,owner,mock
+JEX-LDB-32,2026-02-27,,,,office_overhead,,,"studio rent and utilities, February",2450.00,owner,mock
+JEX-LDB-33,2026-03-02,,,,software_subscription,,,"estimating and scheduling software, quarterly",348.00,owner,mock
+JEX-LDB-34,2026-03-27,,,,office_overhead,,,"studio rent and utilities, March",2450.00,owner,mock

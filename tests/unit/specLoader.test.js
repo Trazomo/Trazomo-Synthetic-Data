@@ -808,3 +808,265 @@ test("loadSpecs: no cluster 2 SMB planted feature carries a dash this pack does 
     }
   }
 });
+
+// ---------------------------------------------------------------------------
+// Small-business cluster 3 (SMB-17 to SMB-22 and SMB-30). Seven artifacts, six
+// deterministic and one drafted-frozen, and the first SMB cluster whose files
+// are arithmetic: two recomputable identities and one cross-file contradiction.
+// The pre-flight is the 2a and 2b one, widened by one clause that C3 needs and
+// C2 did not.
+//
+// The column lists below are the cluster 3 data plan's section 2 lists, typed
+// out rather than derived, for the reason the C2 block gives: this file is
+// where a spec column list drifting from the plan it was designed against is
+// caught, and a check that read the list back out of the file it is checking
+// would catch nothing.
+//
+// The one new clause: C3's `period` is the window the ROWS cover, not the
+// widest date any cell carries. An invoice register whose rows are February
+// and March carries April due dates, because a due date is the invoice date
+// plus the term in calendar days and net terms do not skip a month end, and a
+// payment plan carries installments into June. So the C2 "every ISO date in
+// the bytes sits inside the period" reading is deliberately NOT extended here;
+// what is asserted instead is the shape, the ordering, and the exact values
+// the plan pins, which is falsifiable against the plan without being false
+// against the bytes.
+const SMB_C3_DETERMINISTIC = ["SMB-17", "SMB-18", "SMB-19", "SMB-20", "SMB-21", "SMB-22"];
+const SMB_C3_DRAFTED = ["SMB-30"];
+const SMB_C3 = [...SMB_C3_DETERMINISTIC, ...SMB_C3_DRAFTED];
+
+/** Data plan section 2, one entry per deterministic id, in the plan's own order. */
+const SMB_C3_COLUMNS = {
+  // 2.1, the register whose own status column is wrong on exactly one row
+  "SMB-17": [
+    "invoice_id", "client_canon_id", "client_name", "job_id", "invoice_date",
+    "payment_terms", "due_date", "invoice_amount_usd", "invoice_status",
+    "milestone_reference", "as_of_date",
+  ],
+  // 2.2, the mock payment log, eleven SMB-02 payment names plus four process columns
+  "SMB-18": [
+    "payment_id", "invoice_id", "client_canon_id", "invoice_date", "invoice_amount_usd",
+    "due_date", "payment_plan_id", "installment_sequence", "installment_due_date",
+    "installment_amount_usd", "settlement_date", "settled_amount_usd", "settlement_status",
+    "method", "record_type", "mock_notice",
+  ],
+  // 2.3, the aging ladder, every cell derived from 2.1 and 2.2
+  "SMB-19": [
+    "aging_row_id", "client_canon_id", "client_name", "as_of_date", "open_balance_usd",
+    "oldest_unsettled_invoice_id", "on_payment_plan", "payment_plan_id",
+    "governing_due_date", "days_past_due", "aging_bucket", "dunning_stage",
+    "promise_to_pay_date", "promise_amount_usd",
+  ],
+  // 2.4, the clean time record
+  "SMB-20": [
+    "entry_id", "week_ending", "job_id", "scope", "change_order_id", "crew_role",
+    "crew_slot", "hours", "cost_rate_usd", "entry_cost_usd", "record_type",
+  ],
+  // 2.5, the expense export with the one miscode in it
+  "SMB-21": [
+    "expense_id", "expense_date", "job_id", "scope", "change_order_id", "expense_category",
+    "counterparty_canon_id", "counterparty_name", "description", "amount_usd",
+    "coded_by_role", "record_type",
+  ],
+  // 2.6, the margin identity, twenty columns
+  "SMB-22": [
+    "job_id", "client_canon_id", "client_name", "project_name", "start_date",
+    "planned_end_date", "as_of_date", "contract_value_usd", "percent_complete",
+    "billed_to_date_usd", "accrued_unbilled_usd", "revenue_to_date_usd", "time_cost_usd",
+    "expense_cost_usd", "contract_margin_usd", "open_change_order_id",
+    "open_change_order_value_usd", "change_order_materiality_usd", "margin_floor_bp",
+    "on_track_tolerance_pct",
+  ],
+};
+
+/** Data plan section 1, the module-to-artifact map, read the other way round. */
+const SMB_C3_MODULES = {
+  "SMB-17": ["smb-invoice-and-collections-assistant", "smb-cash-flow-and-aging-report"],
+  "SMB-18": ["smb-invoice-and-collections-assistant", "smb-cash-flow-and-aging-report"],
+  "SMB-19": ["smb-invoice-and-collections-assistant"],
+  "SMB-20": ["smb-job-margin-snapshot"],
+  "SMB-21": ["smb-job-margin-snapshot"],
+  "SMB-22": ["smb-job-margin-snapshot"],
+  "SMB-30": ["smb-cash-flow-and-aging-report"],
+};
+
+/** Data plan section 2, the periods, as the plan states them. */
+const SMB_C3_PERIODS = {
+  "SMB-17": { start: "2026-02-01", end: "2026-03-31" },
+  "SMB-18": { start: "2026-02-01", end: "2026-03-31" },
+  "SMB-19": { start: "2026-03-31", end: "2026-03-31" },
+  "SMB-20": { start: "2026-02-06", end: "2026-03-31" },
+  "SMB-21": { start: "2026-02-02", end: "2026-03-31" },
+  "SMB-22": { start: "2026-03-31", end: "2026-03-31" },
+  "SMB-30": { start: "2026-03-30", end: "2026-04-03" },
+};
+
+test("loadSpecs: the six deterministic cluster 3 SMB ids carry the data plan's column lists exactly", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of SMB_C3_DETERMINISTIC) {
+    const spec = byId.get(id);
+    assert.ok(spec, `${id} is not in the catalog`);
+    assert.equal(spec.generation, "deterministic", `${id} generation`);
+    assert.deepEqual(spec.columns, SMB_C3_COLUMNS[id], `${id} columns have drifted from data plan section 2`);
+    assert.equal(new Set(spec.columns).size, spec.columns.length, `${id} repeats a column`);
+    for (const col of spec.columns) {
+      assert.match(col, /^[a-z][a-z0-9_]*$/, `${id} column "${col}" is not snake_case`);
+    }
+    assert.equal(spec.files, undefined, `${id} is one CSV, so it declares no files map`);
+    assert.equal(spec.format, "csv", `${id} format`);
+    assert.equal(trackDir(id), "smb", `${id} does not generate into datasets/smb/`);
+  }
+  // The four counts the plan states in prose, held as numbers so a column
+  // added or dropped shows up here as well as in the list above.
+  assert.equal(byId.get("SMB-17").columns.length, 11);
+  assert.equal(byId.get("SMB-18").columns.length, 16);
+  assert.equal(byId.get("SMB-19").columns.length, 14);
+  assert.equal(byId.get("SMB-22").columns.length, 20);
+});
+
+test("loadSpecs: every SMB-18 column that names an SMB-02 payment field carries the SMB-02 name exactly", () => {
+  // C3 redefines nothing: eleven of SMB-02's twelve payment field names are
+  // reused unchanged and stage_id is dropped, because it names a stage inside
+  // one client record and has no referent in a standalone register. Read out
+  // of the shipped field dictionary rather than typed, so an SMB-02 rename
+  // fails here rather than leaving two packs quietly disagreeing.
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const dictionary = readFileSync(
+    join(REPO_ROOT, "datasets", "smb", "client-record-template", "client-record-fields.csv"), "utf8"
+  ).trim().split("\n").slice(1).map((line) => line.split(","));
+  const paymentFields = dictionary.filter((cells) => cells[1] === "payment").map((cells) => cells[0]);
+  assert.equal(paymentFields.length, 12, "SMB-02 no longer declares twelve payment fields");
+
+  const smb18 = byId.get("SMB-18").columns;
+  const reused = paymentFields.filter((name) => smb18.includes(name));
+  assert.equal(reused.length, 11, `SMB-18 reuses ${reused.length} of SMB-02's payment names, expected 11`);
+  assert.deepEqual(
+    paymentFields.filter((name) => !smb18.includes(name)), ["stage_id"],
+    "the one SMB-02 payment field SMB-18 drops is stage_id, and no other"
+  );
+  // And the client-side names it borrows are SMB-02's too.
+  for (const id of ["SMB-17", "SMB-18", "SMB-19", "SMB-22"]) {
+    assert.ok(byId.get(id).columns.includes("client_canon_id"), `${id} does not carry SMB-02's client_canon_id`);
+  }
+});
+
+test("loadSpecs: SMB-30 carries no columns and no files map, and is the cluster's one drafted id", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of SMB_C3_DRAFTED) {
+    const spec = byId.get(id);
+    assert.ok(spec, `${id} is not in the catalog`);
+    assert.equal(spec.generation, "drafted-frozen", `${id} generation`);
+    assert.equal(spec.columns, undefined, `${id} is a drafted template, so it declares no columns`);
+    assert.equal(spec.files, undefined, `${id} is a drafted template, so it declares no files map`);
+    assert.equal(spec.format, "markdown", `${id} format`);
+  }
+  assert.equal(SMB_C3_DRAFTED.length, 1);
+  assert.equal(SMB_C3.length, 7);
+});
+
+test("loadSpecs: all seven cluster 3 SMB ids declare the period the data plan states", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of SMB_C3) {
+    const spec = byId.get(id);
+    assert.ok(spec.period, `${id} declares no period`);
+    assert.match(spec.period.start, /^\d{4}-\d{2}-\d{2}$/, `${id} period.start`);
+    assert.match(spec.period.end, /^\d{4}-\d{2}-\d{2}$/, `${id} period.end`);
+    assert.ok(spec.period.start <= spec.period.end, `${id} period runs backwards`);
+    assert.deepEqual(spec.period, SMB_C3_PERIODS[id], `${id} period has drifted from data plan section 2`);
+  }
+  // The two snapshot artifacts report as of one day, and they report as of the
+  // same day as every other SMB artifact in the pack.
+  for (const id of ["SMB-19", "SMB-22"]) {
+    assert.equal(byId.get(id).period.start, byId.get(id).period.end, `${id} is an as-of snapshot`);
+    assert.equal(byId.get(id).period.end, "2026-03-31", `${id} as-of date`);
+  }
+  // SMB-30's report week is open at the report date, which is the whole of its
+  // provisional rule: the week ends after the pack's as-of date.
+  assert.ok(byId.get("SMB-30").period.end > "2026-03-31", "SMB-30's report week closes before the as-of date");
+});
+
+test("loadSpecs: the cluster 3 SMB entries name the modules that read them, and the canon entities they join to", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const [id, modules] of Object.entries(SMB_C3_MODULES)) {
+    assert.deepEqual(
+      byId.get(id).consuming_modules, modules,
+      `${id} does not serve exactly the modules data plan section 1 gives it`
+    );
+  }
+  // Three modules over seven artifacts, which is the section 1 map read the
+  // other way: a fourth module appearing here means the map moved.
+  assert.equal(new Set(Object.values(SMB_C3_MODULES).flat()).size, 3);
+
+  // U-A: the register names all four seated clients, so SMB-17, SMB-18 and
+  // SMB-22 widen from [co-100]. The three co-200 band ids the generated
+  // households take are NOT canon entities: a reserved-band id is not a seated
+  // entity, and canon/companies.md seats none of the three.
+  for (const id of ["SMB-17", "SMB-18", "SMB-22"]) {
+    assert.deepEqual(
+      byId.get(id).canon_entities, ["co-100", "co-002", "co-131", "co-132"],
+      `${id} canon_entities has drifted from the U-A widening`
+    );
+  }
+  assert.deepEqual(byId.get("SMB-19").canon_entities, ["co-100", "co-132"], "SMB-19 canon_entities");
+  assert.deepEqual(byId.get("SMB-20").canon_entities, ["co-100"], "SMB-20 canon_entities");
+  assert.deepEqual(byId.get("SMB-21").canon_entities, ["co-100", "co-133", "co-134"], "SMB-21 canon_entities");
+  assert.deepEqual(byId.get("SMB-30").canon_entities, [], "SMB-30 is a template and names no entity");
+  for (const id of SMB_C3) {
+    for (const canonId of byId.get(id).canon_entities) {
+      assert.doesNotMatch(
+        canonId, /^co-2[0-4]\d$/,
+        `${id} lists the reserved-band id ${canonId} as a canon entity; the band is disclosed in the PR body instead`
+      );
+    }
+  }
+});
+
+test("loadSpecs: every cluster 3 SMB spec states its source plan and its planted features in the pack's own shape", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const [i, id] of SMB_C3.entries()) {
+    const spec = byId.get(id);
+    assert.equal(
+      spec.source_plan,
+      `smb-implementation-plan + small-business cluster 3 data plan (2.${i + 1})`,
+      `${id} does not cite its own section of the cluster 3 data plan`
+    );
+    assert.ok(spec.planted_features.length > 0, `${id} states no planted features`);
+    for (const feature of spec.planted_features) {
+      assert.equal(typeof feature, "string", `${id} has a planted feature that is not a string (quote the colon)`);
+      assert.ok(feature.trim() !== "", `${id} has an empty planted feature`);
+      assert.ok(!feature.includes("\u2014"), `${id} planted feature carries an em dash`);
+      assert.ok(!feature.includes("\u2013"), `${id} planted feature carries an en dash`);
+      assert.ok(!/learner/i.test(feature), `${id} describes what a learner does, which no file can contain: ${feature}`);
+    }
+  }
+  // Rule R-CENTS, asserted over the prose that states it: no cluster 3 spec
+  // describes a percentage column of its own. The two percentage-shaped values
+  // C3 carries are an integer percent_complete and an integer basis-point
+  // floor, and both are stated as integers.
+  assert.ok(
+    byId.get("SMB-22").planted_features.some((f) => f.includes("1500 basis points")),
+    "SMB-22 no longer states the margin floor in basis points"
+  );
+  assert.ok(
+    byId.get("SMB-22").planted_features.some((f) => f.includes("no column carries a margin percentage")),
+    "SMB-22 no longer states the no-quotient rule its own prose is the contract for"
+  );
+});
+
+// checkPlantedFeature can never return FAIL (cluster 3 data plan fact 0.4), so
+// a planted_features string that states a cardinality the bytes contradict is
+// caught by nothing at `validate` time. SMB-30's list is the plan's own section
+// 2.7 replacement prose, carried verbatim, and it is the one C3 list a keyword
+// heuristic will actually read, so it is pinned byte exact here the way the
+// three C2a lists are.
+test("loadSpecs: SMB-30's planted_features is byte exact against cluster-3.md section 2.7", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  assert.deepEqual(byId.get("SMB-30").planted_features, [
+    "a blank weekly owner report template, not a filled report: 14 fields, each with a field id, a required flag, a placeholder token, the source columns it reads and the window it covers, listed in the template's own required-field list at the top and repeated as a body section in the same order. No client, no price, no date and no canon entity appears anywhere in the document",
+    "one metric defined twice with a required assumption line: cash on hand counts what has settled, cash after committed payables subtracts what is already owed out, and they are two separate required fields with two separate tokens. A third required field, the cash basis assumption, states which reading the report used, and the template says a report carrying either figure without that sentence is incomplete",
+    "a required provisional marker on any figure whose window is open at the report date: the template states that a figure bounded by the report week carries the marker PROVISIONAL beside it and is named with its reason in the provisional figures field, and that no figure carrying that marker may be presented as final. Three of the fourteen fields are week bounded and are the three the rule applies to; the open balance and aging fields are as of the report date and are not provisional",
+    "every figure field names the source columns it is computed from: the invoice id, invoice date, due date and invoice amount of the issued invoice register, the settled amount, settlement date and settlement status of the mock payment log, and the installment amount, installment due date and settlement status behind a payment plan, so a figure in a filled report can be traced back to the rows it came from",
+    "eleven of the fourteen fields are required and three are optional, and the required-field list is the authority: a field's required flag is stated once, in that table, and the body never restates it. One optional field, next week's draw plan, carries no token and no text, so a rule that finds empty slots without reading the required column returns one and blocks on a field the template was free to leave empty",
+    "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, never fills one from a working file, and never presents an open-window figure as final",
+  ], "SMB-30's planted_features has drifted from cluster-3.md section 2.7");
+});

@@ -461,6 +461,32 @@ The `$6,480.00` electrical rework figure in `artifacts/SMB-15` is an internal
 cost figure. It must appear in exactly one `SMB-21` job-expense row at
 `6480.00` and in no client-facing artifact in any cluster. SMB-15 is frozen,
 so C3 matches the figure rather than the other way round.
+C3 discharged it: `datasets/smb/job-expenses-mock` carries `JEX-LDB-07` at
+`6480.00` against co-133, and the C3 tests assert the figure appears in no
+other C3 cell.
+
+C3's six deterministic ids generate into `datasets/smb/invoices-issued`,
+`payment-status-mock`, `aging-summary`, `time-entries-mock`,
+`job-expenses-mock` and `job-progress`; SMB-30 is drafted and lives at
+`artifacts/SMB-30/` with a built `.docx` under `build/`. Every SMB money
+artifact carries only integer-exact figures: no percentage column, no quotient
+column, and every threshold comparison is an integer cross-multiplication in
+basis points (rule R-CENTS).
+
+C3 mints eight more `LDB`-namespaced id classes: `JOB-LDB-`, `TME-LDB-`,
+`JEX-LDB-`, `CHO-LDB-`, `AGE-LDB-`, `PLN-LDB-`, `CRW-LDB-` and `RPT-LDB-`, plus
+the `INV-LDB-2026-3` and `PAY-LDB-2026-3` blocks. The expense class is `JEX-`
+and not `EXP-` because `EXP-` is already spent by the finance expense-report
+pack.
+
+C3 consumes three ids from the reserved co-200 to co-249 Larkspur-side band:
+co-201, co-202 and co-203, the three generated households the studio invoiced
+in the quarter. Their names are drawn by a seeded stream from `namePool.js`
+through SMB-03's exported `availableSurnames` and `assertNoCanonEcho` screens,
+with SMB-03's own emitted surnames added to the exclusion set.
+`canon/companies.md` seats none of the three; the band is reserved for exactly
+this and a dataset may use an id inside it, but a lane that does must say
+which ids it took in the PR body.
 
 ## Spec-authoring guide
 

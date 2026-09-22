@@ -2224,22 +2224,36 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-100]
+    canon_entities: [co-100, co-002, co-131, co-132]
+    period: { start: "2026-02-01", end: "2026-03-31" }
+    columns: [invoice_id, client_canon_id, client_name, job_id, invoice_date, payment_terms, due_date, invoice_amount_usd, invoice_status, milestone_reference, as_of_date]
     planted_features:
-      - 1 invoice mistakenly marked paid that the mock payment log shows outstanding
+      - "19 invoices issued between 2026-02-01 and 2026-03-31, in invoice_id order which is also file order, across six jobs JOB-LDB-01 to JOB-LDB-06 and six clients on net_7, net_15 and net_30 terms. Eight are the draws the two client records already froze and eleven are new, INV-LDB-2026-301 to -311, gapless. Every due_date is the invoice_date plus the payment_terms window in calendar days, recomputed rather than typed, and four of the nineteen fall on a weekend because net terms do not skip one"
+      - "1 invoice mistakenly marked paid that the mock payment log shows outstanding: exactly one invoice reads invoice_status paid while no payment row carrying its invoice_id reads settlement_status settled. Every other invoice marked paid has a settled payment behind it"
+      - "the disagreement is a discrimination and not a grep: thirteen of the nineteen invoices read paid and twelve of the thirteen really did settle, so a reader who greps the status column finds thirteen and has to check all thirteen against the payment log to find the one"
+      - "invoice_status is what the invoicing surface displays and settlement_status is what the payment record says, which is why they are two columns with two vocabularies and not one: there is no agrees_with_payment_log column, no disputed flag and no reconciliation note, because the disagreement is derivable from a join that already ships"
+      - "the eight already-recorded draws are read out of the two client records at build time rather than retyped, so an edit to either record fails generation here instead of shipping a register that quietly contradicts it: invoice id, invoice date, due date and amount are byte-equal to the record's own payment log on all eight, and none of the eight can be the disagreement because all eight settled"
+      - "no person is named and no payment instrument exists: a client is a canon household, a canon business or a generated household name, and no processor, gateway, card network or bank product word appears in any cell"
     consuming_modules: [smb-invoice-and-collections-assistant, smb-cash-flow-and-aging-report]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 3 data plan (2.1)
 
   - id: SMB-18
     name: payment-status-mock
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-100]
+    canon_entities: [co-100, co-002, co-131, co-132]
+    period: { start: "2026-02-01", end: "2026-03-31" }
+    columns: [payment_id, invoice_id, client_canon_id, invoice_date, invoice_amount_usd, due_date, payment_plan_id, installment_sequence, installment_due_date, installment_amount_usd, settlement_date, settled_amount_usd, settlement_status, method, record_type, mock_notice]
     planted_features:
-      - clearly labeled mock/sandbox data; no live processor, no real funds, ever
+      - "25 mock payment rows behind the nineteen issued invoices, in file order: seventeen invoices carry one row each and two invoices are being settled under four-installment payment plans, PLN-LDB-01 and PLN-LDB-02, which is where the other eight rows come from. Eight rows are the draws the two client records already froze and seventeen are new, PAY-LDB-2026-301 to -317"
+      - "clearly labeled mock data, no live processor and no real funds, ever: record_type reads mock on all 25 rows, mock_notice carries the byte-identical string MOCK PAYMENT RECORD, NO FUNDS MOVED on all 25, and method is mock_bank_transfer on 21 rows and mock_check on 4. No processor, gateway, card network, bank product, authorization code or instrument number appears in any cell of any column, which is a property of every row rather than a defect on one"
+      - "14 rows read settlement_status settled and 11 read open: the 8 already-recorded draws, the 4 new single-row invoices that settled and the first installment of each of the two plans are settled, and the 5 new single-row invoices that have not settled and the 3 remaining installments on each plan are open. settled_amount_usd is non-empty exactly on the 14 settled rows and equals installment_amount_usd on every one of them"
+      - "a payment plan is one row per installment, each wholly settled or wholly open, so the settled and open vocabulary the client-record schema already carries is sufficient and no partial-settlement value is invented. due_date stays the invoice's own arithmetic due date on every row and installment_due_date carries the agreed date, and every installment_due_date is strictly after its own invoice due_date, so the aging can read either one and the two readings differ"
+      - "the per-invoice sum of installment_amount_usd equals invoice_amount_usd for every invoice, plan or not, and invoice_date, invoice_amount_usd and due_date are byte-equal to the issued-invoice register's on every row, so the two files cannot disagree about what was billed"
+      - "no person is named: a payment row carries a client canon id and nothing else human-shaped, and the eight already-recorded rows are read out of the two client records at build time rather than retyped, on all eleven of the payment fields they share"
     consuming_modules: [smb-invoice-and-collections-assistant, smb-cash-flow-and-aging-report]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 3 data plan (2.2)
 
   - id: SMB-19
     name: aging-summary
@@ -2247,11 +2261,17 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-100, co-132]
+    period: { start: "2026-03-31", end: "2026-03-31" }
+    columns: [aging_row_id, client_canon_id, client_name, as_of_date, open_balance_usd, oldest_unsettled_invoice_id, on_payment_plan, payment_plan_id, governing_due_date, days_past_due, aging_bucket, dunning_stage, promise_to_pay_date, promise_amount_usd]
     planted_features:
-      - 1 client genuinely past due (reminder due)
-      - 1 client on a payment plan within terms (no premature reminder)
+      - "4 aging rows, one per client carrying a non-zero open balance at the 2026-03-31 as-of date, AGE-LDB-01 upward in client_canon_id order, and every cell of every row is derived from the issued-invoice register and the mock payment log rather than typed: the open balance is the sum of that client's unsettled installment amounts, the governing due date is the earliest unsettled obligation, which is the installment due date where the invoice is on a plan and the invoice due date where it is not, and days_past_due is the whole number of calendar days from it to the as-of date, floored at zero"
+      - "1 client genuinely past due and owed a reminder: exactly one client is at dunning_stage 2 or higher with an empty promise_to_pay_date. Three clients are past the ladder's first step and two of the three already carry a promise to pay, so a rule that sorts by days past due and stops there drafts three reminders and two of them talk over a commitment the studio already holds"
+      - "1 client on a payment plan within terms, owed no premature reminder: exactly one client's earliest unsettled installment due date falls after the as-of date, so nothing is due, the bucket reads current and the stage reads 0. Two clients are on a payment plan at all and the other one is in arrears on it, so a rule keyed on whether a client is on a plan suppresses two reminders and one of the two should have gone"
+      - "the naive reading is wrong in the bytes rather than in an argument: the invoice behind the client who is within terms carries a due_date of 2026-03-08, so an aging computed from the register's due dates alone puts that client 23 days past due, in the 1-30 bucket, at stage 2, while this file reads 0 days, current and stage 0 because the agreed installment is not due until 2026-04-10"
+      - "the dunning ladder is a rule over days_past_due and not a label: stage 0 while nothing is due, stage 1 at 1 to 14 days, stage 2 at 15 to 30, stage 3 at 31 to 60 and stage 4 at 61 or more, and the bucket edges are current, 1-30, 31-60, 61-90 and 90+. Three of the five ladder stages and three of the five buckets are populated, and of the four stages at which a contact happens only two are; the rest are empty, because the register opens 2026-02-01 and nothing can be 61 days past due at this as-of date"
+      - "no column labels the answer and no person is named: there is no should_contact flag, no reminder_due column and no naive_days_past_due column, and a client appears as a canon household, a canon business or a generated household name"
     consuming_modules: [smb-invoice-and-collections-assistant]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 3 data plan (2.3)
 
   - id: SMB-20
     name: time-entries-mock
@@ -2259,9 +2279,17 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-100]
-    planted_features: []
+    period: { start: "2026-02-06", end: "2026-03-31" }
+    columns: [entry_id, week_ending, job_id, scope, change_order_id, crew_role, crew_slot, hours, cost_rate_usd, entry_cost_usd, record_type]
+    planted_features:
+      - "no defects by design: this is the clean time record the margin identity is recomputed from, so a defect here would make that recomputation unfalsifiable. 67 time entries, TME-LDB-01 upward in job order then role order then scope order then week_ending order, one row per job per crew_role per scope per week ending Friday across six jobs, so a row is a role total for a week rather than one person's week"
+      - "no person is named: a row carries a crew_role from design, demolition, plumbing, carpentry, paint and project_management, which are the approved proposal's own rate classes read as cost centres, and an anonymous crew_slot from the CRW-LDB- class that resolves to no canon id and to no name string. There is no employee id, no initial and no join to canon/people.md, which seats nobody at co-100"
+      - "cost_rate_usd is a property of the role and not of the row: the rate is constant per crew_role across the whole file, and entry_cost_usd is hours times cost_rate_usd to the cent on every one of the 67 rows, computed in integer cents"
+      - "the cost rate is what the work cost the studio and not what the studio charged for it: the approved proposal's day rates are the billed rates, and a cost file priced at the billed rate would report a margin of exactly zero, so the two are different numbers and the markup is visible rather than implied"
+      - "the already-recorded renovation ties to the approved proposal on quantity rather than on price: for that job and for the five roles the proposal prices by the day, the hours equal the proposal's quantities at eight hours to the day, 600 hours against 75 billed days, and the job's other 96 hours are the plumbing scope the proposal prices as a lot and the studio self-performed"
+      - "change_order_id is non-empty exactly when scope reads change_order, so contract-scope cost and change-order cost are separable by a rule rather than by a label, and every week_ending is a Friday at or before the as-of date, inside its own job's delivery window on all but two rows: the already-recorded renovation's two design weeks run from the day its proposal was approved to the Friday before the crew arrives, which is before the kickoff date that job starts from"
     consuming_modules: [smb-job-margin-snapshot]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 3 data plan (2.4)
 
   - id: SMB-21
     name: job-expenses-mock
@@ -2269,22 +2297,39 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-100, co-133, co-134]
+    period: { start: "2026-02-02", end: "2026-03-31" }
+    columns: [expense_id, expense_date, job_id, scope, change_order_id, expense_category, counterparty_canon_id, counterparty_name, description, amount_usd, coded_by_role, record_type]
     planted_features:
-      - 1 personal/unrelated expense miscoded to a job
+      - "34 expense rows, JEX-LDB-01 upward in job order, then the approved proposal's own line order inside the already-recorded renovation with the rework row last and expense_date order inside every other job, and the three overhead rows last of all: thirty-one rows carry a job code across six jobs and three carry none, and record_type reads mock on every row"
+      - "1 personal expense miscoded to a job: exactly one row carries an expense_category outside the job-cost set of subcontract, materials, equipment_hire, permit and disposal while its job_id is non-empty. It is coded to a job that closed at the end of the quarter, so it sits in that job's cost base and understates its final margin, and nobody looks again unless a margin snapshot flags it"
+      - "the miscode is found by category and not by counterparty and not by amount: four rows carry a category outside the job-cost set and three of the four correctly carry no job code at all, being office_overhead twice and software_subscription once, so a rule that greps for a non-job category returns four and three of the four are coded exactly right"
+      - "the counterparty is the distractor: 21 of the 34 rows name the studio's materials supplier co-134 Highmarch Building Supply and 20 of the 21 are legitimate material purchases, so a rule keyed on the counterparty over-flags by twenty, and the miscoded amount occurs nowhere else in the pack, so a rule keyed on the amount finds nothing at all"
+      - "every non-empty counterparty_canon_id is co-133 Voltridge Electrical, on 5 subcontract rows, or co-134 Highmarch Building Supply, on 21 rows, and the remaining 8 rows carry an empty counterparty and are internal cost lines: five in-house job costs and the three overhead rows. No third external vendor exists in this file"
+      - "the electrical rework the frozen internal status notes record appears here exactly once and is correctly coded: one subcontract row against co-133 at 6480.00, dated inside the delivery window on the day the panel circuits task actually completed, which is 1980.00 past the 4500.00 contingency allowance the approved proposal carried. It is a real cost on a real job and it is not the miscoded expense"
+      - "no person is named: a row carries a coded_by_role of owner or project lead, the client-record schema's own vocabulary, because canon/people.md seats nobody at co-100"
     consuming_modules: [smb-job-margin-snapshot]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 3 data plan (2.5)
 
   - id: SMB-22
     name: job-progress
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-100]
+    canon_entities: [co-100, co-002, co-131, co-132]
+    period: { start: "2026-03-31", end: "2026-03-31" }
+    columns: [job_id, client_canon_id, client_name, project_name, start_date, planned_end_date, as_of_date, contract_value_usd, percent_complete, billed_to_date_usd, accrued_unbilled_usd, revenue_to_date_usd, time_cost_usd, expense_cost_usd, contract_margin_usd, open_change_order_id, open_change_order_value_usd, change_order_materiality_usd, margin_floor_bp, on_track_tolerance_pct]
     planted_features:
-      - 1 healthy-looking job with a large unbilled change order dragging true margin down
-      - 1 correctly tracked job as a control
+      - "6 jobs tracked at the 2026-03-31 as-of date, JOB-LDB-01 upward in job_id order which is also file order, every row carrying the whole margin identity as columns: revenue to date is billed to date plus accrued unbilled and equals contract value times percent_complete, and contract margin is revenue to date less time cost less expense cost, all of it to the cent"
+      - "1 healthy-looking job with a large unbilled change order dragging true margin down: exactly one job reads on track and carries an open change order whose value is above the change_order_materiality_usd threshold the row itself carries. Its contract-scope margin clears the margin_floor_bp floor and its margin recomputed with that change order's incurred and unbilled cost does not, and no other job crosses the floor in either direction"
+      - "the change order is a discrimination and not a grep: three of the six jobs read on track and carry an open change order, and the other two stay above the floor on both readings, so a rule that flags every job with an open change order flags three and two of the three are fine"
+      - "1 correctly tracked job as a control: exactly one job carries no open change order and no expense row whose category is outside the job-cost set. Two jobs carry no open change order and one of the two is carrying the miscoded expense, so a rule that looks only at change orders finds two controls and one of them is wrong"
+      - "every threshold reads off the row rather than out of a rule stated elsewhere, and every one is an exact integer: change_order_materiality_usd is 5000.00, margin_floor_bp is 1500 basis points and on_track_tolerance_pct is 8 points, all three constant across the file, so the floor comparison is an integer cross-multiplication and no column carries a margin percentage or any other quotient"
+      - "there is no on_track column, no status column, no health column and no true_margin column: a job reads on track when the gap between percent billed and percent_complete is inside the tolerance the row carries, and the six gaps are 0, 0, 5, 5, 5 and 10, so the inclusive and the exclusive readings of that tolerance return the same five-job on-track set and no job sits on the boundary"
+      - "accrued_unbilled_usd is signed and exactly one job carries a negative one, which is billings in excess of costs: that job is billed ahead of the work performed, and it is the one job of the six that does not read on track"
+      - "the two already-recorded jobs read their project name, contract value, start date and planned end date out of the two client records at build time rather than retyped, and billed_to_date_usd equals the sum of that job's rows in the issued-invoice register to the cent on all six"
+      - "no person is named: a client appears as a canon household, a canon business or a generated household name from the reserved Larkspur-side band, and the studio side appears as a job"
     consuming_modules: [smb-job-margin-snapshot]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 3 data plan (2.6)
 
   - id: SMB-23
     name: completed-projects-log
@@ -2367,10 +2412,16 @@ artifacts:
     format: markdown
     generation: drafted-frozen
     canon_entities: []
+    period: { start: "2026-03-30", end: "2026-04-03" }
     planted_features:
-      - one metric with two plausible readings (cash on hand vs cash after committed payables); stated assumption required
+      - "a blank weekly owner report template, not a filled report: 14 fields, each with a field id, a required flag, a placeholder token, the source columns it reads and the window it covers, listed in the template's own required-field list at the top and repeated as a body section in the same order. No client, no price, no date and no canon entity appears anywhere in the document"
+      - "one metric defined twice with a required assumption line: cash on hand counts what has settled, cash after committed payables subtracts what is already owed out, and they are two separate required fields with two separate tokens. A third required field, the cash basis assumption, states which reading the report used, and the template says a report carrying either figure without that sentence is incomplete"
+      - "a required provisional marker on any figure whose window is open at the report date: the template states that a figure bounded by the report week carries the marker PROVISIONAL beside it and is named with its reason in the provisional figures field, and that no figure carrying that marker may be presented as final. Three of the fourteen fields are week bounded and are the three the rule applies to; the open balance and aging fields are as of the report date and are not provisional"
+      - "every figure field names the source columns it is computed from: the invoice id, invoice date, due date and invoice amount of the issued invoice register, the settled amount, settlement date and settlement status of the mock payment log, and the installment amount, installment due date and settlement status behind a payment plan, so a figure in a filled report can be traced back to the rows it came from"
+      - "eleven of the fourteen fields are required and three are optional, and the required-field list is the authority: a field's required flag is stated once, in that table, and the body never restates it. One optional field, next week's draw plan, carries no token and no text, so a rule that finds empty slots without reading the required column returns one and blocks on a field the template was free to leave empty"
+      - "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, never fills one from a working file, and never presents an open-window figure as final"
     consuming_modules: [smb-cash-flow-and-aging-report]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 3 data plan (2.7)
 
   - id: SMB-31
     name: outgoing-comms-sample
