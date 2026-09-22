@@ -315,6 +315,10 @@ function gid(stream, length = 16) {
 function drawnUuid(stream) {
   let hex = "";
   for (let i = 0; i < 32; i++) hex += "0123456789abcdef"[stream.int(0, 15)];
+  // Force the RFC 4122 version 4 nibbles before assembling: "4" at hex[12],
+  // one of 8/9/a/b at hex[16], the variant drawn from the same stream.
+  const variant = "89ab"[stream.int(0, 3)];
+  hex = `${hex.slice(0, 12)}4${hex.slice(13, 16)}${variant}${hex.slice(17, 32)}`;
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`;
 }
 
@@ -329,6 +333,12 @@ function derivedUuid(salt, employeeId) {
   // its input through every later byte, so four chunks that differ only at the
   // tail would come back visibly correlated.
   for (let i = 0; i < 4; i++) hex += fnv1a(`${i}:${salt}:${employeeId}`).toString(16).padStart(8, "0");
+  // Force the RFC 4122 version 4 nibbles before assembling: "4" at hex[12],
+  // one of 8/9/a/b at hex[16], the variant drawn from the same hash (the same
+  // treatment finding F16 gives derivedGuid, so every UUID-shaped id in this
+  // fixture, not only the ones drawnUuid builds, is version 4 in shape).
+  const variant = "89ab"[fnv1a(`variant:${salt}:${employeeId}`) % 4];
+  hex = `${hex.slice(0, 12)}4${hex.slice(13, 16)}${variant}${hex.slice(17, 32)}`;
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`;
 }
 

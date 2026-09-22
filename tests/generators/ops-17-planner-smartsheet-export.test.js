@@ -191,6 +191,16 @@ test("OPS-17 T-S6: no plannerTask property and no sheet column carries a definit
   assert.doesNotMatch(plannerBytes, /"details"/, "a details object reached the tasks payload");
 });
 
+test("OPS-17: every UUID-shaped id in the payloads is RFC 4122 version 4 in shape", () => {
+  const { files } = fixture();
+  for (const file of files) {
+    for (const uuid of file.content.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/g) ?? []) {
+      assert.equal(uuid[14], "4", `${uuid} in ${file.path} does not carry a version 4 nibble`);
+      assert.ok("89ab".includes(uuid[19]), `${uuid} in ${file.path} does not carry an RFC 4122 variant nibble`);
+    }
+  }
+});
+
 test("OPS-17: the directory is the default user property set, and every task sits in a published bucket", () => {
   const { directory, buckets, tasks } = fixture();
   for (const user of directory.value) {
