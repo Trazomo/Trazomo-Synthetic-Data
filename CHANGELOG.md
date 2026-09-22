@@ -25,8 +25,9 @@ behind every payload file.
   priority is an integer with two off-nominal values the banding absorbs;
   assignments are GUID-keyed with one task unassigned (its sheet row omits the
   Owner cell) and one GUID that resolves to no directory entry; sheet cells are
-  keyed by numeric `columnId` with `value` and `displayValue` differing on
-  every cell of exactly four columns.
+  keyed by numeric `columnId`, with `value` and `displayValue` differing on
+  every cell of exactly two columns, agreeing on four more, and the two DATE
+  columns carrying no `displayValue` at all.
 - **OPS-15 work-management-platform-export** (deterministic; consumer moved to
   `operations-work-management-startup` per R3): the developer documentation
   relaunch, 12 tasks `DDR-201` to `DDR-212`, captured 2026-03-26 as a Notion

@@ -36,7 +36,8 @@
 //         assignment that resolves to no directory entry.
 //   T-S6  nothing on either side carries a definition of done.
 //   T-S7  every cell columnId resolves to a column; no column twice in a row.
-//   T-S8  value and displayValue differ on exactly four columns.
+//   T-S8  value and displayValue differ on exactly two columns, agree on
+//         four more, and the two DATE columns carry no displayValue at all.
 //   T-S9  the two sides agree on every date.
 //   T-S10 every directory mail is an active CORE-04 row of a staffing team.
 //   T-S11 every timestamp is on or before the capture instant.
@@ -105,8 +106,8 @@ export const COLUMN_TITLES = [
   "Start Date", "Due Date", "% Complete", "Priority",
 ];
 
-/** The four columns whose value and displayValue differ on every cell. */
-export const SPLIT_COLUMNS = ["Owner", "Start Date", "Due Date", "% Complete"];
+/** The two columns whose value and displayValue differ on every cell. */
+export const SPLIT_COLUMNS = ["Owner", "% Complete"];
 
 /** The full plannerTask property set, in the order the reference lists it. */
 export const PLANNER_TASK_KEYS = [
@@ -435,12 +436,6 @@ function graphDate(date) {
   return `${date}T00:00:00Z`;
 }
 
-/** MM/DD/YY, the sheet's rendering of a DATE cell (the US default). */
-function displayDate(date) {
-  const [y, m, d] = date.split("-");
-  return `${m}/${d}/${y.slice(2)}`;
-}
-
 /** The published band of a priority integer. */
 export function priorityBand(priority) {
   const band = PRIORITY_BANDS.find((b) => priority >= b.min && priority <= b.max);
@@ -606,8 +601,10 @@ export function buildExport(rng) {
       cells.push(cell(columnByTitle, "Owner", assignee.email, `${assignee.first_name} ${assignee.last_name}`));
     }
     cells.push(
-      cell(columnByTitle, "Start Date", startDate, displayDate(startDate)),
-      cell(columnByTitle, "Due Date", task.due, displayDate(task.due)),
+      // DATE cells carry no displayValue: the reference returns none for that
+      // column type (finding F1).
+      cell(columnByTitle, "Start Date", startDate),
+      cell(columnByTitle, "Due Date", task.due),
       cell(columnByTitle, "% Complete", task.percent_complete / 100, `${task.percent_complete}%`),
       cell(columnByTitle, "Priority", priorityBand(task.priority), priorityBand(task.priority))
     );
@@ -712,7 +709,9 @@ function columnType(title) {
 function cell(columnByTitle, title, value, displayValue) {
   const column = columnByTitle.get(title);
   if (!column) throw new Error(`${id}: the sheet carries no "${title}" column`);
-  return { columnId: column.id, value, displayValue };
+  return displayValue === undefined
+    ? { columnId: column.id, value }
+    : { columnId: column.id, value, displayValue };
 }
 
 // ---------------------------------------------------------------- assertions
@@ -779,8 +778,10 @@ function assertExport({ payload, roster, departed }) {
       if (!columnById.has(c.columnId)) throw new Error(`${id}: a cell names columnId ${c.columnId}, which the sheet does not carry`);
       if (seen.has(c.columnId)) throw new Error(`${id}: a row carries two cells for one column`);
       seen.add(c.columnId);
-      if (Object.keys(c).join(",") !== "columnId,value,displayValue") {
-        throw new Error(`${id}: a cell carries ${Object.keys(c).join(",")}, not columnId, value and displayValue`);
+      const column = columnById.get(c.columnId);
+      const expectedKeys = column.type === "DATE" ? "columnId,value" : "columnId,value,displayValue";
+      if (Object.keys(c).join(",") !== expectedKeys) {
+        throw new Error(`${id}: a cell carries ${Object.keys(c).join(",")}, not ${expectedKeys}`);
       }
     }
   }
@@ -848,10 +849,19 @@ function assertExport({ payload, roster, departed }) {
     }
   }
 
-  // T-S8 value versus display.
+  // T-S8 value versus display, three classes: Owner and % Complete carry both
+  // keys and differ; Task ID, Task Name, Workstream and Priority carry both
+  // keys and agree; Start Date and Due Date (DATE columns) carry value and no
+  // displayValue at all, because the reference returns none for that type.
   for (const row of rows) {
     for (const c of row.cells) {
       const column = columnById.get(c.columnId);
+      if (column.type === "DATE") {
+        if (Object.hasOwn(c, "displayValue")) {
+          throw new Error(`${id}: the ${column.title} cell of row ${row.rowNumber} carries a displayValue, which the reference never returns for DATE`);
+        }
+        continue;
+      }
       const differ = c.value !== c.displayValue;
       if (SPLIT_COLUMNS.includes(column.title) !== differ) {
         throw new Error(`${id}: the ${column.title} cell of row ${row.rowNumber} breaks the value versus displayValue split`);

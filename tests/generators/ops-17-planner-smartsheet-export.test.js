@@ -41,7 +41,8 @@ const COLUMN_TITLES = [
   "Task ID", "Task Name", "Workstream", "Owner",
   "Start Date", "Due Date", "% Complete", "Priority",
 ];
-const SPLIT_COLUMNS = ["Owner", "Start Date", "Due Date", "% Complete"];
+const SPLIT_COLUMNS = ["Owner", "% Complete"];
+const DATE_COLUMNS = ["Start Date", "Due Date"];
 const PLANNER_TASK_KEYS = [
   "id", "planId", "bucketId", "title", "orderHint", "assigneePriority",
   "percentComplete", "priority", "startDateTime", "createdDateTime",
@@ -361,14 +362,18 @@ test("OPS-17 T-S7: every cell resolves to a column, once, and the column index h
   assert.deepEqual(sheet.columns.map((c) => c.index), sheet.columns.map((_, i) => i));
   assert.deepEqual(sheet.columns.map((c) => c.primary === true), sheet.columns.map((_, i) => i === 0));
   const known = new Set(ids);
+  const byId = columnIndex(sheet);
   for (const row of sheet.rows) {
     const seen = new Set();
     for (const cell of row.cells) {
       assert.ok(known.has(cell.columnId), `row ${row.rowNumber} names columnId ${cell.columnId}, which the sheet does not carry`);
       assert.ok(!seen.has(cell.columnId), `row ${row.rowNumber} carries two cells for one column`);
       seen.add(cell.columnId);
-      assert.deepEqual(Object.keys(cell), ["columnId", "value", "displayValue"],
-        "a cell carries a key beyond columnId, value and displayValue");
+      const expectedKeys = DATE_COLUMNS.includes(byId.get(cell.columnId))
+        ? ["columnId", "value"]
+        : ["columnId", "value", "displayValue"];
+      assert.deepEqual(Object.keys(cell), expectedKeys,
+        `a ${byId.get(cell.columnId)} cell carries ${Object.keys(cell).join(",")}, not ${expectedKeys.join(",")}`);
     }
     assert.ok(row.cells.length <= COLUMN_TITLES.length);
   }
@@ -382,14 +387,21 @@ test("OPS-17 T-S7: every cell resolves to a column, once, and the column index h
   }
 });
 
-test("OPS-17 T-S8: value and displayValue differ on exactly four columns and agree on the other four", () => {
+test("OPS-17 T-S8: value and displayValue differ on two columns, agree on four more, and the two DATE columns carry no displayValue at all", () => {
   const { sheet } = fixture();
   const byId = columnIndex(sheet);
   const differing = new Set();
   const agreeing = new Set();
+  const dateOnly = new Set();
   for (const row of sheet.rows) {
     for (const cell of row.cells) {
       const title = byId.get(cell.columnId);
+      if (DATE_COLUMNS.includes(title)) {
+        assert.deepEqual(Object.keys(cell), ["columnId", "value"],
+          `the ${title} cell of row ${row.rowNumber} carries a displayValue, which the reference never returns for DATE`);
+        dateOnly.add(title);
+        continue;
+      }
       (cell.value !== cell.displayValue ? differing : agreeing).add(title);
     }
   }
@@ -397,22 +409,24 @@ test("OPS-17 T-S8: value and displayValue differ on exactly four columns and agr
     "the set of columns whose two readings differ moved");
   assert.deepEqual(
     [...agreeing].sort(),
-    COLUMN_TITLES.filter((t) => !SPLIT_COLUMNS.includes(t)).sort(),
+    COLUMN_TITLES.filter((t) => !SPLIT_COLUMNS.includes(t) && !DATE_COLUMNS.includes(t)).sort(),
     "a column carries both kinds of cell, so the choice is no longer per column"
   );
-  assert.equal(differing.size, 4);
+  assert.deepEqual([...dateOnly].sort(), DATE_COLUMNS.slice().sort(),
+    "the set of DATE columns carrying no displayValue moved");
+  assert.equal(differing.size, 2);
 });
 
 test("OPS-17 T-S9: the two sides agree on every date, and Owner is the only cell a row can lack", () => {
   for (const { task, row, code, byId } of joined()) {
     const due = cellOf(row, byId, "Due Date");
     assert.equal(task.dueDateTime.slice(0, 10), due.value, `${code}: the two sides disagree about the due date`);
-    assert.equal(due.displayValue, usDate(due.value), `${code}: the Due Date displayValue is not the US rendering`);
+    assert.ok(!Object.hasOwn(due, "displayValue"), `${code}: the Due Date cell carries a displayValue, which a DATE cell never has`);
     assert.ok(due.value >= DUE_WINDOW.start && due.value <= DUE_WINDOW.end, `${code} is due outside the program window`);
 
     const start = cellOf(row, byId, "Start Date");
     assert.ok(start, `${code} has no Start Date cell, and Start Date is never the missing cell`);
-    assert.equal(start.displayValue, usDate(start.value), `${code}: the Start Date displayValue is not the US rendering`);
+    assert.ok(!Object.hasOwn(start, "displayValue"), `${code}: the Start Date cell carries a displayValue, which a DATE cell never has`);
     if (task.startDateTime !== null) {
       assert.equal(task.startDateTime.slice(0, 10), start.value, `${code}: the two sides disagree about the start date`);
     }
@@ -497,9 +511,3 @@ test("OPS-17: the description and checklist censuses, both carried as counts rat
     assert.equal(task.conversationThreadId, null);
   }
 });
-
-/** MM/DD/YY, the sheet's US default rendering of a DATE cell. */
-function usDate(iso) {
-  const [y, m, d] = iso.split("-");
-  return `${m}/${d}/${y.slice(2)}`;
-}
