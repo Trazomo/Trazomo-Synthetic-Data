@@ -786,6 +786,45 @@ test("HR-13: 18 exit rows, 143 department months, 44 survey rows and 4 suppresse
   assert.equal(grammar[0].in_window_exit_count, "7");
 });
 
+test("HR-20: 582 census rows, 587 dependents, 1 deadline in the alert window, 11 after the as of, 1 unverified dependent (hr-20-benefits-census.test.js)", () => {
+  const files = emitted("HR-20");
+  const grammar = csvRows(fileByPath(files, "census-grammar.csv").content);
+  assert.equal(grammar.length, 1);
+  assert.equal(grammar[0].employee_count, "582");
+  const employees = csvRows(fileByPath(files, "employee-benefits.csv").content);
+  assert.equal(employees.length, 582);
+  const deps = csvRows(fileByPath(files, "dependents.csv").content);
+  assert.equal(deps.length, Number(grammar[0].dependent_count));
+  const deadline = (row) => {
+    const d = new Date(`${row.hire_date}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate() + Number(grammar[0].spd_deadline_days));
+    return d.toISOString().slice(0, 10);
+  };
+  const inWindow = employees.filter((r) => deadline(r) >= grammar[0].alert_window_start && deadline(r) <= grammar[0].alert_window_end);
+  assert.equal(inWindow.length, 1, "the alert window census moved");
+  assert.equal(employees.filter((r) => deadline(r) > grammar[0].as_of).length, 11);
+  assert.equal(employees.filter((r) => r.election_event === "qualifying_life_event").length, 6);
+  assert.equal(deps.filter((d) => d.documentation_status === "unverified").length, 1, "the unverified dependent census moved");
+});
+
+test("HR-14: 20 untriaged requests, 7 routing rules, 15 terms, 3 answerable from neither, 1 human only (hr-14-helpdesk-queue.test.js)", () => {
+  const files = emitted("HR-14");
+  const grammar = csvRows(fileByPath(files, "helpdesk-grammar.csv").content);
+  assert.equal(grammar.length, 1);
+  assert.equal(grammar[0].request_count, "20");
+  assert.equal(grammar[0].answerable_from_neither_count, "3");
+  assert.equal(grammar[0].human_only_count, "1");
+  assert.equal(csvRows(fileByPath(files, "routing-table.csv").content).length, 7);
+  const terms = csvRows(fileByPath(files, "special-category-terms.csv").content).map((t) => t.term);
+  assert.equal(terms.length, 15);
+  const requests = csvRows(fileByPath(files, "helpdesk-requests.csv").content);
+  assert.equal(requests.length, 20);
+  assert.ok(requests.every((r) => r.status === "untriaged"));
+  const bounded = (text, term) => new RegExp(`(?<![A-Za-z0-9])${term}(?![A-Za-z0-9])`, "i").test(text);
+  const special = requests.filter((r) => terms.some((t) => bounded(r.body, t)));
+  assert.equal(special.length, 1, "the special category request census moved");
+});
+
 test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: no file carries an em dash or an en dash", () => {
   for (const file of c2bFiles()) {
     // Written as escapes so this screen is not itself a hit for a grep over
