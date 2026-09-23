@@ -1,0 +1,16 @@
+term,term_class
+diagnosed,health
+diagnosis,health
+medical condition,health
+disability,health
+pregnancy,health
+pregnant,health
+mental health,health
+medication,health
+trade union,trade_union
+union representative,trade_union
+union membership,trade_union
+religious,religion
+sexual orientation,sexual_orientation
+ethnic origin,ethnic_origin
+genetic,genetic

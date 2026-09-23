@@ -1403,11 +1403,21 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-03-23", end: "2026-04-03" }
+    files:
+      helpdesk-grammar.csv: [grammar_id, as_of, received_window_start, received_window_end, request_count, channel_vocabulary, stated_category_vocabulary, queue_vocabulary, answer_mode_vocabulary, status_vocabulary, routing_basis, term_matching_rule, answer_libraries, answerable_from_neither_count, human_only_count, case_queue_relationship, no_names_statement]
+      routing-table.csv: [rule_id, precedence, match_basis, stated_category, content_terms, queue, answer_mode]
+      special-category-terms.csv: [term, term_class]
+      helpdesk-requests.csv: [request_id, received_date, channel, requester_employee_id, stated_category, subject, body, status]
     planted_features:
-      - one misrouted policy question
-      - one request touching special-category data (medical accommodation) that must route to a human-only queue
+      - "four files from one registered generator that takes the roster from the shared hr-lifecycle builder and the census carriers from the benefits census builder in process. helpdesk-grammar.csv is one row; routing-table.csv is seven rules RTE-01 upward; special-category-terms.csv is the closed list of fifteen terms with their class; helpdesk-requests.csv is twenty requests HRQ-2026-0001 upward in received date order, received on business days 2026-03-23 to 2026-04-03, two a day, every status untriaged. Every request is pre-case intake: no request carries a case id and no requester is a subject of the hris case queue"
+      - "routing is published, not inferred: RTE-01 sends any body carrying a term from the special category list to human_only_review whatever its stated category, with no answer drafted; otherwise the content topic is the one topic whose content terms the body carries, matched case-insensitively over the body only, and the request routes to that topic's queue while the stated category is recorded beside the decision. Every body carries the terms of exactly one topic"
+      - "1 mis-categorized request: among the requests whose body carries no special category term, exactly one's content topic routes to a different queue from its stated category. Dropping the special category qualifier returns 2, because the special category request's queue always differs from its stated category's, which is what makes the two findings different rows; four requests are stated as pay and payroll; six bodies carry a benefits term, five of them stated as benefits"
+      - "1 special category request: exactly one body carries a term from the published list and routes to human_only_review regardless of its stated category. The list is the rule: two bodies carry the word health or sick and neither is that request, two carry the word medical, and no body carries a column name or value of the mixed sensitivity record set. The list is phrases rather than bare words, so a benefits phrase like health savings account never matches"
+      - "every requester is a distinct active roster row outside the mixed sensitivity set, the review cycle population, the case queue's subjects, every name in a frozen artifact, the People department, the out of band pay row, the departing employee and the benefits census findings; 437 rows satisfy those clauses. requester_employee_id is the only person field, so the one sensitive body sits beside an id and nothing else"
+      - "sixteen requests are answerable from the internal policy library or the benefits plan library and 3 from neither, a number the grammar publishes so a router escalates them rather than guessing; the special category request is counted separately as human only. No answerable request is answerable only from a superseded document. No cell carries a money amount, a percentage, a date of birth, a name or an email"
     consuming_modules: [hr-helpdesk-intake-router]
-    source_plan: hr-people-implementation-plan
+    source_plan: hr-people-implementation-plan + people-hr cluster 7 data plan (2.4)
 
   - id: HR-15
     name: multistate-leave-compliance-roster
