@@ -400,7 +400,7 @@ function assertLog(rows, canon) {
     if (/[A-Z]/.test(r.issue_summary)) throw new Error(`${where}'s issue_summary carries a capital letter`);
 
     for (const [col, value] of Object.entries(r)) {
-      for (const dash of ["—", "–"]) {
+      for (const dash of ["\u2014", "\u2013"]) {
         if (value.includes(dash)) throw new Error(`${where} carries an em dash or an en dash in ${col}`);
       }
     }

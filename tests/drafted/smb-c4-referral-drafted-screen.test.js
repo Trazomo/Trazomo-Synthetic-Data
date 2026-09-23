@@ -136,7 +136,7 @@ const TOUCH_SECTION = {
 const FLAGS = ["yes", "conditional"];
 
 /** R-NOSTATUTE, the pattern in data plan section 0. */
-const STATUTE = /\bBPC\b|\bCal\.|U\.S\.C|\bCFR\b|\bFTC\b|\bAct\b|\bSB |\bAB |section 17941|§/;
+const STATUTE = /\bBPC\b|\bCal\.|U\.S\.C|\bCFR\b|\bFTC\b|\bAct\b|\bSB |\bAB |section 17941|\u00a7/;
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -591,8 +591,8 @@ for (const [id, key] of [["SMB-24", "T-K8"], ["SMB-25", "T-L8"]]) {
     assert.deepEqual(unscreenedPhrases(screened, allowed), [], `${id} carries an unscreened capitalized phrase (rule R-ROLE)`);
     assert.deepEqual(unscreenedWords(screened, allowed), [], `${id} carries an unscreened capitalized word (rule R-ROLE)`);
 
-    assert.ok(!text.includes("—"), `${id} carries an em dash (U+2014)`);
-    assert.ok(!text.includes("–"), `${id} carries an en dash (U+2013)`);
+    assert.ok(!text.includes("\u2014"), `${id} carries an em dash (U+2014)`);
+    assert.ok(!text.includes("\u2013"), `${id} carries an en dash (U+2013)`);
     const nonAscii = [...new Set(text.match(/[^\x00-\x7F]/g) ?? [])];
     assert.deepEqual(nonAscii, [], `${id} carries non-ASCII character(s) ${nonAscii.join(" ")}`);
 

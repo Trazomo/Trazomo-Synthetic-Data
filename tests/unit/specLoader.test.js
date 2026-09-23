@@ -1128,8 +1128,8 @@ test("loadSpecs: C4 wave A, all three ids declare the plan's period, module and 
     assert.ok(spec.planted_features.length > 0, `${id} states no planted features`);
     for (const feature of spec.planted_features) {
       assert.equal(typeof feature, "string", `${id} has a planted feature that is not a string`);
-      assert.ok(!feature.includes("—"), `${id} planted feature carries an em dash`);
-      assert.ok(!feature.includes("–"), `${id} planted feature carries an en dash`);
+      assert.ok(!feature.includes("\u2014"), `${id} planted feature carries an em dash`);
+      assert.ok(!feature.includes("\u2013"), `${id} planted feature carries an en dash`);
     }
   }
   // U-B: the log names the office refresh, so SMB-23 widens to co-002.
