@@ -2,7 +2,7 @@
 // called out in specs/artifact-specs.yaml, not just "produces some CSV".
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { loadSpecs } from "../../datagen/src/specLoader.js";
 import { loadCanonCompanies } from "../../datagen/src/canon.js";
@@ -1116,8 +1116,29 @@ function c4bFiles() {
 /** The three id classes the wave mints (cluster-4.md rule R-NS). */
 const C4B_ID_CLASSES = ["DA-LDB-", "DHR-LDB-", "RCF-LDB-"];
 
+// Review data-cluster-4.md NIT 4: SMB-31 (the outgoing-comms-sample index and
+// its ten messages) sat outside both C4 planted-features blocks, so R-NS and
+// R-MOCK were never asserted over it as a property here (T-J15 and the T-J5
+// digit screen in the drafted screen cover it in practice, but the property
+// had no name in this file). R-ROLE is not added below: T-J15 already screens
+// SMB-31 for a canon person name and every capitalized word by name, with
+// context (household names, project names) this file's own R-ROLE allowlist
+// does not carry.
+function smb31Files() {
+  const dir = join(REPO_ROOT, "artifacts", "SMB-31");
+  const name = specs.byId.get("SMB-31").name;
+  const paths = [join(dir, `${name}.csv`)];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isFile() && entry.name.endsWith(".md")) paths.push(join(dir, entry.name));
+  }
+  return paths.map((path) => ({ id: "SMB-31", text: readFileSync(path, "utf8") }));
+}
+
+/** The three id classes SMB-31 mints (cluster-4.md rule R-NS, section 2.4). */
+const SMB31_ID_CLASSES = ["MSG-LDB-", "INV-LDB-", "PLN-LDB-"];
+
 test("C4 wave B, SMB-32 to SMB-34: no processor, gateway, card network or bank product is named (rule R-MOCK)", () => {
-  for (const file of c4bFiles()) {
+  for (const file of [...c4bFiles(), ...smb31Files()]) {
     const words = new Set(file.text.toLowerCase().split(/[^a-z0-9]+/));
     for (const term of MOCK_VOCABULARY) {
       assert.ok(!words.has(term), `${file.id} names "${term}", which is a processor, gateway, card network or bank product`);
@@ -1171,8 +1192,24 @@ test("C4 wave B, SMB-32 to SMB-34: every minted id is DA-LDB-, DHR-LDB- or RCF-L
   assert.deepEqual([...seen].sort(), [...C4B_ID_CLASSES].sort(), "a class the wave mints appears in none of its files");
 });
 
+test("C4 wave B, SMB-31: every minted id is MSG-LDB-, INV-LDB- or PLN-LDB- (rule R-NS)", () => {
+  const seen = new Set();
+  for (const file of smb31Files()) {
+    for (const match of file.text.matchAll(/\b([A-Z]{2,4})-LDB-(\d+)\b/g)) {
+      const idClass = `${match[1]}-LDB-`;
+      assert.ok(SMB31_ID_CLASSES.includes(idClass), `${file.id} carries "${match[0]}", which is not a class SMB-31 mints`);
+      seen.add(idClass);
+    }
+    for (const idClass of SMB31_ID_CLASSES) {
+      const bare = idClass.replace("LDB-", "");
+      assert.doesNotMatch(file.text, new RegExp(`\\b${bare}\\d`), `${file.id} carries an un-namespaced ${bare} id`);
+    }
+  }
+  assert.deepEqual([...seen].sort(), [...SMB31_ID_CLASSES].sort(), "a class SMB-31 mints appears in none of its files");
+});
+
 test("C4 wave B, SMB-32 to SMB-34: no file carries an em dash or an en dash", () => {
-  for (const file of c4bFiles()) {
+  for (const file of [...c4bFiles(), ...smb31Files()]) {
     assert.ok(!file.text.includes(String.fromCharCode(0x2014)), `${file.id} carries an em dash (U+2014)`);
     assert.ok(!file.text.includes(String.fromCharCode(0x2013)), `${file.id} carries an en dash (U+2013)`);
   }
