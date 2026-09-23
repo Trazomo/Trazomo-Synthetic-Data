@@ -131,7 +131,7 @@ export const REQUEST_LIBRARY = [
   { slot: "S02", stated_category: "benefits", subject: "Which option allows a health savings account",
     body: "I am comparing the options under the medical plan before open enrollment. Which option lets me open a health savings account, and can I keep that account if I switch options later on?" },
   { slot: "S03", stated_category: "benefits", subject: "How much life insurance",
-    body: "How much life insurance does the Company give me without any cost to me? I do not have any other questions about that benefit right now." },
+    body: "How much life insurance does the Company give me without any cost to me, and is the amount based on my pay or the same for everyone?" },
   { slot: "S04", stated_category: "benefits", subject: "Commuter benefit for a transit pass",
     body: "I take the train into the office most days. Can I use the commuter benefit to buy a monthly transit pass before tax, and where do I sign up for it?" },
   { slot: "S05", stated_category: "benefits", subject: "New frames",
@@ -235,6 +235,8 @@ export function correctQueue(body) {
 /** HR-17 columns whose values are swept: special-category, restricted, date_of_birth
  * (already restricted, named again for clarity), home_city and the two
  * emergency-contact columns. Never a roster-copied column. */
+const HR17_ROSTER_CARRIED = new Set(["employee_id", "full_name", "work_email", "department", "role_title", "manager_employee_id", "hire_date"]);
+
 const HR17_VALUE_COLUMNS = [
   ...SPECIAL_CATEGORY_FIELDS, ...RESTRICTED_FIELDS,
   "home_city", "emergency_contact_name", "emergency_contact_phone",
@@ -250,7 +252,12 @@ function hr17Strings() {
       values.add(String(value));
     }
   }
-  return { columns: HR17_COLUMNS, values: [...values] };
+  // Identifiers are HR-17's own columns: the seven carried through from CORE-04
+  // are roster vocabulary, not mixed sensitivity identifiers (controller ruling
+  // on review F11, 2026-09-23), so "work email" in a body is ordinary English.
+  const own = HR17_COLUMNS.filter((c) => !HR17_ROSTER_CARRIED.has(c));
+  if (own.length !== HR17_COLUMNS.length - 7) throw new Error(`HR-14: expected 7 roster-carried HR-17 columns, found ${HR17_COLUMNS.length - own.length}`);
+  return { columns: own, values: [...values] };
 }
 
 /**
@@ -287,13 +294,13 @@ export function checkLibrary() {
     if (/\b(January|February|March|April|May|June|July|August|September|October|November|December|Monday|Tuesday|Wednesday|Thursday|Friday)\b/.test(body)) {
       fail(slot, "body carries a date word");
     }
-    // Column identifiers, snake case, over both body and subject. The
-    // space-separated word form is swept in tests/generators/hr-14-helpdesk-queue.test.js
-    // (HR-C7-T22) rather than here: over this library it also matches S16's
-    // "work email", a roster-copied column's ordinary English words rather
-    // than a sensitive value, and failing the build on it is not this fix's call.
+    // Column identifiers, snake case and as words, over both body and subject,
+    // the same sweep HR-C7-T22 runs.
     for (const text of [body, subject]) {
-      for (const column of hr17.columns) if (carriesTerm(text, column)) fail(slot, `carries the mixed sensitivity column identifier ${column}`);
+      for (const column of hr17.columns) {
+        if (carriesTerm(text, column)) fail(slot, `carries the mixed sensitivity column identifier ${column}`);
+        if (carriesTerm(text, column.replace(/_/g, " "))) fail(slot, `carries the mixed sensitivity column identifier ${column} in words`);
+      }
       // Values are the special-category and restricted columns' own strings
       // (never a roster-copied column), matched case-insensitively.
       for (const value of hr17.values) if (carriesTerm(text, value)) fail(slot, "carries a special category or restricted HR-17 value string");

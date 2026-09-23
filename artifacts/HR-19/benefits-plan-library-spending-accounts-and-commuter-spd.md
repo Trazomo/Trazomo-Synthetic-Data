@@ -17,7 +17,7 @@
 
 ## 1. Plan Overview
 
-This plan lets you set aside part of your pay before tax in three ways: a health flexible spending account for health, dental and vision expenses; a health savings account, if you are enrolled in the Saver HSA option of the medical plan; and commuter benefits for getting to work. Because the money is taken from your pay before tax, each dollar you set aside costs you less than a dollar of take-home pay. You choose how much to set aside, and every amount you choose is subject to the monthly limit set under federal tax law.
+This plan lets you set aside part of your pay before tax in three ways: a health flexible spending account for health, dental and vision expenses; a health savings account, if you are enrolled in the Saver HSA option of the medical plan; and commuter benefits for getting to work. Because the money is taken from your pay before tax, each dollar you set aside costs you less than a dollar of take-home pay. You choose how much to set aside, and every amount you choose is subject to the limit that federal tax law sets for that account.
 
 ## 2. Eligibility and Participation
 

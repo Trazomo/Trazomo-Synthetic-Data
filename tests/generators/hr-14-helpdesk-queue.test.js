@@ -181,10 +181,17 @@ test("HR-C7-T22: HR-14b, one special category body, and the privacy censuses", (
   ];
   const values = new Set();
   for (const rec of records) for (const [c, v] of Object.entries(rec)) if (v && VALUE_COLUMNS.includes(c)) values.add(v);
+  // Column identifiers are HR-17's own columns: the seven carried through from
+  // CORE-04 (employee_id, full_name, work_email, department, role_title,
+  // manager_employee_id, hire_date) are roster vocabulary, and "work email" is
+  // ordinary English (controller ruling on review F11, 2026-09-23).
+  const ROSTER_CARRIED = new Set(["employee_id", "full_name", "work_email", "department", "role_title", "manager_employee_id", "hire_date"]);
+  const ownCols = cols.filter((c) => !ROSTER_CARRIED.has(c));
+  assert.equal(ownCols.length, cols.length - 7);
   const asWords = (c) => c.replace(/_/g, " ");
   for (const r of rows) {
     for (const text of [r.body, r.subject]) {
-      for (const c of cols) {
+      for (const c of ownCols) {
         assert.ok(!carries(text, c), `a body or subject carries the HR-17 column identifier ${c}`);
         assert.ok(!carries(text, asWords(c)), `a body or subject carries the HR-17 column identifier ${c} in words`);
       }
