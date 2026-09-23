@@ -21,7 +21,7 @@ This document describes two programs the Company pays for. The employee assistan
 
 ## 2. Eligibility and Participation
 
-You are eligible if you are a regular full-time employee, or a regular part-time employee scheduled for 20 or more hours per week, from the first day of the month following the date of hire. The employee assistance program is also open to the people in your household. The learning and wellness allowance is for you alone. Both end on your last day of employment.
+You are eligible if you are a regular full-time employee, or a regular part-time employee scheduled for 20 or more hours per week, from the first day of the month following the date of hire. The employee assistance program is also open to the people in your household. The learning and wellness allowance is for you alone. Both end on the last day of the month in which separation occurs.
 
 ## 3. Enrollment and Changes
 

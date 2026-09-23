@@ -45,7 +45,7 @@ If a disability keeps you from performing your job, the plan pays 60 percent of 
 
 ### Long-term disability
 
-If a disability continues after 90 consecutive days of disability, the plan pays 60 percent of your monthly base pay, to a maximum of $10,000 a month. Long-term disability begins when short-term disability ends and continues for as long as the claims reviewer confirms that the disability keeps you from working. A benefit you receive from another source for the same period of disability reduces the long-term disability benefit by the same amount.
+If a disability continues after 90 consecutive days of disability, the plan pays 60 percent of your monthly base pay, to a maximum of $10,000 a month. Long-term disability continues for as long as the claims reviewer confirms that the disability keeps you from working. A benefit you receive from another source for the same period of disability reduces the long-term disability benefit by the same amount.
 
 ## 5. Exclusions and Limitations
 

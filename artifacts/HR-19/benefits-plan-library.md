@@ -89,7 +89,7 @@ ADI-BNF-001 is superseded by ADI-BNF-008 and is kept for reference only.
 
 **Identifiers.** `ADI` denotes Atticus Dundee Inc., and `<AREA>` is `BNF` for every benefits plan document. `<NNN>` is a three-digit sequence assigned in the order documents enter this library and is never reused or renumbered. A document keeps its identifier after it is superseded or retired.
 
-**Versions.** Versions are numbered `MAJOR.MINOR`. A plan document is reissued with a new major version for each plan year and whenever a plan term changes; the minor number marks a clarification or correction.
+**Versions.** Versions are numbered `MAJOR.MINOR`. A plan document is reissued with a new major version whenever a plan term changes, and for each plan year where the document states plan-year terms; the minor number marks a clarification or correction.
 
 **Status.** A document carries exactly one of three statuses. `Active` means the document is in force. `Superseded` means its subject matter has been taken up by another document, identified in the Superseded By field. `Retired` means the document has been withdrawn and the plan it described has ended.
 

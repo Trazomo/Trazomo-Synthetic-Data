@@ -46,7 +46,7 @@ Outside open enrollment, you may change an election only after a qualifying life
 | Marriage | 30 days of the marriage | marriage certificate |
 | Divorce | 30 days of the divorce | None |
 | Birth or adoption | 30 days of the birth or placement | birth certificate; adoption or placement record |
-| Loss of other coverage | 30 days of the date the other coverage ends | None |
+| Loss of other coverage | 30 days of the date the other coverage ends | None for the event; a document for each dependent you add (section 6) |
 
 An event you report after its deadline allows no change until the next open enrollment.
 
@@ -72,4 +72,4 @@ Aviso: Este documento contiene información importante sobre sus beneficios en A
 |---|---|---|---|
 | 1.0 | 2024-07-01 | Enrollment calendar issued for the benefits plan library. | Priya Raghunathan |
 | 2.0 | 2025-01-01 | Reissued for the 2025 plan year. | Priya Raghunathan |
-| 3.0 | 2026-01-01 | Reissued for the 2026 plan year; published the next open enrollment window and the dependent documentation list. | Priya Raghunathan |
+| 3.0 | 2026-01-01 | Reissued for the 2026 plan year; published the next open enrollment window and restated the dependent documentation list. | Priya Raghunathan |

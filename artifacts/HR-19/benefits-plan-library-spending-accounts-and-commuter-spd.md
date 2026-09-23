@@ -17,7 +17,7 @@
 
 ## 1. Plan Overview
 
-This plan lets you set aside part of your pay before tax in three ways: a health flexible spending account for health, dental and vision expenses; a health savings account, if you are enrolled in the Saver HSA option of the medical plan; and commuter benefits for getting to work. Because the money is taken from your pay before tax, each dollar you set aside costs you less than a dollar of take-home pay. You choose how much to set aside, and every amount you choose is subject to the annual limit set under federal tax law for the plan year.
+This plan lets you set aside part of your pay before tax in three ways: a health flexible spending account for health, dental and vision expenses; a health savings account, if you are enrolled in the Saver HSA option of the medical plan; and commuter benefits for getting to work. Because the money is taken from your pay before tax, each dollar you set aside costs you less than a dollar of take-home pay. You choose how much to set aside, and every amount you choose is subject to the monthly limit set under federal tax law.
 
 ## 2. Eligibility and Participation
 
@@ -35,7 +35,7 @@ Every benefit below is funded from your own pay, before tax, through payroll.
 
 ### Health flexible spending account
 
-The health flexible spending account reimburses eligible out-of-pocket health, dental and vision expenses for you, your spouse and your dependents, such as deductibles, the shares of a cost that the plans leave to you, prescription drugs and eyeglasses. You may contribute up to the annual limit set under federal tax law for the plan year. The whole amount you elect for the year is available to you from the first day of the plan year, even though it is taken from your pay in equal parts over the year.
+The health flexible spending account reimburses eligible out-of-pocket health, dental and vision expenses for you, your spouse and your dependents, such as deductibles, the shares of a cost that the plans leave to you, prescription drugs and eyeglasses. If you are enrolled in the Saver HSA option, the health flexible spending account reimburses dental and vision expenses only. You may contribute up to the annual limit set under federal tax law for the plan year. The whole amount you elect for the year is available to you from the first day of the plan year, even though it is taken from your pay in equal parts over the year.
 
 ### Health savings account
 
@@ -43,7 +43,7 @@ The health savings account is available only if you are enrolled in the Saver HS
 
 ### Commuter benefits
 
-Commuter benefits pay for transit passes and for parking near your work location. You may set aside up to the annual limit set under federal tax law for the plan year, and you use the commuter card issued to you through the HRIS or submit a receipt for reimbursement. Rideshare trips and tolls are not covered by commuter benefits.
+Commuter benefits pay for transit passes and for parking near your work location. You may set aside up to the monthly limit set under federal tax law, and you use the commuter card issued to you through the HRIS or submit a receipt for reimbursement. Rideshare trips and tolls are not covered by commuter benefits.
 
 ## 5. Exclusions and Limitations
 
