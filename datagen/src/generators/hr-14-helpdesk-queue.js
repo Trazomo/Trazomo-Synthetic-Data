@@ -233,7 +233,7 @@ export function correctQueue(body) {
 // ------------------------------------------------------- the library check
 
 /** HR-17 columns whose values are swept: special-category, restricted, date_of_birth
- * (already restricted, named again for clarity), home_city and the two
+ * (the restricted list already names it), home_city and the two
  * emergency-contact columns. Never a roster-copied column. */
 const HR17_ROSTER_CARRIED = new Set(["employee_id", "full_name", "work_email", "department", "role_title", "manager_employee_id", "hire_date"]);
 
