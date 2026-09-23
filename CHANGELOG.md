@@ -1,5 +1,83 @@
 # Changelog
 
+## 1.28.0
+
+Renumber at tag time: the integrator allocates the tag in merge order, `v1.27.0`
+is the current tip, and other cluster data branches may be live and take
+`v1.28.0` first.
+
+People and HR cluster 7, knowledge and intake. Three artifacts, one PR, one
+drafted-frozen and two deterministic, for `hr-total-rewards-benefits-knowledge-base`
+and `hr-helpdesk-intake-router`; `hr-policy-handbook-knowledge-base` reads the
+frozen CORE-05 library at its existing pin and needs nothing new. The plan is
+`docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-7.md` on the
+trazomo repo; its section 9 defaults U-C7-1 to U-C7-14 ride to Salvador's freeze
+review, U-C7-1 (no CORE-05 amendment), U-C7-2 (no money in the census and no
+premium figure in the library) and U-C7-4 (the `ADI-BNF-` identifier scheme)
+first. No byte changes under `datasets/` or `artifacts/` outside the three new
+directories, none under `canon/`, and none in CORE-04, CORE-05, HR-07, HR-08,
+HR-12, HR-17, HR-18 or any finance artifact this cluster reads. The HR-14 spec
+entry is enriched in place; HR-19 and HR-20 are new entries after HR-18, so the
+catalog goes from 142 to 144 entries and the spec loader's count test moves with
+it.
+
+Every plant is asserted at both cardinalities, in the builder and again in a
+public test that recomputes it from committed bytes and imports no builder
+predicate, and every qualifier-dropped count the plan publishes is asserted
+beside it.
+
+- **HR-19 benefits-plan-library** (drafted-frozen, markdown built to DOCX by
+  `build-docx`; there is no pdf pipeline): ten markdown files, an index that
+  registers eight library documents under its own `ADI-BNF-` area plus a seed
+  question set of ten questions. The documents reuse CORE-05's ten-field
+  document control block and version history verbatim, follow one section
+  grammar, and agree with the employee handbook's benefits eligibility, benefits
+  during leave and separation text. The index publishes the reading rule for a
+  limitation; two limitations are stated away from the benefit they limit. One
+  document is superseded by a restatement under a new identifier that names it
+  back. No premium, contribution rate or cost appears anywhere, the medical,
+  dental and vision, and life coverages are placed and administered through
+  Millgate Insurance Services, and disability is self-funded, so the library
+  agrees with every March benefits line in the finance pack. The only people
+  named are the owner and the approver of every document, both canon officers.
+- **HR-20 benefits-census** (deterministic): three files, a one-row grammar,
+  582 employee election rows over the active roster and 587 dependent rows,
+  from a registered generator that takes the roster in process and reads the
+  HR-19 register at build time, throwing if a plan id it references is missing
+  or not Active. The superseded document appears nowhere. Exactly one summary
+  plan description deadline falls inside the published seven-day alert window;
+  it is fixed by the roster rather than drawn, and that employee holds a record
+  in the mixed sensitivity set, a disclosed overlap no census field refers to.
+  Exactly one dependent's document is unverified, drawn from a guarded pool of
+  419 rows and never at an end of the qualifying life event date order. No
+  money, deferral rate, pay, health field or dependent name, date of birth or
+  age appears anywhere.
+- **HR-14 helpdesk-request-queue** (deterministic): four files, a one-row
+  grammar, a seven-rule routing table, a fifteen-phrase special category term
+  list published beside the queue, and twenty untriaged pre-case requests over
+  ten business days, from a registered generator that imports the census
+  builder in process. Every body carries the terms of exactly one topic, so the
+  correct queue is a computation. Exactly one request's content routes away
+  from its stated category among the requests with no special category term,
+  and exactly one body carries a term from the list and routes to the
+  human-only queue. Requesters are distinct and drawn from a guarded pool of
+  437 rows outside every earlier finding, the mixed sensitivity set and both
+  census findings; the only person field is `requester_employee_id`. Sixteen
+  requests are answerable from the two libraries and three from neither.
+
+Shared: `datagen/src/generators/hr-c7-salience.js`, unregistered, builds the
+salience sets both generators draw against (the mixed sensitivity ids, the
+active employees named in an artifact, the review cycle population, the case
+queue subjects, the out of band pay row and the departing employee) and guards
+the 438 and 419 pools. The id blocks `ADI-BNF-`, `BSQ-`, `DEP-`, `HRQ-` and
+`RTE-` are new and each is swept against the rest of the pack.
+
+Gates at head: `npm test` 1336 pass, 0 fail; `validate --all` 144 checked,
+3 failed (the drafted SMB-24, SMB-25 and SMB-31 sets not yet on disk, unchanged),
+32 allowlisted; `validate --manifest` 129 checked, 0 failed, 32 allowlisted;
+`MANIFEST.json` 90 datasets, 39 artifacts, 3 canon, `universe_version` 1.5.0.
+No allowlist entry is added.
+
 ## 1.27.0
 
 Renumber at tag time: the integrator allocates the tag in merge order, `v1.24.0`
