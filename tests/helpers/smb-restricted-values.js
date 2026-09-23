@@ -124,11 +124,13 @@ export function restrictedNeedles(text) {
       needles.add(`${months} months`);
       needles.add(`${months}-month`);
       needles.add(`${integerWords(months)} months`);
+      needles.add(`${integerWords(months).replace(" and ", " ")} months`);
       if (months % 12 === 0) {
         const years = months / 12;
         needles.add(`${years} years`);
         needles.add(`${years}-year`);
         needles.add(`${integerWords(years)} years`);
+        needles.add(`${integerWords(years)}-year`);
       }
     }
   }
