@@ -193,7 +193,7 @@ function resolveAttendees(attendees) {
 function escapeIcsText(value) {
   return value
     .replace(/\\/g, "\\\\")
-    .replace(/;/g, "\;")
+    .replace(/;/g, "\\;")
     .replace(/,/g, "\\,")
     .replace(/\n/g, "\\n");
 }
@@ -203,11 +203,14 @@ function escapeIcsText(value) {
  * to 75 octets, each continuation is one space plus up to 74. The line is cut
  * into atoms first, where an escape sequence (a backslash and the character it
  * escapes) is one atom and every other character is one atom, so a fold can
- * never land inside an escape and never inside a multi-byte character. Octets
- * are measured, not characters.
+ * never land inside an escape and never inside a multi-byte character. Any
+ * spaces that follow a character ride with it, so a continuation line always
+ * opens with exactly the one space the fold adds and never with a content
+ * space a reader could mistake for part of the fold. Octets are measured, not
+ * characters.
  */
 function foldIcsLine(line) {
-  const atoms = line.match(/\\.|[\s\S]/gu) ?? [];
+  const atoms = line.match(/(?:\\.|[\s\S]) */gu) ?? [];
   const physical = [];
   let current = "";
   let budget = MAX_OCTETS;
@@ -531,7 +534,7 @@ function assertPostConditions(files, { meeting, attendees }) {
 
   for (const file of files) {
     if (file.content.includes("\r")) fail(`${file.path} carries a CR byte`);
-    if (/[–—]/.test(file.content)) fail(`${file.path} carries an en or em dash`);
+    if (/[\u2013\u2014]/.test(file.content)) fail(`${file.path} carries an en or em dash`);
     if (!file.content.endsWith("\n")) fail(`${file.path} does not end with a newline`);
   }
 

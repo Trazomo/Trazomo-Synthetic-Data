@@ -26,11 +26,11 @@ ATTENDEE;CN=Verity Blackwood;ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:verity.b
 ATTENDEE;CN=Quenby Osgood;ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:quenby.osgo
  od.emp-0014@co002.example
 DESCRIPTION:Consent notice: This meeting is recorded. Recording\, transcrip
- tion\, and biometric identification are three separate acts; this meeting 
- uses recording and transcription only\, and biometric identification is di
- sabled. An AI notetaker produces the transcript and a summary for attendee
- s. If you do not consent\, say so now and the recording stops; you may als
- o ask afterward for any remark to be struck from the record.
+ tion\, and biometric identification are three separate acts\; this meetin
+ g uses recording and transcription only\, and biometric identification is 
+ disabled. An AI notetaker produces the transcript and a summary for attend
+ ees. If you do not consent\, say so now and the recording stops\; you may 
+ also ask afterward for any remark to be struck from the record.
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 END:VEVENT
