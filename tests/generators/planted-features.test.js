@@ -1092,3 +1092,88 @@ test("C4 wave A, SMB-23 to SMB-25: no file carries an em dash or an en dash", ()
     assert.ok(!file.text.includes("\u2013"), `${file.id} carries an en dash (U+2013)`);
   }
 });
+
+// ---------------------------------------------------------------------------
+// C4 wave B, the controls wave: SMB-32, SMB-33 and SMB-34. The same sweeps the
+// earlier SMB blocks carry, over the wave's shipped bytes: the two generated
+// files and the one drafted document. Every derived assertion lives in
+// tests/generators/smb-c4-controls.test.js and
+// tests/drafted/smb-c4-controls-drafted-screen.test.js; what is here is the
+// property of the wave, the class of later edit that adds a processor word, a
+// name, an un-namespaced id or a dash, each of which looks like ordinary text.
+
+/** The wave's shipped files, paths derived from each spec's own name. */
+function c4bFiles() {
+  const at = (id, path) => ({ id, text: readFileSync(path, "utf8") });
+  const name = (id) => specs.byId.get(id).name;
+  return [
+    at("SMB-32", join(REPO_ROOT, "datasets", "smb", name("SMB-32"), `${name("SMB-32")}.yaml`)),
+    at("SMB-33", join(REPO_ROOT, "datasets", "smb", name("SMB-33"), `${name("SMB-33")}.csv`)),
+    at("SMB-34", join(REPO_ROOT, "artifacts", "SMB-34", `${name("SMB-34")}.md`)),
+  ];
+}
+
+/** The three id classes the wave mints (cluster-4.md rule R-NS). */
+const C4B_ID_CLASSES = ["DA-LDB-", "DHR-LDB-", "RCF-LDB-"];
+
+test("C4 wave B, SMB-32 to SMB-34: no processor, gateway, card network or bank product is named (rule R-MOCK)", () => {
+  for (const file of c4bFiles()) {
+    const words = new Set(file.text.toLowerCase().split(/[^a-z0-9]+/));
+    for (const term of MOCK_VOCABULARY) {
+      assert.ok(!words.has(term), `${file.id} names "${term}", which is a processor, gateway, card network or bank product`);
+    }
+    assert.doesNotMatch(file.text, /\b\d{12,}\b/, `${file.id} carries a long bare digit run, which reads as an instrument number`);
+  }
+});
+
+test("C4 wave B, SMB-32 to SMB-34: no canon person is named and every capitalized word is accounted for (rule R-ROLE)", () => {
+  const names = canonPersonNames();
+  assert.ok(names.size > 0, "canon/people.md parsed to no names, so this screen would pass on anything");
+  // The address and the project name are read from SMB-04's shipped record.
+  const okafor = JSON.parse(readFileSync(
+    join(REPO_ROOT, "datasets", "smb", specs.byId.get("SMB-04").name, "client-record-okafor.json"), "utf8"
+  )).client;
+  const allowed = allowedFrom({
+    derived: [canon.get("co-100").name, canon.get("co-131").name, okafor.property_address, okafor.project_name],
+    furniturePhrases: ["CLIENT PRIVATE"],
+    furnitureWords: ["RESTRICTED", "CLIENT", "PRIVATE", "AI", "MOCK", "February", "SMB-", "DA", "DHR", "RCF", "LDB"],
+  });
+  for (const file of c4bFiles()) {
+    for (const name of names) assert.ok(!file.text.includes(name), `${file.id} carries the canon person name "${name}"`);
+    // A CSV cell opens its own sentence, so the matrix is screened one cell to
+    // a line; the yaml and the document are screened as written.
+    const text = file.id === "SMB-33"
+      ? csvRows(file.text).flatMap((r) => Object.values(r)).join("\n")
+      : file.text;
+    assert.deepEqual(unscreenedPhrases(text, allowed), [], `unscreened capitalized phrase(s) in ${file.id}`);
+    assert.deepEqual(unscreenedWords(text, allowed), [], `unscreened capitalized word(s) in ${file.id}`);
+  }
+});
+
+test("C4 wave B, SMB-32 to SMB-34: every minted id is DA-LDB-, DHR-LDB- or RCF-LDB-, and DA- never appears bare (rule R-NS)", () => {
+  const seen = new Set();
+  for (const file of c4bFiles()) {
+    for (const match of file.text.matchAll(/\b([A-Z]{2,4})-LDB-(\d+)\b/g)) {
+      const idClass = `${match[1]}-LDB-`;
+      assert.ok(C4B_ID_CLASSES.includes(idClass), `${file.id} carries "${match[0]}", which is not a class the wave mints`);
+      assert.equal(match[2].length, 2, `${file.id} carries "${match[0]}", and the format is two zero-padded digits`);
+      seen.add(idClass);
+    }
+    // The half the namespace exists for: FIN-39 already spends DA-, so a bare
+    // DA- followed by a digit in a C4 byte is an SMB control an FIN-39 regex
+    // would read as its own.
+    assert.doesNotMatch(file.text, /\bDA-\d/, `${file.id} carries a bare DA- id`);
+    for (const idClass of C4B_ID_CLASSES) {
+      const bare = idClass.replace("LDB-", "");
+      assert.doesNotMatch(file.text, new RegExp(`\\b${bare}\\d`), `${file.id} carries an un-namespaced ${bare} id`);
+    }
+  }
+  assert.deepEqual([...seen].sort(), [...C4B_ID_CLASSES].sort(), "a class the wave mints appears in none of its files");
+});
+
+test("C4 wave B, SMB-32 to SMB-34: no file carries an em dash or an en dash", () => {
+  for (const file of c4bFiles()) {
+    assert.ok(!file.text.includes(String.fromCharCode(0x2014)), `${file.id} carries an em dash (U+2014)`);
+    assert.ok(!file.text.includes(String.fromCharCode(0x2013)), `${file.id} carries an en dash (U+2013)`);
+  }
+});
