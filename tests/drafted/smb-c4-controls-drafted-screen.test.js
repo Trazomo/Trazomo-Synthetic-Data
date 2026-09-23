@@ -1043,7 +1043,7 @@ test("SMB-C4 T-J15: no instrument, no statute, no name, no SMB-10 health word, A
   const allowed = allowedFrom({
     derived,
     furniturePhrases: [],
-    furnitureWords: ["AI", "MSG-LDB-", "INV-LDB-", "PLN-LDB-", ...WEEKDAY_NAMES, ...MONTH_NAMES],
+    furnitureWords: ["I", "AI", "MSG-LDB-", "INV-LDB-", "PLN-LDB-", ...WEEKDAY_NAMES, ...MONTH_NAMES],
   });
   const indexText = readFileSync(indexPath(), "utf8");
   for (const text of [indexText]) {

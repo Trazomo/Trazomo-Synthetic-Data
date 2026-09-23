@@ -1,0 +1,11 @@
+message_id,drafted_date,sender_role,recipient_canon_id,recipient_name,recipient_role,subject_client_canon_id,purpose,data_class,client_fields_used,drafted_with_ai,ai_disclosure,message_file
+MSG-LDB-01,2026-03-23,project lead,co-131,The Okafor household,homeowner,co-131,visit_confirmation,client-confidential,client_name|project_name,no,,msg-ldb-01.md
+MSG-LDB-02,2026-03-23,owner,,,prospective_client,,general_enquiry_reply,public,,yes,,msg-ldb-02.md
+MSG-LDB-03,2026-03-24,project lead,co-132,The Marsh household,homeowner,co-132,payment_reminder,client-confidential,client_name|invoice_id|payment_plan_id|installment_due_date|installment_amount_usd,yes,Drafted with AI assistance and reviewed by a person at the studio before sending.,msg-ldb-03.md
+MSG-LDB-04,2026-03-24,project lead,co-002,Atticus Dundee Inc.,office_manager,co-002,invoice_cover,client-confidential,client_name|invoice_id|invoice_amount_usd|due_date|payment_terms,no,,msg-ldb-04.md
+MSG-LDB-05,2026-03-24,project lead,co-133,Voltridge Electrical,subcontractor,co-131,trade_visit_request,client-confidential,client_name|project_name|property_address|payment_terms|contract_value_usd|deposit_pct,yes,Drafted with AI assistance and reviewed by a person at the studio before sending.,msg-ldb-05.md
+MSG-LDB-06,2026-03-25,project lead,co-131,The Okafor household,homeowner,co-131,visit_confirmation,client-confidential,client_name,no,,msg-ldb-06.md
+MSG-LDB-07,2026-03-25,project lead,co-201,The Quennell household,homeowner,co-201,visit_confirmation,client-confidential,client_name,no,,msg-ldb-07.md
+MSG-LDB-08,2026-03-25,project lead,co-203,The Thistlewood household,homeowner,co-203,visit_confirmation,client-confidential,client_name,no,,msg-ldb-08.md
+MSG-LDB-09,2026-03-26,owner,co-201,The Quennell household,homeowner,co-201,payment_receipt,client-confidential,client_name|invoice_id|settled_amount_usd|settlement_date,yes,Drafted with AI assistance and reviewed by a person at the studio before sending.,msg-ldb-09.md
+MSG-LDB-10,2026-03-27,owner,co-202,The Underhill household,homeowner,co-202,visit_confirmation,client-confidential,client_name,yes,Drafted with AI assistance and reviewed by a person at the studio before sending.,msg-ldb-10.md
