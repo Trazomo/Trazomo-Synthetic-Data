@@ -827,14 +827,24 @@ test("SMB-C4 T-J5: every digit in a message body is a listed value, a named day,
 test("SMB-C4 T-J5: no message names a client, a household surname or a project other than its own recipient or subject", () => {
   const clients = everyClient();
   for (const { row, msg } of messages()) {
+    // Review data-cluster-4.md NEW-1: the index's subject_client_canon_id is
+    // not itself trusted as an exemption unless it agrees with the message's
+    // own recipient, so a retargeted subject with no matching recipient
+    // change cannot license a second client (R29).
+    if (row.recipient_canon_id && row.recipient_role !== "subcontractor") {
+      assert.equal(row.subject_client_canon_id, row.recipient_canon_id,
+        `${row.message_id}: a message to a client is about that client`);
+    }
+    // Screen the subject line too, not only the body (R2, R16).
+    const said = `${msg.subject}\n${msg.body}`;
     const others = clients.filter((c) =>
       c.client_canon_id !== row.recipient_canon_id && c.client_canon_id !== row.subject_client_canon_id);
     for (const c of others) {
       const surname = householdSurname(c.client_name);
-      if (surname) assert.ok(!hasWord(msg.body, surname), `${row.message_id} names "${surname}", another client's household surname`);
-      assert.ok(!hasWord(msg.body, c.client_name), `${row.message_id} names "${c.client_name}", another client's name`);
+      if (surname) assert.ok(!hasWord(said, surname), `${row.message_id} names "${surname}", another client's household surname`);
+      assert.ok(!hasWord(said, c.client_name), `${row.message_id} names "${c.client_name}", another client's name`);
       for (const p of c.projectNames) {
-        assert.ok(!hasWord(msg.body, p), `${row.message_id} names "${p}", another client's project`);
+        assert.ok(!hasWord(said, p), `${row.message_id} names "${p}", another client's project`);
       }
     }
   }
@@ -1091,7 +1101,8 @@ const smb19Oldest = () => csvTable(shipped("SMB-19", "aging-summary.csv")).rows
 test("SMB-C4 T-J13: no Okafor message (recipient or subject co-131) names a date on or after 27 March 2026", () => {
   for (const { row, msg } of messages()) {
     if (row.recipient_canon_id !== "co-131" && row.subject_client_canon_id !== "co-131") continue;
-    for (const d of longDates(msg.body)) {
+    // Review data-cluster-4.md NEW-1: the subject line, not only the body (R16).
+    for (const d of longDates(`${msg.subject}\n${msg.body}`)) {
       assert.ok(d.iso < "2026-03-27", `${row.message_id} names ${d.raw}, on or after 27 March 2026`);
     }
   }
