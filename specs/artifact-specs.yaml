@@ -2455,7 +2455,7 @@ artifacts:
       - "1 message drafted with AI assistance that carries no disclosure line: a reply to a general enquiry about a kitchen or bathroom project. Five messages were drafted with AI assistance and four of them end with the line Drafted with AI assistance and reviewed by a person at the studio before sending"
       - "1 message carrying client fields beyond its purpose: a visit request to the electrical subcontractor that gives the property and the project and also restates the homeowners' contract sum, their deposit and their payment terms. Three messages carry more than their purpose requires and two of the three stay inside what the purpose permits"
       - "1 clean compliant example as a control: a payment reminder drafted with AI assistance that carries its disclosure line and names the open installments on a payment plan by due date and amount, with nothing the plan does not state"
-      - "every message is signed by role, the owner or the project lead, and every figure a message states is an invoice, installment or payment amount the studio's own records carry"
+      - "every message is signed by role, the owner or the project lead, and every figure a message states is an amount the studio's own records carry: an invoice, installment or payment amount, or, in the message that restates the contract, the contract sum and the deposit percent"
     consuming_modules: [smb-client-trust-and-data-guardrails]
     source_plan: smb-implementation-plan + small-business cluster 4 data plan (2.4)
   - id: SMB-32

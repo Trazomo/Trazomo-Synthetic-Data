@@ -785,11 +785,15 @@ test("SMB-C4 T-J6: exactly 1 AI-drafted message has an empty disclosure; 5 were 
   const rows = theIndex().rows;
   const ai = rows.filter((r) => r.drafted_with_ai === "yes");
   const empty = rows.filter((r) => r.ai_disclosure === "");
-  assert.equal(ai.filter((r) => r.ai_disclosure === "").length, 1, "the undisclosed AI draft count under the rule");
+  const undisclosed = ai.filter((r) => r.ai_disclosure === "");
+  assert.equal(undisclosed.length, 1, "the undisclosed AI draft count under the rule");
   assert.equal(ai.length, 5, "the AI-drafted count with the empty-disclosure qualifier dropped");
   assert.equal(ai.filter((r) => r.ai_disclosure !== "").length, 4, "the disclosed AI-drafted count");
   assert.equal(empty.length, 6, "the empty-disclosure count with the AI qualifier dropped");
   assert.equal(empty.filter((r) => r.drafted_with_ai === "no").length, 5, "the compliant empty disclosures");
+  // The plant's purpose is pinned (review data-cluster-4.md SHOULD-FIX 1) so
+  // it cannot migrate to another message while every count above still sums.
+  assert.equal(undisclosed[0].purpose, "general_enquiry_reply", "the undisclosed AI draft's purpose has drifted");
 });
 
 test("SMB-C4 T-J7: exactly 1 message carries a field outside its purpose; 3 carry more than the purpose requires", () => {
@@ -802,6 +806,10 @@ test("SMB-C4 T-J7: exactly 1 message carries a field outside its purpose; 3 carr
   assert.equal(outside.length, 1, "the minimization breach count under the rule");
   assert.equal(beyondRequired.length, 3, "the more-than-required count with the permitted qualifier dropped");
   assert.ok(beyondRequired.includes(outside[0]), "the breach is not among the more-than-required messages");
+  // The plant's purpose and recipient class are pinned (SHOULD-FIX 1) so the
+  // breach cannot migrate to another message while the census above still sums.
+  assert.equal(outside[0].purpose, "trade_visit_request", "the minimization breach's purpose has drifted");
+  assert.equal(outside[0].recipient_role, "subcontractor", "the minimization breach's recipient class has drifted");
   // The checklist lists neither of the fields that make a breach a rule.
   for (const p of checklist().purposes) {
     for (const f of ["contract_value_usd", "deposit_pct"]) {
@@ -820,6 +828,9 @@ test("SMB-C4 T-J8: exactly 1 AI-drafted, disclosed, in-purpose message exercises
   const control = clean.filter(({ row }) => fieldsOf(row).some((f) => purposeOf(row.purpose).permitted.includes(f)));
   assert.equal(control.length, 1, "the control count under the rule");
   assert.equal(clean.length, 3, "the clean AI-drafted count with the beyond-the-minimum qualifier dropped");
+  // The control's purpose is pinned (SHOULD-FIX 1) so it cannot migrate to
+  // another message while the census above still sums.
+  assert.equal(control[0].row.purpose, "payment_reminder", "the control message's purpose has drifted");
 });
 
 // ============================================================ the census

@@ -44,7 +44,8 @@ R-NOSTATUTE (no SMB data file names a statute or a regulator).
   with AI assistance and four carry the studio's disclosure line; one message
   carries client fields its stated purpose does not permit; one AI-drafted,
   disclosed, in-purpose reminder exercises both rules and passes. Every figure
-  is a register, plan or payment amount the C3 bytes carry, and every message to
+  is an amount the studio's own records carry, including the contract sum and
+  the deposit percentage where a message restates them, and every message to
   a C3 client agrees with that client's state on its date.
 - **SMB-32 data-handling-checklist** (deterministic config yaml): the studio's
   own outgoing-message policy as code, twelve keys, six purposes with required
