@@ -298,6 +298,9 @@ test("OPS-16 slots: the invite body's slots and the Slots table are one set, the
     else assert.ok(SLOT.test(line), `invite body line without a slot: ${line}`);
     SLOT.lastIndex = 0;
   }
+  assert.deepEqual(body.split("\n").map((l) => l.split(":")[0]),
+    ["Subject", "When", "Where", "Agenda", "Notetaker", "Consent notice", "Organizer"],
+    "the invite body lines moved");
   for (const path of MARKDOWN) {
     const tokens = (doc(path).match(/\{\{[^}]*\}\}/g) ?? []).filter((token) => token !== GRAMMAR_EXAMPLE);
     for (const token of tokens) {
@@ -340,6 +343,13 @@ test("OPS-16 event: the invite is the frozen meeting, on HR-05's busy interval a
   assert.equal(events.length, 1, "exactly one VEVENT");
   assert.equal(countOf(unfolded, "BEGIN:VEVENT"), 1);
   const [event] = events;
+  const company = canon.get(COMPANY).name;
+  const top = Object.fromEntries(unfolded.split("\n").filter((l) => /^(VERSION|PRODID|CALSCALE):/.test(l)).map((l) => [l.slice(0, l.indexOf(":")), l.slice(l.indexOf(":") + 1)]));
+  assert.deepEqual(top, { VERSION: "2.0", PRODID: `-//${company}//Recorded meeting invite//EN`, CALSCALE: "GREGORIAN" }, "the calendar header moved");
+  // LOCATION is plan U15's value: OPS-01's format line in calendar form, no place name.
+  assert.equal(event.LOCATION, "Video conference (recorded)", "the location is not OPS-01's format in calendar form");
+  assert.equal(event.STATUS, "CONFIRMED");
+  assert.equal(event.TRANSP, "OPAQUE");
   const busy = icsEvents(hr05).filter((row) => row.UID === HR05_INTERVAL_UID);
   assert.equal(busy.length, 1, "HR-05 no longer carries the delivery sync interval");
   assert.equal(event.DTSTART, busy[0].DTSTART);
@@ -461,8 +471,24 @@ test("OPS-16 screen: every capitalized phrase and word in the markdown is accoun
     assert.ok(!text.includes("mailto"), `${path} carries a mailto`);
     assert.ok(!text.includes("CN="), `${path} carries a CN=`);
     assert.ok(!text.includes("@"), `${path} carries an address`);
-    assert.ok(!/\d+ (days|weeks|months|years)\b/.test(text), `${path} states a period as a number`);
+    assert.ok(!/\b\d+(?:\s+|-)(?:business\s+)?(?:day|week|month|year)s?\b/i.test(text), `${path} states a period as a number`);
     assert.ok(!/[$\u00a3\u20ac]\s?\d/.test(text), `${path} carries a money amount`);
+  }
+  // These are four small frozen templates, so the vocabulary of capitalized
+  // words is closed rather than screened only where a sentence begins; a
+  // one-word vendor or place opening a sentence, cell or bullet would
+  // otherwise pass the per-file screen above. The list is exactly today's
+  // set across the three markdown files (grep -oE "\b[A-Z][A-Za-z]*\b" |
+  // sort -u); a future fix that adds a capitalized word must add it here.
+  const CAPITALIZED = new Set(("A Access Act Active ADI After Agenda AI An Answer Any Approver Ask At Atticus Before Biometric By " +
+    "Calendar Can Consent Content Cross Date Decision Default Director Document Does Due Dundee During Each Effective Every " +
+    "Evidence Example Field File Fill Filled Group Held How ID If Inc Invite ISO Keep Kept Last Lyric Manager Meeting Next " +
+    "Nobody None Notetaker Operations Organizer Outcome Output Owner Paste Program Quennell Question Questions Recorded " +
+    "Recording Records Review Reviewed RFC Slot Slots Source Status Subject Superseded Supersedes The This Three TPL Two Use " +
+    "UTC Value Version VP What When Where Which Who Why Will").split(" "));
+  for (const path of MARKDOWN) {
+    const extra = [...new Set(doc(path).match(/\b[A-Z][A-Za-z]*\b/g))].filter((w) => !CAPITALIZED.has(w));
+    assert.deepEqual(extra, [], `${path} carries a capitalized word outside the closed template vocabulary`);
   }
 });
 
@@ -480,7 +506,7 @@ test("OPS-16 bytes: LF only, no CR, no en or em dash in the output, the generato
   }
   const properties = unfold(ics).slice(0, -1).split("\n").map((line) => /^[A-Z-]+/.exec(line)[0]);
   assert.deepEqual(properties, PROPERTY_ORDER, "the ics property order moved");
-  assert.ok(!/^X-|^ATTACH|^VTIMEZONE/m.test(unfold(ics)));
+  assert.ok(!/^(X-|ATTACH)|VTIMEZONE/m.test(unfold(ics)));
 });
 
 test("OPS-16 spec: the catalog block agrees with the plan", () => {
