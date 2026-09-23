@@ -1,0 +1,7 @@
+job_id,client_canon_id,client_name,project_name,project_type,completion_date,issue_id,issue_opened_date,issue_summary,issue_resolved_date,as_of_date
+JOB-LDB-01,co-131,The Okafor household,Okafor kitchen and primary bath renovation,residential,2026-03-20,SUP-LDB-03,2026-03-23,items raised at the punch list walkthrough with the homeowners,,2026-03-31
+JOB-LDB-02,co-002,Atticus Dundee Inc.,Atticus Dundee small office refresh,commercial,2026-03-24,,,,,2026-03-31
+JOB-LDB-07,co-204,The Hallowell household,Hallowell guest bath retile and vanity,residential,2026-01-09,SUP-LDB-01,2026-01-13,shower door dragging on the new threshold,2026-01-15,2026-03-31
+JOB-LDB-08,co-205,The Fenmore household,Fenmore kitchen countertop and backsplash replacement,residential,2026-01-14,,,,,2026-03-31
+JOB-LDB-09,co-206,The Greywick household,Greywick mudroom and entry closet build,residential,2026-01-21,SUP-LDB-02,2026-01-26,closet door catching on the new trim,2026-01-29,2026-03-31
+JOB-LDB-10,co-207,The Pennington household,Pennington stair railing and landing refinish,residential,2026-01-28,,,,,2026-03-31

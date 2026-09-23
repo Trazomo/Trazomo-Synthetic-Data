@@ -100,6 +100,7 @@ import * as smb19 from "./smb-19-aging-summary.js";
 import * as smb20 from "./smb-20-time-entries-mock.js";
 import * as smb21 from "./smb-21-job-expenses-mock.js";
 import * as smb22 from "./smb-22-job-progress.js";
+import * as smb23 from "./smb-23-completed-projects-log.js";
 import * as test01 from "./test-01-fixture.js";
 import { NotImplementedError } from "../errors.js";
 
@@ -126,6 +127,7 @@ export const PROGRAM_GENERATOR_IDS = [
   smb12.id, smb13.id, smb16.id,
   smb17.id, smb18.id, smb19.id,
   smb20.id, smb21.id, smb22.id,
+  smb23.id,
 ];
 
 const REGISTRY = new Map(
@@ -145,6 +147,7 @@ const REGISTRY = new Map(
     smb12, smb13, smb16,
     smb17, smb18, smb19,
     smb20, smb21, smb22,
+    smb23,
     test01,
   ].map((mod) => [mod.id, mod])
 );
