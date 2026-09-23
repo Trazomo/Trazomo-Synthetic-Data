@@ -543,7 +543,45 @@ const smb17 = () => csvTable(shipped("SMB-17", "invoices-issued.csv")).rows;
 const smb18 = () => csvTable(shipped("SMB-18", "payment-status-mock.csv")).rows;
 const smb20 = () => csvTable(shipped("SMB-20", "time-entries-mock.csv")).rows;
 const smb22 = () => csvTable(shipped("SMB-22", "job-progress.csv")).rows;
+const smb23 = () => csvTable(shipped("SMB-23", "completed-projects-log.csv")).rows;
 const smb05Record = () => JSON.parse(shipped("SMB-05", "client-record-co002-office-refresh.json"));
+
+/**
+ * Every client SMB-17, SMB-22 and SMB-23 name, one row per canon id, with
+ * every project_name that client's SMB-22 and SMB-23 rows carry (review
+ * data-cluster-4.md SHOULD-FIX 2's explicit allowlist: the household surname
+ * word, the full client_name and the full project_name of every OTHER
+ * client). client_name is read off SMB-17 first, since SMB-17 seats every
+ * client the queue can address; a client with no SMB-17 row (the four
+ * January households) is read off SMB-22 or SMB-23 instead.
+ */
+function everyClient() {
+  const byId = new Map();
+  const take = (rows) => {
+    for (const r of rows) {
+      if (!byId.has(r.client_canon_id)) byId.set(r.client_canon_id, r.client_name);
+    }
+  };
+  take(smb17());
+  take(smb22());
+  take(smb23());
+  const projectNames = new Map();
+  for (const r of [...smb22(), ...smb23()]) {
+    if (!projectNames.has(r.client_canon_id)) projectNames.set(r.client_canon_id, new Set());
+    projectNames.get(r.client_canon_id).add(r.project_name);
+  }
+  return [...byId.entries()].map(([client_canon_id, client_name]) => ({
+    client_canon_id,
+    client_name,
+    projectNames: [...(projectNames.get(client_canon_id) ?? [])],
+  }));
+}
+
+/** "The Marsh household" -> "Marsh"; null for a canon business (no household shape). */
+function householdSurname(clientName) {
+  const m = /^The (\S+) household$/.exec(clientName);
+  return m ? m[1] : null;
+}
 
 /** Word-bounded, case-insensitive presence of a literal. */
 const hasWord = (text, s) => new RegExp(`(?<![A-Za-z0-9])${escapeRegExp(s)}(?![A-Za-z0-9])`, "i").test(text);
@@ -776,6 +814,29 @@ test("SMB-C4 T-J5: every digit in a message body is a listed value, a named day,
     assert.doesNotMatch(rest, /\d/, `${row.message_id} carries a digit outside a listed value, a day or an id`);
     const moneyListed = fieldsOf(row).some((f) => MONEY_FIELDS.has(f));
     if (!moneyListed) assert.deepEqual(moneyAmounts(msg.text), [], `${row.message_id} states money and lists no money field`);
+  }
+});
+
+// Review data-cluster-4.md SHOULD-FIX 2: T-J5 above screens the subject
+// client's own values, but nothing stopped a message naming a SECOND client
+// (M58, M59). This is the explicit allowlist: for every client in SMB-17,
+// SMB-22 and SMB-23 other than the message's own recipient and subject, the
+// household surname word (not the first word of a project name, which a
+// canon business name can also start with, e.g. "Atticus") and the full
+// client_name and project_name must be absent, word anchored.
+test("SMB-C4 T-J5: no message names a client, a household surname or a project other than its own recipient or subject", () => {
+  const clients = everyClient();
+  for (const { row, msg } of messages()) {
+    const others = clients.filter((c) =>
+      c.client_canon_id !== row.recipient_canon_id && c.client_canon_id !== row.subject_client_canon_id);
+    for (const c of others) {
+      const surname = householdSurname(c.client_name);
+      if (surname) assert.ok(!hasWord(msg.body, surname), `${row.message_id} names "${surname}", another client's household surname`);
+      assert.ok(!hasWord(msg.body, c.client_name), `${row.message_id} names "${c.client_name}", another client's name`);
+      for (const p of c.projectNames) {
+        assert.ok(!hasWord(msg.body, p), `${row.message_id} names "${p}", another client's project`);
+      }
+    }
   }
 });
 
