@@ -14,7 +14,7 @@ trazomo repo; its section 9 defaults U1 to U15 ride to Salvador's freeze review,
 U1 (the `ADI-TPL-` document-id series), U2 (the organizer), U3 (the invite date
 and `MTG-` id) and U4 (the fold line break) first. No byte changes under
 `datasets/` outside the one new directory, none under `canon/` beyond one
-appended timeline row, and none in the frozen OPS-01 material this cluster reads.
+inserted timeline row, and none in the frozen OPS-01 material this cluster reads.
 
 - **OPS-16 meeting-consent-notice-and-invite-templates** (deterministic, type
   template): four files under
@@ -37,11 +37,12 @@ appended timeline row, and none in the frozen OPS-01 material this cluster reads
   retention and ownership as slots rather than figures.
   `vendor-evaluation-checklist.md` (`ADI-TPL-003`) is a ten-question AI
   notetaker vendor checklist whose first two questions are retention and model
-  training, in that order, with every answer and evidence cell empty. No
-  planted feature by ruling R3; no vendor, case, statute, jurisdiction or
-  retention figure anywhere; the only company is Atticus Dundee Inc. and the
-  only person names are the seven attendees in the ics. The generator reads
-  OPS-01 and the CORE-04 roster at build time and throws if either has moved.
+  training, in that order, with every answer and evidence cell empty. No planted
+  feature by ruling R3; no vendor, case, statute, jurisdiction or retention
+  figure anywhere; the only company is Atticus Dundee Inc. and the only person
+  names are the seven attendees in the ics and the organizer in the invite
+  template's filled example. The generator reads OPS-01 and the CORE-04 roster
+  at build time and throws if a fact it depends on no longer resolves.
   Spec block: format line names the four files, `period` 2026-03-03 to
   2026-03-10 added, `planted_features` stays empty.
 - `canon/timeline.md`: one row, 2026-03-03, the invite issued.
