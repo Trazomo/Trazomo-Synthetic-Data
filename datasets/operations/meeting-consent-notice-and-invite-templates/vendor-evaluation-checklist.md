@@ -17,7 +17,7 @@
 
 ## How to use this checklist
 
-Before any notetaker product joins a meeting at Atticus Dundee Inc., complete one copy of this checklist for it. Ask the vendor every question in order, write the answer in the vendor's own words, and record where that answer is written down: a contract clause, a settings page or a published policy. An answer with no evidence counts as pending.
+Before any notetaker product joins a meeting at Atticus Dundee Inc., complete one copy of this checklist for it. Ask the vendor every question in order, write the answer in the vendor's own words, and record where that answer is written down: a contract clause, a settings page or a published policy. An answer with no evidence counts as pending. Before the first copy is used, fill {{policy.retention_period}} from the team's records policy and {{policy.approver_role}} with the role title that signs the decision.
 
 The first two questions come first on purpose. What the vendor does with our meeting content, how long it keeps it and whether it trains models on it, decides most evaluations before any feature is compared.
 

@@ -320,7 +320,7 @@ test("OPS-16 example: the filled invite is the OPS-01 delivery sync, read off th
   };
   const meetingLine = ops01Meta("Meeting");
   assert.equal(line("Subject").toLowerCase(), meetingLine.toLowerCase());
-  const [, date, start, minutes] = /^(\S+) at (\S+) for (\d+) minutes$/.exec(line("When"));
+  const [, date, start, minutes] = /^(\S+) at (\S+) UTC for (\d+) minutes$/.exec(line("When"));
   assert.equal(date, ops01Meta("Date"));
   assert.equal(start, ops01Meta("Start time"));
   assert.equal(`${minutes} minutes`, ops01Meta("Scheduled duration"));

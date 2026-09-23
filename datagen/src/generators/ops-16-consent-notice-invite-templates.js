@@ -255,7 +255,7 @@ const render = (lines) => lines.join("\n") + "\n";
 function inviteBody(values, notice) {
   return [
     `Subject: ${values.title}`,
-    `When: ${values.date} at ${values.start_time} for ${values.duration_minutes} minutes`,
+    `When: ${values.date} at ${values.start_time} UTC for ${values.duration_minutes} minutes`,
     `Where: ${values.format}`,
     `Agenda: ${values.agenda}`,
     `Notetaker: an AI notetaker records this meeting and produces a transcript and a summary, which are kept for ${values.retention_period} and held by ${values.records_owner}.`,
@@ -436,7 +436,7 @@ function renderConsentNotice({ meeting, companyName }) {
     "| transcript | {{policy.retention_period}} | {{policy.records_owner}} |",
     "| summary | {{policy.retention_period}} | {{policy.records_owner}} |",
     "",
-    "A request to strike works in the notice's own terms: any attendee may ask afterward for any remark to be struck from the record. The remark comes out of the transcript and the summary, the recording is marked so the passage is not replayed or relied on, and the records owner keeps a note of the request and the date it was carried out.",
+    "A request to strike works in the notice's own terms: any attendee may ask afterward for any remark to be struck from the record. The remark comes out of the transcript and the summary, and out of the recording; where the recording cannot be edited, the passage is marked so it is never replayed or relied on. The records owner keeps a note of the request and the date it was carried out.",
     "",
     "## How to use this template",
     "",
@@ -499,7 +499,7 @@ function renderVendorChecklist({ companyName }) {
     "",
     "## How to use this checklist",
     "",
-    `Before any notetaker product joins a meeting at ${companyName}, complete one copy of this checklist for it. Ask the vendor every question in order, write the answer in the vendor's own words, and record where that answer is written down: a contract clause, a settings page or a published policy. An answer with no evidence counts as pending.`,
+    `Before any notetaker product joins a meeting at ${companyName}, complete one copy of this checklist for it. Ask the vendor every question in order, write the answer in the vendor's own words, and record where that answer is written down: a contract clause, a settings page or a published policy. An answer with no evidence counts as pending. Before the first copy is used, fill {{policy.retention_period}} from the team's records policy and {{policy.approver_role}} with the role title that signs the decision.`,
     "",
     "The first two questions come first on purpose. What the vendor does with our meeting content, how long it keeps it and whether it trains models on it, decides most evaluations before any feature is compared.",
     "",

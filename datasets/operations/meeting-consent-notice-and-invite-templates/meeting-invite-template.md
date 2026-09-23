@@ -21,7 +21,7 @@ Use this text for every meeting at Atticus Dundee Inc. that an AI notetaker will
 
 ```
 Subject: {{meeting.title}}
-When: {{meeting.date}} at {{meeting.start_time}} for {{meeting.duration_minutes}} minutes
+When: {{meeting.date}} at {{meeting.start_time}} UTC for {{meeting.duration_minutes}} minutes
 Where: {{meeting.format}}
 Agenda: {{meeting.agenda}}
 Notetaker: an AI notetaker records this meeting and produces a transcript and a summary, which are kept for {{policy.retention_period}} and held by {{policy.records_owner}}.
@@ -54,7 +54,7 @@ The invite for the delivery sync already on file, with every slot filled. The co
 
 ```
 Subject: Cross-functional delivery sync on the customer onboarding revamp
-When: 2026-03-10 at 09:30 for 45 minutes
+When: 2026-03-10 at 09:30 UTC for 45 minutes
 Where: video conference, recorded
 Agenda: where the customer onboarding revamp stands, and what each team owes before the next sync
 Notetaker: an AI notetaker records this meeting and produces a transcript and a summary, which are kept for the period the records policy sets and held by the Director, Operations.

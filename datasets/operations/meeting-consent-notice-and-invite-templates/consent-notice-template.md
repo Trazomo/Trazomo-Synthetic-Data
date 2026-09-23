@@ -52,7 +52,7 @@ A notetaker produces three outputs. Each one is a record, and each one is kept a
 | transcript | {{policy.retention_period}} | {{policy.records_owner}} |
 | summary | {{policy.retention_period}} | {{policy.records_owner}} |
 
-A request to strike works in the notice's own terms: any attendee may ask afterward for any remark to be struck from the record. The remark comes out of the transcript and the summary, the recording is marked so the passage is not replayed or relied on, and the records owner keeps a note of the request and the date it was carried out.
+A request to strike works in the notice's own terms: any attendee may ask afterward for any remark to be struck from the record. The remark comes out of the transcript and the summary, and out of the recording; where the recording cannot be edited, the passage is marked so it is never replayed or relied on. The records owner keeps a note of the request and the date it was carried out.
 
 ## How to use this template
 
