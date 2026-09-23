@@ -68,7 +68,7 @@ R-NOSTATUTE (no SMB data file names a statute or a regulator).
   distributed by role only. Guarded by
   `tests/drafted/smb-c4-controls-drafted-screen.test.js`.
 
-Gates at the PR head: `npm test` 1406 pass, 0 fail, `validate --all` 144 checked,
+Gates at the PR head: `npm test` 1410 pass, 0 fail; `validate --all` 144 checked,
 0 failed, 32 allowlisted; `MANIFEST.json` 91 datasets and 42 artifacts.
 
 ## 1.27.0

@@ -67,7 +67,7 @@ const TEENS = ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "si
   "seventeen", "eighteen", "nineteen"];
 const TENS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
 
-/** A whole number in English words ("180" -> "one hundred and eighty"), the shape SMB-34's own table uses. */
+/** A whole number in English words ("42" -> "forty-two"), the shape SMB-34's own table uses for its term. */
 function integerWords(n) {
   if (n < 10) return ONES[n];
   if (n < 20) return TEENS[n - 10];
