@@ -979,7 +979,17 @@ test("SMB-C4 T-J11: the payment reminder is ladder stage 1 on its day and names 
   for (const r of open) {
     const line = msg.body.split("\n").find((l) => hasDate(l, r.installment_due_date));
     assert.ok(line.includes(proseMoney(r.installment_amount_usd)), `the ${longForm(r.installment_due_date)} installment is stated without its amount`);
+    // Review data-cluster-4.md NEW-4: a "past due" marker on an installment
+    // line must agree with whether that installment's due date is actually
+    // before the drafted date (R25).
+    assert.equal(/\bpast due\b/.test(line), r.installment_due_date < row.drafted_date,
+      `the ${longForm(r.installment_due_date)} installment's "past due" marker does not match its due date`);
   }
+  // The open and past-due counts the message states in prose match SMB-18 (R26).
+  const W = ["zero", "one", "two", "three", "four", "five"];
+  const pastDue = open.filter((r) => r.installment_due_date < row.drafted_date).length;
+  assert.ok(hasWord(msg.body, `${W[open.length]} installments are open`), "the reminder's open-installment count does not match the plan");
+  assert.ok(hasWord(msg.body, `${W[pastDue]} of them past their due date`), "the reminder's past-due count does not match the plan");
   assert.ok(msg.body.includes(plan[0].payment_plan_id) && msg.body.includes(plan[0].invoice_id), "the reminder does not name its plan and invoice");
 });
 
