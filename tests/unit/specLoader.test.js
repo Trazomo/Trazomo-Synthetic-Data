@@ -1144,3 +1144,69 @@ test("loadSpecs: C4 wave A, all three ids declare the plan's period, module and 
     }
   }
 });
+
+// C4 wave B: the controls ids, SMB-32, SMB-33 and SMB-34 (small-business
+// cluster 4 data plan sections 2.5 to 2.7). SMB-33 is a CSV and its column
+// list is pinned to the header the generator emits; SMB-32 is a yaml, which
+// carries keys rather than a header, so it declares no columns. SMB-33 and
+// SMB-34 are the two ids ruling R6 adopted, with R6's shape.
+const SMB_C4B_PERIODS = {
+  "SMB-32": { start: "2026-03-23", end: "2026-03-27" },
+  "SMB-33": { start: "2026-03-31", end: "2026-03-31" },
+  "SMB-34": { start: "2026-02-16", end: "2026-02-16" },
+};
+
+test("loadSpecs: C4 wave B, SMB-33's columns are the emitted header and SMB-32 carries none", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const smb33 = byId.get("SMB-33");
+  assert.ok(smb33, "SMB-33 is not in the catalog");
+  assert.equal(trackDir("SMB-33"), "smb", "SMB-33 does not generate into datasets/smb/");
+  const header = readFileSync(
+    join(REPO_ROOT, "datasets", "smb", smb33.name, `${smb33.name}.csv`), "utf8"
+  ).split("\n")[0].split(",");
+  assert.deepEqual(smb33.columns, header, "SMB-33's spec columns disagree with the header on disk");
+  assert.equal(smb33.columns.length, 10, "SMB-33 no longer declares ten columns");
+
+  const smb32 = byId.get("SMB-32");
+  assert.ok(smb32, "SMB-32 is not in the catalog");
+  assert.equal(smb32.columns, undefined, "SMB-32 is a yaml document, so it declares no columns");
+  assert.equal(smb32.files, undefined, "SMB-32 is one yaml document, so it declares no files map");
+  assert.equal(smb32.format, "yaml", "SMB-32 format");
+  assert.equal(smb32.generation, "deterministic", "SMB-32 generation");
+});
+
+test("loadSpecs: C4 wave B, SMB-32, SMB-33 and SMB-34 declare the plan's period", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const [id, period] of Object.entries(SMB_C4B_PERIODS)) {
+    assert.deepEqual(byId.get(id).period, period, `${id} period has drifted from data plan section 8.2 (U-S)`);
+  }
+});
+
+test("loadSpecs: C4 wave B, SMB-33 and SMB-34 carry ruling R6's shape and serve smb-operational-controls", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const shape = (id) => {
+    const s = byId.get(id);
+    assert.ok(s, `${id} is not in the catalog`);
+    return [s.type, s.format, s.generation, s.canon_entities];
+  };
+  assert.deepEqual(shape("SMB-33"), ["template", "csv", "deterministic", ["co-100"]], "SMB-33 is not R6's shape");
+  assert.deepEqual(
+    shape("SMB-34"), ["document", "markdown", "drafted-frozen", ["co-100", "co-131"]], "SMB-34 is not R6's shape"
+  );
+  for (const id of ["SMB-33", "SMB-34"]) {
+    assert.deepEqual(byId.get(id).consuming_modules, ["smb-operational-controls"], `${id} consuming_modules`);
+  }
+  assert.deepEqual(
+    byId.get("SMB-32").consuming_modules, ["smb-client-trust-and-data-guardrails"], "SMB-32 consuming_modules"
+  );
+  assert.deepEqual(byId.get("SMB-32").canon_entities, [], "SMB-32 is the studio's policy and names no entity");
+  for (const id of Object.keys(SMB_C4B_PERIODS)) {
+    const spec = byId.get(id);
+    assert.ok(spec.planted_features.length > 0, `${id} states no planted features`);
+    for (const feature of spec.planted_features) {
+      assert.equal(typeof feature, "string", `${id} has a planted feature that is not a string`);
+      assert.ok(!feature.includes(String.fromCharCode(0x2014)), `${id} planted feature carries an em dash`);
+      assert.ok(!feature.includes(String.fromCharCode(0x2013)), `${id} planted feature carries an en dash`);
+    }
+  }
+});
