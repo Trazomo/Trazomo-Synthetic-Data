@@ -11,7 +11,8 @@
 // finance-statement.js is a shared helper rather than a generator and is never
 // registered, the same as finance-roles.js, hr-lifecycle.js and
 // smb-c3-receivables.js, which builds SMB-17, SMB-18 and SMB-19 as one unit,
-// and smb-c3-job-costing.js, which builds SMB-20, SMB-21 and SMB-22 as another.
+// smb-c3-job-costing.js, which builds SMB-20, SMB-21 and SMB-22 as another,
+// and smb-c4-controls.js, which builds SMB-32 and SMB-33 as a third.
 import * as core02 from "./core-02-invoice.js";
 import * as core03 from "./core-03-crm-seed.js";
 import * as core04 from "./core-04-people-roster.js";
@@ -101,6 +102,8 @@ import * as smb20 from "./smb-20-time-entries-mock.js";
 import * as smb21 from "./smb-21-job-expenses-mock.js";
 import * as smb22 from "./smb-22-job-progress.js";
 import * as smb23 from "./smb-23-completed-projects-log.js";
+import * as smb32 from "./smb-32-data-handling-checklist.js";
+import * as smb33 from "./smb-33-owner-decision-authority-matrix.js";
 import * as test01 from "./test-01-fixture.js";
 import { NotImplementedError } from "../errors.js";
 
@@ -128,6 +131,7 @@ export const PROGRAM_GENERATOR_IDS = [
   smb17.id, smb18.id, smb19.id,
   smb20.id, smb21.id, smb22.id,
   smb23.id,
+  smb32.id, smb33.id,
 ];
 
 const REGISTRY = new Map(
@@ -148,6 +152,7 @@ const REGISTRY = new Map(
     smb17, smb18, smb19,
     smb20, smb21, smb22,
     smb23,
+    smb32, smb33,
     test01,
   ].map((mod) => [mod.id, mod])
 );
