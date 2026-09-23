@@ -381,12 +381,14 @@ test("OPS-16 attendees: seven ATTENDEE lines in OPS-01 order, each the active ro
     assert.equal(mailto(line), rows[0].email, `${cn(line)}'s email drifts from the roster`);
     assert.ok(mailto(line).endsWith("@co002.example"));
     assert.ok(line.includes(";ROLE=REQ-PARTICIPANT;RSVP=TRUE:"), `${cn(line)} is not a required participant`);
+    assert.equal(line, `ATTENDEE;CN=${fullName(rows[0])};ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:${rows[0].email}`, `${cn(line)}'s attendee line is not the plan 2.3 shape`);
   }
   const organizerLines = lines.filter((line) => line.startsWith("ORGANIZER;"));
   assert.equal(organizerLines.length, 1);
   const organizer = roster.find((row) => row.employee_id === ORGANIZER_ID);
   assert.equal(cn(organizerLines[0]), fullName(organizer));
   assert.equal(mailto(organizerLines[0]), organizer.email);
+  assert.equal(organizerLines[0], `ORGANIZER;CN=${fullName(organizer)}:mailto:${organizer.email}`, "the organizer line is not the plan 2.3 shape");
   assert.ok(attendeeLines.map(cn).includes(fullName(organizer)), "the organizer is not also an attendee");
 });
 
