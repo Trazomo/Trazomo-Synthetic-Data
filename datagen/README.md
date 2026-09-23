@@ -283,6 +283,7 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | HR-14 | helpdesk-request-queue | dataset | 1-row helpdesk grammar, a 7-rule routing table, a 15-phrase special category term list and 20 untriaged pre-case requests over ten business days, requesters drawn in process from a guarded pool outside every earlier finding (one request whose content routes away from its stated category, and one whose body carries a special category term and routes to the human-only queue) |
 | HR-20 | benefits-census | dataset | 1-row census grammar, 582 employee election rows and 587 dependent rows over the active roster, every plan id resolved into the frozen HR-19 register at build time (one summary plan description deadline inside the published alert window, and one dependent whose document is unverified) |
 | OPS-15 | work-management-platform-export | dataset | 3-file API-response bundle for one delivery program (a Notion data source query of 12 pages keyed by display name, the Asana task list of the same 12 fetched with the recorded opt_fields string, and the capture log), owners drawn from CORE-04 at build time (one definition of done present and empty in both tools, one assignee gid that resolves through no payload, one Notion state with no Asana counterpart) |
+| OPS-16 | meeting-consent-notice-and-invite-templates | template | 4-file template set, fixed text with no seeded draw: the recorded-meeting invite template (slots in the `{{group.field}}` grammar, a filled example of the 2026-03-10 delivery sync), the same invite as a folded and escaped ics whose event and seven attendees are read off OPS-01 and resolved against CORE-04 at build time, the consent notice with the three acts (recording, transcribing, biometric identification) and a six-step consent flow, and an unfilled ten-question vendor evaluation checklist led by retention then model training; the OPS-01 consent notice carried byte for byte in the notice, the invite template and its example, and after unfold and unescape in the ics DESCRIPTION |
 | OPS-17 | work-management-export-planner-smartsheet | dataset | 5-file API-response bundle for one delivery program (the Planner list-tasks and buckets responses, the directory users response, the Smartsheet Get Sheet response of 8 columns and 14 rows, and the capture log), people drawn from CORE-04 at build time (no definition of done anywhere by construction, one task with no assignment whose row omits the Owner cell, one assignment GUID the directory cannot resolve) |
 
 **Not implemented yet**: every other `generation: deterministic` spec (the
@@ -658,9 +659,9 @@ Runs `node --test` over `tests/`:
   `fin-18-control-matrix`, `fin-19-user-access`, `fin-20-regulatory-feed`,
   `fin-22-chart-of-accounts`, `fin-35-inbound-requests`,
   `fin-38-reliability-drill`, `fin-track-b-templates` (FIN-36/37/39),
-  `ops-15-notion-asana-export`, `ops-17-planner-smartsheet-export`,
-  `hr-14-helpdesk-queue` (carrying the people-hr cluster 7 cross-artifact
-  sweep), `hr-20-benefits-census`.
+  `ops-15-notion-asana-export`, `ops-16-consent-notice-invite-templates`,
+  `ops-17-planner-smartsheet-export`, `hr-14-helpdesk-queue` (carrying the
+  people-hr cluster 7 cross-artifact sweep), `hr-20-benefits-census`.
 - `tests/artifacts/` -- checks over drafted-frozen artifacts that recompute a
   stated figure from the document's own inputs.
 - `tests/drafted/` -- structural screens over drafted-frozen documents: what
