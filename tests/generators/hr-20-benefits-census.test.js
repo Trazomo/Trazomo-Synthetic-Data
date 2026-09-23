@@ -343,7 +343,7 @@ test("HR-C7-T18: absence, no money and no health, and the disclosed overlap", ()
       for (const cell of Object.values(row)) assert.deepEqual(moneyMatches(cell), [], `${file} carries a money shape in ${cell}`);
     }
     assert.ok(!text.includes("%") && !text.includes("$"), `${file} carries a percent or a currency symbol`);
-    assert.ok(!text.includes("—") && !text.includes("–"), `${file} carries a dash`);
+    assert.ok(!text.includes("\u2014") && !text.includes("\u2013"), `${file} carries a dash`);
     // The one exemption is the grammar's statement of what the census does not carry.
     for (const col of table("datasets", "hr", "benefits-census", file).cols.filter((c) => c !== "no_health_no_pay_statement")) {
       assert.doesNotMatch(col, /pay|premium|deferral|contribution|health|birth|age$|_age|salary/, `${file} carries ${col}`);

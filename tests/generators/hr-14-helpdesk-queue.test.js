@@ -264,7 +264,7 @@ test("HR-C7-T25: one token sweep over every C7 byte (X33, X38), and C7's own blo
     assert.doesNotMatch(text, foreign, `${where} carries a token from another block`);
     assert.doesNotMatch(text, lower, `${where} carries a ca- or pe- token`);
     assert.ok(!text.includes("EMP-0601"), `${where} carries EMP-0601`);
-    assert.ok(!text.includes("—") && !text.includes("–"), `${where} carries a dash`);
+    assert.ok(!text.includes("\u2014") && !text.includes("\u2013"), `${where} carries a dash`);
   }
   for (const file of ["helpdesk-requests.csv", "helpdesk-grammar.csv"]) {
     for (const row of hr14(file).rows) {
