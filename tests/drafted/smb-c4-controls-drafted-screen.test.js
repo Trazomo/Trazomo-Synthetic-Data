@@ -1082,6 +1082,21 @@ test("SMB-C4 T-J13: each message says none of its nevers", () => {
 const smb19Oldest = () => csvTable(shipped("SMB-19", "aging-summary.csv")).rows
   .filter((r) => r.on_payment_plan === "no").map((r) => r.oldest_unsettled_invoice_id);
 
+// Review data-cluster-4.md NIT 2: the never-list above is a deny list, so a
+// moved closeout or handover date written without the banned words survives
+// it (M74, M75). A shape screen closes most of that gap: SMB-15 forbids
+// stating any closeout or handover date for the Okafor renovation, old or
+// new, so no long-form date named in a message to or about co-131 may fall on
+// or after 27 March 2026, the day the sample week's closeout work starts.
+test("SMB-C4 T-J13: no Okafor message (recipient or subject co-131) names a date on or after 27 March 2026", () => {
+  for (const { row, msg } of messages()) {
+    if (row.recipient_canon_id !== "co-131" && row.subject_client_canon_id !== "co-131") continue;
+    for (const d of longDates(msg.body)) {
+      assert.ok(d.iso < "2026-03-27", `${row.message_id} names ${d.raw}, on or after 27 March 2026`);
+    }
+  }
+});
+
 // ============================================================ T-J14, recipients
 
 test("SMB-C4 T-J14: every recipient is seated in canon or in co-201 to co-203, by its canon or SMB-17 name", () => {
