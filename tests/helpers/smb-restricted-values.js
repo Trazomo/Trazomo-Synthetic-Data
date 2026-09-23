@@ -81,7 +81,7 @@ function integerWords(n) {
   return rest === 0 ? `${ONES[hundreds]} hundred` : `${ONES[hundreds]} hundred and ${integerWords(rest)}`;
 }
 
-/** A 2dp rate in spoken-digit words ("6.90" -> "six point nine", the trailing zero silent). */
+/** A 2dp rate in spoken-digit words (RCF-LDB-06's shape, "N.NN" -> "<digits> point <digits>", the trailing zero silent). */
 function rateWords(whole, frac) {
   const trimmed = frac.replace(/0+$/, "") || "0";
   const spokenFrac = trimmed.split("").map((d) => ONES[Number(d)]).join(" ");
@@ -91,14 +91,17 @@ function rateWords(whole, frac) {
 /**
  * Every string a leak of a restricted value could take in another file: the
  * value as written, a code's four digits on their own, a money value in the
- * ledger's own form ("89100.00") beside its prose form, and, for the rate and
- * the term (review data-cluster-4.md SHOULD-FIX 3: the two values
- * `restrictedValues` previously carried only as one whole-cell phrase), every
- * bare numeral, hyphenated adjective and words form a message could restate
- * them in: "6.90", "6.9", "6.90 percent" and "six point nine" for a rate
- * written "a fixed 6.90 percent"; "180 months", "180-month", "one hundred and
- * eighty months", and, when the term divides evenly by 12, "15 years",
- * "15-year" and "fifteen years" for a term written "180 months".
+ * ledger's own form (RCF-LDB-04's own shape, "N,NNN.NN" beside its
+ * "$N,NNN.NN" prose form; read from SMB-34 at run time, not written down
+ * here), and, for the rate and the term (RCF-LDB-06 and RCF-LDB-05; review
+ * data-cluster-4.md SHOULD-FIX 3 and NEW-5: the two values `restrictedValues`
+ * previously carried only as one whole-cell phrase, or in one spoken form),
+ * every bare numeral, hyphenated adjective and words form a message could
+ * restate them in: "N.NN", "N.N", "N.NN percent" and "<digits> point
+ * <digits>" for the rate; "NNN months", "NNN-month", "<words> months" and
+ * "<words, no 'and'> months" for the term, and, when the term divides evenly
+ * by 12, "NN years", "NN-year", "<words> years" and "<words>-year" for it
+ * restated in years.
  */
 export function restrictedNeedles(text) {
   const needles = new Set();
