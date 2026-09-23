@@ -1933,12 +1933,13 @@ artifacts:
   - id: OPS-16
     name: meeting-consent-notice-and-invite-templates
     type: template
-    format: "ics + markdown: the invite and consent notice templates, plus a vendor-evaluation checklist sample whose first two questions are retention and model training, and a consent flow naming recording, transcribing and biometric identification as three separate acts"
+    format: "ics + markdown, four files (meeting-invite-template.md, meeting-invite-sample.ics, consent-notice-template.md, vendor-evaluation-checklist.md): the invite and consent notice templates, plus a vendor-evaluation checklist sample whose first two questions are retention and model training, and a consent flow naming recording, transcribing and biometric identification as three separate acts"
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-03-03", end: "2026-03-10" }
     planted_features: []
     consuming_modules: [operations-operational-controls]
-    source_plan: operations-implementation-plan (A16)
+    source_plan: operations-implementation-plan (A16) + cluster F data plan (2.x)
 
   - id: OPS-17
     name: work-management-export-planner-smartsheet

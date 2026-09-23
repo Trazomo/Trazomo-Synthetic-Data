@@ -1145,6 +1145,22 @@
             "row_counts": {}
         },
         {
+            "id": "OPS-16",
+            "name": "meeting-consent-notice-and-invite-templates",
+            "track": "operations",
+            "type": "template",
+            "format": "ics + markdown, four files (meeting-invite-template.md, meeting-invite-sample.ics, consent-notice-template.md, vendor-evaluation-checklist.md): the invite and consent notice templates, plus a vendor-evaluation checklist sample whose first two questions are retention and model training, and a consent flow naming recording, transcribing and biometric identification as three separate acts",
+            "generation": "deterministic",
+            "path": "datasets/operations/meeting-consent-notice-and-invite-templates",
+            "files": [
+                "consent-notice-template.md",
+                "meeting-invite-sample.ics",
+                "meeting-invite-template.md",
+                "vendor-evaluation-checklist.md"
+            ],
+            "row_counts": {}
+        },
+        {
             "id": "OPS-17",
             "name": "work-management-export-planner-smartsheet",
             "track": "operations",

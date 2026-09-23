@@ -1,0 +1,37 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Atticus Dundee Inc.//Recorded meeting invite//EN
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VEVENT
+UID:MTG-2026-0001@co002.example
+DTSTAMP:20260303T090000Z
+DTSTART:20260310T093000Z
+DTEND:20260310T101500Z
+SUMMARY:Cross-functional delivery sync on the customer onboarding revamp
+LOCATION:Video conference (recorded)
+ORGANIZER;CN=Lyric Quennell:mailto:lyric.quennell.emp-0578@co002.example
+ATTENDEE;CN=Oleander Underhill;ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:oleand
+ er.underhill.emp-0571@co002.example
+ATTENDEE;CN=Merritt Nightshade;ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:merrit
+ t.nightshade.emp-0572@co002.example
+ATTENDEE;CN=Faro Fenmore;ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:faro.fenmore
+ .emp-0574@co002.example
+ATTENDEE;CN=Lyric Quennell;ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:lyric.quen
+ nell.emp-0578@co002.example
+ATTENDEE;CN=Saskia Yarrow;ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:saskia.yarr
+ ow.emp-0589@co002.example
+ATTENDEE;CN=Verity Blackwood;ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:verity.b
+ lackwood.emp-0203@co002.example
+ATTENDEE;CN=Quenby Osgood;ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:quenby.osgo
+ od.emp-0014@co002.example
+DESCRIPTION:Consent notice: This meeting is recorded. Recording\, transcrip
+ tion\, and biometric identification are three separate acts\; this meetin
+ g uses recording and transcription only\, and biometric identification is 
+ disabled. An AI notetaker produces the transcript and a summary for attend
+ ees. If you do not consent\, say so now and the recording stops\; you may 
+ also ask afterward for any remark to be struck from the record.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

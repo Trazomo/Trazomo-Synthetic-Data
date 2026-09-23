@@ -1,5 +1,58 @@
 # Changelog
 
+## 1.28.0
+
+Renumber at tag time: the integrator allocates the tag in merge order, `v1.27.0`
+is the current tip, and other cluster data branches may be live and take
+`v1.28.0` first.
+
+Operations cluster F, controls. One artifact, one PR, deterministic, for
+`operations-operational-controls` (skeleton wave 2, five lessons under ruling
+R2). The plan is
+`docs/plans/2026-08-29-path-programs/operations/data-plans/cluster-F.md` on the
+trazomo repo; its section 9 defaults U1 to U15 ride to Salvador's freeze review,
+U1 (the `ADI-TPL-` document-id series), U2 (the organizer), U3 (the invite date
+and `MTG-` id) and U4 (the fold line break) first. No byte changes under
+`datasets/` outside the one new directory, none under `canon/` beyond one
+inserted timeline row, and none in the frozen OPS-01 material this cluster reads.
+
+- **OPS-16 meeting-consent-notice-and-invite-templates** (deterministic, type
+  template): four files under
+  `datasets/operations/meeting-consent-notice-and-invite-templates/`.
+  `meeting-invite-template.md` (`ADI-TPL-001`) is the recorded-meeting invite
+  body with `{{group.field}}` slots, a filled example for the 2026-03-10
+  cross-functional delivery sync, and a pointer to the calendar object.
+  `meeting-invite-sample.ics` is that invite as an iCalendar `METHOD:REQUEST`
+  with one `VEVENT`: `DTSTART` and `DTEND` equal to the interval HR-05 already
+  mirrors for the sync and to OPS-01's own date, start time and duration; seven
+  `ATTENDEE` lines that are OPS-01's attendees resolved to their CORE-04 emails;
+  the organizer the Program Manager among them; and a `DESCRIPTION` carrying the
+  consent notice escaped and folded per RFC 5545, the pack's first folded ics,
+  with LF plus one space as the fold under the pack's recorded LF deviation.
+  `consent-notice-template.md` (`ADI-TPL-002`) carries the notice paragraph
+  byte-identical to the one frozen in OPS-01, a three-row table naming
+  `recording`, `transcribing` and `biometric identification` as separate acts
+  with a default and an owner each, a six-step consent flow ending in human
+  review before a summary enters a decision, and a records section with
+  retention and ownership as slots rather than figures.
+  `vendor-evaluation-checklist.md` (`ADI-TPL-003`) is a ten-question AI
+  notetaker vendor checklist whose first two questions are retention and model
+  training, in that order, with every answer and evidence cell empty. No planted
+  feature by ruling R3; no vendor, case, statute, jurisdiction or retention
+  figure anywhere; the only company is Atticus Dundee Inc. and the only person
+  names are the seven attendees in the ics and the organizer in the invite
+  template's filled example. The generator reads OPS-01 and the CORE-04 roster
+  at build time and throws if a fact it depends on no longer resolves.
+  Spec block: format line names the four files, `period` 2026-03-03 to
+  2026-03-10 added, `planted_features` stays empty.
+- `canon/timeline.md`: one row, 2026-03-03, the invite issued.
+- Tests: `tests/generators/ops-16-consent-notice-invite-templates.test.js`
+  re-derives every plan rule from the bytes (banner identity in markdown and
+  after unfold and unescape in the ics, the three acts, the six flow steps, the
+  slot set, the OPS-01 and HR-05 joins, the checklist order and emptiness, the
+  document-control values, the proper-noun screen, LF and dash discipline); the
+  determinism sweep gains the id.
+
 ## 1.27.0
 
 Renumber at tag time: the integrator allocates the tag in merge order, `v1.24.0`
