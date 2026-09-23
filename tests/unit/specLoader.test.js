@@ -1070,3 +1070,77 @@ test("loadSpecs: SMB-30's planted_features is byte exact against cluster-3.md se
     "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, never fills one from a working file, and never presents an open-window figure as final",
   ], "SMB-30's planted_features has drifted from cluster-3.md section 2.7");
 });
+
+// C4 wave A: the referral loop's three ids, SMB-23, SMB-24 and SMB-25
+// (small-business cluster 4 data plan sections 2.1 to 2.3). SMB-23 is the one
+// deterministic id and its column list is pinned twice, to the plan's list and
+// to the header the generator actually emits, so a spec edit and a generator
+// edit each fail here on their own. The two templates are drafted and carry no
+// columns.
+const SMB_C4A = ["SMB-23", "SMB-24", "SMB-25"];
+
+const SMB_C4A_COLUMNS = [
+  "job_id", "client_canon_id", "client_name", "project_name", "project_type",
+  "completion_date", "issue_id", "issue_opened_date", "issue_summary",
+  "issue_resolved_date", "as_of_date",
+];
+
+const SMB_C4A_PERIOD = { start: "2026-01-09", end: "2026-03-31" };
+
+test("loadSpecs: C4 wave A, SMB-23 carries the plan's eleven columns and they are the emitted header", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const spec = byId.get("SMB-23");
+  assert.ok(spec, "SMB-23 is not in the catalog");
+  assert.equal(spec.generation, "deterministic", "SMB-23 generation");
+  assert.equal(spec.format, "csv", "SMB-23 format");
+  assert.equal(spec.files, undefined, "SMB-23 is one CSV, so it declares no files map");
+  assert.equal(trackDir("SMB-23"), "smb", "SMB-23 does not generate into datasets/smb/");
+  assert.deepEqual(spec.columns, SMB_C4A_COLUMNS, "SMB-23 columns have drifted from data plan section 2.1");
+  const header = readFileSync(
+    join(REPO_ROOT, "datasets", "smb", spec.name, `${spec.name}.csv`), "utf8"
+  ).split("\n")[0].split(",");
+  assert.deepEqual(spec.columns, header, "SMB-23's spec columns disagree with the header on disk");
+});
+
+test("loadSpecs: C4 wave A, the two templates are drafted markdown with no columns", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of ["SMB-24", "SMB-25"]) {
+    const spec = byId.get(id);
+    assert.ok(spec, `${id} is not in the catalog`);
+    assert.equal(spec.generation, "drafted-frozen", `${id} generation`);
+    assert.equal(spec.type, "template", `${id} type`);
+    assert.equal(spec.format, "markdown", `${id} format`);
+    assert.equal(spec.columns, undefined, `${id} is a drafted template, so it declares no columns`);
+    assert.equal(spec.files, undefined, `${id} is a drafted template, so it declares no files map`);
+  }
+});
+
+test("loadSpecs: C4 wave A, all three ids declare the plan's period, module and canon entities", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of SMB_C4A) {
+    const spec = byId.get(id);
+    assert.deepEqual(spec.period, SMB_C4A_PERIOD, `${id} period has drifted from data plan section 2`);
+    assert.deepEqual(spec.consuming_modules, ["smb-post-project-referral-loop"], `${id} consuming_modules`);
+    assert.equal(
+      spec.source_plan, `smb-implementation-plan + small-business cluster 4 data plan (2.${SMB_C4A.indexOf(id) + 1})`,
+      `${id} does not cite its own section of the cluster 4 data plan`
+    );
+    assert.ok(spec.planted_features.length > 0, `${id} states no planted features`);
+    for (const feature of spec.planted_features) {
+      assert.equal(typeof feature, "string", `${id} has a planted feature that is not a string`);
+      assert.ok(!feature.includes("—"), `${id} planted feature carries an em dash`);
+      assert.ok(!feature.includes("–"), `${id} planted feature carries an en dash`);
+    }
+  }
+  // U-B: the log names the office refresh, so SMB-23 widens to co-002.
+  assert.deepEqual(byId.get("SMB-23").canon_entities, ["co-100", "co-002", "co-131"], "SMB-23 canon_entities widening");
+  assert.deepEqual(byId.get("SMB-24").canon_entities, [], "SMB-24 is a blank template and names no entity");
+  assert.deepEqual(byId.get("SMB-25").canon_entities, ["co-135"], "SMB-25 names its referral partner and no other entity");
+  // The four January households' band ids are disclosed in the PR body and
+  // are never canon entities.
+  for (const id of SMB_C4A) {
+    for (const canonId of byId.get(id).canon_entities) {
+      assert.doesNotMatch(canonId, /^co-2[0-4]\d$/, `${id} lists the reserved-band id ${canonId} as a canon entity`);
+    }
+  }
+});
