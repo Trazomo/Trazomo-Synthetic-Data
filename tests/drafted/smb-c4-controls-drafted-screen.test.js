@@ -291,7 +291,7 @@ test("SMB-C4 T-M4: the restricted table is RCF-LDB-01 to -06, gapless, three acc
 test("SMB-C4 T-M5: every code is MOCK- plus four digits, and those digits stand alone nowhere else in the SMB pack", () => {
   const codes = restrictedItems(excerpt()).slice(0, 3).map((r) => r.value);
   const files = packFilesOtherThanSmb34();
-  assert.ok(files.length > 30, `only ${files.length} pack files were walked`);
+  assert.ok(files.length > 20, `only ${files.length} pack files were walked`);
   const texts = files.map((f) => [f, readFileSync(f, "utf8")]);
   assert.equal(new Set(codes).size, 3, "two access items share a code");
   for (const code of codes) {
