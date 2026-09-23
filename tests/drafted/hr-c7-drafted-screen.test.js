@@ -197,7 +197,7 @@ const HANDBOOK_FACTS = [
   { phrase: "compensation actually paid", at: [["001", "6"], ["008", "6"]] },
   { phrase: "suspended during unpaid periods", at: [["005", "6"]] },
   { phrase: "continues for the duration of an approved leave", at: [["004", "6"]] },
-  { phrase: "the last day of the month in which separation occurs", at: [["002", "2"], ["003", "2"]] },
+  { phrase: "the last day of the month in which separation occurs", at: [["002", "2"], ["003", "2"], ["006", "2"]] },
   { phrase: "continuation coverage information from the plan administrator", at: [["002", "2"], ["003", "2"]] },
   { phrase: "employer-paid basic life and accidental death insurance", at: [["004", null]] },
   { phrase: "100 percent of the first 4 percent", at: [["008", null]] },
@@ -657,6 +657,18 @@ test("HR-C7-T4: HR-19a, the eighteen sentences in place, two limitations away fr
   const away = limitations.filter((l) => !l.places.includes(`4:${l.benefit}`));
   assert.equal(away.length, 2, `${away.length} benefit-tied limitations have no sentence in their own subsection, expected 2`);
   assert.deepEqual(away.map((l) => l.id).sort(), ["ADI-BNF-002", "ADI-BNF-003"], "the two limitations away from their benefit are not one in 002 and one in 003");
+
+  // Each plant can be defused in substance, not only by its lexicon phrase:
+  // its benefit's own subsection must carry none of the plant sentence's
+  // limiting figures, even restated in plain prose.
+  const PLANT_FIGURES = { "ADI-BNF-002": ["20", "visits"], "ADI-BNF-003": ["12 months", "first"] };
+  for (const l of away) {
+    const { subs } = subsections(section(readDoc(l.id), "4"));
+    const ownBody = subs.get(l.benefit) ?? "";
+    for (const figure of PLANT_FIGURES[l.id]) {
+      assert.equal(ownBody.includes(figure), false, `${l.id}: ${l.benefit}'s own subsection carries the plant sentence's limiting figure "${figure}"`);
+    }
+  }
   assert.equal(limitations.filter((l) => l.places.includes("7")).length, 1, "the section-7 limitation census has moved off 1");
   assert.equal(limitations.filter((l) => l.places.includes("3")).length, 1, "the section-3 limitation census has moved off 1");
 });
