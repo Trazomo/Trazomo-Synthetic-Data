@@ -1,5 +1,75 @@
 # Changelog
 
+## 1.28.0
+
+Renumber at tag time: the integrator allocates the tag in merge order, `v1.27.0`
+is the current tip, and other cluster data branches may be live and take
+`v1.28.0` first.
+
+Small-business cluster 4, trust, growth and controls. Seven artifacts, one PR,
+three deterministic and four drafted-frozen, for `smb-post-project-referral-loop`,
+`smb-client-trust-and-data-guardrails` and the skeleton wave 2 module
+`smb-operational-controls`. The plan is
+`docs/plans/2026-08-29-path-programs/small-business/data-plans/cluster-4.md` on
+the trazomo repo, amended with a dated log after each wave; its section 8.1
+defaults U-A to U-M ride to Salvador's freeze review. Ruling R6 lands here: the
+catalog gains SMB-33 and SMB-34 and grows from 142 to 144 entries. No byte
+changes under `datasets/` outside the three new directories, none under
+`canon/`, and none in any C1 to C3 material this cluster reads. Four ids are
+consumed from the reserved co-200 to co-249 Larkspur-side band (co-204 to
+co-207), names drawn through SMB-03's exported screens with C3's three emitted
+surnames excluded, and no canon edit is made. Two rules are new: R-DISJOINT (no
+outgoing-message byte is drawn from the restricted client file excerpt) and
+R-NOSTATUTE (no SMB data file names a statute or a regulator).
+
+- **SMB-23 completed-projects-log** (deterministic): six projects brought to
+  substantial completion in the first quarter of 2026, the two the shipped bytes
+  already complete (read from SMB-04, SMB-05, SMB-16 and SMB-22 behind loud-throw
+  pins) and four January projects whose invoices settled before the register
+  opens. Exactly one row carries a support issue with an opened date and no
+  resolved date; three carry an issue at all, two of them resolved in January.
+  `completion_date` is substantial completion, not closeout.
+- **SMB-24 feedback-request-template** (drafted): a blank template, 732 words,
+  ten fields with a required-field list (eight required, two conditional), no
+  client, price, date or canon entity. The gate (no request for a project with an
+  open support issue), the held-for-owner rule and the never-sends rule are
+  stated as properties of the template.
+- **SMB-25 referral-nurture-sequence** (drafted): a blank three-touch sequence
+  to co-135 Fairhaven Realty Group, 936 words, eleven fields (ten required, one
+  conditional). A partner touch never names the client, the property or the
+  project, carrying only the project type and the completion month.
+- **SMB-31 outgoing-comms-sample** (drafted dataset, csv + markdown): the
+  studio's outgoing email queue for the week of 2026-03-23, a thirteen-column
+  index beside one markdown file per message, ten messages. Five were drafted
+  with AI assistance and four carry the studio's disclosure line; one message
+  carries client fields its stated purpose does not permit; one AI-drafted,
+  disclosed, in-purpose reminder exercises both rules and passes. Every figure
+  is a register, plan or payment amount the C3 bytes carry, and every message to
+  a C3 client agrees with that client's state on its date.
+- **SMB-32 data-handling-checklist** (deterministic config yaml): the studio's
+  own outgoing-message policy as code, twelve keys, six purposes with required
+  and permitted client fields, an AI-assistance disclosure rule with the one
+  home of the disclosure text, five categories that never appear in a message,
+  six rules and three outcomes every one of which leaves a held draft. Names no
+  statute.
+- **SMB-33 owner-decision-authority-matrix** (deterministic): FIN-39's column
+  set re-scaled to a nine-person studio, 27 decisions across four data classes
+  and three amount bands. Sending money, signing a client and committing a date
+  to a client are prohibited to AI at every amount and nothing else is; no
+  restricted row is autonomous or review-before-commit; the band steps are
+  `5000.00` (SMB-22's materiality, read at build time) and `30000.00` (the first
+  round thousand above SMB-17's largest deposit); roles only, and the owner is
+  only ever the escalation.
+- **SMB-34 restricted-client-file-excerpt** (drafted, freeze gate): the FIN-40
+  mirror for the co-131 renovation, 650 words, a RESTRICTED - CLIENT PRIVATE
+  banner on the first line repeated byte-identically in the footer, handling
+  instructions, three mock access codes and the household's financing terms,
+  distributed by role only. Guarded by
+  `tests/drafted/smb-c4-controls-drafted-screen.test.js`.
+
+Gates at the PR head: `npm test` 1406 pass, 0 fail, `validate --all` 144 checked,
+0 failed, 32 allowlisted; `MANIFEST.json` 91 datasets and 42 artifacts.
+
 ## 1.27.0
 
 Renumber at tag time: the integrator allocates the tag in merge order, `v1.24.0`
