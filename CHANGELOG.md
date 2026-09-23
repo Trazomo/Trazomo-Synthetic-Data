@@ -2,9 +2,9 @@
 
 ## 1.29.0
 
-Renumber at tag time: the integrator allocates the tag in merge order, `v1.27.0`
+Renumber at tag time: the integrator allocates the tag in merge order, `v1.28.0`
 is the current tip, and other cluster data branches may be live and take
-`v1.28.0` first.
+`v1.29.0` first.
 
 People and HR cluster 7, knowledge and intake. Three artifacts, one PR, one
 drafted-frozen and two deterministic, for `hr-total-rewards-benefits-knowledge-base`
