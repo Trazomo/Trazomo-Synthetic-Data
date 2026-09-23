@@ -570,11 +570,27 @@ function everyClient() {
     if (!projectNames.has(r.client_canon_id)) projectNames.set(r.client_canon_id, new Set());
     projectNames.get(r.client_canon_id).add(r.project_name);
   }
+  // Review data-cluster-4.md NEW-6: a business's full legal name does not
+  // cover its distinctive leading words (R1: "the Atticus Dundee office"),
+  // and neither covers a street address (R7: the Okafor street, no number).
+  // streetOf reads the street off the two client records the pack ships one
+  // for, taking the first comma field and stripping a leading house number.
+  const streets = new Map([
+    ["co-131", [streetOf(okaforRecord().client.property_address)]],
+    ["co-002", [streetOf(smb05Record().client.property_address)]],
+  ]);
   return [...byId.entries()].map(([client_canon_id, client_name]) => ({
     client_canon_id,
     client_name,
+    shortName: householdSurname(client_name) ? null : client_name.replace(/\s+(Inc\.|LLC|LLP|Ltd\.?|Co\.)$/, ""),
+    addresses: streets.get(client_canon_id) ?? [],
     projectNames: [...(projectNames.get(client_canon_id) ?? [])],
   }));
+}
+
+/** "1450 Halverson Quay, Suite 600, ..." -> "Halverson Quay"; "327 Havershill Court" -> "Havershill Court". */
+function streetOf(address) {
+  return address.split(",")[0].trim().replace(/^\d+\s+/, "");
 }
 
 /** "The Marsh household" -> "Marsh"; null for a canon business (no household shape). */
@@ -843,6 +859,11 @@ test("SMB-C4 T-J5: no message names a client, a household surname or a project o
       const surname = householdSurname(c.client_name);
       if (surname) assert.ok(!hasWord(said, surname), `${row.message_id} names "${surname}", another client's household surname`);
       assert.ok(!hasWord(said, c.client_name), `${row.message_id} names "${c.client_name}", another client's name`);
+      // NEW-6: a business's distinctive leading words and any client's street.
+      if (c.shortName) assert.ok(!hasWord(said, c.shortName), `${row.message_id} names "${c.shortName}", another client's business name`);
+      for (const a of c.addresses) {
+        assert.ok(!hasWord(said, a), `${row.message_id} names "${a}", another client's street`);
+      }
       for (const p of c.projectNames) {
         assert.ok(!hasWord(said, p), `${row.message_id} names "${p}", another client's project`);
       }
