@@ -29,7 +29,10 @@
 import { toCsv } from "../csv.js";
 import { addDays, isWeekend } from "../dates.js";
 import { createRng } from "../seed.js";
-import { buildMixedSensitivityRecords, COLUMNS as HR17_COLUMNS } from "./hr-17-mixed-sensitivity.js";
+import {
+  buildMixedSensitivityRecords, COLUMNS as HR17_COLUMNS,
+  SPECIAL_CATEGORY_FIELDS, RESTRICTED_FIELDS,
+} from "./hr-17-mixed-sensitivity.js";
 import { assertPrefixUnusedElsewhere, buildBenefitsCensus } from "./hr-20-benefits-census.js";
 import { c7Salience } from "./hr-c7-salience.js";
 
@@ -126,9 +129,9 @@ export const REQUEST_LIBRARY = [
   { slot: "S01", stated_category: "benefits", subject: "Open enrollment dates",
     body: "When does the next open enrollment happen, and how long does the window stay open? I want to change my coverage for next year and would like to put the right days in my calendar so I do not miss it." },
   { slot: "S02", stated_category: "benefits", subject: "Which option allows a health savings account",
-    body: "I am comparing the options under the medical plan before I choose one. Which option lets me open a health savings account, and can I keep that account if I switch options later on?" },
+    body: "I am comparing the options under the medical plan before open enrollment. Which option lets me open a health savings account, and can I keep that account if I switch options later on?" },
   { slot: "S03", stated_category: "benefits", subject: "How much life insurance",
-    body: "How much life insurance does the Company give me without any cost to me, and is there a way to add more coverage for myself on top of the basic amount?" },
+    body: "How much life insurance does the Company give me without any cost to me? I do not have any other questions about that benefit right now." },
   { slot: "S04", stated_category: "benefits", subject: "Commuter benefit for a transit pass",
     body: "I take the train into the office most days. Can I use the commuter benefit to buy a monthly transit pass before tax, and where do I sign up for it?" },
   { slot: "S05", stated_category: "benefits", subject: "New frames",
@@ -136,7 +139,7 @@ export const REQUEST_LIBRARY = [
   { slot: "S06", stated_category: "pay_and_payroll", subject: "Company match",
     body: "I contribute to the 401(k) out of every paycheck. How much does the Company add on top of what I put in, and when does the added money become mine to keep?" },
   { slot: "S07", stated_category: "pay_and_payroll", subject: "Pay dates",
-    body: "I have just moved here from another company and I am not sure how often we are paid. When is the next pay date, and does it move when it falls on a public holiday?" },
+    body: "I am not sure how often we are paid. When is the next pay date, and does it move when it falls on a public holiday?" },
   { slot: "S08", stated_category: "pay_and_payroll", subject: "Overtime approval",
     body: "My manager asked me to stay late to finish a release. Do I need written approval before I work overtime, and how does the extra time show up on my payslip afterwards?" },
   { slot: "S09", stated_category: "pay_and_payroll", subject: "Copy of my W-2",
@@ -144,9 +147,9 @@ export const REQUEST_LIBRARY = [
   { slot: "S10", stated_category: "leave_and_time_off", subject: "Carrying over time off",
     body: "I still have paid time off left that I have not used. How much of it carries over into next year, and does unused sick leave carry over the same way or does it reset?" },
   { slot: "S11", stated_category: "leave_and_time_off", subject: "Parental leave eligibility",
-    body: "My partner and I are expecting a baby later this year. Am I eligible for parental leave as someone who joined the Company recently, and how far ahead do I need to tell my manager?" },
+    body: "My partner and I are adopting a child later this year. How long do I need to have worked here to be eligible for parental leave, and how far ahead do I need to tell my manager?" },
   { slot: "S12", stated_category: "leave_and_time_off", subject: "Bereavement days",
-    body: "My grandmother passed away over the weekend and I need to travel for the funeral. How many bereavement days can I take, and do I need to show anything when I come back?" },
+    body: "My grandmother passed away over the weekend and I need to travel for the funeral. How many bereavement days can I take?" },
   { slot: "S13", stated_category: "leave_and_time_off", subject: "Time off next month",
     body: "I was diagnosed with a medical condition that needs treatment over the next few weeks, so I will be away some afternoons. Can I take a leave of absence for part of each week, and who will see the paperwork I send?" },
   { slot: "S14", stated_category: "policies_and_handbook", subject: "Working remotely",
@@ -229,12 +232,21 @@ export function correctQueue(body) {
 
 // ------------------------------------------------------- the library check
 
-/** Every value string the mixed sensitivity record set carries, and its column names. */
+/** HR-17 columns whose values are swept: special-category, restricted, date_of_birth
+ * (already restricted, named again for clarity), home_city and the two
+ * emergency-contact columns. Never a roster-copied column. */
+const HR17_VALUE_COLUMNS = [
+  ...SPECIAL_CATEGORY_FIELDS, ...RESTRICTED_FIELDS,
+  "home_city", "emergency_contact_name", "emergency_contact_phone",
+];
+
+/** The mixed sensitivity record set's own value strings (never a roster-copied
+ * column), and every column identifier. */
 function hr17Strings() {
   const values = new Set();
   for (const row of buildMixedSensitivityRecords()) {
     for (const [column, value] of Object.entries(row)) {
-      if (column === "employee_id" || column === "record_id" || value === "" || value === null || value === undefined) continue;
+      if (!HR17_VALUE_COLUMNS.includes(column) || value === "" || value === null || value === undefined) continue;
       values.add(String(value));
     }
   }
@@ -275,13 +287,17 @@ export function checkLibrary() {
     if (/\b(January|February|March|April|May|June|July|August|September|October|November|December|Monday|Tuesday|Wednesday|Thursday|Friday)\b/.test(body)) {
       fail(slot, "body carries a date word");
     }
-    for (const column of hr17.columns) if (carriesTerm(body, column)) fail(slot, `body carries the mixed sensitivity column name ${column}`);
-    // Value strings are matched as written, case and all: the department value
-    // "Legal" is a proper noun in that record set, and the content term "legal
-    // name" is the words a person writes, so a case-insensitive match would make
-    // a routing term collide with a department rather than with anything
-    // sensitive.
-    for (const value of hr17.values) if (carriesValue(body, value)) fail(slot, `body carries a mixed sensitivity value string`);
+    // Column identifiers, snake case, over both body and subject. The
+    // space-separated word form is swept in tests/generators/hr-14-helpdesk-queue.test.js
+    // (HR-C7-T22) rather than here: over this library it also matches S16's
+    // "work email", a roster-copied column's ordinary English words rather
+    // than a sensitive value, and failing the build on it is not this fix's call.
+    for (const text of [body, subject]) {
+      for (const column of hr17.columns) if (carriesTerm(text, column)) fail(slot, `carries the mixed sensitivity column identifier ${column}`);
+      // Values are the special-category and restricted columns' own strings
+      // (never a roster-copied column), matched case-insensitively.
+      for (const value of hr17.values) if (carriesTerm(text, value)) fail(slot, "carries a special category or restricted HR-17 value string");
+    }
     if (body.includes(EN_DASH) || body.includes(EM_DASH) || subject.includes(EM_DASH) || subject.includes(EN_DASH)) fail(slot, "carries a dash this pack does not write");
     return { ...entry, topic: topics[0], queue: correctQueue(body), special };
   });

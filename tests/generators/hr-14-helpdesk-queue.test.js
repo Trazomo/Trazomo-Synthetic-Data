@@ -11,8 +11,9 @@
 // must exist in the committed CORE-05 or HR-19 markdown; it pins ids, never
 // answer text.
 //
-// No test names which request is mis-categorized or which carries the special
-// category term. Both are found by applying the table and asserted by count.
+// The answerability map pins each slot by its subject, so it reaches every
+// slot including both plant rows as well; each plant is in any case one
+// application of the published table away, not named here.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
@@ -65,7 +66,7 @@ const SLOTS = [
   ["Pay dates", ["ADI-HR-001", 5]],
   ["Overtime approval", ["ADI-HR-001", 4]],
   ["Copy of my W-2", "neither"],
-  ["Carrying over time off", ["ADI-HR-001", 6]],
+  ["Carrying over time off", ["ADI-HR-001", [6, 7]]],
   ["Parental leave eligibility", ["ADI-HR-001", 8]],
   ["Bereavement days", ["ADI-HR-001", 8]],
   ["Time off next month", "human_only"],
@@ -170,12 +171,25 @@ test("HR-C7-T22: HR-14b, one special category body, and the privacy censuses", (
   assert.ok(!healthOrSick.includes(special[0]));
   assert.equal(rows.filter((r) => carries(r.body, "medical")).length, 2);
   const { cols, rows: records } = hr17();
+  // Special-category and restricted columns, plus date_of_birth, home_city and
+  // the two emergency-contact columns: the record set's own strings, never a
+  // roster-copied column.
+  const VALUE_COLUMNS = [
+    "health_accommodation_note", "occupational_health_status", "trade_union_membership",
+    "date_of_birth", "criminal_record_check_status", "immigration_status",
+    "home_city", "emergency_contact_name", "emergency_contact_phone",
+  ];
   const values = new Set();
-  for (const rec of records) for (const [c, v] of Object.entries(rec)) if (v && c !== "employee_id" && c !== "record_id") values.add(v);
+  for (const rec of records) for (const [c, v] of Object.entries(rec)) if (v && VALUE_COLUMNS.includes(c)) values.add(v);
+  const asWords = (c) => c.replace(/_/g, " ");
   for (const r of rows) {
-    for (const c of cols) assert.ok(!carries(r.body, c), `a body carries the HR-17 column ${c}`);
-    // Values are matched as written: the department value "Legal" is not the words "legal name".
-    for (const v of values) assert.ok(!carries(r.body, v, ""), "a body carries an HR-17 value string");
+    for (const text of [r.body, r.subject]) {
+      for (const c of cols) {
+        assert.ok(!carries(text, c), `a body or subject carries the HR-17 column identifier ${c}`);
+        assert.ok(!carries(text, asWords(c)), `a body or subject carries the HR-17 column identifier ${c} in words`);
+      }
+      for (const v of values) assert.ok(!carries(text, v), "a body or subject carries a special category or restricted HR-17 value");
+    }
   }
 });
 
@@ -240,7 +254,9 @@ test("HR-C7-T24: every answerable slot resolves to a document and section in the
     const doc = docs.get(docId);
     assert.ok(doc, `${docId} is in neither committed library`);
     assert.equal(doc.status, "Active", `${docId} is not Active`);
-    if (section !== null) assert.match(doc.text, new RegExp(`^## ${section}\\. `, "m"), `${docId} has no section ${section}`);
+    for (const s of Array.isArray(section) ? section : [section]) {
+      if (s !== null) assert.match(doc.text, new RegExp(`^## ${s}\\. `, "m"), `${docId} has no section ${s}`);
+    }
   }
   assert.equal(neither, 3);
   assert.equal(human, 1);
