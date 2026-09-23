@@ -2349,6 +2349,7 @@ artifacts:
       - "no person is named and no id is un-namespaced: a client is a canon household, a canon business or a generated household drawn through the inquiry queue's screens with the register's three surnames excluded, the four generated clients take co-204 to co-207 from the reserved band, and the support issues are SUP-LDB-01 upward in opened date order"
     consuming_modules: [smb-post-project-referral-loop]
     source_plan: smb-implementation-plan + small-business cluster 4 data plan (2.1)
+
   - id: SMB-24
     name: feedback-request-template
     type: template
@@ -2365,6 +2366,7 @@ artifacts:
       - "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, and never fills one from a working file"
     consuming_modules: [smb-post-project-referral-loop]
     source_plan: smb-implementation-plan + small-business cluster 4 data plan (2.2)
+
   - id: SMB-25
     name: referral-nurture-sequence
     type: template
@@ -2381,6 +2383,7 @@ artifacts:
       - "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, and never fills one from a working file"
     consuming_modules: [smb-post-project-referral-loop]
     source_plan: smb-implementation-plan + small-business cluster 4 data plan (2.3)
+
   - id: SMB-26
     name: crew-roster-mock
     type: dataset
@@ -2458,6 +2461,7 @@ artifacts:
       - "every message is signed by role, the owner or the project lead, and every figure a message states is an amount the studio's own records carry: an invoice, installment or payment amount, or, in the message that restates the contract, the contract sum and the deposit percent"
     consuming_modules: [smb-client-trust-and-data-guardrails]
     source_plan: smb-implementation-plan + small-business cluster 4 data plan (2.4)
+
   - id: SMB-32
     name: data-handling-checklist
     type: config
