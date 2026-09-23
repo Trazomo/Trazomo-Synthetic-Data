@@ -198,8 +198,9 @@ test("HR-C7-T13: every plan id is an Active register row, and the vocabularies a
 test("HR-C7-T14: HR-20a, one deadline in the window, and every qualifier-dropped count", () => {
   const rows = employees();
   const count = (p) => rows.filter(p).length;
-  const within = (days) => (r) => inRange(deadlineOf(r), WINDOW[0], addDays(WINDOW[0], days));
-  assert.equal(count(within(7)), 1, "the alert window census");
+  const g = grammar().rows[0];
+  const within = (days) => (r) => inRange(deadlineOf(r), g.alert_window_start, addDays(g.alert_window_start, days));
+  assert.equal(count(within(Number(g.alert_window_days))), 1, "the alert window census");
   assert.equal(count(within(14)), 3);
   assert.equal(count(within(30)), 7);
   const after = rows.filter((r) => deadlineOf(r) > AS_OF).map((r) => r.employee_id);
