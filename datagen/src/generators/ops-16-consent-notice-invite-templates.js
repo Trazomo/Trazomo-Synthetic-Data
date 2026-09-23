@@ -362,9 +362,14 @@ function renderInviteSample({ meeting, attendees, organizer, companyName }) {
   const summary = meeting.title.charAt(0).toUpperCase() + meeting.title.slice(1);
   // OPS-01's "video conference, recorded" in calendar form: the medium, then the
   // qualifier in parentheses. No place name, because the format carries none.
-  const formatMatch = /^(.+), (.+)$/.exec(meeting.format);
+  const formatMatch = /^([^,]+), ([^,]+)$/.exec(meeting.format);
   if (!formatMatch) fail(`OPS-01's format "${meeting.format}" is not "<medium>, <qualifier>"`);
   const location = `${formatMatch[1].charAt(0).toUpperCase()}${formatMatch[1].slice(1)} (${formatMatch[2]})`;
+  // A roster name carrying a quote or a CN-parameter delimiter would ship an
+  // ics whose parameter grammar is broken; CN is emitted unquoted (N4).
+  for (const row of attendees) {
+    if (/[";:,]/.test(row.full_name)) fail(`${row.full_name} cannot sit in an unquoted CN parameter`);
+  }
   const content = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
