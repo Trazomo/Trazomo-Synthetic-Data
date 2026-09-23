@@ -428,6 +428,15 @@ test("OPS-16 document-control: three tables, the three ids, the two titles held 
     const found = names.filter((name) => text.includes(name));
     assert.deepEqual(found, [], `${path} names a person`);
   }
+  // Dates (plan F-C4): outside the invite's filled example, the only dates in
+  // the markdown are the document-control dates.
+  const controlDates = new Set(CONTROL_ROWS.map(([, value]) => value).filter((v) => /^\d{4}-\d{2}-\d{2}$/.test(v ?? "")));
+  for (const path of MARKDOWN) {
+    let text = doc(path);
+    if (path === "meeting-invite-template.md") text = text.replace(fences(section(text, "Filled example"))[0], "");
+    const dates = text.match(/\d{4}-\d{2}-\d{2}/g) ?? [];
+    assert.deepEqual(dates.filter((date) => !controlDates.has(date)), [], `${path} carries a date outside document control`);
+  }
 });
 
 test("OPS-16 screen: every capitalized phrase and word in the markdown is accounted for, and no address leaves the ics", () => {

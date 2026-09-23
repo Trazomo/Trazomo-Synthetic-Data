@@ -309,7 +309,7 @@ function renderInviteTemplate({ meeting, organizer, companyName }) {
   };
   const example = {
     "meeting.title": filled.title,
-    "meeting.date": filled.date,
+    "meeting.date": "given in the filled example below",
     "meeting.start_time": filled.start_time,
     "meeting.duration_minutes": filled.duration_minutes,
     "meeting.format": filled.format,
@@ -344,7 +344,7 @@ function renderInviteTemplate({ meeting, organizer, companyName }) {
     "",
     "## Filled example",
     "",
-    "The invite for the delivery sync on 2026-03-10, with every slot filled. The consent notice is unchanged.",
+    "The invite for the delivery sync already on file, with every slot filled. The consent notice is unchanged.",
     "",
     "```",
     ...inviteBody(filled, meeting.notice),

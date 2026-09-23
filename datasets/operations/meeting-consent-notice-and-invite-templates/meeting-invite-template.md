@@ -36,7 +36,7 @@ A slot is written `{{group.field}}`: two braces, a group name, a dot and a field
 | Slot | Group | Field | Source | Example |
 |---|---|---|---|---|
 | `{{meeting.title}}` | meeting | title | the organizer, as the calendar entry names the meeting | Cross-functional delivery sync on the customer onboarding revamp |
-| `{{meeting.date}}` | meeting | date | the calendar entry, as an ISO date | 2026-03-10 |
+| `{{meeting.date}}` | meeting | date | the calendar entry, as an ISO date | given in the filled example below |
 | `{{meeting.start_time}}` | meeting | start_time | the calendar entry, as a 24-hour clock time in UTC | 09:30 |
 | `{{meeting.duration_minutes}}` | meeting | duration_minutes | the calendar entry, as a whole number of minutes | 45 |
 | `{{meeting.format}}` | meeting | format | the organizer, including whether the meeting is recorded | video conference, recorded |
@@ -50,7 +50,7 @@ A slot with no value stops the invite from going out. Nobody fills one from a gu
 
 ## Filled example
 
-The invite for the delivery sync on 2026-03-10, with every slot filled. The consent notice is unchanged.
+The invite for the delivery sync already on file, with every slot filled. The consent notice is unchanged.
 
 ```
 Subject: Cross-functional delivery sync on the customer onboarding revamp
