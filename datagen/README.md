@@ -504,6 +504,27 @@ with SMB-03's own emitted surnames added to the exclusion set.
 this and a dataset may use an id inside it, but a lane that does must say
 which ids it took in the PR body.
 
+C4's three deterministic ids generate into `datasets/smb/completed-projects-log`,
+`data-handling-checklist` and `owner-decision-authority-matrix`; SMB-24, SMB-25
+and SMB-34 are drafted single documents and SMB-31 is a drafted dataset, a CSV
+index beside one top-level `.md` per message, the HR-01 shape, because
+`validate` reads only top-level `.md` files. The falsifiable guards are
+`tests/drafted/smb-c4-referral-drafted-screen.test.js` and
+`tests/drafted/smb-c4-controls-drafted-screen.test.js`.
+
+C4 mints `SUP-LDB-`, `MSG-LDB-`, `DHR-LDB-`, `DA-LDB-`, `FRQ-LDB-`, `RNS-LDB-`
+and `RCF-LDB-`, and opens the `JOB-LDB-07` to `-10` block. The control class is
+`DA-LDB-` and not `DA-` because FIN-39 already spends `DA-`.
+
+C4 consumes four more reserved-band ids, co-204 to co-207, the January
+households in the completed projects log, drawn through SMB-03's screens with
+SMB-03's and C3's emitted surnames excluded; canon seats none of them.
+
+No SMB artifact names a statute or a regulator (rule R-NOSTATUTE), and no
+outgoing-message byte is drawn from the restricted client file excerpt (rule
+R-DISJOINT): `tests/helpers/smb-restricted-values.js` reads SMB-34's restricted
+table so the SMB-31 screen can assert the absence by value and by class word.
+
 ## Spec-authoring guide
 
 Adding a new artifact to the program:

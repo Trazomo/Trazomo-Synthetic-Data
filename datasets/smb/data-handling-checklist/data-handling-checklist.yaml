@@ -1,0 +1,104 @@
+# SMB-32 data-handling-checklist: the studio's own policy for outgoing messages,
+# as configuration the guardrails validator runs every drafted message against
+# before the owner releases it. Generated, not hand maintained, by the SMB-32
+# generator. It names no statute and no regulator: it is the studio's policy.
+generated_from_spec: SMB-32
+policy_version: "1.0"
+as_of: "2026-03-23"
+scope: "The studio's own policy for every outgoing message the owner or the project lead drafts, checked before the owner releases it."
+
+# The validator holds drafts; it never sends one.
+sends_messages: false
+
+# Every outcome leaves the draft held for the owner.
+outcomes:
+  - outcome: approved
+    meaning: "Held for the owner to release as written."
+  - outcome: blocked_pending_edit
+    meaning: "Held until the edit the rule names is made, then checked again."
+  - outcome: blocked
+    meaning: "Held, and may not go out in any form."
+
+# The same four classes, in the same order, as the owner decision authority matrix.
+data_classes:
+  - data_class: public
+    meaning: "What the studio publishes or would publish, such as its service descriptions."
+  - data_class: internal
+    meaning: "The studio's own working records, kept inside the studio."
+  - data_class: client-confidential
+    meaning: "A client's own record, shared only with that client, or with a trade working on their job, and only as far as a purpose permits."
+  - data_class: restricted
+    meaning: "Payment instrument details, home and alarm access arrangements, financing terms and crew pay data, which never leave the studio's own tools."
+
+# Where every field name below resolves: the client record field dictionary,
+# and the three payment plan columns of the mock payment log.
+field_sources:
+  client_record_fields:
+    file: datasets/smb/client-record-template/client-record-fields.csv
+    column: field_name
+  payment_plan_columns:
+    file: datasets/smb/payment-status-mock/payment-status-mock.csv
+    columns: [payment_plan_id, installment_due_date, installment_amount_usd]
+
+# One entry per kind of outgoing message. A message carries every required
+# field of its purpose and may carry a permitted one; anything else is held
+# for an edit. No purpose lists a contract sum or a deposit percentage.
+purposes:
+  - purpose: general_enquiry_reply
+    data_class: public
+    required: []
+    permitted: []
+  - purpose: visit_confirmation
+    data_class: client-confidential
+    required: [client_name]
+    permitted: [project_name, property_address]
+  - purpose: payment_reminder
+    data_class: client-confidential
+    required: [client_name, invoice_id]
+    permitted: [invoice_amount_usd, due_date, payment_plan_id, installment_due_date, installment_amount_usd]
+  - purpose: invoice_cover
+    data_class: client-confidential
+    required: [client_name, invoice_id, invoice_amount_usd, due_date, payment_terms]
+    permitted: [project_name]
+  - purpose: payment_receipt
+    data_class: client-confidential
+    required: [client_name, invoice_id, settled_amount_usd, settlement_date]
+    permitted: [project_name]
+  - purpose: trade_visit_request
+    data_class: client-confidential
+    required: [property_address]
+    permitted: [project_name, client_name]
+
+# The one home of the disclosure line.
+ai_assistance:
+  disclosure_required_when: drafted_with_ai
+  disclosure_text: "Drafted with AI assistance and reviewed by a person at the studio before sending."
+
+# The restricted class. None of it is ever written into an outgoing message.
+never_in_an_outgoing_message:
+  - home access codes
+  - alarm codes
+  - financing terms
+  - payment instrument details
+  - crew pay data
+
+# Evaluated in order; the strictest outcome that fires wins.
+rules:
+  - rule_id: DHR-LDB-01
+    checks: "The message names a purpose this file carries."
+    outcome: blocked_pending_edit
+  - rule_id: DHR-LDB-02
+    checks: "Every required field of the message's purpose is carried."
+    outcome: blocked_pending_edit
+  - rule_id: DHR-LDB-03
+    checks: "Every client field the message carries is required or permitted for its purpose; the edit names each field outside those lists."
+    outcome: blocked_pending_edit
+  - rule_id: DHR-LDB-04
+    checks: "A message drafted with AI assistance ends with the disclosure text above, byte for byte, and a message drafted without it carries none."
+    outcome: blocked_pending_edit
+  - rule_id: DHR-LDB-05
+    checks: "The message carries nothing from never_in_an_outgoing_message and its data class is not restricted."
+    outcome: blocked
+  - rule_id: DHR-LDB-06
+    checks: "The message passed every rule above."
+    outcome: approved

@@ -7,10 +7,10 @@ import { loadSpecs, SpecValidationError, trackDir, trackPrefix } from "../../dat
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 
-test("loadSpecs parses the real specs/artifact-specs.yaml: 144 artifacts, no duplicate ids", () => {
+test("loadSpecs parses the real specs/artifact-specs.yaml: 146 artifacts, no duplicate ids", () => {
   const { artifacts, byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
-  assert.equal(artifacts.length, 144);
-  assert.equal(byId.size, 144);
+  assert.equal(artifacts.length, 146);
+  assert.equal(byId.size, 146);
   assert.ok(byId.has("CORE-01"));
   assert.ok(byId.has("LGL-07"));
 });
@@ -1069,4 +1069,222 @@ test("loadSpecs: SMB-30's planted_features is byte exact against cluster-3.md se
     "eleven of the fourteen fields are required and three are optional, and the required-field list is the authority: a field's required flag is stated once, in that table, and the body never restates it. One optional field, next week's draw plan, carries no token and no text, so a rule that finds empty slots without reading the required column returns one and blocks on a field the template was free to leave empty",
     "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, never fills one from a working file, and never presents an open-window figure as final",
   ], "SMB-30's planted_features has drifted from cluster-3.md section 2.7");
+});
+
+// C4 wave A: the referral loop's three ids, SMB-23, SMB-24 and SMB-25
+// (small-business cluster 4 data plan sections 2.1 to 2.3). SMB-23 is the one
+// deterministic id and its column list is pinned twice, to the plan's list and
+// to the header the generator actually emits, so a spec edit and a generator
+// edit each fail here on their own. The two templates are drafted and carry no
+// columns.
+const SMB_C4A = ["SMB-23", "SMB-24", "SMB-25"];
+
+const SMB_C4A_COLUMNS = [
+  "job_id", "client_canon_id", "client_name", "project_name", "project_type",
+  "completion_date", "issue_id", "issue_opened_date", "issue_summary",
+  "issue_resolved_date", "as_of_date",
+];
+
+const SMB_C4A_PERIOD = { start: "2026-01-09", end: "2026-03-31" };
+
+test("loadSpecs: C4 wave A, SMB-23 carries the plan's eleven columns and they are the emitted header", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const spec = byId.get("SMB-23");
+  assert.ok(spec, "SMB-23 is not in the catalog");
+  assert.equal(spec.generation, "deterministic", "SMB-23 generation");
+  assert.equal(spec.format, "csv", "SMB-23 format");
+  assert.equal(spec.files, undefined, "SMB-23 is one CSV, so it declares no files map");
+  assert.equal(trackDir("SMB-23"), "smb", "SMB-23 does not generate into datasets/smb/");
+  assert.deepEqual(spec.columns, SMB_C4A_COLUMNS, "SMB-23 columns have drifted from data plan section 2.1");
+  const header = readFileSync(
+    join(REPO_ROOT, "datasets", "smb", spec.name, `${spec.name}.csv`), "utf8"
+  ).split("\n")[0].split(",");
+  assert.deepEqual(spec.columns, header, "SMB-23's spec columns disagree with the header on disk");
+});
+
+test("loadSpecs: C4 wave A, the two templates are drafted markdown with no columns", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of ["SMB-24", "SMB-25"]) {
+    const spec = byId.get(id);
+    assert.ok(spec, `${id} is not in the catalog`);
+    assert.equal(spec.generation, "drafted-frozen", `${id} generation`);
+    assert.equal(spec.type, "template", `${id} type`);
+    assert.equal(spec.format, "markdown", `${id} format`);
+    assert.equal(spec.columns, undefined, `${id} is a drafted template, so it declares no columns`);
+    assert.equal(spec.files, undefined, `${id} is a drafted template, so it declares no files map`);
+  }
+});
+
+test("loadSpecs: C4 wave A, all three ids declare the plan's period, module and canon entities", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const id of SMB_C4A) {
+    const spec = byId.get(id);
+    assert.deepEqual(spec.period, SMB_C4A_PERIOD, `${id} period has drifted from data plan section 2`);
+    assert.deepEqual(spec.consuming_modules, ["smb-post-project-referral-loop"], `${id} consuming_modules`);
+    assert.equal(
+      spec.source_plan, `smb-implementation-plan + small-business cluster 4 data plan (2.${SMB_C4A.indexOf(id) + 1})`,
+      `${id} does not cite its own section of the cluster 4 data plan`
+    );
+    assert.ok(spec.planted_features.length > 0, `${id} states no planted features`);
+    for (const feature of spec.planted_features) {
+      assert.equal(typeof feature, "string", `${id} has a planted feature that is not a string`);
+      assert.ok(!feature.includes("\u2014"), `${id} planted feature carries an em dash`);
+      assert.ok(!feature.includes("\u2013"), `${id} planted feature carries an en dash`);
+    }
+  }
+  // U-B: the log names the office refresh, so SMB-23 widens to co-002.
+  assert.deepEqual(byId.get("SMB-23").canon_entities, ["co-100", "co-002", "co-131"], "SMB-23 canon_entities widening");
+  assert.deepEqual(byId.get("SMB-24").canon_entities, [], "SMB-24 is a blank template and names no entity");
+  assert.deepEqual(byId.get("SMB-25").canon_entities, ["co-135"], "SMB-25 names its referral partner and no other entity");
+  // The four January households' band ids are disclosed in the PR body and
+  // are never canon entities.
+  for (const id of SMB_C4A) {
+    for (const canonId of byId.get(id).canon_entities) {
+      assert.doesNotMatch(canonId, /^co-2[0-4]\d$/, `${id} lists the reserved-band id ${canonId} as a canon entity`);
+    }
+  }
+});
+
+// C4 wave B: the controls ids, SMB-32, SMB-33 and SMB-34 (small-business
+// cluster 4 data plan sections 2.5 to 2.7). SMB-33 is a CSV and its column
+// list is pinned to the header the generator emits; SMB-32 is a yaml, which
+// carries keys rather than a header, so it declares no columns. SMB-33 and
+// SMB-34 are the two ids ruling R6 adopted, with R6's shape.
+const SMB_C4B_PERIODS = {
+  "SMB-32": { start: "2026-03-23", end: "2026-03-27" },
+  "SMB-33": { start: "2026-03-31", end: "2026-03-31" },
+  "SMB-34": { start: "2026-02-16", end: "2026-02-16" },
+};
+
+test("loadSpecs: C4 wave B, SMB-33's columns are the emitted header and SMB-32 carries none", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const smb33 = byId.get("SMB-33");
+  assert.ok(smb33, "SMB-33 is not in the catalog");
+  assert.equal(trackDir("SMB-33"), "smb", "SMB-33 does not generate into datasets/smb/");
+  const header = readFileSync(
+    join(REPO_ROOT, "datasets", "smb", smb33.name, `${smb33.name}.csv`), "utf8"
+  ).split("\n")[0].split(",");
+  assert.deepEqual(smb33.columns, header, "SMB-33's spec columns disagree with the header on disk");
+  assert.equal(smb33.columns.length, 10, "SMB-33 no longer declares ten columns");
+
+  const smb32 = byId.get("SMB-32");
+  assert.ok(smb32, "SMB-32 is not in the catalog");
+  assert.equal(smb32.columns, undefined, "SMB-32 is a yaml document, so it declares no columns");
+  assert.equal(smb32.files, undefined, "SMB-32 is one yaml document, so it declares no files map");
+  assert.equal(smb32.format, "yaml", "SMB-32 format");
+  assert.equal(smb32.generation, "deterministic", "SMB-32 generation");
+});
+
+test("loadSpecs: C4 wave B, SMB-32, SMB-33 and SMB-34 declare the plan's period", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  for (const [id, period] of Object.entries(SMB_C4B_PERIODS)) {
+    assert.deepEqual(byId.get(id).period, period, `${id} period has drifted from data plan section 8.2 (U-S)`);
+  }
+});
+
+test("loadSpecs: C4 wave B, SMB-33 and SMB-34 carry ruling R6's shape and serve smb-operational-controls", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+  const shape = (id) => {
+    const s = byId.get(id);
+    assert.ok(s, `${id} is not in the catalog`);
+    return [s.type, s.format, s.generation, s.canon_entities];
+  };
+  assert.deepEqual(shape("SMB-33"), ["template", "csv", "deterministic", ["co-100"]], "SMB-33 is not R6's shape");
+  assert.deepEqual(
+    shape("SMB-34"), ["document", "markdown", "drafted-frozen", ["co-100", "co-131"]], "SMB-34 is not R6's shape"
+  );
+  for (const id of ["SMB-33", "SMB-34"]) {
+    assert.deepEqual(byId.get(id).consuming_modules, ["smb-operational-controls"], `${id} consuming_modules`);
+  }
+  assert.deepEqual(
+    byId.get("SMB-32").consuming_modules, ["smb-client-trust-and-data-guardrails"], "SMB-32 consuming_modules"
+  );
+  assert.deepEqual(byId.get("SMB-32").canon_entities, [], "SMB-32 is the studio's policy and names no entity");
+  for (const id of Object.keys(SMB_C4B_PERIODS)) {
+    const spec = byId.get(id);
+    assert.ok(spec.planted_features.length > 0, `${id} states no planted features`);
+    for (const feature of spec.planted_features) {
+      assert.equal(typeof feature, "string", `${id} has a planted feature that is not a string`);
+      assert.ok(!feature.includes(String.fromCharCode(0x2014)), `${id} planted feature carries an em dash`);
+      assert.ok(!feature.includes(String.fromCharCode(0x2013)), `${id} planted feature carries an en dash`);
+    }
+  }
+});
+
+// checkPlantedFeature can never return FAIL (cluster 4 data plan fact 0.4, the
+// same as cluster 3's), so a planted_features string that states a
+// cardinality the bytes contradict is caught by nothing at `validate` time.
+// C3 pins its one keyword-readable list (SMB-30) byte exact; C4 shipped none
+// of its seven pinned, and review data-cluster-4.md SHOULD-FIX 1 found two
+// consequences: a count edit in any C4 list survives `npm test` and
+// `validate` (M76, M77), and SMB-31's feature 5 was false against the bytes
+// (a message restates the contract sum and the deposit percentage, neither an
+// invoice, installment or payment amount). All seven C4 lists are pinned here,
+// byte exact against the sections of cluster-4.md they carry.
+test("loadSpecs: every C4 SMB spec's planted_features is byte exact against cluster-4.md", () => {
+  const { byId } = loadSpecs(join(REPO_ROOT, "specs", "artifact-specs.yaml"));
+
+  assert.deepEqual(byId.get("SMB-23").planted_features, [
+    "6 completed projects, JOB-LDB-01 upward in job id order, one per project the studio brought to substantial completion in the first quarter of 2026 as the log stands at the 2026-03-31 as-of date: the co-131 renovation and the co-002 office refresh, both read out of the job progress file and the two client records at build time, and four January projects for generated households whose every invoice settled before the invoice register opens on 2026-02-01, which is why the four appear in no other file",
+    "completion_date is substantial completion and not closeout: the renovation's equals its last milestone actual completion and the client record's substantial_completion stage, and the office refresh's equals its record's substantial_completion stage, each read from the emitted bytes rather than typed",
+    "1 completed project with an unresolved support issue: exactly one row carries an issue_opened_date and no issue_resolved_date, so an automated feedback request to that household would go out while the studio still owes them work, and the request goes to a person first. Three of the six projects carry a support issue at all, and two of the three were resolved inside January, so a loop that blocks on any issue withholds the request from two households who are ready to be asked",
+    "the open issue belongs to a project the loop would otherwise select: every project in the log completed inside the quarter and no client of the log carries an open row in the mock payment log at the as-of date",
+    "three archetypes, each a population a rule can name: three projects carry no issue, two carry an issue opened after completion and resolved inside January, and one carries the open issue. Every resolved issue opened strictly after its project's completion date and was resolved strictly after it opened",
+    "issue_summary describes the issue and never its state: no summary carries a word such as open, resolved, outstanding, pending or fixed, because the two date columns carry the state and a summary that named it would be an answer key",
+    "no person is named and no id is un-namespaced: a client is a canon household, a canon business or a generated household drawn through the inquiry queue's screens with the register's three surnames excluded, the four generated clients take co-204 to co-207 from the reserved band, and the support issues are SUP-LDB-01 upward in opened date order",
+  ], "SMB-23's planted_features has drifted from cluster-4.md section 2.1");
+
+  assert.deepEqual(byId.get("SMB-24").planted_features, [
+    "a blank feedback request template, not a filled request: ten fields, each with a field id, a required flag, a placeholder token, the source columns it reads and the condition it depends on, listed in the template's own required-field list and repeated as a body section in the same order. No client, no price, no date and no canon entity appears anywhere in the document",
+    "the gate: a request is drafted only for a completed project whose project log row carries no open support issue, an issue with an opened date and no resolved date, and a project carrying one goes to the owner and no request is drafted",
+    "every request is drafted and held for the owner to read and send, and the loop never sends a request",
+    "eight fields are required and two are conditional: the resolved issue note is filled whenever the project log carries a resolved issue and says plainly what went wrong and how it was put right, and the AI disclosure line is filled whenever the request was drafted with AI assistance",
+    "a request never claims more than the project log states, never offers a gift, a discount or any other incentive for feedback, and never asks for a particular rating",
+    "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, and never fills one from a working file",
+  ], "SMB-24's planted_features has drifted from cluster-4.md section 2.2");
+
+  assert.deepEqual(byId.get("SMB-25").planted_features, [
+    "a blank referral nurture sequence template for the studio's referral partner Fairhaven Realty Group: three touches and eleven fields, each with a field id, the touch it belongs to, a required flag, a placeholder token and the source columns it reads, listed in the template's own required-field list and repeated as body sections in the same order",
+    "the sequence starts only for a completed project whose project log row carries no open support issue, and every touch is drafted and held for the owner; nothing in the sequence is sent by the loop",
+    "a touch to the referral partner never names the client, the property address or the project name: it carries the project type and the month the project reached completion and nothing else from the project log",
+    "the sequence stops as soon as the partner replies or asks for no further messages, and no fee, gift or other incentive is offered for an introduction",
+    "ten fields are required and one is conditional: the AI disclosure line is filled on every touch drafted with AI assistance",
+    "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, and never fills one from a working file",
+  ], "SMB-25's planted_features has drifted from cluster-4.md section 2.3");
+
+  assert.deepEqual(byId.get("SMB-31").planted_features, [
+    "a week of outgoing email drafted by the owner and the project lead from 23 March 2026 to 27 March 2026, one file per message, each opening with who it is to, who it is from, the day it was drafted and its purpose, then the message and its sign off by role",
+    "1 message drafted with AI assistance that carries no disclosure line: a reply to a general enquiry about a kitchen or bathroom project. Five messages were drafted with AI assistance and four of them end with the line Drafted with AI assistance and reviewed by a person at the studio before sending",
+    "1 message carrying client fields beyond its purpose: a visit request to the electrical subcontractor that gives the property and the project and also restates the homeowners' contract sum, their deposit and their payment terms. Three messages carry more than their purpose requires and two of the three stay inside what the purpose permits",
+    "1 clean compliant example as a control: a payment reminder drafted with AI assistance that carries its disclosure line and names the open installments on a payment plan by due date and amount, with nothing the plan does not state",
+    "every message is signed by role, the owner or the project lead, and every figure a message states is an amount the studio's own records carry: an invoice, installment or payment amount, or, in the message that restates the contract, the contract sum and the deposit percent",
+  ], "SMB-31's planted_features has drifted from cluster-4.md section 2.4 (review data-cluster-4.md SHOULD-FIX 1)");
+
+  assert.deepEqual(byId.get("SMB-32").planted_features, [
+    "no defects: the config is the rule set the guardrails validator runs every outgoing message against, so a rule planted wrong here would be a broken policy rather than a finding",
+    "documented key list, in this order (a YAML document carries keys, not a header row): generated_from_spec, policy_version, as_of, scope, sends_messages, outcomes, data_classes, field_sources, purposes, ai_assistance, never_in_an_outgoing_message, rules",
+    "three outcomes, approved, blocked_pending_edit and blocked, and every outcome leaves the draft held for the owner: sends_messages is false and no outcome sends a message",
+    "six purposes, each with a data class and a required and a permitted list of client fields, the two lists disjoint; every field name is an SMB-02 client-record field or one of the three payment-plan columns of the mock payment log, and no purpose lists the contract value or the deposit percentage",
+    "the AI-assistance rule: a message drafted with AI assistance ends with the disclosure text the file states, byte for byte, and a message drafted without it carries none",
+    "four data classes, public, internal, client-confidential and restricted, the same four the owner decision authority matrix uses; restricted content, which is home access codes, alarm codes, financing terms, payment instrument details and crew pay data, never appears in an outgoing message, and a message carrying any of it is blocked",
+    "the file names no statute, no regulator and no section of any law: it is the studio's own policy",
+  ], "SMB-32's planted_features has drifted from cluster-4.md section 2.5");
+
+  assert.deepEqual(byId.get("SMB-33").planted_features, [
+    "no defects; the matrix is the policy a validator runs against",
+    "the small-business hard control: every decision that sends money, signs a client or commits a start, completion or handover date to a client carries ai_autonomy_level prohibited at every amount, those three decisions and no others carry prohibited on any row, and sends_money_signs_client_or_commits_date reads yes on exactly those seven rows",
+    "four data classes (public, internal, client-confidential, restricted); restricted holds payment details, home and alarm access arrangements, financing terms and crew pay data, and no restricted row is autonomous or review_before_commit",
+    "amount bands sized to a nine-person studio, 0.00 to 4999.99, 5000.00 to 29999.99 and 30000.00 upward: the 5000.00 step is the change-order materiality threshold every row of the shipped job progress file carries, so the six change_order_materiality_usd cells are that middle step itself and not a transaction amount sitting on it, and the 30000.00 step is the first round thousand above the largest deposit the pack has invoiced, 29700.00, so every shipped deposit sits in the middle band and no shipped transaction amount in SMB-17 to SMB-22 sits on a band edge",
+    "roles only: every approver_role is lead carpenter or project lead and every escalation_role is project lead or owner and strictly more senior than the approver, so the owner is the escalation on every row where the project lead approves; no person is named, because canon/people.md seats nobody at co-100",
+    "27 decisions, DA-LDB-01 upward: eight unbanded ordinary decisions, three banded decisions at three bands each, the three hard controls on seven rows and three restricted handling decisions",
+  ], "SMB-33's planted_features has drifted from cluster-4.md section 2.6");
+
+  assert.deepEqual(byId.get("SMB-34").planted_features, [
+    "RESTRICTED - CLIENT PRIVATE banner on the first line, repeated in the footer of the document",
+    "handling instructions that prohibit forwarding, printing and pasting any part of the document into a consumer AI assistant, and keep it inside the studio's own client file",
+    "home access codes and an alarm code for 327 Havershill Court: the key safe by the side door, the garage door keypad and the alarm panel, each code a mock value",
+    "the client's financing terms: the homeowners pay the second and third draws, $89,100.00, from a renovation loan in their own names at a fixed rate over a stated term, and the deposit and the final draw from their own funds",
+    "distribution stated by role only, the owner and the project lead; no crew member is named and no individual is named anywhere",
+    "the contract sum of $148,500.00 and the 20 percent deposit agree with the approved proposal",
+  ], "SMB-34's planted_features has drifted from cluster-4.md section 2.7");
 });

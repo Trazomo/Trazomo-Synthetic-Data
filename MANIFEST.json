@@ -1469,6 +1469,49 @@
             "row_counts": {
                 "job-progress.csv": 6
             }
+        },
+        {
+            "id": "SMB-23",
+            "name": "completed-projects-log",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/completed-projects-log",
+            "files": [
+                "completed-projects-log.csv"
+            ],
+            "row_counts": {
+                "completed-projects-log.csv": 6
+            }
+        },
+        {
+            "id": "SMB-32",
+            "name": "data-handling-checklist",
+            "track": "smb",
+            "type": "config",
+            "format": "yaml",
+            "generation": "deterministic",
+            "path": "datasets/smb/data-handling-checklist",
+            "files": [
+                "data-handling-checklist.yaml"
+            ],
+            "row_counts": {}
+        },
+        {
+            "id": "SMB-33",
+            "name": "owner-decision-authority-matrix",
+            "track": "smb",
+            "type": "template",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/owner-decision-authority-matrix",
+            "files": [
+                "owner-decision-authority-matrix.csv"
+            ],
+            "row_counts": {
+                "owner-decision-authority-matrix.csv": 27
+            }
         }
     ],
     "specs": "specs/artifact-specs.yaml",
@@ -2205,6 +2248,34 @@
             ]
         },
         {
+            "id": "SMB-24",
+            "name": "feedback-request-template",
+            "type": "template",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-24",
+            "source_files": [
+                "feedback-request-template.md"
+            ],
+            "build_files": [
+                "feedback-request-template.docx"
+            ]
+        },
+        {
+            "id": "SMB-25",
+            "name": "referral-nurture-sequence",
+            "type": "template",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-25",
+            "source_files": [
+                "referral-nurture-sequence.md"
+            ],
+            "build_files": [
+                "referral-nurture-sequence.docx"
+            ]
+        },
+        {
             "id": "SMB-30",
             "name": "weekly-owner-report-template",
             "type": "template",
@@ -2216,6 +2287,53 @@
             ],
             "build_files": [
                 "weekly-owner-report-template.docx"
+            ]
+        },
+        {
+            "id": "SMB-31",
+            "name": "outgoing-comms-sample",
+            "type": "dataset",
+            "format": "csv + markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-31",
+            "source_files": [
+                "msg-ldb-01.md",
+                "msg-ldb-02.md",
+                "msg-ldb-03.md",
+                "msg-ldb-04.md",
+                "msg-ldb-05.md",
+                "msg-ldb-06.md",
+                "msg-ldb-07.md",
+                "msg-ldb-08.md",
+                "msg-ldb-09.md",
+                "msg-ldb-10.md",
+                "outgoing-comms-sample.csv"
+            ],
+            "build_files": [
+                "msg-ldb-01.docx",
+                "msg-ldb-02.docx",
+                "msg-ldb-03.docx",
+                "msg-ldb-04.docx",
+                "msg-ldb-05.docx",
+                "msg-ldb-06.docx",
+                "msg-ldb-07.docx",
+                "msg-ldb-08.docx",
+                "msg-ldb-09.docx",
+                "msg-ldb-10.docx"
+            ]
+        },
+        {
+            "id": "SMB-34",
+            "name": "restricted-client-file-excerpt",
+            "type": "document",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/SMB-34",
+            "source_files": [
+                "restricted-client-file-excerpt.md"
+            ],
+            "build_files": [
+                "restricted-client-file-excerpt.docx"
             ]
         }
     ]

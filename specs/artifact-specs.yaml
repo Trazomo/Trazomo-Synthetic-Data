@@ -2390,11 +2390,19 @@ artifacts:
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-100, co-131]
+    canon_entities: [co-100, co-002, co-131]
+    period: { start: "2026-01-09", end: "2026-03-31" }
+    columns: [job_id, client_canon_id, client_name, project_name, project_type, completion_date, issue_id, issue_opened_date, issue_summary, issue_resolved_date, as_of_date]
     planted_features:
-      - 1 completed project with an unresolved support issue (blocks automated glowing feedback request, routes to human)
+      - "6 completed projects, JOB-LDB-01 upward in job id order, one per project the studio brought to substantial completion in the first quarter of 2026 as the log stands at the 2026-03-31 as-of date: the co-131 renovation and the co-002 office refresh, both read out of the job progress file and the two client records at build time, and four January projects for generated households whose every invoice settled before the invoice register opens on 2026-02-01, which is why the four appear in no other file"
+      - "completion_date is substantial completion and not closeout: the renovation's equals its last milestone actual completion and the client record's substantial_completion stage, and the office refresh's equals its record's substantial_completion stage, each read from the emitted bytes rather than typed"
+      - "1 completed project with an unresolved support issue: exactly one row carries an issue_opened_date and no issue_resolved_date, so an automated feedback request to that household would go out while the studio still owes them work, and the request goes to a person first. Three of the six projects carry a support issue at all, and two of the three were resolved inside January, so a loop that blocks on any issue withholds the request from two households who are ready to be asked"
+      - "the open issue belongs to a project the loop would otherwise select: every project in the log completed inside the quarter and no client of the log carries an open row in the mock payment log at the as-of date"
+      - "three archetypes, each a population a rule can name: three projects carry no issue, two carry an issue opened after completion and resolved inside January, and one carries the open issue. Every resolved issue opened strictly after its project's completion date and was resolved strictly after it opened"
+      - "issue_summary describes the issue and never its state: no summary carries a word such as open, resolved, outstanding, pending or fixed, because the two date columns carry the state and a summary that named it would be an answer key"
+      - "no person is named and no id is un-namespaced: a client is a canon household, a canon business or a generated household drawn through the inquiry queue's screens with the register's three surnames excluded, the four generated clients take co-204 to co-207 from the reserved band, and the support issues are SUP-LDB-01 upward in opened date order"
     consuming_modules: [smb-post-project-referral-loop]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 4 data plan (2.1)
 
   - id: SMB-24
     name: feedback-request-template
@@ -2402,9 +2410,16 @@ artifacts:
     format: markdown
     generation: drafted-frozen
     canon_entities: []
-    planted_features: []
+    period: { start: "2026-01-09", end: "2026-03-31" }
+    planted_features:
+      - "a blank feedback request template, not a filled request: ten fields, each with a field id, a required flag, a placeholder token, the source columns it reads and the condition it depends on, listed in the template's own required-field list and repeated as a body section in the same order. No client, no price, no date and no canon entity appears anywhere in the document"
+      - "the gate: a request is drafted only for a completed project whose project log row carries no open support issue, an issue with an opened date and no resolved date, and a project carrying one goes to the owner and no request is drafted"
+      - "every request is drafted and held for the owner to read and send, and the loop never sends a request"
+      - "eight fields are required and two are conditional: the resolved issue note is filled whenever the project log carries a resolved issue and says plainly what went wrong and how it was put right, and the AI disclosure line is filled whenever the request was drafted with AI assistance"
+      - "a request never claims more than the project log states, never offers a gift, a discount or any other incentive for feedback, and never asks for a particular rating"
+      - "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, and never fills one from a working file"
     consuming_modules: [smb-post-project-referral-loop]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 4 data plan (2.2)
 
   - id: SMB-25
     name: referral-nurture-sequence
@@ -2412,9 +2427,16 @@ artifacts:
     format: markdown
     generation: drafted-frozen
     canon_entities: [co-135]
-    planted_features: []
+    period: { start: "2026-01-09", end: "2026-03-31" }
+    planted_features:
+      - "a blank referral nurture sequence template for the studio's referral partner Fairhaven Realty Group: three touches and eleven fields, each with a field id, the touch it belongs to, a required flag, a placeholder token and the source columns it reads, listed in the template's own required-field list and repeated as body sections in the same order"
+      - "the sequence starts only for a completed project whose project log row carries no open support issue, and every touch is drafted and held for the owner; nothing in the sequence is sent by the loop"
+      - "a touch to the referral partner never names the client, the property address or the project name: it carries the project type and the month the project reached completion and nothing else from the project log"
+      - "the sequence stops as soon as the partner replies or asks for no further messages, and no fee, gift or other incentive is offered for an introduction"
+      - "ten fields are required and one is conditional: the AI disclosure line is filled on every touch drafted with AI assistance"
+      - "the closing note states the required behaviour: generation stops and names any required field whose slot is empty, and never fills one from a working file"
     consuming_modules: [smb-post-project-referral-loop]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 4 data plan (2.3)
 
   - id: SMB-26
     name: crew-roster-mock
@@ -2480,15 +2502,19 @@ artifacts:
   - id: SMB-31
     name: outgoing-comms-sample
     type: dataset
-    format: csv
+    format: csv + markdown
     generation: drafted-frozen
-    canon_entities: [co-100, co-131, co-132]
+    canon_entities: [co-100, co-002, co-131, co-132, co-133]
+    period: { start: "2026-03-23", end: "2026-03-27" }
+    columns: [message_id, drafted_date, sender_role, recipient_canon_id, recipient_name, recipient_role, subject_client_canon_id, purpose, data_class, client_fields_used, drafted_with_ai, ai_disclosure, message_file]
     planted_features:
-      - 1 communication failing to disclose AI assistance
-      - 1 communication over-sharing client data (data-minimization trap)
-      - 1 clean compliant example as a control
+      - "a week of outgoing email drafted by the owner and the project lead from 23 March 2026 to 27 March 2026, one file per message, each opening with who it is to, who it is from, the day it was drafted and its purpose, then the message and its sign off by role"
+      - "1 message drafted with AI assistance that carries no disclosure line: a reply to a general enquiry about a kitchen or bathroom project. Five messages were drafted with AI assistance and four of them end with the line Drafted with AI assistance and reviewed by a person at the studio before sending"
+      - "1 message carrying client fields beyond its purpose: a visit request to the electrical subcontractor that gives the property and the project and also restates the homeowners' contract sum, their deposit and their payment terms. Three messages carry more than their purpose requires and two of the three stay inside what the purpose permits"
+      - "1 clean compliant example as a control: a payment reminder drafted with AI assistance that carries its disclosure line and names the open installments on a payment plan by due date and amount, with nothing the plan does not state"
+      - "every message is signed by role, the owner or the project lead, and every figure a message states is an amount the studio's own records carry: an invoice, installment or payment amount, or, in the message that restates the contract, the contract sum and the deposit percent"
     consuming_modules: [smb-client-trust-and-data-guardrails]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 4 data plan (2.4)
 
   - id: SMB-32
     name: data-handling-checklist
@@ -2496,6 +2522,49 @@ artifacts:
     format: yaml
     generation: deterministic
     canon_entities: []
-    planted_features: []
+    period: { start: "2026-03-23", end: "2026-03-27" }
+    planted_features:
+      - "no defects: the config is the rule set the guardrails validator runs every outgoing message against, so a rule planted wrong here would be a broken policy rather than a finding"
+      - "documented key list, in this order (a YAML document carries keys, not a header row): generated_from_spec, policy_version, as_of, scope, sends_messages, outcomes, data_classes, field_sources, purposes, ai_assistance, never_in_an_outgoing_message, rules"
+      - "three outcomes, approved, blocked_pending_edit and blocked, and every outcome leaves the draft held for the owner: sends_messages is false and no outcome sends a message"
+      - "six purposes, each with a data class and a required and a permitted list of client fields, the two lists disjoint; every field name is an SMB-02 client-record field or one of the three payment-plan columns of the mock payment log, and no purpose lists the contract value or the deposit percentage"
+      - "the AI-assistance rule: a message drafted with AI assistance ends with the disclosure text the file states, byte for byte, and a message drafted without it carries none"
+      - "four data classes, public, internal, client-confidential and restricted, the same four the owner decision authority matrix uses; restricted content, which is home access codes, alarm codes, financing terms, payment instrument details and crew pay data, never appears in an outgoing message, and a message carrying any of it is blocked"
+      - "the file names no statute, no regulator and no section of any law: it is the studio's own policy"
     consuming_modules: [smb-client-trust-and-data-guardrails]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 4 data plan (2.5)
+
+  - id: SMB-33
+    name: owner-decision-authority-matrix
+    type: template
+    format: csv
+    generation: deterministic
+    canon_entities: [co-100]
+    period: { start: "2026-03-31", end: "2026-03-31" }
+    columns: [control_id, decision, data_class, amount_min_usd, amount_max_usd, ai_autonomy_level, approver_role, escalation_role, evidence_required, sends_money_signs_client_or_commits_date]
+    planted_features:
+      - "no defects; the matrix is the policy a validator runs against"
+      - "the small-business hard control: every decision that sends money, signs a client or commits a start, completion or handover date to a client carries ai_autonomy_level prohibited at every amount, those three decisions and no others carry prohibited on any row, and sends_money_signs_client_or_commits_date reads yes on exactly those seven rows"
+      - "four data classes (public, internal, client-confidential, restricted); restricted holds payment details, home and alarm access arrangements, financing terms and crew pay data, and no restricted row is autonomous or review_before_commit"
+      - "amount bands sized to a nine-person studio, 0.00 to 4999.99, 5000.00 to 29999.99 and 30000.00 upward: the 5000.00 step is the change-order materiality threshold every row of the shipped job progress file carries, so the six change_order_materiality_usd cells are that middle step itself and not a transaction amount sitting on it, and the 30000.00 step is the first round thousand above the largest deposit the pack has invoiced, 29700.00, so every shipped deposit sits in the middle band and no shipped transaction amount in SMB-17 to SMB-22 sits on a band edge"
+      - "roles only: every approver_role is lead carpenter or project lead and every escalation_role is project lead or owner and strictly more senior than the approver, so the owner is the escalation on every row where the project lead approves; no person is named, because canon/people.md seats nobody at co-100"
+      - "27 decisions, DA-LDB-01 upward: eight unbanded ordinary decisions, three banded decisions at three bands each, the three hard controls on seven rows and three restricted handling decisions"
+    consuming_modules: [smb-operational-controls]
+    source_plan: smb-implementation-plan ruling R6 + program-consolidation section 8 item 3 + small-business cluster 4 data plan (2.6)
+
+  - id: SMB-34
+    name: restricted-client-file-excerpt
+    type: document
+    format: markdown
+    generation: drafted-frozen
+    canon_entities: [co-100, co-131]
+    period: { start: "2026-02-16", end: "2026-02-16" }
+    planted_features:
+      - "RESTRICTED - CLIENT PRIVATE banner on the first line, repeated in the footer of the document"
+      - "handling instructions that prohibit forwarding, printing and pasting any part of the document into a consumer AI assistant, and keep it inside the studio's own client file"
+      - "home access codes and an alarm code for 327 Havershill Court: the key safe by the side door, the garage door keypad and the alarm panel, each code a mock value"
+      - "the client's financing terms: the homeowners pay the second and third draws, $89,100.00, from a renovation loan in their own names at a fixed rate over a stated term, and the deposit and the final draw from their own funds"
+      - "distribution stated by role only, the owner and the project lead; no crew member is named and no individual is named anywhere"
+      - "the contract sum of $148,500.00 and the 20 percent deposit agree with the approved proposal"
+    consuming_modules: [smb-operational-controls]
+    source_plan: smb-implementation-plan ruling R6 + program-consolidation section 8 item 3 + small-business cluster 4 data plan (2.7)
