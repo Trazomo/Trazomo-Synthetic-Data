@@ -832,6 +832,27 @@
             }
         },
         {
+            "id": "HR-14",
+            "name": "helpdesk-request-queue",
+            "track": "hr",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/hr/helpdesk-request-queue",
+            "files": [
+                "helpdesk-grammar.csv",
+                "helpdesk-requests.csv",
+                "routing-table.csv",
+                "special-category-terms.csv"
+            ],
+            "row_counts": {
+                "helpdesk-grammar.csv": 1,
+                "helpdesk-requests.csv": 20,
+                "routing-table.csv": 7,
+                "special-category-terms.csv": 15
+            }
+        },
+        {
             "id": "HR-17",
             "name": "mixed-sensitivity-employee-dataset",
             "track": "hr",
@@ -866,6 +887,25 @@
                 "hris-permission-tiers.csv": 6,
                 "hris-requisitions.csv": 8,
                 "hris-roster.csv": 582
+            }
+        },
+        {
+            "id": "HR-20",
+            "name": "benefits-census",
+            "track": "hr",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/hr/benefits-census",
+            "files": [
+                "census-grammar.csv",
+                "dependents.csv",
+                "employee-benefits.csv"
+            ],
+            "row_counts": {
+                "census-grammar.csv": 1,
+                "dependents.csv": 587,
+                "employee-benefits.csv": 582
             }
         },
         {
@@ -1141,6 +1181,22 @@
                 "asana-project-tasks.json",
                 "capture-log.json",
                 "notion-data-source-query.json"
+            ],
+            "row_counts": {}
+        },
+        {
+            "id": "OPS-16",
+            "name": "meeting-consent-notice-and-invite-templates",
+            "track": "operations",
+            "type": "template",
+            "format": "ics + markdown, four files (meeting-invite-template.md, meeting-invite-sample.ics, consent-notice-template.md, vendor-evaluation-checklist.md): the invite and consent notice templates, plus a vendor-evaluation checklist sample whose first two questions are retention and model training, and a consent flow naming recording, transcribing and biometric identification as three separate acts",
+            "generation": "deterministic",
+            "path": "datasets/operations/meeting-consent-notice-and-invite-templates",
+            "files": [
+                "consent-notice-template.md",
+                "meeting-invite-sample.ics",
+                "meeting-invite-template.md",
+                "vendor-evaluation-checklist.md"
             ],
             "row_counts": {}
         },
@@ -1925,6 +1981,38 @@
                 "scenario-rhs-04-growth-conversation.docx",
                 "scenario-rhs-05-unflagged-slip.docx",
                 "scenario-rhs-06-advancement-question.docx"
+            ]
+        },
+        {
+            "id": "HR-19",
+            "name": "benefits-plan-library",
+            "type": "corpus",
+            "format": "markdown",
+            "generation": "drafted-frozen",
+            "path": "artifacts/HR-19",
+            "source_files": [
+                "benefits-plan-library-401k-plan-spd-2024.md",
+                "benefits-plan-library-401k-plan-spd-2025.md",
+                "benefits-plan-library-dental-and-vision-plan-spd.md",
+                "benefits-plan-library-eap-and-learning-allowance.md",
+                "benefits-plan-library-enrollment-calendar-and-life-events.md",
+                "benefits-plan-library-life-and-disability-plan-spd.md",
+                "benefits-plan-library-medical-plan-spd.md",
+                "benefits-plan-library-seed-questions.md",
+                "benefits-plan-library-spending-accounts-and-commuter-spd.md",
+                "benefits-plan-library.md"
+            ],
+            "build_files": [
+                "benefits-plan-library-401k-plan-spd-2024.docx",
+                "benefits-plan-library-401k-plan-spd-2025.docx",
+                "benefits-plan-library-dental-and-vision-plan-spd.docx",
+                "benefits-plan-library-eap-and-learning-allowance.docx",
+                "benefits-plan-library-enrollment-calendar-and-life-events.docx",
+                "benefits-plan-library-life-and-disability-plan-spd.docx",
+                "benefits-plan-library-medical-plan-spd.docx",
+                "benefits-plan-library-seed-questions.docx",
+                "benefits-plan-library-spending-accounts-and-commuter-spd.docx",
+                "benefits-plan-library.docx"
             ]
         },
         {

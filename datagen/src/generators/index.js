@@ -9,7 +9,7 @@
 // sweep and turn `validate`'s honest SKIP NOT_IMPLEMENTED into a failure, so an
 // id is registered by the wave that builds it, in the same commit as its bytes.
 // finance-statement.js is a shared helper rather than a generator and is never
-// registered, the same as finance-roles.js, hr-lifecycle.js and
+// registered, the same as finance-roles.js, hr-lifecycle.js, hr-c7-salience.js and
 // smb-c3-receivables.js, which builds SMB-17, SMB-18 and SMB-19 as one unit,
 // smb-c3-job-costing.js, which builds SMB-20, SMB-21 and SMB-22 as another,
 // and smb-c4-controls.js, which builds SMB-32 and SMB-33 as a third.
@@ -58,8 +58,10 @@ import * as hr08 from "./hr-08-review-cycle-roster.js";
 import * as hr11 from "./hr-11-growth-records.js";
 import * as hr12 from "./hr-12-compensation-bands.js";
 import * as hr13 from "./hr-13-engagement-attrition.js";
+import * as hr14 from "./hr-14-helpdesk-queue.js";
 import * as hr17 from "./hr-17-mixed-sensitivity.js";
 import * as hr18 from "./hr-18-hris-export.js";
+import * as hr20 from "./hr-20-benefits-census.js";
 import * as lgl07 from "./lgl-07-intake.js";
 import * as lgl11 from "./lgl-11-litigation.js";
 import * as lgl18 from "./lgl-18-rfp-panel.js";
@@ -76,6 +78,7 @@ import * as ops11 from "./ops-11-stakeholder-register.js";
 import * as ops12 from "./ops-12-okr-rollup.js";
 import * as ops13 from "./ops-13-handoff-log.js";
 import * as ops15 from "./ops-15-notion-asana-export.js";
+import * as ops16 from "./ops-16-consent-notice-invite-templates.js";
 import * as ops17 from "./ops-17-planner-smartsheet-export.js";
 import * as rev01 from "./rev-01-consent-suppression.js";
 import * as rev03 from "./rev-03-signal-events.js";
@@ -120,10 +123,10 @@ export const PROGRAM_GENERATOR_IDS = [
   fin24.id, fin25.id, fin26.id, fin27.id, fin29.id,
   fin31.id, fin32.id, fin33.id, fin34.id, fin35.id,
   fin36.id, fin37.id, fin38.id, fin39.id,
-  hr05.id, hr06.id, hr07.id, hr08.id, hr11.id, hr12.id, hr13.id, hr17.id, hr18.id,
+  hr05.id, hr06.id, hr07.id, hr08.id, hr11.id, hr12.id, hr13.id, hr14.id, hr17.id, hr18.id, hr20.id,
   lgl07.id, lgl11.id, lgl18.id, lgl20.id, lgl21.id, lgl22.id,
   ops04.id, ops05.id, ops06.id, ops07.id, ops08.id, ops09.id, ops11.id, ops12.id, ops13.id,
-  ops15.id, ops17.id,
+  ops15.id, ops16.id, ops17.id,
   rev01.id, rev03.id, rev07.id, rev08.id, rev09.id, rev10.id, rev11.id,
   smb01.id, smb02.id, smb03.id, smb04.id, smb05.id,
   smb08.id, smb10.id, smb11.id,
@@ -142,9 +145,9 @@ const REGISTRY = new Map(
     fin24, fin25, fin26, fin27, fin29,
     fin31, fin32, fin33, fin34, fin35,
     fin36, fin37, fin38, fin39,
-    hr05, hr06, hr07, hr08, hr11, hr12, hr13, hr17, hr18,
+    hr05, hr06, hr07, hr08, hr11, hr12, hr13, hr14, hr17, hr18, hr20,
     lgl07, lgl11, lgl18, lgl20, lgl21, lgl22,
-    ops04, ops05, ops06, ops07, ops08, ops09, ops11, ops12, ops13, ops15, ops17,
+    ops04, ops05, ops06, ops07, ops08, ops09, ops11, ops12, ops13, ops15, ops16, ops17,
     rev01, rev03, rev07, rev08, rev09, rev10, rev11,
     smb01, smb02, smb03, smb04, smb05,
     smb08, smb10, smb11,

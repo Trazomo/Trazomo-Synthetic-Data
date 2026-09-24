@@ -1,0 +1,8 @@
+rule_id,precedence,match_basis,stated_category,content_terms,queue,answer_mode
+RTE-01,1,special_category_term,any,special-category-terms.csv,human_only_review,human_only
+RTE-02,2,content_topic,benefits,medical plan; dental; vision; 401(k); life insurance; flexible spending; health savings account; commuter benefit; open enrollment,benefits_administration,auto_draft_allowed
+RTE-03,2,content_topic,leave_and_time_off,paid time off; sick leave; parental leave; leave of absence; bereavement,leave_administration,auto_draft_allowed
+RTE-04,2,content_topic,pay_and_payroll,pay date; overtime; W-2,payroll,auto_draft_allowed
+RTE-05,2,content_topic,policies_and_handbook,remote work; expense report; own phone,people_operations,auto_draft_allowed
+RTE-06,2,content_topic,personal_details,home address; legal name,people_operations,auto_draft_allowed
+RTE-07,2,content_topic,workplace_concern,complaint; retaliation,employee_relations,human_only
