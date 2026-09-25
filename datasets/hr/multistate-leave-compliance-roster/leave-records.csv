@@ -1,0 +1,9 @@
+leave_id,employee_id,leave_type,leave_status,request_date,start_date,expected_return_date,reason_detail
+LVR-2026-0001,EMP-0066,family_and_medical,returned,2026-04-20,2026-05-04,2026-06-15,
+LVR-2026-0002,EMP-0456,parental,returned,2026-05-04,2026-06-01,2026-08-24,
+LVR-2026-0003,EMP-0463,family_and_medical,returned,2026-06-15,2026-06-29,2026-08-10,
+LVR-2026-0004,EMP-0306,military,on_leave,2026-06-22,2026-07-06,2026-10-14,
+LVR-2026-0005,EMP-0256,parental,on_leave,2026-07-06,2026-08-03,2026-09-30,
+LVR-2026-0006,EMP-0179,family_and_medical,on_leave,2026-07-27,2026-08-10,2026-09-28,planned surgery and a recovery period
+LVR-2026-0007,EMP-0191,parental,approved_not_started,2026-08-03,2026-09-21,2026-12-14,
+LVR-2026-0008,EMP-0080,family_and_medical,on_leave,2026-08-10,2026-08-24,2026-10-05,

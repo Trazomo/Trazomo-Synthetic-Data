@@ -1,0 +1,9 @@
+tool_id,tool_name,tool_origin,used_in_module,vendor_company_id,decision_stage,decision_role,feeds_decision_stage,status,owner_role
+AIT-01,attrition signal dashboard,in_house_build,hr-people-analytics-attrition-signals,,workforce_aggregate_reporting,reports_aggregate,,in_use,"Director, People"
+AIT-02,candidate assessment scoring module,third_party_module,,co-106,recruitment_selection,scores_or_ranks,,in_use,People Manager
+AIT-03,interview notes to feedback drafter,in_house_build,hr-interview-notes-to-feedback,,interview_feedback,drafts_for_human,recruitment_selection,paused,Recruiter
+AIT-04,interview panel scheduling proposer,in_house_build,hr-interview-schedule-proposer,,interview_scheduling,schedules_or_routes,,in_use,Recruiter
+AIT-05,job description calibrator,in_house_build,hr-job-description-calibrator,,job_description_drafting,drafts_for_human,,in_use,Recruiter
+AIT-06,learning pathway planner,in_house_build,hr-learning-pathway-planner,,learning_recommendation,recommends_to_employee,,in_use,HR Business Partner
+AIT-07,performance review writing assistant,in_house_build,hr-review-writing-assistant,,performance_evaluation,drafts_for_human,promotion,in_use,HR Business Partner
+AIT-08,resume screening and shortlist assistant,in_house_build,hr-resume-screening-shortlist,,recruitment_selection,ranks_or_filters,,in_use,Recruiter

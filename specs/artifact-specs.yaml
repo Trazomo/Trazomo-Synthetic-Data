@@ -1425,23 +1425,45 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-002]
+    period: { start: "2026-09-01", end: "2026-09-01" }
+    files:
+      leave-compliance-grammar.csv: [grammar_id, as_of, universe_now, stamp_statement, population_rule, location_rule, jurisdiction_join, watch_list_as_of, alert_window_start, alert_window_end, alert_window_days, business_day_rule, work_location_vocabulary, leave_type_vocabulary, leave_status_vocabulary, obligation_type_vocabulary, owner_role_vocabulary, employee_count, leave_record_count, obligation_count, open_obligation_count, alert_statement, reason_detail_statement, not_modelled_statement]
+      employee-work-locations.csv: [employee_id, work_location, work_state, work_locality]
+      obligation-rules.csv: [rule_id, obligation_type, source_citation, applies_to, basis_field, due_date_rule, owner_role]
+      leave-records.csv: [leave_id, employee_id, leave_type, leave_status, request_date, start_date, expected_return_date, reason_detail]
+      compliance-obligations.csv: [obligation_id, employee_id, rule_id, obligation_type, related_leave_id, basis_date, due_date, target_jurisdiction_code, owner_role, completed_date]
     planted_features:
-      - one leave-law / I-9 reverification deadline about to lapse
-      - one health-related reason field that must never appear in alert text
+      - "five files from one registered generator that takes the roster, the salience sets and the watch list in process and reads the compensation band dataset's committed work locations at build time. The population is the 581 active roster rows whose work location the pack records, less the one employee whose last working day falls before the 2026-09-01 stamp; every person field is an employee_id"
+      - "work_location is byte-equal to the compensation band dataset; headquarters is the principal place of business in Delaware, the satellite office is in Colorado and remote employees are dealt across New York, New York City, Illinois, California, Colorado and Delaware; every work_state and work_locality resolves to the watch list's jurisdictions and Maryland holds nobody"
+      - "four published obligation rules cite the employee handbook or the remote work policy by document and section and name no statute: leave certification 15 calendar days after the request, return to work confirmation 10 business days before the return, work authorization reverification at the recorded expiry, and out of state approval the day before the move; every due_date recomputes from its basis date"
+      - "1 obligation inside the published 14 day alert window opening at the as of, and every other obligation date is outside it; one falls the day after the window closes, 21 days return 3, 30 days return 5, no obligation is overdue, and counting ten calendar days instead of business days returns 0"
+      - "1 leave record carries a non-empty reason_detail, and it is the record whose obligation the window selects, because the alert that must fire is the one that must not carry the reason; four leave records share its leave type and none of the eight belongs to a holder of a mixed sensitivity record"
+      - "work authorization reverification rows agree with the mixed sensitivity record set: the two renewal due holders and the three sponsored holders carry one each, the sponsored dates outside the window, and the verified holder carries none"
+      - "no row carries a name, a money amount, a URL, a flag or a statute; every drawn employee sits outside the helpdesk requesters, the benefits census findings, the pay findings, the mixed sensitivity set, the case queue subjects, the review cycle population and every name in a frozen artifact"
     consuming_modules: [hr-employment-law-leave-compliance-monitor]
-    source_plan: hr-people-implementation-plan
+    source_plan: hr-people-implementation-plan + people-hr cluster 8 data plan (2.3)
 
   - id: HR-16
     name: aedt-inventory-audit-log
     type: dataset
     format: csv
     generation: deterministic
-    canon_entities: [co-002]
+    canon_entities: [co-002, co-106]
+    period: { start: "2026-09-01", end: "2026-09-01" }
+    files:
+      aedt-grammar.csv: [grammar_id, as_of, universe_now, stamp_statement, audit_currency_months, audit_currency_rule, audit_currency_basis, use_jurisdictions, tool_origin_vocabulary, tool_status_vocabulary, decision_role_vocabulary, decision_stage_vocabulary, auditor_type_vocabulary, summary_publication_vocabulary, notice_channel_vocabulary, scope_rule, notice_rule, watch_list_as_of, tool_count, audit_count, notice_count, vendor_content_statement]
+      tool-inventory.csv: [tool_id, tool_name, tool_origin, used_in_module, vendor_company_id, decision_stage, decision_role, feeds_decision_stage, status, owner_role]
+      bias-audits.csv: [audit_id, tool_id, audit_date, auditor_type, summary_publication, vendor_findings_note]
+      notice-postings.csv: [notice_id, tool_id, jurisdiction_code, basis_row_id, notice_channel, posted_date]
     planted_features:
-      - one tool overdue for its annual bias audit
-      - one tool missing its public-disclosure posting
+      - "four files from one registered generator that reads the watch list in process: an eight tool inventory, a ten row audit log, a five row notice log and one grammar row. Seven tools are builds from this path, each naming its module, and one is a third party module of the canon HR platform vendor; no real vendor or product is named"
+      - "audit currency is computed in whole months from the latest audit to the as of under the company's published twelve month standard, which is not stated as any jurisdiction's rule"
+      - "1 in use tool is more than twelve whole months past its latest audit and every other in use tool is inside; dropping the in use qualifier returns 2, and reading the standard as 365 days returns 2 because one tool sits at exactly twelve whole months"
+      - "1 in use tool lacks a posted notice that a watch list row requires for its decision stage in one jurisdiction; two notices are required, two tools carry an empty posting date and two tools have posted a notice somewhere; the audit finding and the notice finding sit on different tools"
+      - "1 in use tool is scope open: it drafts text for a human, its own stage is not named by the rows in application where it is used and the decision it feeds is; one paused tool and one tool feeding nothing are the near misses, and the New York City row places no tool because its scope text was not retrieved"
+      - "the third party tool's audit rows carry the vendor's unpublished findings note, which no tracker output may quote; no row carries a money amount, a percentage, a URL or a person"
     consuming_modules: [hr-aedt-bias-audit-disclosure-tracker]
-    source_plan: hr-people-implementation-plan
+    source_plan: hr-people-implementation-plan + people-hr cluster 8 data plan (2.4)
 
   - id: HR-17
     name: mixed-sensitivity-employee-dataset

@@ -32,8 +32,11 @@
 //
 // HR-15 and HR-16 import JURISDICTIONS, AS_OF, DECISION_STAGES, the
 // vocabularies, inApplication() and buildWatchList() in process.
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { join } from "node:path";
 import { toCsv } from "../csv.js";
-import { assertPrefixUnusedElsewhere } from "./hr-20-benefits-census.js";
+
+const REPO_ROOT = join(import.meta.dirname, "..", "..", "..");
 
 export const id = "HR-21";
 
@@ -1258,7 +1261,7 @@ export function buildWatchList() {
 
 // ----------------------------------------------------------------- bytes
 
-function assertEmittedBytes(files) {
+function assertEmittedBytes(files, records) {
   for (const file of files) {
     const hits = forbiddenTokens(file.content);
     if (hits.length > 0) throw new Error(`${E}: ${file.path} carries ${hits.join(", ")}`);
@@ -1267,7 +1270,41 @@ function assertEmittedBytes(files) {
       if (match[2].length !== 2) throw new Error(`${E}: a row id is not two digits`);
     }
   }
-  assertPrefixUnusedElsewhere(ROW_ID_PREFIX, OWN_DIR, E);
+  assertRowIdsCitedOnlyByConsumers(records);
+}
+
+/**
+ * The one place outside this directory an EAW- row id may sit: the AEDT
+ * inventory's notice log cites the watch-list row a notice rests on
+ * (basis_row_id). Every other file in the pack is swept with HR-20's helper
+ * rule, and every id the consumer cites must be a built record.
+ */
+export const CONSUMER_CITATION_FILES = ["datasets/hr/aedt-inventory-audit-log/notice-postings.csv"];
+
+function assertRowIdsCitedOnlyByConsumers(records) {
+  const built = new Set(records.map((r) => r.row_id));
+  const pattern = new RegExp(`(^|[^A-Za-z])${ROW_ID_PREFIX}([0-9]+)`, "gm");
+  for (const top of ["datasets", "artifacts"]) {
+    const root = join(REPO_ROOT, top);
+    if (!existsSync(root)) continue;
+    for (const name of readdirSync(root, { recursive: true }).map(String)) {
+      if (!/\.(csv|json|jsonl|md)$/.test(name)) continue;
+      const relative = `${top}/${name}`;
+      if (relative.startsWith(OWN_DIR)) continue;
+      const path = join(root, name);
+      if (!statSync(path).isFile()) continue;
+      const text = readFileSync(path, "utf8");
+      const hits = [...text.matchAll(pattern)];
+      if (hits.length === 0) continue;
+      if (!CONSUMER_CITATION_FILES.includes(relative)) {
+        throw new Error(`${E}: ${relative} carries a ${ROW_ID_PREFIX} token, and that block is this artifact's own`);
+      }
+      for (const hit of hits) {
+        const id = `${ROW_ID_PREFIX}${hit[2]}`;
+        if (!built.has(id)) throw new Error(`${E}: ${relative} cites ${id}, which is not a built record`);
+      }
+    }
+  }
 }
 
 export function generate() {
@@ -1277,6 +1314,6 @@ export function generate() {
     { path: FILES.records, content: records.map((r) => JSON.stringify(r)).join("\n") + "\n" },
     { path: FILES.jurisdictions, content: toCsv(COLUMNS.jurisdictions, jurisdictions) },
   ];
-  assertEmittedBytes(files);
+  assertEmittedBytes(files, records);
   return files;
 }
