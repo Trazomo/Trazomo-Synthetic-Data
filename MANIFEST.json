@@ -909,6 +909,25 @@
             }
         },
         {
+            "id": "HR-21",
+            "name": "employment-ai-watch-list",
+            "track": "hr",
+            "type": "dataset",
+            "format": "jsonl + csv",
+            "generation": "deterministic",
+            "path": "datasets/hr/employment-ai-watch-list",
+            "files": [
+                "employment-ai-watch-list.jsonl",
+                "jurisdictions.csv",
+                "watch-list-grammar.csv"
+            ],
+            "row_counts": {
+                "employment-ai-watch-list.jsonl": 0,
+                "jurisdictions.csv": 37,
+                "watch-list-grammar.csv": 1
+            }
+        },
+        {
             "id": "REV-01",
             "name": "consent-suppression-master",
             "track": "revenue",

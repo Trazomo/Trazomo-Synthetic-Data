@@ -1533,6 +1533,29 @@ artifacts:
     consuming_modules: [hr-total-rewards-benefits-knowledge-base]
     source_plan: hr-people-implementation-plan + people-hr cluster 7 data plan (2.3)
 
+  - id: HR-21
+    name: employment-ai-watch-list
+    type: dataset
+    format: jsonl + csv
+    generation: deterministic
+    canon_entities: [co-002]
+    period: { start: "2026-09-01", end: "2026-09-01" }
+    files:
+      watch-list-grammar.csv: [grammar_id, as_of, universe_now, stamp_statement, not_legal_advice_notice, record_count, jurisdiction_count, record_key_order, obligation_key_order, status_vocabulary, enforceable_definition, instrument_type_vocabulary, obligation_type_vocabulary, duty_type_vocabulary, application_status_vocabulary, implementation_status_vocabulary, decision_stage_vocabulary, technology_vocabulary, subject_vocabulary, scope_text_status_vocabulary, stage_mapping_rule, history_event_vocabulary, date_confidence_vocabulary, preemption_risk_vocabulary, transposition_status_vocabulary, source_basis_vocabulary, jurisdiction_level_vocabulary, coverage_status_vocabulary, verification_statement]
+      employment-ai-watch-list.jsonl: [row_id, jurisdiction_code, instrument_type, citation, title, status, enforceable, obligation_type, preemption_risk, scope, obligations, status_history, transposition_deadline, transpositions, notes, related_row_ids, source_basis, as_of, verified_on]
+      jurisdictions.csv: [code, name, level, parent_code, coverage_status, as_of]
+    planted_features:
+      - "three files from one registered generator: watch-list-grammar.csv is one row carrying the as of, the not legal advice notice and every closed vocabulary; employment-ai-watch-list.jsonl is 22 records in the documented key order with nested obligations, status history, transpositions and notes; jurisdictions.csv is 37 jurisdictions with a parent code and a coverage status. row_id runs EAW-01 upward in jurisdiction and citation order and the prefix is disjoint from every other id block"
+      - "every record names a real instrument as the 2026-08-31 regulatory refresh recorded it, carries as_of 2026-09-01 and a verified_on on or before it, and carries jurisdiction, citation, status, enforceable, obligation_type and preemption_risk. status and enforceable are separate fields, and enforceable is true exactly when an obligation addressed to an employer, deployer or controller is in application at the as of. No record carries a URL, a person's name, a private company, a law firm or a money amount"
+      - "a detail the refresh could not confirm is represented, never asserted: an empty date beside a date_confidence of unconfirmed or not_in_source, a detail_status of not_retrieved, or a note flagged unconfirmed. The New York City law's scope text was not retrieved and its obligations carry no decision stage"
+      - "1 enacted row that is not enforceable and whose status history reads passed, delayed, enjoined, repealed and replaced; five enacted rows are not enforceable, so the history is the rule"
+      - "1 directive row carrying 27 member state transposition sub-rows dated 2026-06-18, four full, three partial, ten with a published draft and ten with none; no transposition count is published, it is derived from the sub-rows"
+      - "1 instrument with one obligation applying on or before the as of and another applying after it; five instruments carry two fixed application dates, so an instrument cannot be stored with one date"
+      - "1 enforceable row whose scope names a single interview technology and is the only enforceable row in its jurisdiction, where the company employs nobody; and 1 jurisdiction holding two rows whose obligations in application at the as of share a decision stage, three if the in application qualifier is dropped"
+      - "1 row awaiting signature at the as of, distinct from 1 row that passed both chambers and was not delivered to the governor; no obligation's application date falls inside the leave roster's alert window"
+    consuming_modules: [hr-employment-law-leave-compliance-monitor, hr-aedt-bias-audit-disclosure-tracker, hr-operational-controls]
+    source_plan: hr-people-implementation-plan + people-hr cluster 8 data plan (2.2)
+
   # ----------------------------------------------------------------- REV (revenue path)
   - id: REV-01
     name: consent-suppression-master
