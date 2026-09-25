@@ -26,10 +26,12 @@ it for D1: bumping rerolls the bytes of all five.
 | 2024-04-30 to 2026-03-31 | The 24 month-end reporting periods the FP&A trend covers; January and February 2026 sum to the FIN-05 profit-and-loss beginning balances and March 2026 equals its period movement | `datasets/finance/actuals-24mo`, `datasets/finance/kpi-source-data`, `datasets/finance/bank-balances` |
 | 2025-04-01 to 2026-03-31 | The rolling twelve month attrition window the co-002 people analytics set reports over, closing on the same quarter end the finance and operations packs close on; the thirteen month end headcounts it is measured against open at 2025-03-31 | `datasets/hr/engagement-attrition-dataset` |
 | 2025-08-04 | customer onboarding revamp program kickoff at co-002 | `artifacts/OPS-14` |
+| 2025-09-01 to 2026-09-01 | The twelve whole months the AEDT tracker measures audit currency across under the company standard, not any jurisdiction rule | `datasets/hr/aedt-inventory-audit-log` |
 | 2025-10-01 to 2025-12-31 | Q4 2025, the prior board reporting period whose deck structure the current pack follows | `artifacts/FIN-30` |
 | 2025-10-01 to 2026-03-31 | The People-department review period a manager's one to one log covers and the performance review draft reports on | `artifacts/HR-09` |
 | 2025-10-06 to 2025-10-17 | The co-002 goal-setting window that opened the 2025-10-01 to 2026-03-31 goal period, the same half year the performance review cycle covers; the manager-approved goals it produced are the goals the self-assessments at that period's close respond to | `datasets/hr/goals-self-assessment-records` |
 | 2025-11-14 to 2026-03-31 | FIN-04 AR aging document dates; the oldest open invoice is the 90+ bucket floor | `datasets/finance/ar-aging-export` |
+| 2026-01-05 | co-002 posts AI-use notices for its in-use people-decision tools on its careers page | `datasets/hr/aedt-inventory-audit-log` |
 | 2026-01-05 to 2026-03-26 | FIN-06 purchase orders raised; goods and services received through 2026-03-31 | `datasets/finance/purchase-orders`, `datasets/finance/open-pos` |
 | 2026-01-06 to 2026-03-31 | co-100's small office refresh for co-002 runs from inquiry to closeout: proposal approved 2026-01-27, contract signed 2026-02-03, delivery 2026-02-10 to 2026-03-24, four mock draws settled inside terms, record closed 2026-03-31. This is a Larkspur-side client record about co-002 and no co-002 artifact carries the other side | `datasets/smb/client-record-co002-office-refresh` |
 | 2026-01-07 | Prior quarterly review of the finance system access list; the next review is a close task | `datasets/finance/user-access-role-assignments` |
@@ -99,3 +101,4 @@ it for D1: bumping rerolls the bytes of all five.
 | 2026-04-21 | Board meeting at which the FIN-40 Q1 2026 board pack is presented | `artifacts/FIN-40` |
 | 2026-04-30 | Q1 2026 results announcement to investors and employees; the FIN-40 excerpt stops being material non-public information | `artifacts/FIN-40` |
 | 2026-05-15 | The co-002 compensation review cycle date, at which the current bands are re-cut for the next plan year; it sits after the 2026-04-03 as-of because the pay equity report the bands support is an input to that decision rather than a justification written after it | `datasets/hr/compensation-band-dataset` |
+| 2026-09-01 | Run stamp of the three people-hr cluster 8 artifacts, later than the universe now, which does not move | `datasets/hr/multistate-leave-compliance-roster`, `datasets/hr/aedt-inventory-audit-log`, `datasets/hr/employment-ai-watch-list` |
