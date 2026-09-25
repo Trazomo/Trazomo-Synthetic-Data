@@ -826,6 +826,35 @@ test("HR-14: 20 untriaged requests, 7 routing rules, 15 terms, 3 answerable from
   assert.equal(special.length, 1, "the special category request census moved");
 });
 
+test("HR-21: 22 watch-list records, 37 jurisdictions, and each of the five plants resolves to 1 (hr-21-employment-ai-watch-list.test.js)", () => {
+  const files = emitted("HR-21");
+  const grammar = csvRows(fileByPath(files, "watch-list-grammar.csv").content);
+  assert.equal(grammar.length, 1);
+  assert.equal(grammar[0].record_count, "22");
+  const records = fileByPath(files, "employment-ai-watch-list.jsonl").content.trim().split("\n").map((line) => JSON.parse(line));
+  assert.equal(records.length, 22);
+  assert.equal(csvRows(fileByPath(files, "jurisdictions.csv").content).length, 37);
+  const asOf = grammar[0].as_of;
+  const live = (o) => o.application_status !== "awaiting_transposition"
+    && (o.applies_from === "" ? o.application_status === "in_application" : o.applies_from <= asOf);
+  const fixed = (r) => [...new Set(r.obligations.filter((o) => o.applies_from_confidence === "exact").map((o) => o.applies_from))];
+  const enforceable = records.filter((r) => r.enforceable);
+  assert.equal(enforceable.length, 9);
+  assert.equal(records.filter((r) => r.status === "enacted" && !r.enforceable && r.status_history.some((e) => e.event === "enjoined")).length, 1, "HR-21a moved");
+  assert.equal(records.filter((r) => r.transpositions.length > 0).length, 1, "HR-21b moved");
+  assert.equal(records.filter((r) => fixed(r).some((d) => d <= asOf) && fixed(r).some((d) => d > asOf)).length, 1, "HR-21c moved");
+  const narrow = records.filter((r) => r.enforceable && r.scope.technologies.length === 1
+    && ["video_interview_analysis", "facial_recognition"].includes(r.scope.technologies[0])
+    && enforceable.filter((x) => x.jurisdiction_code === r.jurisdiction_code).length === 1);
+  assert.equal(narrow.length, 1, "HR-21d narrow row moved");
+  const overlap = [...new Set(records.map((r) => r.jurisdiction_code))].filter((code) => {
+    const sets = records.filter((r) => r.jurisdiction_code === code).map((r) => new Set(r.obligations.filter(live).flatMap((o) => o.decision_stages)));
+    return sets.some((a, i) => sets.some((b, j) => j > i && [...a].some((t) => b.has(t))));
+  });
+  assert.equal(overlap.length, 1, "HR-21d overlapping jurisdiction moved");
+  assert.equal(records.filter((r) => r.status === "awaiting_signature").length, 1, "HR-21e moved");
+});
+
 test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: no file carries an em dash or an en dash", () => {
   for (const file of c2bFiles()) {
     // Written as escapes so this screen is not itself a hit for a grep over

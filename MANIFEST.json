@@ -922,7 +922,7 @@
                 "watch-list-grammar.csv"
             ],
             "row_counts": {
-                "employment-ai-watch-list.jsonl": 0,
+                "employment-ai-watch-list.jsonl": 22,
                 "jurisdictions.csv": 37,
                 "watch-list-grammar.csv": 1
             }
