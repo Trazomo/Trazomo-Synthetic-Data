@@ -42,8 +42,8 @@ const VOCAB = {
 const RULES = [
   ["OBR-01", "leave_certification", "ADI-HR-001 section 8 (Certification)", "family_and_medical leaves", "request_date", "request_date plus 15 calendar days", "People Operations Specialist"],
   ["OBR-02", "return_to_work_confirmation", "ADI-HR-001 section 8 (Return to work)", "every leave", "expected_return_date", "expected_return_date minus 10 business days", "People Operations Specialist"],
-  ["OBR-03", "work_authorization_reverification", "ADI-HR-001 section 2 (Immigration compliance)", "employees whose current work authorization document carries an expiry date", "work_authorization_expiry_date", "the recorded expiry date (basis_date) itself", "HR Business Partner"],
-  ["OBR-04", "out_of_state_work_approval", "ADI-POL-002 section 5.1", "a requested move of an approved remote location across state lines", "requested_effective_date", "the day before the requested effective date", "People Manager"],
+  ["OBR-03", "work_authorization_reverification", "ADI-HR-001 section 2 (Immigration compliance)", "employees whose current work authorization document carries an expiry date", "basis_date", "the recorded work authorization expiry carried as basis_date, due on that date", "HR Business Partner"],
+  ["OBR-04", "out_of_state_work_approval", "ADI-POL-002 section 5.1", "a requested move of an approved remote location across state lines; the manager's review precedes approval by People Operations and Tax under section 5.1", "basis_date", "the requested effective date carried as basis_date, due the day before it", "People Manager"],
 ];
 
 // The location table of data plan 2.3.3, restated.
@@ -167,9 +167,11 @@ test("HR-C8-T13: HR-15 the four rules equal the literal table and every due_date
       assert.equal(leave.leave_type, "family_and_medical");
       assert.equal(o.basis_date, leave.request_date);
       assert.equal(o.due_date, plus(leave.request_date, 15));
+      assert.equal(o.employee_id, leave.employee_id, "an OBR-01 row's employee_id disagrees with its leave record's employee_id");
     } else if (o.rule_id === "OBR-02") {
       assert.equal(o.basis_date, leave.expected_return_date);
       assert.equal(o.due_date, businessBefore(leave.expected_return_date, 10));
+      assert.equal(o.employee_id, leave.employee_id, "an OBR-02 row's employee_id disagrees with its leave record's employee_id");
     } else if (o.rule_id === "OBR-03") {
       assert.equal(o.related_leave_id, "");
       assert.equal(o.due_date, o.basis_date);
@@ -182,6 +184,17 @@ test("HR-C8-T13: HR-15 the four rules equal the literal table and every due_date
     if (o.rule_id !== "OBR-03") assert.ok(o.due_date <= "2026-12-31" && o.basis_date <= "2026-12-31", "a non-expiry date falls after 2026-12-31 (X45)");
     for (const d of [o.basis_date, o.due_date, o.completed_date].filter(Boolean)) assert.ok(!weekend(d), `${d} is a weekend`);
   });
+  // Every leave has exactly one OBR-02 row, and every family_and_medical leave exactly one OBR-01 row (F1).
+  const obr01Count = new Map();
+  const obr02Count = new Map();
+  for (const o of all) {
+    if (o.rule_id === "OBR-01") obr01Count.set(o.related_leave_id, (obr01Count.get(o.related_leave_id) ?? 0) + 1);
+    if (o.rule_id === "OBR-02") obr02Count.set(o.related_leave_id, (obr02Count.get(o.related_leave_id) ?? 0) + 1);
+  }
+  for (const l of leaves()) {
+    assert.equal(obr02Count.get(l.leave_id), 1, `${l.leave_id} does not carry exactly one OBR-02 row`);
+    if (l.leave_type === "family_and_medical") assert.equal(obr01Count.get(l.leave_id), 1, `${l.leave_id} does not carry exactly one OBR-01 row`);
+  }
   // Leave rows: ids in (request_date, employee_id) order, status from the dates, tenure met.
   const start = new Map(roster().map((r) => [r.employee_id, r.start_date]));
   const tenure = { family_and_medical: 12, parental: 6, military: 0 };
@@ -308,8 +321,8 @@ test("HR-C8-T17: HR-15 every drawn employee is inside the recomputed pool (X43)"
   const pool = new Set(c8.filter((r) => loc.get(r.employee_id).work_state !== "US-DE").map((r) => r.employee_id));
   assert.equal(pool.size, 241, "the draw pool moved");
   assert.equal(EXPECTED_DRAW_POOL, pool.size, "the generator's guarded constant disagrees with the recomputed pool");
-  // Drawn employees: every obligation carrier except the five mixed sensitivity holders X41 fixes.
-  const drawn = new Set(obligations().map((o) => o.employee_id).filter((e) => !hr17Ids.has(e)));
+  // Drawn employees: every obligation carrier plus every leave-record employee, except the five mixed sensitivity holders X41 fixes.
+  const drawn = new Set([...obligations().map((o) => o.employee_id), ...leaves().map((l) => l.employee_id)].filter((e) => !hr17Ids.has(e)));
   assert.equal(drawn.size, 18);
   const byId = new Map(people.map((r) => [r.employee_id, r]));
   for (const e of drawn) {

@@ -67,7 +67,7 @@ const VOCAB = {
     "human_appeal", "risk_assessment_submission", "pay_range_disclosure", "pay_criteria_access",
     "pay_information_on_request", "pay_gap_reporting", "joint_pay_assessment"],
   application_status: ["in_application", "scheduled", "awaiting_transposition"],
-  implementation_status: ["complete", "rules_pending", ""],
+  implementation_status: ["rules_pending", ""],
   detail_status: ["verified_primary", "verified_secondary", "not_retrieved"],
   decision_stage: ["recruitment_selection", "promotion", "termination_discipline", "terms_and_conditions",
     "training_selection", "task_allocation", "performance_evaluation", "pay_determination", "solely_automated_decision"],
@@ -222,9 +222,10 @@ test("HR-C8-T3: HR-21: vocabularies closed and enforceable recomputes from oblig
     history_event: G.history_event_vocabulary, date_confidence: G.date_confidence_vocabulary,
     preemption_risk: G.preemption_risk_vocabulary, transposition_status: G.transposition_status_vocabulary,
     source_basis: G.source_basis_vocabulary, jurisdiction_level: G.jurisdiction_level_vocabulary,
-    coverage_status: G.coverage_status_vocabulary,
+    coverage_status: G.coverage_status_vocabulary, detail_status: G.detail_status_vocabulary,
   };
   for (const [field, value] of Object.entries(grammarVocab)) assert.deepEqual(list(value), VOCAB[field], `grammar ${field} vocabulary`);
+  assert.deepEqual(list(G.addressee_vocabulary), ADDRESSEES, "grammar addressee vocabulary");
 
   const inVocab = (field, value, where) => assert.ok(VOCAB[field].includes(value), `${where} carries ${field} "${value}"`);
   const used = { obligation_type: new Set(), duty_type: new Set(), history_event: new Set() };
@@ -410,7 +411,7 @@ test("HR-C8-T7: HR-21c: one instrument straddles the as_of; five carry two fixed
   assert.deepEqual([counts.hr21c, counts.hr21c_two_fixed_dates, counts.obligations_in_alert_window], [1, 5, 0]);
 });
 
-test("HR-C8-T8: HR-21d: one narrow sole row, two without the sole clause; one overlapping jurisdiction, two without in_application", () => {
+test("HR-C8-T8: HR-21d: one narrow sole row, two without the sole clause; one overlapping jurisdiction, three without in_application", () => {
   const sole = narrow(true);
   assert.equal(sole.length, 1);
   assert.equal(sole[0].jurisdiction_code, "US-MD");
@@ -420,10 +421,33 @@ test("HR-C8-T8: HR-21d: one narrow sole row, two without the sole clause; one ov
   assert.deepEqual(overlapping(true), ["US-IL"]);
   const liveShared = records.filter((r) => r.jurisdiction_code === "US-IL").map((r) => stages(r, true));
   assert.ok(liveShared.every((s) => s.has("recruitment_selection")));
-  // "two without in_application" in the arm's name counts the jurisdictions the qualifier adds; the total is three
   assert.deepEqual(overlapping(false), ["EU", "US-CA", "US-IL"]);
   const counts = hr21.plantCounts(records);
   assert.deepEqual([counts.hr21d_narrow, counts.hr21d_narrow_without_sole, counts.hr21d_overlap, counts.hr21d_overlap_without_in_application], [1, 2, 1, 3]);
+
+  // F3: the parent-walk reading of "its jurisdiction" (HR-15's jurisdiction_join, HR-16's scope_rule and
+  // notice_rule walk parent_code) answers a different question than jurisdiction_code equality; pinned here
+  // as an alternative the grammar's jurisdiction_rule now names.
+  const parentByCode = new Map(jurisdictions.rows.map((j) => [j.code, j.parent_code]));
+  const ancestorsOf = (code) => { const chain = []; for (let c = parentByCode.get(code); c; c = parentByCode.get(c)) chain.push(c); return chain; };
+  const enforceableRows = records.filter((r) => r.enforceable);
+  // First half: a row is sole under the walk when no other enforceable row sits at its own code or an ancestor.
+  const narrowByWalk = narrow(false).filter((r) => {
+    const chain = new Set([r.jurisdiction_code, ...ancestorsOf(r.jurisdiction_code)]);
+    return enforceableRows.filter((x) => chain.has(x.jurisdiction_code)).length === 1;
+  });
+  assert.equal(narrowByWalk.length, 0, "Maryland's lineage holds the federal statute group under the parent-walk reading");
+  // Second half: a code overlaps under the walk when its own live stages share a token with a live stage at
+  // the same code (the literal pairing) or at any ancestor code.
+  const liveStagesAt = (code) => new Set(records.filter((r) => r.jurisdiction_code === code).flatMap((r) => [...stages(r, true)]));
+  const codes = [...new Set(records.map((r) => r.jurisdiction_code))];
+  const overlapByWalk = codes.filter((code) => {
+    if (overlapping(true).includes(code)) return true;
+    const own = liveStagesAt(code);
+    const ancestorStages = new Set(ancestorsOf(code).flatMap((a) => [...liveStagesAt(a)]));
+    return [...own].some((s) => ancestorStages.has(s));
+  }).sort();
+  assert.deepEqual(overlapByWalk, ["US-CA", "US-IL", "US-MD"], "the parent-walk reading of the overlap resolves to three jurisdictions");
 });
 
 test("HR-C8-T9: HR-21: jurisdictions resolve, Delaware is not_researched, every member state code resolves", () => {
@@ -467,6 +491,8 @@ test("HR-C8-T9: HR-21: jurisdictions resolve, Delaware is not_researched, every 
 test("HR-C8-T10: HR-21: no URL, person, firm, vendor, rejected claim, money or dash", () => {
   const files = [[GRAMMAR_FILE, grammarText], [RECORDS_FILE, recordsText], [JURISDICTIONS_FILE, jurisdictionsText]];
   const escape = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  // F11 (the cheap half): a digit beside "per day", "per violation" or "penalt" reads as a bare penalty figure.
+  const penaltyDigit = /\d[\d,]*\s*(?:per\s*day|per\s*violation)|(?:per\s*day|per\s*violation)\s*(?:of\s*)?\d|\d[\d,]*\s*penalt|\bpenalt\w*\s*(?:of\s*)?\d/i;
   for (const [name, text] of files) {
     for (const term of DENYLIST) {
       assert.ok(!new RegExp(`(^|[^A-Za-z0-9])${escape(term)}($|[^A-Za-z0-9])`, "i").test(text), `${name} carries "${term}"`);
@@ -474,6 +500,7 @@ test("HR-C8-T10: HR-21: no URL, person, firm, vendor, rejected claim, money or d
     assert.ok(!/https?:\/\/|www\./i.test(text), `${name} carries a URL`);
     assert.ok(!text.includes("$") && !text.includes("%") && !/\bdollars?\b/i.test(text), `${name} carries money`);
     assert.ok(!text.includes(EM_DASH) && !text.includes(EN_DASH), `${name} carries a dash`);
+    assert.ok(!penaltyDigit.test(text), `${name} carries a digit beside a penalty phrase (F11)`);
     const outside = name === RECORDS_FILE ? [] : text.match(/(^|[^A-Za-z])EAW-[0-9]/gm) ?? [];
     assert.equal(outside.length, 0, `${name} carries a row id`);
   }

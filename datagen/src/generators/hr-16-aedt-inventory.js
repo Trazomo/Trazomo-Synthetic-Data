@@ -142,7 +142,8 @@ export const NOTICE_RULE =
   + "own decision_stage; a required notice is posted when the notice row for that tool and jurisdiction carries a "
   + "posted_date. basis_row_id is the watch list row_id a notice answers, or company_practice for a notice no row "
   + "requires. The tracker computes the audit finding and the notice finding separately, and neither reads the "
-  + "other's columns";
+  + "other's columns; a scope_open pair's notice status is scope_open, reported with the scope finding, not as a "
+  + "notice finding";
 export const VENDOR_CONTENT_STATEMENT =
   "vendor_findings_note is the vendor's unpublished audit content, held under agreement; no tracker output, alert or "
   + "notice may quote it";

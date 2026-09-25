@@ -16,9 +16,10 @@
 //
 // The records name real instruments and public bodies (ruling R6) and nothing
 // else: no person, no law firm, no litigant, no vendor, no URL and no money.
-// Every fact comes from the refresh appendix; a detail the appendix does not
-// carry is an empty field beside a confidence value, never a memory. "status"
-// and "enforceable" are separate fields, and enforceable is recomputed from the
+// Every fact comes from the refresh appendix or plan 8.1's re-check, and
+// addressee is a classification; a detail the appendix does not carry is an
+// empty field beside a confidence value, never a memory. "status" and
+// "enforceable" are separate fields, and enforceable is recomputed from the
 // obligations by a published rule rather than typed.
 //
 // The row stamp is 2026-09-01, after the pack's universe now of 2026-04-03: the
@@ -86,12 +87,13 @@ export const COLUMNS = {
     "record_count", "jurisdiction_count", "record_key_order", "scope_key_order", "obligation_key_order",
     "history_key_order", "transposition_key_order", "note_key_order", "status_vocabulary",
     "enforceable_definition", "instrument_type_vocabulary",
-    "obligation_type_vocabulary", "duty_type_vocabulary", "application_status_vocabulary",
+    "obligation_type_vocabulary", "duty_type_vocabulary", "addressee_vocabulary", "addressee_rule",
+    "detail_status_vocabulary", "application_status_vocabulary",
     "implementation_status_vocabulary", "decision_stage_vocabulary", "technology_vocabulary",
     "subject_vocabulary", "scope_text_status_vocabulary", "stage_mapping_rule",
-    "history_event_vocabulary", "date_confidence_vocabulary", "preemption_risk_vocabulary",
+    "history_event_vocabulary", "date_confidence_vocabulary", "note_date_rule", "preemption_risk_vocabulary",
     "transposition_status_vocabulary", "source_basis_vocabulary",
-    "jurisdiction_level_vocabulary", "coverage_status_vocabulary", "verification_statement",
+    "jurisdiction_level_vocabulary", "coverage_status_vocabulary", "jurisdiction_rule", "verification_statement",
   ],
   records: RECORD_KEYS,
   jurisdictions: ["code", "name", "level", "parent_code", "coverage_status", "as_of"],
@@ -143,7 +145,7 @@ export const ADDRESSEES = ["employer", "deployer", "controller", "business"];
 export const ENFORCEABLE_ADDRESSEES = ["employer", "deployer", "controller"];
 export const APPLICATION_STATUSES = ["in_application", "scheduled", "awaiting_transposition"];
 /** The empty string is a member: most obligations have no implementing rules to wait on. */
-export const IMPLEMENTATION_STATUSES = ["complete", "rules_pending", ""];
+export const IMPLEMENTATION_STATUSES = ["rules_pending", ""];
 export const DETAIL_STATUSES = ["verified_primary", "verified_secondary", "not_retrieved"];
 export const DECISION_STAGES = [
   "recruitment_selection", "promotion", "termination_discipline", "terms_and_conditions",
@@ -191,6 +193,16 @@ export const NOT_LEGAL_ADVICE_NOTICE =
 export const ENFORCEABLE_DEFINITION =
   "enforceable is true exactly when at least one obligation addressed to an employer, deployer or controller has "
   + "application_status in_application at the as_of; status and enforceable are separate fields";
+export const ADDRESSEE_RULE =
+  "addressee is the watch list's classification of the party a duty binds; where the dated research record does "
+  + "not name that party the record says so in a note";
+export const JURISDICTION_RULE =
+  "a record belongs to the jurisdiction its jurisdiction_code names; a count of rows in a jurisdiction reads "
+  + "jurisdiction_code equality, and walking parent_code answers a different question, which rows apply to a "
+  + "person placed there";
+export const NOTE_DATE_RULE =
+  "a note carries no date_text key; where a note's date_confidence is approximate, the approximate date lives in "
+  + "the note's own text, not in a separate field";
 export const STAGE_MAPPING_RULE =
   "decision_stages are tokens for the decisions a verified scope text names: recruitment and hiring map to "
   + "recruitment_selection; renewal, tenure and terms and conditions map to terms_and_conditions; discharge and "
@@ -361,8 +373,10 @@ const RECORDS = [
       note("watched_provision", "Article 113 as amended was read through fetch summaries rather than end to end, so the record watches Article 113 rather than asserting its full text."),
       note("watched_provision", "The Article 26 text was read from a page that predates Regulation (EU) 2026/1744; two readings of the omnibus found no substantive amendment to Article 26, and Article 26 is carried as a watched provision."),
       note("log_floor", "The six-month log period in Article 26(6) is a floor, not a period."),
+      note("addressee_classification", "The Article 50 obligation's addressee, deployer, is the watch list's classification of the party the duty binds; the refresh appendix does not name that party."),
     ],
     related: [], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 1, claim 1.2 (the data half in negotiation), and item 8,
@@ -384,6 +398,7 @@ const RECORDS = [
       note("expected_conclusion", "It is not expected to conclude before late 2026 at the earliest.", "", "approximate"),
     ],
     related: ["eu-gdpr"], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 8, claim 8a (Article 15(1)(h) and the Article 22(3) rights),
@@ -409,6 +424,7 @@ const RECORDS = [
       note("volatility", "The data half of the Digital Omnibus contains proposed refinements to GDPR Article 22."),
     ],
     related: [], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 8, claim 8a (the judgment, by case number, without party names).
@@ -429,6 +445,7 @@ const RECORDS = [
       note("trade_secrets", "Where disclosure would undermine trade secrets, the controller must nonetheless disclose to the competent supervisory authority or court, which balances the competing interests."),
     ],
     related: ["eu-gdpr"], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 1, claim 1.7 (draft Article 6 guidelines, the material
@@ -454,6 +471,7 @@ const RECORDS = [
       note("final_expected", "Final guidelines are expected by end of 2026.", "", "approximate"),
     ],
     related: ["eu-ai-act"], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 9, claims 9a (deadline, not extended, reaffirmed 2025-12-18),
@@ -491,6 +509,7 @@ const RECORDS = [
       note("moving_figure", "The member state statuses were current to 2026-06-18 and are a moving figure to be re-checked.", "2026-06-18"),
     ],
     related: [], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 7, claims 7a (SI 2026/82, the two tranches), 7b (section 103,
@@ -521,6 +540,7 @@ const RECORDS = [
       note("allocation", "Only the instrument's contents page was machine-readable, so the section-by-section allocation between regulations 2 and 3 rests on secondary reporting."),
     ],
     related: [], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 7, claim 7d (SI 2026/425: made, laid, in force; the duty on
@@ -545,6 +565,7 @@ const RECORDS = [
       note("publication", "The code has not been published; some sources report it as expected in 2027.", "", "approximate"),
     ],
     related: [], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 7, claims 7d (the consultation dates, final guidance Winter
@@ -569,6 +590,7 @@ const RECORDS = [
       note("recruitment", "The ICO's recruitment work found that many employers mischaracterise their tools as decision-support when the evidence shows the tools produce binding decisions without meaningful human review."),
     ],
     related: [], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 10, claim 10a (the guidance removed in early 2025 after
@@ -592,6 +614,7 @@ const RECORDS = [
       note("replacement", "Nothing has replaced the rescinded guidance."),
     ],
     related: [], source_basis: "secondary_consistent",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 10, claims 10a (Executive Order 14281) and 10b (the statutes,
@@ -614,6 +637,7 @@ const RECORDS = [
       note("enforcement_plan", "Secondary sources report that the Strategic Enforcement Plan for FY 2024 to 2028 lists technology-related employment discrimination as an enforcement priority; the agency's page was not fetched directly.", "", "unconfirmed"),
     ],
     related: [], source_basis: "secondary_consistent",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 10, claim 10c (the order of 2025-12-11, the task force
@@ -631,11 +655,12 @@ const RECORDS = [
     ],
     transposition_deadline: "", transpositions: [],
     notes: [
-      note("task_force", "The order establishes an AI Litigation Task Force within the Department of Justice to challenge state AI laws in federal court on dormant commerce clause, preemption or other grounds.", "2026-01-10"),
+      note("task_force", "The order establishes an AI Litigation Task Force within the Department of Justice, operative from the date below, to challenge state AI laws in federal court on dormant commerce clause, preemption or other grounds.", "2026-01-10"),
       note("carve_outs", "The order carves out state laws on child safety, AI compute and data centre infrastructure, and state government procurement and use of AI."),
       note("colorado", "The Department of Justice intervened in support of the challenge to the Colorado predecessor act, which was then enjoined by stipulated order and repealed and replaced.", "2026-04-27"),
     ],
     related: [], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 10, claim 10d (no preemption statute enacted, the framework
@@ -658,6 +683,7 @@ const RECORDS = [
       note("failed_attempts", "The 10-year moratorium in the One Big Beautiful Bill Act was stripped before passage on a 99 to 1 Senate vote, and a similar NDAA attempt failed."),
     ],
     related: [], source_basis: "secondary_consistent",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 5, claim 5a (the CRD regulations, effective 2025-10-01,
@@ -685,6 +711,7 @@ const RECORDS = [
       note("section_numbers", "The primary text could not be parsed, so section numbers beyond 11008.1 rest on consistent secondary reporting."),
     ],
     related: [], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 5, claim 5b (SB 7 vetoed 2025-10-13, SB 947 introduced
@@ -713,6 +740,7 @@ const RECORDS = [
       note("governor_action", "The Governor must act by the end of September 2026.", "", "approximate"),
     ],
     related: [], source_basis: "verified_primary",
+    verified_on: RECHECK_DATE,
   },
 
   // Appendix item 5, claim 5c (ADMT regulations finalised in 2025, significant
@@ -744,6 +772,7 @@ const RECORDS = [
       note("phase_in", "Sources differ on the intermediate risk-assessment phase-in, and that date is to be verified against the regulation text.", "", "unconfirmed"),
     ],
     related: [], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 2, claims 2a (SB 24-205 never took effect, enjoined
@@ -783,6 +812,7 @@ const RECORDS = [
       note("signature_date", "The legislature page records the signature on 2026-05-14 and one secondary source gives a different date; the legislature page is carried, and its Effective Date field is the act's own effective date, not the date obligations apply.", "2026-05-14"),
     ],
     related: [], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 4, claim 4a (820 ILCS 42: sections 1 to 15 under P.A. 101-260
@@ -796,7 +826,7 @@ const RECORDS = [
     scope: scope(["applicants"], ["recruitment_selection"], ["video_interview_analysis"], "secondary_consistent"),
     obligations: [
       ob("consent", "employer", ["recruitment_selection"], "2020-01-01", "in_application", "not_retrieved",
-        "The consent provisions for AI analysis of video interviews sit in sections 1, 5, 10 and 15, which carry P.A. 101-260; their text is not recorded here."),
+        "Sections 1, 5, 10 and 15 carry P.A. 101-260; the refresh did not record their consent text."),
       ob("demographic_reporting", "employer", ["recruitment_selection"], "2022-01-01", "in_application", "verified_primary",
         "Section 20 requires demographic reporting of race and ethnicity for applicants denied an in-person interview after AI analysis and for those hired, with the Department of Commerce and Economic Opportunity analysing for racial bias; it carries P.A. 102-47."),
     ],
@@ -809,6 +839,7 @@ const RECORDS = [
       note("in_force", "The act remains in force and is scoped to AI analysis of video interviews."),
     ],
     related: [], source_basis: "verified_primary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 4, claims 4b (HB 3773 signed 2024-08-09, effective 2026-01-01,
@@ -849,6 +880,7 @@ const RECORDS = [
       note("draft_notice", "The draft rules had contemplated notice to current employees annually and within 30 days of adopting a new or substantially updated AI system, and to prospective employees via the job posting."),
     ],
     related: [], source_basis: "secondary_consistent",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 6 (section 3-717: HB 1202 of 2020, Chapter 446, became law
@@ -874,6 +906,7 @@ const RECORDS = [
       note("unchanged", "No 2026 amendment was found, and the state's official AI legislation page shows no employment or hiring AI law among Maryland's enacted AI laws for 2024, 2025 and 2026."),
     ],
     related: [], source_basis: "verified_primary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 3, claim 3d (S8706B / A9581B passed the Senate 2026-06-04,
@@ -898,6 +931,7 @@ const RECORDS = [
       note("no_state_audit_law", "New York State has not enacted a statewide automated employment decision tool bias-audit law."),
     ],
     related: [], source_basis: "verified_primary",
+    verified_on: REFRESH_DATE,
   },
 
   // Appendix item 3, claims 3a (in force, no amendment found, the DCWP page not
@@ -924,8 +958,10 @@ const RECORDS = [
       note("comptroller_audit", "The New York State Comptroller's audit of DCWP enforcement, Report 2024-N-6, covering July 2023 through June 2025, found the complaint process ineffective: DCWP's review of 32 company websites identified 1 compliance issue, while the Comptroller's review of the same 32 found at least 17 instances of potential non-compliance.", "2025-12-02"),
       note("recommendations", "DCWP agreed to fully adopt 10 of 13 recommendations and partially adopt one.", "2025-12-02"),
       note("penalties", "Civil penalties are described per violation and per day; the figures rest on secondary sources only and are not carried.", "", "unconfirmed"),
+      note("addressee_classification", "Both obligations' addressee, employer, is the watch list's classification of the party each duty binds; the refresh appendix does not name that party."),
     ],
     related: [], source_basis: "primary_with_secondary",
+    verified_on: REFRESH_DATE,
   },
 ];
 
@@ -952,12 +988,21 @@ const EM_DASH = String.fromCharCode(0x2014);
 const escapeRegExp = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const DENY_PATTERNS = DENYLIST.map((term) => [term, new RegExp(`(^|[^A-Za-z0-9])${escapeRegExp(term)}($|[^A-Za-z0-9])`, "i")]);
 
+/**
+ * F11 (the cheap half): a digit sitting immediately beside "per day", "per
+ * violation" or "penalt" (the root of penalty and penalties) reads as a bare
+ * penalty figure. The capitalised-token allowlist is not applied here; that
+ * half is recorded as a residual.
+ */
+const PENALTY_DIGIT_RE = /\d[\d,]*\s*(?:per\s*day|per\s*violation)|(?:per\s*day|per\s*violation)\s*(?:of\s*)?\d|\d[\d,]*\s*penalt|\bpenalt\w*\s*(?:of\s*)?\d/i;
+
 /** Every forbidden token a text carries. */
 export function forbiddenTokens(text) {
   const hits = DENY_PATTERNS.filter(([, pattern]) => pattern.test(text)).map(([term]) => term);
   if (/https?:\/\/|www\./i.test(text)) hits.push("URL");
   if (text.includes("$") || text.includes("%") || /\bdollars?\b/i.test(text)) hits.push("money");
   if (text.includes(EN_DASH) || text.includes(EM_DASH)) hits.push("dash");
+  if (PENALTY_DIGIT_RE.test(text)) hits.push("a digit beside a penalty phrase");
   return hits;
 }
 
@@ -1048,8 +1093,11 @@ function buildGrammar(records) {
     instrument_type_vocabulary: joinList(INSTRUMENT_TYPES),
     obligation_type_vocabulary: joinList(OBLIGATION_TYPES),
     duty_type_vocabulary: joinList(DUTY_TYPES),
+    addressee_vocabulary: joinList(ADDRESSEES),
+    addressee_rule: ADDRESSEE_RULE,
+    detail_status_vocabulary: joinList(DETAIL_STATUSES),
     application_status_vocabulary: joinList(APPLICATION_STATUSES),
-    implementation_status_vocabulary: "complete; rules_pending; empty when no implementing rules are awaited",
+    implementation_status_vocabulary: "rules_pending; empty when no implementing rules are awaited",
     decision_stage_vocabulary: joinList(DECISION_STAGES),
     technology_vocabulary: joinList(TECHNOLOGIES),
     subject_vocabulary: joinList(SUBJECTS),
@@ -1057,11 +1105,13 @@ function buildGrammar(records) {
     stage_mapping_rule: STAGE_MAPPING_RULE,
     history_event_vocabulary: joinList(HISTORY_EVENTS),
     date_confidence_vocabulary: joinList(DATE_CONFIDENCES),
+    note_date_rule: NOTE_DATE_RULE,
     preemption_risk_vocabulary: joinList(PREEMPTION_RISKS),
     transposition_status_vocabulary: joinList(TRANSPOSITION_STATUSES),
     source_basis_vocabulary: joinList(SOURCE_BASES),
     jurisdiction_level_vocabulary: joinList(JURISDICTION_LEVELS),
     coverage_status_vocabulary: joinList(COVERAGE_STATUSES),
+    jurisdiction_rule: JURISDICTION_RULE,
     verification_statement: VERIFICATION_STATEMENT,
   };
 }
@@ -1249,7 +1299,7 @@ export function buildWatchList() {
       }),
       source_basis: d.source_basis,
       as_of: AS_OF,
-      verified_on: d.status === "awaiting_signature" ? RECHECK_DATE : REFRESH_DATE,
+      verified_on: d.verified_on,
     };
     record.enforceable = isEnforceable(record);
     return record;

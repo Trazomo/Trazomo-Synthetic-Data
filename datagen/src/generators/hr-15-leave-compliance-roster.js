@@ -95,15 +95,15 @@ export const OBLIGATION_RULES = [
     rule_id: "OBR-03", obligation_type: "work_authorization_reverification",
     source_citation: "ADI-HR-001 section 2 (Immigration compliance)",
     applies_to: "employees whose current work authorization document carries an expiry date",
-    basis_field: "work_authorization_expiry_date",
-    due_date_rule: "the recorded expiry date (basis_date) itself", owner_role: "HR Business Partner",
+    basis_field: "basis_date",
+    due_date_rule: "the recorded work authorization expiry carried as basis_date, due on that date", owner_role: "HR Business Partner",
   },
   {
     rule_id: "OBR-04", obligation_type: "out_of_state_work_approval",
     source_citation: "ADI-POL-002 section 5.1",
-    applies_to: "a requested move of an approved remote location across state lines",
-    basis_field: "requested_effective_date",
-    due_date_rule: "the day before the requested effective date", owner_role: "People Manager",
+    applies_to: "a requested move of an approved remote location across state lines; the manager's review precedes approval by People Operations and Tax under section 5.1",
+    basis_field: "basis_date",
+    due_date_rule: "the requested effective date carried as basis_date, due the day before it", owner_role: "People Manager",
   },
 ];
 
@@ -571,6 +571,7 @@ function assertPostConditions({ grammar, locations, leaves, obligations, salienc
     }[o.rule_id]();
     if (o.due_date !== expected) fail(`an ${o.rule_id} due_date does not recompute from its basis`);
     if ((o.rule_id === "OBR-01" || o.rule_id === "OBR-02") !== Boolean(leave)) fail("related_leave_id is filled off a leave rule or empty on one");
+    if ((o.rule_id === "OBR-01" || o.rule_id === "OBR-02") && leave.employee_id !== o.employee_id) fail("an OBR-01 or OBR-02 obligation's employee_id disagrees with its leave record's employee_id");
     if ((o.rule_id === "OBR-04") !== (o.target_jurisdiction_code !== "")) fail("target_jurisdiction_code is filled off OBR-04 or empty on it");
     if (o.target_jurisdiction_code && !jurisdictionCodes.has(o.target_jurisdiction_code)) fail("a target jurisdiction misses the watch list");
     if (o.rule_id !== "OBR-03" && (o.due_date > "2026-12-31" || o.basis_date > "2026-12-31")) fail("a non-expiry date falls after 2026-12-31");

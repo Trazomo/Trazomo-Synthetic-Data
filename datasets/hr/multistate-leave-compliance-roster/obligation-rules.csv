@@ -1,5 +1,5 @@
 rule_id,obligation_type,source_citation,applies_to,basis_field,due_date_rule,owner_role
 OBR-01,leave_certification,ADI-HR-001 section 8 (Certification),family_and_medical leaves,request_date,request_date plus 15 calendar days,People Operations Specialist
 OBR-02,return_to_work_confirmation,ADI-HR-001 section 8 (Return to work),every leave,expected_return_date,expected_return_date minus 10 business days,People Operations Specialist
-OBR-03,work_authorization_reverification,ADI-HR-001 section 2 (Immigration compliance),employees whose current work authorization document carries an expiry date,work_authorization_expiry_date,the recorded expiry date (basis_date) itself,HR Business Partner
-OBR-04,out_of_state_work_approval,ADI-POL-002 section 5.1,a requested move of an approved remote location across state lines,requested_effective_date,the day before the requested effective date,People Manager
+OBR-03,work_authorization_reverification,ADI-HR-001 section 2 (Immigration compliance),employees whose current work authorization document carries an expiry date,basis_date,"the recorded work authorization expiry carried as basis_date, due on that date",HR Business Partner
+OBR-04,out_of_state_work_approval,ADI-POL-002 section 5.1,a requested move of an approved remote location across state lines; the manager's review precedes approval by People Operations and Tax under section 5.1,basis_date,"the requested effective date carried as basis_date, due the day before it",People Manager
