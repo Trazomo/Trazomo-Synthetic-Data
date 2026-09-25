@@ -282,6 +282,9 @@ and intake records -- before touching FIN/HR/REV/OPS/SMB.
 | HR-13 | engagement-attrition-dataset | dataset | 1-row attrition grammar, 18 exit records over the departed roster rows with dates assigned against the in-post floors the shipped pack already imposes, a 143-row department-month headcount series across 13 month ends and 44 quarterly engagement aggregates, with no individual-level score, prediction or reason field anywhere (one department whose rolling twelve-month voluntary exit rate the published clauses resolve to) |
 | HR-14 | helpdesk-request-queue | dataset | 1-row helpdesk grammar, a 7-rule routing table, a 15-phrase special category term list and 20 untriaged pre-case requests over ten business days, requesters drawn in process from a guarded pool outside every earlier finding (one request whose content routes away from its stated category, and one whose body carries a special category term and routes to the human-only queue) |
 | HR-20 | benefits-census | dataset | 1-row census grammar, 582 employee election rows and 587 dependent rows over the active roster, every plan id resolved into the frozen HR-19 register at build time (one summary plan description deadline inside the published alert window, and one dependent whose document is unverified) |
+| HR-15 | multistate-leave-compliance-roster | dataset | 1-row leave compliance grammar, 581 located roster rows with `work_location` byte-equal to HR-12 and a state and locality that resolve into HR-21's jurisdictions, 4 published obligation rules citing the handbook or the remote work policy, 8 leave records and 27 compliance obligations whose due dates recompute from their basis dates, drawn employees from a guarded pool outside every earlier finding (one obligation inside the published alert window, and one leave record carrying a reason detail that the window's alert must never carry) |
+| HR-16 | aedt-inventory-audit-log | dataset | 1-row AEDT grammar, an 8-tool inventory, a 10-row bias audit log and a 5-row notice log read against HR-21 in process, with audit currency in whole months under the company's published standard and notice requirements computed from the watch list (one in-use tool past its audit standard, one required notice with no posting on a different tool, and one scope-open tool whose output feeds a decision the rows in application name) |
+| HR-21 | employment-ai-watch-list | dataset | 1-row watch list grammar, 22 records in a fixed key order with nested obligations, status history, transpositions and notes naming real instruments as the dated regulatory refresh recorded them, and a 37-row jurisdictions table (one enacted row that is not enforceable after an injunction, one directive with 27 transposition sub-rows, one instrument straddling the as of, one narrow sole row and one overlapping jurisdiction, and one bill awaiting signature) |
 | OPS-15 | work-management-platform-export | dataset | 3-file API-response bundle for one delivery program (a Notion data source query of 12 pages keyed by display name, the Asana task list of the same 12 fetched with the recorded opt_fields string, and the capture log), owners drawn from CORE-04 at build time (one definition of done present and empty in both tools, one assignee gid that resolves through no payload, one Notion state with no Asana counterpart) |
 | OPS-16 | meeting-consent-notice-and-invite-templates | template | 4-file template set, fixed text with no seeded draw: the recorded-meeting invite template (slots in the `{{group.field}}` grammar, a filled example of the 2026-03-10 delivery sync), the same invite as a folded and escaped ics whose event and seven attendees are read off OPS-01 and resolved against CORE-04 at build time, the consent notice with the three acts (recording, transcribing, biometric identification) and a six-step consent flow, and an unfilled ten-question vendor evaluation checklist led by retention then model training; the OPS-01 consent notice carried byte for byte in the notice, the invite template and its example, and after unfold and unescape in the ics DESCRIPTION |
 | OPS-17 | work-management-export-planner-smartsheet | dataset | 5-file API-response bundle for one delivery program (the Planner list-tasks and buckets responses, the directory users response, the Smartsheet Get Sheet response of 8 columns and 14 rows, and the capture log), people drawn from CORE-04 at build time (no definition of done anywhere by construction, one task with no assignment whose row omits the Owner cell, one assignment GUID the directory cannot resolve) |
@@ -396,7 +399,7 @@ request ticket rather than off the last working day.
 
 HR-12 is the first HR artifact to carry money and a work location, and neither
 absence stated elsewhere is amended: HR-05's calendars stay UTC with no region,
-and HR-06, HR-08, HR-16 and HR-17 each keep the absence their own spec states.
+and HR-06, HR-08, HR-18 and HR-17 each keep the absence their own spec states.
 What changed is the pack, not those artifacts. HR-12's bands are derived
 downward from the general ledger rather than upward from a salary table:
 `band_unit_amount` is solved at generation so the emitted annual base pay total
@@ -441,6 +444,17 @@ name nobody: every person field is an `employee_id`. HR-14 publishes its own
 special-category term list and routing table beside the queue, because HR-17's
 lists are column names rather than words a person writes, and HR-14 draws no
 requester from HR-17.
+
+HR-21 is the employment AI watch list: real instruments recorded as the dated
+regulatory refresh verified them, with `as_of` and `verified_on` on every
+record, `status` separate from `enforceable`, a not legal advice notice, and no
+URL, person, private company or money. HR-15 is the first HR artifact to name
+states: HR-12's headquarters class is the Delaware principal place of business
+the CORE-01 agreement states, the satellite office is in Colorado, and remote
+employees are dealt across five states; Delaware is a jurisdiction the watch
+list has not researched. What changed is the pack, not HR-05's UTC calendars or
+HR-12's vocabulary. The three C8 artifacts carry a 2026-09-01 run stamp later
+than the universe now.
 
 ## Small-business conventions
 
@@ -682,7 +696,9 @@ Runs `node --test` over `tests/`:
   `fin-38-reliability-drill`, `fin-track-b-templates` (FIN-36/37/39),
   `ops-15-notion-asana-export`, `ops-16-consent-notice-invite-templates`,
   `ops-17-planner-smartsheet-export`, `hr-14-helpdesk-queue` (carrying the
-  people-hr cluster 7 cross-artifact sweep), `hr-20-benefits-census`.
+  people-hr cluster 7 cross-artifact sweep), `hr-20-benefits-census`,
+  `hr-21-employment-ai-watch-list`, `hr-15-leave-compliance-roster`,
+  `hr-16-aedt-inventory` (carrying the people-hr cluster 8 token sweep).
 - `tests/artifacts/` -- checks over drafted-frozen artifacts that recompute a
   stated figure from the document's own inputs.
 - `tests/drafted/` -- structural screens over drafted-frozen documents: what

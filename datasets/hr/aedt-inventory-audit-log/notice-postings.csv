@@ -1,0 +1,6 @@
+notice_id,tool_id,jurisdiction_code,basis_row_id,notice_channel,posted_date
+NTC-0001,AIT-02,US-IL,EAW-19,careers_page,2026-01-05
+NTC-0002,AIT-02,US-NY-NYC,EAW-22,careers_page,2026-01-05
+NTC-0003,AIT-06,US-CA,company_practice,employee_intranet,
+NTC-0004,AIT-08,US-IL,EAW-19,careers_page,
+NTC-0005,AIT-08,US-NY-NYC,EAW-22,careers_page,2026-01-05

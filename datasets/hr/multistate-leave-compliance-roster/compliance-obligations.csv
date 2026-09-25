@@ -1,0 +1,28 @@
+obligation_id,employee_id,rule_id,obligation_type,related_leave_id,basis_date,due_date,target_jurisdiction_code,owner_role,completed_date
+LCO-2026-0001,EMP-0066,OBR-01,leave_certification,LVR-2026-0001,2026-04-20,2026-05-05,,People Operations Specialist,2026-04-30
+LCO-2026-0002,EMP-0066,OBR-02,return_to_work_confirmation,LVR-2026-0001,2026-06-15,2026-06-01,,People Operations Specialist,2026-05-26
+LCO-2026-0003,EMP-0463,OBR-01,leave_certification,LVR-2026-0003,2026-06-15,2026-06-30,,People Operations Specialist,2026-06-24
+LCO-2026-0004,EMP-0463,OBR-02,return_to_work_confirmation,LVR-2026-0003,2026-08-10,2026-07-27,,People Operations Specialist,2026-07-20
+LCO-2026-0005,EMP-0147,OBR-04,out_of_state_work_approval,,2026-08-04,2026-08-03,US-NY-NYC,People Manager,2026-07-24
+LCO-2026-0006,EMP-0456,OBR-02,return_to_work_confirmation,LVR-2026-0002,2026-08-24,2026-08-10,,People Operations Specialist,2026-08-03
+LCO-2026-0007,EMP-0179,OBR-01,leave_certification,LVR-2026-0006,2026-07-27,2026-08-11,,People Operations Specialist,2026-08-07
+LCO-2026-0008,EMP-0080,OBR-01,leave_certification,LVR-2026-0008,2026-08-10,2026-08-25,,People Operations Specialist,2026-08-21
+LCO-2026-0009,EMP-0179,OBR-02,return_to_work_confirmation,LVR-2026-0006,2026-09-28,2026-09-14,,People Operations Specialist,
+LCO-2026-0010,EMP-0256,OBR-02,return_to_work_confirmation,LVR-2026-0005,2026-09-30,2026-09-16,,People Operations Specialist,
+LCO-2026-0011,EMP-0080,OBR-02,return_to_work_confirmation,LVR-2026-0008,2026-10-05,2026-09-21,,People Operations Specialist,
+LCO-2026-0012,EMP-0344,OBR-03,work_authorization_reverification,,2026-09-25,2026-09-25,,HR Business Partner,
+LCO-2026-0013,EMP-0306,OBR-02,return_to_work_confirmation,LVR-2026-0004,2026-10-14,2026-09-30,,People Operations Specialist,
+LCO-2026-0014,EMP-0280,OBR-03,work_authorization_reverification,,2026-10-19,2026-10-19,,HR Business Partner,
+LCO-2026-0015,EMP-0135,OBR-04,out_of_state_work_approval,,2026-10-20,2026-10-19,US-CA,People Manager,
+LCO-2026-0016,EMP-0586,OBR-04,out_of_state_work_approval,,2026-11-03,2026-11-02,US-IL,People Manager,
+LCO-2026-0017,EMP-0552,OBR-03,work_authorization_reverification,,2026-11-13,2026-11-13,,HR Business Partner,
+LCO-2026-0018,EMP-0191,OBR-02,return_to_work_confirmation,LVR-2026-0007,2026-12-14,2026-11-30,,People Operations Specialist,
+LCO-2026-0019,EMP-0341,OBR-03,work_authorization_reverification,,2026-12-04,2026-12-04,,HR Business Partner,
+LCO-2026-0020,EMP-0104,OBR-03,work_authorization_reverification,,2027-02-19,2027-02-19,,HR Business Partner,
+LCO-2026-0021,EMP-0413,OBR-03,work_authorization_reverification,,2027-03-15,2027-03-15,,HR Business Partner,
+LCO-2026-0022,EMP-0386,OBR-03,work_authorization_reverification,,2027-05-07,2027-05-07,,HR Business Partner,
+LCO-2026-0023,EMP-0531,OBR-03,work_authorization_reverification,,2027-06-30,2027-06-30,,HR Business Partner,
+LCO-2026-0024,EMP-0082,OBR-03,work_authorization_reverification,,2027-08-20,2027-08-20,,HR Business Partner,
+LCO-2026-0025,EMP-0486,OBR-03,work_authorization_reverification,,2027-11-12,2027-11-12,,HR Business Partner,
+LCO-2026-0026,EMP-0562,OBR-03,work_authorization_reverification,,2028-01-31,2028-01-31,,HR Business Partner,
+LCO-2026-0027,EMP-0467,OBR-03,work_authorization_reverification,,2028-04-28,2028-04-28,,HR Business Partner,

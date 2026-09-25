@@ -1,0 +1,38 @@
+code,name,level,parent_code,coverage_status,as_of
+AT,Austria,national,EU,researched,2026-09-01
+BE,Belgium,national,EU,researched,2026-09-01
+BG,Bulgaria,national,EU,researched,2026-09-01
+CY,Cyprus,national,EU,researched,2026-09-01
+CZ,Czechia,national,EU,researched,2026-09-01
+DE,Germany,national,EU,researched,2026-09-01
+DK,Denmark,national,EU,researched,2026-09-01
+EE,Estonia,national,EU,researched,2026-09-01
+ES,Spain,national,EU,researched,2026-09-01
+EU,European Union,supranational,,researched,2026-09-01
+FI,Finland,national,EU,researched,2026-09-01
+FR,France,national,EU,researched,2026-09-01
+GB,United Kingdom,national,,researched,2026-09-01
+GR,Greece,national,EU,researched,2026-09-01
+HR,Croatia,national,EU,researched,2026-09-01
+HU,Hungary,national,EU,researched,2026-09-01
+IE,Ireland,national,EU,researched,2026-09-01
+IT,Italy,national,EU,researched,2026-09-01
+LT,Lithuania,national,EU,researched,2026-09-01
+LU,Luxembourg,national,EU,researched,2026-09-01
+LV,Latvia,national,EU,researched,2026-09-01
+MT,Malta,national,EU,researched,2026-09-01
+NL,Netherlands,national,EU,researched,2026-09-01
+PL,Poland,national,EU,researched,2026-09-01
+PT,Portugal,national,EU,researched,2026-09-01
+RO,Romania,national,EU,researched,2026-09-01
+SE,Sweden,national,EU,researched,2026-09-01
+SI,Slovenia,national,EU,researched,2026-09-01
+SK,Slovakia,national,EU,researched,2026-09-01
+US,United States,national,,researched,2026-09-01
+US-CA,California,state,US,researched,2026-09-01
+US-CO,Colorado,state,US,researched,2026-09-01
+US-DE,Delaware,state,US,not_researched,2026-09-01
+US-IL,Illinois,state,US,researched,2026-09-01
+US-MD,Maryland,state,US,researched,2026-09-01
+US-NY,New York,state,US,researched,2026-09-01
+US-NY-NYC,New York City,city,US-NY,researched,2026-09-01

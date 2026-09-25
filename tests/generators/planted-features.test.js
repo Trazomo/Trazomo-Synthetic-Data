@@ -826,6 +826,89 @@ test("HR-14: 20 untriaged requests, 7 routing rules, 15 terms, 3 answerable from
   assert.equal(special.length, 1, "the special category request census moved");
 });
 
+test("HR-21: 22 watch-list records, 37 jurisdictions, and each of the five plants resolves to 1 (hr-21-employment-ai-watch-list.test.js)", () => {
+  const files = emitted("HR-21");
+  const grammar = csvRows(fileByPath(files, "watch-list-grammar.csv").content);
+  assert.equal(grammar.length, 1);
+  assert.equal(grammar[0].record_count, "22");
+  const records = fileByPath(files, "employment-ai-watch-list.jsonl").content.trim().split("\n").map((line) => JSON.parse(line));
+  assert.equal(records.length, 22);
+  assert.equal(csvRows(fileByPath(files, "jurisdictions.csv").content).length, 37);
+  const asOf = grammar[0].as_of;
+  const live = (o) => o.application_status !== "awaiting_transposition"
+    && (o.applies_from === "" ? o.application_status === "in_application" : o.applies_from <= asOf);
+  const fixed = (r) => [...new Set(r.obligations.filter((o) => o.applies_from_confidence === "exact").map((o) => o.applies_from))];
+  const enforceable = records.filter((r) => r.enforceable);
+  assert.equal(enforceable.length, 9);
+  assert.equal(records.filter((r) => r.status === "enacted" && !r.enforceable && r.status_history.some((e) => e.event === "enjoined")).length, 1, "HR-21a moved");
+  assert.equal(records.filter((r) => r.transpositions.length > 0).length, 1, "HR-21b moved");
+  assert.equal(records.filter((r) => fixed(r).some((d) => d <= asOf) && fixed(r).some((d) => d > asOf)).length, 1, "HR-21c moved");
+  const narrow = records.filter((r) => r.enforceable && r.scope.technologies.length === 1
+    && ["video_interview_analysis", "facial_recognition"].includes(r.scope.technologies[0])
+    && enforceable.filter((x) => x.jurisdiction_code === r.jurisdiction_code).length === 1);
+  assert.equal(narrow.length, 1, "HR-21d narrow row moved");
+  const overlap = [...new Set(records.map((r) => r.jurisdiction_code))].filter((code) => {
+    const sets = records.filter((r) => r.jurisdiction_code === code).map((r) => new Set(r.obligations.filter(live).flatMap((o) => o.decision_stages)));
+    return sets.some((a, i) => sets.some((b, j) => j > i && [...a].some((t) => b.has(t))));
+  });
+  assert.equal(overlap.length, 1, "HR-21d overlapping jurisdiction moved");
+  assert.equal(records.filter((r) => r.status === "awaiting_signature").length, 1, "HR-21e moved");
+});
+
+test("HR-15: 581 located rows, 4 rules, 8 leave records, 27 obligations, 1 in the alert window, 1 reason detail on its leave (hr-15-leave-compliance-roster.test.js)", () => {
+  const files = emitted("HR-15");
+  const grammar = csvRows(fileByPath(files, "leave-compliance-grammar.csv").content);
+  assert.equal(grammar.length, 1);
+  assert.equal(csvRows(fileByPath(files, "employee-work-locations.csv").content).length, 581);
+  assert.equal(csvRows(fileByPath(files, "obligation-rules.csv").content).length, 4);
+  const leaves = csvRows(fileByPath(files, "leave-records.csv").content);
+  assert.equal(leaves.length, 8);
+  const obligations = csvRows(fileByPath(files, "compliance-obligations.csv").content);
+  assert.equal(obligations.length, 27);
+  const { alert_window_start: start, alert_window_end: end } = grammar[0];
+  const inWindow = obligations.filter((o) => o.due_date >= start && o.due_date <= end);
+  assert.equal(inWindow.length, 1, "HR-15a moved");
+  const reason = leaves.filter((l) => l.reason_detail !== "");
+  assert.equal(reason.length, 1, "HR-15b moved");
+  assert.equal(inWindow[0].related_leave_id, reason[0].leave_id, "the alert and the reason detail moved apart");
+});
+
+test("HR-16: 8 tools, 10 audits, 5 notices, 1 stale in-use tool, 1 unposted required notice, 1 scope-open tool (hr-16-aedt-inventory.test.js)", () => {
+  const files = emitted("HR-16");
+  const grammar = csvRows(fileByPath(files, "aedt-grammar.csv").content);
+  assert.equal(grammar.length, 1);
+  const tools = csvRows(fileByPath(files, "tool-inventory.csv").content);
+  const audits = csvRows(fileByPath(files, "bias-audits.csv").content);
+  const notices = csvRows(fileByPath(files, "notice-postings.csv").content);
+  assert.equal(tools.length, 8);
+  assert.equal(audits.length, 10);
+  assert.equal(notices.length, 5);
+  const asOf = grammar[0].as_of;
+  const months = (d) => (Number(asOf.slice(0, 4)) - Number(d.slice(0, 4))) * 12 + (Number(asOf.slice(5, 7)) - Number(d.slice(5, 7)))
+    - (Number(asOf.slice(8, 10)) < Number(d.slice(8, 10)) ? 1 : 0);
+  const latest = (toolId) => audits.filter((a) => a.tool_id === toolId).map((a) => a.audit_date).sort().at(-1);
+  const inUse = tools.filter((t) => t.status === "in_use");
+  const stale = inUse.filter((t) => months(latest(t.tool_id)) > Number(grammar[0].audit_currency_months));
+  assert.equal(stale.length, 1, "HR-16a moved");
+  const records = emitted("HR-21").find((f) => f.path === "employment-ai-watch-list.jsonl").content.trim().split("\n").map((l) => JSON.parse(l));
+  const juris = csvRows(emitted("HR-21").find((f) => f.path === "jurisdictions.csv").content);
+  const parent = new Map(juris.map((j) => [j.code, j.parent_code]));
+  const lineage = (code) => { const out = []; for (let c = code; c; c = parent.get(c)) out.push(c); return out; };
+  const live = (o) => o.application_status !== "awaiting_transposition"
+    && (o.applies_from === "" ? o.application_status === "in_application" : o.applies_from <= asOf);
+  const stagesIn = (code, noticeOnly) => new Set(records.filter((r) => r.enforceable && lineage(code).includes(r.jurisdiction_code)
+    && (noticeOnly || r.scope.scope_text_status !== "not_retrieved"))
+    .flatMap((r) => r.obligations.filter((o) => live(o) && (!noticeOnly || o.duty_type === "notice")).flatMap((o) => o.decision_stages)));
+  const use = grammar[0].use_jurisdictions.split("; ");
+  const unposted = inUse.flatMap((t) => use.filter((j) => stagesIn(j, true).has(t.decision_stage)
+    && !notices.some((n) => n.tool_id === t.tool_id && n.jurisdiction_code === j && n.posted_date !== "")).map((j) => [t.tool_id, j]));
+  assert.equal(unposted.length, 1, "HR-16b moved");
+  assert.notEqual(unposted[0][0], stale[0].tool_id, "HR-16a and HR-16b moved onto one tool");
+  const open = inUse.filter((t) => t.decision_role === "drafts_for_human"
+    && use.some((j) => !stagesIn(j, false).has(t.decision_stage) && stagesIn(j, false).has(t.feeds_decision_stage)));
+  assert.equal(open.length, 1, "the scope-open tool moved");
+});
+
 test("SMB-12, SMB-13, SMB-14, SMB-15, SMB-16: no file carries an em dash or an en dash", () => {
   for (const file of c2bFiles()) {
     // Written as escapes so this screen is not itself a hit for a grep over

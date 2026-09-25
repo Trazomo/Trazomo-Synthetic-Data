@@ -853,6 +853,50 @@
             }
         },
         {
+            "id": "HR-15",
+            "name": "multistate-leave-compliance-roster",
+            "track": "hr",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/hr/multistate-leave-compliance-roster",
+            "files": [
+                "compliance-obligations.csv",
+                "employee-work-locations.csv",
+                "leave-compliance-grammar.csv",
+                "leave-records.csv",
+                "obligation-rules.csv"
+            ],
+            "row_counts": {
+                "compliance-obligations.csv": 27,
+                "employee-work-locations.csv": 581,
+                "leave-compliance-grammar.csv": 1,
+                "leave-records.csv": 8,
+                "obligation-rules.csv": 4
+            }
+        },
+        {
+            "id": "HR-16",
+            "name": "aedt-inventory-audit-log",
+            "track": "hr",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/hr/aedt-inventory-audit-log",
+            "files": [
+                "aedt-grammar.csv",
+                "bias-audits.csv",
+                "notice-postings.csv",
+                "tool-inventory.csv"
+            ],
+            "row_counts": {
+                "aedt-grammar.csv": 1,
+                "bias-audits.csv": 10,
+                "notice-postings.csv": 5,
+                "tool-inventory.csv": 8
+            }
+        },
+        {
             "id": "HR-17",
             "name": "mixed-sensitivity-employee-dataset",
             "track": "hr",
@@ -906,6 +950,25 @@
                 "census-grammar.csv": 1,
                 "dependents.csv": 587,
                 "employee-benefits.csv": 582
+            }
+        },
+        {
+            "id": "HR-21",
+            "name": "employment-ai-watch-list",
+            "track": "hr",
+            "type": "dataset",
+            "format": "jsonl + csv",
+            "generation": "deterministic",
+            "path": "datasets/hr/employment-ai-watch-list",
+            "files": [
+                "employment-ai-watch-list.jsonl",
+                "jurisdictions.csv",
+                "watch-list-grammar.csv"
+            ],
+            "row_counts": {
+                "employment-ai-watch-list.jsonl": 22,
+                "jurisdictions.csv": 37,
+                "watch-list-grammar.csv": 1
             }
         },
         {

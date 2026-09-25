@@ -1,0 +1,11 @@
+audit_id,tool_id,audit_date,auditor_type,summary_publication,vendor_findings_note
+BAU-0001,AIT-02,2024-07-15,vendor_commissioned,unpublished,scoring outcomes compared across the vendor's earlier reference sample; the report is held by the vendor under the customer agreement
+BAU-0002,AIT-08,2025-02-10,independent_auditor,published,
+BAU-0003,AIT-03,2025-03-10,internal_review,published,
+BAU-0004,AIT-02,2025-07-14,vendor_commissioned,unpublished,selection outcomes compared across the vendor's reference population; results held by the vendor under the customer agreement
+BAU-0005,AIT-04,2025-08-20,internal_review,published,
+BAU-0006,AIT-07,2025-10-06,internal_review,published,
+BAU-0007,AIT-01,2025-11-03,internal_review,published,
+BAU-0008,AIT-06,2026-01-12,internal_review,published,
+BAU-0009,AIT-08,2026-02-16,independent_auditor,published,
+BAU-0010,AIT-05,2026-04-20,internal_review,published,
