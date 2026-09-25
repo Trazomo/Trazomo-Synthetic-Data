@@ -1,5 +1,62 @@
 # Changelog
 
+## 1.31.0
+
+People and HR cluster 8, compliance monitors. Three artifacts, one PR, all
+deterministic, no freeze review, for `hr-employment-law-leave-compliance-monitor`
+and `hr-aedt-bias-audit-disclosure-tracker`, with `hr-operational-controls`
+reading two dated rows. The plan is
+`docs/plans/2026-08-29-path-programs/people-hr/data-plans/cluster-8.md` on the
+trazomo repo, with a dated controller block at its head; its section 9 defaults
+U-C8-1 to U-C8-18 ride to Salvador in the PR body, U-C8-1 (the stamp) and U-C8-2
+(where the people sit) first. The section number is the next minor after 1.30.0
+and is renumbered at tag time if another cluster lands first; the tag is
+integrator-allocated. The catalog gains HR-21 and grows from 146 to 147 entries;
+HR-15 and HR-16 are enriched in place. No byte changes under `datasets/` outside
+the three new directories, none under `artifacts/` and none under `canon/`.
+
+Three things are new to the pack. One run stamp, `2026-09-01`, later than the
+universe now, sits on every C8 file with a stamp statement, because the watch
+list's teaching rows (a law enjoined in April and replaced in May, a bill enrolled
+in August) do not exist at the April as-of. The pack states for the first time
+where the company's people sit: the headquarters class of the compensation band
+dataset is the Wilmington, Delaware principal place of business the master
+services agreement already states, the satellite office is in Colorado, and remote
+employees are dealt across New York (with and without the city), Illinois,
+California, Colorado and Delaware; Maryland holds nobody. And a data file names
+real instruments (ruling R6): every watch-list record carries `as_of` and
+`verified_on`, `status` separate from `enforceable`, a not legal advice notice in
+its grammar, and no URL, person, private company, law firm, vendor or money.
+
+- **HR-21 employment-ai-watch-list** (deterministic, jsonl plus csv): 22 records
+  across the EU, the UK, the US federal layer, New York State, New York City,
+  Illinois, California, Colorado and Maryland, recorded exactly as the dated
+  regulatory refresh of 2026-08-31 verified them (one bill re-checked
+  2026-09-01), with nested obligations, status history, 27 member-state
+  transposition sub-rows on the pay transparency directive and notes; a
+  37-row jurisdictions table with parent codes and a coverage status (Delaware
+  is carried as not researched); a grammar row publishing every closed
+  vocabulary, the enforceable definition, the stage mapping rule, the
+  jurisdiction rule and the addressee rule. A detail the refresh could not
+  confirm is an empty date beside a confidence value, never an assertion.
+- **HR-15 multistate-leave-compliance-roster** (deterministic, five csv files):
+  581 located employees byte-equal to the compensation band dataset's work
+  locations, four published obligation rules citing the employee handbook and the
+  remote work policy by section and no statute, eight leave records and 27
+  compliance obligations with a 14-day alert window opening at the stamp.
+  Reverification rows agree with the mixed sensitivity record set; every drawn
+  employee sits outside every earlier finding carrier.
+- **HR-16 aedt-inventory-audit-log** (deterministic, four csv files): an
+  eight-tool inventory (seven builds from this path named by module slug, one
+  third-party module of the canon HR platform vendor by id), a ten-row bias audit
+  log with whole-month currency under the company's published twelve-month
+  standard, and a five-row notice log whose required notices are computed from
+  the watch list's in-application notice duties.
+
+Gates at the final head: see the PR body (npm test, validate, manifest, byte
+stability, eighteen plan mutations plus the three fix-wave receipts, all red by
+a named arm).
+
 ## 1.30.0
 
 Small-business cluster 4, trust, growth and controls. Seven artifacts, one PR,

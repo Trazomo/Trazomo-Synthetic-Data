@@ -655,7 +655,7 @@ const RECORDS = [
     ],
     transposition_deadline: "", transpositions: [],
     notes: [
-      note("task_force", "The order establishes an AI Litigation Task Force within the Department of Justice, operative from the date below, to challenge state AI laws in federal court on dormant commerce clause, preemption or other grounds.", "2026-01-10"),
+      note("task_force", "The order establishes an AI Litigation Task Force within the Department of Justice, operative from the note's date, to challenge state AI laws in federal court on dormant commerce clause, preemption or other grounds.", "2026-01-10"),
       note("carve_outs", "The order carves out state laws on child safety, AI compute and data centre infrastructure, and state government procurement and use of AI."),
       note("colorado", "The Department of Justice intervened in support of the challenge to the Colorado predecessor act, which was then enjoined by stipulated order and repealed and replaced.", "2026-04-27"),
     ],
