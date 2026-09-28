@@ -310,6 +310,57 @@ const FEATURES_PIN = {
 const allC5Text = () => C5_IDS.map((id) => shipped(id)).join("\n");
 const c5SpecProse = () => C5_IDS.flatMap((id) => specs.byId.get(id).planted_features).join("\n");
 
+/**
+ * The README's C5 block (SHOULD-FIX 3): from "C5's four deterministic ids" up
+ * to, not including, "No SMB artifact names a statute", the pre-existing R4
+ * line that follows it. Read at test time, not pinned to a line number.
+ */
+function readmeC5Block() {
+  const text = readFileSync(join(REPO_ROOT, "datagen", "README.md"), "utf8");
+  const start = text.indexOf("C5's four deterministic ids");
+  const end = text.indexOf("No SMB artifact names a statute");
+  if (start === -1 || end === -1 || end <= start) throw new Error("the README's C5 block markers were not found");
+  return text.slice(start, end);
+}
+
+/** The README's four C5 paragraphs, wrapped lines joined with single spaces, verbatim against plan section 3. */
+const readmeParagraphs = () => readmeC5Block().trim().split(/\n{2,}/).map((p) => p.replace(/\s+/g, " ").trim());
+
+const README_PIN = [
+  "C5's four deterministic ids generate into `datasets/smb/crew-roster-mock`, `shift-schedule-mock`, `timecards-mock` and `payroll-readiness-checklist`, all from the shared builder `smb-c5-payroll.js`; the falsifiable guard is `tests/generators/smb-c5-payroll.test.js`.",
+  "C5 mints `SHF-LDB-`, `TCD-LDB-` and `PRC-LDB-`, and is the first dataset in the repo to carry canon person ids: SMB-26 names the nine Larkspur crew seated by ruling R5 at `pe-216` to `pe-224`, and SMB-27 and SMB-28 join to them by id and never repeat a name.",
+  "Crew pay data is restricted under SMB-33's `DA-LDB-27` and SMB-32's never list: the roster and the timecards never leave the studio's own tools, and no C5 file carries a pay amount (rule R-GATE).",
+  "The crew's hourly rates are wages, below SMB-20's per-role cost rates and equal to none of them; SMB-20's role totals are larger than the crew's clocked hours on every job, role and week of the pay period, and the pack does not reconcile the two.",
+];
+
+/**
+ * The CHANGELOG's current top section (SHOULD-FIX 3): from its first "## "
+ * heading to its second, so tag-time renumbering does not move the marker.
+ */
+function changelogSection() {
+  const text = readFileSync(join(REPO_ROOT, "CHANGELOG.md"), "utf8");
+  const headings = [...text.matchAll(/^## .*$/gm)];
+  if (headings.length < 2) throw new Error("CHANGELOG.md carries fewer than two ## headings");
+  return text.slice(headings[0].index, headings[1].index);
+}
+
+/** The comment text of a JS source file: // lines and the content of /* *\/ blocks, stripped of markers. */
+function commentText(path) {
+  const src = readFileSync(path, "utf8");
+  const blockRe = /\/\*[\s\S]*?\*\//g;
+  const blocks = (src.match(blockRe) ?? []).map((b) => b.replace(/^\/\*/, "").replace(/\*\/$/, "").replace(/^[ \t]*\*/gm, "").trim());
+  const lineComments = src.replace(blockRe, "").split("\n")
+    .map((l) => l.trim()).filter((l) => l.startsWith("//")).map((l) => l.slice(2).trim());
+  return [...blocks, ...lineComments].join("\n");
+}
+
+/** The comment text of the shared builder and the four thin C5 modules (SHOULD-FIX 3). */
+const C5_GENERATOR_FILES = [
+  "smb-c5-payroll.js", "smb-26-crew-roster-mock.js", "smb-27-shift-schedule-mock.js",
+  "smb-28-timecards-mock.js", "smb-29-payroll-readiness-checklist.js",
+].map((f) => join(REPO_ROOT, "datagen", "src", "generators", f));
+const c5GeneratorComments = () => C5_GENERATOR_FILES.map((f) => commentText(f)).join("\n");
+
 // ======================================================================= X12
 
 test("SMB-C5 T-X12: the four ids are enrolled in PROGRAM_GENERATOR_IDS and are deterministic specs", () => {
@@ -1022,6 +1073,15 @@ test("SMB-C5 T-X7: R-MOCK with the payroll-provider extension, the vocabulary co
   assert.deepEqual(vocabularyHits(c5SpecProse()), [], "the C5 spec prose breaks the vocabulary contract");
   for (const id of ["SMB-26", "SMB-27", "SMB-28"]) assert.ok(specs.byId.get(id).columns.includes("record_type"), `${id} has no record_type`);
   assert.ok(!specs.byId.get("SMB-29").columns.includes("record_type"), "SMB-29 carries record_type");
+  // SHOULD-FIX 3: the README's C5 block, the CHANGELOG's current section and the
+  // generator comments are C5 bytes too, and R-MOCK and the vocabulary contract
+  // read them as well as the four CSVs and the spec prose.
+  assert.deepEqual(mockHits(readmeC5Block()), [], "the README's C5 block names an instrument or payroll provider");
+  assert.deepEqual(vocabularyHits(readmeC5Block()), [], "the README's C5 block breaks the vocabulary contract");
+  assert.deepEqual(mockHits(changelogSection()), [], "the CHANGELOG's C5 section names an instrument or payroll provider");
+  assert.deepEqual(vocabularyHits(changelogSection()), [], "the CHANGELOG's C5 section breaks the vocabulary contract");
+  assert.deepEqual(mockHits(c5GeneratorComments()), [], "a C5 generator comment names an instrument or payroll provider");
+  assert.deepEqual(vocabularyHits(c5GeneratorComments()), [], "a C5 generator comment breaks the vocabulary contract");
 });
 
 /** Every text file under a directory, recursively. */
@@ -1058,6 +1118,12 @@ test("SMB-C5 T-X9: R-NOSTATUTE, no statute, regulator, jurisdiction or legal cat
   for (const id of C5_IDS) assert.deepEqual(statuteHits(shipped(id)), [], `${id} names a statute or a legal category`);
   assert.deepEqual(statuteHits(c5SpecProse()), [], "the C5 spec prose names a statute or a legal category");
   for (const r of roster().rows) assert.ok(["hourly", "salaried"].includes(r.pay_basis), `${r.person_id} pay_basis`);
+  // SHOULD-FIX 3: R-NOSTATUTE reads the README's C5 block, the CHANGELOG's
+  // current section and the generator comments too, not only the CSVs and the
+  // spec prose.
+  assert.deepEqual(statuteHits(readmeC5Block()), [], "the README's C5 block names a statute or a legal category");
+  assert.deepEqual(statuteHits(changelogSection()), [], "the CHANGELOG's C5 section names a statute or a legal category");
+  assert.deepEqual(statuteHits(c5GeneratorComments()), [], "a C5 generator comment names a statute or a legal category");
 });
 
 test("SMB-C5 T-X10: no em dash and no en dash in the four data files", () => {
@@ -1077,4 +1143,8 @@ test("SMB-C5 T-X11: every C5 planted_features sentence and every columns list is
   }
   assert.deepEqual(specs.byId.get("SMB-29").canon_entities, [], "SMB-29 canon_entities");
   for (const id of ["SMB-26", "SMB-27", "SMB-28"]) assert.deepEqual(specs.byId.get(id).canon_entities, ["co-100"], `${id} canon_entities`);
+});
+
+test("SMB-C5 T-X11 companion (NIT 2): the README's four C5 paragraphs are pinned verbatim against plan section 3", () => {
+  assert.deepEqual(readmeParagraphs(), README_PIN, "the README's C5 block has drifted from the plan's section 3");
 });

@@ -41,8 +41,8 @@ cell equals any hours value times any rate.
   on one date; the project lead's back-to-back visits on five dates do not
   overlap.
 - **SMB-28 timecards-mock** (deterministic, csv): 52 timecards clocked against
-  those shifts, quarter-hour clock times, no card longer than its shift and no
-  person above forty hours in a week. Exactly one scheduled shift has no
+  those shifts, quarter-hour clock times, no timecard longer than its shift and
+  no person above forty hours in a week. Exactly one scheduled shift has no
   timecard, and exactly one timecard carries a rate that differs from the
   roster for the same person; the three findings fall on three different people,
   none of them the project lead, whose approval `DA-LDB-27` requires. On every

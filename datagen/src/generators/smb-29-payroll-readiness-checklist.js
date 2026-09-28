@@ -7,7 +7,7 @@
 //
 // Roles only: every check is owned by the project lead and escalates to the
 // owner, read off SMB-33's DA-LDB-27 behind a loud-throw pin. A template: no
-// person, no date, no rate, no canon entity and no law.
+// person, no date, no rate, no canon entity and no law appears in it.
 //
 // Built in the shared builder smb-c5-payroll.js, which also builds SMB-26,
 // SMB-27 and SMB-28 and is never registered as a generator of its own.
