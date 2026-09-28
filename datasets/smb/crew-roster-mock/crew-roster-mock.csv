@@ -1,0 +1,10 @@
+person_id,first_name,last_name,role_title,crew_role,pay_basis,hourly_pay_rate_usd,record_type
+pe-216,Corwin,Nightshade,owner,design,salaried,,mock
+pe-217,Honora,Oakhurst,project lead,project_management,hourly,42.00,mock
+pe-218,Ewald,Vantree,lead carpenter,carpentry,hourly,38.00,mock
+pe-219,Gideon,Ashby,carpenter,carpentry,hourly,32.50,mock
+pe-220,Wrenna,Holloway,carpenter,carpentry,hourly,31.00,mock
+pe-221,Faro,Moorfield,carpenter,carpentry,hourly,29.50,mock
+pe-222,Fenwick,Loxley,painter,paint,hourly,28.00,mock
+pe-223,Isolde,Jarrow,plumber,plumbing,hourly,39.00,mock
+pe-224,Yara,Fairweather,labourer,demolition,hourly,25.00,mock
