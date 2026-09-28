@@ -1041,7 +1041,7 @@ test("SMB-C5 T-X5: R-GATE, no pay amount column and no cell equal to any hours v
   }
   for (const g of perPerson.values()) raw.add(g);
   const forbidden = new Set([...raw].flatMap((g) => [Math.floor(g / 60), Math.ceil(g / 60)]));
-  assert.ok(forbidden.size >= 60, `only ${forbidden.size} forbidden figures were built`);
+  assert.equal(forbidden.size, 77, "the R-GATE forbidden figure set");
   const texts = new Set([...forbidden].flatMap((c) => (c % 100 === 0 ? [centsText(c), String(c / 100)] : [centsText(c)])));
   for (const id of C5_IDS) {
     const t = csvTable(shipped(id));
