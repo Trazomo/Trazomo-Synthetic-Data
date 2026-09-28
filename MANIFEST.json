@@ -1549,6 +1549,66 @@
             }
         },
         {
+            "id": "SMB-26",
+            "name": "crew-roster-mock",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/crew-roster-mock",
+            "files": [
+                "crew-roster-mock.csv"
+            ],
+            "row_counts": {
+                "crew-roster-mock.csv": 9
+            }
+        },
+        {
+            "id": "SMB-27",
+            "name": "shift-schedule-mock",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/shift-schedule-mock",
+            "files": [
+                "shift-schedule-mock.csv"
+            ],
+            "row_counts": {
+                "shift-schedule-mock.csv": 53
+            }
+        },
+        {
+            "id": "SMB-28",
+            "name": "timecards-mock",
+            "track": "smb",
+            "type": "dataset",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/timecards-mock",
+            "files": [
+                "timecards-mock.csv"
+            ],
+            "row_counts": {
+                "timecards-mock.csv": 52
+            }
+        },
+        {
+            "id": "SMB-29",
+            "name": "payroll-readiness-checklist",
+            "track": "smb",
+            "type": "template",
+            "format": "csv",
+            "generation": "deterministic",
+            "path": "datasets/smb/payroll-readiness-checklist",
+            "files": [
+                "payroll-readiness-checklist.csv"
+            ],
+            "row_counts": {
+                "payroll-readiness-checklist.csv": 9
+            }
+        },
+        {
             "id": "SMB-32",
             "name": "data-handling-checklist",
             "track": "smb",
