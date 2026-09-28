@@ -311,16 +311,18 @@ const allC5Text = () => C5_IDS.map((id) => shipped(id)).join("\n");
 const c5SpecProse = () => C5_IDS.flatMap((id) => specs.byId.get(id).planted_features).join("\n");
 
 /**
- * The README's C5 block (SHOULD-FIX 3): from "C5's four deterministic ids" up
- * to, not including, "No SMB artifact names a statute", the pre-existing R4
- * line that follows it. Read at test time, not pinned to a line number.
+ * The README's C5 block (SHOULD-FIX 3, re-review item 2): from "C5's four
+ * deterministic ids" to the end of the paragraph carrying "the pack does not
+ * reconcile", C5's own last line, so a later cluster's paragraph inserted
+ * after it is not read. Read at test time, not pinned to a line number.
  */
 function readmeC5Block() {
   const text = readFileSync(join(REPO_ROOT, "datagen", "README.md"), "utf8");
   const start = text.indexOf("C5's four deterministic ids");
-  const end = text.indexOf("No SMB artifact names a statute");
-  if (start === -1 || end === -1 || end <= start) throw new Error("the README's C5 block markers were not found");
-  return text.slice(start, end);
+  const lastLine = text.indexOf("the pack does not reconcile");
+  if (start === -1 || lastLine === -1 || lastLine <= start) throw new Error("the README's C5 block markers were not found");
+  const end = text.indexOf("\n\n", lastLine);
+  return text.slice(start, end === -1 ? text.length : end);
 }
 
 /** The README's four C5 paragraphs, wrapped lines joined with single spaces, verbatim against plan section 3. */
@@ -334,14 +336,18 @@ const README_PIN = [
 ];
 
 /**
- * The CHANGELOG's current top section (SHOULD-FIX 3): from its first "## "
- * heading to its second, so tag-time renumbering does not move the marker.
+ * The CHANGELOG's C5 section (SHOULD-FIX 3, re-review item 1): the one "## "
+ * section whose text carries the C5 opening sentence, wherever it sits and
+ * whatever number tag time gives it, so a later release landing on top is
+ * neither screened by mistake nor able to hide a C5 edit.
  */
 function changelogSection() {
   const text = readFileSync(join(REPO_ROOT, "CHANGELOG.md"), "utf8");
   const headings = [...text.matchAll(/^## .*$/gm)];
-  if (headings.length < 2) throw new Error("CHANGELOG.md carries fewer than two ## headings");
-  return text.slice(headings[0].index, headings[1].index);
+  const sections = headings.map((h, i) => text.slice(h.index, i + 1 < headings.length ? headings[i + 1].index : text.length));
+  const matches = sections.filter((section) => section.includes("Small-business cluster 5, payroll readiness"));
+  if (matches.length !== 1) throw new Error(`CHANGELOG.md carries ${matches.length} sections naming small-business cluster 5; exactly one is expected`);
+  return matches[0];
 }
 
 /** The comment text of a JS source file: // lines and the content of /* *\/ blocks, stripped of markers. */
