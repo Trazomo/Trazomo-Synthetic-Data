@@ -951,19 +951,18 @@ test("SMB-C5 T-X5: R-GATE, no pay amount column and no cell equal to any hours v
   ])];
   assert.equal(hours.length, 7, `${hours.length} distinct hours values, expected 7`);
   assert.equal(rates.length, 9, `${rates.length} distinct rates, expected 9`);
-  const product = (mins, cents) => {
-    assert.equal((mins * cents) % 60, 0, "a product is not whole cents");
-    return (mins * cents) / 60;
-  };
-  const forbidden = new Set();
-  for (const h of hours) for (const r of rates) forbidden.add(product(h, r));
+  // Carried in sixtieths of a cent (minutes times cents); a half-cent figure is
+  // forbidden rounded down and rounded up.
+  const raw = new Set();
+  for (const h of hours) for (const r of rates) raw.add(h * r);
   const perPerson = new Map();
   for (const c of cards().rows) {
-    const g = product(cardMinutes(c), toCents(c.hourly_pay_rate_usd));
-    forbidden.add(g);
+    const g = cardMinutes(c) * toCents(c.hourly_pay_rate_usd);
+    raw.add(g);
     perPerson.set(c.person_id, (perPerson.get(c.person_id) ?? 0) + g);
   }
-  for (const g of perPerson.values()) forbidden.add(g);
+  for (const g of perPerson.values()) raw.add(g);
+  const forbidden = new Set([...raw].flatMap((g) => [Math.floor(g / 60), Math.ceil(g / 60)]));
   assert.ok(forbidden.size >= 60, `only ${forbidden.size} forbidden figures were built`);
   const texts = new Set([...forbidden].flatMap((c) => (c % 100 === 0 ? [centsText(c), String(c / 100)] : [centsText(c)])));
   for (const id of C5_IDS) {
