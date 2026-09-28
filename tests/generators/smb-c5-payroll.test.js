@@ -286,7 +286,7 @@ const FEATURES_PIN = {
     "crew pay data is restricted under DA-LDB-27 and the data-handling checklist, and no tax identifier, bank detail, address, contact detail or date of birth is a column",
   ],
   "SMB-27": [
-    "53 scheduled shifts, SHF-LDB-01 upward in date, start time, roster and job order, for the six of the nine people the time record has work for in the pay period 2026-03-16 to 2026-03-29: site shifts from 07:00 to 15:00 and the project lead's visits from 08:00 to 12:00 and from 12:00 to 16:00, on the period's ten weekdays and on no weekend day",
+    "53 scheduled shifts, SHF-LDB-01 upward in date, start time, roster and job order, for the six of the nine people the time record has work for in the pay period 2026-03-16 to 2026-03-29: site shifts from 07:00 to 15:00 and half-day shifts from 08:00 to 12:00 or 12:00 to 16:00, on the period's ten weekdays and on no weekend day",
     "every shift is on a job the time record carries hours for, for that person's crew_role, in that week, and every job, role and week the time record carries in the pay period has a shift",
     "1 double-booked shift: exactly one person is scheduled on two shifts that overlap in time on one date, and no other person's shifts overlap; the project lead has two back-to-back visits on five dates, each ending as the next begins, which is not an overlap",
     "three people on the roster have no shift in the period, because the time record carries no design, demolition or plumbing hours in either week",
