@@ -754,7 +754,7 @@ test("SMB-C5 T-R7: hours_worked is clock_out less clock_in, and hours per person
   assert.deepEqual(bySchedule, ["52.00", "80.00", "68.00", "72.00", "56.00", "40.00"], "per-person scheduled hours");
   assert.equal(scheduled.filter((_, i) => byCards[i] !== bySchedule[i]).length, 6, "people whose timecard hours differ from the schedule");
   const p1Day = cards().rows.filter((c) => c.person_id === "pe-219" && c.work_date === "2026-03-18");
-  assert.deepEqual(p1Day.map((c) => [c.clock_in, c.clock_out]), [["07:00", "12:00"], ["12:30", "15:30"]], "P1's day on the timecards");
+  assert.deepEqual(p1Day.map((c) => [c.clock_in, c.clock_out]), [["07:00", "12:00"], ["12:00", "15:00"]], "P1's day on the timecards");
   assert.equal(minutesText(p1Day.reduce((a, c) => a + cardMinutes(c), 0)), "8.00", "P1's day counts 8.00 on the timecards");
 });
 

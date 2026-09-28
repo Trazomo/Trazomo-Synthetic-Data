@@ -389,7 +389,7 @@ export const TIMECARD_COLUMNS = [
 const CLOCK_IN_OFFSETS = [0, 0, 0, 15];
 const CLOCK_OUT_OFFSETS = [-15, 0, 0, 0];
 /** The P1 date's two timecards, pinned: one scheduled shift's worth across the two jobs. */
-const P1_CARDS = { "07:00": ["07:00", "12:00"], "12:00": ["12:30", "15:30"] };
+const P1_CARDS = { "07:00": ["07:00", "12:00"], "12:00": ["12:00", "15:00"] };
 const MISMATCH_STEP_CENTS = 125;
 
 export const TIMECARD_CENSUS = {
