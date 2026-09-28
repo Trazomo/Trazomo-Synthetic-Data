@@ -205,7 +205,7 @@ apply). A rename is a canon edit and a C5 byte change in one commit.
 | pe-216 | Corwin Nightshade | Owner | co-100 Larkspur Design & Build | SMB-26 | CANONICAL |
 | pe-217 | Honora Oakhurst | Project lead | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
 | pe-218 | Ewald Vantree | Lead carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
-| pe-219 | Gideon Ashby | Carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL (MEDIUM collision note, see the screen) |
+| pe-219 | Gideon Ashby | Carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL (MEDIUM collision note, kept by ruling 2026-09-28) |
 | pe-220 | Wrenna Holloway | Carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
 | pe-221 | Faro Moorfield | Carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
 | pe-222 | Fenwick Loxley | Painter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
@@ -491,7 +491,7 @@ One is MEDIUM.
 
 | Name | Canon position | Flag | Frozen occurrences | Search outcome | Disposition |
 |---|---|---|---|---|---|
-| Gideon Ashby | pe-219, carpenter | **MEDIUM** | 0 (SMB-26 is unmerged) | The bare-name search returns an exact full-name match to one living, publicly identifiable, non-notable professional outside the trades (tech sector, with public profile pages), plus a nineteenth-century genealogical record that is not a collision. The trade-qualified search returns no match. | COLLISION-NOTE. No rename by the integrator: this file says a MEDIUM decision is a human call and that a de-collision should be a surname; the C5 bytes are unmerged, so a rename now costs one canon row and one generator constant in one commit. Salvador decides before data PR #47 merges. |
+| Gideon Ashby | pe-219, carpenter | **MEDIUM** | 0 (SMB-26 is unmerged) | The bare-name search returns an exact full-name match to one living, publicly identifiable, non-notable professional outside the trades (tech sector, with public profile pages), plus a nineteenth-century genealogical record that is not a collision. The trade-qualified search returns no match. | COLLISION-NOTE, RULED "keep" by Salvador 2026-09-28 in the integrator terminal: no rename. The name stands as seated; the note records the match tier for any later screen. |
 | the other eight | pe-216 to pe-218, pe-220 to pe-224 | CLEAR | 0 | No identifiable person on the bare-name search | none |
 
 
