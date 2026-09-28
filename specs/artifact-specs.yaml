@@ -2489,10 +2489,15 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-100]
+    period: { start: "2026-03-16", end: "2026-03-29" }
+    columns: [person_id, first_name, last_name, role_title, crew_role, pay_basis, hourly_pay_rate_usd, record_type]
     planted_features:
-      - fully synthetic crew (canon/people.md), no real names, SSNs, or wage data
+      - "nine people, the whole of co-100's studio staff, pe-216 to pe-224 in roster order: the owner, the project lead, the lead carpenter, three carpenters, a painter, a plumber and a labourer. No real names, no SSNs and no real wage data: the names are drawn from the pack's shared name pool under this artifact's own seed and screened against canon company words, every household surname the small-business pack emits and every name canon/people.md records, and this is the only file in the pack that carries a crew member's name; the schedule and the timecards join to it by person_id, and every person_id is a canon person id seated by ruling R5"
+      - "role_title carries the owner decision authority matrix's three role words, owner, project lead and lead carpenter, one person each, and crew_role maps every person onto one of the time record's six cost centres, the lead carpenter and the three carpenters onto carpentry"
+      - "hourly_pay_rate_usd is a synthetic wage on each of the eight hourly rows and is empty on the one salaried row, the owner's: every wage is below the time record's cost rate for the person's crew_role and equals none of those six rates, because the cost rate is what an hour of a role cost the studio and the wage is what the studio pays the person"
+      - "crew pay data is restricted under DA-LDB-27 and the data-handling checklist, and no tax identifier, bank detail, address, contact detail or date of birth is a column"
     consuming_modules: [smb-shift-to-payroll-readiness]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 5 data plan (2.1)
 
   - id: SMB-27
     name: shift-schedule-mock
@@ -2500,10 +2505,15 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-100]
+    period: { start: "2026-03-16", end: "2026-03-29" }
+    columns: [shift_id, person_id, work_date, job_id, start_time, end_time, record_type]
     planted_features:
-      - 1 double-booked shift
+      - "53 scheduled shifts, SHF-LDB-01 upward in date, start time, roster and job order, for the six of the nine people the time record has work for in the pay period 2026-03-16 to 2026-03-29: site shifts from 07:00 to 15:00 and half-day shifts from 08:00 to 12:00 or 12:00 to 16:00, on the period's ten weekdays and on no weekend day"
+      - "every shift is on a job the time record carries hours for, for that person's crew_role, in that week, and every job, role and week the time record carries in the pay period has a shift"
+      - "1 double-booked shift: exactly one person is scheduled on two shifts that overlap in time on one date, and no other person's shifts overlap; the project lead has two back-to-back visits on five dates, each ending as the next begins, which is not an overlap"
+      - "three people on the roster have no shift in the period, because the time record carries no design, demolition or plumbing hours in either week"
     consuming_modules: [smb-shift-to-payroll-readiness]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 5 data plan (2.2)
 
   - id: SMB-28
     name: timecards-mock
@@ -2511,11 +2521,16 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: [co-100]
+    period: { start: "2026-03-16", end: "2026-03-29" }
+    columns: [timecard_id, shift_id, person_id, work_date, job_id, clock_in, clock_out, hours_worked, hourly_pay_rate_usd, record_type]
     planted_features:
-      - 1 missing timecard entry blocking payroll readiness
-      - 1 pay-rate mismatch vs the roster (escalate, never auto-correct)
+      - "52 timecards, TCD-LDB-01 upward in roster, date and clock-in order, each carrying the shift_id it was clocked against and that shift's person, date and job; clock times sit on the quarter hour, hours_worked is clock_out less clock_in, no timecard runs longer than its shift and no person's hours in either week exceed forty"
+      - "1 missing timecard entry blocking payroll readiness: exactly one scheduled shift has no timecard, so hours recomputed from the timecards show the gap where hours read from the schedule would hide it; the three roster people with no shift have no timecard and are not a gap"
+      - "1 pay-rate mismatch vs the roster (escalate, never auto-correct): exactly one timecard carries an hourly rate that differs from the roster rate for the same person and every other timecard matches; the differing rate equals no roster rate and none of the time record's cost rates"
+      - "the double booking, the missing timecard and the rate mismatch fall on three different people, none of them the project lead, whose approval DA-LDB-27 requires before crew pay figures leave the studio's own tools"
+      - "gross pay is computed nowhere: no column carries a pay amount and no cell equals any hours value times any rate. For every job, crew_role and week in the pay period the timecards' hours are at or under the time record's role total, and the two files carry the same job, role and week keys"
     consuming_modules: [smb-shift-to-payroll-readiness]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 5 data plan (2.3)
 
   - id: SMB-29
     name: payroll-readiness-checklist
@@ -2523,9 +2538,15 @@ artifacts:
     format: csv
     generation: deterministic
     canon_entities: []
-    planted_features: []
+    period: { start: "2026-03-16", end: "2026-03-29" }
+    columns: [check_id, check, source_files, columns_read, rule, blocking, on_fail, owner_role, escalation_role, policy_control_id, evidence_required]
+    planted_features:
+      - "no defects; this is the payroll readiness checklist the run is measured against, nine checks PRC-LDB-01 upward, each naming the files and the columns it reads, whether it blocks readiness and what happens when it fails: readiness is withheld, the finding is escalated to a person, or the finding is flagged and readiness does not wait on it"
+      - "one check per planted finding in the roster, schedule and timecards: a scheduled shift with no timecard withholds readiness, a timecard rate that differs from the roster escalates to a person and is never corrected, and a person double booked on the schedule is flagged, because hours are read from the timecards; the other six checks pass on the shipped files"
+      - "roles only, from the owner decision authority matrix: every check is owned by the project lead and escalates to the owner, the approver and escalation DA-LDB-27 sets for preparing crew pay figures from the timecards, and the last check states that readiness computes no gross pay and writes no pay figure"
+      - "a template: no person, no date, no rate, no canon entity and no law appears in it"
     consuming_modules: [smb-shift-to-payroll-readiness]
-    source_plan: smb-implementation-plan
+    source_plan: smb-implementation-plan + small-business cluster 5 data plan (2.4)
 
   - id: SMB-30
     name: weekly-owner-report-template

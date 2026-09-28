@@ -534,6 +534,25 @@ C4 consumes four more reserved-band ids, co-204 to co-207, the January
 households in the completed projects log, drawn through SMB-03's screens with
 SMB-03's and C3's emitted surnames excluded; canon seats none of them.
 
+C5's four deterministic ids generate into `datasets/smb/crew-roster-mock`,
+`shift-schedule-mock`, `timecards-mock` and `payroll-readiness-checklist`, all
+from the shared builder `smb-c5-payroll.js`; the falsifiable guard is
+`tests/generators/smb-c5-payroll.test.js`.
+
+C5 mints `SHF-LDB-`, `TCD-LDB-` and `PRC-LDB-`, and is the first dataset in the
+repo to carry canon person ids: SMB-26 names the nine Larkspur crew seated by
+ruling R5 at `pe-216` to `pe-224`, and SMB-27 and SMB-28 join to them by id and
+never repeat a name.
+
+Crew pay data is restricted under SMB-33's `DA-LDB-27` and SMB-32's never list:
+the roster and the timecards never leave the studio's own tools, and no C5 file
+carries a pay amount (rule R-GATE).
+
+The crew's hourly rates are wages, below SMB-20's per-role cost rates and equal
+to none of them; SMB-20's role totals are larger than the crew's clocked hours
+on every job, role and week of the pay period, and the pack does not reconcile
+the two.
+
 No SMB artifact names a statute or a regulator (rule R-NOSTATUTE), and no
 outgoing-message byte is drawn from the restricted client file excerpt (rule
 R-DISJOINT): `tests/helpers/smb-restricted-values.js` reads SMB-34's restricted

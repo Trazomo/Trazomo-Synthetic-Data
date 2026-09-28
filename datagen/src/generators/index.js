@@ -12,7 +12,8 @@
 // registered, the same as finance-roles.js, hr-lifecycle.js, hr-c7-salience.js and
 // smb-c3-receivables.js, which builds SMB-17, SMB-18 and SMB-19 as one unit,
 // smb-c3-job-costing.js, which builds SMB-20, SMB-21 and SMB-22 as another,
-// and smb-c4-controls.js, which builds SMB-32 and SMB-33 as a third.
+// smb-c4-controls.js, which builds SMB-32 and SMB-33 as a third, and
+// smb-c5-payroll.js, which builds SMB-26, SMB-27, SMB-28 and SMB-29 as a fourth.
 import * as core02 from "./core-02-invoice.js";
 import * as core03 from "./core-03-crm-seed.js";
 import * as core04 from "./core-04-people-roster.js";
@@ -108,6 +109,10 @@ import * as smb20 from "./smb-20-time-entries-mock.js";
 import * as smb21 from "./smb-21-job-expenses-mock.js";
 import * as smb22 from "./smb-22-job-progress.js";
 import * as smb23 from "./smb-23-completed-projects-log.js";
+import * as smb26 from "./smb-26-crew-roster-mock.js";
+import * as smb27 from "./smb-27-shift-schedule-mock.js";
+import * as smb28 from "./smb-28-timecards-mock.js";
+import * as smb29 from "./smb-29-payroll-readiness-checklist.js";
 import * as smb32 from "./smb-32-data-handling-checklist.js";
 import * as smb33 from "./smb-33-owner-decision-authority-matrix.js";
 import * as test01 from "./test-01-fixture.js";
@@ -137,6 +142,7 @@ export const PROGRAM_GENERATOR_IDS = [
   smb17.id, smb18.id, smb19.id,
   smb20.id, smb21.id, smb22.id,
   smb23.id,
+  smb26.id, smb27.id, smb28.id, smb29.id,
   smb32.id, smb33.id,
 ];
 
@@ -158,6 +164,7 @@ const REGISTRY = new Map(
     smb17, smb18, smb19,
     smb20, smb21, smb22,
     smb23,
+    smb26, smb27, smb28, smb29,
     smb32, smb33,
     test01,
   ].map((mod) => [mod.id, mod])
