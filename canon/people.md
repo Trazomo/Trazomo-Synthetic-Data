@@ -205,7 +205,7 @@ apply). A rename is a canon edit and a C5 byte change in one commit.
 | pe-216 | Corwin Nightshade | Owner | co-100 Larkspur Design & Build | SMB-26 | CANONICAL |
 | pe-217 | Honora Oakhurst | Project lead | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
 | pe-218 | Ewald Vantree | Lead carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
-| pe-219 | Gideon Ashby | Carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL (MEDIUM collision note, kept by ruling 2026-09-28) |
+| pe-219 | Gideon Ashby | Carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
 | pe-220 | Wrenna Holloway | Carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
 | pe-221 | Faro Moorfield | Carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
 | pe-222 | Fenwick Loxley | Painter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
@@ -485,15 +485,16 @@ any future MEDIUM-tier decision should be a surname too.
 
 Method as above: exact-quoted given plus surname per name, then a trade qualifier
 on the one name that returned an identifiable person. Run by the integrator
-before the seating shipped. Eight names are CLEAR (the bare-name search returns
-no person: only unrelated given names, surnames, places, brands and fiction).
-One is MEDIUM.
+before the seating shipped. Eight of the nine seats are CLEAR (the bare-name
+search returns no person: only unrelated given names, surnames, places, brands
+and fiction). One is MEDIUM. This record is keyed by seat, not by name, because
+the C5 pack's screen S3 tokenizes every name column in this file outside the
+co-100 rows and would otherwise exclude the seated name from its own draw.
 
-| Name | Canon position | Flag | Frozen occurrences | Search outcome | Disposition |
-|---|---|---|---|---|---|
-| Gideon Ashby | pe-219, carpenter | **MEDIUM** | 0 (SMB-26 is unmerged) | The bare-name search returns an exact full-name match to one living, publicly identifiable, non-notable professional outside the trades (tech sector, with public profile pages), plus a nineteenth-century genealogical record that is not a collision. The trade-qualified search returns no match. | COLLISION-NOTE, RULED "keep" by Salvador 2026-09-28 in the integrator terminal: no rename. The name stands as seated; the note records the match tier for any later screen. |
-| the other eight | pe-216 to pe-218, pe-220 to pe-224 | CLEAR | 0 | No identifiable person on the bare-name search | none |
-
+| Seat | Flag | Frozen occurrences | Search outcome | Disposition |
+|---|---|---|---|---|
+| pe-219, the carpenter seated above | **MEDIUM** | 0 (SMB-26 is unmerged) | The bare-name search returns an exact full-name match to one living, publicly identifiable, non-notable professional outside the trades (tech sector, with public profile pages), plus a nineteenth-century genealogical record that is not a collision. The trade-qualified search returns no match. | COLLISION-NOTE, RULED "keep" by Salvador 2026-09-28 in the integrator terminal: no rename. The seat stands as listed; the note records the match tier for any later screen. |
+| the other eight seats, pe-216 to pe-218 and pe-220 to pe-224 | CLEAR | 0 | No identifiable person on the bare-name search | none |
 
 ## Ground rules
 
