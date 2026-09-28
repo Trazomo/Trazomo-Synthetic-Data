@@ -1,5 +1,65 @@
 # Changelog
 
+## 1.32.0
+
+Small-business cluster 5, payroll readiness. Four artifacts, one PR, all
+deterministic, no drafted document and so no freeze review of a document, for
+`smb-shift-to-payroll-readiness` (order 19). The plan is
+`docs/plans/2026-08-29-path-programs/small-business/data-plans/cluster-5.md` on
+the trazomo repo, controller-reviewed before commit with a dated amendment log
+after its section 3; its section 8.1 defaults U-A to U-K ride to Salvador in the
+PR body, U-A (the nine names and the seating) and U-B (the pay-rate reading)
+first. The section number is the next minor after 1.31.0 and is renumbered at
+tag time if another cluster lands first; the tag is integrator-allocated. The
+catalog stays at 147 entries: SMB-26 to SMB-29 are enriched in place and none is
+created. No byte changes under `datasets/` outside the four new directories,
+none under `artifacts/` and none under `canon/`.
+
+Three things are new to the pack. A dataset names people for the first time and
+carries canon person ids: SMB-26 seats the nine Larkspur crew at `pe-216` to
+`pe-224` under ruling R5, drawn once by the pack's seeded name-pool rule under the
+SMB-26 seed and screened against canon company words, every household surname
+the small-business pack emits, every name `canon/people.md` records and the
+CORE-04 roster; the generator holds them as one constant, the canon rows are
+pasted from it (the paste rides the PR body for the integrator), and the guard's
+canon arm asserts agreement the moment co-100 rows exist in `canon/people.md`.
+Rule R-ROLE is amended for this cluster: a person's name lives in exactly one
+file, and the schedule and the timecards join to it by id. Rule R-GATE is new:
+readiness is a gate and not a pay run, so no file carries a pay amount and no
+cell equals any hours value times any rate.
+
+- **SMB-26 crew-roster-mock** (deterministic, csv): nine rows, the whole studio,
+  the owner salaried with no rate and eight hourly people with synthetic wages,
+  each strictly below the time record's per-role cost rate and equal to none of
+  them; `role_title` carries the decision authority matrix's three role words one
+  person each and `crew_role` maps every person onto one of the time record's
+  six cost centres, the lead carpenter and the three carpenters onto carpentry.
+- **SMB-27 shift-schedule-mock** (deterministic, csv): 53 shifts for six of the
+  nine over the ten weekdays of the pay period 2026-03-16 to 2026-03-29, every
+  shift on a job, role and week the time record carries hours for and every such
+  key covered. Exactly one person is scheduled on two shifts that overlap in time
+  on one date; the project lead's back-to-back visits on five dates do not
+  overlap.
+- **SMB-28 timecards-mock** (deterministic, csv): 52 timecards clocked against
+  those shifts, quarter-hour clock times, no card longer than its shift and no
+  person above forty hours in a week. Exactly one scheduled shift has no
+  timecard, and exactly one timecard carries a rate that differs from the
+  roster for the same person; the three findings fall on three different people,
+  none of them the project lead, whose approval `DA-LDB-27` requires. On every
+  job, role and week of the period the clocked hours sit under the time
+  record's role total, and the pack reconciles the two no further.
+- **SMB-29 payroll-readiness-checklist** (deterministic template, csv): nine
+  checks, each naming the files and columns it reads, whether it blocks and
+  what happens on failure; the missing timecard withholds readiness, the rate
+  mismatch escalates and cites `DA-LDB-27`, the double booking is flagged
+  because hours are read from the timecards; roles only, every check owned by
+  the project lead and escalating to the owner; no person, date, rate, canon
+  entity or law appears in it.
+
+Gates at the final head: see the PR body (npm test, validate, manifest, byte
+stability, the implementer's hand mutations and the controller's, all red by a
+named arm).
+
 ## 1.31.0
 
 People and HR cluster 8, compliance monitors. Three artifacts, one PR, all
