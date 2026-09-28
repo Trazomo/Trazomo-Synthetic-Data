@@ -48,7 +48,7 @@ than splitting it across two documents that already disagree.
 |---|---|
 | pe-001 to pe-099 | co-001 Atticus Dundee LLP named cast |
 | pe-101 to pe-199 | co-002 Atticus Dundee Inc. named cast |
-| pe-201 to pe-249 | Named officers and contacts at ecosystem entities (co-101 to co-139) |
+| pe-201 to pe-249 | Named officers and contacts at ecosystem entities (co-100 to co-139); the co-100 Larkspur crew sits at pe-216 to pe-224 under its own sub-heading (R5, 2026-09-28) |
 | pe-251 to pe-299 | Non-party individuals: litigation parties, witnesses, experts, mediators, introducers, contractors |
 | ca-001 to ca-049 | Curated named candidates and applicants to co-002 roles. Two seats are seated at people-hr cluster 2, for the reason recorded under the table. |
 | EMP-NNNN | Generator-produced co-002 employee population, `datasets/core/people-roster/people-roster.csv` (CORE-04). Not curated here. Two rows are promoted into this file because they hold contested seats. Ids above `EMP-0600` are minted by lifecycle artifacts for people who postdate the CORE-04 snapshot (the HR-06 new hire carries `EMP-0601`). |
@@ -183,6 +183,50 @@ same company. Closing that is follow-up F-1.
 co-109 rename at v1.0.1 moved the landlord entity to Birchcroft Properties; the
 manager who signs for it keeps her drafted name. See F-6 for the parts of that rename
 that did not land.
+
+### co-100 Larkspur Design & Build crew (pe-216 to pe-224)
+
+Seated by ruling R5 (Salvador, 2026-09-07) for the small-business payroll
+cluster. These are generated names promoted into canon, nine more such
+promotions after pe-101 and pe-106, for this reason: SMB-26
+crew-roster-mock names the studio's nine people and SMB-27 and SMB-28 join
+to them by id, and implementation plan 3.6 requires every roster row to
+resolve to a seated canon person id. The names were drawn once by the pack's
+seeded namePool rule under the SMB-26 seed and screened against canon
+company words, every household surname the small-business pack emits, every
+name this file records and the CORE-04 roster; the generator
+datagen/src/generators/smb-c5-payroll.js holds them as one constant and
+tests/generators/smb-c5-payroll.test.js asserts this table agrees with it.
+No generator reads this file, so seating them changed no byte (F-1 does not
+apply). A rename is a canon edit and a C5 byte change in one commit.
+
+| ID | Name | Role / title | Affiliation | Appears in (grep-verified) | Status |
+|---|---|---|---|---|---|
+| pe-216 | Corwin Nightshade | Owner | co-100 Larkspur Design & Build | SMB-26 | CANONICAL |
+| pe-217 | Honora Oakhurst | Project lead | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
+| pe-218 | Ewald Vantree | Lead carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
+| pe-219 | Gideon Ashby | Carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL (MEDIUM collision note, see the screen) |
+| pe-220 | Wrenna Holloway | Carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
+| pe-221 | Faro Moorfield | Carpenter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
+| pe-222 | Fenwick Loxley | Painter | co-100 Larkspur Design & Build | SMB-26 (by id in SMB-27 and SMB-28) | CANONICAL |
+| pe-223 | Isolde Jarrow | Plumber | co-100 Larkspur Design & Build | SMB-26 | CANONICAL |
+| pe-224 | Yara Fairweather | Labourer | co-100 Larkspur Design & Build | SMB-26 | CANONICAL |
+
+Crew role, for readers joining to the time record: the owner maps onto the
+design cost centre, the project lead onto project_management, the lead
+carpenter and the three carpenters onto carpentry, the painter onto paint,
+the plumber onto plumbing and the labourer onto demolition. The time
+record's CRW-LDB- slots stay anonymous and map to none of these people.
+
+The nine surnames are pool surnames that co-002's generated roster and other
+generated populations also carry. The repeats are coincidental, for the
+reason F-7 gives: no Larkspur person is related to a co-002 person.
+
+Specs and generator comments written before this seating say that this file
+seats nobody at co-100. That was true when each was written; every C1 to C4
+small-business file still names no person. The "appears in" cells above are
+true once data PR #47 (small-business cluster 5) merges; on this file's own
+commit the four SMB-26 to SMB-29 datasets are not yet on main.
 
 ## Non-party individuals (pe-251 to pe-299)
 
@@ -358,6 +402,9 @@ been located, and none of them appears in the tracked tree. Every person string 
 `artifacts/` and `datasets/` is accounted for above or belongs to the generator
 populations.
 
+2026-09-28 (R5, on Salvador's word in the integrator terminal): nine more names promoted from the generator population, pe-216 to pe-224, the co-100 Larkspur Design & Build crew, seated under their own sub-heading in the ecosystem section. `pe-` rows in this file rise from 79 to 88; promoted from the generator population from 2 to 11. The table above is the 2026-08-08 reconciliation and is left as written.
+
+
 ## Verification method
 
 Every "appears in" cell was produced by literal-string grep over the tracked tree,
@@ -433,6 +480,20 @@ given-plus-surname pair, which a middle initial does not break, and in three of 
 cases canon already carries an initial the real person does not. A surname change is
 what actually de-collides, which is why the rename that was applied is a surname and why
 any future MEDIUM-tier decision should be a surname too.
+
+### Screen of the nine co-100 crew names (R5, run 2026-09-28)
+
+Method as above: exact-quoted given plus surname per name, then a trade qualifier
+on the one name that returned an identifiable person. Run by the integrator
+before the seating shipped. Eight names are CLEAR (the bare-name search returns
+no person: only unrelated given names, surnames, places, brands and fiction).
+One is MEDIUM.
+
+| Name | Canon position | Flag | Frozen occurrences | Search outcome | Disposition |
+|---|---|---|---|---|---|
+| Gideon Ashby | pe-219, carpenter | **MEDIUM** | 0 (SMB-26 is unmerged) | The bare-name search returns an exact full-name match to one living, publicly identifiable, non-notable professional outside the trades (tech sector, with public profile pages), plus a nineteenth-century genealogical record that is not a collision. The trade-qualified search returns no match. | COLLISION-NOTE. No rename by the integrator: this file says a MEDIUM decision is a human call and that a de-collision should be a surname; the C5 bytes are unmerged, so a rename now costs one canon row and one generator constant in one commit. Salvador decides before data PR #47 merges. |
+| the other eight | pe-216 to pe-218, pe-220 to pe-224 | CLEAR | 0 | No identifiable person on the bare-name search | none |
+
 
 ## Ground rules
 
