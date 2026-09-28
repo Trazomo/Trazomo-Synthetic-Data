@@ -729,17 +729,44 @@ test("SMB-C5 T-R9: SMB-28 regenerates byte for byte, twice, and equals the shipp
 
 // ================================================================== SMB-29
 
-/** Section 2.4's nine rows, pinned on every column but the two free-text clauses. */
+/** Section 2.4's nine rows, pinned verbatim on every column, the two free-text clauses included. */
 const CHECKS_PIN = [
-  ["PRC-LDB-01", "Every scheduled or clocked person is on the roster", "SMB-26; SMB-27; SMB-28", "person_id", "yes", "withhold_readiness", ""],
-  ["PRC-LDB-02", "Every timecard belongs to one scheduled shift", "SMB-27; SMB-28", "shift_id; person_id; work_date; job_id", "yes", "withhold_readiness", ""],
-  ["PRC-LDB-03", "Every scheduled shift has a timecard", "SMB-27; SMB-28", "shift_id", "yes", "withhold_readiness", ""],
-  ["PRC-LDB-04", "Only hourly people carry timecards", "SMB-26; SMB-28", "person_id; pay_basis; hourly_pay_rate_usd", "yes", "withhold_readiness", ""],
-  ["PRC-LDB-05", "Every timecard rate matches the roster", "SMB-26; SMB-28", "person_id; hourly_pay_rate_usd", "yes", "escalate", "DA-LDB-27"],
-  ["PRC-LDB-06", "No person's timecards overlap", "SMB-28", "person_id; work_date; clock_in; clock_out", "yes", "withhold_readiness", ""],
-  ["PRC-LDB-07", "No person is double booked on the schedule", "SMB-27", "person_id; work_date; start_time; end_time", "no", "flag", ""],
-  ["PRC-LDB-08", "Hours are read from the timecards", "SMB-28", "clock_in; clock_out; hours_worked", "yes", "withhold_readiness", ""],
-  ["PRC-LDB-09", "Readiness is a gate and not a pay run", "SMB-26; SMB-28", "hourly_pay_rate_usd; hours_worked", "yes", "withhold_readiness", "DA-LDB-27"],
+  ["PRC-LDB-01", "Every scheduled or clocked person is on the roster", "SMB-26; SMB-27; SMB-28", "person_id",
+    "every person id on a shift or a timecard matches exactly one roster row",
+    "yes", "withhold_readiness", "",
+    "the shift and timecard rows whose person id matches no roster row, listed by id"],
+  ["PRC-LDB-02", "Every timecard belongs to one scheduled shift", "SMB-27; SMB-28", "shift_id; person_id; work_date; job_id",
+    "every timecard's shift id matches one shift with the same person, date and job",
+    "yes", "withhold_readiness", "",
+    "the timecard rows whose shift id matches no shift, or whose person, date or job differs from that shift's"],
+  ["PRC-LDB-03", "Every scheduled shift has a timecard", "SMB-27; SMB-28", "shift_id",
+    "every shift on the schedule appears on exactly one timecard; only a scheduled shift is owed one, so a roster row with no shift is not a gap",
+    "yes", "withhold_readiness", "",
+    "the shift rows with no timecard, listed by shift id, and each person's hours summed from the timecards alone"],
+  ["PRC-LDB-04", "Only hourly people carry timecards", "SMB-26; SMB-28", "person_id; pay_basis; hourly_pay_rate_usd",
+    "every timecard's person is hourly on the roster; a salaried row carries no rate and no timecard",
+    "yes", "withhold_readiness", "",
+    "the timecard rows whose person is salaried on the roster, and any salaried roster row that carries a rate"],
+  ["PRC-LDB-05", "Every timecard rate matches the roster", "SMB-26; SMB-28", "person_id; hourly_pay_rate_usd",
+    "every timecard's rate equals the roster rate for the same person, compared in cents; a difference goes to a person, and neither rate is changed to make them agree",
+    "yes", "escalate", "DA-LDB-27",
+    "the timecard row and the roster row side by side with both rates as written, and the project lead's decision on which one stands"],
+  ["PRC-LDB-06", "No person's timecards overlap", "SMB-28", "person_id; work_date; clock_in; clock_out",
+    "no two timecards of one person on one date overlap in time; one that ends as the next begins does not overlap",
+    "yes", "withhold_readiness", "",
+    "each pair of timecard rows that overlap, with their clock in and clock out times"],
+  ["PRC-LDB-07", "No person is double booked on the schedule", "SMB-27", "person_id; work_date; start_time; end_time",
+    "no two shifts of one person on one date overlap in time, the same strict test; hours are read from the timecards, so a double booking is carried to the project lead and does not hold readiness",
+    "no", "flag", "",
+    "each pair of shift rows that overlap, with their start and end times and the jobs they were booked to"],
+  ["PRC-LDB-08", "Hours are read from the timecards", "SMB-28", "clock_in; clock_out; hours_worked",
+    "every hours value equals clock out less clock in, and a person's hours are the sum of their timecards and never of their scheduled shifts",
+    "yes", "withhold_readiness", "",
+    "the timecard rows whose hours differ from clock out less clock in, and each person's hours summed from the timecards"],
+  ["PRC-LDB-09", "Readiness is a gate and not a pay run", "SMB-26; SMB-28", "hourly_pay_rate_usd; hours_worked",
+    "the check computes no gross pay and writes no pay figure; crew pay figures are prepared from the timecards only with the project lead's approval, and the decision matrix never lets AI send a payment to a crew member",
+    "yes", "withhold_readiness", "DA-LDB-27",
+    "the readiness result with no pay figure in it, and the project lead's approval before any crew pay figure leaves the studio's own tools"],
 ];
 const list = (cell) => cell.split("; ");
 
@@ -758,9 +785,9 @@ test("SMB-C5 T-S2: SMB-29's census and the nine rows as section 2.4 pins them", 
   assert.equal(count(rows, (r) => r.policy_control_id === "DA-LDB-27"), 2, "rows citing DA-LDB-27");
   const fileFor = (id) => fileName(id);
   assert.deepEqual(
-    rows.map((r) => [r.check_id, r.check, r.source_files, r.columns_read, r.blocking, r.on_fail, r.policy_control_id]),
+    rows.map((r) => [r.check_id, r.check, r.source_files, r.columns_read, r.rule, r.blocking, r.on_fail, r.policy_control_id, r.evidence_required]),
     CHECKS_PIN.map(([a, b, files, ...rest]) => [a, b, list(files).map(fileFor).join("; "), ...rest]),
-    "the checklist has drifted from section 2.4's pinned rows"
+    "the checklist has drifted from section 2.4's pinned rows, including the rule and evidence_required clauses"
   );
   for (const r of rows) {
     for (const col of ["rule", "evidence_required"]) {
